@@ -1,0 +1,31 @@
+<hr>
+<h2 id="transfer">14. Transfer to CVP: the proof of Theorem 1</h2>
+
+<p>All the pieces exist; this section is the final assembly &mdash; including the unglamorous but necessary bookkeeping that makes the map <i>total</i> (defined on every formula) and its guarantees <i>strict</i>. Fig.&nbsp;35 is the algorithm.</p>
+
+<figure><!--FIG:fig_branches--><figcaption>The full reduction as an algorithm. Degenerate formulas exit early through fixed one-dimensional instances; all other formulas compile to the affine system (3), whose consistency is decided by Gaussian elimination (this does <i>not</i> decide satisfiability &mdash; only whether the standard output branch applies). The consistent branch outputs the parity-lift basis, the particular solution as target, and the integer radius $\lceil\sqrt R\,\rceil$.</figcaption></figure>
+
+<div class="proof"><p><b>Proof of Theorem 1.</b> We describe the map $\varphi \mapsto (B, t, r)$ branch by branch, then verify the two promise implications and the running time.</p>
+
+<p><b>Degenerate branches.</b> After the preprocessing of <a class="secref" href="#encoding">&sect;6</a>: if no clauses remain, $\varphi$ is satisfiable; return the fixed YES-instance $(B,t,r) = ((1), (0), 1)$, whose distance is $0 \le 1 = r$. If an empty clause remains, $\varphi$ is unsatisfiable; return
+$$(B, t, r) = \big( (2),\ (1),\ \tfrac12 \big):$$
+the lattice is $2\mathbb{Z}$, the target is $1$, so the distance is exactly $1$, and since here $n = 1$ we have $n^{1/400} r = 1 \cdot \tfrac12 = \tfrac12 &lt; 1$ &mdash; a strict NO-instance.</p>
+
+<p><b>Main branch.</b> Otherwise construct the explicit affine system (3) with the parameters of <a class="secref" href="#constraints">&sect;7.4</a>, and test consistency by Gaussian elimination over $\mathbb{F}_2$. Note carefully: this tests whether $Hx=b$ has <i>any</i> binary solution, a polynomial-time question; it does not decide whether $\varphi$ is satisfiable, which is about <i>low-weight</i> solutions. If the system is inconsistent, return the fixed NO-instance above &mdash; legitimately, because by Lemma 8 a satisfiable formula always yields a consistent system, so inconsistency certifies unsatisfiability.</p>
+
+<p>On the consistent branch, compute a particular solution $u \in \{0,1\}^M$ of $Hu = b$ and the parity-lift basis $B_H$ of Lemma 6 (with the inverse coordinate permutation applied). Output
+$$(B, t, r) \;=\; \Big( B_H,\ u,\ \big\lceil \sqrt{(\ell+1)\lvert P\rvert}\, \big\rceil \Big).$$
+The dimension is $n = M$, the basis is square and nonsingular, and basis, target, and radius are integers in binary.</p>
+
+<p><b>Completeness.</b> If $\varphi$ is satisfiable, Lemma 8 gives a binary solution of weight $R = (\ell+1)\lvert P\rvert$, and Lemma 7's identity gives
+$$\mathrm{dist}_2\big(u, L(B_H)\big) = \sqrt{W(H,b)} \le \sqrt{R} \le r .$$</p>
+
+<p><b>Soundness.</b> Let $\varphi$ be unsatisfiable and suppose, for contradiction, that $\mathrm{dist}_2(u, L(B_H)) \le M^{c} r$ with $c = 1/400$. Lemma 7 converts distance to weight:
+$$W(H, b) \;=\; \mathrm{dist}_2\big(u, L(B_H)\big)^2 \;\le\; M^{1/200}\, r^2 \;\le\; 4 M^{1/200} R,$$
+where $r^2 \le 4R$ because $r = \lceil \sqrt R\,\rceil \le \sqrt R + 1 \le 2\sqrt R$ (using $R \ge 1$). By Proposition 14 the formula would be satisfiable &mdash; contradiction. Hence
+$$\mathrm{dist}_2\big(u, L(B_H)\big) \;&gt;\; M^{c}\, r \;=\; n^{1/400}\, r,$$
+and the inequality is strict, as the promise definition requires.</p>
+
+<p><b>Running time and size.</b> The field construction is deterministic $N^{O(1)}$ (Proposition C, with $e = O(\log N)$); each of the $O(N^{401})$ rows of $H$ (bound (5)) is a field-arithmetic computation over $O(N^{401})$ columns (bound (4)); Gaussian elimination, the systematic form, and $B_H$ are polynomial in the $O(N^{802})$-bit dense description. Every step is deterministic. Since $N \le 100 + 3\cdot(\text{input length})$, the whole map runs in deterministic polynomial time in the length of $\varphi$. With Import 1 (3SAT is NP-complete) and the composition of reductions, $\mathrm{GapCVP}^{(2)}_{n^{1/400}}$ is NP-hard. <span class="qed">&#8718;</span></p></div>
+
+<div class="note"><b>Two small subtleties worth savoring.</b> (i) The radius must be <i>part of the instance</i> and rational: $\sqrt R$ itself may be irrational, and rounding up to $\lceil\sqrt R\rceil$ costs at most the benign factor $4$ inside the soundness threshold $4M^{1/200}R$ that Proposition 14 was engineered to tolerate. (ii) The NO-guarantee must be <i>strict</i> ($&gt;$, not $\ge$), and it is, both on the main branch (strict contrapositive) and on the degenerate branch ($1 &gt; \tfrac12$). Promise-problem definitions are picky exactly here, and the paper is careful; so are we.</div>

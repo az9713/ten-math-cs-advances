@@ -1,0 +1,33 @@
+<svg class="setupfig" viewBox="0 0 540 222" width="100%" role="img" aria-label="the repeated game and its cross-coordinate freedom">
+<defs><marker id="c6rA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2e6da4"/></marker><marker id="c6rB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker></defs>
+<rect x="60" y="78" width="72" height="50" rx="5" fill="#f7f7f7" stroke="#aaa" stroke-width="1"/>
+<text x="96" y="98" font-size="11.5" text-anchor="middle" fill="#555">copy 1</text>
+<text x="96" y="116" font-size="11.5" text-anchor="middle" fill="#333">(x₁, y₁)</text>
+<rect x="148" y="78" width="72" height="50" rx="5" fill="#f7f7f7" stroke="#aaa" stroke-width="1"/>
+<text x="184" y="98" font-size="11.5" text-anchor="middle" fill="#555">copy 2</text>
+<text x="184" y="116" font-size="11.5" text-anchor="middle" fill="#333">(x₂, y₂)</text>
+<rect x="236" y="78" width="72" height="50" rx="5" fill="#f7f7f7" stroke="#aaa" stroke-width="1"/>
+<text x="272" y="98" font-size="11.5" text-anchor="middle" fill="#555">copy 3</text>
+<text x="272" y="116" font-size="11.5" text-anchor="middle" fill="#333">(x₃, y₃)</text>
+<rect x="324" y="78" width="72" height="50" rx="5" fill="#f7f7f7" stroke="#aaa" stroke-width="1"/>
+<text x="360" y="98" font-size="11.5" text-anchor="middle" fill="#555">copy 4</text>
+<text x="360" y="116" font-size="11.5" text-anchor="middle" fill="#333">(x₄, y₄)</text>
+<rect x="412" y="78" width="72" height="50" rx="5" fill="#f7f7f7" stroke="#aaa" stroke-width="1"/>
+<text x="448" y="98" font-size="11.5" text-anchor="middle" fill="#555">copy 5</text>
+<text x="448" y="116" font-size="11.5" text-anchor="middle" fill="#333">(x₅, y₅)</text>
+<rect x="40" y="20" width="460" height="34" rx="7" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.4"/>
+<text x="270" y="42" font-size="12.5" text-anchor="middle" fill="#2e6da4">Alice: ONE joint measurement on all of x₁ … xₙ  →  answers a₁ … aₙ</text>
+<rect x="40" y="152" width="460" height="34" rx="7" fill="#fdeeee" stroke="#c0392b" stroke-width="1.4"/>
+<text x="270" y="174" font-size="12.5" text-anchor="middle" fill="#c0392b">Bob: ONE joint measurement on all of y₁ … yₙ  →  answers b₁ … bₙ</text>
+<line x1="96" y1="56" x2="96" y2="76" stroke="#2e6da4" stroke-width="1.2" marker-end="url(#c6rA)"/>
+<line x1="96" y1="130" x2="96" y2="150" stroke="#c0392b" stroke-width="1.2" marker-end="url(#c6rB)"/>
+<line x1="184" y1="56" x2="184" y2="76" stroke="#2e6da4" stroke-width="1.2" marker-end="url(#c6rA)"/>
+<line x1="184" y1="130" x2="184" y2="150" stroke="#c0392b" stroke-width="1.2" marker-end="url(#c6rB)"/>
+<line x1="272" y1="56" x2="272" y2="76" stroke="#2e6da4" stroke-width="1.2" marker-end="url(#c6rA)"/>
+<line x1="272" y1="130" x2="272" y2="150" stroke="#c0392b" stroke-width="1.2" marker-end="url(#c6rB)"/>
+<line x1="360" y1="56" x2="360" y2="76" stroke="#2e6da4" stroke-width="1.2" marker-end="url(#c6rA)"/>
+<line x1="360" y1="130" x2="360" y2="150" stroke="#c0392b" stroke-width="1.2" marker-end="url(#c6rB)"/>
+<line x1="448" y1="56" x2="448" y2="76" stroke="#2e6da4" stroke-width="1.2" marker-end="url(#c6rA)"/>
+<line x1="448" y1="130" x2="448" y2="150" stroke="#c0392b" stroke-width="1.2" marker-end="url(#c6rB)"/>
+<text x="270" y="208" font-size="12" text-anchor="middle" fill="#333">accept iff every copy is won — but answer i may depend on all n questions of that player</text>
+</svg>

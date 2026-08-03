@@ -1,0 +1,36 @@
+<svg class="setupfig" viewBox="0 0 540 204" width="100%" role="img" aria-label="the rounding pipeline and its error budget">
+<defs><marker id="c6qA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="16" y="44" width="122" height="74" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.4"/>
+<text x="77.0" y="62" font-size="10.8" text-anchor="middle" fill="#333">shared randomness:</text>
+<text x="77.0" y="77" font-size="10.8" text-anchor="middle" fill="#333">uniform live i,</text>
+<text x="77.0" y="92" font-size="10.8" text-anchor="middle" fill="#333">correlated-sampling</text>
+<text x="77.0" y="107" font-size="10.8" text-anchor="middle" fill="#333">table (L3.4)</text>
+<rect x="16" y="132" width="122" height="30" rx="5" fill="#fdeeee" stroke="#c0392b" stroke-width="1"/>
+<text x="77.0" y="151" font-size="10.5" text-anchor="middle" fill="#c0392b">history mismatch 4κ</text>
+<rect x="154" y="44" width="122" height="74" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.4"/>
+<text x="215.0" y="62" font-size="10.8" text-anchor="middle" fill="#333">histories r<tspan baseline-shift="sub" font-size="70%">A</tspan>, r<tspan baseline-shift="sub" font-size="70%">B</tspan></text>
+<text x="215.0" y="77" font-size="10.8" text-anchor="middle" fill="#333">from own questions</text>
+<text x="215.0" y="92" font-size="10.8" text-anchor="middle" fill="#333">r<tspan baseline-shift="sub" font-size="70%">A</tspan> = r<tspan baseline-shift="sub" font-size="70%">B</tspan> = r w.h.p.</text>
+<text x="215.0" y="107" font-size="10.8" text-anchor="middle" fill="#333">distribution J<tspan baseline-shift="sub" font-size="70%">A</tspan></text>
+<rect x="154" y="132" width="122" height="30" rx="5" fill="#fdeeee" stroke="#c0392b" stroke-width="1"/>
+<text x="215.0" y="151" font-size="10.5" text-anchor="middle" fill="#c0392b">bias vs Q: κ each</text>
+<rect x="292" y="44" width="122" height="74" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.4"/>
+<text x="353.0" y="62" font-size="10.8" text-anchor="middle" fill="#333">embezzlement (L3.5):</text>
+<text x="353.0" y="77" font-size="10.8" text-anchor="middle" fill="#333">U(Ψᴬ) ⊗ V(Ψᴮ)</text>
+<text x="353.0" y="92" font-size="10.8" text-anchor="middle" fill="#333">on |E⟩ prepares ≈ Ψᴬ</text>
+<text x="353.0" y="107" font-size="10.8" text-anchor="middle" fill="#333">no communication</text>
+<rect x="292" y="132" width="122" height="30" rx="5" fill="#fdeeee" stroke="#c0392b" stroke-width="1"/>
+<text x="353.0" y="151" font-size="10.5" text-anchor="middle" fill="#c0392b">K(α<tspan baseline-shift="super" font-size="70%">1/12</tspan> + ‖Δ‖<tspan baseline-shift="super" font-size="70%">1/6</tspan>)</text>
+<rect x="430" y="44" width="96" height="74" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.4"/>
+<text x="478.0" y="62" font-size="10.8" text-anchor="middle" fill="#333">measure with</text>
+<text x="478.0" y="77" font-size="10.8" text-anchor="middle" fill="#333">Mᵃ ⊗ Nᵇ</text>
+<text x="478.0" y="92" font-size="10.8" text-anchor="middle" fill="#333">of Lemma 3.2</text>
+<text x="478.0" y="107" font-size="10.8" text-anchor="middle" fill="#333">→ answers</text>
+<rect x="430" y="132" width="96" height="30" rx="5" fill="#fdeeee" stroke="#c0392b" stroke-width="1"/>
+<text x="478.0" y="151" font-size="10.5" text-anchor="middle" fill="#c0392b">state error 2e</text>
+<line x1="138" y1="81" x2="152" y2="81" stroke="#333" stroke-width="1.4" marker-end="url(#c6qA)"/>
+<line x1="276" y1="81" x2="290" y2="81" stroke="#333" stroke-width="1.4" marker-end="url(#c6qA)"/>
+<line x1="414" y1="81" x2="428" y2="81" stroke="#333" stroke-width="1.4" marker-end="url(#c6qA)"/>
+<text x="270" y="24" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">the rounded single-game strategy S<tspan baseline-shift="sub" font-size="70%">α</tspan> on fresh questions (x, y) ~ μ</text>
+<text x="270" y="190" font-size="12" text-anchor="middle" fill="#333">total: win(S<tspan baseline-shift="sub" font-size="70%">α</tspan>) ≥ q − B<tspan baseline-shift="sub" font-size="70%">qs</tspan>η<tspan baseline-shift="super" font-size="70%">1/12</tspan> − 2K<tspan baseline-shift="sub" font-size="70%">qs</tspan>α<tspan baseline-shift="super" font-size="70%">1/12</tspan> — every loss is a power of η or α, never 1/p</text>
+</svg>

@@ -1,0 +1,106 @@
+<h2 id="appA">Appendix A: the two uncertainty constants never tie ($A_+(d) \lt A_-(d)$)</h2>
+
+<p>Theorem 1.2 makes $A_+(d)$ and $A_-(d)$ asymptotically indistinguishable. This appendix proves they are nonetheless <i>strictly</i> ordered in every dimension, by an explicit operator: integrating the radial tail of a $(-1)$-eigenfunction produces a $(+1)$-eigenfunction whose last sign change happens strictly earlier (Fig. 32). One imported fact is needed &mdash; that the $(-1)$-problem has an honest extremizer:</p>
+
+<div class="note" id="import4"><b>Import 4 (attained extremizer) [CG19, Thm. 1.4].</b> For every $d \ge 1$ the infimum $A_-(d)$ of definition (6) is attained: there exists a nonzero radial $g \in L^1(\mathbb{R}^d;\mathbb{R})$ with $\widehat g = -g$, $g(0) = 0$, and $r(g) = A_-(d) \lt \infty$.</div>
+
+<div class="prop" id="propA1"><b>Proposition A.1.</b> Let $d \ge 1$, $\lambda = d/2$, and let $0 \ne g \in L^1_{\mathrm{rad}}(\mathbb{R}^d;\mathbb{R})$ satisfy $\widehat g = -g$ and $g(0) = 0$ (continuous representative). Define $T_dg(0) = 0$ and, for $x \ne 0$ (eq. (87)),
+$$(T_dg)(x) \;=\; \frac\lambda2\int_1^\infty t^{\lambda-1}\,g(tx)\,dt.$$
+Then $T_dg$ is nonzero, continuous, integrable, with
+$$\widehat{T_dg} = T_dg, \qquad (T_dg)(0) = 0, \qquad \|T_dg\|_1 \le \tfrac12\|g\|_1.$$
+If $r(g) \lt \infty$ then $r(T_dg) \lt r(g)$; if $g$ is Schwartz, so is $T_dg$. Consequently $A_+(d) \lt A_-(d)$ for every $d \ge 1$.</div>
+
+<figure><!--FIG:fig_Td--><figcaption>The tail-integration operator in action ($d = 1$, so $\lambda = \tfrac12$), applied to the concrete anti-self-Fourier witness $g = \mathrm{sinc}^2 - \mathrm{tent}$ of Fig. 11 (gray dashes): the output $T_dg$ (purple) is self-Fourier (verified numerically, check <code>c21c</code>), vanishes at $0$, has half the $L^1$ mass (<code>c21a</code>), and its last sign change $r(T_dg) \approx 0.74$ sits strictly inside $r(g) = 1$ (<code>c21b</code>).</figcaption></figure>
+
+<div class="proof">
+<p><i>Step 0: regularity of $g$.</i> Since $g = -\widehat g$ with $g \in L^1$, inversion (Theorem 2.4) makes $g$ bounded and continuous, with $\|g\|_\infty \le \|g\|_1$. In particular $\int|g(x)|\,|x|^{-\lambda}dx \lt \infty$: split at $|x| = 1$; inside, $|x|^{-\lambda}$ is integrable in $\mathbb{R}^d$ ($\lambda = d/2 \lt d$) against the bounded $g$; outside, $|x|^{-\lambda} \le 1$ against $g \in L^1$.</p>
+<p><i>Step 1: the central Mellin cancellation (eq. (88)).</i> We claim $\mathcal Mg(\lambda) = \int_0^\infty g(r)r^{\lambda-1}dr = 0$ &mdash; the $L^1$ analogue of what Theorem S would give at the self-dual point $z = \lambda$, proved here directly since $g$ need not be Schwartz. Set $J(t) = \int_{\mathbb{R}^d}g(x)\,e^{-\pi t|x|^2}dx$ for $t \gt 0$. The multiplication formula (Lemma 2.2(iii)) with the Gaussian pair (Proposition 2.3) and $\widehat g = -g$ gives Gaussian duality:
+$$-J(t) = \int \widehat g\,(x)e^{-\pi t|x|^2}dx = \int g(\xi)\,t^{-\lambda}e^{-\pi|\xi|^2/t}\,d\xi = t^{-\lambda}J(1/t), \qquad\text{i.e.}\qquad J(t) = -t^{-\lambda}J(1/t).$$
+Moreover $\int_0^\infty t^{\lambda/2-1}|J(t)|\,dt \le \int_0^\infty t^{\lambda/2-1}\int|g(x)|e^{-\pi t|x|^2}dx\,dt = \frac{\Gamma(\lambda/2)}{\pi^{\lambda/2}}\int|g(x)|\,|x|^{-\lambda}dx \lt \infty$ by Tonelli and Step 0. Now substitute $t \mapsto 1/t$ in $\mathcal I = \int_0^\infty t^{\lambda/2-1}J(t)\,dt$: the measure $t^{\lambda/2-1}dt$ maps to $t^{-\lambda/2-1}dt$, and the duality relation converts the integrand so that $\mathcal I = -\mathcal I$, forcing $\mathcal I = 0$. On the other hand, computing $\mathcal I$ by Fubini (now legal) and polar integration:
+$$0 = \mathcal I = \int g(x)\,\frac{\Gamma(\lambda/2)}{(\pi|x|^2)^{\lambda/2}}\,dx = \frac{\Gamma(\lambda/2)}{\pi^{\lambda/2}}\,S_d\int_0^\infty g(r)\,r^{d-\lambda-1}dr = \frac{\Gamma(\lambda/2)S_d}{\pi^{\lambda/2}}\;\mathcal Mg(\lambda),$$
+using $d - \lambda = \lambda$. Hence $\mathcal Mg(\lambda) = 0$.</p>
+<p><i>Step 2: basic properties of $T_dg$.</i> For $x \ne 0$, absolute convergence: substituting $s = t|x|$, the defining integral is $\frac\lambda2|x|^{-\lambda}\int_{|x|}^\infty s^{\lambda-1}g_{\mathrm{prof}}(s)\,ds$ (radial profile), finite since $s^{\lambda-1} \le s^{d-1}/|x|^{\lambda}$ for $s \ge |x|$ and $g \in L^1$. Tonelli with $d = 2\lambda$:
+$$\|T_dg\|_1 \le \frac\lambda2\int_1^\infty t^{\lambda-1}\Bigl(\int|g(tx)|dx\Bigr)dt = \frac\lambda2\,\|g\|_1\int_1^\infty t^{\lambda-1-d}\,dt = \frac\lambda2\,\|g\|_1\cdot\frac1\lambda = \frac{\|g\|_1}{2},$$
+which also licenses transforming under the integral sign. By the dilation rule, $\widehat{g(t\,\cdot)} = t^{-d}\widehat g(\cdot/t) = -t^{-d}g(\cdot/t)$, so (eq. (89))
+$$\widehat{T_dg}(\xi) = -\frac\lambda2\int_1^\infty t^{\lambda-d-1}g(\xi/t)\,dt = -\frac\lambda2\int_0^1 s^{\lambda-1}g(s\xi)\,ds = \frac\lambda2\int_1^\infty s^{\lambda-1}g(s\xi)\,ds = (T_dg)(\xi),$$
+substituting $s = 1/t$ (with $t^{\lambda - d - 1}dt = -s^{\lambda-1}ds$, using $d = 2\lambda$) in the middle step and the central cancellation of Step 1 &mdash; in the form $\int_0^\infty s^{\lambda-1}g(s\xi)\,ds = |\xi|^{-\lambda}\mathcal Mg(\lambda) = 0$ &mdash; in the last. The small-scale representation $-\frac\lambda2\int_0^1s^{\lambda-1}g(s\xi)ds$ extends continuously to $\xi = 0$ with value $-\frac\lambda2 g(0)\int_0^1s^{\lambda-1}ds = -g(0)/2 = 0$, matching the defined value $T_dg(0) = 0$ and giving continuity everywhere.</p>
+<p><i>Step 3: $T_dg \ne 0$, and Schwartz preservation.</i> In profile form the large-scale representation reads
+$$(T_dg)(r) = \frac\lambda2\,r^{-\lambda}\int_r^\infty s^{\lambda-1}g(s)\,ds,$$
+so $\frac{d}{dr}\bigl(r^\lambda\,T_dg(r)\bigr) = -\frac\lambda2 r^{\lambda-1}g(r)$, i.e. $\bigl(r\frac{d}{dr} + \lambda\bigr)T_dg = -\frac\lambda2\,g$. If $T_dg \equiv 0$, the left side vanishes and $g \equiv 0$ &mdash; contradiction. If $g$ is Schwartz: differentiating the small-scale representation shows smoothness at the origin (each $\xi$-derivative brings down powers of $s \le 1$, all integrals converging uniformly), and differentiating the large-scale representation shows rapid decay of all derivatives (the tail integral of a Schwartz profile decays faster than any power); so $T_dg$ is Schwartz.</p>
+<p><i>Step 4: the sign radius strictly shrinks.</i> Let $R = r(g) \lt \infty$. First, $R \gt 0$: otherwise $g \ge 0$ everywhere with $\int g = \widehat g(0) = -g(0) = 0$, forcing $g \equiv 0$. For $r \ge R$ the profile satisfies $g(s) \ge 0$ for all $s \ge r$, so
+$$(T_dg)(r) = \frac\lambda2 r^{-\lambda}\int_r^\infty s^{\lambda-1}g(s)\,ds \;\ge\; 0,$$
+and in fact $\gt 0$: equality would force $g = 0$ on $[r,\infty)$, making both $g$ and $\widehat g = -g$ compactly supported, which contradicts the analyticity argument of Proposition F (a nonzero compactly supported function cannot have compactly supported transform). In particular $(T_dg)(R) \gt 0$; since $T_dg$ is continuous, positivity extends to an interval $[R-\varepsilon, R]$ for some $\varepsilon \gt 0$, and combined with strict positivity on $[R,\infty)$ this gives $r(T_dg) \le R - \varepsilon \lt R$.</p>
+<p><i>Step 5: conclusion.</i> Apply Steps 1&ndash;4 to the extremizer $g$ of Import 4: $T_dg$ is a nonzero integrable $(+1)$-eigenfunction vanishing at the origin, so by definition (6),
+$$A_+(d) \;\le\; r(T_dg) \;\lt\; r(g) \;=\; A_-(d).$$ <span class="qed">&#8718;</span></p>
+</div>
+
+<h2 id="notation">Appendix B: notation glossary</h2>
+
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Meaning</th><th>Defined</th></tr>
+<tr><td>$\Delta_d$</td><td>sphere-packing density of $\mathbb{R}^d$ (sup of upper densities)</td><td>&sect;1.1</td></tr>
+<tr><td>$v_d$, $S_d$</td><td>unit-ball volume $\pi^{d/2}/\Gamma(d/2{+}1)$; unit-sphere area $dv_d$</td><td>&sect;1.1, &sect;5.1</td></tr>
+<tr><td>$\widehat f$</td><td>Fourier transform, convention $\int f(x)e^{-2\pi ix\cdot\xi}dx$</td><td>(1)</td></tr>
+<tr><td>$\mathcal S(\mathbb{R}^d;\mathbb{R})$, $\mathcal S_{\mathrm{rad}}$</td><td>real Schwartz space; its radial subspace</td><td>Def. 2.1</td></tr>
+<tr><td>$\mathcal A_d$, $\mathrm{LP}_d$</td><td>admissible certificate class; the Cohn&ndash;Elkies bound</td><td>(2), (3)</td></tr>
+<tr><td>$\varsigma$, $r(g)$, $A_\pm(d)$</td><td>Fourier eigenvalue $\pm1$; last-sign radius; sign-uncertainty constants</td><td>&sect;1.3, (5)&ndash;(6)</td></tr>
+<tr><td>$\psi_\pm$</td><td>model eigenfunctions $e^{-\pi|x|^2}$, $(|x|^2 - \frac d{4\pi})e^{-\pi|x|^2}$</td><td>Prop. 2.6</td></tr>
+<tr><td>$\mathcal R$</td><td>rotational (spherical) average</td><td>&sect;5.2</td></tr>
+<tr><td>$\lambda$</td><td>$d/2$ &mdash; the ubiquitous half-dimension</td><td>&sect;6.1</td></tr>
+<tr><td>$\mathcal Mg$, $X_g$, $\Phi_g$</td><td>Mellin transform; critical-line data $\mathcal Mg(\lambda - it)$; log-radius profile</td><td>(8)</td></tr>
+<tr><td>$m_\lambda(t)$</td><td>unimodular Fourier multiplier on the critical line</td><td>(10)</td></tr>
+<tr><td>$\Gamma, \psi, \psi', \psi''$</td><td>gamma, digamma, polygammas</td><td>&sect;1.1, &sect;6.2</td></tr>
+<tr><td>$c$, $R$, $\varphi$, $Z$</td><td>radius coefficient ($\lt 1/\pi$); $R = c\sqrt d$; normalized profile and Mellin data</td><td>&sect;7.1, (12)</td></tr>
+<tr><td>$h_\lambda$, $P_\sigma$, $M_\sigma$, $H_\sigma$</td><td>bottom-edge majorant; strip harmonic-measure kernel, its mass, the Poisson bound</td><td>(14), (15), (18)</td></tr>
+<tr><td>$f_T$, $J_\sigma$, $\delta_c$</td><td>log kernel $\log\sqrt{x^2{+}T^2/4}$; its kernel average; the positive margin</td><td>&sect;7.3&ndash;7.4, (23)</td></tr>
+<tr><td>$p_\sigma$, $p$</td><td>renormalized kernels; limit $\frac\pi4\mathrm{sech}^2(\frac{\pi u}2)$</td><td>Lemma 3.4</td></tr>
+<tr><td>$\epsilon$; $a_0, A, B, Q, b, \beta$</td><td>construction parameter; shell cutoffs, amplitude, taper, pole value</td><td>(34)</td></tr>
+<tr><td>$w_*, w_s, w_B, w$</td><td>ideal density; negative and positive shells; their sum</td><td>(32), (35)</td></tr>
+<tr><td>$h_\epsilon$, $\mu_{\lambda,\eta}$</td><td>Mellin perturbation of the shells; gamma L&eacute;vy density</td><td>(36), (37)</td></tr>
+<tr><td>$E_\lambda$, $P_\pm, P_0$, $f_-, f_0, f_+$</td><td>envelope, sign polynomials, the three constructed functions</td><td>(38)</td></tr>
+<tr><td>$u$, $\eta$, $\delta$, $m$; $u_*, u_0, U$</td><td>contour height, $1{+}u$, $u{-}1$, $\lambda\eta/2$; floor, target, shell threshold</td><td>&sect;10, (34), (43)</td></tr>
+<tr><td>$v(u)$, $V(u)$</td><td>saddle log-radius and its derivative (curvature)</td><td>(44)</td></tr>
+<tr><td>$G_{\lambda,\eta}$, $L_u$, $D_\gamma, D_s, D_B, D_u$</td><td>gamma phase; centered phase; the damping ledger</td><td>(45)&ndash;(49)</td></tr>
+<tr><td>$V_\gamma, V_s, V_B$, $M_3$, $T_0$, $\rho_\epsilon$</td><td>variance pieces, cubic scale, shell frequency scale, separation number</td><td>(48)&ndash;(49), &sect;10.5</td></tr>
+<tr><td>$I_{\lambda,P}(u)$, $R_{\epsilon,d}$</td><td>saddle integral; the construction's sign radius $e^{v(u_0)}$</td><td>Lemma 4.8, Thm 4.1</td></tr>
+<tr><td>$y$, $h_1'$, $N, p, \kappa$, $A_{\lambda,n}$, $R_{\lambda,p}$</td><td>interior variable $\pi e^{2h_1'}r^2$; series data of Lemma 4.10</td><td>&sect;11.2</td></tr>
+<tr><td>$T_d$</td><td>tail-integration operator (Appendix A)</td><td>(87)</td></tr>
+</table></div>
+
+<p class="small">Built from Chapter 1 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i>; the chapter's numbering of theorems and equations (1)&ndash;(89) is preserved throughout. Sister explainers in this series: Ch. 8 (Ehrhart volume; lattice primer in its &sect;2), Ch. 9 (Ramsey), Ch. 10 (extremal graphs), Ch. 3 (non-sofic group), Ch. 4 (Connes rigidity). Figure data and the 46-check validation battery: <code>figgen/ch01_figs.py</code>.</p>
+
+<script>
+function copyCode(btn){
+  var code = btn.parentElement.querySelector('code');
+  if(!code) return;
+  var text = code.textContent;
+  var done = function(){
+    var label = btn.querySelector('span'), prev = label.textContent;
+    btn.classList.add('copied'); label.textContent = 'Copied!';
+    setTimeout(function(){ btn.classList.remove('copied'); label.textContent = prev; }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+(function(){
+  try{
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('svg').forEach(function(svg){
+        if(typeof svg.pauseAnimations === 'function'){
+          if(typeof svg.setCurrentTime === 'function') svg.setCurrentTime(8.6);
+          svg.pauseAnimations();
+        }
+      });
+    }
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>

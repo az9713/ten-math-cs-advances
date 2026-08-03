@@ -1,0 +1,185 @@
+<h2 id="thm">9. Theorem 1.2 assembled &mdash; and the rigidity landscape</h2>
+
+<p>Every claim of Theorem 1.2 now has a proved supplier (Fig. 21 draws the architecture):</p>
+
+<div class="tablewrap"><table>
+<tr><th>Claim of Theorem 1.2</th><th>Supplier</th></tr>
+<tr><td>$L(\Gamma_n) \cong L(\Lambda)$ for all $n$</td><td>Prop. 6.3 (Fourier, Props. F&ndash;G, Lemma 6.1)</td></tr>
+<tr><td>the $\Gamma_n$ pairwise nonisomorphic</td><td>Prop. 6.9 (invariant $i(\Gamma_n) = 2^{4n}$, Lemmas 6.6&ndash;6.8)</td></tr>
+<tr><td>$\Lambda \not\cong \Gamma_n$ for every $n$</td><td>order-$4$ element $\varepsilon^{(n)}_e$ (Lemma 6.2) vs.&nbsp;exponent-2 torsion of $\Lambda$ (Prop. 4.3)</td></tr>
+<tr><td>all groups ICC + property (T)</td><td>$\Lambda$: Props. 5.3, 5.9; transfer: Lemma 2.1 / Prop. 6.4</td></tr>
+<tr><td>finitely generated</td><td>property (T) $\Rightarrow$ f.g. (Import 5)</td></tr>
+<tr><td>$\Gamma_0 \hookrightarrow \Gamma_n$ of index $2^{4n}$; commensurability</td><td>Prop. 6.5 (dual of $p_n$)</td></tr>
+</table></div>
+
+<div class="thm"><b>Theorem 1.2.</b> The finitely generated ICC property-(T) groups $\Lambda, \Gamma_0, \Gamma_1, \dots$ are pairwise nonisomorphic, satisfy $L(\Gamma_n) \cong L(\Lambda)$ for all $n \ge 0$, and each $\Gamma_n$ contains a copy of $\Gamma_0$ of index $2^{4n}$.</div>
+
+<div class="proof"><p>Assemble the table: Propositions 6.3 and 6.9 give the common factor and the pairwise distinctness of the $\Gamma_n$; Lemma 6.2 and Proposition 4.3 separate $\Lambda$ from every $\Gamma_n$ by order-$4$ torsion; Propositions 5.3, 5.9, 6.4 give ICC and property (T) throughout, hence finite generation (Import 5); Proposition 6.5 gives the index-$2^{4n}$ embeddings and commensurability. <span class="qed">&#8718;</span></p></div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 290" width="100%" role="img" aria-label="Architecture of the proof: Fourier mechanism and carry construction feed the common factor; rigidity proved once for Lambda transfers; torsion invariants separate the groups">
+  <defs><marker id="c4arrF" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <g fill="none" stroke="#2e5a8a" stroke-width="1.3">
+    <rect x="20" y="20" width="210" height="40" rx="6"/>
+    <rect x="20" y="72" width="210" height="40" rx="6"/>
+    <rect x="20" y="124" width="210" height="40" rx="6"/>
+  </g>
+  <g font-size="11.5" fill="#1a1a1a">
+    <text x="30" y="36">Fourier mechanism (&#167;3): the factor</text>
+    <text x="30" y="52">sees only the measured K-space</text>
+    <text x="30" y="88">carry laws &#8902;&#8345; on ONE space (&#167;6, &#167;8)</text>
+    <text x="30" y="104">&#8658; L(&#915;&#8345;) &#8773; L(&#923;) for all n</text>
+    <text x="30" y="140">rigidity of &#923; (&#167;5, &#167;7): ICC + (T)</text>
+    <text x="30" y="156">once; Connes&#8211;Jones transfers it</text>
+  </g>
+  <g fill="none" stroke="#2a7d2a" stroke-width="1.3">
+    <rect x="250" y="20" width="210" height="40" rx="6"/>
+    <rect x="250" y="72" width="210" height="40" rx="6"/>
+    <rect x="250" y="124" width="210" height="40" rx="6"/>
+  </g>
+  <g font-size="11.5" fill="#1a1a1a">
+    <text x="260" y="36">Pontryagin duality: the carry survives</text>
+    <text x="260" y="52">as order-4 torsion in E&#8345; (&#167;6, &#167;8)</text>
+    <text x="260" y="88">&#923; has exponent-2 torsion only</text>
+    <text x="260" y="104">&#8658; &#923; &#8802; &#915;&#8345; (Prop. 4.3)</text>
+    <text x="260" y="140">doubling formula stamps n: finite-orbit</text>
+    <text x="260" y="156">part of E&#8345;[2]/2E&#8345; has size 2&#8308;&#8319; (&#167;8.5)</text>
+  </g>
+  <g stroke="#7a1f1f" stroke-width="1.6" fill="none">
+    <path d="M125,164 L125,196 L215,212" marker-end="url(#c4arrF)"/>
+    <path d="M355,164 L355,196 L265,212" marker-end="url(#c4arrF)"/>
+  </g>
+  <rect x="120" y="204" width="240" height="44" rx="8" fill="none" stroke="#c0392b" stroke-width="1.7"/>
+  <text x="134" y="222" font-size="12.5" fill="#c0392b" font-weight="bold">&#923;, &#915;&#8320;, &#915;&#8321;, &#8230; pairwise distinct,</text>
+  <text x="134" y="240" font-size="12.5" fill="#c0392b" font-weight="bold">one II&#8321; factor &mdash; Theorem 1.2</text>
+  <text x="20" y="276" font-size="12" fill="#7a1f1f">left column: why the factors agree; right column: why the groups differ &mdash; the tension IS the counterexample</text>
+</svg><figcaption><b>The whole proof on one screen.</b> The left column makes all the factors equal (measure theory forgets the carry); the right column keeps all the groups distinct (duality remembers it as torsion, and the doubling formula reads off the shift $n$). Rigidity, proved once for $\Lambda$, rides the common factor to the entire family.</figcaption></figure>
+
+<h3 id="landscape">9.1 The rigidity landscape after Theorem 1.2</h3>
+
+<p><b>Settled.</b> Connes's Conjecture 1.1 is false (already by the pair $\Lambda, \Gamma_0$ &mdash; Corollary 5.10). Stronger: even the <i>finite-to-one</i> weakening fails, since $L(\Lambda)$ has countably infinitely many pairwise nonisomorphic ICC property-(T) realizations &mdash; so Popa's countable-to-one theorem [Pop07] is sharp, answering his finite-to-one question [Pop13] in the negative. The examples are as tame as could be: mutually commensurable, explicitly presented, and distinguished by nothing subtler than counting torsion orbits.</p>
+
+<p><b>Sharpened context (Fig. 22).</b> Infinite fibers of $G \mapsto L(G)$ were known <i>outside</i> the property-(T) world &mdash; Ioana&ndash;Popa&ndash;Vaes produced infinitely many groups sharing the factor of $H_0 \wr \mathrm{PSL}_n(\mathbb Z)$ [IPV13] &mdash; but wreath products are never property (T); the new feature here is an infinite fiber <i>inside</i> the ICC property-(T) class, the exact class Popa's countability bound governs. In the opposite direction, rigidity is real: some ICC property-(T) groups <i>are</i> $W^*$-superrigid (Chifan&ndash;Ioana&ndash;Osin&ndash;Sun [CIOS23]), and Ioana's theorem [Ioa11] recovers Bernoulli <i>actions</i> of ICC (T) groups from their crossed products. So the corrected picture: property (T) is compatible with maximal rigidity and with countably infinite ambiguity &mdash; it guarantees neither. What decides which, group by group, is open.</p>
+
+<p><b>Open, highlighted by the result.</b> Which II$_1$ factors have infinite group-fibers; whether the specific factor $L(\Lambda)$ has <i>un</i>countably many non-(T) realizations (the countability bound uses (T)); effective invariants distinguishing group factors in general; and the amenable-vs-rigid frontier: a structural characterization of the $W^*$-superrigid property-(T) groups. (Historical note from the chapter's acknowledgments: an independent, concurrent counterexample to Connes's conjecture was found by Shuoxing Zhou &mdash; developed in part with AI assistance &mdash; a sign of how quickly this forty-year-old wall crumbled once the right crack appeared.)</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="Map of rigidity results: amenable collapse, IPV infinite fibers without T, CIOS superrigid T groups, and the new infinite fiber inside the T class">
+  <line x1="60" y1="210" x2="440" y2="210" stroke="#8899aa" stroke-width="1.4"/>
+  <text x="52" y="230" font-size="11.5" fill="#555">total collapse</text>
+  <text x="382" y="230" font-size="11.5" fill="#555">total rigidity</text>
+  <!-- markers along the axis -->
+  <circle cx="90" cy="210" r="6" fill="#2e5a8a"/>
+  <text x="34" y="188" font-size="11.5" fill="#2e5a8a">amenable ICC:</text>
+  <text x="34" y="202" font-size="11.5" fill="#2e5a8a">one factor [Con76]</text>
+  <circle cx="205" cy="210" r="6" fill="#a06a1f"/>
+  <text x="148" y="176" font-size="11.5" fill="#a06a1f">&#8734; fibers, no (T):</text>
+  <text x="148" y="190" font-size="11.5" fill="#a06a1f">wreath products [IPV13]</text>
+  <circle cx="298" cy="210" r="7" fill="#c0392b"/>
+  <text x="238" y="160" font-size="12" fill="#c0392b" font-weight="bold">THIS CHAPTER: &#8734; fiber</text>
+  <text x="238" y="176" font-size="12" fill="#c0392b" font-weight="bold">INSIDE the (T) class</text>
+  <text x="238" y="192" font-size="10.5" fill="#555">Popa's countable bound is sharp</text>
+  <circle cx="408" cy="210" r="6" fill="#2a7d2a"/>
+  <text x="352" y="188" font-size="11.5" fill="#2a7d2a">W*-superrigid (T)</text>
+  <text x="352" y="202" font-size="11.5" fill="#2a7d2a">groups exist [CIOS23]</text>
+  <!-- brace for the (T) region -->
+  <path d="M250,246 L250,240 L460,240 L460,246" stroke="#c0392b" stroke-width="1.3" fill="none"/>
+  <text x="286" y="238" font-size="11" fill="#c0392b">both behaviors inside property (T)</text>
+  <text x="60" y="26" font-size="12.5" fill="#7a1f1f">how much does L(G) remember? &mdash; the answer is now known to depend on more than property (T)</text>
+  <g font-size="11.5" fill="#555">
+    <text x="60" y="54">Connes 1982: conjectured (T) &#8658; everything remembered (fiber size 1)</text>
+    <text x="60" y="74">Popa 2006: (T) &#8658; fiber at most countable; asked: finite?</text>
+    <text x="60" y="94">Theorem 1.2: a countably infinite (T)-fiber &mdash; conjecture false, bound sharp, question answered</text>
+  </g>
+</svg><figcaption><b>The rigidity landscape.</b> Between the amenable collapse (every amenable ICC group gives one factor) and genuine $W^*$-superrigidity (some (T) groups are fully remembered), Theorem 1.2 plants an infinite fiber strictly inside the property-(T) class: rigidity is not a consequence of (T) alone. Popa's countability theorem now stands as the exact upper bound on how badly injectivity can fail there.</figcaption></figure>
+
+<h2 id="numerics">10. Machine verification of the construction</h2>
+
+<p>The chapter's constructions are exact linear algebra over $\mathbb F_2$ and $\mathbb Z/4$, so their load-bearing identities and counts can be checked mechanically on finite truncations $V_M = (\mathbb F_2[t]/t^M)^4$. The listing below (a trimmed version of the full engine <code>figgen/ch04_figs.py</code>) verifies, in order: the four-point isomorphism of <a class="secref" href="#toy4">&sect;4</a> (all $16$ pairs); the primitive-vector counts of Lemma 5.6 ($15$ and $225$, by exhaustive polynomial gcd); the tight quarter-support bound of Lemma 5.5 (all $2047$ nonzero quadratics on $\mathbb F_2^4$); the rank constants $c_j$ of Remark 5.8; associativity, commutativity, and the doubling formula $2(\ell,q) = (0, c_n(\ell,\ell))$ for the shifted laws $\star_0, \star_1$ (sampled, exact arithmetic); the kernel counts $|Z_n| = 2^{4n}$ (exhaustive); $K$-equivariance $k\cdot F_{\ell,q} = F_{k\ell,kq}$ for the transvection $k = I + tE_{12}$ (sampled); and the vanishing third difference of the quadratic map $b$ &mdash; the relation that makes the map $d$ of Lemma 6.6 well defined. Sampled checks use a fixed seed and exact integer arithmetic; nothing is floating-point.</p>
+
+<div class="codewrap"><button class="copybtn" type="button" onclick="copyCode(this)" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button><pre><code>LISTING_PLACEHOLDER</code></pre></div>
+
+<p>Output:</p>
+
+<pre><code>four-point carry law = Z/4 via x+2y: True
+primitive count N=1: 15 = 7*2^(4N-3)+1 = 15 True
+primitive count N=2: 225 = 7*2^(4N-3)+1 = 225 True
+min support of nonzero deg&lt;=2 poly on F2^4: 4 = 2^(m-2) = 4
+c_j for j=3..6: [Fraction(0, 1), Fraction(1, 7), Fraction(1, 5), Fraction(7, 31)]
+*_0: assoc, comm, 2(l,q) = (0, c_n(l,l)): True
+*_1: assoc, comm, 2(l,q) = (0, c_n(l,l)): True
+|Z_1| = 16 = 2^(4n): True
+|Z_2| = 256 = 2^(4n): True
+equivariance k.F_{l,q} = F_{k.l,k.q} (k = I+tE12): True
+third difference of b vanishes (well-definedness of d): True</code></pre>
+
+<p>The full engine <code>figgen/ch04_figs.py</code> additionally verifies the primitive count at $N = 3$ ($3585$), the support bound on $\mathbb F_2^5$ (all $65535$ quadratics, minimum $8$), the order-$4$ property of $F_{\ell,0}$ in the truncated function model, and the equivariance identities behind the dual action &mdash; about $25$ checks, all passing.</p>
+
+<h2 id="scope">11. Scope &mdash; proved here, imported, open</h2>
+
+<div class="tablewrap"><table>
+<tr><th>Status</th><th>Items</th></tr>
+<tr><td><b>Proved in this document</b><br><span class="small">(complete, graduate-core arguments)</span></td><td>Fourier coefficients and traciality (Lemma A); the <b>Murray&ndash;von Neumann ICC criterion</b> (Prop. B); (T) passes to quotients (Prop. C); character separation and <b>Plancherel</b> (Lemmas D&ndash;E); the crossed-product identity (2.1) (Prop. F) and the <b>transport principle</b> (Prop. G); the four-point toy; Minkowski's congruence lemma (3.2); torsion-freeness, ICC, and surjectivity for $K$ (Lemma 3.3), with Euclidean elementary generation (Lemma H); the divided-square structure (Lemma I); the entire carry construction (Prop. 4.1, Lemma 4.2, Prop. 4.3); the orbit lemmas (5.1&ndash;5.2, Prop. 5.3); the <b>spectral criterion</b> (Lemma 5.4); the quarter-support bound (5.5); the primitive count (5.6); one-seventh detection (5.7) and property (T) for $\Lambda$ (Prop. 5.9); the shifted family (Lemmas 6.1&ndash;6.2, Props. 6.3&ndash;6.5); the doubling formula and the invariant (Lemmas 6.6&ndash;6.8, Prop. 6.9); Theorem 1.2's assembly.</td></tr>
+<tr><td><b>Imported</b><br><span class="small">(stated precisely, used as black boxes)</span></td><td><b>Import 1</b>: Connes&ndash;Jones &mdash; (T) for ICC groups $\iff$ (T) for their factors [CJ85]. <b>Import 2</b>: Ershov&ndash;Jaikin-Zapirain property (T) for $\mathrm{EL}_{n\ge3}$ over f.g.&nbsp;rings [EJ10] (shared with Chapter 3's explainer). <b>Import 3</b>: Suslin's $\mathrm{SL}_n(\mathbb Z[t]) = \mathrm{EL}_n(\mathbb Z[t])$ [Sus77]. <b>Import 4</b>: joint spectral theorem with covariance. <b>Import 5</b>: (T) inheritance under finite index; (T) $\Rightarrow$ f.g. [BHV08]. <b>Import 6</b>: Pontryagin duality package (biduality, dual exactness, restriction) [Rudin]. Minor analysis black boxes: Stone&ndash;Weierstrass (inside Lemma E); normality of vector states. Context only (not on the spine): Connes's classification of injective factors [Con76]; Popa's countability theorem [Pop07]; [IPV13], [Ioa11], [CIOS23].</td></tr>
+<tr><td><b>Open, highlighted by the result</b></td><td>Which II$_1$ factors have infinite group fibers; possible uncountability of the full (non-(T)) fiber of $L(\Lambda)$; structural characterization of $W^*$-superrigid property-(T) groups; effective computation of group-factor invariants.</td></tr>
+</table></div>
+
+<p>Honest limitations of this exposition. First, the operator-algebra layer is deliberately shallow: we define $L(G)$ and crossed products concretely and prove exactly what the argument needs (Lemma A, Props. B, F, G), but the theory of II$_1$ factors &mdash; including the meaning of Connes&ndash;Jones property (T) for factors &mdash; stays behind Import 1. Second, the machine checks of &sect;10 validate the finitary skeleton (identities, counts, group axioms on truncations, sampled equivariance); they do not, and cannot, check the analytic statements (spectral theorem, Haar uniqueness, the imports). Third, the proof of Theorem 1.2 as presented follows the chapter's architecture faithfully, including its division of labor between the primes $2$ and $3$; no attempt is made to survey alternative routes. Within those boundaries, every step from the definitions to Theorem 1.2 is on the page.</p>
+
+<h2 id="notation">Appendix A: notation glossary</h2>
+
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Meaning</th><th>Defined in</th></tr>
+<tr><td>$\ell^2(G)$, $\lambda$, $\rho$</td><td>group Hilbert space; left/right regular representations</td><td><a class="secref" href="#vna">&sect;1</a></td></tr>
+<tr><td>$L(G)$, $\tau$, ICC, II$_1$ factor</td><td>group von Neumann algebra $\lambda(G)''$; trace $\langle\,\cdot\,\delta_1,\delta_1\rangle$; infinite conjugacy classes; infinite-dim.&nbsp;factor with trace</td><td><a class="secref" href="#vna">&sect;1</a></td></tr>
+<tr><td>property (T); relative (T); Kazhdan pair</td><td>almost-invariant $\Rightarrow$ invariant vectors; the $A$-relative version; $(F,\kappa)$</td><td><a class="secref" href="#propT">&sect;2</a></td></tr>
+<tr><td>$\widehat A$, $m_{\widehat A}$, $\mathbf 1$, $\mathrm{ev}_a$</td><td>Pontryagin dual, Haar probability, trivial character, evaluation function</td><td><a class="secref" href="#fourier">&sect;3</a></td></tr>
+<tr><td>$L^\infty(\widehat A)\rtimes K$, $v_k$, $\alpha_k$</td><td>crossed product, implementing unitaries, dual action on functions</td><td><a class="secref" href="#crossed">&sect;3.2</a></td></tr>
+<tr><td>$\diamond$, carry identity</td><td>the four-point $\mathbb Z/4$ law; $\tilde s+\tilde s' = \widetilde{s+s'}+2\tilde s\tilde s'$</td><td><a class="secref" href="#toy4">&sect;4</a></td></tr>
+<tr><td>$K$, $R$, $Q$, $\pi_2$, $u_{ij}(f)$</td><td>congruence group in $\mathrm{SL}_4(\mathbb Z[t])$; $\mathbb F_2[t]$; $\mathrm{SL}_4(R)$; mod-2 surjection; $I + 3fE_{ij}$</td><td><a class="secref" href="#actingK">&sect;5</a></td></tr>
+<tr><td>$V$, $e$, $b$, $B$, $D$</td><td>$R^4$; first basis vector; squaring $v\otimes v$; divided square; $V\oplus B$</td><td><a class="secref" href="#modules">&sect;6.1</a></td></tr>
+<tr><td>$X$, $Y$, $m$, $z[v]$</td><td>$V^*$, $B^*$, product Haar measure, two-bit evaluation $(\ell(v), q(b(v)))$</td><td><a class="secref" href="#modules">&sect;6.1</a>, <a class="secref" href="#uniform">&sect;7.4</a></td></tr>
+<tr><td>$F_{\ell,q}$, $r_{\ell,\ell'}$, $C_0$, $\Phi_0$, $\star_0$</td><td>carry function, carry cocycle $(\ell\otimes\ell')|_B$, carry group, its parametrization, twisted law</td><td><a class="secref" href="#carrygroup">&sect;6.2</a></td></tr>
+<tr><td>$E_0$, $\varepsilon^{(0)}_v$, $\iota_0$, $\sigma_0$</td><td>dual of $C_0$; evaluation character $i^{F(v)}$; the maps of the nonsplit ladder</td><td><a class="secref" href="#dualcarry">&sect;6.3</a></td></tr>
+<tr><td>$\Lambda$, $\Gamma_n$</td><td>$D\rtimes K$ (untwisted); $E_n\rtimes K$ (carry at position $n$)</td><td><a class="secref" href="#dualcarry">&sect;6.3</a>, <a class="secref" href="#dualfamily">&sect;8.2</a></td></tr>
+<tr><td>$\mathcal P$, $V_N$, $c_j$</td><td>primitive vectors; truncation $(R_N)^4$; rank-$j$ detection constant</td><td><a class="secref" href="#uniform">&sect;7.4</a></td></tr>
+<tr><td>$T_n$, $Z_n$, $c_n$, $\star_n$, $C_n$, $p_n$</td><td>shift $\ell\mapsto\ell(t^n\cdot)$; its kernel ($2^{4n}$ elements); shifted cocycle and law; shifted carry group; comparison map to $C_0$</td><td><a class="secref" href="#shifted">&sect;8.1</a></td></tr>
+<tr><td>$d$, $A_n$, $A_n^{\mathrm{fin}}$, $i(\Gamma_n)$</td><td>$b$-splitting $B\to V$; $E_n[2]/2E_n$; its finite-orbit part $V/t^nV$; the invariant $2^{4n}$</td><td><a class="secref" href="#noniso">&sect;8.5</a></td></tr>
+</table></div>
+
+<hr>
+
+<p class="small">Source: Chapter 4, &ldquo;A Counterexample to Connes's Rigidity Conjecture&rdquo;, pp. 94&ndash;111 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (the chapter attributes its external inputs to [CJ85], [EJ10], [Sus77], [BHV08], [CT11], [Min87] and others as cited inline; historical framing follows [Con82], [Con94], [Pop07], [Pop13]). This explainer preserves the chapter's numbering for Conjecture 1.1, Theorem 1.2, Lemmas 2.1&ndash;6.8, Propositions 3.1&ndash;6.9, Corollary 5.10, and equations (2.1)&ndash;(6.13); lettered results (A&ndash;I) are background proved here. Figure data and verification: <code>figgen/ch04_figs.py</code>.</p>
+
+<script>
+function copyCode(btn){
+  var code = btn.parentElement.querySelector('code');
+  if(!code) return;
+  var text = code.textContent;
+  var done = function(){
+    var label = btn.querySelector('span'), prev = label.textContent;
+    btn.classList.add('copied'); label.textContent = 'Copied!';
+    setTimeout(function(){ btn.classList.remove('copied'); label.textContent = prev; }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+(function(){
+  try{
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('svg').forEach(function(svg){
+        if(typeof svg.pauseAnimations === 'function'){
+          if(typeof svg.setCurrentTime === 'function') svg.setCurrentTime(2.0);
+          svg.pauseAnimations();
+        }
+      });
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

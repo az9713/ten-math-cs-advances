@@ -1,0 +1,173 @@
+<hr>
+
+<h2 id="validation">15. Numerical validation</h2>
+
+<p>Every number and every checkable identity in this document has been verified by machine, at two tiers. The full battery lives in <code>figgen/ch06_figs.py</code>: <b>34 checks, all passing</b>, which also regenerate every figure. The table summarizes them.</p>
+
+<div class="tablewrap"><table>
+<tr><th>Checks</th><th>What they verify</th><th>Where used</th></tr>
+<tr><td><code>c01</code>&ndash;<code>c03b</code></td><td>CHSH: classical value $3/4$ by brute force over all $16$ deterministic pairs; the rotation strategy hits $\cos^2(\pi/8)$ exactly; the Bell-operator norm is $2\sqrt2$ at the optimum and is never exceeded over $360$ random observable quadruples (dimensions $2$ and $4$)</td><td><a class="secref" href="#games">&sect;2</a></td></tr>
+<tr><td><code>c04</code>&ndash;<code>c06</code></td><td>Feige's game: value $1/2$ ($256$ pairs); the cross strategy wins both copies with probability exactly $1/2$; the exact two-fold value is $1/2$ (all $65{,}536$ Alice strategies $\times$ best Bob response)</td><td><a class="secref" href="#repetition">&sect;3</a></td></tr>
+<tr><td><code>c07</code>&ndash;<code>c08b</code>, <code>c13</code></td><td>Pinsker on $500$ random pairs + near-tightness; the rejection-coupling disagreement formula $2d_{\mathrm{TV}}/(1+d_{\mathrm{TV}})$, exactly and by $2\cdot10^5$-run simulation; the log-sum inequality</td><td><a class="secref" href="#info">&sect;4</a></td></tr>
+<tr><td><code>c09</code>&ndash;<code>c11</code></td><td>Resolvent purification: $\int_0^\infty g_\sigma^2 = \sigma$; the exact Gram formula against quadrature; $\Gamma(F)^\dagger\Gamma(F)=F$ for random (incl. singular) effects; the one-step entropy inequality (25) on $40$ random non-commuting ensembles &mdash; the operator gap is PSD every time</td><td><a class="secref" href="#resolvent">&sect;12</a></td></tr>
+<tr><td><code>c12</code>, <code>c12b</code></td><td>Lemma 4.4 on a genuine $3$-step operator Doob martingale: increment sum $\le \operatorname{Tr}(\rho_K H_1(F_0)) \le H_1(p_0)$</td><td><a class="secref" href="#resolvent">&sect;12</a></td></tr>
+<tr><td><code>c14</code>&ndash;<code>c16</code></td><td>Lemma 4.1: forward and reverse reveal experiments produce identical distributions (exact enumeration, $m=4$, $480$ histories, deviation $0$); size-bias weights sum to $1-2^{-m}$</td><td><a class="secref" href="#martingales">&sect;11</a>, <a class="secref" href="#budget">&sect;13</a></td></tr>
+<tr><td><code>c17</code></td><td>van Dam&ndash;Hayden embezzlement error falls like $1/\log b$ (exact sorted-Schmidt overlap, $b$ up to $2^{16}$)</td><td><a class="secref" href="#rounding">&sect;9</a></td></tr>
+<tr><td><code>c18</code>&ndash;<code>c20</code></td><td>The constants (11), (16); the full &sect;10 parameter chain on a grid of $(\varepsilon,\ell)$; the A.8 constant-folding into $B_{\mathrm{qs}}\eta^{1/12}$ on a grid of $\eta$</td><td><a class="secref" href="#rounding">&sect;9</a>&ndash;<a class="secref" href="#endgame">&sect;10</a></td></tr>
+<tr><td><code>c21</code>, <code>c22</code></td><td>Lemma A.1 refinement POVM for singular effects (PSD, sums to $I$, identity (36)); the greedy conditioning loop on a correlated $12$-coordinate toy</td><td><a class="secref" href="#ideal">&sect;7</a>, <a class="secref" href="#conditioning">&sect;6</a></td></tr>
+<tr><td><code>c30</code>&ndash;<code>c33</code></td><td><b>End-to-end</b>: a genuinely cross-coordinate-correlated entangled strategy for $\mathrm{CHSH}^{\otimes2}$ (random $4\times4$ orthogonal rotations before measurement), conditioned on winning coordinate $1$ &mdash; equation (4), the Lemma 3.2 simulation identity on all $64$ branches, and the identity $\mathbb{E}_{\mathcal{Q}}[\text{ideal win}] = q$</td><td><a class="secref" href="#ideal">&sect;7</a></td></tr>
+</table></div>
+
+<p>The second tier is the self-contained listing below &mdash; a ten-check subset (the game values, Pinsker, the coupling formula, the Born integral, the operator entropy inequality, embezzlement decay) that runs in a few seconds with only <code>numpy</code>. Paste and run.</p>
+
+<div class="codewrap"><button class="copybtn" type="button" onclick="copyCode(this)" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button><pre><code>&quot;&quot;&quot;Validation subset for ch.6 (quantum parallel repetition). Needs numpy.&quot;&quot;&quot;
+import itertools
+import math
+import numpy as np
+
+
+def report(name, ok, detail=&quot;&quot;):
+    print(f&quot;{name}: {&#x27;OK&#x27; if ok else &#x27;FAIL&#x27;} {detail}&quot;)
+
+
+def vec(theta, out):
+    c, s = math.cos(theta), math.sin(theta)
+    return np.array([c, s]) if out == 0 else np.array([-s, c])
+
+
+# 1. CHSH classical value = 3/4 (all 16 deterministic pairs)
+best = max(sum((fa[x] ^ fb[y]) == (x &amp; y)
+               for x in (0, 1) for y in (0, 1)) / 4
+           for fa in itertools.product((0, 1), repeat=2)
+           for fb in itertools.product((0, 1), repeat=2))
+report(&quot;chsh classical 3/4&quot;, abs(best - 0.75) &lt; 1e-12, f&quot;{best}&quot;)
+
+# 2. CHSH rotation strategy on Phi+ = cos^2(pi/8)
+tA, tB = (0.0, math.pi / 4), (math.pi / 8, -math.pi / 8)
+w = sum(0.25 * (vec(tA[x], a) @ vec(tB[y], b)) ** 2 / 2
+        for x in (0, 1) for y in (0, 1)
+        for a in (0, 1) for b in (0, 1) if (a ^ b) == (x &amp; y))
+report(&quot;chsh quantum cos^2(pi/8)&quot;,
+       abs(w - math.cos(math.pi / 8) ** 2) &lt; 1e-12, f&quot;{w:.6f}&quot;)
+
+
+# 3. Tsirelson: |Bell operator| = 2 sqrt 2 at the optimal angles
+def obs(t):
+    v0, v1 = vec(t, 0), vec(t, 1)
+    return np.outer(v0, v0) - np.outer(v1, v1)
+
+
+A0, A1 = obs(0.0), obs(math.pi / 4)
+B0, B1 = obs(math.pi / 8), obs(-math.pi / 8)
+Bell = (np.kron(A0, B0) + np.kron(A0, B1)
+        + np.kron(A1, B0) - np.kron(A1, B1))
+nrm = np.linalg.norm(Bell, 2)
+report(&quot;tsirelson 2 sqrt 2&quot;, abs(nrm - 2 * math.sqrt(2)) &lt; 1e-12)
+
+
+# 4. Feige game value = 1/2 (256 deterministic pairs)
+def fwin(x, y, a, b):
+    c, d = a // 2 + 1, a % 2
+    return int(a == b and ((c == 1 and d == x) or (c == 2 and d == y)))
+
+
+best = max(sum(fwin(x, y, fa[x], fb[y])
+               for x in (0, 1) for y in (0, 1)) / 4
+           for fa in itertools.product(range(4), repeat=2)
+           for fb in itertools.product(range(4), repeat=2))
+report(&quot;feige value 1/2&quot;, abs(best - 0.5) &lt; 1e-12, f&quot;{best}&quot;)
+
+# 5. Feige cross strategy wins BOTH copies with prob 1/2
+tot = sum(fwin(x1, y1, x1, y2) * fwin(x2, y2, 2 + x1, 2 + y2)
+          for x1 in (0, 1) for x2 in (0, 1)
+          for y1 in (0, 1) for y2 in (0, 1)) / 16
+report(&quot;feige 2-fold cross 1/2&quot;, abs(tot - 0.5) &lt; 1e-12, f&quot;{tot}&quot;)
+
+# 6. Pinsker on 300 random pairs
+rng = np.random.default_rng(0)
+ok = True
+for _ in range(300):
+    P = rng.random(4) + 1e-3
+    Q = rng.random(4) + 1e-3
+    P, Q = P / P.sum(), Q / Q.sum()
+    dtv = 0.5 * np.abs(P - Q).sum()
+    dkl = float((P * np.log(P / Q)).sum())
+    ok &amp;= dtv &lt;= math.sqrt(0.5 * dkl) + 1e-12
+report(&quot;pinsker 300 pairs&quot;, ok)
+
+# 7. rejection-coupling disagreement = 2dTV/(1+dTV)
+P = np.array([0.5, 0.3, 0.2])
+Q = np.array([0.3, 0.3, 0.4])
+d = 0.5 * np.abs(P - Q).sum()
+exact = np.abs(P - Q).sum() / np.maximum(P, Q).sum()
+report(&quot;corr-sampling formula&quot;,
+       abs(exact - 2 * d / (1 + d)) &lt; 1e-12, f&quot;{exact:.4f}&quot;)
+
+# 8. resolvent Born property: int (s/(s+u))^2 du = s
+for sg in (0.3, 1.0, 2.7):
+    u = np.linspace(0, 4000, 4_000_001)
+    val = np.trapezoid((sg / (sg + u)) ** 2, u) + sg ** 2 / (sg + 4000)
+    report(f&quot;born integral s={sg}&quot;, abs(val - sg) &lt; 1e-6, f&quot;{val:.8f}&quot;)
+
+
+# 9. Lemma 4.3 on a random 2x2 ensemble (exact resolvent Gram)
+def gram(s, t):
+    if abs(s - t) &lt; 1e-12:
+        return s
+    return s * t * math.log(t / s) / (t - s)
+
+
+def eigp(F):
+    w, V = np.linalg.eigh(F)
+    return [(w[k], V[:, k]) for k in range(len(w)) if w[k] &gt; 1e-12]
+
+
+def M(A, B):
+    out = np.zeros(A.shape, complex)
+    for s, a in eigp(A):
+        for t, b in eigp(B):
+            out += gram(s, t) * np.outer(a, a.conj()) @ np.outer(
+                b, b.conj())
+    return out
+
+
+def H1(F):
+    w, V = np.linalg.eigh(F)
+    h = [-x * math.log(x) if x &gt; 1e-15 else 0.0 for x in w]
+    return (V * h) @ V.conj().T
+
+
+def rc(d):
+    H = rng.normal(size=(d, d)) + 1j * rng.normal(size=(d, d))
+    H = H @ H.conj().T
+    return H / np.linalg.eigvalsh(H).max()
+
+
+ok = True
+for _ in range(10):
+    Fs = [rc(2) for _ in range(3)]
+    ps = rng.random(3)
+    ps /= ps.sum()
+    Fb = sum(p * F for p, F in zip(ps, Fs))
+    lhs = sum(p * (M(F, F) - M(F, Fb) - M(Fb, F) + M(Fb, Fb))
+              for p, F in zip(ps, Fs))
+    rhs = H1(Fb) - sum(p * H1(F) for p, F in zip(ps, Fs))
+    ok &amp;= np.linalg.eigvalsh(rhs - lhs).min() &gt; -1e-8
+report(&quot;lemma 4.3 entropy control&quot;, ok)
+
+# 10. embezzlement error falls like 1/log b
+errs = []
+for k in (4, 8, 12, 16):
+    b = 2 ** k
+    j = np.arange(1, b + 1, dtype=float)
+    c2 = (1 / j) / (1 / j).sum()
+    lam = 0.3
+    tgt = np.sort(np.concatenate([lam * c2, (1 - lam) * c2]))[::-1]
+    src = np.sort(np.concatenate([c2, np.zeros(b)]))[::-1]
+    F = np.sqrt(src * tgt).sum()
+    errs.append(math.sqrt(max(0, 2 - 2 * F)))
+report(&quot;embezzlement 1/log b&quot;,
+       all(b &lt; a for a, b in zip(errs, errs[1:])),
+       &quot; &quot;.join(f&quot;{e:.3f}&quot; for e in errs))</code></pre></div>
+
+<p class="small">Expected output: eleven <code>OK</code> lines ending with <code>embezzlement 1/log b: OK 0.430 0.326 0.271 0.237</code>.</p>

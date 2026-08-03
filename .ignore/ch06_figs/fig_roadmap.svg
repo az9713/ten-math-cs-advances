@@ -1,0 +1,38 @@
+<svg class="setupfig" viewBox="0 0 540 380" width="100%" role="img" aria-label="the proof roadmap">
+<defs><marker id="c6mA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="20" y="14" width="226" height="46" rx="6" fill="#fdeeee" stroke="#c0392b" stroke-width="1.3"/>
+<text x="133.0" y="30" font-size="11.5" text-anchor="middle" fill="#333">assume the bound fails at n:</text>
+<text x="133.0" y="45" font-size="11.5" text-anchor="middle" fill="#333">ϑ = P(win all n) ≫ bound</text>
+<rect x="20" y="82" width="226" height="46" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.3"/>
+<text x="133.0" y="98" font-size="11.5" text-anchor="middle" fill="#333">Lemma 3.1 greedy conditioning:</text>
+<text x="133.0" y="113" font-size="11.5" text-anchor="middle" fill="#333">core D, q ≥ 1−δ, info cost η small</text>
+<rect x="20" y="150" width="226" height="46" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.3"/>
+<text x="133.0" y="166" font-size="11.5" text-anchor="middle" fill="#333">Lemma 3.2 ideal experiment:</text>
+<text x="133.0" y="181" font-size="11.5" text-anchor="middle" fill="#333">state Ψ wins live copy w.p. q</text>
+<rect x="20" y="218" width="226" height="60" rx="6" fill="#fdf7e3" stroke="#c9b45a" stroke-width="1.3"/>
+<text x="133.0" y="234" font-size="11.5" text-anchor="middle" fill="#333">Lemma 3.3 (NEW): local states</text>
+<text x="133.0" y="249" font-size="11.5" text-anchor="middle" fill="#333">8η-close, histories κ-sampleable,</text>
+<text x="133.0" y="264" font-size="11.5" text-anchor="middle" fill="#333">NO 1/p loss</text>
+<rect x="294" y="82" width="226" height="46" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.3"/>
+<text x="407.0" y="98" font-size="11.5" text-anchor="middle" fill="#333">Lemma 3.4 classical correlated</text>
+<text x="407.0" y="113" font-size="11.5" text-anchor="middle" fill="#333">sampling (proved)</text>
+<rect x="294" y="150" width="226" height="46" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.3"/>
+<text x="407.0" y="166" font-size="11.5" text-anchor="middle" fill="#333">Lemma 3.5 = Import 1:</text>
+<text x="407.0" y="181" font-size="11.5" text-anchor="middle" fill="#333">embezzlement (DSV15)</text>
+<rect x="294" y="218" width="226" height="60" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.3"/>
+<text x="407.0" y="234" font-size="11.5" text-anchor="middle" fill="#333">Lemma 3.6 rounding: real</text>
+<text x="407.0" y="249" font-size="11.5" text-anchor="middle" fill="#333">strategy for G wins at least</text>
+<text x="407.0" y="264" font-size="11.5" text-anchor="middle" fill="#333">q − Bη<tspan baseline-shift="super" font-size="70%">1/12</tspan> − 2Kα<tspan baseline-shift="super" font-size="70%">1/12</tspan></text>
+<rect x="148" y="302" width="246" height="44" rx="6" fill="#fdeeee" stroke="#c0392b" stroke-width="1.3"/>
+<text x="271.0" y="318" font-size="11.5" text-anchor="middle" fill="#333">contradiction: that exceeds</text>
+<text x="271.0" y="333" font-size="11.5" text-anchor="middle" fill="#333">ω*(G) = 1 − ε</text>
+<line x1="133" y1="60" x2="133" y2="80" stroke="#333" stroke-width="1.4" marker-end="url(#c6mA)"/>
+<line x1="133" y1="128" x2="133" y2="148" stroke="#333" stroke-width="1.4" marker-end="url(#c6mA)"/>
+<line x1="133" y1="196" x2="133" y2="216" stroke="#333" stroke-width="1.4" marker-end="url(#c6mA)"/>
+<line x1="246" y1="248" x2="292" y2="248" stroke="#333" stroke-width="1.4" marker-end="url(#c6mA)"/>
+<line x1="407" y1="128" x2="407" y2="148" stroke="#333" stroke-width="1.4" marker-end="url(#c6mA)"/>
+<line x1="407" y1="196" x2="407" y2="216" stroke="#333" stroke-width="1.4" marker-end="url(#c6mA)"/>
+<line x1="350" y1="278" x2="300" y2="300" stroke="#333" stroke-width="1.4" marker-end="url(#c6mA)"/>
+<text x="270" y="360" font-size="11" text-anchor="middle" fill="#333">proof of Lemma 3.3 = Section 4: reveal martingales, resolvent purification,</text>
+<text x="270" y="374" font-size="11" text-anchor="middle" fill="#333">entropy budget, classical sampleability (this document: §11–§14)</text>
+</svg>

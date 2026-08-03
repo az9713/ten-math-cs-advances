@@ -1,0 +1,56 @@
+<hr>
+
+<h2 id="classical">14. Proof IV: classical sampleability of the history (Lemmas 4.8&ndash;4.9)</h2>
+
+<p>The last missing pieces of Lemma 3.3 are the total-variation bounds between the posterior $\mathcal{Q}$ and the locally generated $\mathcal{J}_A, \mathcal{J}_B$ of (6). This half is purely classical: it never touches the state, only the joint distribution of (public randomness, questions, core answers). The plan: bound the <i>relative entropies</i> $D(\mathcal{Q}\|\mathcal{J}_A), D(\mathcal{Q}\|\mathcal{J}_B)$ by $O(\eta)$ using a conditioning budget plus the same reveal martingale in classical form, then convert by Pinsker.</p>
+
+<h3 id="s14-budget">14.1 The conditioning budget (Lemma 4.8)</h3>
+
+<div class="lem" id="lem-48"><b>Lemma 4.8 (conditioning and answer-history entropy).</b> Conditioning on $W_D$ has exact relative-entropy cost
+$$D\big(\mathcal{P}(\cdot\mid W_D)\,\big\|\,\mathcal{P}\big) \;=\; \log(1/p) \;=\; \tau. \tag{33}$$
+Moreover, with $\mathcal{Z} = A^D\times B^D$ (so $\log|\mathcal{Z}| = s$): for every revealed background $U$ and additional question block $Y_C$,
+$$D\big(\mathcal{Q}_{U, Y_C, Z}\,\big\|\,\mathcal{P}_{U,Y_C}\otimes\mathrm{Unif}_{\mathcal{Z}}\big) \;\le\; \tau + s. \tag{34}$$
+</div>
+<div class="proof">The density (Radon&ndash;Nikodym derivative) of $\mathcal{Q}$ with respect to $\mathcal{P}$ is $\mathbf{1}_{W_D}/p$, so
+$$D(\mathcal{Q}\|\mathcal{P}) = \mathbb{E}_{\mathcal{Q}}\log\frac{\mathbf{1}_{W_D}}{p} = \log\frac1p = \tau,$$
+since $\mathcal{Q}$ lives on $W_D$ &mdash; that is (33). For (34), use the chain rule (<a class="secref" href="#prop-chain">Proposition K</a>) on the pair $\big((U,Y_C),\,Z\big)$:
+$$D\big(\mathcal{Q}_{U,Y_C,Z}\,\big\|\,\mathcal{P}_{U,Y_C}\otimes\mathrm{Unif}_{\mathcal{Z}}\big)
+= D\big(\mathcal{Q}_{U,Y_C}\,\big\|\,\mathcal{P}_{U,Y_C}\big) + \mathbb{E}_{\mathcal{Q}}\,D\big(\mathcal{Q}_{Z|U,Y_C}\,\big\|\,\mathrm{Unif}_{\mathcal{Z}}\big).$$
+The first term is at most $D(\mathcal{Q}\|\mathcal{P}) = \tau$ by marginalization (Proposition K(a)). Every relative entropy against the uniform distribution satisfies $D(\cdot\|\mathrm{Unif}_{\mathcal{Z}}) = \log|\mathcal{Z}| - H(\cdot) \le \log|\mathcal{Z}| = s$ (entropy $H$ is nonnegative), so the second term is at most $s$. <span class="qed">&#8718;</span></div>
+
+<h3 id="s14-local">14.2 Locally generated histories approximate the posterior (Lemma 4.9)</h3>
+
+<div class="lem" id="lem-49"><b>Lemma 4.9 (locally generated histories approximate the posterior).</b>
+$$D(\mathcal{Q}\,\|\,\mathcal{J}_A),\ D(\mathcal{Q}\,\|\,\mathcal{J}_B) \;\le\; \frac{3\tau+2s}{m},
+\qquad
+d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_A),\ d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_B) \;\le\; \kappa = \sqrt{\tfrac32\eta}.$$
+Classical correlated sampling then produces histories $r_A, r_B$ with respective tuple distributions $\mathcal{J}_A, \mathcal{J}_B$ such that
+$$\mathbb{P}(r_A\ne r_B) \;\le\; 4\kappa. \tag{35}$$
+</div>
+
+<div class="proof"><p>(Chapter's Appendix A.6.) Consider $\mathcal{J}_A(i,r,x,y) = \tfrac1m\mu(x,y)\,\mathcal{Q}(r\mid i, X_i = x)$ and factor both $\mathcal{Q}$ and $\mathcal{J}_A$ over the tuple in the order $i \to X_i \to R \to Y_i$. The live coordinate $i$ is uniform under both ($\lambda$ is independent of the game variables under $\mathcal{P}$, and $W_D$ involves only game variables, so conditioning preserves $\lambda$'s law). Both distributions then generate $R$ from $(i, X_i)$ by the <i>same</i> kernel $\mathcal{Q}(r\mid i, x)$, so that step contributes zero. Under $\mathcal{J}_A$, the question $X_i$ has law $\mu_X$ and $Y_i\mid(i,X_i,R)$ has law $\mu(\cdot\mid X_i)$ (independent of $R$ given $X_i$, since $\mathcal{J}_A$'s $(x,y)$ came jointly from $\mu$). The chain rule therefore leaves exactly two terms:
+$$D(\mathcal{Q}\|\mathcal{J}_A) \;=\; \mathbb{E}_{i\sim\mathrm{Unif}(M)}\,D\big(\mathcal{Q}_{X_i\mid i}\,\big\|\,\mu_X\big)
+\;+\; \mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\,D\big(\mathcal{Q}_{Y_i\mid i, X_i, T, Z}\,\big\|\,\mu(\cdot\mid X_i)\big). \tag{40}$$
+</p>
+<p><i>First term $\le \tau/m$.</i> Under $\mathcal{P}$, the block $X_M$ has the product law $\mu_X^{\otimes m}$, so coordinate subadditivity (Proposition K(c)) followed by marginalization (K(a)) and (33) gives
+$$\sum_{i\in M} D\big(\mathcal{Q}_{X_i}\,\big\|\,\mu_X\big) \;\le\; D\big(\mathcal{Q}_{X_M}\,\big\|\,\mu_X^{\otimes m}\big) \;\le\; D(\mathcal{Q}\|\mathcal{P}) \;=\; \tau,$$
+and averaging over uniform $i$ divides by $m$.</p>
+<p><i>Second term $\le 2(\tau+s)/m$.</i> Use the Bob-reveal reverse construction of Lemma 4.1: partition $M = L_X^+\sqcup L_Y$ with weight $2^{-m}\,2|L_X^+|/m$, order $\pi_X$ of $L_X^+$, uniform cut $k_X$, live coordinate $i = \pi_X[k_X{+}1]$, and background
+$$U = \big(X_D,\ Y_D,\ X_{L_X^+},\ Y_{L_Y},\ X_{\pi_{Y,-i}^{\le k_Y}}\big), \qquad |L_X^+|\gt0 .$$
+Specialize the budget (34) to this $U$ and the question block $Y_{L_X^+}$:
+$$D\big(\mathcal{Q}_{U, Y_{L_X^+}, Z}\,\big\|\,\mathcal{P}_{U,Y_{L_X^+}}\otimes\mathrm{Unif}_{\mathcal{Z}}\big) \;\le\; \tau+s .$$
+Under the reference distribution, conditionally on $U$, the variables $Y_j$, $j\in L_X^+$, are independent with laws $\mu(\cdot\mid X_j)$ (their partners $X_j$ all sit in $U$ &mdash; the classical incarnation of the &sect;11 martingale setup). Apply the chain rule along the order $\pi_X$, discarding the nonnegative initial term $D(\mathcal{Q}_{U,Z}\|\cdot)$:
+$$\sum_{j=1}^{|L_X^+|} \mathbb{E}_{\mathcal{Q}}\, D\big(\mathcal{Q}_{\,Y_{\pi_X[j]}\,\mid\, U, Z, Y_{\pi_X^{\lt j}}}\,\big\|\,\mu(\cdot\mid X_{\pi_X[j]})\big) \;\le\; \tau+s .$$
+At the live position $j = k_X{+}1$, the conditioning data $(U, Z, Y_{\pi_X^{\le k_X}})$ carries exactly the information $(i, T, X_i, Z)$ &mdash; Alice's questions on $C_X\cup\{i\}$, Bob's on $C_Y$, the public randomness, and the core answers &mdash; so the summand at the cut is precisely the integrand of the second term of (40). The cut is uniform over $|L_X^+|$ positions, the partition weight is $2^{-m}\,2|L_X^+|/m$, and the two block-size factors cancel exactly as in Lemma 4.6:
+$$\mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\,D\big(\mathcal{Q}_{Y_i\mid i,X_i,T,Z}\,\big\|\,\mu(\cdot\mid X_i)\big)
+\;\le\; \sum_{\text{partitions}} 2^{-m}\frac{2|L_X^+|}{m}\cdot\frac{\tau+s}{|L_X^+|} \;\le\; \frac{2(\tau+s)}{m}.$$
+</p>
+<p><i>Assembly.</i> Adding the two terms of (40): $D(\mathcal{Q}\|\mathcal{J}_A) \le \tau/m + 2(\tau+s)/m = (3\tau+2s)/m$. Interchanging the players' roles (Alice-reveal construction, block $X_{L_Y^+}$) gives the same bound for $\mathcal{J}_B$. Pinsker (<a class="secref" href="#prop-pinsker">&sect;4.2</a>) and $\eta = (\tau+s)/m$ convert:
+$$d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_A),\ d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_B) \;\le\; \sqrt{\frac{3\tau+2s}{2m}} \;\le\; \sqrt{\frac{3(\tau+s)}{2m}} \;=\; \sqrt{\tfrac32\,\eta} \;=\; \kappa .$$
+Finally apply exact correlated sampling (<a class="secref" href="#lem-34">Lemma 3.4</a>) to the finite family $\{\mathcal{Q}(R\mid i, X_i=x),\ \mathcal{Q}(R\mid i, Y_i=y)\}_{i,x,y}$ (with arbitrary fixed defaults on zero-probability marginals), sharing the uniform $i$ through the public randomness: the outputs have exact tuple distributions $\mathcal{J}_A, \mathcal{J}_B$, and averaging (10) over $(x,y)\sim\mu$ as in <a class="secref" href="#s8-lemma">&sect;8.3</a> gives
+$$\mathbb{P}(r_A\ne r_B) \;\le\; 2\,d_{\mathrm{TV}}(\mathcal{J}_A,\mathcal{J}_B) \;\le\; 2\big(d_{\mathrm{TV}}(\mathcal{J}_A,\mathcal{Q}) + d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_B)\big) \;\le\; 4\kappa,$$
+which is (35). <span class="qed">&#8718;</span></p></div>
+
+<div class="keyresult"><b>Conclusion of the proof of Lemma 3.3.</b> Lemma 4.7 supplies the two state inequalities (8); Lemma 4.9 supplies the total-variation bounds and the matching-history guarantee (9). Together they establish every claim of Lemma 3.3 &mdash; with no inverse dependence on $p$ anywhere. This completes the proof of Theorem 1.1 begun in <a class="secref" href="#endgame">&sect;10</a>. <span class="qed">&#8718;</span></div>
+
+<p>It is worth admiring the division of labor once more. The <i>same</i> random-reveal construction (Lemma 4.1) powers both halves: purified through resolvents, its live increment bounds the quantum state error (&sect;12&ndash;&sect;13); read classically through the chain rule, it bounds the history bias (this section). And both halves lean on the same two cancellations &mdash; block size against uniform cut, and budget-$p$ against posterior-$1/p$ &mdash; which is why neither half degrades for rare conditioning events or skewed question distributions.</p>

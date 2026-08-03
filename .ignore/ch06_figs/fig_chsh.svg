@@ -1,0 +1,32 @@
+<svg class="setupfig" viewBox="0 0 540 260" width="100%" role="img" aria-label="CHSH rules and the optimal measurement angles">
+<text x="120" y="24" font-size="13" text-anchor="middle" fill="#333" font-weight="bold">CHSH: win iff a ⊕ b = x ∧ y</text>
+<text x="60" y="44" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">x</text>
+<text x="110" y="44" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">y</text>
+<text x="175" y="44" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">need</text>
+<line x1="35" y1="52" x2="225" y2="52" stroke="#999" stroke-width="1"/>
+<text x="60" y="70" font-size="12.5" text-anchor="middle" fill="#333">0</text>
+<text x="110" y="70" font-size="12.5" text-anchor="middle" fill="#333">0</text>
+<text x="175" y="70" font-size="12.5" text-anchor="middle" fill="#333">a = b</text>
+<text x="60" y="96" font-size="12.5" text-anchor="middle" fill="#333">0</text>
+<text x="110" y="96" font-size="12.5" text-anchor="middle" fill="#333">1</text>
+<text x="175" y="96" font-size="12.5" text-anchor="middle" fill="#333">a = b</text>
+<text x="60" y="122" font-size="12.5" text-anchor="middle" fill="#333">1</text>
+<text x="110" y="122" font-size="12.5" text-anchor="middle" fill="#333">0</text>
+<text x="175" y="122" font-size="12.5" text-anchor="middle" fill="#333">a = b</text>
+<text x="60" y="148" font-size="12.5" text-anchor="middle" fill="#333">1</text>
+<text x="110" y="148" font-size="12.5" text-anchor="middle" fill="#333">1</text>
+<text x="175" y="148" font-size="12.5" text-anchor="middle" fill="#333">a ≠ b</text>
+<rect x="30" y="162" width="200" height="30" rx="5" fill="#fdf7e3" stroke="#c9b45a" stroke-width="1"/>
+<text x="130" y="182" font-size="12" text-anchor="middle" fill="#333">classical max: 3 of 4 ⇒ 3/4</text>
+<circle cx="380" cy="108" r="74" fill="none" stroke="#888" stroke-width="1.2"/>
+<line x1="380" y1="108" x2="456.0" y2="108.0" stroke="#2e6da4" stroke-width="2.2"/>
+<text x="474.0" y="112.0" font-size="11.5" text-anchor="start" fill="#2e6da4">A₀ = 0°</text>
+<line x1="380" y1="108" x2="433.7401153701776" y2="54.25988462982239" stroke="#2e6da4" stroke-width="2.2"/>
+<text x="443.6396103067893" y="48.36038969321072" font-size="11.5" text-anchor="middle" fill="#2e6da4">A₁ = 45°</text>
+<line x1="380" y1="108" x2="450.21484447085777" y2="78.91605914025317" stroke="#c0392b" stroke-width="2.2"/>
+<text x="480.0834713811738" y="72.20092303403067" font-size="11.5" text-anchor="start" fill="#c0392b">B₀ = 22.5°</text>
+<line x1="380" y1="108" x2="450.21484447085777" y2="137.08394085974683" stroke="#c0392b" stroke-width="2.2"/>
+<text x="480.0834713811738" y="151.79907696596933" font-size="11.5" text-anchor="start" fill="#c0392b">B₁ = −22.5°</text>
+<text x="380" y="208" font-size="11.5" text-anchor="middle" fill="#333">every needed pair is 22.5° apart (67.5° for the ≠ case)</text>
+<text x="380" y="226" font-size="12" text-anchor="middle" fill="#2a7d2a" font-weight="bold">each case wins with cos²(22.5°) ≈ 0.854</text>
+</svg>

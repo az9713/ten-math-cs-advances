@@ -1,0 +1,57 @@
+<hr>
+<h2 id="hardness">2. The complexity frame: 3SAT, reductions, and hardness of approximation</h2>
+
+<p>This section builds, from zero, the complexity-theoretic scaffolding a mathematician needs to read Theorem 1 as a theorem. Readers fluent in NP-hardness can skim to the promise-problem conventions at the end.</p>
+
+<h3 id="s2-problems">2.1 Decision problems, $\mathsf{P}$, and $\mathsf{NP}$</h3>
+
+<p>A <b>decision problem</b> is a set $\Pi$ of finite binary strings, called its YES-instances; the computational task is, given a string $x \in \{0,1\}^*$, to decide whether $x \in \Pi$. Any mathematical object we care about &mdash; a formula, a matrix of integers, a rational vector &mdash; is presented as a binary string by fixing a reasonable encoding, and $\lvert x\rvert$ denotes the string's length in bits. An algorithm runs in <b>polynomial time</b> if there is a constant $k$ such that on every input $x$ it halts within $O(\lvert x\rvert^k)$ elementary steps. The class $\mathsf{P}$ consists of the decision problems solvable in polynomial time.</p>
+
+<p>The class $\mathsf{NP}$ consists of the problems whose YES-answers have short, checkable certificates: $\Pi \in \mathsf{NP}$ if there is a polynomial-time algorithm $V(x,w)$ (the <i>verifier</i>) and a constant $k$ such that
+$$x \in \Pi \iff \exists\, w \in \{0,1\}^{\le \lvert x \rvert^k}:\; V(x, w) \text{ accepts}.$$
+The string $w$ is the certificate &mdash; for &ldquo;this formula is satisfiable&rdquo;, a satisfying assignment; for &ldquo;this lattice has a point within distance $r$ of $t$&rdquo;, the integer coordinate vector $z$ of such a point (checkable by computing $\lVert t - Bz\rVert_2^2$ exactly in rational arithmetic; a polynomial bit-size bound for a witness $z$ follows from the argument in Proposition A). Whether $\mathsf{P} = \mathsf{NP}$ &mdash; whether the existence of easily checkable certificates implies they are easy to find &mdash; is the central open problem of the field; every hardness statement below is calibrated against it.</p>
+
+<h3 id="s2-3sat">2.2 The reference problem: 3SAT</h3>
+
+<p>Fix Boolean variables $v_1, \dots, v_m$, each taking values in $\{0,1\}$ (false/true). A <b>literal</b> is a variable $v_i$ or its negation $\lnot v_i$. A <b>clause</b> is a disjunction (OR) of at most three literals, e.g. $(v_1 \lor v_2 \lor \lnot v_3)$: it is satisfied by an assignment iff at least one of its literals evaluates to true. A <b>3SAT formula</b> $\varphi$ is a conjunction (AND) of clauses $C_1, \dots, C_\ell$; an assignment $\sigma \in \{0,1\}^m$ <i>satisfies</i> $\varphi$ if it satisfies every clause. The decision problem 3SAT asks: does a satisfying assignment exist? Fig.&nbsp;6 dissects the two-clause toy formula that will follow us through the whole chapter and into the machine-checked &sect;17.</p>
+
+<figure><!--FIG:fig_3sat--><figcaption>Anatomy of a 3SAT instance. The toy formula $\varphi = (v_1 \lor v_2 \lor \lnot v_3) \land (\lnot v_1 \lor \lnot v_2 \lor v_3)$ has $m = 3$ variables and $\ell = 2$ clauses. The assignment $\sigma = (1,0,1)$ satisfies clause $C_1$ through $v_1 = 1$ and clause $C_2$ through $v_3 = 1$, so $\varphi$ is satisfiable. 3SAT asks whether any of the $2^m$ assignments satisfies all $\ell$ clauses simultaneously.</figcaption></figure>
+
+<p>3SAT is obviously in $\mathsf{NP}$ ($\sigma$ is the certificate). What makes it the reference problem is the Cook&ndash;Levin theorem, the one classical result of this section we import rather than reprove (its proof &mdash; simulating an arbitrary polynomial-time verifier by a Boolean formula &mdash; is long but appears in every complexity textbook):</p>
+
+<div class="thm"><b>Import 1 (Cook 1971, Levin 1973; with the standard reduction to three literals).</b> 3SAT is $\mathsf{NP}$-complete: it lies in $\mathsf{NP}$, and for every problem $\Pi \in \mathsf{NP}$ there is a deterministic polynomial-time computable map $g$ with $x \in \Pi \iff g(x) \in \text{3SAT}$.</div>
+
+<h3 id="s2-reductions">2.3 Reductions and hardness</h3>
+
+<div class="def"><b>Definition (many-one reduction; hardness).</b> A <b>deterministic polynomial-time many-one reduction</b> from problem $\Pi_1$ to problem $\Pi_2$ is a function $f$, computable in deterministic polynomial time, such that for every instance $x$:
+$$x \in \Pi_1 \;\Longrightarrow\; f(x) \in \Pi_2, \qquad x \notin \Pi_1 \;\Longrightarrow\; f(x) \notin \Pi_2.$$
+A problem $\Pi_2$ is <b>NP-hard</b> (under such reductions) if every problem in $\mathsf{NP}$ reduces to it.</div>
+
+<p>The force of the definition is contrapositive: a polynomial-time algorithm for $\Pi_2$ would yield one for $\Pi_1$ (compute $f$, then decide). Two standard remarks, both one-liners we will use silently: reductions compose (run one map after the other; a polynomial of a polynomial is a polynomial), and therefore, by Import 1, <i>to prove a problem NP-hard it suffices to reduce 3SAT to it</i>. That is exactly the shape of Theorem 1, and Fig.&nbsp;7 draws it: satisfiable formulas must land on YES-instances, unsatisfiable ones on NO-instances, and the map itself must be cheap to compute.</p>
+
+<figure><!--FIG:fig_reduction--><figcaption>A gap-producing many-one reduction. The map $\varphi \mapsto (B, t, r)$ is computed deterministically in polynomial time. Satisfiable formulas land in the YES region (a lattice point within $r$ of the target); unsatisfiable formulas land in the NO region (every lattice point beyond $n^{1/400} r$). If some polynomial-time algorithm approximated CVP within $n^{1/400}$, chaining it after the reduction would decide 3SAT in polynomial time, giving $\mathsf{P} = \mathsf{NP}$.</figcaption></figure>
+
+<p>For promise problems such as $\mathrm{GapCVP}$ the same definition applies verbatim, with &ldquo;$f(x) \in \Pi_2$&rdquo; and &ldquo;$f(x) \notin \Pi_2$&rdquo; replaced by &ldquo;$f(x)$ is a YES-instance&rdquo; and &ldquo;$f(x)$ is a NO-instance&rdquo;. The promise makes the target <i>easier</i> to solve and hence <i>harder</i> to prove hard: the reduction must never emit an instance in the excluded annulus, on pain of proving nothing.</p>
+
+<h3 id="s2-gapapprox">2.4 Gap hardness is approximation hardness</h3>
+
+<p>Suppose an algorithm $\mathcal{A}$, given $(B,t)$, always outputs a number $\hat d$ with $\mathrm{dist}_2(t,L) \le \hat d \le \gamma(n)\cdot \mathrm{dist}_2(t,L)$ &mdash; a <i>$\gamma$-approximation</i> of the distance. (Overestimating by a bounded factor is the natural notion: computing $\hat d$ from any candidate lattice point gives an overestimate for free, and the guarantee bounds how far above truth it can sit.)</p>
+
+<div class="prop"><b>Proposition B (approximation solves the gap problem).</b> If a $\gamma$-approximation algorithm $\mathcal{A}$ for CVP runs in polynomial time, then $\mathrm{GapCVP}^{(2)}_{\gamma} \in \mathsf{P}$: answer YES iff $\hat d \le \gamma(n)\, r$.</div>
+<div class="proof">On a YES-instance, $\mathrm{dist}_2 \le r$, so $\hat d \le \gamma(n)\,\mathrm{dist}_2 \le \gamma(n) r$ and the rule answers YES. On a NO-instance, $\hat d \ge \mathrm{dist}_2 &gt; \gamma(n) r$, and the rule answers NO. On instances violating the promise any answer is permitted, so the rule is correct wherever correctness is demanded (Fig.&nbsp;8). <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_gapamp--><figcaption>Proposition B in a picture. The approximation guarantee traps the algorithm's output $\hat d$ in the window $[\,d,\ \gamma d\,]$ above the true distance $d$. On YES-instances that window lies at or below $\gamma r$; on NO-instances it lies strictly above. One comparison of $\hat d$ against $\gamma r$ therefore separates the two promise classes.</figcaption></figure>
+
+<p>Combining Proposition B with Theorem 1: a polynomial-time $n^{1/400}$-approximation of Euclidean CVP would put an NP-hard problem in $\mathsf{P}$ and hence prove $\mathsf{P}=\mathsf{NP}$. That is the operational meaning of &ldquo;NP-hard to approximate&rdquo;.</p>
+
+<h3 id="s2-context">2.5 Why the theorem's shape is remarkable</h3>
+
+<p>Three contextual facts calibrate the achievement; the first two are proved elsewhere in the literature and quoted here only as context, not used in any proof.</p>
+
+<ul>
+<li><b>A ceiling.</b> Aharonov and Regev (2005) proved $\mathrm{GapCVP}^{(2)}_{C\sqrt n} \in \mathsf{NP}\cap\mathsf{coNP}$ for an absolute constant $C$: at factor $\sqrt n$, both YES <i>and</i> NO answers have efficiently checkable certificates. An NP-hardness proof at that factor would give $\mathsf{NP} = \mathsf{coNP}$, which is widely disbelieved. So fixed-polynomial hardness must live at exponents $c &lt; 1/2$, and the open question after this chapter is the supremum of achievable $c \in [1/400, 1/2)$.</li>
+<li><b>The prior record.</b> The strongest unconditional factor before this work, $n^{a/\log\log n}$ (Dinur&ndash;Kindler&ndash;Raz&ndash;Safra 2003), grows faster than any $\mathrm{polylog}(n)$ yet slower than every fixed $n^c$ &mdash; its exponent decays to zero. Fixed-polynomial factors were known only <i>conditionally</i>, assuming the Projection Games Conjecture (Moshkovitz 2015; Mukhopadhyay 2022).</li>
+<li><b>No PCP.</b> Since Arora&ndash;Safra, hardness-of-approximation proofs standardly route through the PCP theorem &mdash; a deep transformation of proofs into locally checkable form. The present reduction never invokes it: the &ldquo;gap amplification&rdquo; is done by hand, with Reed&ndash;Solomon codes supplying redundancy and valuation theory supplying rigidity. For the reader this has a concrete payoff: <i>the entire proof is contained in this document</i>, modulo two precisely-stated imports.</li>
+</ul>
+
+<div class="note"><b>Related problems, for orientation.</b> The same machinery will prove hardness for two classical coding problems (defined and treated in <a class="secref" href="#codes">&sect;4</a> and <a class="secref" href="#consequences">&sect;15</a>): <i>nearest codeword</i> and <i>syndrome decoding</i>, the binary-Hamming analogues of CVP, become NP-hard to approximate within $n^{1/200}$. Their exact versions were proved intractable by Berlekamp&ndash;McEliece&ndash;van Tilborg (1978); constant-factor PCP-free hardness is recent (Bhattiprolu&ndash;Guruswami&ndash;Ren 2025); the fixed-power factor here is new. And for the <i>shortest</i> vector problem &mdash; CVP's homogeneous sibling &mdash; Bennett and Peikert (2023) combined Reed&ndash;Solomon codes with the same lattice lift in a <i>randomized</i> reduction; derandomizing that route is one motivation the paper cites.</div>

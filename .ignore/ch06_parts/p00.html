@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exponential parallel repetition for all entangled games &mdash; Chapter 6, rigorous explainer</title>
+<!-- MathJax v3, SVG output. One CDN line; needs network on first open. -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'ams' },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-svg.js"
+  integrity="sha384-msWocAZtTDh+149KSxjbRTGVfGbDjiff/j0JX1iu/A/GxxTWSu6ozNemlfkag/8d"
+  crossorigin="anonymous"></script>
+<style>
+  :root{ --fg:#1a1a1a; --muted:#555; --accent:#7a1f1f; --rule:#ddd; --box:#f6f4ef;
+         --toy:#2a7d2a; --toybg:#f1f7f1; --notebg:#fdf7e3; --noterule:#e3d27a; --card:#ffffff;
+         --codebg:#f3f1ec; --btnbg:#ffffff; --pagebg:#ffffff; }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:#e8e5df; --muted:#a49e92; --accent:#d98a6a; --rule:#3a3630; --box:#232019;
+           --toy:#7fbf8f; --toybg:#1d241d; --notebg:#2a2617; --noterule:#6a5d2a; --card:#f6f4ef;
+           --codebg:#2a2723; --btnbg:#232019; --pagebg:#161513; }
+  }
+  body{ background:var(--pagebg); }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ max-width: 50rem; margin: 2.5rem auto; padding: 0 1.25rem 6rem;
+        font: 16px/1.65 Georgia, 'Times New Roman', serif; color:var(--fg); counter-reset: fig; }
+  h1{ font-size: 1.9rem; line-height:1.2; margin:.2rem 0 .2rem; }
+  h2{ font-size:1.35rem; margin:2.4rem 0 .6rem; border-bottom:2px solid var(--accent); padding-bottom:.2rem; }
+  h3{ font-size:1.1rem; margin:1.6rem 0 .4rem; color:var(--accent); }
+  .sub{ color:var(--muted); font-style:italic; margin-top:0; }
+  code{ font-family: ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.92em; background:var(--codebg); padding:.05rem .25rem; border-radius:3px; }
+  pre{ background:var(--codebg); padding:.8rem 1rem; border-radius:5px; overflow:auto; font-size:.84rem; line-height:1.45; }
+  pre code{ background:none; padding:0; }
+  .codewrap{ position:relative; }
+  .copybtn{ position:absolute; top:.5rem; right:.5rem; display:inline-flex; align-items:center; gap:.3rem;
+    font:600 .72rem/1 ui-monospace,Consolas,monospace; color:var(--muted);
+    background:var(--btnbg); border:1px solid var(--rule); border-radius:5px; padding:.32rem .5rem; cursor:pointer; }
+  .copybtn:hover{ color:var(--accent); border-color:var(--accent); }
+  .copybtn.copied{ color:#2a7d2a; border-color:#2a7d2a; }
+  .copybtn svg{ width:13px; height:13px; }
+  .thm,.def,.lem,.prop{ background:var(--box); border-left:4px solid var(--accent); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .thm b,.def b,.lem b,.prop b{ color:var(--accent); }
+  .proof{ border-left:2px solid var(--rule); padding-left:.9rem; margin:.8rem 0 1.2rem; }
+  .proof::before{ content:"Proof."; font-style:italic; font-weight:bold; margin-right:.4rem; }
+  .qed{ float:right; }
+  .toy{ background:var(--toybg); border-left:4px solid var(--toy); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .toy b{ color:var(--toy); }
+  .note{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; margin:1rem 0; border-radius:4px; font-size:.92rem; }
+  table{ border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; }
+  th,td{ border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top; }
+  th{ background:var(--box); }
+  .tablewrap{ overflow-x:auto; }
+  figure{ margin:1.5rem 0; text-align:center; counter-increment: fig; }
+  figure > svg{ background:var(--card); border:1px solid var(--rule); border-radius:6px; }
+  figcaption{ color:var(--muted); font-size:.9rem; font-style:italic; margin-top:.4rem; }
+  figcaption::before{ content:"Fig. " counter(fig) ". "; font-weight:bold; font-style:normal; color:var(--accent); }
+  .proof figure,.thm figure,.lem figure,.prop figure{ margin:.2rem auto .7rem; max-width:460px; background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:.4rem; }
+  .proof figure > svg,.thm figure > svg,.lem figure > svg,.prop figure > svg{ border:none; }
+  .proof figcaption,.thm figcaption,.lem figcaption,.prop figcaption{ font-size:.8rem; line-height:1.4; }
+  .setupfig{ display:block; }
+  .setupfig text{ paint-order:stroke; stroke:#fff; stroke-width:2.5px; stroke-linejoin:round; }
+  .setupfig text[fill="#fff"], .setupfig text[fill="#ffffff"], .setupfig text[fill="white"], .setupfig text.onfill{ stroke:none; }
+  figure svg text{ font-family:"STIX Two Math",STIXGeneral,"Times New Roman",Georgia,serif; }
+  figure svg text.v{ font-style:italic; }
+  figure svg text.vb{ font-weight:bold; }
+  .secref{ color:var(--accent); text-decoration:none; border-bottom:1px dotted #b98; }
+  .secref:hover{ border-bottom:1px solid var(--accent); }
+  .toc{ background:var(--box); padding:.8rem 1.2rem; border-radius:6px; font-size:.95rem; }
+  .toc ul{ list-style:none; padding-left:.3rem; margin:.3rem 0; } .toc a{ color:var(--accent); text-decoration:none; }
+  .small{ font-size:.88rem; color:var(--muted); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+  .keyresult{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; border-radius:4px; }
+  @media (prefers-reduced-motion: reduce){ svg animate, svg animateMotion, svg animateTransform{ display:none; } }
+</style>
+</head>
+<body>
+
+<h1>Repeating a quantum game finally works: exponential parallel repetition for all entangled games</h1>
+<p class="sub">A rigorous, self-contained walkthrough of Chapter 6 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (PDF pages 154&ndash;182): for <b>every</b> finite two-player one-round game whose entangled value is $1-\varepsilon \lt 1$, the value of $n$ parallel copies decays exponentially in $n$ &mdash; resolving a question open since 2004. Written for a reader with a PhD in <b>some</b> mathematical field, but not necessarily quantum information or complexity theory. Every symbol is defined before use; everything provable at the graduate-core level is proved; exactly one external theorem is imported, with a precise statement.</p>
+
+<div class="toc">
+<b>Contents</b>
+<ul>
+<li><b>0.</b> <a href="#origin">Motivation &mdash; interrogation in two rooms</a></li>
+<li><b>1.</b> <a href="#toolkit">The quantum toolkit, from linear algebra</a></li>
+<li><b>2.</b> <a href="#games">Nonlocal games and the entangled value: CHSH worked in full</a></li>
+<li><b>3.</b> <a href="#repetition">Parallel repetition, and why it is genuinely subtle</a></li>
+<li><b>4.</b> <a href="#info">The classical information toolkit</a></li>
+<li><b>5.</b> <a href="#architecture">The proof at altitude</a></li>
+<li><b>6.</b> <a href="#conditioning">Greedy conditioning (Lemma 3.1)</a></li>
+<li><b>7.</b> <a href="#ideal">The ideal conditioned experiment (Lemma 3.2)</a></li>
+<li><b>8.</b> <a href="#central">Local surrogates and the central lemma (Lemma 3.3)</a></li>
+<li><b>9.</b> <a href="#rounding">Rounding into a real strategy (Lemmas 3.4&ndash;3.6)</a></li>
+<li><b>10.</b> <a href="#endgame">The endgame: parameters and Theorem 1.1</a></li>
+<li><b>11.</b> <a href="#martingales">Proof of the central lemma, I: reveal martingales (Lemma 4.1)</a></li>
+<li><b>12.</b> <a href="#resolvent">Proof II: resolvent purification and entropy control (Lemmas 4.3&ndash;4.4)</a></li>
+<li><b>13.</b> <a href="#budget">Proof III: the entropy budget and postselection stability (Lemmas 4.5&ndash;4.7)</a></li>
+<li><b>14.</b> <a href="#classical">Proof IV: classical sampleability (Lemmas 4.8&ndash;4.9)</a></li>
+<li><b>15.</b> <a href="#validation">Numerical validation</a></li>
+<li><b>16.</b> <a href="#scope">Scope &mdash; what is proved, what is missed</a></li>
+<li><b>A.</b> <a href="#notation">Appendix: notation glossary</a></li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="origin">0. Motivation &mdash; interrogation in two rooms</h2>
+
+<p>Two suspects are questioned in separate rooms. The interrogator draws a pair of related questions from a playbook, asks one question in each room, and compares the answers against a rule that only she knows. The suspects agreed on a story beforehand, but once the questioning starts they cannot communicate. Suppose the best possible story lets them pass the comparison with probability $0.9$ &mdash; there is an unavoidable $10\%$ chance of being caught. Natural plan: <i>repeat the test</i>. Run twenty independent rounds and accept only if the pair passes every round. Intuition says the survivors' probability should crash to something like $0.9^{20} \approx 0.12$, and with more rounds, exponentially toward zero.</p>
+
+<p>This intuition &mdash; repetition amplifies certainty exponentially &mdash; is the engine behind error reduction everywhere in computer science, and in the theory of interactive proofs it has a precise name: <b>parallel repetition</b>. All $n$ question pairs are asked at once (that is the "parallel"), each suspect sees their own $n$ questions together, and answers all of them in one go. And here the innocent-looking intuition breaks. Because each player sees all $n$ questions <i>before</i> answering any of them, answers can be correlated across rounds in ways that help. In <a class="secref" href="#repetition">&sect;3</a> we will meet a concrete game (Fig. 8) where the probability of surviving two rounds is <i>exactly the same</i> as the probability of surviving one: $\tfrac12$, not $\tfrac14$. Repetition still helps in the classical world &mdash; but proving it took until 1995, when Raz's celebrated parallel repetition theorem established exponential decay for every classical game, by a genuinely difficult argument.</p>
+
+<figure><!--FIG:fig_game--><figcaption>The object of study: a finite two-player one-round game $G$. A referee samples a question pair $(x,y)$ from a known distribution $\mu$, sends $x$ to Alice and $y$ to Bob, receives answers $a, b$, and accepts iff a known predicate $V(x,y,a,b)$ equals $1$. The players may share an arbitrary entangled quantum state prepared before the questions arrive, but cannot communicate afterwards. Their best possible winning probability is the entangled value $\omega^*(G)$.</figcaption></figure>
+
+<p>Now make the suspects <i>quantum</i>. Before the interrogation they prepare a joint quantum state &mdash; a physical resource, fully legal under the rules, since carrying a box into your room is not communication. When the questions arrive, each measures their half of the state in a way that depends on their own question, and answers with the outcome. This is not science fiction generosity: such "entangled games" (Fig. 1) are precisely the mathematical model of Bell-inequality experiments, and the extra power is real. In <a class="secref" href="#games">&sect;2</a> we will fully work the famous CHSH game, where classical players win with probability at most $3/4$ while entangled players reach $\cos^2(\pi/8) \approx 0.854$ &mdash; a gap confirmed in laboratories for four decades.</p>
+
+<p>So the fundamental question, explicitly posed as open in 2004: <i>does parallel repetition still amplify against entangled players?</i> For a game $G$ with entangled value $\omega^*(G) = 1 - \varepsilon \lt 1$, write $G^{\otimes n}$ for the $n$-fold parallel repetition. Playing each copy independently shows $\omega^*(G^{\otimes n}) \ge \omega^*(G)^n$; the question is the matching upper bound: is there $c_G \gt 0$ with $\omega^*(G^{\otimes n}) \le e^{-c_G n}$? For two decades the answer was known only for special classes of games &mdash; XOR games, unique games, projection games, free games &mdash; or for <i>modified</i> games ("anchored" repetition). The best general result, due to Yuen (2016), gave decay like $n^{-1/4}$: genuine, but polynomial, not exponential (Fig. 2). The chapter we walk through closes the question for every finite game at once.</p>
+
+<figure><!--FIG:fig_decay--><figcaption>Two shapes of decay for the repeated value, drawn on a log scale (constants suppressed; see <a class="secref" href="#endgame">&sect;10</a> for the honest, astronomically small constants). A polynomial bound $\sim n^{-1/4}$ flattens: each doubling of $n$ buys the same modest factor. An exponential bound is a straight line: each additional copy multiplies the bound by the same factor below one. Theorem 1.1 upgrades the general quantum bound from the first shape to the second.</figcaption></figure>
+
+<div class="keyresult"><b>Theorem 1.1</b> (quantum parallel repetition; stated precisely in <a class="secref" href="#repetition">&sect;3</a>). There is a universal constant $c_{\mathrm{qs}} \gt 0$ such that every finite two-player one-round entangled game $G$ with answer alphabets $A, B$ and $\varepsilon = 1 - \omega^*(G) \gt 0$ satisfies
+$$\omega^*(G^{\otimes n}) \;\le\; \exp\!\left(- c_{\mathrm{qs}}\, \frac{\varepsilon^{13}}{\varepsilon + \log(|A||B|)}\; n\right) \qquad (n \ge 1).$$
+</div>
+
+<p>Three features deserve immediate emphasis. First, <b>universality</b>: the constant $c_{\mathrm{qs}}$ does not depend on the game &mdash; not on the question distribution $\mu$, its support, the alphabet sizes, or the dimension of the entangled state; the game enters only through $\varepsilon$ and the answer-alphabet size. Second, the game is <b>unchanged</b>: unlike anchored repetition, which proves exponential decay for a modified game (useful for hardness amplification but silent about $G$ itself), this theorem speaks about the original $G^{\otimes n}$. Third, the exponent $13$ is inherited from the tools (one of them a quantum state-preparation lemma with a $1/12$-power loss) and is not claimed optimal; the point is that the decay is <i>exponential at all</i>.</p>
+
+<p>Why was this hard for twenty years? The classical proofs (Raz; simplified by Holenstein) run a beautiful conditioning argument: assume the players win all $n$ rounds too often, condition on winning a small core set of rounds, and show that inside the conditioned experiment some single round is played too well &mdash; contradicting the value of the single game. The step that breaks quantumly is the <i>conditioning</i>. A classical strategy is a function; you can always resample its randomness consistently with any event you condition on. A quantum strategy's randomness lives in a state, and extracting answers <i>measures</i> &mdash; hence destroys &mdash; that state. Conditioning on the exponentially rare event "won every core round" is a <i>postselection</i>, and every previously known way to make the players re-create the postselected state paid a factor $1/\mathbb{P}(\text{event})$ &mdash; exponentially large, devouring the very bound one wants to prove. Yuen's polynomial theorem managed the loss by conditioning very gently; the price was polynomial decay.</p>
+
+<p>The chapter's new idea is a <b>postselection-stable sampleability estimate</b> (Lemma 3.3, proved in <a class="secref" href="#martingales">&sect;11</a>&ndash;<a class="secref" href="#classical">&sect;14</a>): a way to measure how well each player can locally re-create the conditioned state in which the <i>budget itself carries a factor $p = \mathbb{P}(\text{event})$</i> that cancels &mdash; exactly, not approximately &mdash; against the $1/p$ of the postselection. No inverse dependence on the conditioning probability survives. The engine of the cancellation is a purification of measurement effects by <i>resolvents</i>, $\Gamma(F) = F(F+uI)^{-1}$, whose squared movements are controlled by an operator entropy that telescopes along a martingale of gradually revealed questions. All of this will be built from scratch and proved.</p>
+
+<p>Here is the route. It is a single spine: each section uses only its predecessors.</p>
+<ul>
+<li><a class="secref" href="#toolkit">&sect;1</a> builds the finite-dimensional quantum formalism from linear algebra: states, tensor products, measurements, the spectral theorem (proved), operator order, partial trace. If you know this material, skim it; everything later cites it by name.</li>
+<li><a class="secref" href="#games">&sect;2</a> defines nonlocal games and the entangled value $\omega^*$, then works the CHSH game end to end: classical value $3/4$, entangled value exactly $\cos^2(\pi/8)$, including a full proof of Tsirelson's bound.</li>
+<li><a class="secref" href="#repetition">&sect;3</a> defines parallel repetition, proves the easy direction $\omega^*(G^{\otimes n}) \ge \omega^*(G)^n$, proves that Feige's game makes two-fold repetition completely free for the players, surveys what was known, and states Theorem 1.1 precisely.</li>
+<li><a class="secref" href="#info">&sect;4</a> installs the classical information tools: relative entropy, chain rule, Pinsker's inequality, the entropy function $H_1$, Doob martingales, and exact finite correlated sampling (Lemma 3.4) &mdash; all proved.</li>
+<li><a class="secref" href="#architecture">&sect;5</a> presents the proof plan: the contradiction scheme, the four parameters $m, p, q, \eta$, and a map of every lemma.</li>
+<li><a class="secref" href="#conditioning">&sect;6</a>&ndash;<a class="secref" href="#rounding">&sect;9</a> execute the plan modulo the central lemma: greedy conditioning, the ideal conditioned experiment, the central state-alignment lemma (statement), and the rounding of the ideal experiment into a genuine single-game strategy, using the one external import (quantum correlated sampling / embezzlement).</li>
+<li><a class="secref" href="#endgame">&sect;10</a> chooses the parameters and completes the contradiction &mdash; the full proof of Theorem 1.1, including the explicit universal constant.</li>
+<li><a class="secref" href="#martingales">&sect;11</a>&ndash;<a class="secref" href="#classical">&sect;14</a> prove the central lemma: reveal martingales, resolvent purification with its one-step entropy estimate, the telescoping budget with the exact $p$-cancellation, and the classical history-sampling half.</li>
+<li><a class="secref" href="#validation">&sect;15</a> re-derives the key numbers by machine &mdash; including brute-force game values and a numerical end-to-end test of the conditioned-experiment identities on a genuinely entangled two-copy strategy. <a class="secref" href="#scope">&sect;16</a> states honestly what is and is not established.</li>
+</ul>
+
+<p class="small">Source of truth: Chapter 6, "Exponential Parallel Repetition for All Two-Player Entangled Games", PDF pages 154&ndash;182 of the volume. The chapter's own numbering &mdash; Theorem 1.1, Definitions 2.1, 2.2, 4.2, Lemmas 3.1&ndash;3.6, 4.1&ndash;4.9, A.1, equations (1)&ndash;(35) &mdash; is preserved so you can cross-read. Results labeled with letters (Proposition A, B, &hellip;) are classical background proved here for self-containment. Exactly one fact is imported without proof: the Dinur&ndash;Steurer&ndash;Vidick quantum correlated-sampling lemma, boxed as Import 1 in <a class="secref" href="#rounding">&sect;9</a>.</p>

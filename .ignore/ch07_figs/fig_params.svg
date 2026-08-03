@@ -1,0 +1,46 @@
+<svg class="setupfig" viewBox="0 0 640 330" width="100%" role="img" aria-label="The parameter dashboard">
+<defs><marker id="c7par_a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#666"/></marker></defs>
+<rect x="20" y="34" width="44" height="34" rx="6" fill="#f3f1ec" stroke="#333" stroke-width="1.3"/>
+<text x="42" y="56" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">N</text>
+<text x="76" y="49" font-size="12" text-anchor="start" fill="#333">100 + s + m + &#8467;</text>
+<text x="76" y="64" font-size="10.5" text-anchor="start" fill="#666">master size parameter</text>
+<rect x="20" y="78" width="44" height="34" rx="6" fill="#f3f1ec" stroke="#2e6da4" stroke-width="1.3"/>
+<text x="42" y="100" font-size="14" text-anchor="middle" fill="#2e6da4" font-weight="bold">q</text>
+<text x="76" y="93" font-size="12" text-anchor="start" fill="#2e6da4">least 2<tspan baseline-shift="super" font-size="75%">e</tspan> &#8805; N&#178;&#8304;&#8304; (e = 1329 at N = 100)</text>
+<text x="76" y="108" font-size="10.5" text-anchor="start" fill="#666">field size: the big room</text>
+<rect x="20" y="122" width="44" height="34" rx="6" fill="#f3f1ec" stroke="#7d3c98" stroke-width="1.3"/>
+<text x="42" y="144" font-size="14" text-anchor="middle" fill="#7d3c98" font-weight="bold">K</text>
+<text x="76" y="137" font-size="12" text-anchor="start" fill="#7d3c98">N&#8308;</text>
+<text x="76" y="152" font-size="10.5" text-anchor="start" fill="#666">fiber-size cap in soundness</text>
+<rect x="20" y="166" width="44" height="34" rx="6" fill="#f3f1ec" stroke="#2a7d2a" stroke-width="1.3"/>
+<text x="42" y="188" font-size="14" text-anchor="middle" fill="#2a7d2a" font-weight="bold">T</text>
+<text x="76" y="181" font-size="12" text-anchor="start" fill="#2a7d2a">N&#179;&#8304;</text>
+<text x="76" y="196" font-size="10.5" text-anchor="start" fill="#666">moment budget (j &#8804; T)</text>
+<rect x="20" y="210" width="44" height="34" rx="6" fill="#f3f1ec" stroke="#c0392b" stroke-width="1.3"/>
+<text x="42" y="232" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">M</text>
+<text x="76" y="225" font-size="12" text-anchor="start" fill="#c0392b">|&#920;|&#8202;|P|&#8202;q &#8804; 40N&#8308;&#8304;&#185;</text>
+<text x="76" y="240" font-size="10.5" text-anchor="start" fill="#666">number of binary unknowns = lattice rank n</text>
+<rect x="400" y="34" width="224" height="40" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.1"/>
+<text x="512" y="51" font-size="11" text-anchor="middle" fill="#2e6da4" font-weight="bold">dT &#8804; N&#179;&#185; &lt; |P|</text>
+<text x="512" y="66" font-size="9" text-anchor="middle" fill="#666">moments are determined (RS uniqueness)</text>
+<rect x="400" y="84" width="224" height="40" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.1"/>
+<text x="512" y="101" font-size="11" text-anchor="middle" fill="#2e6da4" font-weight="bold">T &#8805; 2K &#8722; 1</text>
+<text x="512" y="116" font-size="9" text-anchor="middle" fill="#666">Hankel matrix entries all exist</text>
+<rect x="400" y="134" width="224" height="40" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.1"/>
+<text x="512" y="151" font-size="11" text-anchor="middle" fill="#2e6da4" font-weight="bold">|P| &#8722; dK(K&#8722;1) &gt; 2dK&#178;T</text>
+<text x="512" y="166" font-size="9" text-anchor="middle" fill="#666">zero-counting endgame of Lemma 10</text>
+<rect x="400" y="184" width="224" height="40" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.1"/>
+<text x="512" y="201" font-size="11" text-anchor="middle" fill="#2e6da4" font-weight="bold">z + h &#8722; 1 &#8804; 5N&#178;&#185; &lt; T</text>
+<text x="512" y="216" font-size="9" text-anchor="middle" fill="#666">valuation amplification in Lemma 12</text>
+<rect x="400" y="234" width="224" height="40" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.1"/>
+<text x="512" y="251" font-size="11" text-anchor="middle" fill="#2e6da4" font-weight="bold">discards &lt; q/20</text>
+<text x="512" y="266" font-size="9" text-anchor="middle" fill="#666">Markov: few oversized fibers</text>
+<line x1="230" y1="95" x2="396" y2="54" stroke="#666" stroke-width="1.0" stroke-dasharray="3 3" marker-end="url(#c7par_a)"/>
+<line x1="230" y1="183" x2="396" y2="104" stroke="#666" stroke-width="1.0" stroke-dasharray="3 3" marker-end="url(#c7par_a)"/>
+<line x1="230" y1="139" x2="396" y2="154" stroke="#666" stroke-width="1.0" stroke-dasharray="3 3" marker-end="url(#c7par_a)"/>
+<line x1="230" y1="183" x2="396" y2="154" stroke="#666" stroke-width="1.0" stroke-dasharray="3 3" marker-end="url(#c7par_a)"/>
+<line x1="230" y1="139" x2="396" y2="204" stroke="#666" stroke-width="1.0" stroke-dasharray="3 3" marker-end="url(#c7par_a)"/>
+<line x1="230" y1="95" x2="396" y2="254" stroke="#666" stroke-width="1.0" stroke-dasharray="3 3" marker-end="url(#c7par_a)"/>
+<text x="20" y="282" font-size="11.5" text-anchor="start" fill="#2a7d2a">every inequality was re-verified with exact integer arithmetic at N = 100 (machine checks, &#167;17)</text>
+<text x="20" y="302" font-size="11.5" text-anchor="start" fill="#333">the theme: q &#8776; N&#178;&#8304;&#8304; is chosen so large that every loss the soundness argument suffers is a vanishing fraction of |P| &#8776; q</text>
+</svg>

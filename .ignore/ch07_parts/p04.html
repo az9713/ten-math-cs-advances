@@ -1,0 +1,69 @@
+<hr>
+<h2 id="codes">4. The last mile first: binary codes and the parity-lift lattice (Lemmas 6&ndash;7)</h2>
+
+<p>We prove the pipeline's final arrow before building anything else. Once it is in hand, the rest of the chapter never has to mention Euclidean geometry again: everything reduces to weights of binary vectors.</p>
+
+<h3 id="s4-codes">4.1 Binary linear codes and two decoding problems</h3>
+
+<p>Write $\mathbb{F}_2 = \{0,1\}$ for the field with two elements, with arithmetic modulo $2$; note $-1 = 1$, so subtraction and addition coincide. The vector space $\mathbb{F}_2^M$ consists of length-$M$ binary words with coordinatewise XOR as addition. The <b>Hamming weight</b> $\mathrm{wt}(x)$ of a word is its number of nonzero coordinates, and the <b>Hamming distance</b> between two words is $\mathrm{wt}$ of their difference.</p>
+
+<div class="def"><b>Definition (binary linear code; two problems).</b> A <b>binary linear code</b> is a linear subspace $\mathcal{C} \le \mathbb{F}_2^M$; its elements are <b>codewords</b>. A <b>generator matrix</b> has rows spanning $\mathcal{C}$; a <b>parity-check matrix</b> is any $H \in \mathbb{F}_2^{r\times M}$ with $\mathcal{C} = \ker_{\mathbb{F}_2} H$ (rows need not be independent). Given a code and a received word $u \in \mathbb{F}_2^M$, the <b>nearest-codeword problem</b> asks for
+$$d_H(u, \mathcal{C}) = \min_{c \in \mathcal{C}} \mathrm{wt}(u - c).$$
+Given a parity-check matrix $H$, a <b>syndrome</b> $b \in \mathbb{F}_2^{r}$, and the <i>consistent</i> affine system $Hx = b$, the <b>syndrome-decoding</b> (minimum-weight affine solution) problem asks for
+$$W(H, b) = \min\{\, \mathrm{wt}(x) : x \in \mathbb{F}_2^M,\ Hx = b \,\}.$$
+Promise versions carry a radius $R &gt; 0$ and factor $\gamma$: YES if the minimum is $\le R$, NO if it is $&gt; \gamma R$.</div>
+
+<p>The two problems are the same problem in different clothes. If $Hu = b$, then the solution set of $Hx = b$ is the affine coset $u + \mathcal{C}$, so $W(H,b) = \min_{c\in\mathcal{C}} \mathrm{wt}(u - c) = d_H(u,\mathcal{C})$ (using $-=+$ in characteristic two); conversely, given $(\mathcal{C}, u)$, set $b = Hu$. Gaussian elimination over $\mathbb{F}_2$ converts between generator and parity-check descriptions, tests whether $Hx=b$ is consistent (i.e. $\operatorname{rank} H = \operatorname{rank} [H\,|\,b]$), and computes a particular solution &mdash; all in polynomial time, by the row-reduction algorithm of ordinary linear algebra, which is valid verbatim over any field. Fig.&nbsp;10 shows the smallest interesting example, which doubles as the paper's worked example.</p>
+
+<figure><!--FIG:fig_hamming--><figcaption>Nearest codeword in $\mathbb{F}_2^3$, drawn on the 3-cube. The code $\mathcal{C} = \ker[1\ 1\ 1] = \{000, 011, 101, 110\}$ (green) consists of the even-weight words. The received word $u = 100$ (red) has three codewords at Hamming distance 1 (dashed), so $d_H(u,\mathcal C) = W(H, b{=}1) = 1$.</figcaption></figure>
+
+<h3 id="s4-lift">4.2 The parity-lift lattice</h3>
+
+<p>Now lift the mod-2 picture to the integers. Let
+$$\rho : \mathbb{Z}^M \longrightarrow \mathbb{F}_2^M, \qquad \rho(z) = z \bmod 2$$
+be coordinatewise reduction. Given a parity-check matrix $H$, define the <b>parity-lift lattice</b>
+$$\Lambda_H \;=\; \rho^{-1}(\mathcal{C}) \;=\; \{\, z \in \mathbb{Z}^M : H(z \bmod 2) = 0 \,\}, \qquad \mathcal{C} = \ker_{\mathbb{F}_2} H .$$
+Because $\mathcal{C}$ is a subgroup of $\mathbb{F}_2^M$ and $\rho$ is a group homomorphism, $\Lambda_H$ is a subgroup of $\mathbb{Z}^M$; it contains $2\mathbb{Z}^M$ (which $\rho$ kills), so it spans $\mathbb{R}^M$ and is a full-rank lattice. Writing $e_c \in \{0,1\}^M$ for the obvious integer lift of a codeword $c$, the lattice decomposes into cosets of $2\mathbb{Z}^M$:
+$$\Lambda_H \;=\; \bigcup_{c \in \mathcal{C}} \big( e_c + 2\mathbb{Z}^M \big), \qquad 2\mathbb{Z}^M \subseteq \Lambda_H \subseteq \mathbb{Z}^M .$$
+This inverse-image construction is classical (it appears in Leech and Sloane's 1971 sphere-packing constructions, and Bennett&ndash;Peikert's randomized SVP reduction combines the same lift with Reed&ndash;Solomon codes). Fig.&nbsp;11 shows it in the plane.</p>
+
+<figure><!--FIG:fig_paritylift--><figcaption>The parity-lift lattice of $H = [1\ 1]$, $b = 1$ in the plane. The code $\mathcal{C} = \{00, 11\}$ lifts to the checkerboard lattice $\Lambda_H = \{z \in \mathbb{Z}^2 : z_1 + z_2 \text{ even}\}$, the union of the cosets $(0,0) + 2\mathbb{Z}^2$ (blue) and $(1,1) + 2\mathbb{Z}^2$ (purple); open circles are odd-parity integer points that do not belong. The target $u = (1,0)$ lifts a solution of $Hx = b$; the animated circle grows from $u$ until it first touches the lattice, at radius $1 = \sqrt{W(H,b)}$.</figcaption></figure>
+
+<p>A CVP instance needs a <i>basis</i>, not a membership test. One is produced by putting the code in systematic form: Gaussian elimination plus a permutation of the $M$ coordinates writes
+$$\mathcal{C} = \{\, (f,\ P_{\mathrm{sys}} f) : f \in \mathbb{F}_2^{k_0} \,\}, \qquad k_0 = \dim_{\mathbb{F}_2}\mathcal{C} = M - \operatorname{rank}_{\mathbb{F}_2} H,$$
+where the first $k_0$ coordinates are free (&ldquo;information&rdquo;) and $P_{\mathrm{sys}} \in \mathbb{F}_2^{(M-k_0)\times k_0}$ determines the remaining (&ldquo;parity&rdquo;) coordinates. Write $\widetilde{P}_{\mathrm{sys}} \in \{0,1\}^{(M-k_0)\times k_0}$ for its entrywise integer lift.</p>
+
+<div class="lem"><b>Lemma 6 (explicit parity-lift lattice basis).</b> In systematic coordinate order, $\Lambda_H$ has the integer basis
+$$B_H \;=\; \begin{pmatrix} I_{k_0} &amp; 0 \\ \widetilde{P}_{\mathrm{sys}} &amp; 2 I_{M-k_0} \end{pmatrix} , \tag{1}$$
+i.e. $\Lambda_H = B_H \mathbb{Z}^M$, and $\lvert \det B_H \rvert = 2^{M-k_0} = 2^{\operatorname{rank}_{\mathbb{F}_2} H}$. The basis and the coordinate permutation are computable in polynomial time from $H$.</div>
+<div class="proof">Work in systematic coordinates and split an integer vector as $z = (f, g)$ with $f \in \mathbb{Z}^{k_0}$, $g \in \mathbb{Z}^{M-k_0}$. Membership unwinds step by step:
+$$z \in \Lambda_H
+\iff (f, g) \bmod 2 \in \mathcal{C}
+\iff g \equiv \widetilde{P}_{\mathrm{sys}} f \pmod 2
+\iff g = \widetilde{P}_{\mathrm{sys}} f + 2w \ \text{ for some } w \in \mathbb{Z}^{M-k_0}
+\iff z = B_H \begin{pmatrix} f \\ w \end{pmatrix}.$$
+(The second equivalence is the systematic description of $\mathcal{C}$ applied to $\rho(z)$; the third rewrites a congruence as an equation.) Hence $\Lambda_H = B_H\mathbb{Z}^M$. The matrix is lower block-triangular, so its determinant is the product of the diagonal entries, $1^{k_0} \cdot 2^{M-k_0}$. Gaussian elimination computes $P_{\mathrm{sys}}$ and the permutation in polynomial time; applying the inverse permutation to the rows of $B_H$ restores the original coordinate order. <span class="qed">&#8718;</span></div>
+
+<div class="toy"><b>Worked example.</b> $H = [1\ 1\ 1]$, $b = 1$. Then $\mathcal{C} = \{000, 011, 101, 110\}$ and $\Lambda_H = \{z \in \mathbb{Z}^3 : z_1 + z_2 + z_3 \equiv 0 \bmod 2\}$. Here $k_0 = 2$, $P_{\mathrm{sys}} = [1\ 1]$ (the third coordinate is the sum of the first two), and
+$$B_H = \begin{pmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 1 &amp; 1 &amp; 2 \end{pmatrix}, \qquad \lvert\det B_H\rvert = 2 .$$
+With target $u = (1,0,0)$: the binary solutions of $x_1+x_2+x_3 = 1$ are the odd-weight words, of minimum weight $1$, and correspondingly $\mathrm{dist}_2(u, \Lambda_H) = 1$ (Fig.&nbsp;13). This instance is verified by brute force in <a class="secref" href="#validation">&sect;17</a>.</div>
+
+<figure><!--FIG:fig_h111--><figcaption>The worked example in $\mathbb{Z}^3$ (oblique projection, computed): the even-parity lattice $\Lambda_H$ for $H=[1\,1\,1]$, the target $u = (1,0,0)$, and several lattice points at distance exactly $1$ (circled, dashes). The squared Euclidean distance equals the minimum Hamming weight $W(H,b) = 1$.</figcaption></figure>
+
+<h3 id="s4-lemma7">4.3 The distance identity</h3>
+
+<p>The point of the construction is an <i>exact</i> identity between lattice distances and binary weights &mdash; not an inequality with losses.</p>
+
+<div class="lem"><b>Lemma 7 (nearest codeword to CVP, exactly, in every norm).</b> Let $H \in \mathbb{F}_2^{r\times M}$, $b \in \mathbb{F}_2^r$, and suppose $Hx = b$ is consistent. In deterministic polynomial time one can construct the nonsingular $B_H \in \mathbb{Z}^{M\times M}$ of Lemma 6 and a target $u \in \{0,1\}^M$ such that, for every real $p \ge 1$,
+$$\min_{\lambda \in L(B_H)} \lVert u - \lambda \rVert_p^p \;=\; W(H, b),$$
+and in particular $\mathrm{dist}_2(u, L(B_H))^2 = W(H,b)$. The lattice rank is exactly $M$.</div>
+<div class="proof">Compute (Gaussian elimination) a particular binary solution $u$ of $Hu = b$, the systematic form, and $B_H$; restore the original coordinate order. Then $L(B_H) = \Lambda_H$ by Lemma 6.</p>
+<p><b>Lower bound.</b> Let $\lambda \in \Lambda_H$ and set $x = (u - \lambda) \bmod 2$. Since $H(\lambda \bmod 2) = 0$, linearity gives $Hx = Hu = b$, so $x$ is a binary solution and $\mathrm{wt}(x) \ge W(H,b)$. Each nonzero coordinate of $x$ arises from an <i>odd</i> integer coordinate of $u - \lambda$, whose absolute value is therefore at least $1$; all coordinates contribute nonnegatively (Fig.&nbsp;12). Hence
+$$\lVert u - \lambda \rVert_p^p = \sum_{j=1}^{M} \lvert u_j - \lambda_j \rvert^p \;\ge\; \#\{j : u_j - \lambda_j \text{ odd}\} = \mathrm{wt}(x) \;\ge\; W(H,b).$$
+<b>Upper bound.</b> Let $x$ be any binary solution of $Hx = b$ and $e_x \in \{0,1\}^M$ its integer lift. Then $(u - e_x) \bmod 2$ is a codeword's residue: $H((u-e_x)\bmod 2) = b - b = 0$, so $\lambda = u - e_x \in \Lambda_H$, and $\lVert u - \lambda \rVert_p^p = \lVert e_x \rVert_p^p = \mathrm{wt}(x)$ because every entry of $e_x$ is $0$ or $1$. Minimizing over binary solutions $x$ makes the two bounds meet. Setting $p = 2$ gives the squared-distance identity, and $B_H$ is a nonsingular $M \times M$ matrix, so the rank is $M$. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_lemma7--><figcaption>Proof geometry of Lemma 7. The coordinates of the integer error vector $u - \lambda$: its odd coordinates (red) reduce mod 2 to the support of a binary solution $x$ of $Hx=b$, and each odd integer has absolute value at least $1$ (dashed line). So the $p$-th-power length of $u-\lambda$ is at least $\mathrm{wt}(x)$ &mdash; while choosing $\lambda = u - e_x$ for a minimum-weight $x$ achieves it with all error coordinates in $\{0,1\}$.</figcaption></figure>
+
+<p>Consequently a binary weight gap converts into a distance gap with a square root: if either $W(H,b) \le R$ or $W(H,b) &gt; \Gamma R$, then correspondingly either
+$$\min_{\lambda} \lVert u - \lambda \rVert_p \le R^{1/p} \qquad \text{or} \qquad \min_{\lambda} \lVert u - \lambda \rVert_p &gt; \Gamma^{1/p} R^{1/p},$$
+an $\ell_p$ gap of factor $\Gamma^{1/p}$ &mdash; for the Euclidean norm, $\sqrt{\Gamma}$. Two cautions the paper records, which will matter in <a class="secref" href="#transfer">&sect;14</a>: the thresholds $R^{1/p}$ need not be rational (the final instance uses the integer radius $\lceil \sqrt R\, \rceil$ and pays a factor $\le 4$), and the construction needs a particular solution $u$, hence a <i>consistent</i> system &mdash; the inconsistent case will be handled by a separate trivial branch.</p>

@@ -1,0 +1,105 @@
+<h2 id="fourier">2. Fourier analysis on $\mathbb{R}^d$, from zero</h2>
+
+<p>This section builds every Fourier-analytic fact the chapter uses: the Schwartz space, Gaussians and their self-duality, the inversion theorem, the eigenfunctions $\psi_\pm$, and Poisson summation. All proofs are complete. A reader fluent in harmonic analysis can skim to <a class="secref" href="#certificate">&sect;3</a>, noting only our convention (1): $\widehat{f}(\xi) = \int f(x)e^{-2\pi i x\cdot\xi}dx$, which makes the Gaussian $e^{-\pi|x|^2}$ exactly self-dual with no stray constants.</p>
+
+<h3 id="schwartz">2.1 The Schwartz space and first rules</h3>
+
+<div class="def" id="def21"><b>Definition 2.1 (Schwartz space).</b> $\mathcal{S}(\mathbb{R}^d;\mathbb{R})$ is the set of infinitely differentiable $f : \mathbb{R}^d \to \mathbb{R}$ such that for all multi-indices $\alpha, \beta$ (i.e. all monomials $x^\beta = x_1^{\beta_1}\cdots x_d^{\beta_d}$ and all mixed partials $\partial^\alpha$),
+$$\sup_{x \in \mathbb{R}^d} \bigl|x^\beta\, \partial^\alpha f(x)\bigr| \lt \infty.$$
+In words: $f$ and every derivative decay faster than any polynomial grows. Examples: $e^{-\pi|x|^2}$ and any polynomial times it. Non-examples: $(1+|x|^2)^{-N}$ (its decay is merely polynomial), and the tent function of &sect;3 (not differentiable). Schwartz functions are integrable, since $|f(x)| \le C(1+|x|)^{-d-1}$.</div>
+
+<div class="lem" id="lem22"><b>Lemma 2.2 (elementary rules).</b> Let $f, g \in L^1(\mathbb{R}^d)$ (complex-valued allowed), $a \gt 0$.
+<br>(i) <i>Boundedness and continuity:</i> $\widehat f$ is continuous with $\sup|\widehat f\,| \le \|f\|_1 = \int |f|$.
+<br>(ii) <i>Dilation:</i> if $g(x) = f(ax)$ then $\widehat g(\xi) = a^{-d} \widehat f(\xi/a)$.
+<br>(iii) <i>Multiplication formula:</i> $\displaystyle\int \widehat f\, g \;=\; \int f\, \widehat g$.
+<br>(iv) <i>Convolution:</i> $\widehat{f * g} = \widehat f\, \widehat g$, where $(f*g)(x) = \int f(x-y)g(y)\,dy$.
+</div>
+<div class="proof">
+<p>(i) $|\widehat f(\xi)| \le \int |f| $ since $|e^{-2\pi i x\cdot\xi}| = 1$; continuity is dominated convergence applied to $\xi_n \to \xi$ (dominant: $|f|$). (ii) Substitute $y = ax$, $dy = a^d dx$:
+$\widehat g(\xi) = \int f(ax)e^{-2\pi i x\cdot\xi}dx = a^{-d}\int f(y)e^{-2\pi i y\cdot(\xi/a)}dy$. (iii) Both sides equal the double integral $\iint f(x)g(\xi)e^{-2\pi i x\cdot\xi}\,dx\,d\xi$, absolutely convergent because $\iint |f(x)||g(\xi)| \lt \infty$; Fubini's theorem lets us integrate in either order. (iv) Same Fubini pattern: $\widehat{f*g}(\xi) = \iint f(x-y)g(y)e^{-2\pi i x\cdot \xi}dy\,dx$; substitute $z = x-y$ and factor $e^{-2\pi i (z+y)\cdot\xi} = e^{-2\pi i z\cdot\xi}e^{-2\pi i y\cdot\xi}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>The innocuous multiplication formula (iii) will carry a surprising load: it is the entire Fourier-analytic input of the Mellin&ndash;Hankel functional equation in <a class="secref" href="#mellin">&sect;6</a> and of Appendix <a class="secref" href="#appA">A</a>.</p>
+
+<h3 id="gaussians">2.2 Gaussians</h3>
+
+<div class="prop" id="prop23"><b>Proposition 2.3 (Gaussians under Fourier).</b> For every $s \gt 0$,
+$$g_s(x) = e^{-\pi s |x|^2} \quad\Longrightarrow\quad \widehat{g_s}(\xi) = s^{-d/2}\, e^{-\pi |\xi|^2 / s}.$$
+In particular $g_1(x) = e^{-\pi|x|^2}$ is its own Fourier transform (Fig. 7).</div>
+<div class="proof">
+<p>Dimension $1$ first. Let $h(\xi) = \widehat{g_s}(\xi) = \int_{\mathbb{R}} e^{-\pi s x^2} e^{-2\pi i x\xi}dx$. Differentiating under the integral (justified: the differentiated integrand is dominated by $2\pi|x|e^{-\pi s x^2} \in L^1$, uniformly for $\xi$ in compacts):
+$$h'(\xi) = \int (-2\pi i x)\, e^{-\pi s x^2} e^{-2\pi i x \xi}\,dx = \frac{i}{s}\int \frac{d}{dx}\bigl(e^{-\pi s x^2}\bigr)\, e^{-2\pi i x\xi}\,dx = \frac{i}{s}\,(2\pi i \xi)\, h(\xi) = -\frac{2\pi \xi}{s}\,h(\xi),$$
+integrating by parts in the middle step (boundary terms vanish by decay). So $h$ solves the same first-order ODE as $e^{-\pi\xi^2/s}$, whence $h(\xi) = h(0)e^{-\pi \xi^2/s}$. The constant is the classical integral
+$$h(0) = \int_{\mathbb{R}} e^{-\pi s x^2}dx = s^{-1/2}\int_{\mathbb{R}} e^{-\pi y^2}dy = s^{-1/2},$$
+using $\bigl(\int e^{-\pi y^2}dy\bigr)^2 = \iint e^{-\pi(y^2+z^2)}dy\,dz = \int_0^{2\pi}\!\!\int_0^\infty e^{-\pi r^2} r\,dr\,d\theta = 1$. For general $d$, the integrand factors: $e^{-\pi s|x|^2}e^{-2\pi i x\cdot\xi} = \prod_{j=1}^d e^{-\pi s x_j^2}e^{-2\pi i x_j\xi_j}$, so by Fubini the transform is the product of $d$ one-dimensional transforms: $\prod_j s^{-1/2}e^{-\pi\xi_j^2/s} = s^{-d/2}e^{-\pi|\xi|^2/s}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_gauss--><figcaption>The Fourier trade-off on Gaussians (here $d=1$, $s=2$): squeezing $f$ (red) spreads $\widehat f$ (blue, dashes), with total area preserved in the sense $\widehat f(0) = \int f$. At $s = 1$ the two curves coincide: $e^{-\pi x^2}$ is self-dual.</figcaption></figure>
+
+<h3 id="inversion">2.3 The inversion theorem</h3>
+
+<div class="thm" id="thm24"><b>Theorem 2.4 (Fourier inversion).</b> Let $f \in L^1(\mathbb{R}^d)$ with $\widehat f \in L^1(\mathbb{R}^d)$. Then, after correcting $f$ on a set of measure zero, $f$ is continuous and
+$$f(x) \;=\; \int_{\mathbb{R}^d} \widehat f(\xi)\, e^{+2\pi i x\cdot\xi}\, d\xi \qquad \text{for every } x.$$
+</div>
+<div class="proof">
+<p>For $\varepsilon \gt 0$ insert a Gaussian cutoff and use the multiplication formula. Fix $x$ and apply Lemma 2.2(iii) to the pair $f(\cdot)$ and $g(\xi) = e^{-\pi\varepsilon^2|\xi|^2} e^{2\pi i x\cdot\xi}$; by Proposition 2.3 and a translation ($\widehat{g}(y) = \varepsilon^{-d} e^{-\pi|y - x|^2/\varepsilon^2}$, direct computation from (1)):
+$$\int \widehat f(\xi)\, e^{-\pi\varepsilon^2|\xi|^2} e^{2\pi i x\cdot\xi} d\xi \;=\; \int f(y)\, \varepsilon^{-d} e^{-\pi|y-x|^2/\varepsilon^2}\, dy \;=\; (f * k_\varepsilon)(x), \qquad k_\varepsilon(y) = \varepsilon^{-d}e^{-\pi|y|^2/\varepsilon^2}.$$
+Now let $\varepsilon \downarrow 0$ on both sides. Left side: the integrand converges pointwise to $\widehat f(\xi)e^{2\pi i x\cdot\xi}$ and is dominated by $|\widehat f\,| \in L^1$, so it converges to $\int \widehat f(\xi)e^{2\pi i x\cdot\xi}d\xi$, for every $x$. Right side: $k_\varepsilon \ge 0$ has $\int k_\varepsilon = 1$ and concentrates at $0$, so $f * k_\varepsilon \to f$ in $L^1$-norm &mdash; the standard approximate-identity computation:
+$$\|f * k_\varepsilon - f\|_1 \le \int k_\varepsilon(z)\, \|f(\cdot - z) - f\|_1\, dz \to 0,$$
+because translation is continuous on $L^1$ ($\|f(\cdot - z) - f\|_1 \to 0$ as $z \to 0$; true for continuous compactly supported functions by uniform continuity, and they are dense in $L^1$) and the mass of $k_\varepsilon$ concentrates near $z = 0$. So the left side converges pointwise to a continuous function of $x$ (continuity by dominated convergence, as in Lemma 2.2(i)) while the right side converges in $L^1$ to $f$; along a subsequence $f * k_{\varepsilon_n} \to f$ almost everywhere, so $f$ agrees a.e. with the continuous function $x \mapsto \int\widehat f(\xi)e^{2\pi i x\cdot\xi}d\xi$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Two consequences we use constantly:</p>
+<ul>
+<li><b>Eigenfunctions have continuous representatives.</b> If $\widehat g = \varsigma g$ with $g \in L^1$, then $\widehat g \in L^1$, and Theorem 2.4 applies &mdash; justifying the pointwise conditions $g(0) = 0$ and $g(x) \ge 0$ in Definition (6).</li>
+<li><b>Admissible functions have $f(0) \gt 0$.</b> For $f \in \mathcal{A}_d$: inversion gives $f(0) = \int \widehat f$, and $\widehat f \ge 0$ everywhere, $\widehat f$ continuous with $\widehat f(0) \gt 0$, so the integral is strictly positive.</li>
+</ul>
+
+<div class="prop" id="prop25"><b>Proposition 2.5 (the transform preserves the Schwartz class).</b> If $f \in \mathcal{S}(\mathbb{R}^d)$ then $\widehat f \in \mathcal{S}(\mathbb{R}^d)$, and
+$$\widehat{\partial_j f}(\xi) = 2\pi i\,\xi_j\, \widehat f(\xi), \qquad \widehat{x_j f}(\xi) = \frac{i}{2\pi}\,\partial_j \widehat f(\xi), \qquad \widehat{|x|^2 f}(\xi) = -\frac{1}{4\pi^2}\,\Delta \widehat f(\xi),$$
+where $\Delta = \sum_j \partial_j^2$ is the Laplacian.</div>
+<div class="proof">
+<p>First identity: integrate by parts in the $x_j$ variable (boundary terms vanish by Schwartz decay); the derivative of $e^{-2\pi i x\cdot\xi}$ in $x_j$ is $-2\pi i \xi_j$ times itself, and moving it to the other factor flips the sign. Second: differentiate (1) under the integral in $\xi_j$ (dominant $2\pi|x_j f(x)| \in L^1$), producing $-2\pi i x_j$ inside; rearrange. Third: apply the second identity twice in each coordinate and sum. Now iterate: any expression $\xi^\beta \partial^\alpha \widehat f$ is, by these rules, the transform of $(\text{const})\,\partial^\beta(x^\alpha f)$, which is in $L^1$ since $f$ is Schwartz; so by Lemma 2.2(i) it is bounded. That is precisely the statement $\widehat f \in \mathcal{S}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="eigen">2.4 The model eigenfunctions $\psi_+$ and $\psi_-$</h3>
+
+<div class="prop" id="prop26"><b>Proposition 2.6.</b> The functions
+$$\psi_+(x) = e^{-\pi|x|^2}, \qquad \psi_-(x) = \Bigl(|x|^2 - \frac{d}{4\pi}\Bigr)e^{-\pi|x|^2}$$
+satisfy $\widehat{\psi_+} = \psi_+$ and $\widehat{\psi_-} = -\psi_-$, and $\psi_\pm(0) \ne 0$.</div>
+<div class="proof">
+<p>$\psi_+$ is Proposition 2.3 with $s = 1$. For $\psi_-$: by Proposition 2.5,
+$$\widehat{|x|^2 e^{-\pi|x|^2}}(\xi) = -\frac{1}{4\pi^2}\Delta\, e^{-\pi|\xi|^2} = -\frac{1}{4\pi^2}\bigl(4\pi^2|\xi|^2 - 2\pi d\bigr)e^{-\pi|\xi|^2} = \Bigl(\frac{d}{2\pi} - |\xi|^2\Bigr)e^{-\pi|\xi|^2},$$
+computing $\Delta e^{-\pi|\xi|^2} = \sum_j \partial_j\bigl(-2\pi\xi_j e^{-\pi|\xi|^2}\bigr) = (4\pi^2|\xi|^2 - 2\pi d)e^{-\pi|\xi|^2}$. Hence
+$$\widehat{\psi_-}(\xi) = \Bigl(\frac{d}{2\pi} - |\xi|^2 - \frac{d}{4\pi}\Bigr)e^{-\pi|\xi|^2} = \Bigl(\frac{d}{4\pi} - |\xi|^2\Bigr)e^{-\pi|\xi|^2} = -\psi_-(\xi).$$
+Values at the origin: $\psi_+(0) = 1$, $\psi_-(0) = -d/4\pi$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>These two will serve as "correction directions": in the approximation arguments of <a class="secref" href="#radial">&sect;5</a> we adjust a nearly-good eigenfunction by a multiple of $\psi_\varsigma$ to restore the exact constraint $g(0) = 0$ &mdash; possible precisely because $\psi_\varsigma(0) \ne 0$. Note also that both are radial (functions of $|x|$ alone) &mdash; they are checked numerically in dimension $3$ in <a class="secref" href="#validation">&sect;13</a>.</p>
+
+<h3 id="poisson">2.5 Lattices and Poisson summation</h3>
+
+<p>A <b>(full-rank) lattice</b> is $L = A\mathbb{Z}^d$ for an invertible matrix $A$: all integer combinations of $d$ independent vectors. Its <b>covolume</b> $\operatorname{covol}(L) = |\det A|$ is the volume of a fundamental cell, and its <b>dual lattice</b> is $L^* = \{\, m \in \mathbb{R}^d : m\cdot\ell \in \mathbb{Z} \text{ for all } \ell \in L \,\} = (A^{\mathsf T})^{-1}\mathbb{Z}^d$. (For background on lattices with pictures &mdash; Blichfeldt's and Minkowski's theorems &mdash; see the lattice primer, &sect;2 of our Chapter 8 explainer; here we only need the definitions.)</p>
+
+<div class="lem" id="lem27"><b>Lemma 2.7 (uniqueness for Fourier series).</b> Let $F : \mathbb{R}^d \to \mathbb{C}$ be continuous and $\mathbb{Z}^d$-periodic, with all Fourier coefficients zero: $c_m = \int_{[0,1]^d} F(x)e^{-2\pi i m\cdot x}dx = 0$ for every $m \in \mathbb{Z}^d$. Then $F \equiv 0$.</div>
+<div class="proof">
+<p>Let $K_N$ be the one-dimensional <b>Fej&eacute;r kernel</b>, the trigonometric polynomial
+$$K_N(t) \;=\; \sum_{|k| \le N}\Bigl(1 - \frac{|k|}{N+1}\Bigr)e^{2\pi i k t} \;=\; \frac{1}{N+1}\biggl(\frac{\sin(\pi (N+1) t)}{\sin (\pi t)}\biggr)^{\!2},$$
+where the closed form (a finite geometric-sum computation: the left side is $\frac{1}{N+1}\bigl|\sum_{k=0}^{N} e^{2\pi i k t}\bigr|^2$ expanded) shows $K_N \ge 0$; the $k=0$ coefficient shows $\int_0^1 K_N = 1$; and for any $\delta \in (0,\tfrac12)$, on $\delta \le |t| \le \tfrac12$ we have $K_N(t) \le \frac{1}{(N+1)\sin^2(\pi\delta)} \to 0$, so the mass of $K_N$ concentrates at $t = 0$. Set $K_N^{(d)}(x) = \prod_{j=1}^d K_N(x_j)$: nonnegative, total mass $1$ on the unit cell, concentrating at $0$, and a finite linear combination of characters $e^{2\pi i m\cdot x}$.</p>
+<p>The periodic convolution $(F \ast K_N^{(d)})(x) = \int_{[0,1]^d} F(x - y)K_N^{(d)}(y)\,dy$ is, by expanding $K_N^{(d)}$ into characters, a finite linear combination of the coefficients $c_m$ &mdash; all zero. So $F \ast K_N^{(d)} \equiv 0$ for every $N$. On the other hand, $F$ is uniformly continuous (continuous and periodic), and the concentration of $K_N^{(d)}$ gives $F \ast K_N^{(d)} \to F$ uniformly by the standard approximate-identity estimate. Hence $F \equiv 0$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="thm" id="thm28"><b>Theorem 2.8 (Poisson summation).</b> Let $f \in \mathcal{S}(\mathbb{R}^d)$ and let $L$ be a lattice. Then, for every $x \in \mathbb{R}^d$,
+$$\sum_{\ell \in L} f(x + \ell) \;=\; \frac{1}{\operatorname{covol}(L)}\sum_{m \in L^*} \widehat f(m)\, e^{2\pi i m\cdot x},$$
+both sides converging absolutely. (Fig. 8 animates the periodization.)</div>
+<div class="proof">
+<p><i>Step 1: reduce to $L = \mathbb{Z}^d$.</i> Write $L = A\mathbb{Z}^d$ and $g(x) = f(Ax)$; then by the substitution $y = Ax$ in (1), $\widehat g(\xi) = |\det A|^{-1}\widehat f((A^{\mathsf T})^{-1}\xi)$, and the claimed identity for $f$ over $L$ at the point $x$ is exactly the identity for $g$ over $\mathbb{Z}^d$ at the point $A^{-1}x$ (unwind both sums using $L^* = (A^{\mathsf T})^{-1}\mathbb{Z}^d$). So take $L = \mathbb{Z}^d$, $\operatorname{covol} = 1$.</p>
+<p><i>Step 2: periodize.</i> Define $F(x) = \sum_{n \in \mathbb{Z}^d} f(x+n)$. Schwartz decay $|f(x)| \le C(1+|x|)^{-d-1}$ makes the series converge absolutely and uniformly on compacts, so $F$ is continuous and $\mathbb{Z}^d$-periodic. Its $m$-th Fourier coefficient is, by uniform convergence and then gluing the translated cells into all of $\mathbb{R}^d$,
+$$c_m = \int_{[0,1]^d}\sum_n f(x+n)e^{-2\pi i m\cdot x}dx = \sum_n \int_{[0,1]^d} f(x+n)e^{-2\pi i m\cdot(x+n)}dx = \int_{\mathbb{R}^d} f(y)e^{-2\pi i m\cdot y}dy = \widehat f(m),$$
+where we inserted $e^{-2\pi i m\cdot n} = 1$ for $n \in \mathbb{Z}^d$.</p>
+<p><i>Step 3: compare.</i> Since $f$ is Schwartz, so is $\widehat f$ (Proposition 2.5), hence $\sum_m |\widehat f(m)| \lt \infty$ and $G(x) = \sum_m \widehat f(m)e^{2\pi i m\cdot x}$ is a continuous periodic function whose $m$-th coefficient is $\widehat f(m)$ (termwise integration, justified by absolute convergence). The difference $F - G$ is continuous, periodic, with all coefficients zero; Lemma 2.7 finishes. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_poisson_anim--><figcaption>Poisson summation, animated (here $d = 1$, $L = \mathbb{Z}$): the translates $f(x+n)$ of a Gaussian appear one by one (blue) and sum to a periodic function (red), whose mean value is $\widehat f(0) = \int f$ (green dashes) and whose Fourier coefficients are exactly the samples $\widehat f(m)$. Under reduced-motion settings the figure shows the final frame.</figcaption></figure>
+
+<div class="toy"><b>Toy check.</b> For $f = g_s$ (Proposition 2.3) and $L = \mathbb{Z}$, Poisson summation is the Jacobi theta identity $\sum_n e^{-\pi n^2 s} = s^{-1/2}\sum_m e^{-\pi m^2/s}$. At $s = 0.7$ both sides agree to $25$ digits &mdash; check <code>c26</code> in the validation battery of <a class="secref" href="#validation">&sect;13</a>.</div>

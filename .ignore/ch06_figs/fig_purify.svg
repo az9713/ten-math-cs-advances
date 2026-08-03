@@ -1,0 +1,14 @@
+<svg class="setupfig" viewBox="0 0 540 164" width="100%" role="img" aria-label="purification of a POVM effect">
+<defs><marker id="c6pA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="30" y="20" width="130" height="46" rx="6" fill="#f7f7f7" stroke="#888" stroke-width="1.4"/>
+<text x="95" y="40" font-size="12.5" text-anchor="middle" fill="#333">effect F</text>
+<text x="95" y="56" font-size="11" text-anchor="middle" fill="#555">0 ⪯ F ⪯ I on ℋ</text>
+<line x1="160" y1="43" x2="220" y2="43" stroke="#333" stroke-width="1.4" marker-end="url(#c6pA)"/>
+<text x="190" y="34" font-size="13" text-anchor="middle" fill="#333" class="v">Γ</text>
+<rect x="222" y="20" width="176" height="46" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.4"/>
+<text x="310" y="40" font-size="12.5" text-anchor="middle" fill="#2e6da4">cross operator Γ(F)</text>
+<text x="310" y="56" font-size="11.5" text-anchor="middle" fill="#2e6da4">ℋ → ℋ ⊗ 𝒜</text>
+<rect x="70" y="90" width="400" height="34" rx="5" fill="#fdf7e3" stroke="#c9b45a" stroke-width="1.4"/>
+<text x="270" y="112" font-size="12" text-anchor="middle" fill="#333">Γ(F)†Γ(F) = F  ⇒  ‖Γ(F)ψ‖² = ⟨ψ| F |ψ⟩:  branch keeps the exact Born probability</text>
+<text x="270" y="150" font-size="11.5" text-anchor="middle" fill="#555">a branch records “this outcome happened” without renormalizing yet; Γ chooses HOW the state updates</text>
+</svg>

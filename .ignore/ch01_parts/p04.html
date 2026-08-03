@@ -1,0 +1,159 @@
+<h2 id="bridge">4. The bridge: one sign radius controls everything &mdash; and the proof map</h2>
+
+<p>Theorems 1.1 and 1.2 look like different subjects &mdash; an optimization over packing certificates, and an uncertainty principle. This section proves they are the same subject: each admissible packing function <i>manufactures</i> a Fourier eigenfunction whose sign radius is controlled by the function's quality (Proposition F), and conversely a good pair of eigen-symmetric functions manufactures an admissible packing function (Proposition G). After these two bridges, everything reduces to a single question &mdash; <i>how small can the sign radius of an eigenfunction vanishing at the origin be?</i> &mdash; and the rest of the chapter answers it from both sides.</p>
+
+<p>One small tool first. Applying the Fourier transform twice is not quite the identity but a reflection:</p>
+
+<div class="lem" id="lemreflect"><b>Lemma H (double transform).</b> For $f \in \mathcal{S}(\mathbb{R}^d)$, $\;\widehat{\widehat f\,}(x) = f(-x)$. In particular, if $f$ is even &mdash; e.g. radial, meaning $f(x)$ depends only on $|x|$ &mdash; then $\widehat{\widehat f\,} = f$.</div>
+<div class="proof">
+<p>By Theorem 2.4 (inversion; applicable since $f, \widehat f \in \mathcal{S} \subset L^1$ by Proposition 2.5), $f(x) = \int \widehat f(\xi)e^{2\pi i x\cdot\xi}d\xi$. But by definition (1), $\widehat{\widehat f\,}(x) = \int \widehat f(\xi)e^{-2\pi i \xi\cdot x}d\xi$, which is the same integral at $-x$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="bridge1">4.1 Bridge one: packing certificates manufacture eigenfunctions</h3>
+
+<div class="prop" id="propF"><b>Proposition F (from admissible to anti-self-Fourier; eqs. (29)&ndash;(30)).</b> Let $F \in \mathcal{A}_d$ be radial. Set
+$$a = \Bigl(\frac{\widehat F(0)}{F(0)}\Bigr)^{\!1/d} \gt 0, \qquad h(x) = F(ax), \qquad g = \widehat h - h.$$
+Then $g \in \mathcal{S}(\mathbb{R}^d;\mathbb{R})$ is <b>nonzero</b> and satisfies
+$$\widehat g = -g, \qquad g(0) = 0, \qquad g(x) \ge 0 \;\text{ for } |x| \ge 1/a. \tag{30}$$
+Consequently $r(g) \le 1/a$, so by definition (6),
+$$A_-(d) \;\le\; \Bigl(\frac{F(0)}{\widehat F(0)}\Bigr)^{\!1/d} \qquad\text{for every radial } F \in \mathcal{A}_d.$$</div>
+<div class="proof">
+<p>By the dilation rule (Lemma 2.2(ii)), $\widehat h(\xi) = a^{-d}\widehat F(\xi/a)$; in particular
+$$h(0) = F(0), \qquad \widehat h(0) = a^{-d}\widehat F(0) = F(0), \tag{29}$$
+the second equality being exactly the choice of $a$. Now check the three properties of $g$:</p>
+<p><i>Anti-self-Fourier.</i> $\widehat g = \widehat{\widehat h} - \widehat h = h - \widehat h = -g$, using Lemma H ($h$ is radial, hence even).</p>
+<p><i>Vanishing at the origin.</i> $g(0) = \widehat h(0) - h(0) = 0$ by (29).</p>
+<p><i>Exterior sign.</i> For $|x| \ge 1/a$: $\widehat h(x) = a^{-d}\widehat F(x/a) \ge 0$ (admissibility of $F$), while $h(x) = F(ax) \le 0$ since $|ax| \ge 1$. So $g(x) = \widehat h(x) - h(x) \ge 0$.</p>
+<p><i>Nonvanishing.</i> Suppose $g = 0$, i.e. $h = \widehat h$. Then $h \ge 0$ everywhere (it equals $\widehat h = a^{-d}\widehat F(\cdot/a) \ge 0$) yet $h \le 0$ for $|x| \ge 1/a$; hence $h = 0$ outside the ball $B(0,1/a)$: $h$ is compactly supported. But then $\widehat h$ is real-analytic &mdash; for fixed $x' = (x_2,\dots,x_d)$, the function $z \mapsto \int_{|y| \le 1/a} h(y)e^{-2\pi i(z y_1 + x'\cdot y')}dy$ is entire in $z \in \mathbb{C}$ (differentiate under the integral over the compact support). Since $h = \widehat h$ vanishes for $x_1$ real and large (with $x'$ fixed), this entire function vanishes on an unbounded interval of the real axis &mdash; a set with limit points &mdash; so the identity theorem forces it to vanish identically. Varying $x'$: $h \equiv 0$. That contradicts $h(0) = F(0) \gt 0$ (&sect;2.3). So $g \ne 0$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Read the inequality backwards: <b>a lower bound on the sign radius $A_-(d)$ is automatically a lower bound on every Cohn&ndash;Elkies ratio</b>, hence on $\mathrm{LP}_d$ itself. (The restriction to radial $F$ costs nothing &mdash; <a class="secref" href="#radial">&sect;5</a> shows rotational averaging preserves admissibility and the ratio.) This is how the "ceiling" half of Theorem 1.1 will be proved in <a class="secref" href="#packrate">&sect;8</a>. Figure 11 shows the bridge concretely in $d=1$ with the tent function of &sect;3.3: there $a = 1$, and $g = \widehat h - h = \mathrm{sinc}^2 - \mathrm{tent}$ is visibly an anti-self-Fourier eigenfunction, vanishing at $0$, nonnegative past $r = 1$, with all its negative mass trapped inside the unit interval.</p>
+
+<figure><!--FIG:fig_bridge--><figcaption>Bridge one in action ($d=1$, $F$ = tent, so $a=1$): the witness $g = \widehat h - h = \mathrm{sinc}^2 - \mathrm{tent}$. It vanishes at the origin (green dot), is $\ge 0$ outside $r = 1/a$ (blue region), and its entire negative part (red region) is trapped inside. Since $\int g = \widehat g(0) = -g(0) = 0$, the trapped negative mass equals exactly half of $\|g\|_1$ &mdash; verified numerically to $10^{-5}$ (check <code>c20c</code>, <a class="secref" href="#validation">&sect;13</a>). The obstruction of &sect;7 says such trapping is impossible below radius $\approx \sqrt d/\pi$.</figcaption></figure>
+
+<h3 id="bridge2">4.2 Bridge two: eigen-symmetric constructions manufacture certificates</h3>
+
+<div class="prop" id="propG"><b>Proposition G (from a Fourier pair to all three upper bounds).</b> Suppose real radial Schwartz functions $f_-, f_+$ and a radius $R \gt 0$ satisfy
+$$\widehat{f_-} = f_+ \gt 0 \text{ everywhere}, \qquad f_-(0) = f_+(0), \qquad f_-(x) \lt 0 \;\text{ for } |x| \ge R.$$
+Then:
+<br>(i) $F(x) = f_-(Rx)$ is admissible with $F(0)/\widehat F(0) = R^d$, so $\;\mathrm{LP}_d \le v_d (R/2)^d$;
+<br>(ii) $g_- = f_+ - f_-$ satisfies $\widehat{g_-} = -g_-$, $g_-(0)=0$, $g_- \gt 0$ for $|x| \ge R$, $g_-\ne 0$, so $\;A_-(d) \le R$;
+<br>(iii) if additionally a real radial Schwartz $f_0 \ne 0$ satisfies $\widehat{f_0} = f_0$, $f_0(0) = 0$, and $f_0(x) \gt 0$ for $|x| \ge R$, then $\;A_+(d) \le R$.</div>
+<div class="proof">
+<p>(i) By dilation, $\widehat F(\xi) = R^{-d} f_+(\xi/R) \gt 0$; in particular $\widehat F \ge 0$ and $\widehat F(0) = R^{-d}f_+(0) = R^{-d}f_-(0) = R^{-d}F(0) \gt 0$ (note $f_-(0) = f_+(0) \gt 0$ since $f_+ \gt 0$). And $F(x) = f_-(Rx) \lt 0$ for $|x| \ge 1$. So $F \in \mathcal{A}_d$ with ratio $F(0)/\widehat F(0) = R^d$; insert into definition (3).</p>
+<p>(ii) $\widehat{g_-} = \widehat{f_+} - \widehat{f_-}$. By Lemma H, $\widehat{f_+} = \widehat{\widehat{f_-}} = f_-$, so $\widehat{g_-} = f_- - f_+ = -g_-$. At the origin $g_-(0) = f_+(0) - f_-(0) = 0$. For $|x| \ge R$, $g_-(x) = f_+(x) - f_-(x) \gt 0$ (positive minus negative). Nonzero for the same reason. Definition (6) gives $A_-(d) \le R$.</p>
+<p>(iii) is Definition (6) verbatim. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>So one construction &mdash; a Fourier-transform pair and a self-Fourier function whose sign changes all happen at the same radius $R \approx \sqrt d/\pi$ &mdash; simultaneously caps $\mathrm{LP}_d$, $A_-(d)$, and $A_+(d)$. Building that construction is the whole of <a class="secref" href="#ansatz">&sect;9</a>&ndash;<a class="secref" href="#global">&sect;11</a> (Theorem 4.1). Combining the two bridges with the obstruction proved in &sect;7&ndash;8 yields the two-sided squeeze:</p>
+
+<div class="keyresult">
+$$\underbrace{\Bigl(\tfrac1\pi - o(1)\Bigr)\sqrt d}_{\text{obstruction, } \S7-8} \;\le\; \min\Biggl\{\, \inf_{F\in\mathcal{A}_d}\Bigl(\frac{F(0)}{\widehat F(0)}\Bigr)^{\!1/d},\; A_-(d),\; A_+(d) \Biggr\} \;\le\; \max\{\cdots\} \;\le\; \underbrace{R_{\epsilon,d} = \Bigl(\tfrac1\pi + o(1)\Bigr)\sqrt d}_{\text{construction, } \S9-11}$$
+</div>
+
+<h3 id="architecture">4.3 The proof at a glance</h3>
+
+<p>Figure 12 is the dependency map of everything that follows. Left column: the obstruction (nothing beats $\sqrt d/\pi$). Right column: the construction (something achieves it). Shared spine: the reductions that let both sides work with radial functions in Mellin coordinates. Every box is a lemma proved in this document; arrows mean "is used by".</p>
+
+<figure><svg class="setupfig" viewBox="0 0 460 600" width="100%" role="img" aria-label="Dependency map of the whole proof">
+  <defs><marker id="c1archarr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#777"/></marker></defs>
+  <!-- shared spine -->
+  <rect x="10" y="10" width="130" height="40" rx="6" fill="#efe9dd" stroke="#7a5a1e" stroke-width="1.3"/>
+  <text x="75" y="27" font-size="11" text-anchor="middle" fill="#333">&sect;2 Fourier on &#8477;&#7496;</text>
+  <text x="75" y="41" font-size="9.5" text-anchor="middle" fill="#555">inversion, Poisson, &psi;&plusmn;</text>
+  <rect x="165" y="10" width="130" height="40" rx="6" fill="#efe9dd" stroke="#7a5a1e" stroke-width="1.3"/>
+  <text x="230" y="27" font-size="11" text-anchor="middle" fill="#333">&sect;5 radial reduction</text>
+  <text x="230" y="41" font-size="9.5" text-anchor="middle" fill="#555">average, mollify, correct</text>
+  <rect x="320" y="10" width="130" height="40" rx="6" fill="#efe9dd" stroke="#7a5a1e" stroke-width="1.3"/>
+  <text x="385" y="27" font-size="11" text-anchor="middle" fill="#333">&sect;6 Mellin + gamma</text>
+  <text x="385" y="41" font-size="9.5" text-anchor="middle" fill="#555">(9): Fourier = reflection</text>
+  <!-- bridge row -->
+  <rect x="60" y="70" width="160" height="40" rx="6" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3"/>
+  <text x="140" y="87" font-size="11" text-anchor="middle" fill="#333">&sect;3 certificate:  &Delta;d &le; LPd</text>
+  <text x="140" y="101" font-size="9.5" text-anchor="middle" fill="#555">+ Prop F: F &#8605; g, &#285; = &minus;g</text>
+  <rect x="250" y="70" width="160" height="40" rx="6" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3"/>
+  <text x="330" y="87" font-size="11" text-anchor="middle" fill="#333">Prop G: pair (f&#8331;, f&#8330;, f&#8320;)</text>
+  <text x="330" y="101" font-size="9.5" text-anchor="middle" fill="#555">&#8605; caps LPd, A&#8331;, A&#8330;</text>
+  <!-- column headers -->
+  <text x="115" y="140" font-size="12.5" text-anchor="middle" fill="#c0392b">OBSTRUCTION (&sect;7&ndash;8)</text>
+  <text x="345" y="140" font-size="12.5" text-anchor="middle" fill="#2e6da4">CONSTRUCTION (&sect;9&ndash;11)</text>
+  <!-- left column boxes -->
+  <g stroke="#c0392b" stroke-width="1.2" fill="#f6d5cf">
+    <rect x="20" y="152" width="190" height="38" rx="6"/>
+    <rect x="20" y="204" width="190" height="38" rx="6"/>
+    <rect x="20" y="256" width="190" height="38" rx="6"/>
+    <rect x="20" y="308" width="190" height="38" rx="6"/>
+    <rect x="20" y="360" width="190" height="38" rx="6"/>
+    <rect x="20" y="412" width="190" height="38" rx="6"/>
+    <rect x="20" y="464" width="190" height="38" rx="6"/>
+  </g>
+  <text x="115" y="168" font-size="10.5" text-anchor="middle" fill="#333">L3.2: strip bound for Z via</text>
+  <text x="115" y="182" font-size="10.5" text-anchor="middle" fill="#333">harmonic measure P&sigma;</text>
+  <text x="115" y="220" font-size="10.5" text-anchor="middle" fill="#333">L3.3: boundary data h&lambda; &asymp;</text>
+  <text x="115" y="234" font-size="10.5" text-anchor="middle" fill="#333">Riemann sums of a log kernel</text>
+  <text x="115" y="272" font-size="10.5" text-anchor="middle" fill="#333">L3.4: J&sigma; &rarr; log(&pi;/2);</text>
+  <text x="115" y="286" font-size="10.5" text-anchor="middle" fill="#333">threshold = log(&pi;&sup2;c&sup2;) &lt; 0 iff c &lt; 1/&pi;</text>
+  <text x="115" y="324" font-size="10.5" text-anchor="middle" fill="#333">L3.5: all-frequency L&sup1; bound</text>
+  <text x="115" y="338" font-size="10.5" text-anchor="middle" fill="#333">for Z on Im t = &sigma;&lambda;</text>
+  <text x="115" y="376" font-size="10.5" text-anchor="middle" fill="#333">L3.6 + P3.1: interior mass of g</text>
+  <text x="115" y="390" font-size="10.5" text-anchor="middle" fill="#333">&le; C e<tspan baseline-shift="super" font-size="8">&minus;&gamma;d</tspan> ||g||&#8321;</text>
+  <text x="115" y="428" font-size="10.5" text-anchor="middle" fill="#333">P3.7: no eigenfunction with</text>
+  <text x="115" y="442" font-size="10.5" text-anchor="middle" fill="#333">g(0)=0 is &ge; 0 past c&radic;d, c&lt;1/&pi;</text>
+  <text x="115" y="480" font-size="10.5" text-anchor="middle" fill="#333">T3.8: every CE ratio</text>
+  <text x="115" y="494" font-size="10.5" text-anchor="middle" fill="#333">&ge; ((1/&pi; &minus; o(1))&radic;d)&#7496;</text>
+  <!-- right column boxes -->
+  <g stroke="#2e6da4" stroke-width="1.2" fill="#d7e3f0">
+    <rect x="250" y="152" width="190" height="38" rx="6"/>
+    <rect x="250" y="204" width="190" height="38" rx="6"/>
+    <rect x="250" y="256" width="190" height="38" rx="6"/>
+    <rect x="250" y="308" width="190" height="38" rx="6"/>
+    <rect x="250" y="360" width="190" height="38" rx="6"/>
+    <rect x="250" y="412" width="190" height="38" rx="6"/>
+    <rect x="250" y="464" width="190" height="38" rx="6"/>
+  </g>
+  <text x="345" y="168" font-size="10.5" text-anchor="middle" fill="#333">&sect;9 ansatz: Gaussian envelope &times;</text>
+  <text x="345" y="182" font-size="10.5" text-anchor="middle" fill="#333">shells w&#8347;, w&#7470; &times; polys P&plusmn;, P&#8320;</text>
+  <text x="345" y="220" font-size="10.5" text-anchor="middle" fill="#333">L4.2: shells keep displacement</text>
+  <text x="345" y="234" font-size="10.5" text-anchor="middle" fill="#333">&minus;&frac12;log(&pi;/2), damping margin c&epsilon;</text>
+  <text x="345" y="272" font-size="10.5" text-anchor="middle" fill="#333">L4.3: f&#8331;, f&#8320;, f&#8330; are Schwartz,</text>
+  <text x="345" y="286" font-size="10.5" text-anchor="middle" fill="#333">Fourier symmetries + origin values</text>
+  <text x="345" y="324" font-size="10.5" text-anchor="middle" fill="#333">L4.4&ndash;4.7: positive damping</text>
+  <text x="345" y="338" font-size="10.5" text-anchor="middle" fill="#333">Du(T) &gt; 0 on every contour</text>
+  <text x="345" y="376" font-size="10.5" text-anchor="middle" fill="#333">L4.8: saddle formula &mdash; sign of</text>
+  <text x="345" y="390" font-size="10.5" text-anchor="middle" fill="#333">f&#11388;(e<tspan baseline-shift="super" font-size="8">v(u)</tspan>) = sign of P&#11388;(iu)</text>
+  <text x="345" y="428" font-size="10.5" text-anchor="middle" fill="#333">C4.9 exterior signs; L4.10</text>
+  <text x="345" y="442" font-size="10.5" text-anchor="middle" fill="#333">interior: f&#8330;/f&#8330;(0) &asymp; e&#8315;&#696; &gt; 0</text>
+  <text x="345" y="480" font-size="10.5" text-anchor="middle" fill="#333">T4.1: all sign changes at</text>
+  <text x="345" y="494" font-size="10.5" text-anchor="middle" fill="#333">R&epsilon;,d = (1/&pi; + o(1))&radic;d</text>
+  <!-- bottom theorems -->
+  <rect x="70" y="530" width="150" height="44" rx="7" fill="#fdf7e3" stroke="#7a1f1f" stroke-width="1.6"/>
+  <text x="145" y="548" font-size="11.5" text-anchor="middle" fill="#7a1f1f">Theorem 1.1</text>
+  <text x="145" y="564" font-size="10.5" text-anchor="middle" fill="#333">LPd<tspan baseline-shift="super" font-size="7">1/d</tspan> &rarr; &radic;(e/2&pi;)</text>
+  <rect x="245" y="530" width="150" height="44" rx="7" fill="#fdf7e3" stroke="#7a1f1f" stroke-width="1.6"/>
+  <text x="320" y="548" font-size="11.5" text-anchor="middle" fill="#7a1f1f">Theorem 1.2</text>
+  <text x="320" y="564" font-size="10.5" text-anchor="middle" fill="#333">A&plusmn;(d)/&radic;d &rarr; 1/&pi;</text>
+  <!-- arrows -->
+  <g stroke="#777" stroke-width="1.2" fill="none">
+    <line x1="75" y1="50" x2="115" y2="70" marker-end="url(#c1archarr)"/>
+    <line x1="230" y1="50" x2="230" y2="62" marker-end="url(#c1archarr)"/>
+    <line x1="385" y1="50" x2="345" y2="70" marker-end="url(#c1archarr)"/>
+    <line x1="115" y1="110" x2="115" y2="152" marker-end="url(#c1archarr)"/>
+    <line x1="345" y1="110" x2="345" y2="152" marker-end="url(#c1archarr)"/>
+    <line x1="115" y1="190" x2="115" y2="204" marker-end="url(#c1archarr)"/>
+    <line x1="115" y1="242" x2="115" y2="256" marker-end="url(#c1archarr)"/>
+    <line x1="115" y1="294" x2="115" y2="308" marker-end="url(#c1archarr)"/>
+    <line x1="115" y1="346" x2="115" y2="360" marker-end="url(#c1archarr)"/>
+    <line x1="115" y1="398" x2="115" y2="412" marker-end="url(#c1archarr)"/>
+    <line x1="115" y1="450" x2="115" y2="464" marker-end="url(#c1archarr)"/>
+    <line x1="345" y1="190" x2="345" y2="204" marker-end="url(#c1archarr)"/>
+    <line x1="345" y1="242" x2="345" y2="256" marker-end="url(#c1archarr)"/>
+    <line x1="345" y1="294" x2="345" y2="308" marker-end="url(#c1archarr)"/>
+    <line x1="345" y1="346" x2="345" y2="360" marker-end="url(#c1archarr)"/>
+    <line x1="345" y1="398" x2="345" y2="412" marker-end="url(#c1archarr)"/>
+    <line x1="345" y1="450" x2="345" y2="464" marker-end="url(#c1archarr)"/>
+    <line x1="115" y1="502" x2="140" y2="530" marker-end="url(#c1archarr)"/>
+    <line x1="345" y1="502" x2="330" y2="530" marker-end="url(#c1archarr)"/>
+    <line x1="300" y1="502" x2="175" y2="533" marker-end="url(#c1archarr)"/>
+    <line x1="160" y1="502" x2="290" y2="533" marker-end="url(#c1archarr)"/>
+  </g>
+</svg><figcaption>The whole argument at a glance. Shared spine on top (&sect;2, &sect;5, &sect;6 feed everything); the two bridges of this section (green); then the two columns that fight over the sign radius: the obstruction chain (red, &sect;7&ndash;8) pushes it above $(1/\pi - o(1))\sqrt d$, the construction chain (blue, &sect;9&ndash;11) pulls it below $(1/\pi+o(1))\sqrt d$. Both theorems need both columns.</figcaption></figure>

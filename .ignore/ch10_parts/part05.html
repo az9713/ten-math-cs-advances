@@ -1,0 +1,139 @@
+<h2 id="quadrangle">5. The witnesses: generalized quadrangles</h2>
+
+<p>Now the lower-bound side of Theorem 1.1: for each individual member $F \in \mathcal F$ we must produce $n$-vertex $F$-free graphs with $\Omega(n^{4/3})$ edges. In <a class="secref" href="#exnum">&sect;1</a> the $C_4$-free record holder was the incidence graph of a projective plane &mdash; girth $6$, exponent $3/2$. One rung up the same ladder sits the <b>generalized quadrangle</b>: an incidence geometry whose bipartite incidence graph has girth $8$ &mdash; automatically $C_4$- <i>and</i> $C_6$-free &mdash; with exponent $4/3$. The templates of <a class="secref" href="#family">&sect;3</a> were engineered so that quadrangles over fields of characteristic $2$ dodge all of $\mathcal J$, while quadrangles over characteristic $3$ dodge all of $\mathcal K$. Since the required constructions are classical (the chapter cites the monograph [PT09] and the survey use in [BHKT18]), the paper keeps this section brief; we expand it, proving everything linear-algebraic and importing exactly two named facts of finite geometry.</p>
+
+<h3 id="wq">5.1 The symplectic quadrangle $W(q)$</h3>
+
+<p>Let $q$ be a prime power and $V = \mathbb F_q^4$. Fix the <b>alternating bilinear form</b>
+$$\langle x, y\rangle \;=\; x_1 y_2 - x_2 y_1 + x_3 y_4 - x_4 y_3 .$$
+&ldquo;Bilinear&rdquo;: linear in each argument. &ldquo;Alternating&rdquo;: $\langle x, x\rangle = 0$ for all $x$ (immediate from the formula), whence $\langle x,y\rangle = -\langle y,x\rangle$ (expand $\langle x+y, x+y\rangle = 0$). &ldquo;Nondegenerate&rdquo;: if $\langle x, y\rangle = 0$ for all $y$ then $x = 0$ (test $y$ on the four standard basis vectors: each coordinate of $x$ vanishes). For a subspace $W \le V$ write $W^\perp = \{x : \langle x, w\rangle = 0 \ \forall w \in W\}$; nondegeneracy gives the standard dimension law $\dim W^\perp = 4 - \dim W$ and $(W^\perp)^\perp = W$ (the map $x \mapsto \langle x, \cdot\rangle$ identifies $V$ with its dual, carrying $W^\perp$ to the annihilator of $W$). A subspace $W$ is <b>totally isotropic</b> if $\langle W, W\rangle = 0$, i.e. $W \subseteq W^\perp$; total isotropy forces $\dim W \le 2$ here.</p>
+
+<div class="def"><b>Definition (the symplectic generalized quadrangle and its incidence graph).</b> The geometry $W(q)$ has point class and line class
+$$\mathcal P = \{P \le V : \dim P = 1\}, \qquad \mathcal M = \{M \le V : \dim M = 2,\ \langle M, M\rangle = 0\},$$
+with incidence given by containment. Its <b>incidence graph</b> $I_q := I(W(q))$ is the bipartite graph on $\mathcal P \sqcup \mathcal M$ with $P$ adjacent to $M$ exactly when $P \subseteq M$. Two points are <b>collinear</b> if some line contains both.</div>
+
+<div class="prop"><b>Proposition F (the quadrangle axioms, proved).</b> In $W(q)$:
+<br>&nbsp;&nbsp;(a) $|\mathcal P| = |\mathcal M| = (q+1)(q^2+1)$; every line contains $q+1$ points and every point lies on $q+1$ lines.
+<br>&nbsp;&nbsp;(b) Two distinct points lie on at most one common line, and $P, P'$ are collinear $\iff$ $\langle P, P'\rangle = 0$.
+<br>&nbsp;&nbsp;(c) <i>(GQ axiom)</i> If $P \in \mathcal P$ does not lie on $M \in \mathcal M$, then exactly one point of $M$ is collinear with $P$.</div>
+
+<div class="proof">
+<p><b>(a).</b> $V$ has $q^4 - 1$ nonzero vectors, each 1-space $q - 1$ of them: $|\mathcal P| = (q^4-1)/(q-1) = q^3+q^2+q+1 = (q+1)(q^2+1)$. A line, being a 2-space, contains $(q^2-1)/(q-1) = q+1$ points. Lines through a fixed point $P = \langle p \rangle$: a 2-space $M \ni P$ is totally isotropic iff every generator pair is orthogonal; writing $M = \mathrm{span}(p, v)$, alternation reduces this to $\langle p, v\rangle = 0$, i.e. $v \in P^\perp$. So lines through $P$ correspond to 1-spaces of the quotient $P^\perp/P$, a space of dimension $3 - 1 = 2$ (note $P \subseteq P^\perp$ by alternation): there are $(q^2-1)/(q-1) = q+1$ of them. Finally, counting incident (point, line) pairs two ways: $|\mathcal M| (q+1) = |\mathcal P|(q+1)$, so $|\mathcal M| = |\mathcal P|$.</p>
+<p><b>(b).</b> Two distinct points span a unique 2-space, so at most one line contains both; that 2-space is a line iff it is totally isotropic iff (as just computed) $\langle P, P'\rangle = 0$.</p>
+<p><b>(c).</b> First, the quotient form on $P^\perp / P$, defined by $\langle \bar x, \bar y\rangle := \langle x, y \rangle$, is well defined (shifting $x$ by $P$ changes nothing since $P \perp P^\perp$) and <i>nondegenerate</i>: if $x \in P^\perp$ is orthogonal to all of $P^\perp$, then $x \in (P^\perp)^\perp = P$, so $\bar x = 0$.</p>
+<p>Now take $P \not\subseteq M$. Dimensions give $\dim(P^\perp \cap M) \ge 3 + 2 - 4 = 1$. If $\dim(P^\perp \cap M) = 2$, i.e. $M \subseteq P^\perp$: since $P \cap M = 0$, the projection $M \to P^\perp/P$ is injective, so its image is all of the 2-dimensional quotient; but $M$ is totally isotropic, making the (nondegenerate!) quotient form identically zero &mdash; contradiction. So $P^\perp \cap M$ is exactly one point, call it $R$. Then $\mathrm{span}(P, R)$ is totally isotropic ($\langle P, R \rangle = 0$ plus alternation), i.e. a line through $P$ and $R$: the point $R$ is collinear with $P$. Conversely any point $R' \subseteq M$ collinear with $P$ satisfies $\langle P, R'\rangle = 0$ by (b), so $R' \subseteq P^\perp \cap M = R$. Exactly one. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="prop"><b>Proposition G (girth eight).</b> The incidence graph of any geometry satisfying (a)&ndash;(c) with $q \ge 2$ &mdash; in particular $I_q$ &mdash; is bipartite with girth at least $8$; hence it contains no $C_4$ and no $C_6$.</div>
+
+<div class="proof">
+<p>Cycles in a bipartite incidence graph alternate point, line, point, line, &hellip; and have even length. A $C_4$ is two distinct points both on two distinct lines &mdash; banned by (b). A $C_6$ is a triangle: distinct points $P_1, P_2, P_3$ and distinct lines $M_3 \ni P_1, P_2$; $M_1 \ni P_2, P_3$; $M_2 \ni P_3, P_1$. Then $P_3$ does not lie on $M_3$ (if it did, $P_2, P_3$ would lie on both $M_3$ and $M_1$, two common lines &mdash; banned by (b), as $M_1 \neq M_3$ since $M_1 \ni P_3$). But $P_3$ is collinear with <i>two</i> distinct points of $M_3$, namely $P_1$ and $P_2$ &mdash; contradicting the &ldquo;exactly one&rdquo; of (c). <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Fig. 13 shows the whole of $W(2)$ &mdash; the celebrated <i>doily</i>: 15 points, 15 lines, three points per line, three lines per point, girth eight. Our validation script (<a class="secref" href="#numerics">&sect;12</a>) constructs $I_2$ and $I_3$ from the symplectic definition and machine-checks every claim of Propositions F&ndash;G.</p>
+
+<figure>
+INSERT_DOILY_SVG
+<figcaption><b>The doily: $W(2)$ in one picture</b> (drawn by <code>figgen/ch10_figs.py</code> from the duad&ndash;syntheme model and machine-verified: girth $8$, all degrees $3$). Points are the 15 unordered pairs (&ldquo;duads&rdquo;) from $\{1,\dots,6\}$, labeled at each node; lines are the 15 partitions of $\{1,\dots,6\}$ into three duads, drawn as colored arcs through their three points (color marks the orbit type under the fivefold symmetry). Since the generalized quadrangle of order $(2,2)$ is unique up to isomorphism and duality, this <i>is</i> the symplectic $W(2)$. Its incidence graph $I_2$ has $30$ vertices and $45$ edges $\ge 2^{-4/3}\cdot 30^{4/3} \approx 37$ &mdash; the seed of the $\Omega(n^{4/3})$ record.</figcaption></figure>
+
+<h3 id="patterns">5.2 Local patterns, and who dodges what</h3>
+
+<p>Because $I_q$ is bipartite with no $C_4$ or $C_6$ (Proposition G), the whole apparatus of <a class="secref" href="#upper">&sect;4</a> applies to it: for either class $S \in \{\mathcal P, \mathcal M\}$ we have the derived graph $R_S$, the sets $L(T)$, and $r(T)$. The relations have clean algebraic meanings. Two distinct points satisfy $P \sim P'$ (a common neighbor in $I_q$ = a common line) iff $\langle P, P'\rangle = 0$, by Proposition F(b). Two distinct lines satisfy $M \sim M'$ (a common point) iff $M \cap M' \neq \{0\}$.</p>
+
+<div class="def"><b>Definition 4.1 (local patterns).</b> A <b>$J$-pattern</b> in a class $S$ consists of $R_S$-independent triples $\{x, y, z\}$ and $\{x', y, z\}$, each with at least two common centers, such that $x \sim x'$. An <b>$S_3$-pattern</b> in $S$ is an $R_S$-independent triple with at least three common centers.</div>
+
+<p>These are precisely the footprints of the two template families:</p>
+
+<div class="lem"><b>Lemma H (footprints).</b> If $I_q$ contains a member of $\mathcal J$, then some class of $I_q$ contains a $J$-pattern. If $I_q$ contains a member of $\mathcal K$, then <i>both</i> classes contain $S_3$-patterns.</div>
+
+<div class="proof">
+<p>Let a member of $\mathcal J$ sit inside $I_q$. By Definition 2.2(2) its two distinguished $S_2$-copies appear injectively, giving two $S_2$-copies in $I_q$ with base triples $\{x,y,z\}$, $\{x',y,z\}$, $x \neq x'$ (the quotient condition $x \not\approx x'$), all six original vertices of each copy in one class $S$ (bases and centers are at even distance from each other). By Lemma 3.1(2) (valid in $I_q$!) each base triple is $R_S$-independent with at least two common centers. And the image of $\lambda$ is a common neighbor of $x$ and $x'$ in $I_q$, so $x \sim x'$: a $J$-pattern in $S$. For $\mathcal K$: the two $S_3$-copies appear injectively; the bridge $d_1 d_2$ puts the originals of the first copy in one class and (reversed coloring) those of the second in the other class; Lemma 3.1(2) turns each into an $S_3$-pattern &mdash; one per class. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>So to certify $\mathcal J$-freeness it suffices to rule $J$-patterns out of <i>both</i> classes, and for $\mathcal K$-freeness to rule $S_3$-patterns out of <i>one</i>. Here are the two classical facts we import; both are verified by machine for $q \in \{2,3\}$ in <a class="secref" href="#numerics">&sect;12</a>.</p>
+
+<div class="note"><b>Import 1 (self-duality in characteristic 2) [PT09, &sect;3.2.1].</b> For $q$ even, $W(q)$ is <i>self-dual</i>: there is an incidence-preserving bijection swapping $\mathcal P$ and $\mathcal M$. (Hence any statement about the point class holds verbatim for the line class.)</div>
+
+<div class="note"><b>Import 2 (triads in odd characteristic) [PT09, &sect;1.3.6(iii) and &sect;3.3.1; BHKT18, Prop. 4.5].</b> For $q$ odd, identify $\mathcal M$ with the point class of the dual quadrangle, which is isomorphic to the parabolic quadrangle $Q(4,q)$. Every <i>triad</i> of $Q(4,q)$ &mdash; in our language, every $R_{\mathcal M}$-independent triple &mdash; has exactly $0$ or $2$ common centers. In particular $r(T) \le 2$ for every independent triple in $\mathcal M$: no $S_3$-pattern.</div>
+
+<div class="prop"><b>Proposition 4.2 (quadrangle witnesses).</b> For even $q$, $I_q$ is $\mathcal J$-free; for odd $q$, $I_q$ is $\mathcal K$-free. In either case it contains no $C_4$ or $C_6$.</div>
+
+<div class="proof">
+<p>The heart is that the <i>point</i> class of $W(q)$, for every $q$, contains no $J$-pattern; this we prove outright (Fig. 14). Let $y, z \in \mathcal P$ be unrelated &mdash; noncollinear, i.e. $\langle y, z\rangle \neq 0$ &mdash; and put $U = y + z$ (the 2-space they span). Since $y \not\perp z$, the form restricted to $U$ is nondegenerate (a vector $ay + bz$ orthogonal to both $y$ and $z$ forces $b\langle z,y\rangle = 0 = a\langle y,z\rangle$, so $a = b = 0$), and consequently $V = U \oplus U^\perp$ with $U^\perp$ likewise 2-dimensional and nondegenerate (any radical vector of $U^\perp$ would be orthogonal to $U^\perp$ and to $U$, hence to $V$).</p>
+<p><i>The common centers of $y, z$ are exactly the points of $U^\perp$:</i> $c \sim y$ and $c \sim z$ means $c \perp y$, $c \perp z$ (Proposition F(b)), i.e. $c \subseteq U^\perp$; conversely each point of $U^\perp$ is orthogonal to both and distinct from both (as $U \cap U^\perp = 0$).</p>
+<p><i>Any candidate third base lies inside $U$:</i> if $\{x, y, z\}$ is independent with $r(\{x,y,z\}) \ge 2$, then $x$ is orthogonal to two <i>distinct</i> common centers $c_1, c_2 \subseteq U^\perp$; two distinct 1-spaces span the 2-space $U^\perp$, so $x \perp U^\perp$, i.e. $x \subseteq (U^\perp)^\perp = U$.</p>
+<p><i>Two candidates are never related:</i> distinct points $x, x' \subseteq U$ with $\langle x, x'\rangle = 0$ would span $U$ and (with alternation) make the form vanish identically on $U$ &mdash; contradicting nondegeneracy of $U$. So $x \not\sim x'$, and $\mathcal P$ has no $J$-pattern.</p>
+<p>If $q$ is even, Import 1 transfers the conclusion to $\mathcal M$: no $J$-pattern in either class, so by Lemma H, $I_q$ is $\mathcal J$-free. If $q$ is odd, Import 2 says $\mathcal M$ has no $S_3$-pattern, so by Lemma H, $I_q$ is $\mathcal K$-free. The $C_4$/$C_6$ statement is Proposition G. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 230" width="100%" role="img" aria-label="Symplectic splitting V = U plus U-perp behind the J-pattern exclusion">
+  <defs><marker id="c10arrU" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <!-- U plane -->
+  <path d="M40,150 L200,110 L230,180 L70,220 Z" fill="#c0392b" fill-opacity="0.12" stroke="#c0392b" stroke-width="1.6"/>
+  <!-- U-perp plane -->
+  <path d="M280,40 L440,60 L420,130 L260,110 Z" fill="#2e6da4" fill-opacity="0.12" stroke="#2e6da4" stroke-width="1.6"/>
+  <g fill="#c0392b">
+    <circle cx="105" cy="155" r="6"/><circle cx="175" cy="140" r="6"/><circle cx="140" cy="192" r="6"/>
+  </g>
+  <g fill="#2e6da4">
+    <circle cx="330" cy="75" r="6"/><circle cx="390" cy="95" r="6"/>
+  </g>
+  <text x="88" y="145" font-size="12.5" fill="#c0392b" class="v">y</text>
+  <text x="182" y="132" font-size="12.5" fill="#c0392b" class="v">z</text>
+  <text x="124" y="212" font-size="12.5" fill="#c0392b" class="v">x</text>
+  <text x="318" y="64" font-size="12.5" fill="#2e6da4">c&#8321;</text>
+  <text x="398" y="88" font-size="12.5" fill="#2e6da4">c&#8322;</text>
+  <text x="44" y="140" font-size="12.5" fill="#c0392b">U = y + z  (nondegenerate)</text>
+  <text x="286" y="32" font-size="12.5" fill="#2e6da4">U&#8869;: all common centers of y, z</text>
+  <line x1="180" y1="165" x2="300" y2="100" stroke="#7a1f1f" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#c10arrU)"/>
+  <text x="200" y="152" font-size="11.5" fill="#7a1f1f">x &#8869; c&#8321;, c&#8322; &#8658; x &#8869; U&#8869; &#8658; x &#8838; U</text>
+  <text x="40" y="224" font-size="11.5" fill="#555">inside U, distinct points are never orthogonal &#8658; two third-bases can't be related: no J-pattern</text>
+</svg><figcaption><b>The $J$-pattern exclusion in $\mathcal P$, schematically.</b> Noncollinear $y, z$ split $V = U \oplus U^\perp$ into two nondegenerate symplectic planes (drawn as tiles). All common centers of $y, z$ live in $U^\perp$ (blue); a third base $x$ orthogonal to two of them is dragged into $U$ (red). But a nondegenerate symplectic plane admits no two orthogonal points &mdash; so two candidate third bases $x, x'$ are never related, and the linking vertex $\lambda$ of the template $J_0$ finds nothing to link. This argument is unconditional in the point class; Imports 1&ndash;2 handle the line class, differently in each characteristic.</figcaption></figure>
+
+<h3 id="lower43">5.3 The individual lower bounds</h3>
+
+<p>Write, as in the paper,
+$$n_q = 2(q+1)(q^2+1), \qquad e_q = (q+1)^2(q^2+1) \;\ge\; 2^{-4/3}\, n_q^{4/3}, \tag{8}$$
+where $e_q = e(I_q)$ counts incidences ($|\mathcal P|$ points times $q+1$ lines each) and the inequality reduces, after raising to the third power and clearing $2^4$, to $(q+1)^2 \ge q^2 + 1$ &mdash; true. Note the calibration: girth 8 with $\Theta(q^3)$ vertices and $\Theta(q^4)$ edges is exactly &ldquo;exponent $4/3$&rdquo;.</p>
+
+<div class="prop"><b>Proposition 4.3 (individual lower bounds).</b> For every $F \in \mathcal F$: $\;\mathrm{ex}(n, F) = \Omega(n^{4/3})$.</div>
+
+<div class="proof">
+<p>Given $F$, choose the field family: if $F \in \{C_4, C_6\} \cup \mathcal J$, use $q = 2^j$; if $F \in \mathcal K$, use $q = 3^j$. Proposition 4.2 makes every such $I_q$ an $F$-free graph. The admissible sizes are dense enough on the doubling scale: for $t \in \{2,3\}$,
+$$n_{tq} = 2(tq+1)(t^2q^2+1) \le 2 \cdot t(q+1)\cdot t^2(q^2+1) = t^3 n_q \le 27\, n_q.$$
+Given large $n$, take the largest admissible $q$ with $n_q \le n$; then $n \lt n_{tq} \le 27 n_q$, so $n_q \gt n/27$. Pad $I_q$ with $n - n_q$ isolated vertices: since $F$ is connected and has an edge, no copy of $F$ can use an isolated vertex, so the padded graph is still $F$-free, and by (8)
+$$\mathrm{ex}(n, F) \;\ge\; e_q \;\ge\; 2^{-4/3} n_q^{4/3} \;\ge\; 2^{-4/3}\, (n/27)^{4/3} \;\gg\; n^{4/3}.$$ <span class="qed">&#8718;</span></p>
+</div>
+
+<h2 id="thm11">6. Theorem 1.1 assembled &mdash; compactness fails</h2>
+
+<div class="proof">
+<p><i>Proof of Theorem 1.1.</i> The family $\mathcal F$ of (4) is finite and nonempty, with every member connected, bipartite, and containing a cycle (Lemma E). Proposition 3.4 gives $\mathrm{ex}(n, \mathcal F) = O(n^{21/16}) = O(n^{4/3 - 1/48})$; Proposition 4.3 gives $\mathrm{ex}(n, F) = \Omega(n^{4/3})$ for every member. That is exactly (2), and it is incompatible with (1) for any $F \in \mathcal F$ and any constant $C$: the ratio $\mathrm{ex}(n,F)/\mathrm{ex}(n,\mathcal F) \gg n^{1/48} \to \infty$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Step back and look at the mechanism. Each member of $\mathcal F$ is dodged by an infinite family of quadrangle graphs &mdash; but <i>which</i> family depends on the arithmetic of the member: the $\mathcal J$-templates are killed by the self-dual symmetry available only in characteristic $2$, the $\mathcal K$-templates by the triad parity available only in odd characteristic. The family as a whole straddles the two characteristics, and no single host graph gets to choose both. The separation is genuine but glacial &mdash; $n^{1/48}$ &mdash; as Fig. 15 shows.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="The gap factor n to the 1/48 as a function of n">
+  <line x1="60" y1="210" x2="440" y2="210" stroke="#999" stroke-width="1.4"/>
+  <line x1="60" y1="210" x2="60" y2="25" stroke="#999" stroke-width="1.4"/>
+  <g font-size="10" fill="#777">
+    <line x1="107.5" y1="210" x2="107.5" y2="214" stroke="#999"/><text x="93" y="226">10&#8310;</text>
+    <line x1="155.0" y1="210" x2="155.0" y2="214" stroke="#999"/><text x="141" y="226">10&#185;&#178;</text>
+    <line x1="250.0" y1="210" x2="250.0" y2="214" stroke="#999"/><text x="236" y="226">10&#178;&#8308;</text>
+    <line x1="345.0" y1="210" x2="345.0" y2="214" stroke="#999"/><text x="331" y="226">10&#179;&#8310;</text>
+    <line x1="440.0" y1="210" x2="440.0" y2="214" stroke="#999"/><text x="426" y="226">10&#8308;&#8312;</text>
+    <line x1="56" y1="210" x2="60" y2="210" stroke="#999"/><text x="42" y="214">1</text>
+    <line x1="56" y1="132.2" x2="60" y2="132.2" stroke="#999"/><text x="42" y="136">5</text>
+    <line x1="56" y1="35" x2="60" y2="35" stroke="#999"/><text x="36" y="39">10</text>
+  </g>
+  <text x="190" y="245" font-size="11" fill="#555">vertices n (log scale)</text>
+  <text x="66" y="20" font-size="11" fill="#555">separation factor  ex(n,F) / ex(n,&#8497;)  &#8819;  n&#185;&#8725;&#8308;&#8312;</text>
+  <polyline points="60,210 83.8,207 107.5,203.5 131.3,199.5 155,194.9 178.8,189.5 202.5,183.4 226.3,176.2 250,168 273.8,158.4 297.5,147.5 321.3,134.7 345,120.1 368.8,103.2 392.5,83.7 416.3,61.1 440,35" fill="none" stroke="#c0392b" stroke-width="2.4"/>
+  <g fill="#c0392b">
+    <circle cx="107.5" cy="203.5" r="4"/><circle cx="155" cy="194.9" r="4"/><circle cx="250" cy="168" r="4"/><circle cx="440" cy="35" r="4"/>
+  </g>
+  <text x="115" y="196" font-size="10.5" fill="#c0392b">1.33&#215;</text>
+  <text x="162" y="188" font-size="10.5" fill="#c0392b">1.78&#215;</text>
+  <text x="257" y="162" font-size="10.5" fill="#c0392b">3.16&#215;</text>
+  <text x="398" y="32" font-size="10.5" fill="#c0392b">10&#215;</text>
+</svg><figcaption><b>How fast compactness fails</b> (values from <code>figgen/ch10_figs.py</code>). The proven separation between any individual ban and the family ban grows like $n^{1/48}$: a factor $1.33$ at $n = 10^6$ vertices, $1.78$ at $10^{12}$, and reaching a full order of magnitude only near $n = 10^{48}$. A disproof needs only $\to \infty$; but the slowness is a reminder that the counterexample defeats the conjecture's <i>letter</i> at astronomical scales, not its everyday spirit &mdash; and that the true exponent of $\mathrm{ex}(n,\mathcal F)$ between $21/16$ and $4/3$ remains unknown (<a class="secref" href="#scope">&sect;13</a>).</figcaption></figure>

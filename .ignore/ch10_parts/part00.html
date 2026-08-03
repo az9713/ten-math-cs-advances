@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two conjectures fall in extremal graph theory — Chapter 10, rigorous explainer</title>
+<!-- MathJax v3, SVG output. One CDN line; needs network on first open. -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'ams' },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-svg.js" integrity="sha384-msWocAZtTDh+149KSxjbRTGVfGbDjiff/j0JX1iu/A/GxxTWSu6ozNemlfkag/8d" crossorigin="anonymous" async></script>
+<style>
+  :root{ --fg:#1a1a1a; --muted:#555; --accent:#7a1f1f; --rule:#ddd; --box:#f6f4ef;
+         --toy:#2a7d2a; --toybg:#f1f7f1; --notebg:#fdf7e3; --noterule:#e3d27a; --card:#ffffff;
+         --codebg:#f3f1ec; --btnbg:#ffffff; --pagebg:#ffffff; }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:#e8e5df; --muted:#a49e92; --accent:#d98a6a; --rule:#3a3630; --box:#232019;
+           --toy:#7fbf8f; --toybg:#1d241d; --notebg:#2a2617; --noterule:#6a5d2a; --card:#f6f4ef;
+           --codebg:#2a2723; --btnbg:#232019; --pagebg:#161513; }
+  }
+  body{ background:var(--pagebg); }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ max-width: 50rem; margin: 2.5rem auto; padding: 0 1.25rem 6rem;
+        font: 16px/1.65 Georgia, 'Times New Roman', serif; color:var(--fg); counter-reset: fig; }
+  h1{ font-size: 1.9rem; line-height:1.2; margin:.2rem 0 .2rem; }
+  h2{ font-size:1.35rem; margin:2.4rem 0 .6rem; border-bottom:2px solid var(--accent); padding-bottom:.2rem; }
+  h3{ font-size:1.1rem; margin:1.6rem 0 .4rem; color:var(--accent); }
+  .sub{ color:var(--muted); font-style:italic; margin-top:0; }
+  code{ font-family: ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.92em; background:var(--codebg); padding:.05rem .25rem; border-radius:3px; }
+  pre{ background:var(--codebg); padding:.8rem 1rem; border-radius:5px; overflow:auto; font-size:.84rem; line-height:1.45; }
+  pre code{ background:none; padding:0; }
+  .codewrap{ position:relative; }
+  .copybtn{ position:absolute; top:.5rem; right:.5rem; display:inline-flex; align-items:center; gap:.3rem;
+    font:600 .72rem/1 ui-monospace,Consolas,monospace; color:var(--muted);
+    background:var(--btnbg); border:1px solid var(--rule); border-radius:5px; padding:.32rem .5rem; cursor:pointer; }
+  .copybtn:hover{ color:var(--accent); border-color:var(--accent); }
+  .copybtn.copied{ color:#2a7d2a; border-color:#2a7d2a; }
+  .copybtn svg{ width:13px; height:13px; }
+  .thm,.def,.lem,.prop{ background:var(--box); border-left:4px solid var(--accent); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .thm b,.def b,.lem b,.prop b{ color:var(--accent); }
+  .proof{ border-left:2px solid var(--rule); padding-left:.9rem; margin:.8rem 0 1.2rem; }
+  .proof::before{ content:"Proof."; font-style:italic; font-weight:bold; margin-right:.4rem; }
+  .qed{ float:right; }
+  .toy{ background:var(--toybg); border-left:4px solid var(--toy); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .toy b{ color:var(--toy); }
+  .note{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; margin:1rem 0; border-radius:4px; font-size:.92rem; }
+  table{ border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; }
+  th,td{ border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top; }
+  th{ background:var(--box); }
+  .tablewrap{ overflow-x:auto; }
+  figure{ margin:1.5rem 0; text-align:center; counter-increment: fig; }
+  figure > svg{ background:var(--card); border:1px solid var(--rule); border-radius:6px; }
+  figcaption{ color:var(--muted); font-size:.9rem; font-style:italic; margin-top:.4rem; }
+  figcaption::before{ content:"Fig. " counter(fig) ". "; font-weight:bold; font-style:normal; color:var(--accent); }
+  .proof figure,.thm figure,.lem figure,.prop figure{ margin:.2rem auto .7rem; max-width:460px; background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:.4rem; }
+  .proof figure > svg,.thm figure > svg,.lem figure > svg,.prop figure > svg{ border:none; }
+  .proof figcaption,.thm figcaption,.lem figcaption,.prop figcaption{ font-size:.8rem; line-height:1.4; }
+  .setupfig{ display:block; }
+  .setupfig text{ paint-order:stroke; stroke:#fff; stroke-width:2.5px; stroke-linejoin:round; }
+  .setupfig text[fill="#fff"], .setupfig text[fill="#ffffff"], .setupfig text[fill="white"], .setupfig text.onfill{ stroke:none; }
+  figure svg text{ font-family:"STIX Two Math",STIXGeneral,"Times New Roman",Georgia,serif; }
+  figure svg text.v{ font-style:italic; }
+  figure svg text.vb{ font-weight:bold; }
+  .secref{ color:var(--accent); text-decoration:none; border-bottom:1px dotted #b98; }
+  .secref:hover{ border-bottom:1px solid var(--accent); }
+  .toc{ background:var(--box); padding:.8rem 1.2rem; border-radius:6px; font-size:.95rem; }
+  .toc ul{ list-style:none; padding-left:.3rem; margin:.3rem 0; } .toc a{ color:var(--accent); text-decoration:none; }
+  .small{ font-size:.88rem; color:var(--muted); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+  .keyresult{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; border-radius:4px; }
+</style>
+</head>
+<body>
+
+<h1>Two conjectures fall in extremal graph theory</h1>
+<p class="sub">A rigorous, self-contained walkthrough of Chapter 10 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (pp. 234&ndash;247), written for a reader with a PhD in <b>some</b> quantitative field &mdash; but not in extremal graph theory. Every symbol is defined before use; everything provable at graduate-core level is proved; the two deep imports from finite geometry are stated precisely, flagged, and verified by computer in the small cases.</p>
+
+<div class="toc">
+<b>Contents</b>
+<ul>
+<li><b>0.</b> <a href="#hook">Motivation &mdash; banning patterns in a network</a></li>
+<li><b>1.</b> <a href="#exnum">Extremal numbers from zero: Mantel, K&#337;v&aacute;ri&ndash;S&oacute;s&ndash;Tur&aacute;n, and the first incidence geometry</a></li>
+<li><b>2.</b> <a href="#conjectures">The two conjectures, and the two theorems that kill them</a></li>
+<li><b>3.</b> <a href="#family">The forbidden family: subdivisions, two templates, admissible quotients</a></li>
+<li><b>4.</b> <a href="#upper">The upper bound: $\mathrm{ex}(n,\mathcal F) = O(n^{21/16})$, in full</a></li>
+<li><b>5.</b> <a href="#quadrangle">The witnesses: generalized quadrangles</a></li>
+<li><b>6.</b> <a href="#thm11">Theorem 1.1 assembled &mdash; compactness fails</a></li>
+<li><b>7.</b> <a href="#layered">The layered graph $H$</a></li>
+<li><b>8.</b> <a href="#entropy">The entropy toolbox, and Lemma 5.1 in full</a></li>
+<li><b>9.</b> <a href="#host">The sampled Hamming-ball host</a></li>
+<li><b>10.</b> <a href="#exclusion">The potential argument: no copy of $H$ survives</a></li>
+<li><b>11.</b> <a href="#finish">Counting edges and closing Theorem 1.2</a></li>
+<li><b>12.</b> <a href="#numerics">Numeric validation &mdash; every checkable claim, checked</a></li>
+<li><b>13.</b> <a href="#scope">Scope &mdash; proved here, imported, open</a></li>
+<li><b>A.</b> <a href="#notation">Appendix: notation glossary</a></li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="hook">0. Motivation &mdash; banning patterns in a network</h2>
+
+<p>Take a network: $n$ people, some pairs of them friends. Now impose a local rule &mdash; say, <i>no two people may have two friends in common</i>. In graph language, the friendship graph must not contain a four-cycle $C_4$ (two vertices joined by two disjoint two-step paths, as in Fig. 1). How many friendships can the network still support? This is the prototype question of <b>extremal graph theory</b>: given a forbidden pattern $H$, how many edges can an $n$-vertex graph have before a copy of $H$ is unavoidable? The answer for $C_4$ is a famous one &mdash; about $\tfrac12 n^{3/2}$ edges, far fewer than the $\binom n2 \approx n^2/2$ possible &mdash; and we will prove it from scratch in <a class="secref" href="#exnum">&sect;1</a>, because the machinery of that proof (counting paths of length two, and building record-breaking networks out of finite geometries) is exactly the machinery this chapter pushes much further.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 210" width="100%" role="img" aria-label="A network with a forbidden four-cycle highlighted">
+  <defs>
+    <marker id="c10arrhook" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker>
+  </defs>
+  <!-- left: a small network containing a C4 -->
+  <g stroke="#9ab" stroke-width="1.6">
+    <line x1="60" y1="60" x2="130" y2="40"/><line x1="60" y1="60" x2="60" y2="140"/>
+    <line x1="130" y1="40" x2="185" y2="90"/><line x1="60" y1="140" x2="130" y2="165"/>
+    <line x1="130" y1="165" x2="185" y2="90"/><line x1="130" y1="40" x2="200" y2="30"/>
+    <line x1="185" y1="90" x2="200" y2="30"/>
+  </g>
+  <!-- the C4 -->
+  <g stroke="#c0392b" stroke-width="2.6">
+    <line x1="60" y1="60" x2="120" y2="100"/><line x1="120" y1="100" x2="130" y2="165"/>
+    <line x1="60" y1="60" x2="60" y2="140"/><line x1="60" y1="140" x2="130" y2="165"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.5">
+    <circle cx="60" cy="60" r="7"/><circle cx="130" cy="40" r="7"/><circle cx="200" cy="30" r="7"/>
+    <circle cx="185" cy="90" r="7"/><circle cx="120" cy="100" r="7"/>
+    <circle cx="60" cy="140" r="7"/><circle cx="130" cy="165" r="7"/>
+  </g>
+  <circle cx="60" cy="60" r="7" fill="#c0392b"/>
+  <circle cx="130" cy="165" r="7" fill="#c0392b"/>
+  <text x="38" y="52" font-size="12" fill="#c0392b" class="v">u</text>
+  <text x="140" y="180" font-size="12" fill="#c0392b" class="v">v</text>
+  <text x="30" y="196" font-size="11.5" fill="#555">u and v share two friends: a forbidden C&#8324;</text>
+  <!-- arrow to the question -->
+  <line x1="238" y1="100" x2="282" y2="100" stroke="#555" stroke-width="1.6" marker-end="url(#c10arrhook)"/>
+  <!-- right: the extremal question -->
+  <text x="300" y="58" font-size="13" fill="#1a1a1a">ban a pattern H (or a</text>
+  <text x="300" y="76" font-size="13" fill="#1a1a1a">whole list of patterns);</text>
+  <text x="300" y="102" font-size="13" fill="#7a1f1f">how many edges can</text>
+  <text x="300" y="120" font-size="13" fill="#7a1f1f">an n-vertex graph keep?</text>
+  <text x="300" y="150" font-size="12.5" fill="#555">answer: ex(n, H) &mdash; the</text>
+  <text x="300" y="167" font-size="12.5" fill="#555">extremal number of H</text>
+</svg><figcaption><b>The prototype question.</b> Left: a seven-person network in which $u$ and $v$ have two common friends &mdash; the red edges form a four-cycle $C_4$, the pattern our local rule forbids. Extremal graph theory asks for $\mathrm{ex}(n,H)$, the maximum number of edges an $n$-vertex graph can carry while containing no copy of the forbidden pattern $H$ &mdash; or no member of a forbidden list $\mathcal F$.</figcaption></figure>
+
+<p>This chapter is about two <i>structural</i> beliefs that guided the field for decades &mdash; both plausible, both wrong. Each is a statement about how the answer $\mathrm{ex}(n,\cdot)$ behaves as the forbidden pattern varies, and each is killed in this chapter by an explicit counterexample.</p>
+
+<ul>
+<li><b>Belief one (compactness, Erd&#337;s&ndash;Simonovits 1982).</b> Banning a <i>finite list</i> $\mathcal F$ of patterns should be essentially no stronger than banning the single most restrictive pattern in the list: some member $F \in \mathcal F$ should satisfy $\mathrm{ex}(n,\mathcal F) \ge c\,\mathrm{ex}(n,F)$. Intuitively, a graph dodging the whole list should be comparable to the best graph dodging its hardest member. The chapter constructs a finite family of connected bipartite graphs, each containing a cycle, whose joint ban costs a <i>polynomial factor</i> $n^{1/48}$ more than any individual ban: $\mathrm{ex}(n,\mathcal F) = O(n^{4/3 - 1/48})$ while every single member has $\mathrm{ex}(n,F) = \Omega(n^{4/3})$.</li>
+<li><b>Belief two (degeneracy, Erd&#337;s 1967).</b> A pattern that is <i>sparse everywhere</i> should be easy to force. A graph $H$ is $r$-degenerate if every nonempty subgraph of it has a vertex of degree at most $r$ &mdash; it can be assembled by adding vertices one at a time, each attached by at most $r$ edges. Erd&#337;s conjectured that every bipartite $r$-degenerate $H$ has $\mathrm{ex}(n,H) = O(n^{2-1/r})$; for $r=2$ that means $O(n^{3/2})$, the same order as the humble $C_4$. The chapter constructs a connected bipartite <b>2-degenerate</b> graph $H$ with $\mathrm{ex}(n,H) \ge c\,n^{3/2+\varepsilon}$ &mdash; a sparse-everywhere pattern that is polynomially harder to force than its density suggests.</li>
+</ul>
+
+<p>What makes the chapter a treat for an outsider is that the two counterexamples showcase the field's two great engines, one apiece. The compactness counterexample runs on <b>finite incidence geometry</b>: the record-holding networks are incidence graphs of <i>generalized quadrangles</i>, point&ndash;line geometries over finite fields whose defining axiom is precisely the absence of short cycles, and the two forbidden templates are rigged so that geometries over fields of <i>different characteristic</i> dodge different halves of the list &mdash; no single graph dodges it all. The degeneracy counterexample runs on the <b>probabilistic and entropy method</b>: the record network is a random induced subgraph of a Hamming-distance graph on binary strings, and the proof that the sparse pattern $H$ cannot appear is an accounting argument in which every layer of an embedded copy would pump a bounded &ldquo;entropy potential&rdquo; up by a fixed amount &mdash; impossible after enough layers. Remarkably, the two engines meet nowhere: the chapter is two independent short stories, and we tell them in order.</p>
+
+<p>The plan:</p>
+<ul>
+<li><a class="secref" href="#exnum">&sect;1</a> builds $\mathrm{ex}(n,H)$ from zero and proves the classical $C_4$ result in both directions &mdash; the warm-up whose DNA is everywhere below.</li>
+<li><a class="secref" href="#conjectures">&sect;2</a> states both conjectures precisely (including the folklore example that forced a correction to the first), and states the chapter's two theorems.</li>
+<li><a class="secref" href="#family">&sect;3</a>&ndash;<a class="secref" href="#thm11">&sect;6</a> prove Theorem 1.1: the forbidden family (<a class="secref" href="#family">&sect;3</a>), the counting upper bound (<a class="secref" href="#upper">&sect;4</a>), the generalized-quadrangle lower bounds (<a class="secref" href="#quadrangle">&sect;5</a>), and the assembly (<a class="secref" href="#thm11">&sect;6</a>).</li>
+<li><a class="secref" href="#layered">&sect;7</a>&ndash;<a class="secref" href="#finish">&sect;11</a> prove Theorem 1.2: the layered graph (<a class="secref" href="#layered">&sect;7</a>), the entropy inequality (<a class="secref" href="#entropy">&sect;8</a>), the random host (<a class="secref" href="#host">&sect;9</a>), the exclusion argument (<a class="secref" href="#exclusion">&sect;10</a>), and the edge count with the parameter window (<a class="secref" href="#finish">&sect;11</a>).</li>
+<li><a class="secref" href="#numerics">&sect;12</a> validates: we rebuild the witnesses by computer for small field sizes and check every checkable claim; <a class="secref" href="#scope">&sect;13</a> is the honest scorecard.</li>
+</ul>
+
+<p class="small">Source of truth: Chapter 10, &ldquo;Counterexamples to the Compactness and Degeneracy Conjectures for Extremal Numbers&rdquo;, pp. 234&ndash;247 of the paper (PDF pages 236&ndash;249). The chapter's numbering &mdash; Theorems 1.1, 1.2, Definitions 2.1&ndash;2.5, Lemmas 3.1&ndash;3.3, Propositions 3.4, 4.2, 4.3, Lemmas 5.1, 5.2, Fact 6.1, Lemma 7.1, Proposition 8.1, equations (1)&ndash;(19) &mdash; is preserved. Results labeled with letters (Propositions A, B, C, &hellip;) are classical background proved here; the two results labeled <b>Import 1&ndash;2</b> are deep facts of finite geometry, stated precisely, cited, and verified by computer for $q \in \{2,3\}$ in <a class="secref" href="#numerics">&sect;12</a>.</p>

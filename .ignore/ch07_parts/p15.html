@@ -1,0 +1,28 @@
+<hr>
+<h2 id="consequences">15. Consequences: decoding problems and every fixed $\ell_p$ norm</h2>
+
+<p>The binary gap $W(H,b) \le R$ versus $W(H,b) &gt; 4M^{1/200}R$ is the reduction's real product; Euclidean CVP consumed it through Lemma 7's square root. The same gap feeds two more families of results.</p>
+
+<h3 id="s15-coding">15.1 Coding problems: no square root, better exponent</h3>
+
+<div class="prop"><b>Corollary 15 (hardness of binary nearest codeword and syndrome decoding).</b> Binary nearest codeword and binary syndrome decoding are NP-hard to approximate within $n^{1/200}$ under deterministic polynomial-time many-one reductions ($n$ = code block length).</div>
+<div class="proof">Run the reduction of <a class="secref" href="#transfer">&sect;14</a> up to the affine system. On the consistent branch, output the system itself as a syndrome-decoding instance &mdash; parity-check matrix $H$, syndrome $b$, integer radius $R = (\ell+1)\lvert P\rvert$ &mdash; or, for the nearest-codeword formulation, a particular solution $u$ and (via Gaussian elimination, $O(n^2)$ output bits) either a generator matrix or an independent-row parity-check matrix for $\mathcal{C} = \ker_{\mathbb{F}_2} H$, with $d_H(u,\mathcal{C}) = W(H,b)$ as in <a class="secref" href="#codes">&sect;4.1</a>. Completeness is Lemma 8: satisfiable $\varphi$ gives $W(H,b) \le R$. Soundness: a binary solution of weight $\le n^{1/200} R$ is in particular of weight $\le 4M^{1/200}R$ (here $n = M$), so Proposition 14 makes $\varphi$ satisfiable; contrapositively, unsatisfiable $\varphi$ forces the strict NO-promise $d_H(u, \mathcal{C}) &gt; n^{1/200} R$. For an inconsistent system (possible only for unsatisfiable $\varphi$, by Lemma 8), output the fixed instance: code $\{00\}$, received word $11$, radius $1$ &mdash; its distance $2$ exceeds $2^{1/200}\cdot 1$ strictly. <span class="qed">&#8718;</span></div>
+
+<p>Notice the factor is $n^{1/200}$, twice the Euclidean exponent: the coding problems <i>are</i> the binary gap, no square root taken. The historical context from <a class="secref" href="#hardness">&sect;2.5</a> bears repeating: these are the problems whose exact hardness goes back to 1978, and for which PCP-free approximation hardness was previously known only for constant factors.</p>
+
+<h3 id="s15-lp">15.2 Every fixed rational norm</h3>
+
+<p>For $1 \le p &lt; \infty$ define $\lVert x \rVert_p = (\sum_j \lvert x_j\rvert^p)^{1/p}$ and $\mathrm{dist}_p(t, L) = \min_{z \in L} \lVert t - z\rVert_p$; the $\ell_p$ closest-vector promise problem is $\mathrm{GapCVP}$ with this distance. The norm parameter $p$ is <i>fixed</i> (part of the problem definition, not the input). Lemma 7 already gave the exact identity $\min_\lambda \lVert u - \lambda\rVert_p^p = W(H,b)$ for the parity-lift instance; the only work left is choosing a <i>rational</i> radius close to $R^{1/p}$, which is where the restriction to rational $p$ enters.</p>
+
+<div class="prop"><b>Corollary 16 (hardness for fixed finite rational norms).</b> Fix a rational $p \ge 1$. There is a deterministic polynomial-time many-one reduction from 3SAT to the full-rank $\ell_p$ closest-vector promise problem with approximation factor $n^{1/(200p)}$; the output basis is square and integral, and target and radius have polynomial-size exact rational encodings.</div>
+<div class="proof">Write $p = a/b$ in lowest terms and set the fixed integer $A = \lceil 4p \rceil$. Given $R = (\ell+1)\lvert P\rvert$, compute
+$$j_p = \min\{ j \in \mathbb{Z}_{\ge 0} : j^a \ge A^a R^b \}, \qquad r_p = \frac{j_p}{A}.$$
+The defining condition says exactly $j \ge A R^{b/a} = A R^{1/p}$, so $j_p = \lceil A R^{1/p}\rceil$ is computable by fixed-degree integer exponentiation plus binary search, in deterministic polynomial time, and
+$$R^{1/p} \;\le\; r_p \;\le\; \Big(1 + \frac1A\Big) R^{1/p}, \qquad r_p^{\,p} \;\le\; e^{p/A} R \;\le\; e^{1/4} R \;&lt;\; 2R,$$
+using $(1 + 1/A)^p \le e^{p/A}$ and $A \ge 4p$. On the consistent branch output the same $(B_H, u)$ with the $\ell_p$ norm and radius $r_p$. Completeness: satisfiable $\varphi$ gives $\mathrm{dist}_p(u, L(B_H))^p = W(H,b) \le R \le r_p^{\,p}$. Soundness: if $\mathrm{dist}_p(u, L(B_H)) \le n^{1/(200p)}\, r_p$, then Lemma 7 gives
+$$W(H,b) = \mathrm{dist}_p(u, L(B_H))^p \le n^{1/200}\, r_p^{\,p} &lt; 2\, n^{1/200} R \le 4\, n^{1/200} R,$$
+and Proposition 14 (with $n = M$) makes $\varphi$ satisfiable; contrapositively the unsatisfiable case satisfies the strict NO-promise. On an inconsistent system, the fixed output $((2), (1), \tfrac12)$ has $\ell_p$ distance $1 &gt; \tfrac12$ for every finite $p$. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_lpnorms--><figcaption>Corollary 16 across norms. Left: unit balls of $\ell_1$, $\ell_2$, $\ell_\infty$. Right: the hardness exponent $1/(200p)$ as a function of $p$ (computed curve): $1/200$ for $\ell_1$, the Euclidean $1/400$ at $p{=}2$, decaying toward $0$ as $p \to \infty$ &mdash; the price of converting a Hamming-weight gap through the $p$-th root.</figcaption></figure>
+
+<p>Setting $p = 2$ in Corollary 16 recovers exactly Theorem 1 (with a rational radius rather than an integer one &mdash; either form is fine for the promise problem). The uniformity is worth noting: <i>one</i> construction, one soundness proof, and the entire family of norms inherits the gap through the single exact identity of Lemma 7.</p>

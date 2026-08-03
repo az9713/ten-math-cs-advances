@@ -1,0 +1,51 @@
+<hr>
+
+<h2 id="architecture">5. The proof at altitude</h2>
+
+<p>We now have everything needed to state the plan of the whole proof precisely. Theorem 1.1 is proved <b>by contradiction</b>: assume some repeated strategy wins all $n$ coordinates with probability exceeding the claimed bound, and manufacture from it a strategy for the <i>single</i> game $G$ whose winning probability exceeds $\omega^*(G)$ &mdash; impossible, since $\omega^*(G)$ is a supremum over all strategies.</p>
+
+<h3 id="s5-setup">5.1 The standing experiment and the four parameters</h3>
+
+<p>Fix an actual finite-dimensional strategy for $G^{\otimes n}$: shared state $|\psi\rangle$, local measurements $\{E^{a^n}_{x^n}\}_{a^n\in A^n}$ and $\{F^{b^n}_{y^n}\}_{b^n\in B^n}$. Running the referee's experiment with this strategy generates a random question-and-answer word $(X^n, Y^n, A^n, B^n)$ with distribution
+$$\mathcal{P}(x^n, y^n, a^n, b^n) \;=\; \mu^{\otimes n}(x^n,y^n)\; \langle\psi|\, E^{a^n}_{x^n}\otimes F^{b^n}_{y^n}\,|\psi\rangle .$$
+Write $W_i$ for the event that coordinate $i$ is won, i.e. $V(X_i, Y_i, A_i, B_i) = 1$, and for $D \subseteq [n]$,
+$$W_D = \bigcap_{j\in D} W_j, \qquad \vartheta = \mathcal{P}(W_{[n]}) .$$
+The letter $\vartheta$ always denotes the all-coordinates success probability of the fixed strategy; the contradiction hypothesis will be that $\vartheta$ is larger than the bound of Theorem 1.1 allows.</p>
+
+<p>The argument revolves around a small <b>core</b> $D \subsetneq [n]$ of coordinates &mdash; chosen in <a class="secref" href="#conditioning">&sect;6</a> &mdash; and four derived parameters:</p>
+
+<div class="keyresult">
+$$m = n - |D|, \qquad p = \mathcal{P}(W_D), \qquad q = \frac{1}{m}\sum_{i\in[n]\setminus D} \mathcal{P}(W_i \mid W_D), \qquad \eta = \frac{\log(1/p) + |D|\,\log(|A||B|)}{m}. \tag{1}$$
+</div>
+
+<p>In words: $p$ is the probability of winning every core coordinate; $q$ is the average conditional winning probability of the <i>remaining</i> coordinates given core success; and $\eta$ is the <b>information cost per remaining coordinate</b> &mdash; the total "surprise" of the conditioning event ($\log(1/p)$ units) plus the total description length of the core answers ($|D|$ answers from an alphabet of size $|A||B|$, so $|D|\log(|A||B|)$ units), divided among the $m$ live coordinates. The conditioning lemma will make $q$ close to $1$ while $\eta$ stays small; crucially, $p$ itself is <i>allowed to be exponentially small</i> &mdash; only its logarithm is budgeted.</p>
+
+<p>The entire quantum construction (&sect;7&ndash;&sect;9) exists to prove one implication. With $B_{\mathrm{qs}} \ge 1$ the universal rounding constant defined in <a class="secref" href="#rounding">&sect;9</a> (equation (11)):</p>
+
+<div class="keyresult">
+<b>Operational goal.</b> For the core $D$ supplied by Lemma 3.1,
+$$0 \le \eta \le 1 \qquad\Longrightarrow\qquad \omega^*(G) \;\ge\; q - B_{\mathrm{qs}}\,\eta^{1/12}.$$
+</div>
+
+<p>Its left side is computed inside the conditioned repeated experiment; its right side asserts the existence of an actual single-game strategy, receiving fresh questions from $\mu$, whose value is nearly $q$. Once this implication stands, <a class="secref" href="#endgame">&sect;10</a> finishes by arithmetic: choose parameters so that $q \ge 1 - \varepsilon/4$ and $B_{\mathrm{qs}}\eta^{1/12} \le \varepsilon/4 + \varepsilon/8$, forcing $\omega^*(G) \gt 1 - \varepsilon$, the desired contradiction.</p>
+
+<h3 id="s5-why">5.2 Why the classical proof does not port, and what replaces it</h3>
+
+<p>The classical Raz&ndash;Holenstein argument implements the same outline: condition on winning the core, then <i>embed</i> a fresh single-game question pair into a random live coordinate of the conditioned experiment, using correlated sampling to let both players agree on the conditioned transcript. The single step with no quantum analogue is the innocuous-sounding "run the conditioned strategy". A classical strategy conditioned on an event is still a strategy: its randomness is a variable you can resample under the conditional law. A quantum strategy's "randomness" is the shared state, and the event $W_D$ lives in the <i>outcomes of measurements that have already been performed</i> on it. Conditioning is postselection: the players would need to hold the leftover state <i>given</i> that the core answers came out right &mdash; and if they try to produce it by actually playing and discarding failures, they wait $1/p$ attempts, which is exponential; every quantitative version of this replay loses a factor polynomial in $1/p$ (Fig. 13). Yuen's polynomial theorem tamed the loss by keeping $p$ polynomially large &mdash; conditioning on very little &mdash; and paid with polynomial decay.</p>
+
+<figure><!--FIG:fig_analogy--><figcaption>The obstruction, side by side. A classical player can resample their randomness consistently with any conditioning event &mdash; Holenstein's embedding builds the conditioned transcript directly. A quantum player cannot: measurement destroyed the state, and a replay-until-success reconstruction pays $1/p \approx e^{\gamma n}$. The chapter's new lemma produces conditioned-state estimates in which $p$ cancels exactly.</figcaption></figure>
+
+<p>The chapter's resolution is not to avoid postselection but to make every estimate <b>postselection-stable</b>: each bound about the conditioned experiment is derived as (an unnormalized bound carrying an explicit factor $p$) divided by (the posterior weight, carrying $1/p$), and the two cancel <i>identically</i>. Concretely, the central Lemma 3.3 asserts:</p>
+<ul>
+<li><b>State alignment.</b> The "ideal" conditioned state $\Psi_{r,x,y}$ of the live coordinate (defined in <a class="secref" href="#ideal">&sect;7</a>; it depends on the full history $r$ and <i>both</i> live questions $x, y$) is, on average over the posterior, $8\eta$-close in squared norm to a state $\Psi^A_{r,x}$ that Alice can describe from her data alone, and likewise to a Bob-describable $\Psi^B_{r,y}$.</li>
+<li><b>History sampleability.</b> The posterior distribution of the history is within total variation $\kappa = \sqrt{3\eta/2}$ of distributions each player can sample using only their own question, so Lemma 3.4 lets them agree on a common history except with probability $4\kappa$.</li>
+</ul>
+<p>Note what is absent: no $1/p$, no minimum question probability, no structure of $\mu$. The price of quantumness is only the exponent &mdash; the states are prepared by the imported embezzlement theorem at a $1/12$-power loss, which is where $\eta^{1/12}$ (and ultimately $\varepsilon^{13}$) comes from.</p>
+
+<h3 id="s5-map">5.3 The map of the proof</h3>
+
+<p>Fig. 14 is the complete logical diagram; every box is a numbered result of this document, and each arrow is "is used by". The left column (&sect;6&ndash;&sect;8) builds the conditioned experiment and states the central lemma; the right column (&sect;9) rounds it into a legal strategy; the bottom (&sect;10) closes the contradiction; &sect;11&ndash;&sect;14 prove the central lemma itself.</p>
+
+<figure><!--FIG:fig_roadmap--><figcaption>The proof map. Solid arrows: logical dependence. The gold box is the chapter's new contribution (Lemma 3.3, proved in &sect;11&ndash;&sect;14); the only external input is Import 1 (Dinur&ndash;Steurer&ndash;Vidick quantum correlated sampling), feeding Lemma 3.6. Everything else &mdash; including both classical sampling lemmas &mdash; is proved in this document.</figcaption></figure>
+
+<p>One reading note before we descend. The proof manipulates three different probability measures over the same experiment, and confusing them is the main hazard of the chapter: $\mathcal{P}$ (the <i>prior</i>: the strategy simply played), $\mathcal{Q} = \mathcal{P}(\,\cdot\mid W_D)$ (the <i>posterior</i>: conditioned on core success), and the locally generated $\mathcal{J}_A, \mathcal{J}_B$ of <a class="secref" href="#central">&sect;8</a> (what the players can actually sample). Factorization identities hold under $\mathcal{P}$; success probabilities are computed under $\mathcal{Q}$; the strategy operates under $\mathcal{J}$; the lemmas bound the distances between them.</p>

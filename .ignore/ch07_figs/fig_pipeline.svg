@@ -1,0 +1,38 @@
+<svg class="setupfig" viewBox="0 0 640 300" width="100%" role="img" aria-label="The reduction pipeline from 3SAT to CVP">
+<defs><marker id="c7pipe_a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker><marker id="c7pipe_g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a7d2a"/></marker><marker id="c7pipe_r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7d3c98"/></marker></defs>
+<rect x="18" y="40" width="130" height="64" rx="6" fill="#f3f1ec" stroke="#333" stroke-width="1.5"/>
+<text x="83" y="66" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">3SAT formula</text>
+<text x="83" y="84" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">&#966;</text>
+<text x="83" y="119" font-size="10.5" text-anchor="middle" fill="#666">m vars, &#8467; clauses</text>
+<rect x="188" y="40" width="150" height="64" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.5"/>
+<text x="263" y="66" font-size="12.5" text-anchor="middle" fill="#2e6da4" font-weight="bold">evaluation tables</text>
+<text x="263" y="84" font-size="12.5" text-anchor="middle" fill="#2e6da4" font-weight="bold">+ moment rules</text>
+<text x="263" y="119" font-size="10.5" text-anchor="middle" fill="#666">&#167;6&#8211;7, over F&#8339; = F&#8322;&#8337;</text>
+<rect x="378" y="40" width="130" height="64" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.5"/>
+<text x="443" y="66" font-size="12.5" text-anchor="middle" fill="#2e6da4" font-weight="bold">binary affine</text>
+<text x="443" y="84" font-size="12.5" text-anchor="middle" fill="#2e6da4" font-weight="bold">system Hx = b</text>
+<text x="443" y="119" font-size="10.5" text-anchor="middle" fill="#666">M &#8776; N&#8309;&#8304;&#8321; unknowns</text>
+<rect x="18" y="196" width="210" height="64" rx="6" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.5"/>
+<text x="123" y="222" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">parity-lift lattice &#923;&#8341;</text>
+<text x="123" y="240" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">+ target u</text>
+<text x="123" y="275" font-size="10.5" text-anchor="middle" fill="#666">Lemma 6: explicit basis</text>
+<rect x="288" y="196" width="220" height="64" rx="6" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.5"/>
+<text x="398" y="222" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">GapCVP instance</text>
+<text x="398" y="240" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">(B&#8341;, u, r)</text>
+<text x="398" y="275" font-size="10.5" text-anchor="middle" fill="#666">n = M, factor n<tspan baseline-shift="super" font-size="75%">1/400</tspan></text>
+<line x1="148" y1="72" x2="184" y2="72" stroke="#333" stroke-width="1.6" marker-end="url(#c7pipe_a)"/>
+<text x="166" y="62" font-size="10.5" text-anchor="middle" fill="#666">&#167;6</text>
+<line x1="338" y1="72" x2="374" y2="72" stroke="#333" stroke-width="1.6" marker-end="url(#c7pipe_a)"/>
+<text x="356" y="62" font-size="10.5" text-anchor="middle" fill="#666">&#167;7</text>
+<line x1="420" y1="104" x2="190" y2="194" stroke="#333" stroke-width="1.6" marker-end="url(#c7pipe_a)"/>
+<text x="330" y="148" font-size="11" text-anchor="middle" fill="#666">mod-2 lift (&#167;4)</text>
+<line x1="228" y1="228" x2="284" y2="228" stroke="#333" stroke-width="1.6" marker-end="url(#c7pipe_a)"/>
+<text x="256" y="218" font-size="10.5" text-anchor="middle" fill="#666">Lemma 7</text>
+<line x1="80" y1="106" x2="80" y2="168" stroke="#2a7d2a" stroke-width="2.0" marker-end="url(#c7pipe_g)"/>
+<text x="88" y="128" font-size="11" text-anchor="start" fill="#2a7d2a">completeness (Lemma 8):</text>
+<text x="88" y="141" font-size="11" text-anchor="start" fill="#2a7d2a">&#966; satisfiable &#8658; weight &#8804; R &#8658; dist &#8804; r</text>
+<path d="M560,196 C 606,120 590,58 512,50" fill="none" stroke="#7d3c98" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#c7pipe_r)"/>
+<text x="572" y="150" font-size="11" text-anchor="start" fill="#7d3c98">soundness</text>
+<text x="572" y="163" font-size="11" text-anchor="start" fill="#7d3c98">(Prop 14):</text>
+<text x="514" y="34" font-size="10.5" text-anchor="end" fill="#7d3c98">any solution of weight &#8804; 4M<tspan baseline-shift="super" font-size="75%">1/200</tspan>&#8201;R &#8658; &#966; satisfiable</text>
+</svg>

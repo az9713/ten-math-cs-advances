@@ -1,0 +1,210 @@
+<h2 id="thm">8. Theorem 1.1 assembled &mdash; and what it does and does not settle</h2>
+
+<p>Every ingredient is now proved or imported. Here is the full inventory, hypothesis by hypothesis (Fig. 23 draws the architecture):</p>
+
+<div class="tablewrap"><table>
+<tr><th>Hypothesis of Proposition 2.3</th><th>Instantiation</th><th>Established in</th></tr>
+<tr><td>$\Gamma \le G$ infinite, finitely generated</td><td>$\Gamma = \mathrm{EL}_\alpha(R)$, $G = \mathrm{EL}_D(R)$</td><td><a class="secref" href="#ninecode">&sect;5.5</a> (Lemma L)</td></tr>
+<tr><td>both with property (T)</td><td>$\cong \mathrm{EL}_3(R)$, $\mathrm{EL}_9(R)$</td><td>Import 3 (<a class="secref" href="#elemgroups">&sect;5.4</a>)</td></tr>
+<tr><td>$G = \langle \Gamma, t_1, \dots, t_m\rangle$</td><td>$m = 2$: $t_1 = u$, $t_2 = v$</td><td>Prop. 3.2, eq. (18) (<a class="secref" href="#prop32">&sect;7.3</a>)</td></tr>
+<tr><td>$t_i \Gamma t_i^{-1} \le \Gamma$</td><td>$u\Gamma u^{-1} = v\Gamma v^{-1} = \mathrm{EL}_{(\alpha_10,\alpha_20,\alpha_30)}(R)$</td><td>Prop. 3.2, eq. (17)</td></tr>
+<tr><td>$J \le G$ finitely generated</td><td>$J = V_{1000} \cong V$ (fin.&nbsp;presented)</td><td>Lemma 3.1 + Import 4 (<a class="secref" href="#thompson">&sect;6</a>)</td></tr>
+<tr><td>$[\Gamma, J] = 1$, $\Gamma \cap J = \{1\}$</td><td>disjoint supports $[0]$, $[1000]$</td><td><a class="secref" href="#commuting">&sect;7.2</a></td></tr>
+<tr><td>$t_1 J t_1^{-1} \le \Gamma$</td><td>$uJu^{-1} = V_{0001} \le \Gamma$</td><td>Prop. 3.2, eq. (17)</td></tr>
+<tr><td>$J$ not LEF (the contradiction fuel)</td><td>$V$ fin.&nbsp;pres. + infinite + simple</td><td>Corollary G (<a class="secref" href="#lef">&sect;2</a>)</td></tr>
+</table></div>
+
+<div class="thm"><b>Theorem 1.1.</b> The unit group $L_{\mathbb F_2}(1,2)^\times$ is not sofic.</div>
+
+<div class="proof">
+<p>By the table, $\Gamma \le G$, $J = V_{1000}$, $t_1 = u$, $t_2 = v$ satisfy all hypotheses of Proposition 2.3. If $G$ were sofic, Proposition 2.3 would make $J \cong V$ LEF &mdash; contradicting Corollary G. Hence $G = \mathrm{EL}_D(R)$ is not sofic. Since $G \le R^\times$ and soficity passes to subgroups (Proposition B), $R^\times$ is not sofic. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 300" width="100%" role="img" aria-label="Architecture of the whole proof: analytic column and algebraic column meeting in Proposition 2.3 and the contradiction">
+  <defs><marker id="c3arrF8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <!-- analytic column -->
+  <g fill="none" stroke="#2e5a8a" stroke-width="1.3">
+    <rect x="20" y="20" width="210" height="34" rx="6"/>
+    <rect x="20" y="70" width="210" height="34" rx="6"/>
+    <rect x="20" y="120" width="210" height="34" rx="6"/>
+  </g>
+  <g font-size="11.5" fill="#1a1a1a">
+    <text x="30" y="34">Import 1 (Kun): sofic + (T) &#8658;</text>
+    <text x="30" y="48">union of &#947;-expanders</text>
+    <text x="30" y="84">Import 2 (Kun&#8211;Thom): ONE expander</text>
+    <text x="30" y="98">&#8658; commuting group is LEF</text>
+    <text x="30" y="134">Prop. 2.3 (&#167;4): contracting conjugations</text>
+    <text x="30" y="148">close the many-vs-one gap</text>
+  </g>
+  <!-- algebraic column -->
+  <g fill="none" stroke="#2a7d2a" stroke-width="1.3">
+    <rect x="250" y="20" width="210" height="34" rx="6"/>
+    <rect x="250" y="70" width="210" height="34" rx="6"/>
+    <rect x="250" y="120" width="210" height="34" rx="6"/>
+  </g>
+  <g font-size="11.5" fill="#1a1a1a">
+    <text x="260" y="34">Leavitt self-similarity R &#8773; R&#178; (&#167;5):</text>
+    <text x="260" y="48">matrix groups G, &#915; with (T) [Import 3]</text>
+    <text x="260" y="84">Thompson V inside R&#215; (&#167;6);</text>
+    <text x="260" y="98">V not LEF [Import 4 + Props E, F]</text>
+    <text x="260" y="134">contractions u, v; J = V&#8321;&#8320;&#8320;&#8320; commutes</text>
+    <text x="260" y="148">with &#915;, is dragged into &#915; (&#167;7)</text>
+  </g>
+  <!-- merge -->
+  <g stroke="#7a1f1f" stroke-width="1.6" fill="none">
+    <path d="M125,158 L125,190 L215,205" marker-end="url(#c3arrF8)"/>
+    <path d="M355,158 L355,190 L265,205" marker-end="url(#c3arrF8)"/>
+  </g>
+  <g fill="none" stroke="#7a1f1f" stroke-width="1.6">
+    <rect x="120" y="200" width="240" height="40" rx="8"/>
+  </g>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="132" y="217">IF G sofic &#8658; (Prop. 2.3) J &#8773; V is LEF</text>
+    <text x="132" y="232">&mdash; but V is NOT LEF (Cor. G)</text>
+  </g>
+  <line x1="240" y1="240" x2="240" y2="262" stroke="#7a1f1f" stroke-width="1.6" marker-end="url(#c3arrF8)"/>
+  <g font-size="13" fill="#c0392b" font-weight="bold">
+    <text x="118" y="284">G not sofic &#8658; R&#215; not sofic (Thm. 1.1)</text>
+  </g>
+</svg><figcaption><b>The whole proof on one screen.</b> The analytic column (blue) supplies the expander machinery and the bridging Proposition 2.3; the algebraic column (green) supplies a group $G$ that feeds the proposition a non-LEF commuting subgroup. The collision (red) refutes soficity of $G$, hence of $R^\times \supseteq G$.</figcaption></figure>
+
+<h3 id="settles">8.1 The map of consequences</h3>
+
+<p>What is settled: Weiss's 2000 question and the soficity conjecture &mdash; a nonsofic countable group exists, unconditionally, with no quantum machinery and no stability hypotheses. The earlier conditional routes (Bowen&ndash;Burton via flexible stability [BB20]; Gohla&ndash;Thom / Chapman&ndash;Dikstein&ndash;Lubotzky via $p$-adic Deligne extensions [GT24, CDL24]) are bypassed. In the invariant-random-subgroup language of the Aldous&ndash;Lyons problem: for $N \lhd F_d$, the quotient $F_d/N$ is sofic iff the point mass $\delta_N$ is a co-sofic IRS [Gel18, &sect;6]; presenting our finitely generated $G$ as $F_d/N$ therefore yields a <i>deterministic</i> non-co-sofic unimodular network (a marked Cayley diagram), where the 2024&ndash;25 refutation of Aldous&ndash;Lyons [BCLV24, BCV25] &mdash; built on subgroup tests and the $\mathsf{MIP}^*=\mathsf{RE}$ compression machinery &mdash; produced a random, non-normal-subgroup example that could <i>not</i> yield a nonsofic group. The two results are complementary, neither implying the other.</p>
+
+<p>What is pointedly <i>not</i> settled (Fig. 24):</p>
+
+<ul>
+<li><b>Hyperlinearity of $R^\times$</b> (= Connes's embedding problem for groups, still open: no nonhyperlinear group is known). Hyperlinearity replaces permutations by finite-dimensional unitaries in normalized Hilbert&ndash;Schmidt distance; since permutation matrices satisfy $\|P_\sigma - P_\tau\|_{2,n}^2 = 2\,d_{\mathrm H}(\sigma, \tau)$, every sofic group is hyperlinear &mdash; so nonsoficity is the <i>weaker</i> negative and says nothing about hyperlinearity of $R^\times$. (The $\mathsf{MIP}^* = \mathsf{RE}$ refutation of Connes's embedding conjecture concerns von Neumann algebras and produces no group.) Conditional routes (Dogon [Dog23]; Dogon&ndash;Vigdorovich [DV26]) still await their stability hypotheses.</li>
+<li><b>Surjunctivity of $R^\times$</b> (Gottschalk's conjecture: injective continuous $H$-equivariant maps $A^H \to A^H$ are surjective). Gromov&ndash;Weiss: sofic $\Rightarrow$ surjunctive. Now that $R^\times$ is not sofic, it is the natural test case: if $R^\times$ is surjunctive, there is a surjunctive nonsofic group (and the copy $V \le R^\times$ is surjunctive too, since surjunctivity passes to subgroups); if not, Gottschalk's conjecture is false. Either way something interesting; currently unknown. (Bowen&ndash;Chapman's surjunctive non-co-sofic IRS [BC25] does not decide it.)</li>
+<li><b>L&uuml;ck determinant &amp; algebraic eigenvalue conjectures</b> for $R^\times$: both hold for sofic groups; both are open for $R^\times$ &mdash; the first group for which they are genuinely in doubt.</li>
+<li><b>Kaplansky direct finiteness</b> ($ab = 1 \Rightarrow ba = 1$ in group rings $k[H]$): the tempting shortcut fails &mdash; $t_0 s_0 = 1 \neq s_0 t_0$ lives in $R$, not in $k[R^\times]$, because $s_0, t_0$ are not units. Characteristic zero is settled (stably finite [BFF24]); positive characteristic for $R^\times$ is open, and surjunctivity of $R^\times$ would settle it.</li>
+<li><b>Kervaire&ndash;Laudenbach</b> (one-variable equations over groups): holds for hyperlinear groups [NT22]; for $R^\times$ it is now tied to the open hyperlinearity question &mdash; failure would exhibit a nonhyperlinear group.</li>
+</ul>
+
+<figure><svg class="setupfig" viewBox="0 0 480 265" width="100%" role="img" aria-label="Map of approximation properties and conjectures around the result, with the new boundary drawn by Theorem 1.1">
+  <defs><marker id="c3arrL8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- nested classes -->
+  <ellipse cx="200" cy="130" rx="185" ry="110" fill="#e8b87d" fill-opacity="0.15" stroke="#a06a1f" stroke-width="1.3"/>
+  <ellipse cx="165" cy="130" rx="130" ry="82" fill="#7da7d9" fill-opacity="0.18" stroke="#2e5a8a" stroke-width="1.3"/>
+  <ellipse cx="135" cy="130" rx="82" ry="55" fill="#7fbf8f" fill-opacity="0.2" stroke="#2a7d2a" stroke-width="1.3"/>
+  <ellipse cx="115" cy="130" rx="48" ry="33" fill="#fff" fill-opacity="0.4" stroke="#2a7d2a" stroke-width="1" stroke-dasharray="4 3"/>
+  <g font-size="11.5">
+    <text x="88" y="126" fill="#1a1a1a">res. finite</text>
+    <text x="92" y="142" fill="#555">SL&#8343;(&#8484;), free</text>
+    <text x="150" y="90" fill="#2a7d2a">LEF</text>
+    <text x="212" y="70" fill="#2e5a8a">sofic</text>
+    <text x="308" y="52" fill="#a06a1f">hyperlinear</text>
+    <text x="300" y="68" fill="#a06a1f" font-size="10.5">(nonempty gap? OPEN)</text>
+  </g>
+  <!-- V marker -->
+  <circle cx="243" cy="150" r="5" fill="#2e5a8a"/>
+  <text x="252" y="147" font-size="11.5" fill="#2e5a8a">Thompson V: sofic, not LEF</text>
+  <!-- BS marker -->
+  <circle cx="230" cy="180" r="5" fill="#2e5a8a"/>
+  <text x="239" y="184" font-size="11.5" fill="#2e5a8a">BS(2,3): sofic, not LEF</text>
+  <!-- R^x marker outside sofic, inside hyperlinear? position outside blue, inside/at edge of ochre with question -->
+  <circle cx="352" cy="150" r="6" fill="#c0392b"/>
+  <text x="322" y="132" font-size="12" fill="#c0392b" font-weight="bold">R&#215;, G: NOT sofic</text>
+  <text x="322" y="170" font-size="10.5" fill="#c0392b">hyperlinear? surjunctive?</text>
+  <text x="322" y="184" font-size="10.5" fill="#c0392b">unknown &mdash; first real test case</text>
+  <text x="20" y="30" font-size="12" fill="#7a1f1f">the group landscape after Theorem 1.1</text>
+  <text x="20" y="255" font-size="11.5" fill="#555">strict: RF &#8834; LEF (V; BS(2,3)) &#8834; sofic (now strict: R&#215;) &#8838; hyperlinear (strictness OPEN &mdash; Connes for groups)</text>
+</svg><figcaption><b>The landscape after Theorem 1.1.</b> Nested approximation classes; markers are the actors of this chapter. $R^\times$ (red) is the first point known to lie outside &ldquo;sofic&rdquo;. Whether it lies inside &ldquo;hyperlinear&rdquo; &mdash; and whether that outer class even has an outside among groups (Connes's embedding problem for groups) &mdash; remains open, as do surjunctivity and the determinant conjecture for $R^\times$.</figcaption></figure>
+
+<div class="note"><b>A stronger identity, not needed.</b> Khanh and Thanh proved $G = \mathrm{EL}_D(R)$ is actually <i>all</i> of $R^\times$ [KT26, Cor. 4.4]. The proof above never uses this: it only needs $G \le R^\times$ and Proposition B (subgroups of sofic groups are sofic).</div>
+
+<h2 id="numerics">9. Machine verification of every algebraic identity</h2>
+
+<p>The algebra of <a class="secref" href="#leavitt">&sect;5</a>&ndash;<a class="secref" href="#config">&sect;7</a> is finitary: every identity is an equation between finite sums of monomials $s_a t_b$. That makes it mechanically checkable, and we do &mdash; every boxed identity above is re-verified in exact arithmetic by the listing below (a trimmed version of the full engine <code>figgen/ch03_figs.py</code>, which checks more cases).</p>
+
+<p><b>Encoding.</b> By the word calculus (Lemma J(1)), every product of generators collapses to $0$ or to a monomial $s_a t_b$; hence every element in the subring generated by the $s_i, t_j$ is a finite $\mathbb F_2$-sum of such monomials, stored as a <i>set of pairs</i> $(a, b)$ with XOR as addition (mod-2 sums cancel in pairs). Multiplication implements Lemma J(1) on pairs: $(a,b)\cdot(c,d)$ is $(a c', d)$ if $c = b c'$, $(a, d b')$ if $b = c b'$, else $0$. Equality is tested by action on the string model of <a class="secref" href="#stringmodel">&sect;5.1</a>: an element $x$ with maximal $t$-word depth $D$ acts as zero iff it kills every cylinder symbol of depth $D$ &mdash; a finite, exact test (the action on any $e_{w\omega}$ depends only on the first $D$ bits $w$). A subtlety, stated honestly: this verifies each identity <i>in the string representation</i>. That suffices to certify the hand proofs (any error there would be an identity false in the model, which the checker would catch), and in fact the representation is faithful &mdash; the Leavitt algebra $L_K(1,n)$ is a simple ring [Lea62], so its nonzero representations are injective &mdash; making the machine test equivalent to equality in $R$.</p>
+
+<div class="codewrap"><button class="copybtn" type="button" onclick="copyCode(this)" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button><pre><code>LISTING_PLACEHOLDER</code></pre></div>
+
+<p>Output (referenced identities in reading order &mdash; defining relations, completeness of $D$ (Lemma J(3)), unithood of $u, v$ (Lemma M), the contraction rule and its agreement for $u$ and $v$ (Prop. 3.2), the swap factorization (Lemma 3.1), orthogonal supports and commutation (<a class="secref" href="#commuting">&sect;7.2</a>), the transport of $J$ into $[0001]$, and the block-recovery identity (Prop. 3.2)):</p>
+
+<pre><code>t_i s_j = delta: True
+s0t0+s1t1 = 1: True
+nine-leaf code complete (e_D = 1): True
+u, v units: True True True True
+u-conjugation contracts alpha-roots: True True
+swap = (1+P)(1+Q)(1+P): True
+supports orthogonal, [g, j] = 1: True True
+u J u^-1 lands in [0001]: True
+u^-1 (alpha-root) u = 1 + X r Y: True</code></pre>
+
+<p>The full engine <code>figgen/ch03_figs.py</code> additionally sweeps the conjugation identity over several coefficients $r$ and all index pairs $(i,j)$, checks the Steinberg identities, the involution property of swaps, the corner memberships $g - 1 \in e_0Re_0$ and $j - 1 \in e_{1000}Re_{1000}$, refinement-invariance of $U_g$, and the $2\times 2$-matrix aiming step $X_i r Y_j = \sum s_{\ell}\, b\, t_{\ell}$ &mdash; 30 checks, all passing, in about a second.</p>
+
+<h2 id="scope">10. Scope &mdash; proved here, imported, open</h2>
+
+<div class="tablewrap"><table>
+<tr><th>Status</th><th>Items</th></tr>
+<tr><td><b>Proved in this document</b><br><span class="small">(complete, graduate-core arguments)</span></td><td>Sofic basics and closure (Props A&ndash;C); LEF $\Rightarrow$ sofic (Prop D); f.p.&nbsp;+ LEF $\Rightarrow$ RF (Prop E); infinite simple $\Rightarrow$ not RF (Prop F); $V$ not LEF given Import 4 (Cor. G); (T) $\Rightarrow$ exact finite actions expand (Prop H); $\mathbb Z$ fails (T) (Toy 2); <b>Proposition 2.3 in full</b> (coarea identity, median normalization, matching, surgery) given Imports 1&ndash;2; the entire Leavitt calculus: Lemma J, $\Theta_E$, Lemma L (Steinberg + finite generation), Lemma M ($U_g$), Lemma 3.1, the direct product $\Gamma\times J$, Proposition 3.2, and Theorem 1.1's assembly.</td></tr>
+<tr><td><b>Imported</b><br><span class="small">(stated precisely, used as black boxes, machine-spot-checked where possible)</span></td><td><b>Import 1</b>: Kun's expander decomposition [Kun19]. <b>Import 2</b>: Kun&ndash;Thom expander-centralizer [KT19]. <b>Import 3</b>: Ershov&ndash;Jaikin-Zapirain property (T) for $\mathrm{EL}_{n \ge 3}$ over f.g.&nbsp;rings [EJ10]. <b>Import 4</b>: Thompson's $V$ is finitely presented, infinite, simple [CFP96], generated by cylinder swaps [BQ17]. Also cited in passing (not on the proof spine): $\mathrm{SL}_3(\mathbb Z)$ has (T); $\mathrm{BS}(2,3)$ sofic non-RF; products of sofic groups sofic [ES06]; simplicity of Leavitt algebras (only to upgrade the machine check from &ldquo;true in the model&rdquo; to &ldquo;true in $R$&rdquo;).</td></tr>
+<tr><td><b>Open, highlighted by the result</b></td><td>Hyperlinearity of $R^\times$ (Connes for groups); surjunctivity of $R^\times$ (Gottschalk); L&uuml;ck determinant and algebraic eigenvalue conjectures for $R^\times$; Kaplansky direct finiteness in positive characteristic; Kervaire&ndash;Laudenbach for $R^\times$.</td></tr>
+</table></div>
+
+<p>Two honest limitations of the exposition itself. First, the proof of Proposition 2.3 is purely qualitative: all constants hide inside &ldquo;$o(N)$ along one fixed approximation,&rdquo; matching the source; no effective bound (e.g., on the size of finite models refuted at a given precision) is extracted, and none is claimed in the chapter. Second, the two expander imports are genuinely deep &mdash; Kun's theorem alone is a major result &mdash; and this document proves only their exact-action shadow (Proposition H); a reader wanting the full analytic interior must go to [Kun19, KT19]. Within those boundaries, every step from the definitions to Theorem 1.1 is on the page.</p>
+
+<h2 id="notation">Appendix A: notation glossary</h2>
+
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Meaning</th><th>Defined in</th></tr>
+<tr><td>$d_{\mathrm H}$</td><td>normalized Hamming distance on $\mathrm{Sym}(Y)$</td><td><a class="secref" href="#sofic">&sect;1</a></td></tr>
+<tr><td>sofic; LEF; RF</td><td>approximable by almost-permutation-actions; locally embeddable into finite groups; residually finite</td><td><a class="secref" href="#sofic">&sect;1</a>, <a class="secref" href="#lef">&sect;2</a></td></tr>
+<tr><td>$[a]$; prefix code; complete</td><td>cylinder of strings starting with $a$; pairwise-incomparable word list; cylinders partition everything</td><td><a class="secref" href="#thompsonv">&sect;2.1</a></td></tr>
+<tr><td>$V$; $V_l$</td><td>Thompson's group of prefix replacements; its copy supported in $[l]$</td><td><a class="secref" href="#thompsonv">&sect;2.1</a></td></tr>
+<tr><td>$\partial_L U$; $\gamma$-expander</td><td>edge boundary (multiplicity counted, loops ignored); inequality (3)</td><td><a class="secref" href="#expdef">&sect;3.1</a></td></tr>
+<tr><td>generator graph</td><td>multigraph of arcs $z \to p_n(s)z$, $s \in S$, inverse arcs paired</td><td><a class="secref" href="#genGraph">&sect;3.2</a></td></tr>
+<tr><td>property (T); $\kappa$</td><td>no almost-invariant vectors without invariant ones; Kazhdan constant</td><td><a class="secref" href="#propT">&sect;3.3</a></td></tr>
+<tr><td>$L_\Gamma, \mathcal Q, \gamma_\Gamma$; $L_G, \mathcal A, \gamma_G$</td><td>Kun reference graphs, component partitions (original/ambient), expansion constants</td><td><a class="secref" href="#matching">&sect;4</a>, Step 1</td></tr>
+<tr><td>$C(z)$, $M(z)$; $m_A$; $f$</td><td>original component of $z$ and its size; median size on ambient $A$; normalization $M/(M + m_A)$</td><td><a class="secref" href="#matching">&sect;4</a>, Step 2</td></tr>
+<tr><td>$\tau_i$; $\mathcal P_i$; $Q(P)$; $L(P)$</td><td>transporting permutation $p_{t_i}$; transported components; dominant target; unmatched mass</td><td><a class="secref" href="#matching">&sect;4</a>, Steps 1&ndash;3</td></tr>
+<tr><td>$B_n$; $Q_n$; $B_{\mathrm{cut}}$; $Z$</td><td>exceptional vertices; selected component; excised small-cut set; final expander</td><td><a class="secref" href="#matching">&sect;4</a>, Steps 4&ndash;5</td></tr>
+<tr><td>$R = L_{\mathbb F_2}(1,2)$; $R^\times$</td><td>binary Leavitt algebra, eq.&nbsp;(1); its unit group</td><td><a class="secref" href="#hook">&sect;0</a>, <a class="secref" href="#leavitt">&sect;5</a></td></tr>
+<tr><td>$s_a, t_a, e_a$; $e_E$</td><td>word operators, cylinder projection $s_at_a$; $\sum_i e_{a_i}$</td><td><a class="secref" href="#prefixcalc">&sect;5.2</a></td></tr>
+<tr><td>$\Theta_E$; $\mathrm{EL}_E(R)$; $E$-root</td><td>corner isomorphism $M_q(R) \cong e_ERe_E$; elementary prefix group; generator $1 + s_{a_i}rt_{a_j}$</td><td><a class="secref" href="#theta">&sect;5.3</a>&ndash;<a class="secref" href="#elemgroups">&sect;5.4</a></td></tr>
+<tr><td>$\alpha, \beta, \nu, \zeta$; $D$</td><td>three-word blocks partitioning $[0], [10], [11], [1]$; the complete nine-leaf code (14)</td><td><a class="secref" href="#ninecode">&sect;5.5</a>, <a class="secref" href="#uvdef">&sect;7.1</a></td></tr>
+<tr><td>$G$; $\Gamma$; $J$; $u, v$</td><td>$\mathrm{EL}_D(R)$; $\mathrm{EL}_\alpha(R)$; $V_{1000}$; the contractions of table (16)</td><td><a class="secref" href="#ninecode">&sect;5.5</a>&ndash;<a class="secref" href="#config">&sect;7</a></td></tr>
+<tr><td>$U_g$; $\tau_{\rho,\sigma}$</td><td>unit realizing a prefix replacement; cylinder swap $1 + e_\rho + e_\sigma + s_\rho t_\sigma + s_\sigma t_\rho$</td><td><a class="secref" href="#thompson">&sect;6</a></td></tr>
+</table></div>
+
+<hr>
+
+<p class="small">Source: Chapter 3, &ldquo;A Counterexample to the Soficity Conjecture&rdquo;, pp. 77&ndash;93 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (the chapter attributes its external inputs to [Kun19], [KT19], [EJ10], [CFP96], [BQ17], [BS16] and others as cited inline). This explainer preserves the chapter's numbering for Theorem 1.1, Theorems 2.1&ndash;2.2, Proposition 2.3, Lemma 3.1, Proposition 3.2, and equations (1)&ndash;(18); lettered results (A&ndash;M) are background proved here. Figure data and verification: <code>figgen/ch03_figs.py</code>, <code>figgen/ch03_expander_data.py</code>.</p>
+
+<script>
+function copyCode(btn){
+  var code = btn.parentElement.querySelector('code');
+  if(!code) return;
+  var text = code.textContent;
+  var done = function(){
+    var label = btn.querySelector('span'), prev = label.textContent;
+    btn.classList.add('copied'); label.textContent = 'Copied!';
+    setTimeout(function(){ btn.classList.remove('copied'); label.textContent = prev; }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+(function(){
+  try{
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('svg').forEach(function(svg){
+        if(typeof svg.pauseAnimations === 'function'){
+          if(typeof svg.setCurrentTime === 'function') svg.setCurrentTime(3.0);
+          svg.pauseAnimations();
+        }
+      });
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

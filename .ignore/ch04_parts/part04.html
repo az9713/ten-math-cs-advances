@@ -1,0 +1,216 @@
+<h2 id="carry">6. The binary-carry construction: $\Lambda$ and $\Gamma_0$</h2>
+
+<p>Now the toy is globalized. The plan: build a countable $K$-module $D = V \oplus B$ (the &ldquo;untwisted&rdquo; side, giving $\Lambda = D \rtimes K$), exhibit its dual $\widehat D = X \times Y$ concretely, and then install a second compact group law on the <i>same space</i> $X \times Y$ by inserting the binary carry &mdash; producing a compact group $C_0$ whose discrete dual $E_0$ gives the twisted group $\Gamma_0 = E_0 \rtimes K$.</p>
+
+<h3 id="modules">6.1 The linear and quadratic modules</h3>
+
+<p>Let $V = R^4$ with standard basis $e_1, \dots, e_4$ over $R = \mathbb F_2[t]$, and set $e = e_1$. As an $\mathbb F_2$-vector space, $V$ has the countable basis $u = t^j e_i$ ($1 \le i \le 4$, $j \ge 0$). Define the <b>squaring map</b> and the <b>divided square</b>:
+$$b(v) = v \otimes_{\mathbb F_2} v \;\in\; V \otimes_{\mathbb F_2} V, \qquad B = \mathrm{span}_{\mathbb F_2}\{b(v) : v \in V\}, \qquad D = V \oplus B.$$
+(The tensor product is over $\mathbb F_2$, <i>not</i> over $R$ &mdash; $B$ is huge.) $K$ acts on $V$ through $\pi_2 : K \twoheadrightarrow \mathrm{SL}_4(R)$, diagonally on $V \otimes V$; since $k\cdot b(v) = (k v)\otimes(k v) = b(k\cdot v)$, the action preserves $B$ and hence $D$, and
+$$0 \longrightarrow V \xrightarrow{\;v \mapsto (v,0)\;} D \xrightarrow{\;(v,w)\mapsto w\;} B \longrightarrow 0$$
+is a split $K$-equivariant exact sequence of $\mathbb F_2$-vector spaces (so $D$ has exponent $2$). The map $b$ is not linear; its failure of linearity is measured by the <b>polarization identity</b>
+$$b(u + v) - b(u) - b(v) \;=\; u\otimes v + v \otimes u,$$
+which is bilinear in $(u,v)$ &mdash; immediate by expanding $(u+v)\otimes(u+v)$.</p>
+
+<div class="lem"><b>Lemma I (structure of $B$).</b> Let $(u_i)_{i \ge 1}$ be an ordered $\mathbb F_2$-basis of $V$. Then:
+<ol>
+<li>the elements $u_i \otimes u_i$ and $u_i\otimes u_j + u_j \otimes u_i$ ($i \lt j$) form an $\mathbb F_2$-basis of $B$;</li>
+<li>for $v = \sum_i x_iu_i$ (finite sum, $x_i \in \mathbb F_2$),
+$$b(v) = \sum_i x_i\,(u_i\otimes u_i) \;+\; \sum_{i \lt j} x_ix_j\,(u_i\otimes u_j + u_j\otimes u_i);$$</li>
+<li>$B = (V\otimes_{\mathbb F_2} V)^{S_2} = \Gamma^2_{\mathbb F_2}(V)$, the subspace of tensors <b>fixed</b> by swapping the factors (the &ldquo;divided square&rdquo;) &mdash; and this is <i>not</i> the symmetric-square quotient $\mathrm{Sym}^2 V = (V\otimes V)_{S_2}$: in characteristic $2$ the canonical map from invariants to coinvariants kills every off-diagonal basis vector $u_i\otimes u_j + u_j\otimes u_i$.</li>
+</ol></div>
+
+<div class="proof">
+<p>(2) Expand $b(v) = \bigl(\sum x_iu_i\bigr)\otimes\bigl(\sum x_ju_j\bigr) = \sum_{i,j}x_ix_j\,u_i\otimes u_j$ and group the $(i,j)$ and $(j,i)$ terms (using $x_i^2 = x_i$ in $\mathbb F_2$). (1) By (2), every $b(v)$ lies in the span of the listed elements, so they span $B$; conversely each listed element lies in $B$: the diagonal ones as $b(u_i)$, and $u_i\otimes u_j + u_j\otimes u_i = b(u_i + u_j) + b(u_i) + b(u_j)$ by polarization (signs are moot mod $2$). Linear independence is inherited from the tensor-product basis $(u_i\otimes u_j)_{i,j}$ of $V \otimes V$. (3) Each listed basis vector is fixed by the flip $u\otimes w \mapsto w\otimes u$; conversely a flip-invariant tensor has symmetric coefficient matrix, hence is a combination of diagonal terms and matched off-diagonal pairs &mdash; exactly the span of the listed vectors. The canonical map to coinvariants sends $u_i\otimes u_j + u_j\otimes u_i \mapsto 2\,[u_i\otimes u_j] = 0$ in characteristic $2$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 240" width="100%" role="img" aria-label="The divided square: diagonal tensors and symmetric off-diagonal pairs form a basis of B inside the tensor square">
+  <g stroke="#8899aa" stroke-width="1" fill="none">
+    <rect x="60" y="40" width="180" height="180" rx="4"/>
+    <line x1="60" y1="85" x2="240" y2="85"/><line x1="60" y1="130" x2="240" y2="130"/><line x1="60" y1="175" x2="240" y2="175"/>
+    <line x1="105" y1="40" x2="105" y2="220"/><line x1="150" y1="40" x2="150" y2="220"/><line x1="195" y1="40" x2="195" y2="220"/>
+  </g>
+  <!-- diagonal cells -->
+  <g fill="#2e5a8a" fill-opacity="0.35">
+    <rect x="61" y="41" width="43" height="43"/><rect x="106" y="86" width="43" height="43"/><rect x="151" y="131" width="43" height="43"/><rect x="196" y="176" width="43" height="43"/>
+  </g>
+  <!-- one symmetric pair highlighted -->
+  <g fill="#c0392b" fill-opacity="0.35">
+    <rect x="151" y="41" width="43" height="43"/><rect x="61" y="131" width="43" height="43"/>
+  </g>
+  <text x="66" y="34" font-size="11.5" fill="#555">V &#8855; V, coefficient grid (u&#7522; &#8855; u&#8342;)</text>
+  <text x="256" y="60" font-size="12" fill="#2e5a8a">diagonal u&#7522;&#8855;u&#7522; = b(u&#7522;)</text>
+  <text x="256" y="78" font-size="11" fill="#555">&#8594; the linear directions</text>
+  <text x="256" y="112" font-size="12" fill="#c0392b">matched pairs u&#7522;&#8855;u&#8342; + u&#8342;&#8855;u&#7522;</text>
+  <text x="256" y="130" font-size="11" fill="#555">&#8594; the quadratic directions</text>
+  <text x="256" y="162" font-size="12" fill="#1a1a1a">B = flip-INVARIANTS = &#915;&#178;(V)</text>
+  <text x="256" y="182" font-size="11.5" fill="#7a1f1f">not the quotient Sym&#178;V: in char 2</text>
+  <text x="256" y="198" font-size="11.5" fill="#7a1f1f">the pairs die in the quotient</text>
+  <text x="256" y="222" font-size="11.5" fill="#555">b(v) hits diag with x&#7522;, pairs with x&#7522;x&#8342;</text>
+</svg><figcaption><b>The divided square $B$.</b> Inside the coefficient grid of $V \otimes V$, $B$ is spanned by the diagonal cells $b(u_i)$ (blue) and the matched symmetric pairs (red) &mdash; the flip-invariant tensors. The expansion of $b(v)$ (Lemma I(2)) loads the diagonal with the coordinates $x_i$ and the pairs with the products $x_ix_j$: squaring stores linear <i>and</i> quadratic information at once.</figcaption></figure>
+
+<p>Dualize. By the third panel of Fig. 5, the duals of the countable $\mathbb F_2$-vector spaces $V$ and $B$ are the compact products
+$$X = V^* = \mathrm{Hom}_{\mathbb F_2}(V, \mathbb F_2), \qquad Y = B^* = \mathrm{Hom}_{\mathbb F_2}(B, \mathbb F_2),$$
+with pointwise-convergence topology, and the pairing $(\ell, q) \mapsto \bigl((v,w) \mapsto (-1)^{\ell(v) + q(w)}\bigr)$ identifies
+$$\widehat D = X \times Y, \qquad m = m_X \otimes m_Y \;\text{(independent fair coins on all coordinates)},$$
+with coordinatewise addition as group law and dual actions $(k\cdot\ell)(v) = \ell(k^{-1}v)$, $(k\cdot q)(w) = q(k^{-1}w)$. One reading of $Y$ is decisive for everything that follows (Fig. 11): by Lemma I(2), for $q \in Y$,
+$$q(b(v)) \;=\; \sum_i x_i\, q(u_i\otimes u_i) \;+\; \sum_{i\lt j} x_ix_j\, q(u_i\otimes u_j + u_j\otimes u_i),$$
+so <b>$Y$ parametrizes exactly the Boolean functions on $V$ of degree $\le 2$ with zero constant term</b>: the diagonal coordinates of $q$ supply linear terms, the pair coordinates supply genuinely quadratic terms; on any finite-dimensional subspace, $v \mapsto q(b(v))$ is a Boolean polynomial of degree at most $2$.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 210" width="100%" role="img" aria-label="A dual element q reads b(v) as a quadratic Boolean function: diagonal coordinates give linear terms, pair coordinates give quadratic terms">
+  <defs><marker id="c4arrQ" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <text x="24" y="30" font-size="12.5" fill="#1a1a1a">q &#8712; Y = B*  &#8596;  the Boolean function  v &#8614; q(b(v))</text>
+  <rect x="24" y="48" width="200" height="60" rx="8" fill="#2e5a8a" fill-opacity="0.12" stroke="#2e5a8a"/>
+  <text x="36" y="70" font-size="12" fill="#2e5a8a">q on diagonal cells b(u&#7522;)</text>
+  <text x="36" y="92" font-size="12" fill="#2e5a8a">&#8658; linear terms &#931; c&#7522; x&#7522;</text>
+  <rect x="256" y="48" width="200" height="60" rx="8" fill="#c0392b" fill-opacity="0.12" stroke="#c0392b"/>
+  <text x="268" y="70" font-size="12" fill="#c0392b">q on symmetric pairs (i &lt; j)</text>
+  <text x="268" y="92" font-size="12" fill="#c0392b">&#8658; quadratic terms &#931; c&#7522;&#8342; x&#7522;x&#8342;</text>
+  <path d="M124,112 L124,140 L228,152" stroke="#555" stroke-width="1.5" fill="none" marker-end="url(#c4arrQ)"/>
+  <path d="M356,112 L356,140 L252,152" stroke="#555" stroke-width="1.5" fill="none" marker-end="url(#c4arrQ)"/>
+  <text x="120" y="166" font-size="12.5" fill="#1a1a1a">deg &#8804; 2, zero constant term</text>
+  <text x="24" y="196" font-size="12" fill="#7a1f1f">Y = ALL such quadratics; this is what feeds the quarter-support bound (Lemma 5.5) in &#167;7</text>
+</svg><figcaption><b>Dual of the divided square = quadratic Boolean functions.</b> Evaluating $q \in Y$ on $b(v)$ and expanding by Lemma I gives a Boolean polynomial in the coordinates of $v$ of degree at most $2$ (no constant term); every such polynomial arises from exactly one $q$. The spectral gap of <a class="secref" href="#rigidity">&sect;7</a> is at heart a statement about the supports of these quadratics.</figcaption></figure>
+
+<h3 id="carrygroup">6.2 The carry group $C_0$</h3>
+
+<p>For $a \in \mathbb F_2$ write $\tilde a \in \{0,1\}\subset\mathbb Z$ for its standard lift. Given a pair $(\ell, q) \in X \times Y$, define a $\mathbb Z/4$-valued function on $V$:
+$$F_{\ell,q} : V \to \mathbb Z/4\mathbb Z, \qquad F_{\ell,q}(v) \;=\; \widetilde{\ell(v)} + 2\,\widetilde{q(b(v))} \pmod 4,$$
+&mdash; &ldquo;$\ell$ is the ones digit, $q\circ b$ the twos digit&rdquo; &mdash; and let
+$$C_0 = \{F_{\ell,q} : (\ell, q) \in X\times Y\} \subseteq (\mathbb Z/4\mathbb Z)^V,$$
+with the product topology on the ambient power and the action $(k\cdot F)(v) = F(k^{-1}\cdot v)$, which preserves $C_0$ because $k\cdot F_{\ell,q} = F_{k\cdot\ell,\,k\cdot q}$ (machine-checked for a sampled transvection in <a class="secref" href="#numerics">&sect;10</a>). The four-point carry identity, applied at every $v$ simultaneously, computes pointwise addition in $C_0$. For $s, s' \in \mathbb F_2$: $\tilde s + \tilde{s'} = \widetilde{s+s'} + 2\tilde s\tilde{s'} \pmod 4$; the cross-term is quadratic in $\ell$, and packaging it as an element of $Y$ is the key definition:
+$$r_{\ell,\ell'} \;=\; (\ell\otimes\ell')\big|_B \in Y, \qquad \text{i.e.} \quad r_{\ell,\ell'}(u\otimes w) = \ell(u)\,\ell'(w), \qquad \text{so } r_{\ell,\ell'}(b(v)) = \ell(v)\ell'(v).$$
+Since the $b(v)$ span $B$, the map $(\ell,\ell')\mapsto r_{\ell,\ell'}$ is symmetric, bilinear, normalized ($r_{\ell,0} = 0$), continuous for the pointwise topologies (each evaluation uses finitely many coordinates), and $K$-equivariant; bilinearity gives the <b>cocycle identity</b> $r_{\ell,\ell'} + r_{\ell+\ell',\ell''} = r_{\ell',\ell''} + r_{\ell,\ell'+\ell''}$. Applying the carry identity at each $v \in V$:
+$$F_{\ell,q} + F_{\ell',q'} \;=\; F_{\ell+\ell',\; q+q'+r_{\ell,\ell'}}. \tag{4.2}$$
+So $C_0$ contains $0 = F_{0,0}$ and is closed under addition; since the ambient group has exponent $4$, inverses exist inside ($-F = 3F$): <b>$C_0$ is a subgroup</b>. Moreover $(\ell,q)$ can be recovered from $F_{\ell,q}$ &mdash; reduction mod $2$ of the values gives $\ell$, and then the twos digits at all $v$ give $q(b(v))$, determining $q$ since the $b(v)$ span $B$ &mdash; so $(\ell,q)\mapsto F_{\ell,q}$ is a bijection under which pointwise addition becomes the twisted law
+$$(\ell,q)\star_0(\ell',q') \;=\; \bigl(\ell+\ell',\; q+q'+r_{\ell,\ell'}\bigr).$$</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 265" width="100%" role="img" aria-label="Animated: adding two carry functions; the ones digits add linearly, and their product ripples a carry into the twos digit layer">
+  <text x="24" y="26" font-size="12.5" fill="#1a1a1a">F<tspan baseline-shift="sub" font-size="8">&#8467;,q</tspan>(v) = &#8467;(v) + 2&#8901;q(b(v)) &mdash; a &#8484;/4-valued function, drawn as two bit-layers over V</text>
+  <!-- ones layer -->
+  <text x="24" y="58" font-size="11.5" fill="#2e5a8a">ones digit: &#8467;(v)</text>
+  <g stroke="#2e5a8a" stroke-width="1.2" fill="#7da7d9" fill-opacity="0.5">
+    <rect x="150" y="44" width="26" height="18"/><rect x="182" y="44" width="26" height="18" fill-opacity="0.12"/><rect x="214" y="44" width="26" height="18"/><rect x="246" y="44" width="26" height="18"/><rect x="278" y="44" width="26" height="18" fill-opacity="0.12"/><rect x="310" y="44" width="26" height="18"/>
+  </g>
+  <text x="24" y="90" font-size="11.5" fill="#2e5a8a">&#8467;&#8242;(v)</text>
+  <g stroke="#2e5a8a" stroke-width="1.2" fill="#7da7d9" fill-opacity="0.5">
+    <rect x="150" y="76" width="26" height="18"/><rect x="182" y="76" width="26" height="18"/><rect x="214" y="76" width="26" height="18" fill-opacity="0.12"/><rect x="246" y="76" width="26" height="18"/><rect x="278" y="76" width="26" height="18" fill-opacity="0.12"/><rect x="310" y="76" width="26" height="18" fill-opacity="0.12"/>
+  </g>
+  <!-- carry arrows animated -->
+  <g stroke="#c0392b" stroke-width="1.8" fill="none">
+    <path d="M163,98 C163,120 163,140 163,158">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.7;1" dur="5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M259,98 C259,120 259,140 259,158">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.7;1" dur="5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <text x="344" y="128" font-size="11.5" fill="#c0392b">carry = &#8467;(v)&#8901;&#8467;&#8242;(v)</text>
+  <text x="344" y="144" font-size="11.5" fill="#c0392b">(both ones digits set)</text>
+  <!-- twos layer -->
+  <text x="24" y="176" font-size="11.5" fill="#a06a1f">twos digit: q + q&#8242; + r<tspan baseline-shift="sub" font-size="8">&#8467;,&#8467;&#8242;</tspan></text>
+  <g stroke="#a06a1f" stroke-width="1.2" fill="#e8b87d" fill-opacity="0.55">
+    <rect x="150" y="162" width="26" height="18"/><rect x="182" y="162" width="26" height="18" fill-opacity="0.12"/><rect x="214" y="162" width="26" height="18" fill-opacity="0.12"/><rect x="246" y="162" width="26" height="18"/><rect x="278" y="162" width="26" height="18" fill-opacity="0.12"/><rect x="310" y="162" width="26" height="18" fill-opacity="0.12"/>
+  </g>
+  <text x="24" y="212" font-size="12" fill="#1a1a1a">r<tspan baseline-shift="sub" font-size="8">&#8467;,&#8467;&#8242;</tspan> = (&#8467;&#8855;&#8467;&#8242;)|<tspan baseline-shift="sub" font-size="8">B</tspan>: the carry, packaged as an element of Y &mdash; a continuous symmetric 2-cocycle</text>
+  <text x="24" y="234" font-size="12" fill="#7a1f1f">(4.2): F + F&#8242; = F with &#8467;-parts adding and the carry r feeding the q-layer &mdash; the toy, at every v at once</text>
+  <text x="24" y="254" font-size="11.5" fill="#555">columns shown: v ranging over six sample vectors; filled = bit 1, empty = bit 0</text>
+</svg><figcaption><b>Adding in the carry group</b> (animated: carries fire where both ones digits are set). Each $F_{\ell,q}$ stores a ones layer $\ell$ and a twos layer $q\circ b$ over the index set $V$. Pointwise $\mathbb Z/4$ addition adds the layers coordinatewise except that positions where both $\ell$ and $\ell'$ are $1$ ripple a carry into the twos layer &mdash; and the whole carry pattern $v \mapsto \ell(v)\ell'(v)$ is again a legal twos layer: $r_{\ell,\ell'} \in Y$. That closure is why $C_0$ is a group.</figcaption></figure>
+
+<div class="prop"><b>Proposition 4.1.</b> $C_0$ is a compact subgroup of $(\mathbb Z/4\mathbb Z)^V$, and
+$$\Phi_0 : X\times Y \to C_0, \qquad \Phi_0(\ell,q) = F_{\ell,q}$$
+is a $K$-equivariant homeomorphism carrying $m = m_X\otimes m_Y$ to the Haar measure of $C_0$. It is a topological group isomorphism from $(X\times Y, \star_0)$, but <b>not</b> a homomorphism for coordinatewise addition on $X \times Y = \widehat D$: the element $F_{\ell,0}$ with $\ell(e) = 1$ has order $4$, while $\widehat D$ has exponent $2$.</div>
+
+<div class="proof">
+<p>Each coordinate $F_{\ell,q}(v)$ depends continuously (in fact through finitely many coordinates) on $(\ell,q)$, so $\Phi_0$ is continuous; it is bijective by the recovery argument above. A continuous bijection from a compact space to a Hausdorff space is a homeomorphism onto its image, so $C_0 = \Phi_0(X\times Y)$ is compact (hence closed) and $\Phi_0$ is a homeomorphism. Equivariance is the identity $k\cdot F_{\ell,q} = F_{k\ell,kq}$, which reduces to $b(k\cdot v) = k\cdot b(v)$.</p>
+<p><i>Haar measure.</i> Under $\Phi_0$, translation by $F_{\ell',q'}$ becomes, by (4.2), the triangular map $(\ell,q)\mapsto(\ell+\ell',\, q+q'+r_{\ell,\ell'})$ (Fig. 13). This map preserves $m$: the $X$-marginal is a translation of $X$, and for each fixed $\ell$ the fiber map $q \mapsto q + (q' + r_{\ell,\ell'})$ is a translation of $Y$; Fubini gives invariance. So $(\Phi_0)_*m$ is a translation-invariant Borel probability measure on the compact group $C_0$ &mdash; its Haar measure, by uniqueness.</p>
+<p><i>Group law.</i> (4.2) says precisely that $\Phi_0$ is an isomorphism for $\star_0$. For the failure with coordinatewise addition: pick $\ell$ with $\ell(e) = 1$ (exists: extend $e$ to a basis). Then $r_{\ell,\ell}(b(e)) = \ell(e)^2 = 1$, and $F_{\ell,0}(e) = 1 \in \mathbb Z/4$, so $F_{\ell,0} + F_{\ell,0} = F_{0, r_{\ell,\ell}} \neq 0$: the element has order $4$ (its value at $e$ is $1$, of additive order $4$). An isomorphism to the exponent-$2$ group $\widehat D$ is impossible. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 220" width="100%" role="img" aria-label="Translation in the carry group is a triangular map on X times Y: translate the X coordinate, then translate each Y fiber by a shifted amount; product measure is preserved">
+  <defs><marker id="c4arrT" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <!-- square X x Y -->
+  <rect x="50" y="40" width="150" height="140" rx="4" fill="#7da7d9" fill-opacity="0.15" stroke="#2e5a8a"/>
+  <text x="106" y="200" font-size="12" fill="#2e5a8a">X (&#8467;)</text>
+  <text x="20" y="115" font-size="12" fill="#2e5a8a">Y (q)</text>
+  <!-- fibers -->
+  <g stroke="#2e5a8a" stroke-width="1" stroke-dasharray="3 3">
+    <line x1="80" y1="40" x2="80" y2="180"/><line x1="110" y1="40" x2="110" y2="180"/><line x1="140" y1="40" x2="140" y2="180"/><line x1="170" y1="40" x2="170" y2="180"/>
+  </g>
+  <path d="M210,110 L260,110" stroke="#7a1f1f" stroke-width="1.8" fill="none" marker-end="url(#c4arrT)"/>
+  <text x="212" y="98" font-size="11.5" fill="#7a1f1f">translate by F&#8467;&#8242;,q&#8242;</text>
+  <rect x="280" y="40" width="150" height="140" rx="4" fill="#e8b87d" fill-opacity="0.2" stroke="#a06a1f"/>
+  <g stroke="#a06a1f" stroke-width="1" stroke-dasharray="3 3">
+    <line x1="310" y1="40" x2="310" y2="180"/><line x1="340" y1="40" x2="340" y2="180"/><line x1="370" y1="40" x2="370" y2="180"/><line x1="400" y1="40" x2="400" y2="180"/>
+  </g>
+  <!-- shifted fiber arrows of varying offsets -->
+  <g stroke="#c0392b" stroke-width="1.4" fill="none">
+    <path d="M310,70 C316,76 316,84 310,90" marker-end="url(#c4arrT)"/>
+    <path d="M340,110 C346,116 346,124 340,130" marker-end="url(#c4arrT)"/>
+    <path d="M370,58 C376,64 376,72 370,78" marker-end="url(#c4arrT)"/>
+  </g>
+  <text x="286" y="200" font-size="11.5" fill="#c0392b">each fiber shifts by q&#8242; + r<tspan baseline-shift="sub" font-size="8">&#8467;,&#8467;&#8242;</tspan> &mdash; DIFFERENT per &#8467;, but a translation of Y</text>
+  <text x="50" y="216" font-size="12" fill="#7a1f1f">translation in X &#215; fiberwise translations in Y &#8658; product measure m preserved &#8658; m = Haar of C&#8320;</text>
+</svg><figcaption><b>Why the coin-flip measure is also the Haar measure of the twisted group.</b> Under $\Phi_0$, translation in $C_0$ acts triangularly: shift $\ell$, then shift each $Y$-fiber by an $\ell$-dependent amount. Fiberwise translations preserve $m_Y$; the base translation preserves $m_X$; Fubini does the rest. One probability space, two Haar structures.</figcaption></figure>
+
+<h3 id="dualcarry">6.3 Dualizing the carry: $E_0$, $\Gamma_0$, and the first counterexample</h3>
+
+<p>The carry is invisible to the measured space but survives duality. We use the standard duality package for compact/discrete abelian groups:</p>
+
+<div class="note"><b>Import 6 (Pontryagin duality package; standard harmonic analysis).</b> For compact metrizable abelian $C$ and countable discrete abelian $A$: (i) the dual of a compact metrizable group is countable discrete (its characters are an orthonormal set in the separable $L^2(C)$ &mdash; orthogonality exactly as in Lemma E), and biduality holds: $\widehat{\widehat C\,} \cong C$ canonically; (ii) a short exact sequence of such groups with continuous maps dualizes to a short exact sequence in the opposite direction (annihilator duality); (iii) restriction of characters along a closed subgroup is onto the subgroup's dual. All three are classical [e.g.&nbsp;Rudin, <i>Fourier Analysis on Groups</i>].</div>
+
+<p>Let $E_0 = \widehat{C_0}$, written additively, with the dual $K$-action; it is countable by Import 6(i). The stars of the show are the <b>evaluation characters</b>: for $v \in V$,
+$$\varepsilon^{(0)}_v \in E_0, \qquad \varepsilon^{(0)}_v(F) = i^{\,F(v)} \quad (i = \sqrt{-1}),$$
+&mdash; a character because $F \mapsto F(v)$ is a homomorphism $C_0 \to \mathbb Z/4$ and $x \mapsto i^x$ embeds $\mathbb Z/4$ into $\mathbb T$. Immediately $4\varepsilon^{(0)}_e = 0$; and choosing $\ell$ with $\ell(e) = 1$ gives $\varepsilon^{(0)}_e(F_{\ell,0}) = i^1 = i$, so $\varepsilon^{(0)}_e$ has <b>order exactly $4$</b>: the carry, reborn as torsion in a discrete group.</p>
+
+<div class="lem"><b>Lemma 4.2 (the two ladders).</b> There are $K$-equivariant exact sequences of compact groups
+$$0 \to Y \to \widehat D = X\times Y \to X \to 0, \qquad 0 \to Y \xrightarrow{\;\jmath_0\;} C_0 \xrightarrow{\;\rho_0\;} X \to 0,$$
+with $\jmath_0(q) = F_{0,q}$ and $\rho_0(F_{\ell,q}) = \ell$, whose Pontryagin duals are
+$$0 \to V \to D = V\oplus B \to B \to 0, \qquad 0 \to V \xrightarrow{\;\iota_0\;} E_0 \xrightarrow{\;\sigma_0\;} B \to 0,$$
+where $\iota_0(v)(F_{\ell,q}) = (-1)^{\ell(v)}$ and $\sigma_0$ is characterized by $\eta(F_{0,q}) = (-1)^{q(\sigma_0(\eta))}$ for all $q$. The $\widehat D$/$D$ sequences split $K$-equivariantly; the $C_0$/$E_0$ sequences do <b>not</b> split, even as plain abelian groups. Moreover
+$$2\varepsilon^{(0)}_v = \iota_0(v), \qquad \sigma_0(\varepsilon^{(0)}_v) = b(v).$$</div>
+
+<div class="proof">
+<p>The $\widehat D$ and $D$ sequences split by their product/direct-sum structure. For the carry sequence: (4.2) shows $\jmath_0$ and $\rho_0$ are continuous homomorphisms ($\jmath_0$: no carry when $\ell = 0$; $\rho_0$: the $\ell$-parts add on the nose), with $\ker\rho_0 = \{F_{0,q}\} = \jmath_0(Y)$ and $\rho_0$ onto ($\rho_0(F_{\ell,0}) = \ell$); all maps are $K$-equivariant. Import 6(ii) dualizes it to $0 \to \widehat X \to E_0 \to \widehat Y \to 0$; identify $\widehat X = V$ and $\widehat Y = B$ (biduality for the vector-space dualities of &sect;6.1). Unwinding the identifications: the image of $v \in V$ is the character $F \mapsto (-1)^{(\rho_0 F)(v)} = (-1)^{\ell(v)}$, which is $\iota_0(v)$; and $\sigma_0(\eta)$ is the element of $B$ representing $\eta\circ\jmath_0 \in \widehat Y$, i.e.&nbsp;the characterization stated. For the evaluation characters:
+$$\varepsilon^{(0)}_v(F_{0,q}) = i^{2\widetilde{q(b(v))}} = (-1)^{q(b(v))} \implies \sigma_0(\varepsilon^{(0)}_v) = b(v),$$
+$$\bigl(\varepsilon^{(0)}_v\bigr)^2(F_{\ell,q}) = i^{2F_{\ell,q}(v)} = (-1)^{F_{\ell,q}(v)} = (-1)^{\ell(v)} \implies 2\varepsilon^{(0)}_v = \iota_0(v)$$
+(the twos digit contributes $(-1)^{2(\cdot)} = 1$). Since the $b(v)$ span $B$, the characters $\varepsilon^{(0)}_v$ also witness surjectivity of $\sigma_0$ directly. Finally, if the discrete sequence split, $E_0 \cong V\oplus B$ would have exponent $2$, contradicting the order-$4$ element $\varepsilon^{(0)}_e$; dualizing back (Import 6), $\rho_0$ admits no continuous homomorphic section. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="Two extension ladders: the untwisted one splits on both sides; the carry ladder is nonsplit and its dual contains an order-4 evaluation character doubling into V">
+  <defs><marker id="c4arrL" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <g font-size="12" fill="#555"><text x="30" y="26">compact side</text><text x="300" y="26">discrete side (Pontryagin dual)</text></g>
+  <!-- untwisted -->
+  <text x="30" y="56" font-size="12.5" fill="#2e5a8a">0 &#8594; Y &#8594; X&#215;Y &#8594; X &#8594; 0</text>
+  <text x="30" y="74" font-size="11" fill="#2a7d2a">splits (product)</text>
+  <text x="300" y="56" font-size="12.5" fill="#2e5a8a">0 &#8594; V &#8594; V&#8853;B &#8594; B &#8594; 0</text>
+  <text x="300" y="74" font-size="11" fill="#2a7d2a">splits: D has exponent 2</text>
+  <line x1="222" y1="52" x2="290" y2="52" stroke="#555" stroke-width="1.3" marker-end="url(#c4arrL)"/>
+  <!-- twisted -->
+  <text x="30" y="122" font-size="12.5" fill="#c0392b">0 &#8594; Y &#8594; C&#8320; &#8594; X &#8594; 0</text>
+  <text x="30" y="140" font-size="11" fill="#c0392b">same space as X&#215;Y, twisted law &#8902;&#8320;</text>
+  <text x="300" y="122" font-size="12.5" fill="#c0392b">0 &#8594; V &#8594; E&#8320; &#8594; B &#8594; 0</text>
+  <text x="300" y="140" font-size="11" fill="#c0392b">NONSPLIT: &#949;<tspan baseline-shift="sub" font-size="8">e</tspan>&#8317;&#8304;&#8318; has order 4</text>
+  <line x1="222" y1="118" x2="290" y2="118" stroke="#555" stroke-width="1.3" marker-end="url(#c4arrL)"/>
+  <!-- epsilon doubling -->
+  <g stroke="#7a1f1f" stroke-width="1.6" fill="none">
+    <path d="M368,148 C368,172 340,180 316,184" marker-end="url(#c4arrL)"/>
+  </g>
+  <text x="300" y="200" font-size="12" fill="#7a1f1f">2&#949;<tspan baseline-shift="sub" font-size="8">v</tspan> = &#953;&#8320;(v),&#160; &#963;&#8320;(&#949;<tspan baseline-shift="sub" font-size="8">v</tspan>) = b(v)</text>
+  <text x="30" y="200" font-size="12" fill="#7a1f1f">the carry: invisible in measure, indelible in the dual</text>
+  <text x="30" y="232" font-size="11.5" fill="#555">lifting b(v) to E&#8320; costs a doubling that lands back in V &mdash; the algebraic shadow of &ldquo;1+1 = 2 with carry&rdquo;</text>
+</svg><figcaption><b>The two ladders of Lemma 4.2.</b> Untwisted: everything splits, $D$ has exponent $2$. Twisted: the same measured space carries the extension $C_0$ whose dual $E_0$ contains order-$4$ evaluation characters $\varepsilon^{(0)}_v$ lifting $b(v)$ and doubling into $\iota_0(v)$ &mdash; a nonsplit extension of $B$ by $V$. Torsion is the fingerprint the factor cannot erase from the group.</figcaption></figure>
+
+<p>Define the two semidirect products of the section title:
+$$\Lambda \;=\; D \rtimes K, \qquad \Gamma_0 \;=\; E_0 \rtimes K.$$</p>
+
+<div class="prop"><b>Proposition 4.3.</b> $L(\Gamma_0) \cong L(\Lambda)$, but $\Gamma_0 \not\cong \Lambda$.</div>
+
+<div class="proof">
+<p>By Proposition F (the chapter's (2.1)) applied to $E_0$, then Proposition 4.1's identification $\Phi_0$ of measured $K$-spaces $(X\times Y, m) \cong (C_0, \mathrm{Haar})$ &mdash; note $\widehat{E_0} = C_0$ by biduality &mdash; then Proposition F again in reverse for $D$:
+$$L(\Gamma_0) \cong L^\infty(C_0)\rtimes K \cong L^\infty(X\times Y, m)\rtimes K \cong L(\Lambda),$$
+the middle isomorphism being the transport principle (Proposition G) along $\theta = \Phi_0^{-1}$.</p>
+<p>Nonisomorphism: since $K$ is torsion-free, any finite-order $(d, k) \in \Lambda$ has $k^m = 1$ in $K$ (project to $K$), so $k = 1$, so the element lies in $D$ &mdash; which has exponent $2$. Thus $\Lambda$ has no element of order $4$. But $\varepsilon^{(0)}_e \in E_0 \subset \Gamma_0$ has order $4$ (Lemma 4.2). <span class="qed">&#8718;</span></p>
+</div>
+
+<p>This pair already refutes Connes's conjecture &mdash; <i>provided</i> the groups are ICC with property (T), which is the business of the next section.</p>

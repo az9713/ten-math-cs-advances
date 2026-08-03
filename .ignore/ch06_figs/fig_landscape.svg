@@ -1,0 +1,35 @@
+<svg class="setupfig" viewBox="0 0 540 280" width="100%" role="img" aria-label="the landscape of parallel-repetition results">
+<text x="60" y="24" font-size="12" text-anchor="start" fill="#333" font-weight="bold">class of entangled games</text>
+<text x="310" y="24" font-size="12" text-anchor="start" fill="#333" font-weight="bold">decay proved</text>
+<text x="455" y="24" font-size="12" text-anchor="start" fill="#333" font-weight="bold">who</text>
+<circle cx="56" cy="44" r="4.5" fill="#2a7d2a"/>
+<text x="68" y="49" font-size="12" text-anchor="start" fill="#333">XOR games</text>
+<text x="310" y="49" font-size="12" text-anchor="start" fill="#333">perfect: ω* (G⊗ⁿ) = ω*(G)ⁿ</text>
+<text x="455" y="49" font-size="11.5" text-anchor="start" fill="#555">CSUU 2008</text>
+<circle cx="56" cy="74" r="4.5" fill="#2a7d2a"/>
+<text x="68" y="79" font-size="12" text-anchor="start" fill="#333">unique games</text>
+<text x="310" y="79" font-size="12" text-anchor="start" fill="#333">exponential</text>
+<text x="455" y="79" font-size="11.5" text-anchor="start" fill="#555">KRT 2010</text>
+<circle cx="56" cy="104" r="4.5" fill="#2a7d2a"/>
+<text x="68" y="109" font-size="12" text-anchor="start" fill="#333">projection games</text>
+<text x="310" y="109" font-size="12" text-anchor="start" fill="#333">exponential</text>
+<text x="455" y="109" font-size="11.5" text-anchor="start" fill="#555">DSV 2015</text>
+<circle cx="56" cy="134" r="4.5" fill="#2a7d2a"/>
+<text x="68" y="139" font-size="12" text-anchor="start" fill="#333">free games (product μ)</text>
+<text x="310" y="139" font-size="12" text-anchor="start" fill="#333">exponential</text>
+<text x="455" y="139" font-size="11.5" text-anchor="start" fill="#555">JPY14, CS15</text>
+<circle cx="56" cy="164" r="4.5" fill="#b06a00"/>
+<text x="68" y="169" font-size="12" text-anchor="start" fill="#333">anchored games (modified G)</text>
+<text x="310" y="169" font-size="12" text-anchor="start" fill="#333">exponential</text>
+<text x="455" y="169" font-size="11.5" text-anchor="start" fill="#555">BVY 2017</text>
+<circle cx="56" cy="194" r="4.5" fill="#b06a00"/>
+<text x="68" y="199" font-size="12" text-anchor="start" fill="#333">ALL games</text>
+<text x="310" y="199" font-size="12" text-anchor="start" fill="#333">polynomial n<tspan baseline-shift="super" font-size="70%">−1/4</tspan></text>
+<text x="455" y="199" font-size="11.5" text-anchor="start" fill="#555">Yuen 2016</text>
+<rect x="48" y="211" width="478" height="27" rx="4" fill="#fdf7e3" stroke="#c9b45a" stroke-width="1.2"/>
+<circle cx="56" cy="224" r="4.5" fill="#c0392b"/>
+<text x="68" y="229" font-size="12" text-anchor="start" fill="#333">ALL games</text>
+<text x="310" y="229" font-size="12" text-anchor="start" fill="#c0392b">exponential</text>
+<text x="455" y="229" font-size="11.5" text-anchor="start" fill="#555">this chapter</text>
+<text x="270" y="268" font-size="11.5" text-anchor="middle" fill="#333">green: special structure · orange: general but weaker · the open cell was “all games, exponential”</text>
+</svg>

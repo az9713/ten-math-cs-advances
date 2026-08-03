@@ -1,0 +1,64 @@
+<svg class="setupfig" viewBox="0 0 460 300" width="100%" role="img" aria-label="Closest vector problem in the plane">
+<defs><marker id="c7cvp_arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.0" markerHeight="5.0" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<circle cx="285" cy="120" r="26.48" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.9"/>
+<circle cx="22" cy="16" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="20" cy="144" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="38" cy="98" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="56" cy="52" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="36" cy="226" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="54" cy="180" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="72" cy="134" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="90" cy="88" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="108" cy="42" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="88" cy="216" r="3.4" fill="#333" stroke="none"/>
+<circle cx="106" cy="170" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="124" cy="124" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="142" cy="78" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="160" cy="32" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="122" cy="252" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="140" cy="206" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="158" cy="160" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="176" cy="114" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="194" cy="68" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="212" cy="22" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="174" cy="242" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="192" cy="196" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="210" cy="150" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="228" cy="104" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="246" cy="58" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="226" cy="232" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="244" cy="186" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="262" cy="140" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="280" cy="94" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="298" cy="48" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="278" cy="222" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="296" cy="176" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="314" cy="130" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="332" cy="84" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="350" cy="38" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="312" cy="258" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="330" cy="212" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="348" cy="166" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="366" cy="120" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="384" cy="74" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="402" cy="28" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="364" cy="248" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="382" cy="202" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="400" cy="156" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="418" cy="110" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="436" cy="64" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="416" cy="238" r="3.4" fill="#2e6da4" stroke="none"/>
+<circle cx="434" cy="192" r="3.4" fill="#2e6da4" stroke="none"/>
+<line x1="88" y1="216" x2="136.88" y2="206.6" stroke="#c0392b" stroke-width="2.4" marker-end="url(#c7cvp_arr)"/>
+<line x1="88" y1="216" x2="104.2" y2="174.6" stroke="#c0392b" stroke-width="2.4" marker-end="url(#c7cvp_arr)"/>
+<text x="144" y="220" font-size="13" text-anchor="start" fill="#c0392b" class="vb">b&#8321;</text>
+<text x="92" y="164" font-size="13" text-anchor="end" fill="#c0392b" class="vb">b&#8322;</text>
+<text x="78" y="232" font-size="12" text-anchor="middle" fill="#333">0</text>
+<polygon points="285,112 286.97,117.28 292.61,117.53 288.2,121.04 289.7,126.47 285,123.36 280.3,126.47 281.8,121.04 277.39,117.53 283.03,117.28" fill="#c0392b"/>
+<text x="297" y="112" font-size="14" text-anchor="start" fill="#c0392b" class="vb">t</text>
+<line x1="285" y1="120" x2="280" y2="94" stroke="#2a7d2a" stroke-width="2.2"/>
+<circle cx="280" cy="94" r="5.4" fill="none" stroke="#2a7d2a" stroke-width="2.4"/>
+<text x="272" y="112" font-size="13" text-anchor="middle" fill="#2a7d2a" class="v">v&#9733;</text>
+<text x="292.5" y="101" font-size="12" text-anchor="start" fill="#2a7d2a" class="v">dist&#8322;(t, L)</text>
+<text x="16" y="288" font-size="12" text-anchor="start" fill="#2e6da4">lattice L(B) = {i&#183;b&#8321; + j&#183;b&#8322; : i, j &#8712; &#8484;}</text>
+</svg>

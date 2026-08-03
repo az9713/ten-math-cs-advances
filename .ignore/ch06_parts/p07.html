@@ -1,0 +1,108 @@
+<hr>
+
+<h2 id="ideal">7. The ideal conditioned experiment (Lemma 3.2)</h2>
+
+<p>Lemma 3.1 hands us a conditioned experiment in which the average live coordinate is won with probability $q \ge 1-\delta$. This section extracts from it a <i>single-game scenario</i>: one live coordinate $i$, playing the role of the fresh game, embedded in a partially revealed transcript of the other $n-1$ coordinates. The extraction is "ideal" &mdash; it describes states and measurements that exist mathematically but that the players cannot yet obtain; <a class="secref" href="#central">&sect;8</a>&ndash;<a class="secref" href="#rounding">&sect;9</a> will close that gap.</p>
+
+<h3 id="s7-reveal">7.1 The reveal pattern and the history</h3>
+
+<p>To help construct their eventual single-game strategy, the players use finite-valued public randomness $\lambda \in \Lambda$, independent of all game questions, which samples: a uniformly random <b>live coordinate</b> $i \in [n]\setminus D$, and <b>revealed-coordinate sets</b> $C_X, C_Y \subseteq [n]$ (for Alice's and Bob's questions respectively) satisfying
+$$D \;\subseteq\; C_X \cap C_Y, \qquad C_X \cup C_Y \;=\; [n]\setminus\{i\}. \tag{2}$$
+The exact distribution of $\lambda$ &mdash; a symmetric random-reveal scheme with random orders and cuts &mdash; is constructed in <a class="secref" href="#martingales">&sect;11</a>, where its finer properties are needed; this section uses only (2). The first condition puts both questions of every core coordinate on the record, so core success can be checked from the record; the second withholds both live questions $X_i, Y_i$ while revealing <i>at least one</i> question at every other coordinate (Fig. 16).</p>
+
+<figure><!--FIG:fig_reveal--><figcaption>One realization of the reveal pattern for $n = 12$, core $D$ in red, live coordinate $i$ in gold. Each column is a coordinate; the rows are Alice's and Bob's question registers. Core columns are revealed on both sides; the live column on neither; every other column on at least one side (sometimes both). This "coverage" is condition (2), and it is precisely what makes the factorization of &sect;7.2 true.</figcaption></figure>
+
+<p>Now define the <b>revealed-question history</b> and the <b>full history</b>:
+$$T = (\lambda,\, X_{C_X},\, Y_{C_Y}), \qquad Z \in A^D\times B^D, \qquad R = (T, Z),$$
+where $Z = (A_D, B_D)$ is the pair of answer words the strategy produced on the core. Because $T$ contains $\lambda$, conditioning on $T = t$ automatically fixes $i$, $C_X$, $C_Y$. Continue to write $\mathcal{P}$ for the distribution on $\Lambda\times X^n\times Y^n\times A^n\times B^n$ (public randomness adjoined independently), and let
+$$\mathcal{Q} = \mathcal{P}(\,\cdot\mid W_D)$$
+be the posterior. Since $t$ reveals the core questions and $z$ the core answers, the pair $(t,z)$ determines whether $W_D$ occurred &mdash; we write $\mathbf{1}_{W_D}(t,z)$ for this indicator. The <b>posterior tuple distribution</b> is
+$$\mathcal{Q}(i, r, x, y) \;=\; \mathcal{P}\big(R = r,\; X_i = x,\; Y_i = y \,\big\vert\, W_D\big),$$
+where $(i,r,x,y)$ are realized values (the realized $r$ determines its live coordinate $i$; we display $i$ anyway to name the extracted coordinate). Two warnings, verbatim from the chapter because they prevent real misreadings: the history $R$ is an <i>analytical</i> variable &mdash; nobody hands it to the players; and under $\mathcal{Q}$ the four tuple entries are <i>not</i> independent.</p>
+
+<h3 id="s7-factor">7.2 Why the unrevealed questions factorize</h3>
+
+<p>Here is the payoff of the coverage condition. Fix $T = t$ and the live questions $X_i = x$, $Y_i = y$. Which questions are still random? Alice's on $[n]\setminus(C_X\cup\{i\})$ and Bob's on $[n]\setminus(C_Y\cup\{i\})$ &mdash; and by (2) these two index sets are <b>disjoint</b> (Fig. 17). So no jointly sampled pair $(X_j, Y_j)\sim\mu$ remains: at every coordinate carrying an unrevealed Alice question, Bob's question is on the record, and vice versa.</p>
+
+<div class="prop" id="prop-factor"><b>Prior factorization.</b> For all $t, x, y$ and all question words $x^n, y^n$ consistent with them,
+$$\begin{aligned}
+\mathcal{P}\big(X^n = x^n,\, Y^n = y^n \mid{}& T = t,\, X_i = x,\, Y_i = y\big)\\[2pt]
+&= \mathcal{P}\big(X^n = x^n \mid T = t,\, X_i = x\big)\;
+\mathcal{P}\big(Y^n = y^n \mid T = t,\, Y_i = y\big).
+\end{aligned} \tag{3}$$
+</div>
+<div class="proof">Under $\mathcal{P}$, the coordinates' question pairs are independent, and $\lambda$ is independent of all of them. Condition on $(t, x, y)$: coordinates in $C_X\cap C_Y$ and $i$ are fully determined; a coordinate $j \in C_X\setminus C_Y$ has $X_j$ recorded and $Y_j$ still random with law $\mu(\cdot\mid X_j)$; a coordinate $j\in C_Y\setminus C_X$ has $X_j$ random with law $\mu(\cdot\mid Y_j)$. Distinct coordinates stay independent. The conditional law of $(X^n, Y^n)$ is therefore the product over $j \in C_Y\setminus C_X$ of $\mu(x_j\mid y_j)$ times the product over $j\in C_X\setminus C_Y$ of $\mu(y_j\mid x_j)$ &mdash; the first group involves only still-random <i>Alice</i> questions, the second only <i>Bob</i> questions, and each factor on the right of (3) reproduces exactly its own group. (The same computation shows each side conditions correctly: e.g. $\mathcal{P}(X^n = x^n\mid T=t, X_i=x)$ integrates the $\mu(y_j|x_j)$ factors out.) <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_factor--><figcaption>The factorization mechanism. Given the history $T$ and both live questions, the coordinates still carrying an unrevealed Alice question and those carrying an unrevealed Bob question form disjoint sets, so the remaining randomness splits into an Alice part and a Bob part &mdash; equation (3). This holds under the prior $\mathcal{P}$, <i>not</i> under the posterior $\mathcal{Q}$: conditioning on $W_D$ re-correlates everything, and managing that re-correlation is the job of Lemmas 3.3&ndash;3.6.</figcaption></figure>
+
+<h3 id="s7-effects">7.3 Local effects and the ideal conditioned state</h3>
+
+<p>Fix a realized history $r = (t, z)$ with $z = (a_D, b_D)$. Two families of operators summarize what producing those core answers did to the state. First, the <b>marginal repeated-game effects</b>: summing Alice's POVM over all answer words agreeing with $a_D$ on $D$,
+$$E^{a_D}_{x^n} \;=\; \sum_{\tilde a^n \in A^n:\ \tilde a_D = a_D} E^{\tilde a^n}_{x^n},
+\qquad
+F^{b_D}_{y^n} \;=\; \sum_{\tilde b^n \in B^n:\ \tilde b_D = b_D} F^{\tilde b^n}_{y^n},$$
+the effects of "Alice's core answers came out $a_D$, whatever she answered elsewhere", and Bob's analogue. Each is a positive contraction (a subfamily of a POVM summed). Second, average over each player's own <i>unrevealed</i> questions to get the <b>effective local effects</b>
+$$H_{r,x} \;=\; \mathbb{E}\big[E^{a_D}_{X^n}\;\big\vert\; T = t,\, X_i = x\big],
+\qquad
+K_{r,y} \;=\; \mathbb{E}\big[F^{b_D}_{Y^n}\;\big\vert\; T = t,\, Y_i = y\big],$$
+positive contractions on $\mathcal{H}_A$, $\mathcal{H}_B$ respectively (averages of positive contractions, by <a class="secref" href="#s4-condexp">&sect;4.4</a>). These two operators are the protagonists of the entire second half of the proof.</p>
+
+<div class="prop" id="prop-eq4"><b>Exact branch probability.</b> For every $(t,z,x,y)$ with positive conditioning probability,
+$$p_r(x,y) \;:=\; \mathcal{P}\big(Z = z \mid T = t,\, X_i = x,\, Y_i = y\big) \;=\; \langle\psi|\, H_{r,x}\otimes K_{r,y}\,|\psi\rangle. \tag{4}$$
+</div>
+<div class="proof">Given the questions, the Born rule gives $\mathcal{P}(Z = z \mid X^n, Y^n) = \langle\psi| E^{a_D}_{X^n}\otimes F^{b_D}_{Y^n}|\psi\rangle$ (sum the joint POVM over all answers extending $z$). Average over the conditional law of $(X^n, Y^n)$ given $(t,x,y)$: by the factorization (3) this law is a product of an Alice part and a Bob part, so the expectation of the tensor product splits into the tensor product of expectations:
+$$\mathbb{E}\big[\langle\psi| E^{a_D}_{X^n}\otimes F^{b_D}_{Y^n}|\psi\rangle\big]
+= \langle\psi|\;\mathbb{E}[E^{a_D}_{X^n}]\otimes \mathbb{E}[F^{b_D}_{Y^n}]\;|\psi\rangle
+= \langle\psi|\, H_{r,x}\otimes K_{r,y}\,|\psi\rangle.$$
+<span class="qed">&#8718;</span></div>
+
+<p>Now the state. A POVM effect fixes an outcome's <i>probability</i> but not the post-measurement state: many "branch operators" are compatible with the same effect. To fix the branch, choose a common <b>purification</b>: an assignment $F \mapsto \Gamma(F)$, mapping each positive contraction to an operator
+$$\Gamma(F): \mathcal{H}\to\mathcal{H}\otimes\mathcal{A} \qquad\text{satisfying}\qquad \Gamma(F)^\dagger\,\Gamma(F) = F, \tag{5}$$
+where $\mathcal{A}$ is a fixed finite auxiliary space (Fig. 18). Property (5) is exactly "the branch reproduces the Born probability": $\|\Gamma(F)\,\psi\|^2 = \langle\psi|F|\psi\rangle$ for every state. The obvious choice $\Gamma(F) = F^{1/2}$ (with $\mathcal{A} = \mathbb{C}$) satisfies (5); the proof of the central lemma will instead use the <i>resolvent</i> purification of <a class="secref" href="#resolvent">&sect;12</a>, which satisfies (5) <b>and</b> an entropy-control estimate that $F^{1/2}$ lacks. Everything in this section and the next two works for any fixed $\Gamma$ satisfying (5).</p>
+
+<figure><!--FIG:fig_purify--><figcaption>A purification $\Gamma$ turns an effect (a probability-producing operator) into a branch (a state-producing operator) while preserving the Born probability, eq. (5). The auxiliary space $\mathcal{A}$ gives room to make branches of different effects comparable; choosing $\Gamma$ wisely (&sect;12) is what makes one-step disturbances controllable by entropy.</figcaption></figure>
+
+<p>The <b>ideal conditioned branch</b> and its normalized state are
+$$\phi_{r,x,y} \;=\; \big(\Gamma(H_{r,x})\otimes\Gamma(K_{r,y})\big)\,|\psi\rangle,
+\qquad
+\Psi_{r,x,y} \;=\; \frac{\phi_{r,x,y}}{\|\phi_{r,x,y}\|}.$$
+By (5) and (4), $\|\phi_{r,x,y}\|^2 = p_r(x,y)$, so $\Psi_{r,x,y}$ is well defined on every branch of positive posterior probability. Read it as: <i>the joint state of the players, given that the history came out $r$ and the live questions are $(x,y)$</i>. It is ideal in a precise sense &mdash; its very definition uses data ($r$, and both $x$ and $y$) that no single player possesses.</p>
+
+<h3 id="s7-simulate">7.4 The ideal state exactly simulates the live coordinate</h3>
+
+<p>Two separate questions arise. (Q1) If someone <i>handed</i> Alice and Bob the state $\Psi_{r,x,y}$, could they reproduce the original strategy's conditional behavior at coordinate $i$? (Q2) Can they approximately <i>obtain</i> it from their separate data? This subsection answers (Q1) exactly; (Q2) is the central lemma. For (Q1) we need to split each player's effect by their live answer: define the <b>answer-refinement operators</b>
+$$H^a_{r,x} = \mathbb{E}\big[E^{\,a_D,\,a_i = a}_{X^n}\;\big\vert\; T=t, X_i=x\big],
+\qquad
+K^b_{r,y} = \mathbb{E}\big[F^{\,b_D,\,b_i = b}_{Y^n}\;\big\vert\; T=t, Y_i=y\big],$$
+where $E^{a_D, a_i=a}_{x^n}$ sums the POVM over answer words agreeing with $a_D$ on $D$ <i>and</i> equal to $a$ at $i$. These are positive contractions with
+$$\sum_{a\in A} H^a_{r,x} = H_{r,x}, \qquad \sum_{b\in B} K^b_{r,y} = K_{r,y}.$$
+The next lemma turns any such decomposition of an effect into a genuine measurement on the purified space &mdash; taking care of the possibility that $H_{r,x}$ is singular.</p>
+
+<div class="lem" id="lem-a1"><b>Lemma A.1 (singular-safe local POVM refinement).</b> Let $0 \preceq F \preceq I$ and let $\{F^a : a\in A\}$ be positive operators with $\sum_a F^a = F$. Then there is a POVM $\{M^a_F : a\in A\}$ on $\mathcal{H}\otimes\mathcal{A}$ such that
+$$\Gamma(F)^\dagger\, M^a_F\,\Gamma(F) \;=\; F^a \qquad (a\in A). \tag{36}$$
+</div>
+<div class="proof"><p>Let $F^{[-1/2]}$ be the pseudo-inverse square root (<a class="secref" href="#s1-spaces">&sect;1.1</a>) and set $U_F = \Gamma(F)\,F^{[-1/2]}$. By (5),
+$$U_F^\dagger U_F = F^{[-1/2]}\,F\,F^{[-1/2]} = \Pi,$$
+the orthogonal projection onto $\operatorname{supp} F$ &mdash; so $U_F$ is an isometry on $\operatorname{supp}F$, and $U_F U_F^\dagger$ is the projection onto its image. Choose a default answer $a_0\in A$ and set
+$$M^a_F \;=\; U_F\, F^{[-1/2]}F^a F^{[-1/2]}\, U_F^\dagger \;+\; \mathbf{1}_{\{a = a_0\}}\,\big(I - U_F U_F^\dagger\big).$$
+Positivity: each summand is PSD ($F^a \succeq 0$ is conjugated; the second term is a projection). Sum to identity: since $0 \preceq F^a \preceq F$, each $F^a$ is supported inside $\operatorname{supp}F$, so $\sum_a F^{[-1/2]}F^aF^{[-1/2]} = F^{[-1/2]}FF^{[-1/2]} = \Pi$, whence $\sum_a M^a_F = U_F\,\Pi\,U_F^\dagger + I - U_FU_F^\dagger = U_FU_F^\dagger + I - U_FU_F^\dagger = I$.</p>
+<p>Identity (36): first, $U_F^\dagger\,\Gamma(F) = F^{[-1/2]}\,\Gamma(F)^\dagger\Gamma(F) = F^{[-1/2]}F = F^{1/2}$; and $\Gamma(F)$ has image inside $\operatorname{im}U_F$ (as $\Gamma(F) = U_F F^{1/2}$ on $\operatorname{supp}F$, and $\Gamma(F)$ kills $\ker F$ by (5): $\|\Gamma(F)v\|^2 = \langle v, Fv\rangle = 0$ there), so the $(I - U_FU_F^\dagger)$ term contributes $0$. Hence
+$$\Gamma(F)^\dagger M^a_F\,\Gamma(F) = F^{1/2}\big(F^{[-1/2]}F^aF^{[-1/2]}\big)F^{1/2} = \Pi\,F^a\,\Pi = F^a,$$
+the last step because $F^a$ is supported in $\operatorname{supp}F$. All statements hold verbatim when $F$ has nontrivial kernel. (Machine check <code>c21</code> builds these operators for a singular $3\times3$ example and verifies PSD, sum $= I$, and (36).) <span class="qed">&#8718;</span></p></div>
+
+<div class="lem" id="lem-32"><b>Lemma 3.2 (the ideal state exactly simulates the remaining coordinate).</b> Fix $(i,r,x,y)$ with $\mathcal{Q}(i,r,x,y) \gt 0$. If Alice and Bob share $\Psi_{r,x,y}$, there are local POVMs $\{\widetilde M^a_{r,x}\}_{a\in A}$ and $\{\widetilde N^b_{r,y}\}_{b\in B}$ &mdash; computable from $(r,x)$ and $(r,y)$ respectively &mdash; with
+$$\langle\Psi_{r,x,y}|\; \widetilde M^a_{r,x}\otimes \widetilde N^b_{r,y}\;|\Psi_{r,x,y}\rangle
+\;=\; \mathcal{Q}\big(A_i = a,\, B_i = b \,\big\vert\, R = r,\, X_i = x,\, Y_i = y\big).$$
+</div>
+<div class="proof">Apply <a class="secref" href="#lem-a1">Lemma A.1</a> to the decomposition $\{H^a_{r,x}\}$ of $H_{r,x}$ and to $\{K^b_{r,y}\}$ of $K_{r,y}$, obtaining POVMs $\widetilde M^a_{r,x}$ on $\mathcal{H}_A\otimes\mathcal{A}$ and $\widetilde N^b_{r,y}$ on $\mathcal{H}_B\otimes\mathcal{A}$. Using $\Psi = \phi/\|\phi\|$, $\phi = (\Gamma(H_{r,x})\otimes\Gamma(K_{r,y}))\psi$, $\|\phi\|^2 = p_r(x,y)$, and (36) on each side,
+$$\langle\Psi|\widetilde M^a\otimes\widetilde N^b|\Psi\rangle
+= \frac{\langle\psi|\,\big(\Gamma(H)^\dagger \widetilde M^a \Gamma(H)\big)\otimes\big(\Gamma(K)^\dagger \widetilde N^b \Gamma(K)\big)\,|\psi\rangle}{p_r(x,y)}
+= \frac{\langle\psi|\, H^a_{r,x}\otimes K^b_{r,y}\,|\psi\rangle}{p_r(x,y)}.$$
+It remains to recognize numerator and denominator. Exactly as in the proof of (4) &mdash; the factorization (3) splitting the expectation &mdash; the numerator equals $\mathcal{P}(Z = z,\, A_i = a,\, B_i = b \mid T=t, X_i=x, Y_i=y)$, and the denominator is $\mathcal{P}(Z = z\mid T=t,X_i=x,Y_i=y)$. Their ratio is $\mathcal{P}(A_i=a, B_i=b\mid R=r, X_i=x, Y_i=y)$; and conditioning further on $W_D$ changes nothing, because $W_D$ is determined by $(t,z)$, which is already fixed. That conditional is the $\mathcal{Q}$-conditional claimed. (Machine checks <code>c31</code>, <code>c32</code> verify both (4) and this identity on all $64$ branches of a genuinely correlated entangled strategy for $\mathrm{CHSH}^{\otimes 2}$.) <span class="qed">&#8718;</span></div>
+
+<h3 id="s7-q">7.5 Why the ideal experiment wins with probability $q$</h3>
+
+<p>Suppose &mdash; still ideally &mdash; that for each $(i,r,x,y)$ the players hold $\Psi_{r,x,y}$ and measure as in Lemma 3.2. Their answers then reproduce the original strategy's conditional answer distribution at coordinate $i$, so they win the live coordinate with probability $\mathcal{Q}(W_i \mid R=r, X_i=x, Y_i=y)$. Average over the posterior: since $i$ is uniform on $[n]\setminus D$ and independent of the game variables, the law of total expectation gives
+$$\mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\;\mathcal{Q}\big(W_i\mid R=r, X_i=x, Y_i=y\big)
+\;=\; \frac1m \sum_{j\in[n]\setminus D} \mathcal{P}(W_j\mid W_D) \;=\; q. $$
+(Machine check <code>c33</code> confirms the identity on the $\mathrm{CHSH}^{\otimes2}$ toy.) This is an <i>analytical</i> success probability: it assumes the players can sample $\mathcal{Q}$, obtain the history, and hold the two-question state $\Psi_{r,x,y}$ &mdash; three assumptions that are all false as stated. Quantifying how nearly they can be made true is the content of the central lemma, next.</p>

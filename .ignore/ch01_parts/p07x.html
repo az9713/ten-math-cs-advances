@@ -1,0 +1,86 @@
+<h3 id="lem34">7.4 The birth of $1/\pi$ (Lemma 3.4)</h3>
+
+<p>Everything now rides on the constant $J_\sigma$. Here is the computation that produces $\log(\pi/2)$ &mdash; and with it, via $\log(2\pi c^2) + \log(\pi/2) = \log(\pi^2c^2)$, the threshold $c = 1/\pi$.</p>
+
+<div class="lem" id="lem34box"><b>Lemma 3.4.</b> $\displaystyle\lim_{\sigma\uparrow1} J_\sigma = \log\frac\pi2$. Consequently, for every $0 \lt c \lt 1/\pi$ there exists $\sigma = \sigma(c) \in (-1,1)$ with (eq. (23))
+$$\delta_c \;=\; -\bigl(\log(2\pi c^2) + J_{\sigma(c)}\bigr) \;\gt\; 0.$$</div>
+
+<figure><!--FIG:fig_pconv--><figcaption>The renormalized kernels $p_\sigma(u) = 2P_\sigma(2u)/M_\sigma$ converge in $L^1$, as $\sigma \uparrow 1$, to the universal density $p(u) = \frac\pi4\operatorname{sech}^2(\frac{\pi u}{2})$ (red dots). Its characteristic function is the elegant $t/\sinh t$ &mdash; the identity behind the trigamma evaluation in the proof. Both facts are verified numerically to $18$ digits (<code>c03</code>).</figcaption></figure>
+
+<div class="proof">
+<p><i>Step 1: the limiting density.</i> Substitute $T = 2u$ in $J_\sigma$ and divide the kernel by its mass: with $p_\sigma(u) = 2P_\sigma(2u)/M_\sigma$,
+$$J_\sigma = -\int_{\mathbb{R}} p_\sigma(u)\int_0^1 \log\sqrt{x^2+u^2}\,dx\,du, \qquad p_\sigma(u) = \frac{\sin\theta}{(1-\sigma)\bigl(\cosh(\pi u) - \cos\theta\bigr)},$$
+using $M_\sigma = (1-\sigma)/2$ and $f_{2u}(x) = \log\sqrt{x^2+u^2}$. As $\sigma \uparrow 1$: $\theta = \pi(1+\sigma)/2 \to \pi$, so $\sin\theta = \sin(\pi(1-\sigma)/2) = \frac\pi2(1-\sigma)(1 + o(1))$, giving $\sin\theta/(1-\sigma) \to \pi/2$; and $\cosh(\pi u) - \cos\theta \to \cosh(\pi u) + 1 = 2\cosh^2(\pi u/2)$. Hence pointwise
+$$p_\sigma(u) \longrightarrow p(u) = \frac{\pi}{4}\,\operatorname{sech}^2\Bigl(\frac{\pi u}{2}\Bigr),$$
+and since $\cosh(\pi u) - \cos\theta \ge \cosh(\pi u) - 1 \ge \tfrac12 e^{\pi|u|} - 2$ while $\sin\theta \le \tfrac\pi2(1-\sigma)$, the family is dominated by $Ce^{-\pi|u|}$ for, say, $\sigma \ge \tfrac12$; dominated convergence upgrades this to $L^1(\mathbb{R})$ convergence, and (because the inner integral $\int_0^1\log\sqrt{x^2+u^2}\,dx$ grows only logarithmically at $u = 0$ and at $|u|\to\infty$, both integrable against $e^{-\pi|u|}$) to convergence of $J_\sigma$ to the corresponding integral against $p$.</p>
+<p><i>Step 2: the characteristic function (eq. (21)).</i> Claim: $\int_{\mathbb{R}} p(u)e^{itu}du = \dfrac{t}{\sinh t}$ (value $1$ at $t=0$). Note $\cosh(\pi(u+2i)/2) = \cosh(\pi u/2 + \pi i) = -\cosh(\pi u/2)$, so $p(u + 2i) = p(u)$: the integrand is $2i$-periodic up to the factor from $e^{itu}$. For $t \gt 0$ integrate $p(u)e^{itu}$ around the rectangle with vertices $\pm A$, $\pm A + 2i$ and let $A \to \infty$ (the vertical sides vanish: $|p| \le Ce^{-\pi|\operatorname{Re}u|}$ uniformly on the strip minus a neighborhood of $u = i$, and near the two vertical lines there is no pole for large $A$). Inside sits the single double pole $u = i$ of $p$. Near $u = i$: $\cosh(\pi u/2) = \cosh(\frac{\pi i}2 + \frac\pi2(u-i)) = i\sinh(\frac\pi2(u-i)) = \frac{i\pi}{2}(u-i)(1 + O((u-i)^2))$, so
+$$p(u) = \frac{\pi}{4}\cdot\frac{1}{-\frac{\pi^2}{4}(u-i)^2\,(1+O((u-i)^2))} = -\frac{1}{\pi(u-i)^2}\bigl(1 + O((u-i)^2)\bigr),$$
+and $e^{itu} = e^{-t}\bigl(1 + it(u-i) + O((u-i)^2)\bigr)$. The residue (coefficient of $(u-i)^{-1}$) of $p(u)e^{itu}$ is therefore $-ite^{-t}/\pi$. The contour identity reads
+$$\int_{\mathbb{R}} p\,e^{itu}\,du \;-\; e^{-2t}\int_{\mathbb{R}} p\,e^{itu}\,du \;=\; 2\pi i\cdot\Bigl(-\frac{ite^{-t}}{\pi}\Bigr) \;=\; 2te^{-t},$$
+(the top side, traversed leftward, equals $-e^{-2t}$ times the bottom by periodicity of $p$ and $e^{it(u+2i)} = e^{-2t}e^{itu}$). Hence $\int p\,e^{itu}du = \frac{2te^{-t}}{1-e^{-2t}} = \frac{t}{\sinh t}$; evenness of $p$ handles $t \lt 0$. (Numerical check <code>c03</code>.)</p>
+<p><i>Step 3: the log-moment identity (eq. (22)).</i> Define $I(x) = \int_{\mathbb{R}} p(u)\log\sqrt{x^2+u^2}\,du$ for $x \ge 0$. For $x \gt 0$, differentiate under the integral and use the Laplace representation $\frac{x}{x^2+u^2} = \int_0^\infty e^{-xt}\cos(ut)\,dt$:
+$$I'(x) = \int p(u)\frac{x}{x^2+u^2}du = \int_0^\infty e^{-xt}\Bigl(\int p(u)\cos(ut)\,du\Bigr)dt = \int_0^\infty e^{-xt}\,\frac{t}{\sinh t}\,dt,$$
+(Fubini justified by absolute convergence for $x \gt 0$). Expand $\frac{t}{\sinh t} = 2te^{-t}\sum_{k\ge0}e^{-2kt} = 2t\sum_{k\ge0}e^{-(2k+1)t}$ and integrate term by term (positive terms, Tonelli):
+$$I'(x) = 2\sum_{k\ge0}\frac{1}{(x+2k+1)^2} = \frac12\sum_{k\ge0}\frac{1}{\bigl(\frac{x+1}2 + k\bigr)^2} = \frac12\,\psi'\Bigl(\frac{x+1}{2}\Bigr),$$
+by the trigamma series (Proposition Q). The right side is exactly $\frac{d}{dx}\psi(\frac{x+1}2)$, so $I(x) = \psi(\frac{x+1}2) + C$. As $x \to \infty$, $I(x) = \log x + o(1)$ (write $\log\sqrt{x^2+u^2} = \log x + \frac12\log(1 + u^2/x^2)$ and dominate) while $\psi(\frac{x+1}2) = \log x - \log 2 + o(1)$ (Proposition Q(iii)); matching constants gives $C = \log2$:
+$$\int_{\mathbb{R}} p(u)\,\log\sqrt{x^2+u^2}\,du \;=\; \psi\Bigl(\frac{x+1}{2}\Bigr) + \log 2 \qquad (x \ge 0), \tag{22}$$
+the case $x = 0$ by continuity of both sides (dominated convergence; $\log|u|$ is $p$-integrable). Check <code>c04</code> verifies (22) at $x = 0, 0.7, 2$.</p>
+<p><i>Step 4: assemble.</i> By Steps 1 and 3,
+$$\lim_{\sigma\uparrow1}J_\sigma = -\int_0^1\Bigl(\psi\Bigl(\frac{x+1}2\Bigr) + \log2\Bigr)dx = -\Bigl[2\log\Gamma\Bigl(\frac{x+1}2\Bigr)\Bigr]_0^1 - \log2 = -2\log\frac{\Gamma(1)}{\Gamma(1/2)} - \log 2 = \log\pi - \log2,$$
+using $\int\psi(\frac{x+1}2)dx = 2\log\Gamma(\frac{x+1}2)$ and $\Gamma(\tfrac12) = \sqrt\pi$ (Lemma O(b); check <code>c05</code>). So $\lim J_\sigma = \log(\pi/2)$, and
+$$\log(2\pi c^2) + \log\frac\pi2 = \log(\pi^2c^2) \lt 0 \iff c \lt \frac1\pi.$$
+For $c \lt 1/\pi$, continuity in $\sigma$ lets us pick $\sigma(c) \lt 1$ close enough to $1$ that $\delta_c \gt 0$ (Fig. 22 plots the limiting rate against $c$). <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_thresh--><figcaption>The exponential rate $\log(\pi^2c^2)$ of the interior-mass bound as a function of the ball-radius coefficient $c$. It crosses zero exactly at $c = 1/\pi$ (green): below the threshold the interior mass dies exponentially (shaded), above it the obstruction says nothing. The whole of Theorem 1.1's constant $\sqrt{e/2\pi}$ traces back to this zero crossing.</figcaption></figure>
+
+<p>From here on fix $\sigma = \sigma(c)$ and $\delta_c \gt 0$ as in (23).</p>
+
+<h3 id="lem35">7.5 All frequencies at once (Lemma 3.5)</h3>
+
+<div class="lem" id="lem35box"><b>Lemma 3.5.</b> There exist $\gamma_c, C_c, B_c \gt 0$ depending only on $c$ such that, for all sufficiently large $d$:
+$$H_\sigma(s) \le -\gamma_c\lambda \quad (s\in\mathbb{R}), \qquad\text{(eq. (24))}$$
+$$H_\sigma(\lambda S) \le -\frac{M_\sigma\lambda}{2}\,\log\frac{|S|}{C_c} \quad (|S| \ge B_c), \qquad\text{(eq. (25))}$$
+$$\int_{\mathbb{R}} \bigl|Z(s+i\sigma\lambda)\bigr|\,ds \;\le\; C_c\,\lambda\, e^{-\gamma_c\lambda}. \qquad\text{(eq. (26))}$$</div>
+
+<div class="proof">
+<p><i>The uniform bound (24).</i> Lemma 3.3's maximum estimate (20) plus Lemma 3.4's choice of $\sigma$:
+$$H_\sigma(s) \le H_\sigma(0) = \lambda M_\sigma\bigl(\log(2\pi c^2) + J_\sigma\bigr) + O_\sigma(\log\lambda) = -\lambda M_\sigma\delta_c + O_\sigma(\log\lambda) \le -\gamma_c\lambda$$
+for large $d$, with $\gamma_c = M_\sigma\delta_c/2$, say &mdash; independent of $s$, of $g$, and of $\varsigma$.</p>
+<p><i>The large-frequency bound (25).</i> (24) alone cannot make $\int|Z|$ converge; we need decay in $s$. Return to $h_\lambda$ and keep only the crude modulus bound on each recurrence factor: $|k + i\lambda U/2| \ge \lambda|U|/2$. In even dimension ($\lambda = n$, $y = \lambda U$):
+$$h_\lambda(\lambda U) \;=\; \lambda\log(2\pi c^2\lambda) \;-\; \sum_{k=0}^{n-1}\log\bigl|k + i\lambda U/2\bigr| \;\le\; \lambda\log(2\pi c^2\lambda) - \lambda\log\frac{\lambda|U|}{2} \;=\; \lambda\log\frac{4\pi c^2}{|U|},$$
+where the first equality reuses the recurrence unravelling from Lemma 3.3 (the two $|\Gamma(i\lambda U/2)|$ factors cancel). In odd dimension the same bound holds with the extra additive term
+$$E_\lambda(U) = \tfrac12\log\coth\bigl(\tfrac{\pi\lambda|U|}2\bigr)$$
+(the leftover ratio $|\Gamma(-ib)|/|\Gamma(\frac12+ib)| = \sqrt{\coth(\pi|b|)/|b|}$ at $b = \lambda U/2$ contributes $\tfrac12\log\coth(\pi|b|) - \tfrac12\log|b|$, and the $-\tfrac12\log|b|$ joins the product bound to complete the $\lambda$-th power). The error term integrates to almost nothing: expanding $\log\coth x = 2\sum_{j\ \mathrm{odd}}e^{-2jx}/j$ (from $\log\frac{1+e^{-2x}}{1-e^{-2x}}$ and the Mercator series),
+$$\int_{\mathbb{R}} E_\lambda(U)\,dU = \frac{2}{\pi\lambda}\int_0^\infty \log\coth x\,dx = \frac{2}{\pi\lambda}\sum_{j\ \mathrm{odd}}\frac{1}{j^2} = \frac{2}{\pi\lambda}\cdot\frac{\pi^2}{8} = \frac{\pi}{4\lambda},$$
+using $\sum_{j \mathrm{\ odd}}j^{-2} = \pi^2/8$. Hence the $P_\sigma$-convolution of $E_\lambda$ is at most $\|P_\sigma\|_\infty\pi/(4\lambda) = O_\sigma(1/\lambda)$, and (18) gives
+$$H_\sigma(\lambda S) \;\le\; \lambda M_\sigma\log(4\pi c^2) - \lambda\int_{\mathbb{R}} P_\sigma(T)\log|S - T|\,dT + O_\sigma(\lambda^{-1}).$$
+Split the log integral at $|T| = |S|/2$: the region $|T|\le|S|/2$ carries kernel mass $M_\sigma - O_\sigma(e^{-\pi|S|/4})$ and there $\log|S-T| \ge \log(|S|/2)$; the region $|T| \gt |S|/2$ can contribute negatively only through $|S - T| \lt 1$, a unit-length window where the kernel is $O_\sigma(e^{-\pi|S|/2})$ and $\log|S-T|$ is locally integrable. So for suitable $B_c, C_c' \gt 0$,
+$$\int P_\sigma(T)\log|S-T|\,dT \;\ge\; \frac{M_\sigma}{2}\log|S| - C_c' \qquad (|S| \ge B_c),$$
+which, absorbed with the constant $\lambda M_\sigma\log(4\pi c^2)$ into an enlarged $C_c'$, is (25).</p>
+<p><i>Integrating (26).</i> Choose $B \gt \max\{B_c, C_c'\}$ and write $q = M_\sigma\lambda/2$ ($\gt 1$ for large $d$). By (24), $\int_{|s|\le B\lambda}e^{H_\sigma} \le 2B\lambda e^{-\gamma_c\lambda}$. By (25) with $s = \lambda S$,
+$$\int_{|s| \gt B\lambda} e^{H_\sigma(s)}\,ds \;\le\; \lambda\int_{|S|\gt B}\Bigl(\frac{|S|}{C_c'}\Bigr)^{-q}dS = \frac{2\lambda C_c'}{q-1}\Bigl(\frac{B}{C_c'}\Bigr)^{1-q},$$
+which decays exponentially in $\lambda$ at rate $\frac{M_\sigma}{2}\log(B/C_c') \gt 0$. Adding the two ranges, shrinking $\gamma_c$ if necessary, and using $|Z| \le e^{H_\sigma}$ (Lemma 3.2) yields (26). <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="lem36">7.6 Back down to mass (Lemma 3.6), and the proof of Proposition 3.1</h3>
+
+<div class="lem" id="lem36box"><b>Lemma 3.6.</b> For every $0 \lt c \lt 1/\pi$ there are $C_c, \gamma_c \gt 0$ and $d_0(c)$, independent of $g$ and $\varsigma$, with
+$$\int_{-\infty}^0 |\varphi(v)|\,dv \;\le\; C_c\,e^{-\gamma_c d} \qquad (d \ge d_0(c)). \tag{27}$$</div>
+<div class="proof">
+<p>Consider the exponentially tilted profile $G(v) = e^{(\sigma-1)\lambda v}\varphi(v)$. It is integrable:
+$$\int_{\mathbb{R}}|G| = \frac{S_d\,R^{(1-\sigma)\lambda}}{\|g\|_1}\int_0^\infty |g(r)|\,r^{(1+\sigma)\lambda - 1}\,dr \lt \infty,$$
+(substitute $r = Re^v$; the exponent $(1+\sigma)\lambda - 1 \gt -1$, and $g$'s $O(r^2)$ behavior at zero plus Schwartz decay do the rest). Its Fourier transform is precisely $Z$ on the line $\operatorname{Im}t = \sigma\lambda$: substituting as in &sect;7.1,
+$$\int_{\mathbb{R}} G(v)\,e^{-isv}\,dv = \frac{S_d}{\|g\|_1}R^{(1-\sigma)\lambda + is}\int_0^\infty g(r)\,r^{(1+\sigma)\lambda - is - 1}dr = Z(s + i\sigma\lambda).$$
+By (26) this transform is integrable, so one-dimensional Fourier inversion (Theorem 2.4, angular-frequency form) applies:
+$$\varphi(v) = \frac{e^{(1-\sigma)\lambda v}}{2\pi}\int_{\mathbb{R}} Z(s+i\sigma\lambda)\,e^{isv}\,ds.$$
+Take absolute values and integrate over $v \lt 0$, where $\int_{-\infty}^0 e^{(1-\sigma)\lambda v}dv = \frac{1}{(1-\sigma)\lambda}$:
+$$\int_{-\infty}^0|\varphi(v)|\,dv \;\le\; \frac{1}{2\pi(1-\sigma)\lambda}\int_{\mathbb{R}}|Z(s+i\sigma\lambda)|\,ds \;\le\; \frac{C_c\lambda e^{-\gamma_c\lambda}}{2\pi(1-\sigma)\lambda} \;\le\; C_c\,e^{-\gamma_c d},$$
+after shrinking $\gamma_c$ once more ($\lambda = d/2$). <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="proof">
+<p><b>Proof of Proposition 3.1.</b> By the third identity of (13), the left side of (27) is exactly $\|g\|_1^{-1}\int_{|x|\lt c\sqrt d}|g(x)|\,dx$ (recall $R = c\sqrt d$). So (27) is (11), with constants uniform in $g$ and in the eigenvalue $\varsigma$ &mdash; the only $\varsigma$-dependence anywhere was the sign in the functional equation (17), which vanished on taking absolute values. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>Where each hypothesis worked.</b> <i>Eigenfunction:</i> the functional equation (17) needs $\widehat g = \varsigma g$ to relate the two boundary edges of the strip &mdash; for a general $g$ the bottom edge would carry data about $\widehat g$, not $g$, and nothing closes. <i>Vanishing at the origin:</i> Lemma U's pole cancellation; without it $Z$ has a pole <i>on</i> the bottom edge and is not even bounded on the strip. <i>Schwartz:</i> supplies $\Phi_g \in \mathcal S$ and every convergence statement; Lemma K showed this costs no generality. <i>Radial:</i> the Mellin transform itself; Proposition J showed this costs no generality either.</div>

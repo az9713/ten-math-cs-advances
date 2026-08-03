@@ -1,0 +1,26 @@
+<hr>
+<h2 id="scope">16. Scope &mdash; what is proved, what is open</h2>
+
+<p>A results chapter earns trust by stating its edges. Here they are.</p>
+
+<h3 id="s16-have">16.1 What the theorem delivers</h3>
+<ul>
+<li><b>Unconditional, deterministic, PCP-free.</b> The only unproven ingredient is the definition of NP-hardness itself: the reduction is a concrete deterministic algorithm, and the two imports (Cook&ndash;Levin; the Dedekind package) are classical theorems with textbook proofs, not conjectures. This distinguishes the result from the earlier <i>conditional</i> fixed-polynomial hardness under the Projection Games Conjecture.</li>
+<li><b>Fixed-polynomial factor, honest dimension.</b> The factor $n^{1/400}$ is measured against the rank $n = M$ of the very lattice output by the reduction; the companion factors $n^{1/200}$ (coding) and $n^{1/(200p)}$ ($\ell_p$) are measured the same way.</li>
+<li><b>A reusable algebraic tool.</b> Lemma 10 &mdash; reconstruction of bounded unordered families from polynomial power sums, in any characteristic, with quantitative degree control &mdash; is proved independently of the reduction and strengthens the Reed&ndash;Solomon list-recovery toolbox (it retains non-rational algebraic roots and exact whole-fiber identities).</li>
+</ul>
+
+<h3 id="s16-miss">16.2 What it does not deliver</h3>
+<ul>
+<li><b>No practical statement about lattice cryptography.</b> The instances produced are astronomically large polynomials of the input ($\dim \approx N^{401}$, $\approx N^{802}$ bits): the theorem is an asymptotic classification, not an attack, and NIST-standardized schemes rest on <i>structured, average-case</i> problems that worst-case NP-hardness neither breaks nor certifies. The connection is directional: it maps which approximation regimes are intractable in the worst case.</li>
+<li><b>The exponent is not optimized.</b> $1/400$ is the output of a deliberately slack budget cascade ($K = N^4$, $T = N^{30}$, $q \approx N^{200}$); the paper makes no optimality claim, and tightening the cascade would improve the constant without new ideas &mdash; but reaching materially larger exponents likely needs new techniques.</li>
+<li><b>The window to $1/2$ is wide open.</b> Between $1/400$ and the Aharonov&ndash;Regev barrier (NP-hardness at $C\sqrt n$ would give $\mathsf{NP} = \mathsf{coNP}$) nothing is known (Fig.&nbsp;37). Determining $\sup\{c : \mathrm{GapCVP}^{(2)}_{n^c} \text{ NP-hard}\}$ is the natural next question.</li>
+<li><b>No shortest-vector consequence.</b> The reduction leans on the <i>affine</i> structure &mdash; a target, a coset $u + \mathcal{C}$, a particular solution. The homogeneous shortest vector problem has no target; Bennett&ndash;Peikert's Reed&ndash;Solomon-based SVP hardness remains randomized, and derandomizing it is explicitly open (their paper discusses the obstacles).</li>
+<li><b>Norms: fixed and rational only.</b> Corollary 16 needs $p$ fixed (the constant $A = \lceil 4p\rceil$ and the exponent enter the problem definition) and rational (to compute the radius exactly); $\ell_\infty$ is not covered here, and the factor $n^{1/(200p)}$ degrades as $p$ grows.</li>
+<li><b>Orthogonal to fine-grained lower bounds.</b> Recent ETH-based results (Aggarwal&ndash;Gupta&ndash;Morolia&ndash;Zhang; Huang&ndash;Ko&ndash;Wang, both 2026) bound <i>running times</i> for constant-factor approximation; this chapter bounds nothing about running time but places a fixed-polynomial factor beyond polynomial-time reach unless $\mathsf{P}=\mathsf{NP}$. The two kinds of statement complement each other.</li>
+</ul>
+
+<figure><!--FIG:fig_window--><figcaption>The state of the exponent axis after this chapter. Hardness is now known up to $c = 1/400$ (red); the interval up to $c = 1/2$ is open (gray); at $c = 1/2$ the problem is in $\mathsf{NP}\cap\mathsf{coNP}$ (blue), so hardness there would collapse $\mathsf{NP}$ and $\mathsf{coNP}$. Before this chapter the red region was empty: no fixed $c &gt; 0$ was known.</figcaption></figure>
+
+<h3 id="s16-audit">16.3 Where a skeptic should audit</h3>
+<p>Everything in this document is proved except two boxed imports, so a verification effort concentrates on: (i) Import 1 &mdash; Cook&ndash;Levin, standard; (ii) Import 2 &mdash; the separability and Dedekind-domain package feeding Lemmas 3 and 4, standard commutative algebra; (iii) the parameter inequalities, which are finitely many integer comparisons &mdash; and those we verify by machine, next section, alongside an end-to-end execution of the construction on the toy formula. The toy runs at parameters far below the theorem's regime ($q = 16$, $T = 4$; the honest thresholds need $q \approx N^{200}$), so it validates the <i>mechanics</i> &mdash; every identity, every constraint, every conversion &mdash; not the asymptotic inequalities, which get their own exact-arithmetic checks at $N = 100$.</p>

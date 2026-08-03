@@ -1,0 +1,70 @@
+<h2 id="finish">11. Counting edges and closing Theorem 1.2</h2>
+
+<p>Three items remain: the host really has $n^{3/2+\varepsilon}$ edges after sampling (a second-moment computation), the parameter window (13) is nonempty (a one-variable calculus fact with a pretty closed form), and the pieces assemble into Theorem 1.2.</p>
+
+<h3 id="ball">11.1 The size of a Hamming ball</h3>
+
+<div class="prop"><b>Proposition K (ball-size estimate).</b> Fix $\tau \in (0, \tfrac12)$ and let $k = \lfloor\tau m\rfloor$, $D_m := \sum_{j=0}^{k}\binom mj$ (the number of strings within distance $k$ of a fixed string). Then
+$$\frac{2^{h(k/m)\,m}}{m+1} \;\le\; D_m \;\le\; 2^{h(\tau) m}, \qquad\text{hence}\qquad D_m = 2^{(h(\tau) + o(1))m}.$$</div>
+
+<div class="proof">
+<p><i>Upper.</i> Since $\tau \lt \tfrac12$, the ratio $\tfrac\tau{1-\tau} \le 1$, so for $j \le k$ we may multiply by $\bigl(\tfrac\tau{1-\tau}\bigr)^{j-k} \ge 1$:
+$$D_m \;\le\; \sum_{j\le k}\binom mj \left(\frac\tau{1-\tau}\right)^{\!j-k} \;=\; \left(\frac{1-\tau}\tau\right)^{\!k} (1-\tau)^{-m} \sum_{j \le k} \binom mj \tau^j (1-\tau)^{m-j} \;\le\; \left(\frac{1-\tau}\tau\right)^{\!k}(1-\tau)^{-m},$$
+the last step because the binomial probabilities sum to at most $1$. As $\tfrac{1-\tau}\tau \ge 1$ and $k \le \tau m$, this is at most $\bigl(\tfrac{1-\tau}\tau\bigr)^{\tau m}(1-\tau)^{-m} = 2^{m[\tau\log_2\frac{1-\tau}\tau + \log_2\frac1{1-\tau}]} = 2^{m h(\tau)}$.</p>
+<p><i>Lower.</i> With $\rho = k/m$: among the $m+1$ terms of $1 = \sum_j \binom mj \rho^j(1-\rho)^{m-j}$, the largest is the $j = k$ term (the ratio of consecutive terms $\tfrac{m-j}{j+1}\cdot\tfrac{\rho}{1-\rho}$ crosses $1$ at $j = \rho(m+1) - 1$), so $\binom mk \rho^k (1-\rho)^{m-k} \ge \tfrac1{m+1}$, i.e. $D_m \ge \binom mk \ge 2^{m h(\rho)}/(m+1)$. Since $k/m \to \tau$ and $h$ is continuous, both bounds have exponent $h(\tau)m + o(m)$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="secondmoment">11.2 The sampled host is big and dense</h3>
+
+<div class="lem"><b>Lemma L (concentration of the sampled host).</b> Let $W_m = |V(G_m)|$ and $e_m = e(G_m)$. Then $\mathbb E W_m = 2pQ$ and $\mathbb E e_m = p^2 Q D_m$, and with probability $1 - o(1)$:
+$$W_m \le 3pQ \qquad\text{and}\qquad e_m \ge \tfrac12 p^2 Q D_m .$$</div>
+
+<div class="proof">
+<p>$W_m$ is a sum of $2Q$ independent Bernoulli($p$) indicators: $\mathbb E W_m = 2pQ$ and $\mathrm{Var}(W_m) = 2Qp(1-p) \le 2pQ$. Chebyshev: $\mathbb P(W_m \gt 3pQ) \le \mathbb P(|W_m - \mathbb E W_m| \ge pQ) \le 2pQ/(pQ)^2 = 2/(pQ)$.</p>
+<p>The unsampled host has exactly $Q D_m$ edges ($Q$ left vertices, each with a radius-$k$ ball of $D_m$ right-neighbors), and each survives iff its two endpoints are retained: $\mathbb E e_m = p^2 Q D_m$. For the variance, expand over pairs of host edges: pairs with no shared endpoint are independent (covariance $0$); identical pairs contribute $\le p^2$ each, total $\le p^2 Q D_m$; pairs sharing exactly one endpoint have $\mathbb E[\text{both survive}] = p^3$, and the number of such (unordered) pairs is at most $\sum_{\text{vertices } v}\binom{\deg v}2 \le 2Q\binom{D_m}2 \le Q D_m^2$, contributing $\le 2 p^3 Q D_m^2$ in all. So
+$$\mathrm{Var}(e_m) \;\le\; p^2 Q D_m + 2 p^3 Q D_m^2, \qquad \mathbb P\Bigl(e_m \lt \tfrac12 \mathbb E e_m\Bigr) \;\le\; \frac{4\,\mathrm{Var}(e_m)}{(\mathbb E e_m)^2} \;\le\; \frac4{p^2 Q D_m} + \frac8{pQ}.$$
+It remains to see both error terms vanish. Using $\beta \lt C(\tau) \lt 1$ (note $C(\tau) = 2h(\tau) - 1 \lt 1$ since $\tau \lt \tfrac12$) and Proposition K:
+$$pQ = 2^{(1-\beta)m} \to \infty, \qquad p^2 Q D_m = 2^{(1 + h(\tau) - 2\beta + o(1))m} \to \infty,$$
+the second exponent being positive because $1 + h(\tau) - 2\beta \gt 1 + h(\tau) - 2C(\tau) = 3 - 3h(\tau) \gt 0$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="window">11.3 The parameter window, and how thin it is</h3>
+
+<p>Everything so far ran on the assumption (13): $A(\tau) \lt \beta \lt C(\tau)$. The window's width is
+$$f(\tau) \;:=\; C(\tau) - A(\tau) \;=\; 2h(\tau) - 1 - \kappa - \tau\log_2 3 .$$</p>
+
+<div class="prop"><b>Proposition M (the window is nonempty).</b> The function $f$ is strictly concave on $(0,\tfrac12)$ with a unique maximum at $\tau^* = \dfrac1{1+\sqrt3} = 0.36603\ldots$, where, writing $r = \sqrt 3$:
+$$f(\tau^*) \;=\; \frac12\log_2\!\left(\frac{(1+r)^4}{8r(1+r^2)}\right) \;=\; \frac12 \log_2\!\left(1 + \frac{(r-1)^4}{8r(1+r^2)}\right) \;=\; 0.003728\ldots \;\gt\; 0.$$</div>
+
+<div class="proof">
+<p>Since $h'(\tau) = \log_2\tfrac{1-\tau}\tau$: $\;f'(\tau) = 2\log_2\tfrac{1-\tau}\tau - \log_2 3$, and $f''(\tau) = -\tfrac{2\log_2 e}{\tau(1-\tau)} \lt 0$: strictly concave, with $f' = 0$ exactly when $\bigl(\tfrac{1-\tau}\tau\bigr)^2 = 3$, i.e. $\tfrac{1-\tau}\tau = r$, i.e. $\tau^* = \tfrac1{1+r}$.</p>
+<p>Evaluate at $\tau^*$, where $1 - \tau^* = \tfrac r{1+r}$ and $\log_2 3 = 2\log_2 r$. First,
+$$h(\tau^*) = \tau^*\log_2(1{+}r) + (1-\tau^*)\log_2\tfrac{1+r}r = \log_2(1+r) - \tfrac r{1+r}\log_2 r,$$
+so
+$$2h(\tau^*) - \tau^*\log_2 3 = 2\log_2(1+r) - \frac{2r}{1+r}\log_2 r - \frac{2}{1+r}\log_2 r = 2\log_2\frac{1+r}r .$$
+Second, using $r^2 = 3$: $\;\kappa = \tfrac32 - \tfrac34\log_2 3 = \tfrac12 + \tfrac12\log_2(1+r^2) - \tfrac32\log_2 r$ (both sides equal $\tfrac32 - \tfrac32\log_2 r$ since $\log_2(1+r^2) = 2$). Hence
+$$f(\tau^*) = 2\log_2\frac{1+r}r - 1 - \kappa = 2\log_2(1+r) - \frac12\log_2 r - \frac12\log_2(1+r^2) - \frac32 = \frac12\log_2\frac{(1+r)^4}{8r(1+r^2)} .$$
+Finally $(1+r)^4 - 8r(1+r^2) = 1 - 4r + 6r^2 - 4r^3 + r^4 = (r-1)^4 \gt 0$, giving both the second form and positivity. (Numerically: $f(\tau^*) = 0.003728$, matching the machine evaluation in <a class="secref" href="#numerics">&sect;12</a>.) <span class="qed">&#8718;</span></p>
+</div>
+
+<figure>
+INSERT_WINDOW_SVG
+<figcaption><b>The parameter window, at true scale and zoomed</b> (curves computed in <code>figgen/ch10_figs.py</code>; the main panel's $y$-axis spans $[-0.8, 1.1]$). At full scale (left) the exclusion threshold $A(\tau)$ and the density threshold $C(\tau)$ look tangent &mdash; the viable region is invisible. The zoom (right) resolves it: $C \gt A$ only for $\tau \in (0.3417,\, 0.3906)$ (green sliver), with maximal gap $f(\tau^*) = 0.003728$ at $\tau^* = 1/(1+\sqrt3) \approx 0.366$. The counterexample to a fifty-year-old conjecture lives entirely inside that sliver &mdash; had the two curves crossed the other way, this construction would prove nothing.</figcaption></figure>
+
+<h3 id="thm12">11.4 Proof of Theorem 1.2</h3>
+
+<div class="proof">
+<p><i>Proof of Theorem 1.2.</i> Fix $\tau = \tau^*$ and any $\beta \in (A(\tau), C(\tau))$ (nonempty by Proposition M); fix $\delta, L_0, s$ as in <a class="secref" href="#hostdef">&sect;9.1</a> and let $H$ be the layered graph &mdash; connected, bipartite, 2-degenerate by Fact 6.1. Fix any
+$$0 \lt \varepsilon \lt \frac{C(\tau) - \beta}{2(1-\beta)}. \tag{19}$$</p>
+<p>For each large $m$, Proposition 8.1 and Lemma L give an outcome of the sampling in which simultaneously $G_m$ is $H$-free, $W_m \le 3pQ$, and $e_m \ge \tfrac12 p^2 Q D_m$ (each event has probability $1 - o(1)$). Set $N_m = \lceil 3 \cdot 2^{(1-\beta)m}\rceil = \lceil 3pQ \rceil$ and pad that outcome with isolated vertices up to order exactly $N_m$ ($H$ is connected with at least one edge, so padding preserves $H$-freeness). Hence
+$$\mathrm{ex}(N_m, H) \;\ge\; \tfrac12\, p^2 Q D_m \;=\; 2^{(1 + h(\tau) - 2\beta + o(1))m}.$$
+Compare exponents against $N_m = 2^{(1-\beta)m + O(1)}$:
+$$\frac{1 + h(\tau) - 2\beta}{1-\beta} \;=\; \frac32 + \frac{2h(\tau) - 1 - \beta}{2(1-\beta)} \;=\; \frac32 + \frac{C(\tau) - \beta}{2(1-\beta)} \;\gt\; \frac32 + \varepsilon,$$
+(the first equality is checked by clearing denominators: $\tfrac32(1-\beta) + h(\tau) - \tfrac12 - \tfrac\beta2 = 1 + h(\tau) - 2\beta$), so for all large $m$
+$$\mathrm{ex}(N_m, H) \;\ge\; N_m^{3/2 + \varepsilon}.$$</p>
+<p>Interpolate to all orders: $N_{m+1} \le 2 N_m$ for large $m$ (since $2^{1-\beta} \lt 2$), so every sufficiently large $n$ satisfies $N_m \le n \lt N_{m+1} \le 2N_m$ for some $m$, and monotonicity of $\mathrm{ex}$ in $n$ (pad with isolated vertices) gives
+$$\mathrm{ex}(n, H) \;\ge\; \mathrm{ex}(N_m, H) \;\ge\; N_m^{3/2+\varepsilon} \;\ge\; (n/2)^{3/2+\varepsilon} \;=\; 2^{-3/2-\varepsilon}\, n^{3/2+\varepsilon}.$$
+This is the theorem with $c = 2^{-3/2 - \varepsilon}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>How big are $\varepsilon$ and $H$, concretely?</b> All numbers below are computed in <code>figgen/ch10_figs.py</code> (<a class="secref" href="#numerics">&sect;12</a>), instantiating the construction with our explicit $\eta(L)$ from Lemma 5.2. Optimizing (19) over admissible $(\tau, \beta)$ gives $\sup\varepsilon = 0.01775$ at $\tau = 0.3706$ &mdash; the method proves $\mathrm{ex}(n,H) \ge n^{1.5177}$ and no more. Taking $\tau = \tau^*$ and $\beta$ at mid-window: $\delta = 2.3\times 10^{-4}$, potential increment $2(\beta - A - 2\delta) = 0.0028$, hence depth $s = 358$; the base condition (14) first holds at $L_0 = 47531$. The layer sizes then explode doubly exponentially: $\log_2 L_s \approx 2^{358} \times 13.5$, i.e. $H$ has roughly $2^{10^{108.9}}$ vertices &mdash; a fixed, finite graph whose description fits in one line and whose vertex count has more digits than the observable universe has atoms. &ldquo;Fixed $H$&rdquo; in extremal graph theory promises nothing about smallness.</div>

@@ -1,0 +1,67 @@
+<hr>
+
+<h2 id="repetition">3. Parallel repetition, and why it is genuinely subtle</h2>
+
+<h3 id="s3-def">3.1 The repeated game</h3>
+
+<div class="def" id="def-repeat"><b>Definition 2.2 (standard parallel repetition).</b> For $n \ge 1$, the repeated game $G^{\otimes n}$ samples $n$ independent question pairs
+$$(x^n, y^n) \sim \mu^{\otimes n}, \qquad x^n = (x_1,\dots,x_n),\; y^n = (y_1,\dots,y_n),$$
+sends the whole tuple $x^n$ to Alice and $y^n$ to Bob, permits arbitrary finite-dimensional <i>joint</i> local POVMs
+$$\{E^{a^n}_{x^n} : a^n \in A^n\}, \qquad \{F^{b^n}_{y^n} : b^n \in B^n\},$$
+and accepts according to
+$$V^{\otimes n}(x^n, y^n, a^n, b^n) \;=\; \prod_{i=1}^n V(x_i, y_i, a_i, b_i).$$
+Write $v_n = \omega^*(G^{\otimes n})$ for its entangled value. For $S \subseteq [n] = \{1,\dots,n\}$ and a tuple $x^n$, write $x_S = (x_j)_{j\in S}$, and
+$$\mu^S(x_S, y_S) = \prod_{j\in S}\mu(x_j,y_j), \qquad \mu^S_X(x_S) = \prod_{j\in S}\mu_X(x_j), \qquad \mu^S_Y(y_S) = \prod_{j\in S}\mu_Y(y_j).$$
+</div>
+
+<p>The products over $S$ express independence <i>between distinct coordinates</i> of the referee's experiment, not independence between the two questions of one coordinate (those are correlated through $\mu$). The crucial freedom, drawn in Fig. 7: although the referee's coordinates are independent, Alice answers with <i>one measurement on all of $x^n$</i> &mdash; her answer $a_i$ at coordinate $i$ may depend on every question she received, and likewise for Bob. Winning probabilities therefore need not factor across coordinates.</p>
+
+<figure><!--FIG:fig_repeat--><figcaption>The repeated game $G^{\otimes n}$. The referee runs $n$ independent copies, but each player answers all coordinates with a single joint measurement on their entire question tuple. Cross-coordinate correlation of answers is exactly what makes parallel repetition hard &mdash; and, as Fig. 8 shows, it is genuinely useful to the players.</figcaption></figure>
+
+<div class="prop" id="prop-lower"><b>Proposition H (independent play; the easy direction).</b> $\;\omega^*(G^{\otimes n}) \ge \omega^*(G)^n$.</div>
+<div class="proof">Let $(\psi, E, F)$ be any strategy for $G$ with value $w$. Take $n$ copies: state $\psi^{\otimes n} \in (\mathcal{H}_A\otimes\mathcal{H}_B)^{\otimes n}$ (reordered so all Alice factors are together), Alice's POVM $E^{a^n}_{x^n} = E^{a_1}_{x_1}\otimes\cdots\otimes E^{a_n}_{x_n}$, similarly for Bob. The joint winning probability factors: each coordinate wins independently with probability $w$, so all $n$ win with probability $w^n$. Taking suprema over single-game strategies gives $v_n \ge \omega^*(G)^n$ (the function $w \mapsto w^n$ is continuous and increasing, so the supremum passes through). <span class="qed">&#8718;</span></div>
+
+<h3 id="s3-feige">3.2 A game where repetition is free: Feige's counterexample</h3>
+
+<p>If cross-coordinate answers could not help, $v_n$ would equal $\omega^*(G)^n$ and this chapter would not exist. The following classical game, due to Feige, kills that hope in the strongest way: <i>two</i> copies cost the players nothing at all.</p>
+
+<div class="toy"><b>Toy (Feige's game $G_F$).</b> Questions are independent fair bits: $x, y \in \{0,1\}$, $\mu$ uniform on $\{0,1\}^2$. Each answer is a <i>claim</i> naming a player and a bit: $A = B = \{1,2\}\times\{0,1\}$, an answer $(c,d)$ read as "player $c$ received the bit $d$". The players win iff they make the <b>same, true</b> claim:
+$$V\big(x,y,(c,d),(c',d')\big) = 1 \iff (c,d) = (c',d') \text{ and } \big[(c = 1 \wedge d = x)\text{ or } (c = 2 \wedge d = y)\big].$$
+</div>
+
+<div class="prop" id="prop-feige"><b>Proposition I (repetition is free for $G_F$).</b>
+$$\omega(G_F) = \tfrac12 \qquad\text{and}\qquad \omega(G_F^{\otimes 2}) = \tfrac12 \;=\; \omega(G_F) \;\ne\; \omega(G_F)^2.$$
+</div>
+<div class="proof"><p>(i) <i>Single game, upper bound.</i> By <a class="secref" href="#prop-det">Proposition D</a> take deterministic $f, g$ and view the four question pairs as a $2\times2$ grid. Suppose some <i>row</i> is fully won: $(x,0)$ and $(x,1)$ both win for a fixed $x$. Then $g(0) = f(x) = g(1) =: (c,d)$; if $c = 2$, correctness at both $y$ forces $d = 0$ and $d = 1$, impossible; so $(c,d) = (1,x)$. Symmetrically, a fully won <i>column</i> (fixed $y$, both $x$) forces $f(0) = f(1) = g(y) = (2,y)$. Now any $3$ winning cells of a $2\times2$ grid contain a full row <i>and</i> a full column, which would force $f(x)$ to equal both $(1,x)$ and $(2,y)$ &mdash; contradiction. So at most $2$ of the $4$ cells are won: $\omega(G_F) \le 1/2$. Both players always answering $(1,0)$ win exactly when $x = 0$: value $1/2$. (Machine check <code>c04</code>: the maximum over all $256$ deterministic pairs is exactly $0.5$.)</p>
+<p>(ii) <i>Two copies, lower bound: the cross strategy.</i> In $G_F^{\otimes 2}$, Alice sees $(x_1, x_2)$ and Bob $(y_1, y_2)$. Let both route their claims through <i>coordinate-crossed</i> data (Fig. 8):
+$$a_1 = (1, x_1),\quad a_2 = (2, x_1); \qquad b_1 = (1, y_2),\quad b_2 = (2, y_2).$$
+Coordinate 1 is won iff $a_1 = b_1$ and the claim is true; $a_1 = (1,x_1)$ is automatically true at coordinate 1, and $b_1 = a_1$ iff $y_2 = x_1$. Coordinate 2 is won iff $a_2 = b_2$ and the claim "player 2 received $d$" is true at coordinate 2, i.e. $d = y_2$; here $b_2 = (2, y_2)$ is automatically true, and $a_2 = b_2$ iff $x_1 = y_2$. So <i>both</i> coordinates are won precisely on the single event $\{x_1 = y_2\}$, of probability $\tfrac12$. (Machine check <code>c05</code>.)</p>
+<p>(iii) <i>Two copies, upper bound.</i> Given any deterministic strategy for $G_F^{\otimes 2}$ with $\mathbb{P}(\text{win both}) = v$, build a single-game strategy: on question $x$, Alice privately samples a fair bit $x_2$ and answers with the first component $a_1$ of her $G_F^{\otimes 2}$ answer to $(x, x_2)$; Bob privately samples $y_2$ and answers $b_1$ of his answer to $(y, y_2)$. Because $\mu$ is a product distribution, the simulated question 4-tuple $(x, y, x_2, y_2)$ has exactly the distribution $\mu^{\otimes 2}$, so the simulated experiment is the true repeated experiment, and
+$$\omega(G_F) \;\ge\; \mathbb{P}(\text{win coordinate } 1) \;\ge\; \mathbb{P}(\text{win both}) = v .$$
+Hence $\omega(G_F^{\otimes 2}) \le \omega(G_F) = 1/2$, met by (ii). (Machine check <code>c06</code> confirms by exact search: over all $16^4 = 65{,}536$ Alice strategies, with Bob best-responding, the maximum is exactly $0.5$.) <span class="qed">&#8718;</span></p></div>
+
+<figure><!--FIG:fig_feige--><figcaption>Feige's game and the cross strategy for two copies. Each player pins <i>both</i> coordinates' claims to a single shared event ($x_1 = y_2$): if it happens, everything is simultaneously correct; if not, everything fails together. Failures are perfectly correlated instead of independent, so two copies are exactly as easy as one. Any proof of parallel repetition must defeat this kind of answer coupling.</figcaption></figure>
+
+<p>Feige's game is a counterexample to the naive product intuition, not to repetition itself: by Raz's theorem its repeated value does eventually decay exponentially (indeed $\omega(G_F^{\otimes n}) \le \omega(G_F^{\otimes 2})^{\lfloor n/2\rfloor}$ gives nothing &mdash; the point is that no such easy argument works, while Raz's theorem still does). What the example proves is that any repetition theorem must handle strategies whose per-coordinate failures are engineered to overlap. Keep the picture of Fig. 8 in mind: all of <a class="secref" href="#conditioning">&sect;6</a>&ndash;<a class="secref" href="#classical">&sect;14</a> is machinery for prying one coordinate loose from such couplings.</p>
+
+<h3 id="s3-thm">3.3 The theorem, and the landscape it settles</h3>
+
+<div class="thm" id="thm-main"><b>Theorem 1.1 (quantum parallel repetition theorem for two-player games).</b> There exists a universal constant $c_{\mathrm{qs}} \gt 0$ such that the following holds. Let $G = (X,Y,A,B,\mu,V)$ be any finite two-player one-round entangled game with nonempty answer alphabets, and put
+$$\varepsilon = 1 - \omega^*(G) \gt 0, \qquad \ell = \log(|A||B|).$$
+Then, for every integer $n \ge 1$,
+$$\omega^*(G^{\otimes n}) \;\le\; \exp\!\left(-\,c_{\mathrm{qs}}\,\frac{\varepsilon^{13}}{\varepsilon + \log(|A||B|)}\,n\right).$$
+</div>
+
+<p>The proof will produce the explicit constant $c_{\mathrm{qs}} = \tfrac{1}{8}(4 B_{\mathrm{qs}})^{-12}$, where $B_{\mathrm{qs}}$ is a universal rounding constant assembled in <a class="secref" href="#rounding">&sect;9</a> from the quantum sampling import. The exponent $13$ tracks the $1/12$-power loss of that import plus one factor of $\varepsilon$ from the conditioning budget; <a class="secref" href="#endgame">&sect;10</a> displays the accounting and <a class="secref" href="#scope">&sect;16</a> discusses why nobody believes it is sharp.</p>
+
+<p>Fig. 9 places the theorem among its predecessors; each row is a genuine theorem with its own techniques, and the history explains why the bottom-right cell stayed open for twenty years.</p>
+
+<figure><!--FIG:fig_landscape--><figcaption>Parallel repetition for entangled games before and after this chapter. Structured classes fell one by one: XOR games have <i>perfect</i> repetition (Cleve&ndash;Slofstra&ndash;Unger&ndash;Upadhyay 2008), unique games (Kempe&ndash;Regev&ndash;Toner 2010), projection games (Dinur&ndash;Steurer&ndash;Vidick 2015), and free games with product question distributions (Jain&ndash;Pereszl&eacute;nyi&ndash;Yao 2014; Chailloux&ndash;Scarpa 2015) all admit exponential decay. For arbitrary games, Kempe&ndash;Vidick (2011) and then Bavarian&ndash;Vidick&ndash;Yuen (2017) proved exponential decay for <i>modified</i> (anchored) games, and Yuen (2016) proved polynomial decay $\lesssim \varepsilon^{-17} n^{-1/4}\log n$ for the unchanged game. The unchanged-game exponential cell is Theorem 1.1.</figcaption></figure>
+
+<p>Three prior quantitative benchmarks are worth recording exactly, for comparison in <a class="secref" href="#scope">&sect;16</a>. Classically, Holenstein's information-theoretic form of Raz's theorem gives
+$$\omega(G^{\otimes n}) \le \exp\!\left(-\Omega\!\left(\frac{\varepsilon^3\, n}{1 + \log(|A||B|)}\right)\right), \qquad \varepsilon = 1 - \omega(G),$$
+so the classical exponent loses $\varepsilon^3$ where Theorem 1.1 loses $\varepsilon^{13}$. (Raz's separate counterexample shows some polynomial loss in $\varepsilon$ is necessary even classically: the strongest conceivable bound, linear in $\varepsilon$, is false.) Quantumly, Yuen's theorem for arbitrary games reads
+$$\omega^*(G^{\otimes n}) \;\le\; c\,\frac{s_G\, \log n}{\varepsilon^{17}\, n^{1/4}} \qquad (n \ge 2),$$
+with $s_G$ the answer bit-length &mdash; decay, but no exponential. And anchored repetition (Bavarian&ndash;Vidick&ndash;Yuen) achieves exponential decay for a game $G_\perp$ obtained by adding "anchor" questions to $G$; excellent for amplifying hardness, but a statement about a different game.</p>
+
+<p>Finally, the model matters when $\omega^*(G) = 0$: unusual, but allowed, and Theorem 1.1 covers it with a direct argument in <a class="secref" href="#endgame">&sect;10</a> (the bound is trivially $0$). From here on the interesting case is $0 \lt \varepsilon \lt 1$.</p>

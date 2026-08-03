@@ -1,0 +1,78 @@
+<hr>
+<h2 id="lemma10">9. The algebraic reconstruction lemma (Lemma 10), proved in full</h2>
+
+<p>First the one classical identity the proof consumes: Newton's identities in the direction that needs no division &mdash; from coefficients to power sums. (The familiar direction, recovering coefficients from power sums, divides by factorials and dies in characteristic two; this direction survives everywhere.)</p>
+
+<div class="prop"><b>Proposition H (power sums from coefficients, division-free).</b> Let $G(Y) = Y^h + \sum_{l=0}^{h-1} c_l Y^l$ be monic over a commutative ring, with roots $\alpha_1, \dots, \alpha_h$ (listed with multiplicity, in some extension where $G$ splits), and let $s_j = \sum_{t=1}^h \alpha_t^j$ (so $s_0 = h \cdot 1$). Then for every $j \ge 1$,
+$$s_j = P_j(c_0, \dots, c_{h-1}),$$
+where $P_j$ is a polynomial with integer coefficients, of total degree at most $j$, independent of the ring. Explicitly, writing $g_k$ for the coefficient of $Y^k$ in $G$ (so $g_h = 1$, $g_l = c_l$):
+$$s_j = -\,j\, g_{h-j} \;-\; \sum_{i=1}^{j-1} g_{h-j+i}\, s_i \quad (1 \le j \le h), \qquad\qquad
+s_j = -\sum_{l=0}^{h-1} c_l\, s_{j-h+l} \quad (j &gt; h),$$
+with the convention $g_k = 0$ for $k &lt; 0$.</div>
+<div class="proof">For $j &gt; h$: each root satisfies $\alpha_t^{\,j} = \alpha_t^{\,j-h}\,\alpha_t^{\,h} = -\sum_l c_l\, \alpha_t^{\,j-h+l}$ (multiply $G(\alpha_t) = 0$ by $\alpha_t^{\,j-h}$); sum over $t$.</p>
+<p>For $1 \le j \le h$ we derive the classical identity from a division-free computation of $G'$. For any $\alpha$, the telescoping identity $Y^n - \alpha^n = (Y - \alpha)(Y^{n-1} + Y^{n-2}\alpha + \dots + \alpha^{n-1})$, summed against the coefficients $g_n$, gives
+$$G(Y) - G(\alpha) = (Y - \alpha)\, Q_\alpha(Y), \qquad Q_\alpha(Y) = \sum_{k=0}^{h-1} \Big( \sum_{i=0}^{h-1-k} g_{k+1+i}\, \alpha^i \Big) Y^k .$$
+When $\alpha = \alpha_t$ is a root, $G(Y) = (Y - \alpha_t) Q_{\alpha_t}(Y)$, so $\prod_{u \ne t} (Y - \alpha_u) = Q_{\alpha_t}(Y)$. Now differentiate the product $G(Y) = \prod_t (Y - \alpha_t)$ by the product rule:
+$$G'(Y) = \sum_{t=1}^h \prod_{u \ne t}(Y - \alpha_u) = \sum_{t=1}^h Q_{\alpha_t}(Y).$$
+Compare the coefficient of $Y^k$ on both sides for $0 \le k \le h-1$: the left side gives $(k+1)\, g_{k+1}$, the right side $\sum_{i=0}^{h-1-k} g_{k+1+i}\, s_i$. Setting $k = h - j$ and isolating the $i = j$ term (whose coefficient is $g_h = 1$):
+$$(h - j + 1)\,g_{h-j+1}\Big|_{k=h-j}: \qquad (h-j)\,g_{h-j} \;=\; g_{h-j}\, s_0 + \sum_{i=1}^{j-1} g_{h-j+i}\, s_i + s_j \quad\text{at } k = h-j,$$
+i.e., using $s_0 = h\cdot 1$: $\; s_j = (h-j)g_{h-j} - h\,g_{h-j} - \sum_{i=1}^{j-1} g_{h-j+i} s_i = -j\,g_{h-j} - \sum_{i=1}^{j-1} g_{h-j+i}\, s_i$. Every step used only polynomial identities with integer coefficients &mdash; no division. The degree bound follows by induction: $\deg s_i \le i$ makes each summand of either recurrence have total degree $\le 1 + (j-1) = j$. <span class="qed">&#8718;</span></div>
+
+<p>Now the main lemma. Recall the standing convention: $K$ is a finite field, $P \subseteq K$, $F = K(X)$, and $K_{\mathrm{cap}}$ is the fiber-size cap (the paper's $K$).</p>
+
+<div class="lem"><b>Lemma 10 (algebraic reconstruction of bounded polynomial moments).</b> Let $\mathcal{S} = (S(p))_{p\in P}$ be a $(d, T, K_{\mathrm{cap}})$-bounded polynomial-moment family with moment polynomials $\mu_0, \dots, \mu_T$, and suppose
+$$T \ge 2K_{\mathrm{cap}} - 1, \qquad \lvert P \rvert - d K_{\mathrm{cap}}(K_{\mathrm{cap}} - 1) &gt; 2 d K_{\mathrm{cap}}^2 T .$$
+Define $h = \max_{p\in P} \lvert S(p)\rvert \le K_{\mathrm{cap}}$ and the Hankel determinant
+$$\Delta_h(X) = \begin{cases} 1, &amp; h = 0,\\[2pt] \det\big( \mu_{i+j}(X) \big)_{0 \le i, j &lt; h}, &amp; h &gt; 0. \end{cases}$$
+Then $\Delta_h \neq 0$, and there exist a monic <i>separable</i> polynomial $G(Y) = Y^h + \sum_{l&lt;h} c_l Y^l \in F[Y]$ and a finite separable splitting field $E/F$ of $G$, with root set $R = \{\alpha_1, \dots, \alpha_h\} = \{\alpha \in E : G(\alpha) = 0\}$ of exactly $h$ distinct elements, such that:
+<ul>
+<li><b>(i) Moment identities:</b> for $0 \le j \le T$, $\;\displaystyle \mu_j(X) = \sum_{\alpha\in R} \alpha^j$. $\tag{6}$</li>
+<li><b>(ii) Maximum-size fibers:</b> for every $p \in P$, $\;\Delta_h(p) \ne 0 \iff \lvert S(p)\rvert = h$; hence $\#\{p : \lvert S(p)\rvert = h\} \ge \lvert P\rvert - dh(h-1)$.</li>
+<li><b>(iii) Coefficients and discriminant:</b> $\deg \Delta_h \le dh(h-1)$; for $h &gt; 0$ the $c_l$ are the unique solution of the Hankel system
+$$\sum_{l=0}^{h-1} \mu_{i+l}(X)\, c_l = -\,\mu_{i+h}(X) \qquad (0 \le i &lt; h), \tag{7}$$
+each of the form $c_l = n_l / \Delta_h$ with $n_l \in K[X]$, $\deg n_l \le d(h^2 - l) \le dh^2$; and
+$$\Delta_h = \prod_{1 \le r &lt; s \le h} (\alpha_s - \alpha_r)^2 . \tag{8}$$</li>
+<li><b>(iv) Specialization:</b> for every $p$ with $\lvert S(p)\rvert = h$, all $c_l$ are pole-free at $p$ and
+$$\mathrm{ev}_p(G)(Y) := Y^h + \sum_{l&lt;h} c_l(p)\, Y^l = \prod_{w \in S(p)} (Y - w). \tag{9}$$</li>
+</ul>
+When $h = 0$: $G = 1$, $R = \varnothing$, $\Delta_0 = 1$, and $\mu_j = 0$ for all $j$. All conclusions hold in every characteristic, including two.</div>
+
+<figure><!--FIG:fig_lemma10flow--><figcaption>The proof of Lemma 10 as a flowchart, with the degree/zero-count budget at each step. Steps 1&ndash;2 establish that the Hankel determinant is a nonzero polynomial of controlled degree, so almost all fibers have full size $h$. Steps 3&ndash;4 solve the symbolic Hankel system and specialize it. Steps 5&ndash;6 upgrade pointwise agreement to polynomial identities by zero counting. Step 7 collects separability from the discriminant identity.</figcaption></figure>
+
+<div class="proof"><p><b>Case $h = 0$.</b> Every fiber is empty, so each $m_j(p) = 0$: the polynomial $\mu_j$, of degree $\le dT &lt; \lvert P\rvert$, vanishes at all $\lvert P\rvert$ points, hence $\mu_j = 0$ by the root bound (Proposition D). Take $G = 1$, $E = F$, $R = \varnothing$; every conclusion holds by the empty-sum/product conventions.</p>
+
+<p><b>Setup for $h &gt; 0$.</b> All entries of $\Delta_h$ exist: the largest index used is $2h - 2 \le 2K_{\mathrm{cap}} - 2 \le T - 1 &lt; T$. Expanding the determinant as a signed sum over permutations and using $\deg \mu_{i+j} \le d(i+j)$, every term has degree $\le d \sum_i (i + \pi(i)) = d h(h-1)$, so
+$$\deg \Delta_h \le d h (h - 1). \tag{10}$$</p>
+
+<p><b>Step 1: $\Delta_h(p) \neq 0$ exactly at full fibers.</b> At a point with $S(p) = \{w_1, \dots, w_h\}$ (all distinct, being a set), the moment identities give the factorization
+$$\big( \mu_{i+j}(p) \big)_{0\le i,j&lt;h} = V_p V_p^{\mathsf T}, \qquad (V_p)_{i,s} = w_s^{\,i},$$
+since the $(i,j)$ entry of $V_pV_p^{\mathsf T}$ is $\sum_s w_s^i w_s^j = m_{i+j}(p) = \mu_{i+j}(p)$. By Proposition G, $\det V_p = \prod_{s&lt;t}(w_t - w_s) \ne 0$, so
+$$\Delta_h(p) = \det(V_p)^2 = \prod_{1\le s&lt;t\le h} (w_t - w_s)^2 \neq 0. \tag{11}$$
+At a point with $\lvert S(p)\rvert &lt; h$, the same computation runs with the rectangular matrix $W_p = (w^i)_{0\le i &lt; h,\ w \in S(p)}$, which has fewer than $h$ columns: the moment matrix equals $W_p W_p^{\mathsf T}$, of rank $&lt; h$, so $\Delta_h(p) = 0$. This proves the equivalence in (ii). Since $h$ is the <i>maximum</i> fiber size, at least one full-fiber point exists, so $\Delta_h$ is a nonzero polynomial.</p>
+
+<p><b>Step 2: almost all fibers are full.</b> The nonzero polynomial $\Delta_h$ has at most $dh(h-1)$ roots by (10), and non-full fibers happen only at its roots, so (Fig.&nbsp;27)
+$$\#\{p \in P : \lvert S(p)\rvert = h\} \;\ge\; \lvert P\rvert - dh(h-1) \;\ge\; \lvert P\rvert - dK_{\mathrm{cap}}(K_{\mathrm{cap}}-1) \;&gt;\; 2dK_{\mathrm{cap}}^2 T. \tag{12}$$</p>
+
+<p><b>Step 3: solve the Hankel system symbolically.</b> Since $\Delta_h \ne 0$, the system (7) has a unique solution $(c_l)$ over $F$. Cramer's rule (valid over any field: multiply the system by the adjugate matrix) expresses $c_l$ as the determinant of the coefficient matrix with column $l$ replaced by $(-\mu_{i+h})_i$, divided by $\Delta_h$. The numerator determinant expands with degrees $\le d(i + l')$ per entry except in the replaced column, where the entry has degree $\le d(i + h)$; summing along any permutation gives degree at most $d\big( h(h-1) + (h - l) \big) = d(h^2 - l) \le dh^2$. So $c_l = n_l/\Delta_h$ with the stated degree bound, and $G(Y) = Y^h + \sum_l c_l Y^l$ is defined.</p>
+
+<p><b>Step 4: specialization at full fibers.</b> Fix $p$ with $S(p) = \{w_1,\dots,w_h\}$. By (11), $\Delta_h(p) \ne 0$, so each $c_l = n_l/\Delta_h$ is pole-free at $p$ and the specialization $\mathrm{ev}_p(G)$ makes sense. Specializing (7) at $X = p$ (legitimate: both sides are rational functions with nonvanishing denominators at $p$, agreeing as elements of $F$) gives, for $0 \le i &lt; h$:
+$$0 = \mu_{i+h}(p) + \sum_{l&lt;h} \mu_{i+l}(p)\, c_l(p)
+= \sum_{s=1}^{h} w_s^{\,i} \Big( w_s^{\,h} + \sum_{l&lt;h} c_l(p) w_s^{\,l} \Big)
+= \sum_{s=1}^{h} w_s^{\,i}\; \mathrm{ev}_p(G)(w_s),$$
+where the middle equality regroups the moment sums fiber-element by fiber-element. In matrix form, $V_p \cdot \big(\mathrm{ev}_p(G)(w_s)\big)_s = 0$ with $V_p$ invertible, so $\mathrm{ev}_p(G)$ vanishes at every $w_s$. A monic degree-$h$ polynomial with $h$ distinct prescribed roots equals $\prod_s (Y - w_s)$; this is (9).</p>
+
+<p><b>Step 5: the moment identities, by zero counting.</b> Let $\alpha_1, \dots, \alpha_h$ be the roots of $G$ in a splitting field, listed with multiplicity for now. By Proposition H, their power sums are $s_j = P_j(c_0,\dots,c_{h-1})$ with $P_j$ of integer coefficients and total degree $\le j$. Substitute $c_l = n_l/\Delta_h$ and clear denominators: for $1 \le j \le T$,
+$$D_j(X) := \Delta_h^{\,j}\,\big( \mu_j - P_j(c_0, \dots, c_{h-1}) \big)$$
+is a <i>polynomial</i> (each monomial $\prod_l c_l^{m_l}$ with $\sum m_l \le j$ becomes $\prod_l n_l^{m_l} \Delta_h^{\,j - \sum m_l}$), of degree at most
+$$\max\big( dj + j\,dh(h-1),\ \ j\, dh^2 \big) \;\le\; 2 d h^2 j \;\le\; 2 d K_{\mathrm{cap}}^2 T .$$
+Now evaluate at any full-fiber point $p$: by (9), the roots of $\mathrm{ev}_p(G)$ are exactly the elements of $S(p)$, and $P_j$ commutes with specialization (it is a polynomial identity in the coefficients), so $P_j(c(p)) = \sum_{w\in S(p)} w^j = m_j(p) = \mu_j(p)$, giving $D_j(p) = 0$. By (12) there are strictly more than $2dK_{\mathrm{cap}}^2 T$ such points &mdash; more zeros than the degree allows &mdash; so $D_j \equiv 0$, i.e.
+$$\mu_j(X) = \sum_{s=1}^{h} \alpha_s^{\,j} \qquad (1 \le j \le T).$$
+For $j = 0$: $\mu_0$ has degree $\le 0$, i.e. is a constant; at a full-fiber point it equals $m_0(p) = h \cdot 1_K = \sum_s \alpha_s^0$, proving the $j=0$ identity as well (note this is an identity of field elements &mdash; parity, in characteristic two &mdash; not of integer cardinalities).</p>
+
+<p><b>Step 6: separability and the discriminant.</b> Since $2h - 2 \le T$, the identities of Step 5 cover all indices appearing in the Hankel matrix, so that matrix also factors through the roots: $\big(\mu_{i+j}\big)_{i,j} = V_\alpha V_\alpha^{\mathsf T}$ with $(V_\alpha)_{i,s} = \alpha_s^{\,i}$, whence by Proposition G
+$$\Delta_h = \det(V_\alpha)^2 = \prod_{1 \le r &lt; s \le h} (\alpha_s - \alpha_r)^2,$$
+which is (8). Since $\Delta_h \neq 0$ in $F \subseteq E$, all the differences are nonzero: the roots are distinct, $G$ is separable (definition), $\lvert R \rvert = h$, and the power sums over the multiset coincide with sums over the set $R$, completing (6). Finally, Lemma 3's construction (splitting field of a separable polynomial) provides $E/F$ finite and separable. <span class="qed">&#8718;</span></p></div>
+
+<figure><!--FIG:fig_zerocount--><figcaption>The counting hammer of Steps 5&ndash;6 (and, later, of Lemma 13). The cleared-denominator comparison polynomial has degree at most $2dK_{\mathrm{cap}}^2 T$, but it provably vanishes at more points than that &mdash; the full-size fibers guaranteed by (12). A nonzero polynomial cannot out-vanish its degree, so the comparison is identically zero: pointwise agreement becomes an identity in $K(X)$.</figcaption></figure>
+
+<div class="note"><b>Relation to Reed&ndash;Solomon list recovery (context, not used later).</b> List recovery starts from the same data &mdash; small sets $S(p)$ &mdash; and asks for all low-degree $f \in K[X]$ with $f(p) \in S(p)$ at many points (Sudan 1997, Guruswami&ndash;Sudan 1999, and successors). Lemma 10's output subsumes such lists: the bivariate polynomial $Q(X,Y) = \Delta_h(X) G(Y) = \Delta_h Y^h + \sum_l n_l Y^l \in K[X,Y]$ vanishes on every pair $(p, w)$ with $w \in S(p)$ (at full fibers by specialization; at deficient fibers every $n_l(p)$ and $\Delta_h(p)$ vanish, by the rectangular-factorization argument of Step 1 applied to each Cramer determinant). For $f$ of degree $\le d$, $\deg_X Q(X, f(X)) \le dh^2$, so if $f(p) \in S(p)$ at more than $dh^2$ points then $G(f) = 0$: every list-recovery candidate is a rational root of $G$. But Lemma 10 keeps more &mdash; the possibly <i>irrational</i> algebraic roots, and exact whole-fiber moment identities valid in characteristic two &mdash; and that surplus is precisely what the soundness argument will spend.</div>

@@ -1,0 +1,80 @@
+<hr>
+
+<h2 id="toolkit">1. The quantum toolkit, from linear algebra</h2>
+
+<p>Everything quantum in this chapter is finite-dimensional linear algebra. This section fixes the objects &mdash; states, measurements, tensor products, the operator order &mdash; and proves the two structural facts we will lean on constantly (the spectral theorem and its functional calculus). A reader fluent in quantum information can skim to <a class="secref" href="#games">&sect;2</a>; later sections cite each fact by name.</p>
+
+<h3 id="s1-spaces">1.1 Spaces, operators, and the spectral theorem</h3>
+
+<p>A (finite-dimensional) <b>Hilbert space</b> $\mathcal{H}$ is $\mathbb{C}^d$ with the standard inner product $\langle u, v\rangle = \sum_k \overline{u_k} v_k$, conjugate-linear in the first slot. We use Dirac's notation when it helps: $|\psi\rangle$ is a column vector, $\langle\psi|$ its conjugate transpose, so $\langle\varphi|\psi\rangle$ is the inner product and $|\varphi\rangle\langle\psi|$ the rank-one operator $v \mapsto \langle\psi, v\rangle\,\varphi$. The <b>adjoint</b> $F^\dagger$ of a linear map $F$ is defined by $\langle F^\dagger u, v\rangle = \langle u, F v\rangle$; concretely, the conjugate transpose of the matrix. $F$ is <b>Hermitian</b> if $F = F^\dagger$. The <b>operator norm</b> is $\|F\| = \max_{\|v\|=1} \|Fv\|$.</p>
+
+<div class="prop" id="prop-spectral"><b>Proposition A (spectral theorem, finite dimension).</b> Every Hermitian $F$ on $\mathbb{C}^d$ has an orthonormal basis of eigenvectors $v_1, \dots, v_d$ with real eigenvalues $\sigma_1, \dots, \sigma_d$:
+$$F \;=\; \sum_{k=1}^d \sigma_k\, |v_k\rangle\langle v_k|.$$
+</div>
+<div class="proof">Induct on $d$; the case $d = 1$ is trivial. The characteristic polynomial $\det(F - \lambda I)$ has a complex root $\lambda_1$, so $F - \lambda_1 I$ is singular and there is a unit vector $v_1$ with $F v_1 = \lambda_1 v_1$. The eigenvalue is real: $\lambda_1 = \langle v_1, F v_1\rangle = \langle F^\dagger v_1, v_1\rangle = \langle F v_1, v_1\rangle = \overline{\lambda_1}$. The orthogonal complement $W = v_1^\perp$ is $F$-invariant: if $w \perp v_1$ then $\langle v_1, Fw\rangle = \langle F v_1, w\rangle = \lambda_1 \langle v_1, w\rangle = 0$. The restriction of $F$ to $W$ is Hermitian on a $(d-1)$-dimensional space; apply the induction hypothesis and adjoin $v_1$. <span class="qed">&#8718;</span></div>
+
+<p>The spectral theorem gives us a <b>functional calculus</b>: for any function $f$ defined on the eigenvalues, set $f(F) = \sum_k f(\sigma_k)\, |v_k\rangle\langle v_k|$. All functions of the same $F$ commute, and $f \le g$ pointwise on the spectrum implies $\langle v, f(F) v\rangle \le \langle v, g(F) v\rangle$ for all $v$. Three instances recur:</p>
+<ul>
+<li>the <b>square root</b> $F^{1/2}$ of a positive semidefinite $F$ (apply $f(t) = \sqrt{t}$);</li>
+<li>the <b>pseudo-inverse square root</b> $F^{[-1/2]}$: apply $f(t) = t^{-1/2}$ for $t \gt 0$ and $f(0) = 0$; then $F^{[-1/2]} F F^{[-1/2]}$ is the orthogonal projection onto $\operatorname{supp} F = (\ker F)^\perp$;</li>
+<li>the <b>operator entropy</b> $H_1(F)$ for $0 \preceq F \preceq I$, from the scalar function
+$$H_1(v) = -v \log v \;\; (0 \lt v \le 1), \qquad H_1(0) = 0,$$
+which is continuous, nonnegative, and concave on $[0,1]$ (its second derivative is $-1/v \lt 0$). All logarithms in this document are natural.</li>
+</ul>
+
+<p>Here $\preceq$ is the <b>operator order</b>: $F \succeq 0$ ("positive semidefinite", PSD) means $F$ is Hermitian with $\langle v, Fv\rangle \ge 0$ for all $v$, and $F \preceq G$ means $G - F \succeq 0$. A <b>positive contraction</b> is an $F$ with $0 \preceq F \preceq I$; equivalently, a Hermitian $F$ whose eigenvalues lie in $[0,1]$. Two order facts we use without further comment: (i) conjugation preserves order &mdash; if $F \preceq G$ then $C^\dagger F C \preceq C^\dagger G C$ for any $C$, since $\langle v, C^\dagger(G-F)Cv\rangle = \langle Cv, (G-F)Cv\rangle \ge 0$; (ii) the trace is monotone &mdash; $F \preceq G$ implies $\operatorname{Tr} F \le \operatorname{Tr} G$.</p>
+
+<h3 id="s1-states">1.2 States, measurements, and the Born rule</h3>
+
+<p>A <b>state</b> of a system with Hilbert space $\mathcal{H}$ is a unit vector $|\psi\rangle \in \mathcal{H}$. (Vectors differing by a phase $e^{i\theta}$ describe the same physics; nothing below depends on the distinction. We will not need mixed states as primitive objects.) A measurement with finitely many outcomes is, in the most general formulation we need, a <b>POVM</b>:</p>
+
+<div class="def" id="def-povm"><b>Definition (POVM).</b> A <i>positive-operator-valued measure</i> on $\mathcal{H}$ with outcome set $A$ is a family $\{E^a\}_{a \in A}$ of PSD operators with $\sum_{a\in A} E^a = I$. Each $E^a$ is called an <b>effect</b>. Measuring the state $|\psi\rangle$ produces outcome $a$ with probability
+$$\mathbb{P}(a) = \langle\psi|\, E^a\, |\psi\rangle$$
+&mdash; the <b>Born rule</b>. The probabilities are nonnegative because $E^a \succeq 0$ and sum to $\langle\psi|I|\psi\rangle = 1$.</div>
+
+<p>The special case where every $E^a$ is an orthogonal projection (onto mutually orthogonal subspaces spanning $\mathcal{H}$) is a <b>projective measurement</b>. The simplest example, drawn in Fig. 3, is a two-outcome projective measurement of a <i>qubit</i> ($\mathcal{H} = \mathbb{C}^2$, and everything real for our purposes): pick an angle $\theta$, let $v_0(\theta) = (\cos\theta, \sin\theta)$ and $v_1(\theta) = (-\sin\theta, \cos\theta)$ be the rotated orthonormal basis, and take $E^a = |v_a\rangle\langle v_a|$. A state along the first coordinate axis answers $0$ with probability $\cos^2\theta$.</p>
+
+<figure><!--FIG:fig_born--><figcaption>The Born rule for a qubit, drawn in the real plane. A measurement is an orthonormal basis $\{v_0, v_1\}$, here rotated by $\theta$ from the state $\psi$; the outcome probabilities are the squared overlaps $\cos^2\theta$ and $\sin^2\theta$. Every quantum probability in this chapter is ultimately of this form.</figcaption></figure>
+
+<h3 id="s1-tensor">1.3 Two players: tensor products and entanglement</h3>
+
+<p>When Alice holds a system with space $\mathcal{H}_A = \mathbb{C}^{d_A}$ and Bob one with $\mathcal{H}_B = \mathbb{C}^{d_B}$, the joint system has the <b>tensor product</b> space $\mathcal{H}_A \otimes \mathcal{H}_B \cong \mathbb{C}^{d_A d_B}$: the span of the <i>product vectors</i> $u \otimes w$ (coordinates $(u\otimes w)_{(i,k)} = u_i w_k$), with inner product determined by $\langle u\otimes w, u'\otimes w'\rangle = \langle u,u'\rangle\langle w,w'\rangle$. Operators act factor-wise: $(S \otimes T)(u \otimes w) = Su \otimes Tw$, and $\|S\otimes T\| = \|S\|\,\|T\|$. If Alice measures the POVM $\{E^a\}$ and Bob independently the POVM $\{F^b\}$, the joint outcome distribution on the state $|\psi\rangle \in \mathcal{H}_A\otimes\mathcal{H}_B$ is
+$$\mathbb{P}(a,b) = \langle\psi|\, E^a \otimes F^b\, |\psi\rangle,$$
+which is again a POVM (on the joint space) because $\{E^a \otimes F^b\}_{a,b}$ consists of PSD operators summing to $I \otimes I$. The tensor product expresses <i>locality</i> &mdash; who can touch what &mdash; not independence of outcomes.</p>
+
+<p>A joint state is <b>entangled</b> if it is not a product vector. The one entangled state we will need explicitly is the two-qubit state
+$$|\Phi^+\rangle = \tfrac{1}{\sqrt2}\big(|0\rangle\otimes|0\rangle + |1\rangle\otimes|1\rangle\big) \in \mathbb{C}^2\otimes\mathbb{C}^2 ,$$
+where $|0\rangle, |1\rangle$ is the standard basis. Its signature property: if both players measure in the <i>same</i> rotated basis $\{v_0(\theta), v_1(\theta)\}$ (any $\theta$!), their outcomes agree with probability $1$. Indeed, a one-line computation gives $\langle v_a(\theta)\otimes v_b(\theta), \Phi^+\rangle = \tfrac{1}{\sqrt2}\, v_a(\theta)\cdot v_b(\theta)$, which vanishes for $a \ne b$; more generally, for bases rotated by $\theta_A$ and $\theta_B$,
+$$\mathbb{P}(a = b) \;=\; \cos^2(\theta_A - \theta_B).
+$$
+No pair of correlated classical coins can reproduce this for all angle pairs simultaneously &mdash; that is exactly what the CHSH game of <a class="secref" href="#games">&sect;2</a> quantifies. Fig. 4 contrasts the two kinds of correlation.</p>
+
+<figure><!--FIG:fig_entangle--><figcaption>Left: two independent fair coins &mdash; the joint distribution is the product of the marginals. Right: outcomes of measuring $|\Phi^+\rangle$ in a common rotated basis: perfectly correlated at <i>every</i> common angle $\theta$. Shared classical randomness can fake perfect correlation for one fixed angle, but not for all angles at once; the CHSH game (&sect;2) turns this into a quantitative gap.</figcaption></figure>
+
+<h3 id="s1-partial">1.4 Partial trace</h3>
+
+<p>One more tool, used in <a class="secref" href="#resolvent">&sect;12</a>. For an operator $M$ on $\mathcal{H}_A \otimes \mathcal{H}_B$, the <b>partial trace over $B$</b> is the unique operator $\operatorname{Tr}_B M$ on $\mathcal{H}_A$ satisfying
+$$\operatorname{Tr}\big[(\operatorname{Tr}_B M)\, C\big] \;=\; \operatorname{Tr}\big[M\,(C \otimes I_B)\big] \qquad \text{for every operator } C \text{ on } \mathcal{H}_A.$$
+Existence and uniqueness: in coordinates, $(\operatorname{Tr}_B M)_{ij} = \sum_k M_{(i,k),(j,k)}$ satisfies the identity, and the identity determines all matrix entries of $\operatorname{Tr}_B M$ by choosing $C = |j\rangle\langle i|$. If $M \succeq 0$ then $\operatorname{Tr}_B M \succeq 0$, since $\langle u, (\operatorname{Tr}_B M) u\rangle = \operatorname{Tr}[M (|u\rangle\langle u| \otimes I)] = \sum_k \langle u \otimes k| M |u \otimes k\rangle \ge 0$.</p>
+
+<h3 id="s1-stability">1.5 Two stability facts</h3>
+
+<p>The whole proof strategy of this chapter is "replace the ideal state by a nearby one and control the damage". The damage control rests on two elementary inequalities.</p>
+
+<div class="prop" id="prop-stability"><b>Proposition B (measurement stability).</b> Let $0 \preceq M \preceq I$ and let $|\varphi\rangle, |\varphi'\rangle$ be unit vectors. Then
+$$\big|\langle\varphi| M |\varphi\rangle - \langle\varphi'| M |\varphi'\rangle\big| \;\le\; 2\,\|\varphi - \varphi'\|.$$
+</div>
+<div class="proof">Write $\delta = \varphi - \varphi'$. Then
+$\langle\varphi|M|\varphi\rangle - \langle\varphi'|M|\varphi'\rangle = \langle\delta|M|\varphi\rangle + \langle\varphi'|M|\delta\rangle$. By Cauchy&ndash;Schwarz and $\|M\| \le 1$, each term is at most $\|\delta\|$ in modulus. <span class="qed">&#8718;</span></div>
+
+<div class="prop" id="prop-normalize"><b>Proposition C (normalization stability).</b> For nonzero vectors $u, v$,
+$$\left\|\frac{u}{\|u\|} - \frac{v}{\|v\|}\right\|^2 \;\le\; \frac{4\,\|u - v\|^2}{\|u\|^2}.$$
+</div>
+<div class="proof">By the triangle inequality,
+$$\left\|\frac{u}{\|u\|} - \frac{v}{\|v\|}\right\|
+\le \left\|\frac{u}{\|u\|} - \frac{v}{\|u\|}\right\| + \|v\|\left|\frac{1}{\|u\|} - \frac{1}{\|v\|}\right|
+= \frac{\|u-v\|}{\|u\|} + \frac{\big|\,\|v\| - \|u\|\,\big|}{\|u\|}
+\le \frac{2\|u-v\|}{\|u\|},$$
+using $\big|\|v\| - \|u\|\big| \le \|u - v\|$ in the last step. Square. <span class="qed">&#8718;</span></div>
+
+<p class="small">Proposition C is stated with the norm of the <i>first</i> vector in the denominator; that asymmetry is deliberate and will matter in <a class="secref" href="#budget">&sect;13</a>, where $\|u\|^2$ is exactly the branch probability that cancels a postselection factor.</p>

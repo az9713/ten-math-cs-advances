@@ -1,0 +1,200 @@
+<h2 id="upper">4. The upper bound: $\mathrm{ex}(n,\mathcal F) = O(n^{21/16})$, in full</h2>
+
+<p>Throughout this section, $B$ is a bipartite graph containing no $C_4$ and no $C_6$, and $S$ is either side of its bipartition. Note the consequence we will use constantly: a bipartite graph has no odd cycles, so $B$ has no cycle shorter than $8$ &mdash; <b>girth at least eight</b>. The plan mirrors <a class="secref" href="#exnum">&sect;1</a>'s cherry count, three stories taller: instead of counting paths of length two, we count copies of $S_2$; instead of charging them to vertex pairs, we charge them to <i>base triples</i>; and the bans on $\mathcal J$ and $\mathcal K$ are rigged to make both sides of the ledger collide.</p>
+
+<h3 id="rs">4.1 The common-neighbor graph $R_S$</h3>
+
+<p>Define an auxiliary graph $R_S$ on the vertex set $S$ by
+$$uv \in E(R_S) \iff u \neq v \ \text{ and } \ N_B(u) \cap N_B(v) \neq \varnothing,$$
+i.e. two vertices of the same side are joined in $R_S$ exactly when some length-two path of $B$ connects them (Fig. 10). For distinct $u, v \in S$ write $u \sim v$ when $uv \in E(R_S)$ and call the pair <b>related</b>; otherwise <b>unrelated</b>. A set is <b>$R_S$-independent</b> if no two of its members are related. For an $R_S$-independent triple $T \subseteq S$, put
+$$L(T) := \{\, c \in S \;:\; c \sim t \ \text{for all}\ t \in T \,\}, \qquad r(T) := |L(T)|,$$
+the set of <b>common centers</b> of $T$ and its size. The names anticipate Lemma 3.1: a base triple of an $S_k$ inside $B$ will be an independent triple, and the centers serving it will be exactly $k$ members of $L(T)$.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 210" width="100%" role="img" aria-label="From B to the derived common-neighbor graph RS">
+  <defs><marker id="c10arrRS" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- B: S on top, other side bottom -->
+  <g stroke="#8899aa" stroke-width="1.8">
+    <line x1="50" y1="55" x2="85" y2="140"/><line x1="120" y1="55" x2="85" y2="140"/>
+    <line x1="120" y1="55" x2="155" y2="140"/><line x1="190" y1="55" x2="155" y2="140"/>
+    <line x1="190" y1="55" x2="222" y2="140"/>
+  </g>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.5">
+    <circle cx="50" cy="55" r="7"/><circle cx="120" cy="55" r="7"/><circle cx="190" cy="55" r="7"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.4">
+    <circle cx="85" cy="140" r="6"/><circle cx="155" cy="140" r="6"/><circle cx="222" cy="140" r="6"/>
+  </g>
+  <text x="44" y="40" font-size="12" fill="#555" class="v">u</text>
+  <text x="114" y="40" font-size="12" fill="#555" class="v">v</text>
+  <text x="184" y="40" font-size="12" fill="#555" class="v">w</text>
+  <text x="80" y="163" font-size="12" fill="#555" class="v">a</text>
+  <text x="150" y="163" font-size="12" fill="#555" class="v">b</text>
+  <text x="217" y="163" font-size="12" fill="#555" class="v">c</text>
+  <text x="36" y="188" font-size="11.5" fill="#555">the bipartite host B (side S on top)</text>
+  <line x1="252" y1="100" x2="292" y2="100" stroke="#555" stroke-width="1.6" marker-end="url(#c10arrRS)"/>
+  <!-- RS -->
+  <g stroke="#c0392b" stroke-width="2">
+    <line x1="330" y1="90" x2="390" y2="90"/><line x1="390" y1="90" x2="450" y2="90"/>
+  </g>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.5">
+    <circle cx="330" cy="90" r="7"/><circle cx="390" cy="90" r="7"/><circle cx="450" cy="90" r="7"/>
+  </g>
+  <text x="324" y="75" font-size="12" fill="#555" class="v">u</text>
+  <text x="384" y="75" font-size="12" fill="#555" class="v">v</text>
+  <text x="444" y="75" font-size="12" fill="#555" class="v">w</text>
+  <text x="316" y="130" font-size="11.5" fill="#c0392b">u &#8764; v (via a),  v &#8764; w (via b)</text>
+  <text x="316" y="148" font-size="11.5" fill="#555">u &#8769; w: no common neighbor</text>
+  <text x="316" y="184" font-size="11.5" fill="#555">the derived graph R<tspan baseline-shift="sub" font-size="8.5">S</tspan></text>
+</svg><figcaption><b>The derived graph $R_S$.</b> Left: a fragment of the host $B$; right: the common-neighbor graph on the top side $S$. An edge of $R_S$ is a certificate &mdash; a length-two path of $B$ &mdash; and in a $C_4$-free host that certificate is unique (Lemma 3.1(1)), which is what turns $R_S$ from a bookkeeping device into a rigid geometry.</figcaption></figure>
+
+<h3 id="lem31">4.2 The local geometry of relatedness</h3>
+
+<div class="lem"><b>Lemma 3.1 (common-neighbor geometry).</b> In $B$ (bipartite, no $C_4$, no $C_6$), with $S$ either side:
+<br>&nbsp;&nbsp;(1) Every related pair has a <i>unique</i> common neighbor. If three distinct members of $S$ are pairwise related, the three pairs share one and the same common neighbor.
+<br>&nbsp;&nbsp;(2) If $T \subseteq S$ is an $R_S$-independent triple, then $L(T)$ is $R_S$-independent and disjoint from $T$. If $r(T) \ge k$ for $k \in \{2,3\}$, then $B$ contains a copy of $S_k$ with base set $T$; conversely, the bases of any copy of $S_k$ in $B$ form an $R_S$-independent triple with at least $k$ common centers.
+<br>&nbsp;&nbsp;(3) If $u, v \in S$ are distinct and unrelated, then any two distinct vertices related to both are unrelated to each other; i.e. the set $Z_{uv} := \{w \in S : w \sim u,\ w \sim v\}$ is $R_S$-independent.</div>
+
+<div class="proof">
+<p><b>(1).</b> If $u \sim v$ had two common neighbors $a \neq b$, then $u\,a\,v\,b$ would be a $C_4$ (Fig. 11, left). Now let $u, v, w$ be pairwise related with (unique) common neighbors $a = a_{uv}$, $b = a_{vw}$, $c = a_{uw}$. If the three do not all coincide, then at least two are distinct; we claim all three must then be distinct: if, say, $a = b \neq c$, then $a$ is adjacent to $u, v, w$, so $a$ is a common neighbor of $\{u,w\}$, forcing $c = a$ by uniqueness &mdash; contradiction. But three distinct $a, b, c$ give the six-cycle $u\,a\,v\,b\,w\,c$ (all six vertices distinct: $a,b,c$ on the opposite side and distinct; $u,v,w$ distinct) &mdash; a $C_6$ (Fig. 11, right). So $a = b = c$.</p>
+<p><b>(3).</b> Let $u \not\sim v$ and suppose $w, w' \in Z_{uv}$ were related, with common neighbor $s$. Apply (1) to the pairwise-related... more carefully: $w \sim u$, $w' \sim u$, and $w \sim w'$, so by (1) the three pairs among $\{u, w, w'\}$ share a single common neighbor $s_u$; in particular $s_u$ is adjacent to $u$, $w$, $w'$. Symmetrically the triple $\{v, w, w'\}$ has a single common neighbor $s_v$ adjacent to $v, w, w'$. But $s_u$ and $s_v$ are both common neighbors of the related pair $\{w, w'\}$, so $s_u = s_v$ by (1) &mdash; and this one vertex is then adjacent to both $u$ and $v$, making $u \sim v$. Contradiction.</p>
+<p><b>(2).</b> For distinct $u, v \in T$ we have $L(T) \subseteq Z_{uv}$, so (3) makes $L(T)$ independent; and no $c \in L(T)$ lies in $T$, since $c \sim t$ for all $t \in T$ would otherwise make two members of $T$ related (or relate $c$ to itself, which $\sim$ excludes). Suppose $r(T) \ge k$ and pick $k$ centers $c_1, \dots, c_k \in L(T)$. Each of the $3k$ pairs $(t, c_j)$ with $t \in T$ is related, hence has a unique common neighbor $s_{t,j}$. These $3k$ vertices are pairwise distinct: if $s_{t,j} = s_{t',j'}$ with $t \neq t'$, that vertex would be a common neighbor of $t$ and $t'$, making two bases related &mdash; contradicting independence of $T$; if $t = t'$ and $j \neq j'$, it would be a common neighbor of $c_j$ and $c_{j'}$, contradicting independence of $L(T)$. The vertices $T \cup \{c_j\} \cup \{s_{t,j}\}$ with the $6k$ edges $t\,s_{t,j}$, $s_{t,j}\,c_j$ now form a copy of $S_k$ with bases $T$ and centers $c_1, \dots, c_k$ (bases, centers in $S$; subdivision vertices on the other side; all distinct).</p>
+<p>Conversely, let $B$ contain a copy of $S_k$ with bases $T = \{t, t', t''\}$ and centers $c_1, \dots, c_k$; write $s_{t,j}$ for its subdivision vertex on the $t\,$&ndash;$\,c_j$ path. Each pair $(t, c_j)$ is related via $s_{t,j}$, so once $T$ is shown independent, the centers lie in $L(T)$ and $r(T) \ge k$. Suppose then $t \sim t'$, with unique common neighbor $w$. Fix any center $c_j$ and consider the closed walk $t\, s_{t,j}\, c_j\, s_{t',j}\, t'\, w\, t$: its six vertices are distinct <i>unless</i> $w \in \{s_{t,j}, s_{t',j}\}$ (the only possible coincidences &mdash; $t, t', c_j$ are three distinct vertices of $S$ and $w, s_{t,j}, s_{t',j}$ live on the other side, with $s_{t,j} \neq s_{t',j}$ as shown above). Distinct vertices would give a $C_6$; so for <i>every</i> $j$, $w$ equals one of the two subdivision vertices at center $c_j$. For $k \ge 2$ this pins the single vertex $w$ to two disjoint two-element sets ($\{s_{t,1}, s_{t',1}\}$ and $\{s_{t,2}, s_{t',2}\}$ are disjoint) &mdash; impossible. So $T$ is independent. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 200" width="100%" role="img" aria-label="Why common neighbors are unique and shared: forbidden C4 and C6">
+  <!-- left: two common neighbors = C4 -->
+  <g stroke="#c0392b" stroke-width="2.2">
+    <line x1="55" y1="60" x2="115" y2="105"/><line x1="115" y1="105" x2="175" y2="60"/>
+    <line x1="55" y1="60" x2="115" y2="20"/><line x1="115" y1="20" x2="175" y2="60"/>
+  </g>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.4">
+    <circle cx="55" cy="60" r="7"/><circle cx="175" cy="60" r="7"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.4">
+    <circle cx="115" cy="20" r="6"/><circle cx="115" cy="105" r="6"/>
+  </g>
+  <text x="38" y="52" font-size="12" fill="#555" class="v">u</text>
+  <text x="182" y="52" font-size="12" fill="#555" class="v">v</text>
+  <text x="128" y="16" font-size="12" fill="#555" class="v">a</text>
+  <text x="128" y="112" font-size="12" fill="#555" class="v">b</text>
+  <text x="30" y="150" font-size="11.5" fill="#c0392b">two common neighbors</text>
+  <text x="30" y="167" font-size="11.5" fill="#c0392b">would close a C&#8324;</text>
+  <!-- right: three related pairs with distinct witnesses = C6 -->
+  <g stroke="#c0392b" stroke-width="2.2">
+    <line x1="300" y1="40" x2="352" y2="55"/><line x1="352" y1="55" x2="404" y2="40"/>
+    <line x1="404" y1="40" x2="430" y2="100"/><line x1="430" y1="100" x2="404" y2="160"/>
+    <line x1="404" y1="160" x2="352" y2="145"/><line x1="352" y1="145" x2="300" y2="160"/>
+    <line x1="300" y1="160" x2="274" y2="100"/><line x1="274" y1="100" x2="300" y2="40"/>
+  </g>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.4">
+    <circle cx="300" cy="40" r="7"/><circle cx="430" cy="100" r="7"/><circle cx="300" cy="160" r="7"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.4">
+    <circle cx="404" cy="40" r="6"/><circle cx="404" cy="160" r="6"/><circle cx="274" cy="100" r="6"/>
+  </g>
+  <text x="286" y="26" font-size="12" fill="#555" class="v">u</text>
+  <text x="440" y="94" font-size="12" fill="#555" class="v">v</text>
+  <text x="286" y="182" font-size="12" fill="#555" class="v">w</text>
+  <text x="412" y="28" font-size="12" fill="#555" class="v">a</text>
+  <text x="412" y="180" font-size="12" fill="#555" class="v">b</text>
+  <text x="252" y="94" font-size="12" fill="#555" class="v">c</text>
+  <text x="262" y="196" font-size="11.5" fill="#c0392b">distinct witnesses a, b, c would close a C&#8326;</text>
+</svg><figcaption><b>The two forbidden cycles powering Lemma 3.1.</b> Left: a related pair with two common neighbors is exactly a $C_4$ &mdash; so in $B$ the witness is unique, and $\sim$ behaves like collinearity in a geometry. Right: three pairwise related vertices whose three (unique) witnesses did not coincide would trace a $C_6$ &mdash; so the witnesses collapse to a single hub. Bans on two small cycles thus impose projective-plane-like rigidity on the derived graph $R_S$.</figcaption></figure>
+
+<h3 id="lem3233">4.3 Two counting lemmas</h3>
+
+<div class="lem"><b>Lemma 3.2 (non-backtracking four-edge-walk count).</b> If $\delta(B) \ge d \ge 2$, then for every $u \in S$:
+$$\sum_{\substack{v \in S \setminus \{u\} \\ v \not\sim u}} |Z_{uv}| \;\ge\; d(d-1)^3. \tag{5}$$</div>
+
+<div class="proof">
+<p>Count walks $u\, a\, w\, b\, v$ that never immediately backtrack: choose a neighbor $a$ of $u$ (at least $d$ ways), a neighbor $w \neq u$ of $a$ ($\ge d-1$), a neighbor $b \neq a$ of $w$ ($\ge d-1$), a neighbor $v \neq w$ of $b$ ($\ge d-1$): at least $d(d-1)^3$ walks. Note $u, w, v \in S$ and $a, b$ on the other side, with $a \neq b$ and $u \neq w$, $w \neq v$ by construction.</p>
+<p><i>Each such walk has $v \neq u$ and $v \not\sim u$.</i> If $v = u$: then $u\, a\, w\, b$ closes into a four-cycle ($u, w$ distinct, $a, b$ distinct) &mdash; banned. If $v \sim u$ with common neighbor $s$: if $s = a$ then $a$ is adjacent to $v$, and $a\, w\, b\, v$ is a $C_4$ ($a \neq b$, $w \neq v$); if $s = b$ then $b$ is adjacent to $u$, and $u\, a\, w\, b$ is a $C_4$; if $s \notin \{a, b\}$ then $u\, a\, w\, b\, v\, s$ is a $C_6$ (six distinct vertices: $u, w, v$ distinct in $S$ &mdash; $u \neq v$ was just shown &mdash; and $a, b, s$ distinct on the other side). All banned.</p>
+<p><i>Walks correspond bijectively to pairs $(v, w)$ with $v \neq u$, $v \not\sim u$, $w \in Z_{uv}$.</i> Given the walk, $w \in Z_{uv}$ (witnesses $a$ and $b$). Conversely, given such a pair, the pair $\{u, w\}$ is related with a unique common neighbor (Lemma 3.1(1)) &mdash; that is $a$ &mdash; and likewise $\{w, v\}$ determines $b$; uniqueness makes the reconstruction unambiguous, and $a \neq b$ (else $u \sim v$ through it). Counting pairs proves (5). <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="lem"><b>Lemma 3.3 (minimum-degree reduction).</b> Let $G$ be an $n$-vertex graph with no $C_4$ or $C_6$ and $m = e(G) \gt 0$ edges. Then $G$ has a nonempty bipartite subgraph $B$ of some order $N \le n$ and minimum degree $d := \delta(B) \ge m/(2n)$, satisfying
+$$m \le 2nd \qquad\text{and}\qquad \Delta(B)\,(d-1)^2 \le N.$$</div>
+
+<div class="proof">
+<p><i>Bipartite half.</i> Split $V(G)$ into two parts maximizing the number of crossing edges. Every vertex then has at least half its neighbors on the other side &mdash; otherwise moving it across would gain crossing edges. Summing, the crossing (bipartite) subgraph $B_0$ has $e(B_0) = \tfrac12 \sum_v (\text{cross-degree of } v) \ge \tfrac12 \sum_v \tfrac{d(v)}2 = \tfrac m2$.</p>
+<p><i>Degree cleaning.</i> Repeatedly delete from $B_0$ any vertex whose current degree is less than $m/(2n)$. At most $n$ deletions occur, each removing fewer than $m/(2n)$ edges &mdash; under $m/2$ in total &mdash; so the process cannot exhaust the $\ge m/2$ edges of $B_0$: it halts at a nonempty subgraph $B$ with $\delta(B) \ge m/(2n)$. In particular $d = \delta(B) \ge m/(2n)$, i.e. $m \le 2nd$.</p>
+<p><i>The tree bound.</i> $B$ inherits bipartiteness and $C_4$/$C_6$-freeness, so it has girth at least $8$: therefore the ball of radius $3$ around any vertex is a tree (two distinct paths of length $\le 3$ from the root to a common vertex would close a cycle of length $\le 6$). Root the tree at a vertex $w$ of degree $\Delta(B)$: level $1$ has $\Delta(B)$ vertices; each contributes $\ge d - 1$ children, and each of those $\ge d-1$ more &mdash; all distinct, by the tree property. Level $3$ alone has at least $\Delta(B)(d-1)^2$ vertices, all inside $B$: $\Delta(B)(d-1)^2 \le N$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="prop34">4.4 The key counting estimate</h3>
+
+<p>Now the main event. Recall $21/16 = 63/48 = 4/3 - 1/48$. We use Vinogradov notation: $X \ll Y$ means $X \le cY$ for an absolute constant $c$ (independent even of the family, which is fixed anyway).</p>
+
+<div class="prop"><b>Proposition 3.4 (key counting estimate).</b> For the family $\mathcal F$ of (4): $\;\mathrm{ex}(n, \mathcal F) = O(n^{21/16}) = O(n^{4/3 - 1/48})$.</div>
+
+<div class="proof">
+<p>Let $G$ be an $n$-vertex $\mathcal F$-free graph and suppose, for contradiction, $m := e(G) \ge C n^{21/16}$ with $C$ a sufficiently large absolute constant. Since $C_4, C_6 \in \mathcal F$, Lemma 3.3 applies: let $B$ be the resulting bipartite subgraph, of order $N \le n$, minimum degree
+$$d \;\ge\; \frac m{2n} \;\ge\; \frac C2\, n^{5/16} \;\ge\; \frac C2\, N^{5/16}.$$
+$B$, a subgraph of $G$, is also $\mathcal F$-free. Fix a side $S$ and abbreviate $t_{uv} = |Z_{uv}|$.</p>
+
+<p><b>Step 1: every vertex centers many copies of $S_2$.</b> Fix $u \in S$ and let $C_u$ be the number of copies of $S_2$ in $B$ having $u$ as one of its two centers. We claim
+$$C_u \;=\; \sum_{\substack{v \neq u \\ v \not\sim u}} \binom{t_{uv}}{3}.$$
+Indeed, a copy with centers $\{u, v\}$ and bases $T$ gives: $v \not\sim u$ (if $u \sim v$ with unique witness $w$, then for each base $t$ the closed walk $u\, s_{t,u}\, t\, s_{t,v}\, v\, w$ forces, exactly as in the converse part of Lemma 3.1(2), $w \in \{s_{t,u}, s_{t,v}\}$ for <i>every</i> base $t$ &mdash; impossible for two bases); and $T$ is an independent triple inside $Z_{uv}$ by Lemma 3.1(2). Conversely, for $v \not\sim u$ the set $Z_{uv}$ is independent by Lemma 3.1(3), so <i>any</i> 3-subset $T \subseteq Z_{uv}$ is an independent triple with $u, v \in L(T)$, and Lemma 3.1(2)'s construction (run with the centers $u, v$) produces exactly one copy of $S_2$ with bases $T$, centers $\{u,v\}$ &mdash; its six subdivision vertices being the six unique witnesses. The two directions invert each other, proving the identity.</p>
+<p>Now bound below. Extend $x \mapsto \binom x3$ to the convex increasing function $g(x) = \tfrac{x(x-1)(x-2)}6$ for $x \ge 2$, $g(x) = 0$ for $x \lt 2$; $g$ is convex on $\mathbb R$ with $g(0) = 0$, so $\nu \mapsto \nu\, g(\Sigma/\nu)$ is nonincreasing in $\nu$ (write $\nu g(\Sigma/\nu) = \Sigma \cdot \frac{g(x)}{x}\big|_{x = \Sigma/\nu}$ and note $g(x)/x$ is nondecreasing for convex $g$ with $g(0)=0$). With $\Sigma := \sum_{v \neq u, v\not\sim u} t_{uv} \ge d(d-1)^3$ (Lemma 3.2) and at most $N$ summands, Jensen gives
+$$C_u \;\ge\; N\, g\!\left(\frac\Sigma N\right) \;\ge\; N\, g\!\left(\frac{d(d-1)^3}{N}\right) \;\gg\; N \left(\frac{d^4}{N}\right)^{\!3} \;=\; \frac{d^{12}}{N^2},$$
+using $(d-1)^3 \ge d^3/8$ (valid for $d \ge 2$) and $g(x) \gg x^3$ for $x \ge 3$; the argument $d(d-1)^3/N \gg C^4 N^{5/4}/N \ge 3$ once $C$ is large.</p>
+
+<p><b>Step 2: the $\mathcal J$-ban caps the base triples.</b> For an unrelated pair $y, z \in S$, let
+$$A_{yz} := \bigl\{\, x \in S \setminus \{y,z\} \;:\; \{x,y,z\} \text{ is $R_S$-independent and } r(\{x,y,z\}) \ge 2 \,\bigr\}$$
+&mdash; the possible third bases of $S_2$-copies whose other two bases are $y, z$. We claim $A_{yz}$ is $R_S$-independent. Suppose $x, x' \in A_{yz}$ were distinct and related, with (unique) common neighbor $w$. By Lemma 3.1(2), $B$ contains an $S_2$-copy with bases $\{x, y, z\}$ and an $S_2$-copy with bases $\{x', y, z\}$. Map $J_0$ into $B$: the first distinguished copy onto the first $S_2$, the second onto the second (they share exactly the images required for $y, z$ &mdash; and possibly collide elsewhere), and $\lambda \mapsto w$ (adjacent to $x$ and $x'$, as $J_0$ demands). The identification pattern this induces on $V(J_0)$ is admissible: vertices can only collide with same-side vertices of $B$, and sides refine the two-coloring (bases and centers of both copies lie in $S$, subdivision vertices and $\lambda$'s image on the other side); each distinguished copy maps injectively (it is a genuine $S_2$-subgraph); and $x \not\approx x'$ since $x \neq x'$ in $S$. So $B$ contains the corresponding member of $\mathcal J$ as a subgraph &mdash; banned. Hence $A_{yz}$ is independent; its members are pairwise unrelated, so their $B$-neighborhoods are pairwise <i>disjoint</i>, each of size $\ge d$, all inside a vertex set of size $N$:
+$$|A_{yz}| \;\le\; \frac Nd.$$
+Let $T_S$ be the set of independent triples in $S$ with at least two common centers. Every $T \in T_S$ is counted three times &mdash; once per pair $\{y,z\} \subset T$, with its third vertex in $A_{yz}$ &mdash; so
+$$|T_S| \;=\; \frac13 \sum_{\substack{\{y,z\} \subseteq S \\ y \not\sim z}} |A_{yz}| \;\le\; \frac N{3d}\binom N2 \;\le\; \frac{N^3}{6d}. \tag{6}$$</p>
+
+<p><b>Step 3: few vertices avoid being $S_3$-centers.</b> Let $U \subseteq V(B)$ be the set of vertices that are <i>not</i> the center of any copy of $S_3$ in $B$. Regroup $C_u$ by base triples: every $S_2$-copy with center $u$ has a base triple $T \in T_S$ with $u \in L(T)$ and a second center $v \in L(T) \setminus \{u\}$, and conversely each such $(T, v)$ arises from exactly one copy (the subdivision vertices being unique witnesses). Hence
+$$C_u \;=\; \sum_{\substack{T \in T_S \\ u \in L(T)}} \bigl(r(T) - 1\bigr).$$
+If $u \in U \cap S$ and $u \in L(T)$, then $r(T) = 2$: were $r(T) \ge 3$, Lemma 3.1(2) run with three centers <i>including $u$</i> would exhibit $u$ as a center of an $S_3$-copy. So each triple contributes $r(T) - 1 = 1$ to $C_u$, and each $T \in T_S$ has at most $r(T) = 2$ members of $U \cap L(T)$; double counting over $u \in U \cap S$:
+$$|U \cap S| \cdot \min_{u \in U \cap S} C_u \;\le\; \sum_{u \in U \cap S} C_u \;\le\; 2\,|T_S|.$$
+Combining with Steps 1&ndash;2: $\;|U \cap S| \cdot \dfrac{d^{12}}{N^2} \ll \dfrac{N^3}{d}$, i.e. $|U \cap S| \ll N^5/d^{13}$. Summing over the two sides,
+$$|U| \;\ll\; \frac{N^5}{d^{13}}. \tag{7}$$</p>
+
+<p><b>Step 4: the $\mathcal K$-ban makes $U$ a vertex cover.</b> Suppose some edge $uv \in E(B)$ had $u, v \notin U$. Pick an $S_3$-copy with $u$ as a center and an $S_3$-copy with $v$ as a center. Map $K_0$ into $B$: first distinguished copy onto the first $S_3$ with $d_1 \mapsto u$, second onto the second with $d_2 \mapsto v$, bridge $d_1 d_2 \mapsto uv$. The sides work out precisely because $K_0$ reverses the second coloring: $u$ and $v$ lie on opposite sides of $B$, so the originals of the first copy lie on $u$'s side and those of the second on $v$'s side &mdash; matching the reversed template colors, and any collisions between the two copies join same-side (same-color) vertices. Injectivity on each copy and admissibility hold as in Step 2, so $B$ contains a member of $\mathcal K$ &mdash; banned. Hence every edge of $B$ meets $U$.</p>
+
+<p><b>Step 5: collision.</b> Minimum degree gives $2e(B) \ge Nd$. A vertex cover gives $e(B) \le |U| \Delta(B)$, and Lemma 3.3 gives $\Delta(B) \le N/(d-1)^2 \ll N/d^2$. Chaining (7):
+$$Nd \;\le\; 2e(B) \;\le\; 2|U|\,\Delta(B) \;\ll\; \frac{N^5}{d^{13}} \cdot \frac N{d^2} \;=\; \frac{N^6}{d^{15}}, \qquad\text{so}\qquad d^{16} \ll N^5.$$
+But Step 0 gave $d \ge \tfrac C2 N^{5/16}$, i.e. $d^{16} \ge (C/2)^{16} N^5$. For $C$ large the two are irreconcilable. Hence $m \lt C n^{21/16}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 330" width="100%" role="img" aria-label="Flowchart of the Proposition 3.4 counting cascade">
+  <defs><marker id="c10arrCas" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <g fill="none" stroke="#b8a" stroke-width="1.3">
+    <rect x="20" y="18" width="205" height="44" rx="6"/>
+    <rect x="255" y="18" width="205" height="44" rx="6"/>
+    <rect x="20" y="96" width="205" height="44" rx="6"/>
+    <rect x="255" y="96" width="205" height="44" rx="6"/>
+    <rect x="20" y="174" width="205" height="44" rx="6"/>
+    <rect x="255" y="174" width="205" height="44" rx="6"/>
+    <rect x="110" y="258" width="260" height="48" rx="6"/>
+  </g>
+  <g font-size="11.5" fill="#1a1a1a">
+    <text x="30" y="36">clean-up (Lem. 3.3): bipartite B,</text>
+    <text x="30" y="52">min degree d &#8811; N&#8309;&#8725;&#185;&#8310;</text>
+    <text x="265" y="36">walk count (Lem. 3.2):</text>
+    <text x="265" y="52">&#931; |Z&#7524;&#7525;| &#8805; d(d&#8722;1)&#179; &#8776; d&#8308;</text>
+    <text x="30" y="114">convexity: every u centers</text>
+    <text x="30" y="130">C&#7524; &#8811; d&#185;&#178;/N&#178; copies of S&#8322;</text>
+    <text x="265" y="114">&#119973;-ban: |A<tspan baseline-shift="sub" font-size="8.5">yz</tspan>| &#8804; N/d, so few</text>
+    <text x="265" y="130">base triples: |T<tspan baseline-shift="sub" font-size="8.5">S</tspan>| &#8804; N&#179;/6d</text>
+    <text x="30" y="192">squeeze: non-S&#8323;-centers</text>
+    <text x="30" y="208">are rare, |U| &#8810; N&#8309;/d&#185;&#179;</text>
+    <text x="265" y="192">&#119974;-ban: every edge</text>
+    <text x="265" y="208">must touch U</text>
+    <text x="120" y="278">collision: Nd &#8804; 2e(B) &#8804; 2|U|&#916;(B) &#8810; N&#8310;/d&#185;&#8309;</text>
+    <text x="120" y="296">forces d&#185;&#8310; &#8810; N&#8309; &mdash; impossible for d &#8811; N&#8309;&#8725;&#185;&#8310;</text>
+  </g>
+  <g stroke="#7a1f1f" stroke-width="1.5" fill="none">
+    <line x1="225" y1="40" x2="248" y2="40" marker-end="url(#c10arrCas)"/>
+    <line x1="357" y1="62" x2="130" y2="90" marker-end="url(#c10arrCas)"/>
+    <line x1="225" y1="118" x2="248" y2="118" marker-end="url(#c10arrCas)"/>
+    <line x1="357" y1="140" x2="130" y2="168" marker-end="url(#c10arrCas)"/>
+    <line x1="225" y1="196" x2="248" y2="196" marker-end="url(#c10arrCas)"/>
+    <line x1="240" y1="218" x2="240" y2="252" marker-end="url(#c10arrCas)"/>
+  </g>
+</svg><figcaption><b>The Proposition 3.4 cascade.</b> The exponent $21/16$ is exactly the balance point of the final collision: minimum degree $d \sim N^{5/16}$ makes $d^{16} \sim N^5$, and the chain of inequalities forbids anything larger. Each template ban strikes once &mdash; $\mathcal J$ makes the possible third bases pairwise unrelated (hence few), $\mathcal K$ forces the rare non-centers to cover every edge &mdash; and the two strikes together crush the edge count.</figcaption></figure>
+
+<div class="note"><b>Where does $21/16$ come from?</b> Follow the powers of $d$ (with $N$ fixed): the walk count gives $d^4$ paths, cubed by the three-subset choice into $d^{12}$ copies of $S_2$ per center; the $\mathcal J$-ban supplies only $N^3/d$ triples to host them, costing $d^{13}$ in (7); the vertex-cover step spends two more powers via $\Delta \le N/d^2$ and one via $e(B) \ge Nd/2$, reaching $d^{16} \ll N^5$. So $d$ caps at $N^{5/16}$, edges at $N \cdot N^{5/16} = N^{21/16}$. Every improvement to this bookkeeping would sharpen the theorem's $\varepsilon = 1/48$; nobody claims $21/16$ is optimal &mdash; see <a class="secref" href="#scope">&sect;13</a>.</div>

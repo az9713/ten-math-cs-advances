@@ -1,0 +1,216 @@
+<h2 id="family">3. The forbidden family: subdivisions, two templates, admissible quotients</h2>
+
+<p>The compactness counterexample needs a family $\mathcal F$ with two contradictory-sounding properties. <i>Jointly strong:</i> banning all of $\mathcal F$ must force every $n$-vertex graph below $n^{4/3 - 1/48}$ edges. <i>Individually weak:</i> for each single member there must exist graphs with $n^{4/3}$ edges avoiding it. The design that achieves this has three ingredients: a <b>subdivided complete bipartite graph</b> as the basic unit (its copies are what the counting argument of <a class="secref" href="#upper">&sect;4</a> finds in abundance), two <b>templates</b> assembling those units (each engineered to be dodged by a different finite geometry in <a class="secref" href="#quadrangle">&sect;5</a>), and closure under <b>quotients</b> &mdash; because when two overlapping unit copies are found inside a host graph, their union is not the template itself but the template with some vertices identified, and a usable ban must cover every such collapsed form.</p>
+
+<div class="def"><b>Definition 2.1 (subdivisions).</b> $K_{3,k}$ is the complete bipartite graph with classes of sizes $3$ and $k$. For $k \in \{2,3\}$, form <b>$S_k$</b> from $K_{3,k}$ by replacing each edge with a two-edge path (one new vertex per edge). Call the three original size-3-class vertices <b>bases</b>, the $k$ original vertices of the other class <b>centers</b>, and the inserted vertices <b>subdivision vertices</b>. So $|V(S_2)| = 3 + 2 + 6 = 11$ and $|V(S_3)| = 3 + 3 + 9 = 15$, and each $S_k$ carries the <i>proper two-coloring</i> (a coloring of vertices by two colors with adjacent vertices differing) in which bases and centers get color two and subdivision vertices color one.</p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 240" width="100%" role="img" aria-label="The subdivided graphs S2 and S3 with bases, centers, subdivision vertices">
+  <!-- S2 panel: bases x=45 y=45/115/185 ; centers x=205 y=80/150 ; subdivision midpoints -->
+  <g stroke="#8899aa" stroke-width="1.5">
+    <line x1="45" y1="45" x2="205" y2="80"/><line x1="45" y1="45" x2="205" y2="150"/>
+    <line x1="45" y1="115" x2="205" y2="80"/><line x1="45" y1="115" x2="205" y2="150"/>
+    <line x1="45" y1="185" x2="205" y2="80"/><line x1="45" y1="185" x2="205" y2="150"/>
+  </g>
+  <g fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2">
+    <circle cx="109" cy="59" r="5"/><circle cx="141" cy="108" r="5"/>
+    <circle cx="109" cy="101" r="5"/><circle cx="141" cy="136" r="5"/>
+    <circle cx="109" cy="143" r="5"/><circle cx="141" cy="164" r="5"/>
+  </g>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.4">
+    <circle cx="45" cy="45" r="7"/><circle cx="45" cy="115" r="7"/><circle cx="45" cy="185" r="7"/>
+    <circle cx="205" cy="80" r="7"/><circle cx="205" cy="150" r="7"/>
+  </g>
+  <text x="24" y="50" font-size="12" fill="#555">b&#8321;</text>
+  <text x="24" y="120" font-size="12" fill="#555">b&#8322;</text>
+  <text x="24" y="190" font-size="12" fill="#555">b&#8323;</text>
+  <text x="220" y="85" font-size="12" fill="#555">c&#8321;</text>
+  <text x="220" y="155" font-size="12" fill="#555">c&#8322;</text>
+  <text x="88" y="222" font-size="12.5" fill="#1a1a1a">S&#8322; (11 vertices)</text>
+  <text x="30" y="25" font-size="11.5" fill="#555">3 bases &#183; 2 centers &#183; 6 subdivision vertices</text>
+  <!-- S3 panel: bases x=285 y=45/115/185 ; centers x=445 y=45/115/185 -->
+  <g stroke="#8899aa" stroke-width="1.5">
+    <line x1="285" y1="45" x2="445" y2="45"/><line x1="285" y1="45" x2="445" y2="115"/><line x1="285" y1="45" x2="445" y2="185"/>
+    <line x1="285" y1="115" x2="445" y2="45"/><line x1="285" y1="115" x2="445" y2="115"/><line x1="285" y1="115" x2="445" y2="185"/>
+    <line x1="285" y1="185" x2="445" y2="45"/><line x1="285" y1="185" x2="445" y2="115"/><line x1="285" y1="185" x2="445" y2="185"/>
+  </g>
+  <g fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2">
+    <circle cx="365" cy="45" r="5"/><circle cx="365" cy="115" r="5"/><circle cx="365" cy="185" r="5"/>
+    <circle cx="349" cy="73" r="5"/><circle cx="381" cy="87" r="5"/>
+    <circle cx="349" cy="101" r="5"/><circle cx="381" cy="157" r="5"/>
+    <circle cx="349" cy="157" r="5"/><circle cx="381" cy="129" r="5"/>
+  </g>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.4">
+    <circle cx="285" cy="45" r="7"/><circle cx="285" cy="115" r="7"/><circle cx="285" cy="185" r="7"/>
+    <circle cx="445" cy="45" r="7"/><circle cx="445" cy="115" r="7"/><circle cx="445" cy="185" r="7"/>
+  </g>
+  <text x="330" y="222" font-size="12.5" fill="#1a1a1a">S&#8323; (15 vertices)</text>
+  <text x="300" y="25" font-size="11.5" fill="#555">3 bases &#183; 3 centers &#183; 9 subdivision vertices</text>
+</svg><figcaption><b>The basic units.</b> $S_2$ and $S_3$: complete bipartite graphs $K_{3,2}$, $K_{3,3}$ with every edge subdivided once. Blue vertices (bases $b_i$ on the left of each panel, centers $c_j$ on the right) are the originals and share color two of the proper two-coloring; orange subdivision vertices carry color one. Every base&ndash;center connection is a two-edge path, so bases and centers are at even distance &mdash; in a bipartite host graph they will land in the <i>same</i> bipartition class, which is the geometric fact <a class="secref" href="#upper">&sect;4</a> exploits relentlessly. (Here and in Figs. 7&ndash;8, subdivision vertices are drawn off-midpoint where needed so that no two coincide.)</figcaption></figure>
+
+<p>Next, the identification mechanism. We work with properly two-colored graphs, and we distinguish some subgraphs whose integrity an identification must respect.</p>
+
+<div class="def"><b>Definition 2.2 (admissible identifications).</b> Let $T$ be a properly two-colored graph with distinguished subgraphs $T_1, T_2$. An equivalence relation $\approx$ on $V(T)$ is <b>admissible</b> if
+<br>&nbsp;&nbsp;(1) $v \approx w$ implies $v$ and $w$ have the same color; and
+<br>&nbsp;&nbsp;(2) for $i \in \{1,2\}$ and $v, w \in V(T_i)$: $v \approx w$ implies $v = w$.
+<br>Write <b>$T/{\approx}$</b> for the simple graph whose vertices are the equivalence classes, with $[v][w]$ an edge whenever some representatives are adjacent in $T$ (repeated edges suppressed). Condition (1) keeps $T/{\approx}$ properly two-colored &mdash; in particular bipartite and loop-free; condition (2) makes each map $T_i \to T/{\approx}$ injective, so each distinguished subgraph survives intact as a subgraph of the quotient.</div>
+
+<p>Now the two templates. Both are drawn in Figs. 7 and 8, matching the chapter's Figure 1.</p>
+
+<div class="def"><b>Definition 2.3 (the first template $J_0$, and the family $\mathcal J$).</b> Take two copies of $S_2$ with base triples $\{x, y, z\}$ and $\{x', y, z\}$: they share the two bases $y, z$ and keep <i>all</i> other vertices distinct (in particular their subdivision vertices and centers are disjoint). Adjoin one new color-one vertex $\lambda$ adjacent to $x$ and $x'$. The result is $J_0$, with $|V(J_0)| = 2\cdot 11 - 2 + 1 = 21$ vertices; its distinguished subgraphs $T_1, T_2$ are the two $S_2$ copies. Let
+$$\mathcal J := \bigl\{\, \text{uncolored } J_0/{\approx} \;:\; \approx \text{ admissible},\ x \not\approx x' \,\bigr\}.$$
+The condition $x \not\approx x'$ keeps all four distinguished bases distinct; $\lambda$ may be identified with anything admissibility permits.</div>
+
+<figure><svg class="setupfig" viewBox="0 0 440 250" width="100%" role="img" aria-label="The template J0: two S2 copies sharing bases y,z plus a linking vertex lambda">
+  <g stroke="#8899aa" stroke-width="1.4">
+    <line x1="110" y1="55" x2="40" y2="100"/><line x1="110" y1="55" x2="40" y2="185"/>
+    <line x1="220" y1="95" x2="40" y2="100"/><line x1="220" y1="95" x2="40" y2="185"/>
+    <line x1="220" y1="210" x2="40" y2="100"/><line x1="220" y1="210" x2="40" y2="185"/>
+    <line x1="330" y1="55" x2="400" y2="100"/><line x1="330" y1="55" x2="400" y2="185"/>
+    <line x1="220" y1="95" x2="400" y2="100"/><line x1="220" y1="95" x2="400" y2="185"/>
+    <line x1="220" y1="210" x2="400" y2="100"/><line x1="220" y1="210" x2="400" y2="185"/>
+    <line x1="210" y1="28" x2="110" y2="55"/><line x1="210" y1="28" x2="330" y2="55"/>
+  </g>
+  <g fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2">
+    <circle cx="75" cy="78" r="5"/><circle cx="75" cy="120" r="5"/>
+    <circle cx="130" cy="98" r="5"/><circle cx="130" cy="140" r="5"/>
+    <circle cx="130" cy="155" r="5"/><circle cx="130" cy="198" r="5"/>
+    <circle cx="365" cy="78" r="5"/><circle cx="365" cy="120" r="5"/>
+    <circle cx="310" cy="98" r="5"/><circle cx="310" cy="140" r="5"/>
+    <circle cx="310" cy="155" r="5"/><circle cx="310" cy="198" r="5"/>
+  </g>
+  <circle cx="210" cy="28" r="6" fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2"/>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.4">
+    <circle cx="110" cy="55" r="7"/><circle cx="330" cy="55" r="7"/>
+    <circle cx="220" cy="95" r="7"/><circle cx="220" cy="210" r="7"/>
+    <circle cx="40" cy="100" r="7"/><circle cx="40" cy="185" r="7"/>
+    <circle cx="400" cy="100" r="7"/><circle cx="400" cy="185" r="7"/>
+  </g>
+  <text x="198" y="18" font-size="12.5" fill="#8a5a1a" class="v">&#955;</text>
+  <text x="98" y="43" font-size="12.5" fill="#555" class="v">x</text>
+  <text x="330" y="43" font-size="12.5" fill="#555">x&#8242;</text>
+  <text x="232" y="88" font-size="12.5" fill="#555" class="v">y</text>
+  <text x="232" y="226" font-size="12.5" fill="#555" class="v">z</text>
+  <text x="18" y="96" font-size="12" fill="#555">c&#8321;</text>
+  <text x="18" y="204" font-size="12" fill="#555">c&#8322;</text>
+  <text x="410" y="96" font-size="12" fill="#555">c&#8242;&#8321;</text>
+  <text x="410" y="204" font-size="12" fill="#555">c&#8242;&#8322;</text>
+</svg><figcaption><b>The template $J_0$ (21 vertices).</b> Left half: an $S_2$ with bases $\{x,y,z\}$ and centers $c_1, c_2$; right half: an $S_2$ with bases $\{x', y, z\}$ and centers $c_1', c_2'$; the two copies share exactly the bases $y$ and $z$. The color-one vertex $\lambda$ (orange, top) is adjacent to $x$ and $x'$ directly. In <a class="secref" href="#upper">&sect;4</a>, $\lambda$ will play the role of a <i>common neighbor witnessing that $x$ and $x'$ are &ldquo;related&rdquo;</i> &mdash; the whole template is a photograph of the configuration whose abundance must be capped.</figcaption></figure>
+
+<div class="def"><b>Definition 2.4 (the second template $K_0$, and the family $\mathcal K$).</b> Take disjoint copies $S_3^{(1)}, S_3^{(2)}$ of $S_3$, <i>reversing the two-coloring on the second copy</i> (its bases and centers get color one, its subdivision vertices color two). Add a single edge $d_1 d_2$ between a specified center $d_1$ of the first copy and a specified center $d_2$ of the second &mdash; a legal edge precisely because the reversal puts $d_1$ and $d_2$ in opposite colors. The result is $K_0$, with $|V(K_0)| = 15 + 15 = 30$; its distinguished subgraphs are $S_3^{(1)}, S_3^{(2)}$. Let $\mathcal K$ consist of the uncolored graphs $K_0/{\approx}$ for all admissible $\approx$.</div>
+
+<figure><svg class="setupfig" viewBox="0 0 440 240" width="100%" role="img" aria-label="The template K0: two S3 copies with reversed colorings joined by the edge d1 d2">
+  <g stroke="#8899aa" stroke-width="1.4">
+    <line x1="35" y1="60" x2="185" y2="60"/><line x1="35" y1="60" x2="185" y2="130"/><line x1="35" y1="60" x2="185" y2="200"/>
+    <line x1="35" y1="130" x2="185" y2="60"/><line x1="35" y1="130" x2="185" y2="130"/><line x1="35" y1="130" x2="185" y2="200"/>
+    <line x1="35" y1="200" x2="185" y2="60"/><line x1="35" y1="200" x2="185" y2="130"/><line x1="35" y1="200" x2="185" y2="200"/>
+    <line x1="405" y1="60" x2="255" y2="60"/><line x1="405" y1="60" x2="255" y2="130"/><line x1="405" y1="60" x2="255" y2="200"/>
+    <line x1="405" y1="130" x2="255" y2="60"/><line x1="405" y1="130" x2="255" y2="130"/><line x1="405" y1="130" x2="255" y2="200"/>
+    <line x1="405" y1="200" x2="255" y2="60"/><line x1="405" y1="200" x2="255" y2="130"/><line x1="405" y1="200" x2="255" y2="200"/>
+    <line x1="185" y1="130" x2="255" y2="130" stroke="#c0392b" stroke-width="2.4"/>
+  </g>
+  <g fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2">
+    <circle cx="110" cy="60" r="5"/><circle cx="110" cy="130" r="5"/><circle cx="110" cy="200" r="5"/>
+    <circle cx="95" cy="88" r="5"/><circle cx="125" cy="88" r="5"/>
+    <circle cx="95" cy="116" r="5"/><circle cx="125" cy="116" r="5"/>
+    <circle cx="95" cy="158" r="5"/><circle cx="125" cy="158" r="5"/>
+  </g>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.4">
+    <circle cx="35" cy="60" r="7"/><circle cx="35" cy="130" r="7"/><circle cx="35" cy="200" r="7"/>
+    <circle cx="185" cy="60" r="7"/><circle cx="185" cy="130" r="7"/><circle cx="185" cy="200" r="7"/>
+  </g>
+  <!-- second copy: reversed colors -->
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.2">
+    <circle cx="330" cy="60" r="5"/><circle cx="330" cy="130" r="5"/><circle cx="330" cy="200" r="5"/>
+    <circle cx="315" cy="88" r="5"/><circle cx="345" cy="88" r="5"/>
+    <circle cx="315" cy="116" r="5"/><circle cx="345" cy="116" r="5"/>
+    <circle cx="315" cy="158" r="5"/><circle cx="345" cy="158" r="5"/>
+  </g>
+  <g fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.4">
+    <circle cx="405" cy="60" r="7"/><circle cx="405" cy="130" r="7"/><circle cx="405" cy="200" r="7"/>
+    <circle cx="255" cy="60" r="7"/><circle cx="255" cy="130" r="7"/><circle cx="255" cy="200" r="7"/>
+  </g>
+  <text x="12" y="65" font-size="12" fill="#555">u&#8321;</text>
+  <text x="12" y="135" font-size="12" fill="#555">u&#8322;</text>
+  <text x="12" y="205" font-size="12" fill="#555">u&#8323;</text>
+  <text x="176" y="48" font-size="12" fill="#555">c&#8321;</text>
+  <text x="170" y="152" font-size="12" fill="#555">d&#8321;</text>
+  <text x="176" y="220" font-size="12" fill="#555">c&#8323;</text>
+  <text x="248" y="48" font-size="12" fill="#555">c&#8242;&#8321;</text>
+  <text x="254" y="152" font-size="12" fill="#555">d&#8322;</text>
+  <text x="248" y="220" font-size="12" fill="#555">c&#8242;&#8323;</text>
+  <text x="414" y="65" font-size="12" fill="#555">u&#8242;&#8321;</text>
+  <text x="414" y="135" font-size="12" fill="#555">u&#8242;&#8322;</text>
+  <text x="414" y="205" font-size="12" fill="#555">u&#8242;&#8323;</text>
+  <text x="184" y="118" font-size="11.5" fill="#c0392b">the bridge d&#8321;d&#8322;</text>
+  <text x="60" y="30" font-size="11.5" fill="#555">S&#8323;&#8317;&#185;&#8318;: originals blue</text>
+  <text x="270" y="30" font-size="11.5" fill="#555">S&#8323;&#8317;&#178;&#8318;: coloring reversed</text>
+</svg><figcaption><b>The template $K_0$ (30 vertices).</b> Two disjoint copies of $S_3$ joined by the single red edge $d_1 d_2$ between specified centers. The two-coloring of the second copy is <i>reversed</i> (its originals are orange, its subdivision vertices blue) &mdash; without the reversal, $d_1$ and $d_2$ would share a color and the bridge would break proper two-coloredness. In <a class="secref" href="#upper">&sect;4</a> this template photographs the configuration &ldquo;an edge of the host whose two endpoints are each the center of an $S_3$&rdquo;: the host is bipartite, the endpoints of an edge lie in opposite classes, and the color reversal is exactly what makes the photograph match.</figcaption></figure>
+
+<div class="def"><b>Definition 2.5 (the forbidden family).</b>
+$$\mathcal F \;:=\; \{C_4,\ C_6\} \,\cup\, \mathcal J \,\cup\, \mathcal K. \tag{4}$$</div>
+
+<p>Before using $\mathcal F$ we record its basic hygiene &mdash; the properties Theorem 1.1 claims for its members. (This is a &ldquo;Fact&rdquo;-grade statement in the paper's economy; we prove it since it costs three lines each.)</p>
+
+<div class="lem"><b>Lemma E (housekeeping).</b> $\mathcal F$ is a finite nonempty family; every member is connected, bipartite, and contains a cycle.</div>
+
+<div class="proof">
+<p><i>Finite:</i> there are finitely many equivalence relations on the vertex sets of $J_0$ (21 vertices) and $K_0$ (30 vertices). <i>Bipartite:</i> $C_4, C_6$ are even cycles; quotient members inherit the proper two-coloring by Definition 2.2(1). <i>Connected:</i> each $S_k$ is connected (it is a subdivided connected graph); $J_0$ is connected since its two copies share $y, z$ and $\lambda$ hangs off $x$; $K_0$ is connected through the bridge $d_1d_2$; and any quotient of a connected graph is connected. <i>Cycles:</i> by Definition 2.2(2), each member of $\mathcal J$ contains an injective image of the $S_2$ copy $T_1$, hence a copy of $S_2$ as a subgraph; likewise each member of $\mathcal K$ contains $S_3 \supseteq S_2$. And $S_2$ contains the eight-cycle $b_1\, s_{11}\, c_1\, s_{21}\, b_2\, s_{22}\, c_2\, s_{12}$ through two bases and both centers. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Why close under quotients at all? Fig. 9 animates the point. Suppose the counting argument of <a class="secref" href="#upper">&sect;4</a> locates, inside a host graph $B$, two copies of $S_2$ sharing bases $y, z$, with distinct third bases $x, x'$ joined through a common neighbor $w$. The union of all that is a graph <i>homomorphic</i> to $J_0$ (send $\lambda \mapsto w$), but the two copies may also have collided in some subdivision vertices or centers &mdash; the union is $J_0$ with vertices identified. If only $J_0$ itself were forbidden, such collisions would let the configuration slip through the ban. Closing $\mathcal F$ under all admissible identifications seals every escape route, while conditions (1)&ndash;(2) of Definition 2.2 keep the quotients bipartite and keep the two unit copies recognizable &mdash; which <a class="secref" href="#quadrangle">&sect;5</a> needs when it argues that the <i>geometries</i> avoid every quotient.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 440 260" width="100%" role="img" aria-label="Animation: an admissible identification collapsing J0 to a quotient">
+  <g stroke="#8899aa" stroke-width="1.4">
+    <line x1="110" y1="65" x2="40" y2="110"/><line x1="110" y1="65" x2="40" y2="195"/>
+    <line x1="220" y1="105" x2="40" y2="110"/><line x1="220" y1="105" x2="40" y2="195"/>
+    <line x1="220" y1="220" x2="40" y2="110"/>
+    <line x1="330" y1="65" x2="400" y2="110"/><line x1="330" y1="65" x2="400" y2="195"/>
+    <line x1="220" y1="105" x2="400" y2="110"/><line x1="220" y1="105" x2="400" y2="195"/>
+    <line x1="220" y1="220" x2="400" y2="110"/>
+    <line x1="210" y1="38" x2="110" y2="65"><animate attributeName="x1" values="210;210;365;365" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/><animate attributeName="y1" values="38;38;88;88" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/></line>
+    <line x1="210" y1="38" x2="330" y2="65"><animate attributeName="x1" values="210;210;365;365" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/><animate attributeName="y1" values="38;38;88;88" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/></line>
+    <!-- the two z-side subdivision edges that merge -->
+    <line x1="220" y1="220" x2="130" y2="208"><animate attributeName="x2" values="130;130;220;220" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/><animate attributeName="y2" values="208;208;244;244" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/></line>
+    <line x1="130" y1="208" x2="40" y2="195"><animate attributeName="x1" values="130;130;220;220" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/><animate attributeName="y1" values="208;208;244;244" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/></line>
+    <line x1="220" y1="220" x2="310" y2="208"><animate attributeName="x2" values="310;310;220;220" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/><animate attributeName="y2" values="208;208;244;244" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/></line>
+    <line x1="310" y1="208" x2="400" y2="195"><animate attributeName="x1" values="310;310;220;220" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/><animate attributeName="y1" values="208;208;244;244" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/></line>
+  </g>
+  <!-- static subdivision vertices (the ones not moving) -->
+  <g fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2">
+    <circle cx="75" cy="88" r="5"/><circle cx="75" cy="130" r="5"/>
+    <circle cx="130" cy="108" r="5"/><circle cx="130" cy="150" r="5"/>
+    <circle cx="130" cy="165" r="5"/>
+    <circle cx="365" cy="130" r="5"/>
+    <circle cx="310" cy="108" r="5"/><circle cx="310" cy="150" r="5"/>
+    <circle cx="310" cy="165" r="5"/>
+  </g>
+  <!-- lambda: merges onto the x'-c1' subdivision vertex at (365,88) -->
+  <circle cx="365" cy="88" r="5" fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2"/>
+  <circle cx="210" cy="38" r="6" fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.4">
+    <animate attributeName="cx" values="210;210;365;365" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="38;38;88;88" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/>
+  </circle>
+  <!-- the two merging z-subdivision vertices -->
+  <circle cx="130" cy="208" r="5" fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2">
+    <animate attributeName="cx" values="130;130;220;220" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="208;208;244;244" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="310" cy="208" r="5" fill="#e8a33d" stroke="#8a5a1a" stroke-width="1.2">
+    <animate attributeName="cx" values="310;310;220;220" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="208;208;244;244" keyTimes="0;0.2;0.65;1" dur="9s" repeatCount="indefinite"/>
+  </circle>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.4">
+    <circle cx="110" cy="65" r="7"/><circle cx="330" cy="65" r="7"/>
+    <circle cx="220" cy="105" r="7"/><circle cx="220" cy="220" r="7"/>
+    <circle cx="40" cy="110" r="7"/><circle cx="40" cy="195" r="7"/>
+    <circle cx="400" cy="110" r="7"/><circle cx="400" cy="195" r="7"/>
+  </g>
+  <text x="196" y="28" font-size="12.5" fill="#8a5a1a" class="v">&#955;</text>
+  <text x="98" y="53" font-size="12.5" fill="#555" class="v">x</text>
+  <text x="330" y="53" font-size="12.5" fill="#555">x&#8242;</text>
+  <text x="232" y="98" font-size="12.5" fill="#555" class="v">y</text>
+  <text x="204" y="224" font-size="12.5" fill="#555" class="v">z</text>
+  <text x="16" y="230" font-size="11.5" fill="#555">two orange vertices from different copies may merge;</text>
+  <text x="16" y="246" font-size="11.5" fill="#555">two from the SAME copy never do (Def. 2.2(2))</text>
+</svg><figcaption><b>Quotients in action</b> (animated; the layout of Fig. 7 redrawn slightly). Over the loop, $\lambda$ merges into the subdivision vertex on the $x'\!-\!c_1'$ path (both color one, and not in a common distinguished copy &mdash; admissible) and the two subdivision vertices on the $z\!-\!c_2$ and $z\!-\!c_2'$ paths merge with each other (color one, different copies). The result is a member of $\mathcal J$ with 19 vertices instead of 21. All such collapses, over both templates, make up $\mathcal J \cup \mathcal K$; if your browser suppresses motion, the frame shown is the collapsed quotient.</figcaption></figure>

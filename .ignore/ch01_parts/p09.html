@@ -1,0 +1,130 @@
+<h2 id="ansatz">9. Upper bound I &mdash; the Mellin ansatz: shells and polynomials</h2>
+
+<p>Now the construction. Bridge two (Proposition G) asks for three radial Schwartz functions &mdash; a Fourier pair $f_-, f_+ = \widehat{f_-}$ with $f_+ \gt 0$, and a self-Fourier $f_0$ vanishing at the origin &mdash; whose sign transitions all happen at a common radius $R_{\epsilon,d} = (1/\pi + o(1))\sqrt d$. Thanks to &sect;6 we never touch $\mathbb{R}^d$ again: we design the <i>Mellin data</i> $X(t)$ directly, and Fourier symmetry is just the reflection identity of Proposition T.</p>
+
+<h3 id="blueprint">9.1 The Gaussian benchmark, and the target</h3>
+
+<p>The seed is the Gaussian. For $g_G(r) = 2\pi^{\lambda/2}e^{-\pi r^2}$, the substitution $t = \pi r^2$ in the Mellin integral gives
+$$X_{g_G}(t) = \mathcal Mg_G(\lambda - it) = 2\pi^{\lambda/2}\cdot\frac{\Gamma\bigl(\frac{\lambda-it}{2}\bigr)}{2\,\pi^{(\lambda-it)/2}} = \pi^{it/2}\,\Gamma\Bigl(\frac{\lambda - it}{2}\Bigr) \;=:\; E_\lambda^G(t),$$
+and one checks in one line (as in Proposition T's proof) that $m_\lambda(t)E^G_\lambda(-t) = E^G_\lambda(t)$: the Gaussian's Mellin data is <i>self-reflective</i>, the multiplier-language statement of $\widehat{g_G} = g_G$. Two consequences shape everything:</p>
+<ul>
+<li><b>Freedom.</b> Multiplying $E^G_\lambda$ by any <i>even</i> entire factor preserves the reflection symmetry. Our ansatz will be $E_\lambda(t) = E^G_\lambda(t)\,e^{\lambda h_\epsilon(t/\lambda)}$ with $h_\epsilon$ even &mdash; a huge but structured design space.</li>
+<li><b>Benchmark.</b> Where does the untouched Gaussian data "live"? The saddle-point analysis of <a class="secref" href="#saddlegeo">&sect;10</a> attaches to each contour height $u$ a radius $e^{v(u)}$ where the Mellin integrand is stationary; for the Gaussian at the critical height $u = 1$ this radius is $(1 + o(1))\sqrt{d/2\pi} \approx 0.3989\sqrt d$. That is <i>bigger</i> than the target $\sqrt d/\pi \approx 0.3183\sqrt d$. The entire game of this section: engineer $h_\epsilon$ to drag the transition radius down by the factor
+$$e^{-\frac12\log\frac\pi2} = \sqrt{2/\pi}, \qquad \frac{1}{\sqrt{2\pi}}\cdot\sqrt{\frac2\pi} = \frac1\pi. \tag{33}$$
+The number $\tfrac12\log(\pi/2)$ &mdash; the same constant that capped the obstruction in Lemma 3.4 &mdash; is the exact amount of "displacement" available. The two halves of the chapter meet in this constant.</li>
+</ul>
+
+<h3 id="dilations">9.2 What the perturbation does physically: dilation pairs</h3>
+
+<p>The perturbation will be built from multipliers $\cos(a t/\lambda) - 1$, $a \gt 0$. These have a concrete meaning back in radius space. Since dilation acts on Mellin data by $\mathcal M[g(e^{\pm a/\lambda}\,\cdot)](\lambda - it) = e^{\mp a}e^{\pm iat/\lambda}\mathcal Mg(\lambda-it)$ (substitute $r \mapsto re^{\mp a/\lambda}$), the symmetric combination gives
+$$\cos\bigl(\tfrac{at}{\lambda}\bigr)\,X_g(t) \;\longleftrightarrow\; \frac{e^{a}\,g\bigl(re^{a/\lambda}\bigr) + e^{-a}\,g\bigl(re^{-a/\lambda}\bigr)}{2},$$
+so $\cos(at/\lambda) - 1$ replaces $g$ by an <i>average of two dilates minus itself</i> &mdash; a second-difference in log-radius, at log-scale $a/\lambda$, with compensating amplitude factors $e^{\pm a}$ that preserve the Mellin normalization at $t = 0$. Figure 23 animates the pair. A measure $w(a)\,da$ of such multipliers exponentiates into the <b>Mellin perturbation</b> (eq. (36))
+$$h_\epsilon(\zeta) \;=\; \int_0^\infty w(a)\,\bigl(\cos(a\zeta) - 1\bigr)\,da,$$
+an even entire function of $\zeta$ whenever $w$ is compactly supported. The designer's control knob is the <b>signed density</b> $w$.</p>
+
+<figure><!--FIG:fig_dilate_anim--><figcaption>The dilation pair behind the multiplier $\cos(at/\lambda) - 1$ (here $\lambda = 4$; the parameter $a$ sweeps $0 \to 1.2 \to 0$): the red curve is the two-sided dilate average $\frac12(e^a g(re^{a/\lambda}) + e^{-a}g(re^{-a/\lambda}))$ of the gray profile $g$. A signed density $w(a)$ of such moves, exponentiated, is the entire design space of the construction. Frozen frame under reduced motion.</figcaption></figure>
+
+<h3 id="idealw">9.3 The ideal density, and its exact displacement</h3>
+
+<p>Two effects compete. At contour height $u$, a density $w$ <b>displaces</b> the stationary log-radius by $\int_0^\infty w(a)\,a\sinh(ua)\,da$ (this drops out of the saddle equation (44) in &sect;10) &mdash; negative $w$ at $u \gt 0$ pulls the radius <i>inward</i>, which is what we want. But $w$ also eats into the <b>damping</b> that keeps the saddle analysis valid: on the critical contour $u = 1$, after dividing by $\lambda$, the Gaussian envelope supplies damping with density $e^{-2a}/(2a^2)$ per unit $a$ (the $\lambda\to\infty$ limit of $\mu_{\lambda,2}(a)/\lambda$, see (37) below), while the perturbation contributes $w(a)\cosh a$. A sufficient pointwise budget is therefore
+$$|w(a)|\,\cosh a \;\le\; \frac{e^{-2a}}{2a^2},$$
+and the greatest inward displacement within the budget is achieved by saturating it with the negative sign (eq. (32)):
+$$w_*(a) \;=\; -\,\frac{e^{-2a}}{2a^2\,\cosh a}.$$
+How much does it buy? Exactly the constant we need:</p>
+
+<div class="lem" id="lemdisp"><b>Lemma V (the displacement integral; eq. (32)).</b>
+$$\int_0^\infty w_*(a)\,a\,\sinh a\,da \;=\; -\frac12\int_0^\infty \frac{e^{-2a}\tanh a}{a}\,da \;=\; -\frac12\log\frac\pi2.$$</div>
+<div class="proof">
+<p>The first equality is algebra: $w_*(a)\,a\sinh a = -e^{-2a}\tanh(a)/(2a)$. For the integral $F(s) = \int_0^\infty e^{-sa}\tanh(a)\,a^{-1}\,da$ (convergent for $s \gt 0$; $\tanh a/a \le 1$), differentiate in $s$:
+$$-F'(s) = \int_0^\infty e^{-sa}\tanh a\,da = \int_0^\infty e^{-sa}\Bigl(1 - \frac{2}{e^{2a}+1}\Bigr)da = \frac1s - 2\sum_{k\ge0}(-1)^k\int_0^\infty e^{-(s+2k+2)a}\,da = \frac1s - \sum_{k\ge0}\frac{(-1)^k}{\frac s2 + k + 1},$$
+expanding $\frac{2}{e^{2a}+1} = 2e^{-2a}\sum_{k\ge0}(-1)^ke^{-2ka}$ (alternating, dominated). The alternating sum telescopes into digammas via Proposition Q's series, splitting even and odd $k$:
+$$\sum_{k\ge0}\frac{(-1)^k}{k+x} = \sum_{j\ge0}\Bigl(\frac1{2j+x} - \frac1{2j+1+x}\Bigr) = \frac12\Bigl(\psi\Bigl(\frac{x+1}2\Bigr) - \psi\Bigl(\frac x2\Bigr)\Bigr),$$
+here with $x = \tfrac s2 + 1$. Hence $F'(s) = -\frac1s + \frac12\bigl(\psi(\tfrac s4 + 1) - \psi(\tfrac s4 + \tfrac12)\bigr)$, and integrating,
+$$F(s) = -\log s + 2\Bigl(\log\Gamma\bigl(\tfrac s4 + 1\bigr) - \log\Gamma\bigl(\tfrac s4 + \tfrac12\bigr)\Bigr) + C.$$
+Fix $C$ by $s \to \infty$: $F(s) \le 1/s \to 0$, while $\log\Gamma(\tfrac s4+1) - \log\Gamma(\tfrac s4+\tfrac12) = \tfrac12\psi(\xi_s)$ for some $\xi_s \in (\tfrac s4+\tfrac12, \tfrac s4+1)$ (mean value theorem), $= \tfrac12\log(s/4) + o(1)$ by Proposition Q(iii); so $0 = -\log s + \log(s/4) + C$, giving $C = \log 4$. Evaluate at $s = 2$, using $\Gamma(\tfrac32) = \tfrac12\Gamma(\tfrac12) = \tfrac{\sqrt\pi}2$ (Lemma O):
+$$F(2) = -\log2 + 2\log\Gamma\bigl(\tfrac32\bigr) - 2\log\Gamma(1) + \log4 = \log2 + \log\frac\pi4 = \log\frac\pi2.$$
+(Numerical check <code>c01</code>: both sides $= 0.2257913526\ldots$ to $30$ digits.) <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Plugging Lemma V into (33): the Gaussian radius $\sqrt{d/2\pi}$, displaced by $e^{-\frac12\log(\pi/2)}$, lands exactly on $\sqrt d/\pi$. So <i>if</i> the ideal density $w_*$ were usable, the construction would finish. It is not usable as is: near $a = 0$ it has infinite mass ($|w_*| \sim 1/2a^2$), and it saturates the damping budget with zero margin, killing the strict decay a Schwartz function needs. The fix is surgical.</p>
+
+<h3 id="shells">9.4 The two shells (eqs. (34)&ndash;(35))</h3>
+
+<p>Fix $\epsilon \gt 0$ small, <i>before</i> $d \to \infty$; constants tagged $O_\epsilon$, $\ll_\epsilon$ may depend on $\epsilon$ but never on $d$. The construction uses one negative shell (a truncated, tapered $w_*$) and one far-away positive shell, with parameters</p>
+$$a_0 = \epsilon^2, \quad A = \log\frac1\epsilon, \quad B = \epsilon^{-3}, \quad u_0 = 1 + \frac\epsilon4, \quad U = 1 + \frac\epsilon2, \quad q_\epsilon = \frac{(u_0 - 1) + (U-1)}{2}, \quad Q = e^{-q_\epsilon B},$$
+$$b(a) = 1 - 2\epsilon(1+a), \qquad \beta = u_0 - 1, \tag{34}$$
+$$w_s(a) = -\,b(a)\,\frac{e^{-2a}}{2a^2\cosh a}\,\mathbf 1_{[a_0,A]}(a), \qquad w_B(a) = \frac{Q}{\cosh a}\,\mathbf 1_{[B,B+1]}(a), \qquad w = w_s + w_B. \tag{35}$$
+
+<figure><!--FIG:fig_shells--><figcaption>The negative shell $w_s$ (red) against the ideal $w_*$ (gray dashes), for $\epsilon = 0.1$: truncated to $[a_0, A] = [\epsilon^2, \log(1/\epsilon)]$ and tapered by $b(a) = 1 - 2\epsilon(1+a)$, which buys a damping margin of order $\epsilon$. The positive shell $w_B$ lives far off-screen on $[B, B+1] = [1000, 1001]$ with the tiny amplitude $Q = e^{-q_\epsilon B}$; its job is not displacement but far-contour damping (&sect;10).</figcaption></figure>
+
+<p>Figure 24 shows the negative shell against the ideal. The design constraints behind (34), each visible in Lemma 4.2 below: $a_0 = o(\epsilon)$ and $e^{-2A}/A = o(\epsilon)$ make the truncated ends of the displacement integral negligible; $\epsilon A = o(1)$ lets the taper absorb the factor $e^{\epsilon a}$ that appears on contours slightly above $u = 1$; $A = o(B)$ separates the shells. The positive-shell amplitude $Q = e^{-q_\epsilon B}$ is tuned so that its exponential slope $q_\epsilon$ sits strictly <i>between</i> the two contour heights $u_0 - 1$ and $U - 1$: below $u_0$ the shell is invisible (it must not move the target saddle), above $U$ it dominates everything (it must supply damping when the gamma envelope no longer can). Finally $\beta = u_0 - 1$ will place the polynomial sign transition exactly at the target saddle. Also define the <b>gamma damping density</b> (eq. (37))</p>
+$$\mu_{\lambda,\eta}(a) \;=\; \frac{e^{-\eta a}}{a\,\bigl(1 - e^{-2a/\lambda}\bigr)} \qquad (a \gt 0,\ \eta \gt 0),$$
+<p>which &sect;10 will identify (via Lemma R) as the exact L&eacute;vy density of the gamma envelope; note $\mu_{\lambda,\eta}(a) \approx \lambda e^{-\eta a}/(2a^2)$ for $a \ll \lambda$, recovering the $e^{-2a}/2a^2$ budget at $\eta = 2$ after division by $\lambda$.</p>
+
+<div class="lem" id="lem42box"><b>Lemma 4.2 (the shells do their jobs).</b> There are absolute constants $\epsilon_0, c, C \gt 0$ such that for every $0 \lt \epsilon \lt \epsilon_0$:
+<br>(i) <i>(damping margin)</i> for every $\lambda \gt 0$, $-1 \lt u \le U$, and $a \in [a_0, A]$:
+$$\lambda\,|w_s(a)|\,\cosh(ua) \;\le\; (1 - c\epsilon)\,\mu_{\lambda,1+u}(a);$$
+<br>(ii) <i>(displacement intact)</i> $\displaystyle\int_{a_0}^{A} w_s(a)\,a\sinh(u_0a)\,da = -\tfrac12\log\tfrac\pi2 + O(\epsilon)$, with absolute implied constant;
+<br>(iii) <i>(positive shell invisible at $u_0$)</i> $\displaystyle 0 \le \int_B^{B+1}w_B(a)\,a\sinh(u_0a)\,da \le Ce^{-c/\epsilon^2}$;
+<br>(iv) <i>(separations)</i> $BQe^{(u_0-1)B} \le Ce^{-c/\epsilon^2}$ and $C_0Q^{-1}e^{-(U-1)(B-A)} \le Ce^{-c/\epsilon^2}$, where $C_0 = A + a_0^{-1}$.</div>
+<div class="proof">
+<p>(ii) Compare with the ideal $w_*$ at $u = 1$ and account for four discrepancies. The omitted ends, using $\tanh a \le \min(a,1)$ so $|w_*(a)|a\sinh a = e^{-2a}\tanh(a)/2a \le \min(1, e^{-2a}/2a)$:
+$$\int_0^{a_0}|w_*|a\sinh a\,da = O(a_0), \qquad \int_A^\infty |w_*|a\sinh a\,da = O\bigl(e^{-2A}/A\bigr),$$
+both $o(\epsilon)$ by (34) ($a_0 = \epsilon^2$; $e^{-2A}/A = \epsilon^2/\log(1/\epsilon)$). The taper changes the integral by
+$$\int_{a_0}^A(1 - b(a))\,|w_*(a)|\,a\sinh a\,da \le 2\epsilon\int_0^\infty(1+a)\,\frac{e^{-2a}\tanh a}{2a}\,da = O(\epsilon).$$
+Moving the evaluation height from $1$ to $u_0 = 1 + \epsilon/4$: by the mean value theorem, $|\sinh(u_0a) - \sinh a| \le \tfrac\epsilon4\,a\cosh(u_0a)$, so
+$$\int_{a_0}^A |w_s(a)|\,a\,\bigl|\sinh(u_0a) - \sinh a\bigr|\,da \;\ll\; \epsilon\int_0^\infty e^{-2a}\,\frac{\cosh(u_0a)}{\cosh a}\,da \;\ll\; \epsilon.$$
+Now Lemma V finishes: the exact ideal integral is $-\tfrac12\log(\pi/2)$, and all corrections are $O(\epsilon)$. (Numerical check <code>c15</code>: at $\epsilon = 0.1$ the shell integral is $-0.158$ against the ideal $-0.226$ &mdash; an $O(\epsilon)$ gap with visible constant, exactly as claimed.)</p>
+<p>(i) Divide the shell by the budget:
+$$\frac{\lambda|w_s(a)|\cosh(ua)}{\mu_{\lambda,1+u}(a)} = b(a)\,\Theta_\lambda(a)\,e^{(u-1)a}\,\frac{\cosh(ua)}{\cosh a}, \qquad \Theta_\lambda(a) = \frac{1 - e^{-2a/\lambda}}{2a/\lambda} \in (0,1]$$
+($\Theta_\lambda \le 1$ by $1 - e^{-x} \le x$). For $-1 \lt u \le 1$: both $e^{(u-1)a} \le 1$ and $\cosh(ua) \le \cosh a$, so the ratio is at most $b(a) \le 1 - 2\epsilon$. For $1 \le u \le U = 1 + \epsilon/2$: the elementary inequality $\cosh(ua) \le e^{(u-1)a}\cosh a$ (write $ua = a + (u-1)a$ and expand $\cosh$ of a sum) bounds the ratio by $b(a)e^{2(u-1)a} \le b(a)e^{\epsilon a}$. Since $\epsilon a \le \epsilon A = \epsilon\log(1/\epsilon) = o(1)$ on the shell,
+$$b(a)e^{\epsilon a} = \bigl(1 - 2\epsilon(1+a)\bigr)\bigl(1 + \epsilon a + O(\epsilon^2a^2)\bigr) \le 1 - 2\epsilon - \epsilon a + O(\epsilon^2(1+a)^2) \le 1 - c\epsilon$$
+for small $\epsilon$, uniformly on $[a_0, A]$. (Numerical check <code>c14</code>: the worst margin over a $(u,a)$ grid at $\epsilon = 0.1$ is $0.21 \gt 0$.)</p>
+<p>(iii)&ndash;(iv) On the positive shell, $\sinh(u_0a)/\cosh a \le e^{(u_0-1)a}$, so the integral in (iii) is at most $(B{+}1)Qe^{(u_0-1)(B+1)}$. Since $q_\epsilon$ is the midpoint of $u_0 - 1 = \epsilon/4$ and $U - 1 = \epsilon/2$,
+$$Qe^{(u_0-1)B} = e^{-(q_\epsilon - (u_0-1))B} = e^{-\epsilon B/8} = e^{-\epsilon^{-2}/8}, \qquad Q^{-1}e^{-(U-1)B} = e^{-(U - 1 - q_\epsilon)B} = e^{-\epsilon^{-2}/8}.$$
+The prefactors $B + 1$, $C_0 = A + a_0^{-1} = O(\epsilon^{-2})$, and $e^{(U-1)A} = O(1)$ grow only polynomially in $1/\epsilon$, so both separation quantities and the shell integral are $O(e^{-c/\epsilon^2})$. (Check <code>c16</code>: at $\epsilon = 0.1$ they are $4\times10^{-3}$ and $4\times10^{-4}$; at $\epsilon = 0.05$, below $10^{-17}$.) <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="envelope">9.5 The envelope, the polynomials, and the three functions (eq. (38))</h3>
+
+<p>Assemble the Mellin data. The <b>envelope</b> is the Gaussian data times the shell perturbation; the <b>sign polynomials</b> attach the intended signs; the functions are recovered by Mellin inversion (Lemma N):</p>
+<div class="keyresult">
+$$E_\lambda(t) = \pi^{it/2}\,\Gamma\Bigl(\frac{\lambda-it}{2}\Bigr)\,e^{\lambda h_\epsilon(t/\lambda)}, \qquad
+\begin{aligned}
+P_\pm(\zeta) &= 1 + \zeta^2 + \beta \pm i\zeta(1+\zeta^2),\\[2pt]
+P_0(\zeta) &= -(1+\zeta^2),
+\end{aligned} \qquad
+\begin{aligned}
+X_{f_j}(t) &= E_\lambda(t)\,P_j(t/\lambda),\\[2pt]
+f_j(r) &= \frac{r^{-\lambda}}{2\pi}\int_{\mathbb{R}} X_{f_j}(t)\,r^{it}\,dt,
+\end{aligned}
+\tag{38}$$
+for $j \in \{-, 0, +\}$.
+</div>
+
+<p>The polynomials are reverse-engineered from three requirements. <i>Reflection:</i> $P_-(-\zeta) = P_+(\zeta)$ and $P_0$ even &mdash; check by inspection; combined with the envelope's symmetry this will give $\widehat{f_-} = f_+$ and $\widehat{f_0} = f_0$. <i>The first pole:</i> the origin values of the $f_j$ come from the gamma pole at $t = -i\lambda$, i.e. $\zeta = t/\lambda = -i$; there
+$$P_\pm(-i) = \beta \gt 0, \qquad P_0(-i) = 0$$
+($\zeta = -i$ gives $\zeta^2 = -1$, so $1 + \zeta^2 = 0$ and only the constant $\beta$ survives in $P_\pm$, while $P_0(-i) = -(1+\zeta^2) = 0$): so $f_\pm(0)$ will be equal and positive while $f_0(0) = 0$ &mdash; exactly Proposition G's normalization, hard-wired. <i>Signs on the saddle branch:</i> on the imaginary axis $\zeta = iu$ (which &sect;10 will show governs the sign of $f_j$ at radius $e^{v(u)}$), with $1 + \zeta^2 = 1 - u^2$ and $i\zeta = -u$ (eq. (39)):
+$$P_+(iu) = \beta + (1-u)^2(1+u), \qquad P_-(iu) = \beta + (1-u)(1+u)^2, \qquad P_0(iu) = u^2 - 1.$$
+Figure 25 plots the three. $P_+(iu) \gt 0$ for every $u \gt -1$ ($f_+$ must be positive <i>everywhere</i>); $P_-(iu)$ crosses from $+$ to $-$ just past $u = 1$ (at $u_0 = 1 + \epsilon/4$, $\beta = \epsilon/4$ gives $P_-(iu_0) = \tfrac\epsilon4(1 - (2+\tfrac\epsilon4)^2) \lt 0$); and $P_0(iu) = u^2 - 1$ flips at exactly $u = 1$, with $P_0(iu_0) \gt 0$. Check <code>c13</code> confirms the values and the reflection identity.</p>
+
+<figure><!--FIG:fig_poly--><figcaption>The sign polynomials on the imaginary axis (39), for $\epsilon = 0.1$ ($\beta = 0.025$): $P_+$ (blue) stays positive on the whole branch $u \gt -1$; $P_-$ (red) turns negative just past $u = 1$; $P_0$ (green) flips at exactly $u = 1$. The saddle analysis of &sect;10&ndash;11 transfers precisely these signs to $f_+, f_-, f_0$ at radius $e^{v(u)}$ &mdash; producing a positive Fourier partner, a certificate that goes negative at the target radius, and a self-Fourier function that goes positive there.</figcaption></figure>
+
+<div class="lem" id="lem43box"><b>Lemma 4.3 (the functions exist and have the right symmetries).</b> For every sufficiently small $\epsilon \gt 0$ and every integer $d \ge 1$ (with $\lambda = d/2$), the inverse Mellin integrals (38) define functions $f_j \in \mathcal S_{\mathrm{rad}}(\mathbb{R}^d;\mathbb{R})$, $j \in \{-,0,+\}$, satisfying
+$$\widehat{f_-} = f_+, \qquad \widehat{f_0} = f_0, \qquad f_-(0) = f_+(0) = 2\pi^{\lambda/2}e^{\lambda h_\epsilon(i)}\beta \gt 0, \qquad f_0(0) = 0. \tag{40, 42}$$</div>
+<div class="proof">
+<p><i>Decay of the data.</i> $w$ has compact support, so $h_\epsilon$ is entire, and on a horizontal line $t = s + i\tau$,
+$$\bigl|h_\epsilon\bigl((s+i\tau)/\lambda\bigr)\bigr| \le 2\int_0^\infty|w(a)|\cosh(a\tau/\lambda)\,da,$$
+bounded on every fixed strip $|\tau| \le \tau_0$ (uniformly in $s$: $|\cos(a\zeta) - 1| \le 2\cosh(a\operatorname{Im}\zeta)$). The gamma factor decays like $e^{-\pi|s|/4}$ on horizontal lines (Import 2, vertical decay of $\Gamma((\lambda - it)/2)$: the argument has imaginary part $-s/2$), and $P_j(t/\lambda)$ grows polynomially (degree $3$), so for $\tau$ in compact intervals avoiding the poles,
+$$|X_{f_j}(s+i\tau)| \le C_{d,\epsilon,\tau}\,(1+|s|)^{(\lambda+\tau-1)/2+3}\,e^{-\pi|s|/4}. \tag{†}$$</p>
+<p><i>Smoothness and decay of $f_j$.</i> By (†) the inversion integral converges absolutely, and vertical sides of rectangular contours vanish. Shifting the contour <i>up</i> to $\operatorname{Im}t = \tau$ (no poles above the real line) gives $|f_j(r)| \le C_\tau r^{-\lambda - \tau}$ for every $\tau \gt 0$ &mdash; and the same after multiplying the integrand by powers of $t$ (which is what differentiating $r^{it}$ in $\log r$ produces), so $f_j(r)$ decays at $\infty$ faster than any power, together with all derivatives. Shifting <i>down</i> crosses the poles of $\Gamma((\lambda - it)/2)$ at $\frac{\lambda - it}{2} = -n$, i.e. $t = -i(\lambda + 2n)$, $n = 0, 1, 2, \dots$; the residue computation yields, after shifting below the first $N+1$ poles: near $t_n = -i(\lambda+2n)$, Lemma O(a) gives $\Gamma\bigl(\frac{\lambda-it}{2}\bigr) \approx \frac{(-1)^n/n!}{(\lambda-it)/2 + n} = \frac{(-1)^n/n!}{(-i/2)(t - t_n)}$, the downward shift picks up $-2\pi i$ times the $t$-residue of $X_{f_j}(t)r^{it}/(2\pi r^{\lambda})$, and $\pi^{it_n/2} = \pi^{(\lambda+2n)/2}$, $r^{it_n} = r^{\lambda + 2n}$ combine to
+$$f_j(r) = \sum_{n=0}^{N} 2\pi^{\lambda/2+n}\,r^{2n}\,\frac{(-1)^n}{n!}\,e^{\lambda h_\epsilon(-i(1+2n/\lambda))}\,P_j\bigl(-i(1+2n/\lambda)\bigr) \;+\; O\bigl(r^{2N+2}\bigr) \tag{41}$$
+near $r = 0$. An expansion in even powers of $r$ with remainder of arbitrarily high order means precisely that $f_j$ extends to a smooth radial function at the origin (each truncation is a polynomial in $|x|^2$). Combined with the rapid decay, $f_j \in \mathcal S_{\mathrm{rad}}$.</p>
+<p><i>Reality.</i> On the real line, $X_{f_j}(-t) = \overline{X_{f_j}(t)}$: the gamma factor by conjugation symmetry (Lemma O(c)), $\pi^{-it/2} = \overline{\pi^{it/2}}$, $h_\epsilon$ real and even on $\mathbb{R}$, and $P_j(-\tau) = \overline{P_j(\tau)}$ for real $\tau$ (real coefficients in $\zeta^2$ and $i\zeta$). Hence the inversion integral is real: pair $t$ with $-t$.</p>
+<p><i>Fourier symmetries (40).</i> Since $h_\epsilon$ is even, the envelope inherits the Gaussian's reflection property: $m_\lambda(t)E_\lambda(-t) = E_\lambda(t)$. Now apply Proposition T to the (already established) radial Schwartz function $f_-$:
+$$X_{\widehat{f_-}}(t) = m_\lambda(t)\,X_{f_-}(-t) = m_\lambda(t)E_\lambda(-t)\,P_-(-t/\lambda) = E_\lambda(t)\,P_+(t/\lambda) = X_{f_+}(t),$$
+using $P_-(-\zeta) = P_+(\zeta)$. Equal Mellin data on the critical line forces $\widehat{f_-} = f_+$ by Mellin inversion (Lemma N). The same computation with the even $P_0$ gives $\widehat{f_0} = f_0$.</p>
+<p><i>Origin values (42).</i> The $n = 0$ term of (41): $h_\epsilon(-i) = h_\epsilon(i)$ (even), $P_\pm(-i) = \beta$, $P_0(-i) = 0$, so $f_\pm(0) = 2\pi^{\lambda/2}e^{\lambda h_\epsilon(i)}\beta \gt 0$ and $f_0(0) = 0$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>What remains &mdash; the actual work of &sect;10&ndash;11 &mdash; is the sign analysis: proving that $f_+(r) \gt 0$ for <i>all</i> $r$, and that $f_-$ and $f_0$ have their last sign changes at $e^{v(u_0)} = (1/\pi + o_\epsilon(1))\sqrt d$.</p>

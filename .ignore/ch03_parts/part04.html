@@ -1,0 +1,226 @@
+<h2 id="leavitt">5. The binary Leavitt algebra and its elementary groups</h2>
+
+<p>Analysis is over; from here the work is exact algebra, and every identity is both proved by hand and re-checked by machine in <a class="secref" href="#numerics">&sect;9</a>. Recall the ring from (1):
+$$R \;=\; L_{\mathbb F_2}(1,2) \;=\; \mathbb F_2\bigl\langle\, s_0, s_1, t_0, t_1 \;\big|\; t_i s_j = \delta_{ij},\; s_0 t_0 + s_1 t_1 = 1 \,\bigr\rangle.$$
+Coefficients are mod $2$, so $+$ and $-$ coincide &mdash; a convenience we will exploit repeatedly. Since $R$ is generated as a ring by finitely many elements over a finite field, $R$ is countable, and so is its unit group $R^\times$.</p>
+
+<h3 id="stringmodel">5.1 The string model: what the generators do</h3>
+
+<p>The relations become transparent in a concrete representation. Let $W$ be the $\mathbb F_2$-vector space with one basis vector $e_\omega$ for each infinite binary string $\omega \in \{0,1\}^{\mathbb N}$, and define linear operators
+$$s_i\, e_\omega = e_{i\omega}, \qquad t_i\, e_{j\omega} = \delta_{ij}\, e_\omega \qquad (i, j \in \{0,1\}).$$
+So $s_i$ <b>prepends</b> the bit $i$, while $t_i$ <b>deletes</b> a leading $i$ when present and kills the vector otherwise (Fig. 15).</p>
+
+<div class="prop"><b>Proposition I.</b> These formulas satisfy the defining relations of $R$, so they extend to a representation of $R$ on $W$; and $R$ is infinite.</div>
+
+<div class="proof">
+<p>Check each relation on every basis vector. $t_i s_j e_\omega = t_i e_{j\omega} = \delta_{ij} e_\omega$, which is the first family. For the second, split by the leading bit: $(s_0 t_0 + s_1 t_1) e_{0\omega} = s_0 e_\omega + 0 = e_{0\omega}$, and symmetrically on $e_{1\omega}$; every basis vector starts with $0$ or $1$, so $s_0t_0 + s_1t_1$ acts as the identity. A map of generators preserving defining relations extends to the whole finitely presented ring. For infinitude: the operators $s_0^k$ send $e_{111\cdots}$ to the distinct vectors $e_{0^k 111\cdots}$, so the elements $s_0^k \in R$ have distinct images, hence are distinct. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 260" width="100%" role="img" aria-label="Animated: s0 prepends a bit descending the tree, t0 deletes it; t1 kills a string starting with 0">
+  <defs><marker id="c3arrT5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2a7d2a"/></marker></defs>
+  <!-- binary tree -->
+  <g stroke="#8899aa" stroke-width="1.3" fill="none">
+    <line x1="240" y1="40" x2="130" y2="95"/><line x1="240" y1="40" x2="350" y2="95"/>
+    <line x1="130" y1="95" x2="75" y2="150"/><line x1="130" y1="95" x2="185" y2="150"/>
+    <line x1="350" y1="95" x2="295" y2="150"/><line x1="350" y1="95" x2="405" y2="150"/>
+    <line x1="75" y1="150" x2="47" y2="200"/><line x1="75" y1="150" x2="103" y2="200"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.2">
+    <circle cx="240" cy="40" r="6"/><circle cx="130" cy="95" r="6"/><circle cx="350" cy="95" r="6"/>
+    <circle cx="75" cy="150" r="6"/><circle cx="185" cy="150" r="6"/><circle cx="295" cy="150" r="6"/><circle cx="405" cy="150" r="6"/>
+  </g>
+  <g font-size="11" fill="#555">
+    <text x="167" y="58">0</text><text x="305" y="58">1</text>
+    <text x="88" y="115">0</text><text x="168" y="115">1</text>
+    <text x="308" y="115">0</text><text x="388" y="115">1</text>
+  </g>
+  <text x="228" y="24" font-size="12" fill="#555">root = empty word; a string &#969; is a downward path</text>
+  <!-- s0 arrow: token moving down-left from root -->
+  <circle r="8" fill="#2a7d2a" fill-opacity="0.85">
+    <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1;0;0" keyTimes="0;0.1;0.35;0.6;0.85;1" path="M240,40 L130,95"/>
+  </circle>
+  <path d="M218,60 Q180,60 152,78" stroke="#2a7d2a" stroke-width="1.6" fill="none" marker-end="url(#c3arrT5)"/>
+  <text x="150" y="46" font-size="12" fill="#2a7d2a">s&#8320;: prepend 0 (descend)</text>
+  <text x="42" y="238" font-size="12" fill="#2a7d2a">s&#8320;e&#969; = e&#8320;&#969; &mdash; always defined, never collides: t&#8320;s&#8320; = 1</text>
+  <!-- t0 arrow up -->
+  <path d="M162,78 Q200,78 228,60" stroke="#c0392b" stroke-width="1.6" fill="none" marker-end="url(#c3arrT5)" transform="translate(0,40)"/>
+  <text x="196" y="146" font-size="12" fill="#c0392b">t&#8320;: delete leading 0 (ascend)</text>
+  <text x="42" y="256" font-size="12" fill="#c0392b">t&#8321;e&#8320;&#969; = 0 (wrong branch kills) &mdash; but s&#8320;t&#8320; + s&#8321;t&#8321; = 1: the two branches reassemble everything</text>
+</svg><figcaption><b>The string model</b> (animated: a token descends the $0$-edge under $s_0$ and returns under $t_0$). Infinite binary strings are downward paths from the root; $s_i$ prepends bit $i$, $t_i$ deletes it (or kills the vector if the string starts with the other bit). $t_is_j = \delta_{ij}$ says &ldquo;delete after prepend&rdquo; is clean; $s_0t_0 + s_1t_1 = 1$ says the two branches together recover everything &mdash; the algebraic form of the self-similarity $\{0,1\}^{\mathbb N} \cong \{0,1\}^{\mathbb N} \sqcup \{0,1\}^{\mathbb N}$.</figcaption></figure>
+
+<p>The same relations, packaged as rectangular matrices $S = (s_0 \; s_1)$ and $T = \binom{t_0}{t_1}$, read $ST = 1$ and $TS = I_2$: mutually inverse module maps between $R$ and $R^2$. So $R \cong R^2$ <i>as right $R$-modules</i> &mdash; the dimension-cheating self-similarity promised in <a class="secref" href="#hook">&sect;0</a> (an isomorphism of modules, not of unital rings). Everything below is this one identity, iterated along binary words.</p>
+
+<h3 id="prefixcalc">5.2 Word calculus and prefix codes</h3>
+
+<p>For a finite binary word $a = i_1 \cdots i_r$ define
+$$s_a = s_{i_1} \cdots s_{i_r}, \qquad t_a = t_{i_r} \cdots t_{i_1}, \qquad e_a = s_a t_a,$$
+with empty products equal to $1$. In the string model, $s_a$ prepends the word $a$, $t_a$ deletes it (killing strings that do not start with $a$), and $e_a$ is the <b>projection onto the cylinder $[a]$</b>: it fixes $e_\omega$ for $\omega \in [a]$ and kills the rest. Recall from <a class="secref" href="#thompsonv">&sect;2.1</a>: a <b>prefix code</b> $E = (a_1, \dots, a_q)$ lists words none of which is a prefix of another; it is <b>complete</b> if the cylinders $[a_i]$ partition all infinite strings. Write $e_E = \sum_i e_{a_i}$.</p>
+
+<div class="lem"><b>Lemma J (word calculus).</b> For finite binary words $a, b$:
+<ol>
+<li>$t_a s_b = s_{b'}$ if $b = ab'$; $\;t_a s_b = t_{a'}$ if $a = ba'$; $\;t_a s_b = 0$ if $a, b$ are prefix-incomparable. In particular, for a prefix code, $t_{a_i} s_{a_j} = \delta_{ij}$.</li>
+<li>$(s_{a_i} t_{a_j})(s_{a_k} t_{a_l}) = \delta_{jk}\, s_{a_i} t_{a_l}$ &mdash; the operators $s_{a_i} t_{a_j}$ multiply like matrix units $E_{ij}$.</li>
+<li>$e_a = e_{a0} + e_{a1}$; and $e_E = 1$ for every complete prefix code $E$.</li>
+</ol></div>
+
+<div class="proof">
+<p>(1) Peel one letter at a time: $t_a s_b = t_{i_r}\cdots t_{i_1} s_{j_1} \cdots s_{j_m}$ where $a = i_1\cdots i_r$, $b = j_1 \cdots j_m$. The innermost pair $t_{i_1}s_{j_1}$ is $\delta_{i_1 j_1}$ by the defining relation; if the letters agree it vanishes into $1$ and the next pair meets. Repeat while letters agree. If a disagreement occurs before either word is exhausted, a factor $t_is_j = 0$ ($i \neq j$) appears and everything is $0$ &mdash; that is the incomparable case. If $b$ runs out first (i.e., $b$ is a prefix of $a$, $a = ba'$), the leftover is $t_{a'}$; if $a$ runs out first ($b = ab'$), the leftover is $s_{b'}$. For a prefix code, distinct words are incomparable, giving $\delta_{ij}$.</p>
+<p>(2) $(s_{a_i} t_{a_j})(s_{a_k} t_{a_l}) = s_{a_i}(t_{a_j}s_{a_k})t_{a_l} = \delta_{jk} s_{a_i}t_{a_l}$ by (1).</p>
+<p>(3) $e_{a0} + e_{a1} = s_a s_0 t_0 t_a + s_a s_1 t_1 t_a = s_a(s_0t_0 + s_1t_1)t_a = s_a t_a = e_a$. For completeness: every complete prefix code arises from the one-word code $(\varepsilon)$ (empty word, $e_\varepsilon = 1$) by repeatedly replacing a word $a$ with its children $a0, a1$ &mdash; each cylinder $[a_i]$ of a complete code is reached by finitely many splits, and conversely any full set of splits keeps the cylinders a partition. Each split preserves $e_E$ by the identity just proved, so $e_E = 1$ throughout. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Part (2) is the pivotal observation: <b>a prefix code with $q$ words plants a full $q \times q$ system of matrix units inside $R$</b>. Fig. 16 draws it. That is how matrix groups will live inside the unit group of a ring that never mentions matrices.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="A prefix code turns corner pieces of R into a full system of matrix units">
+  <defs><marker id="c3arrMU" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- left: code cylinders -->
+  <g stroke="#8899aa" stroke-width="1.3" fill="none">
+    <line x1="95" y1="35" x2="45" y2="80"/><line x1="95" y1="35" x2="145" y2="80"/>
+    <line x1="45" y1="80" x2="20" y2="125"/><line x1="45" y1="80" x2="70" y2="125"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.1">
+    <circle cx="95" cy="35" r="5"/><circle cx="45" cy="80" r="5"/>
+  </g>
+  <rect x="4" y="125" width="34" height="22" rx="4" fill="#7da7d9" fill-opacity="0.4" stroke="#2e5a8a"/>
+  <rect x="54" y="125" width="34" height="22" rx="4" fill="#7fbf8f" fill-opacity="0.4" stroke="#2a7d2a"/>
+  <rect x="128" y="80" width="36" height="22" rx="4" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+  <text x="10" y="141" font-size="11">a&#8321;=00</text>
+  <text x="60" y="141" font-size="11">a&#8322;=01</text>
+  <text x="136" y="96" font-size="11">a&#8323;=1</text>
+  <text x="14" y="175" font-size="11.5" fill="#555">complete code E = (00, 01, 1)</text>
+  <line x1="185" y1="115" x2="225" y2="115" stroke="#555" stroke-width="1.7" marker-end="url(#c3arrMU)"/>
+  <!-- right: 3x3 matrix unit grid -->
+  <g stroke="#8899aa" stroke-width="1.1" fill="none">
+    <rect x="250" y="40" width="180" height="150" rx="4"/>
+    <line x1="250" y1="90" x2="430" y2="90"/><line x1="250" y1="140" x2="430" y2="140"/>
+    <line x1="310" y1="40" x2="310" y2="190"/><line x1="370" y1="40" x2="370" y2="190"/>
+  </g>
+  <g font-size="11.5" fill="#1a1a1a">
+    <text x="258" y="68">s&#8320;&#8320;t&#8320;&#8320;</text><text x="318" y="68">s&#8320;&#8320;t&#8320;&#8321;</text><text x="378" y="68">s&#8320;&#8320;t&#8321;</text>
+    <text x="258" y="118">s&#8320;&#8321;t&#8320;&#8320;</text><text x="318" y="118">s&#8320;&#8321;t&#8320;&#8321;</text><text x="378" y="118">s&#8320;&#8321;t&#8321;</text>
+    <text x="258" y="168">s&#8321;t&#8320;&#8320;</text><text x="318" y="168">s&#8321;t&#8320;&#8321;</text><text x="378" y="168">s&#8321;t&#8321;</text>
+  </g>
+  <text x="250" y="215" font-size="11.5" fill="#555">(s<tspan baseline-shift="sub" font-size="8">a&#7522;</tspan>t<tspan baseline-shift="sub" font-size="8">a&#8342;</tspan>)(s<tspan baseline-shift="sub" font-size="8">a&#8348;</tspan>t<tspan baseline-shift="sub" font-size="8">a&#8343;</tspan>) = &#948;<tspan baseline-shift="sub" font-size="8">jk</tspan> s<tspan baseline-shift="sub" font-size="8">a&#7522;</tspan>t<tspan baseline-shift="sub" font-size="8">a&#8343;</tspan> &mdash; exactly the rule E&#7522;&#8342;E&#8348;&#8343; = &#948;&#8342;&#8348;E&#7522;&#8343;</text>
+  <text x="250" y="235" font-size="11.5" fill="#7a1f1f">diagonal sums to 1 when E is complete: matrices of size q now live inside R itself</text>
+  <text x="270" y="26" font-size="12" fill="#555">matrix units E&#7522;&#8342; &#8592; s<tspan baseline-shift="sub" font-size="8">a&#7522;</tspan>t<tspan baseline-shift="sub" font-size="8">a&#8342;</tspan></text>
+</svg><figcaption><b>Matrix units from a prefix code.</b> For the complete code $E = (00, 01, 1)$, the nine products $s_{a_i}t_{a_j}$ multiply exactly like the elementary matrices $E_{ij}$ of $M_3$ (Lemma J(2)), and the diagonal sums to $1$ (Lemma J(3)). Self-similarity manufactures matrix algebra of every size inside the one ring $R$.</figcaption></figure>
+
+<h3 id="theta">5.3 The corner isomorphism $\Theta_E$</h3>
+
+<p>Write $M_q(R)$ for $q \times q$ matrices over $R$, and recall $e_E = \sum_i e_{a_i}$ is an idempotent ($e_{a_i}e_{a_j} = \delta_{ij}e_{a_i}$ by Lemma J(2)), so $e_E R e_E$ is a (nonunital, unless $e_E = 1$) ring with unit $e_E$.</p>
+
+<div class="prop"><b>Proposition (the chapter's equation (2), generalized).</b> For any prefix code $E = (a_1, \dots, a_q)$, the map
+$$\Theta_E : M_q(R) \longrightarrow e_E R e_E, \qquad (r_{ij}) \longmapsto \sum_{i,j} s_{a_i}\, r_{ij}\, t_{a_j}$$
+is a ring isomorphism sending $I_q \mapsto e_E$, with inverse $x \mapsto (t_{a_i} x\, s_{a_j})_{i,j}$. If $E$ is complete, $e_E = 1$ and $\Theta_E : M_q(R) \xrightarrow{\;\sim\;} R$ is a unital ring isomorphism.</div>
+
+<div class="proof">
+<p><i>Multiplicative:</i> $\Theta_E(r)\Theta_E(r') = \sum_{i,j,k,l} s_{a_i} r_{ij} (t_{a_j} s_{a_k}) r'_{kl} t_{a_l} = \sum_{i,j,l} s_{a_i} r_{ij} r'_{jl} t_{a_l} = \Theta_E(rr')$, using $t_{a_j}s_{a_k} = \delta_{jk}$ (Lemma J(1)). Additivity is clear, and $\Theta_E(I_q) = \sum_i s_{a_i}t_{a_i} = e_E$.</p>
+<p><i>Inverse:</i> for a matrix $(r_{ij})$, $t_{a_k} \Theta_E(r)\, s_{a_l} = \sum_{i,j} (t_{a_k}s_{a_i})\, r_{ij}\, (t_{a_j}s_{a_l}) = r_{kl}$. Conversely, for $x \in e_E R e_E$,
+$$\sum_{k,l} s_{a_k}(t_{a_k} x s_{a_l})t_{a_l} = \Bigl(\sum_k e_{a_k}\Bigr) x \Bigl(\sum_l e_{a_l}\Bigr) = e_E\, x\, e_E = x.$$
+So the two maps are mutually inverse bijections between $M_q(R)$ and $e_E R e_E$. When $E$ is complete, $e_E = 1$ (Lemma J(3)). <span class="qed">&#8718;</span></p>
+</div>
+
+<p>When $E$ is <i>not</i> complete, a unit $h$ of the corner ring $e_E R e_E$ (meaning $hh' = h'h = e_E$ for some $h'$) still yields a unit of all of $R$: the <b>corner-unit extension</b> $h + 1 - e_E$, with inverse $h' + 1 - e_E$ &mdash; multiply out, using $h e_E = e_E h = h$, and the cross terms vanish. In the string model, $h + 1 - e_E$ acts as $h$ inside the cylinders of $E$ and as the identity outside. (Characteristic $2$: $1 - e_E = 1 + e_E$; we keep writing the minus sign for readability.)</p>
+
+<h3 id="elemgroups">5.4 Elementary groups inside $R^\times$, and property (T)</h3>
+
+<div class="def"><b>Definition (elementary groups; elementary prefix groups).</b> For a unital ring $A$ and $q \ge 2$, $\mathrm{GL}_q(A)$ is the group of invertible $q \times q$ matrices, and $\mathrm{EL}_q(A) \le \mathrm{GL}_q(A)$ is the subgroup generated by the <b>elementary matrices</b> $x_{ij}(r) = I_q + r E_{ij}$ for $i \neq j$, $r \in A$ ($E_{ij}$ = matrix unit; $x_{ij}(r)$ is invertible with inverse $x_{ij}(-r)$). For a prefix code $E = (a_1, \dots, a_q)$, the <b>elementary prefix group</b> is
+$$\mathrm{EL}_E(R) \;=\; \bigl\langle\, 1 + s_{a_i} r\, t_{a_j} \;:\; i \neq j,\; r \in R \,\bigr\rangle \;\le\; R^\times,$$
+and its generators $1 + s_{a_i} r t_{a_j}$ are called <b>elementary $E$-roots</b>. (Each is a unit: its inverse is $1 - s_{a_i}rt_{a_j} = 1 + s_{a_i}rt_{a_j}$ in characteristic $2$ &mdash; the square is $1$ since $(s_{a_i}rt_{a_j})^2 = s_{a_i}r(t_{a_j}s_{a_i})rt_{a_j} = 0$ for $i \neq j$.)</p></div>
+
+<p>The corner-unit extension identifies the two pictures: for $i \neq j$,
+$$(1 - e_E) + \Theta_E(I_q + rE_{ij}) \;=\; (1 - e_E) + e_E + s_{a_i}rt_{a_j} \;=\; 1 + s_{a_i} r\, t_{a_j},$$
+so $\mathrm{EL}_E(R)$ is precisely the copy of $\mathrm{EL}_q(R)$ acting inside the cylinders of $E$ and identically outside; in particular $\mathrm{EL}_E(R) \cong \mathrm{EL}_q(R)$.</p>
+
+<div class="lem"><b>Lemma L (Steinberg identities, and finite generation).</b> In $\mathrm{EL}_q(A)$ for any unital ring $A$:
+<ol>
+<li>$x_{ij}(r)\,x_{ij}(r') = x_{ij}(r + r')$;</li>
+<li>$[x_{ij}(r),\, x_{jk}(r')] = x_{ik}(rr')$ for $i, j, k$ distinct, where $[x, y] = xyx^{-1}y^{-1}$.</li>
+</ol>
+Consequently, if $q \ge 3$ and $A$ is generated as a unital ring by a finite set $Z$, then $\mathrm{EL}_q(A)$ is generated by the finitely many elementary matrices $x_{ij}(z)$, $z \in Z \cup \{1\}$, $i \neq j$. For $A = R$, $Z = \{s_0, s_1, t_0, t_1\}$: the groups $\mathrm{EL}_q(R)$, $q \ge 3$, and hence all $\mathrm{EL}_E(R)$ with $|E| \ge 3$, are finitely generated.</div>
+
+<div class="proof">
+<p>(1) $(I + rE_{ij})(I + r'E_{ij}) = I + (r + r')E_{ij} + rr' E_{ij}E_{ij}$ and $E_{ij}E_{ij} = 0$ for $i \neq j$. (2) Expand: with $P = rE_{ij}$, $Q = r'E_{jk}$, one has $PQ = rr'E_{ik}$, $QP = 0$, $P^2 = Q^2 = (PQ)P = Q(PQ) = 0$; then
+$$(I+P)(I+Q)(I-P)(I-Q) = (I + P + Q + PQ)(I - P - Q + QP) = I + PQ$$
+by direct expansion, all higher products vanishing. (This is where three distinct indices are needed &mdash; with only two, $QP \neq 0$.)</p>
+<p>Generation: let $H \le \mathrm{EL}_q(A)$ be the subgroup generated by the $x_{ij}(z)$, $z \in Z \cup \{1\}$, and let $A_0 = \{r \in A : x_{ij}(r) \in H \text{ for all } i \neq j\}$. By (1), $A_0$ is closed under addition (and contains $0$, as $x_{ij}(0) = I$); by (2) with a third index $k$ (available since $q \ge 3$), $A_0$ is closed under multiplication; it contains $Z$ and $1$. The closure of $Z \cup \{1\}$ under $+$ and $\times$ is all of $A$ (over $\mathbb F_2$, ring-generation needs no extra scalars). So $A_0 = A$ and $H = \mathrm{EL}_q(A)$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Now the deep input that makes these groups useful: the Ershov&ndash;Jaikin-Zapirain theorem, a vast ring-theoretic generalization of Kazhdan's &ldquo;$\mathrm{SL}_{d \ge 3}(\mathbb Z)$ has property (T)&rdquo;:</p>
+
+<div class="note"><b>Import 3 (Ershov&ndash;Jaikin-Zapirain) [EJ10, Thm. 1.1].</b> Let $A$ be any finitely generated associative unital ring and $n \ge 3$. Then $\mathrm{EL}_n(A)$ has property (T). (Their theorem covers the &ldquo;noncommutative universal lattices&rdquo; $\mathrm{EL}_n(\mathbb Z\langle x_1,\dots,x_k\rangle)$; every $\mathrm{EL}_n(A)$ with $A$ finitely generated is a quotient of one of these, and property (T) passes to quotients.)</div>
+
+<h3 id="ninecode">5.5 The nine-leaf code and the groups $G$ and $\Gamma$</h3>
+
+<p>The specific configuration uses three prefix blocks of three words each (the chapter's equation (14)):
+$$\alpha = (000,\, 001,\, 01), \qquad \beta = (1000,\, 1001,\, 101), \qquad \nu = (1100,\, 1101,\, 111),$$
+$$D = (\alpha_1, \alpha_2, \alpha_3,\, \beta_1, \beta_2, \beta_3,\, \nu_1, \nu_2, \nu_3). \tag{14}$$
+The $\alpha$-cylinders partition $[0]$, the $\beta$-cylinders partition $[10]$, and the $\nu$-cylinders partition $[11]$ (check each by two splits: e.g.&nbsp;$[10] = [100] \sqcup [101] = [1000] \sqcup [1001] \sqcup [101]$). Hence $D$ is a <b>complete</b> nine-leaf code, while $\alpha$ is an incomplete code covering exactly $[0]$ (Fig. 17). Define
+$$G \;=\; \mathrm{EL}_D(R) \;\cong\; \mathrm{EL}_9(R), \qquad \Gamma \;=\; \mathrm{EL}_\alpha(R) \;\cong\; \mathrm{EL}_3(R).$$</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 265" width="100%" role="img" aria-label="The nine-leaf prefix code D: alpha block under [0], beta under [10], nu under [11]">
+  <g stroke="#8899aa" stroke-width="1.3" fill="none">
+    <line x1="240" y1="30" x2="120" y2="72"/><line x1="240" y1="30" x2="360" y2="72"/>
+    <line x1="120" y1="72" x2="60" y2="118"/><line x1="120" y1="72" x2="180" y2="118"/>
+    <line x1="60" y1="118" x2="32" y2="164"/><line x1="60" y1="118" x2="88" y2="164"/>
+    <line x1="360" y1="72" x2="300" y2="118"/><line x1="360" y1="72" x2="420" y2="118"/>
+    <line x1="300" y1="118" x2="266" y2="164"/><line x1="300" y1="118" x2="334" y2="164"/>
+    <line x1="266" y1="164" x2="244" y2="208"/><line x1="266" y1="164" x2="288" y2="208"/>
+    <line x1="420" y1="118" x2="392" y2="164"/><line x1="420" y1="118" x2="448" y2="164"/>
+    <line x1="392" y1="164" x2="370" y2="208"/><line x1="392" y1="164" x2="414" y2="208"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.1">
+    <circle cx="240" cy="30" r="5"/><circle cx="120" cy="72" r="5"/><circle cx="360" cy="72" r="5"/>
+    <circle cx="60" cy="118" r="5"/><circle cx="300" cy="118" r="5"/><circle cx="420" cy="118" r="5"/>
+    <circle cx="266" cy="164" r="5"/><circle cx="392" cy="164" r="5"/>
+  </g>
+  <g font-size="10.5" fill="#555">
+    <text x="168" y="46">0</text><text x="306" y="46">1</text>
+  </g>
+  <!-- alpha leaves (blue) -->
+  <g>
+    <rect x="14" y="164" width="38" height="30" rx="5" fill="#7da7d9" fill-opacity="0.45" stroke="#2e5a8a"/>
+    <rect x="70" y="164" width="38" height="30" rx="5" fill="#7da7d9" fill-opacity="0.45" stroke="#2e5a8a"/>
+    <rect x="162" y="118" width="38" height="30" rx="5" fill="#7da7d9" fill-opacity="0.45" stroke="#2e5a8a"/>
+  </g>
+  <g font-size="10.5" fill="#1a1a1a">
+    <text x="20" y="177">000</text><text x="24" y="189">&#945;&#8321;</text>
+    <text x="76" y="177">001</text><text x="80" y="189">&#945;&#8322;</text>
+    <text x="172" y="131">01</text><text x="172" y="143">&#945;&#8323;</text>
+  </g>
+  <!-- beta leaves (teal) -->
+  <g>
+    <rect x="226" y="208" width="40" height="30" rx="5" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+    <rect x="272" y="208" width="40" height="30" rx="5" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+    <rect x="318" y="164" width="38" height="30" rx="5" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+  </g>
+  <g font-size="10.5" fill="#1a1a1a">
+    <text x="230" y="221">1000</text><text x="238" y="233">&#946;&#8321;</text>
+    <text x="276" y="221">1001</text><text x="284" y="233">&#946;&#8322;</text>
+    <text x="326" y="177">101</text><text x="330" y="189">&#946;&#8323;</text>
+  </g>
+  <!-- nu leaves (ochre) -->
+  <g>
+    <rect x="352" y="208" width="40" height="30" rx="5" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+    <rect x="398" y="208" width="40" height="30" rx="5" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+    <rect x="432" y="164" width="36" height="30" rx="5" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+  </g>
+  <g font-size="10.5" fill="#1a1a1a">
+    <text x="356" y="221">1100</text><text x="364" y="233">&#957;&#8321;</text>
+    <text x="402" y="221">1101</text><text x="410" y="233">&#957;&#8322;</text>
+    <text x="438" y="177">111</text><text x="442" y="189">&#957;&#8323;</text>
+  </g>
+  <text x="20" y="256" font-size="11.5" fill="#555">&#945; partitions [0] &#8226; &#946; partitions [10] &#8226; &#957; partitions [11] &#8226; together: complete nine-leaf code D</text>
+  <text x="20" y="30" font-size="12" fill="#7a1f1f">G = EL<tspan baseline-shift="sub" font-size="9">D</tspan>(R) &#8773; EL&#8329;(R)</text>
+  <text x="20" y="48" font-size="12" fill="#2e5a8a">&#915; = EL<tspan baseline-shift="sub" font-size="9">&#945;</tspan>(R) &#8773; EL&#8323;(R)</text>
+</svg><figcaption><b>The nine-leaf code $D$</b> of equation (14): three blocks of three leaves, partitioning $[0]$ (blue, the $\alpha$-block), $[10]$ (teal, $\beta$), and $[11]$ (ochre, $\nu$). $G$ is the elementary group of the whole code; $\Gamma$ is the elementary group of the $\alpha$-block alone. Nine leaves because the construction of <a class="secref" href="#config">&sect;7</a> needs three blocks that two contractions can shuffle; any rank $\ge 3$ per block would do.</figcaption></figure>
+
+<p>Three bookkeeping facts, each one line:</p>
+
+<ul>
+<li><b>$e_\alpha = e_0$:</b> $e_{000} + e_{001} + e_{01} = e_{00} + e_{01} = e_0$ by Lemma J(3) twice. So $\Gamma$'s corner is the cylinder $[0]$: via $\Theta_D$, $\Gamma = \{\Theta_D(\mathrm{diag}(A, I_6)) : A \in \mathrm{EL}_3(R)\}$ &mdash; the block-diagonal copy acting on the three $\alpha$-leaves and fixing the six others.</li>
+<li><b>$\Gamma \le G$:</b> every elementary $\alpha$-root $1 + s_{\alpha_i} r t_{\alpha_j}$ is literally an elementary $D$-root ($\alpha$-leaves are $D$-leaves), so the generators of $\Gamma$ lie among the generators of $G$. Hence $\Gamma \le G \le R^\times$.</li>
+<li><b>Both are infinite:</b> for fixed distinct leaves $a, b$, the map $r \mapsto 1 + s_a r t_b$ is an injective homomorphism from the infinite additive group $(R, +)$ into the elementary group (Lemma L(1) gives the homomorphism property; injectivity because $t_a(s_a r t_b)s_b = r$ recovers $r$).</li>
+</ul>
+
+<div class="keyresult"><b>Milestone.</b> $\Gamma \le G \le R^\times$ are infinite, finitely generated (Lemma L), and both have property (T) (Import 3, transported along the isomorphisms $\mathrm{EL}_E(R) \cong \mathrm{EL}_q(R)$; property (T) is an isomorphism invariant). The pair $(\Gamma, G)$ is ready to be the $(\Gamma, G)$ of Proposition 2.3. Still needed: the compressions $u, v$ and the commuting copy $J$ of Thompson's group $V$.</div>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The exact rate of the Cohn&ndash;Elkies sphere-packing LP &mdash; Chapter 1, rigorous explainer</title>
+<!-- MathJax v3, SVG output. One CDN line; needs network on first open. -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'ams' },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-svg.js"
+  integrity="sha384-msWocAZtTDh+149KSxjbRTGVfGbDjiff/j0JX1iu/A/GxxTWSu6ozNemlfkag/8d"
+  crossorigin="anonymous"></script>
+<style>
+  :root{ --fg:#1a1a1a; --muted:#555; --accent:#7a1f1f; --rule:#ddd; --box:#f6f4ef;
+         --toy:#2a7d2a; --toybg:#f1f7f1; --notebg:#fdf7e3; --noterule:#e3d27a; --card:#ffffff;
+         --codebg:#f3f1ec; --btnbg:#ffffff; --pagebg:#ffffff; }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:#e8e5df; --muted:#a49e92; --accent:#d98a6a; --rule:#3a3630; --box:#232019;
+           --toy:#7fbf8f; --toybg:#1d241d; --notebg:#2a2617; --noterule:#6a5d2a; --card:#f6f4ef;
+           --codebg:#2a2723; --btnbg:#232019; --pagebg:#161513; }
+  }
+  body{ background:var(--pagebg); }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ max-width: 50rem; margin: 2.5rem auto; padding: 0 1.25rem 6rem;
+        font: 16px/1.65 Georgia, 'Times New Roman', serif; color:var(--fg); counter-reset: fig; }
+  h1{ font-size: 1.9rem; line-height:1.2; margin:.2rem 0 .2rem; }
+  h2{ font-size:1.35rem; margin:2.4rem 0 .6rem; border-bottom:2px solid var(--accent); padding-bottom:.2rem; }
+  h3{ font-size:1.1rem; margin:1.6rem 0 .4rem; color:var(--accent); }
+  .sub{ color:var(--muted); font-style:italic; margin-top:0; }
+  code{ font-family: ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.92em; background:var(--codebg); padding:.05rem .25rem; border-radius:3px; }
+  pre{ background:var(--codebg); padding:.8rem 1rem; border-radius:5px; overflow:auto; font-size:.84rem; line-height:1.45; }
+  pre code{ background:none; padding:0; }
+  .codewrap{ position:relative; }
+  .copybtn{ position:absolute; top:.5rem; right:.5rem; display:inline-flex; align-items:center; gap:.3rem;
+    font:600 .72rem/1 ui-monospace,Consolas,monospace; color:var(--muted);
+    background:var(--btnbg); border:1px solid var(--rule); border-radius:5px; padding:.32rem .5rem; cursor:pointer; }
+  .copybtn:hover{ color:var(--accent); border-color:var(--accent); }
+  .copybtn.copied{ color:#2a7d2a; border-color:#2a7d2a; }
+  .copybtn svg{ width:13px; height:13px; }
+  .thm,.def,.lem,.prop{ background:var(--box); border-left:4px solid var(--accent); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .thm b,.def b,.lem b,.prop b{ color:var(--accent); }
+  .proof{ border-left:2px solid var(--rule); padding-left:.9rem; margin:.8rem 0 1.2rem; }
+  .proof::before{ content:"Proof."; font-style:italic; font-weight:bold; margin-right:.4rem; }
+  .qed{ float:right; }
+  .toy{ background:var(--toybg); border-left:4px solid var(--toy); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .toy b{ color:var(--toy); }
+  .note{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; margin:1rem 0; border-radius:4px; font-size:.92rem; }
+  table{ border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; }
+  th,td{ border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top; }
+  th{ background:var(--box); }
+  .tablewrap{ overflow-x:auto; }
+  figure{ margin:1.5rem 0; text-align:center; counter-increment: fig; }
+  figure > svg{ background:var(--card); border:1px solid var(--rule); border-radius:6px; }
+  figcaption{ color:var(--muted); font-size:.9rem; font-style:italic; margin-top:.4rem; }
+  figcaption::before{ content:"Fig. " counter(fig) ". "; font-weight:bold; font-style:normal; color:var(--accent); }
+  .proof figure,.thm figure,.lem figure,.prop figure{ margin:.2rem auto .7rem; max-width:460px; background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:.4rem; }
+  .proof figure > svg,.thm figure > svg,.lem figure > svg,.prop figure > svg{ border:none; }
+  .proof figcaption,.thm figcaption,.lem figcaption,.prop figcaption{ font-size:.8rem; line-height:1.4; }
+  .setupfig{ display:block; }
+  .setupfig text{ paint-order:stroke; stroke:#fff; stroke-width:2.5px; stroke-linejoin:round; }
+  .setupfig text[fill="#fff"], .setupfig text[fill="#ffffff"], .setupfig text[fill="white"], .setupfig text.onfill{ stroke:none; }
+  figure svg text{ font-family:"STIX Two Math",STIXGeneral,"Times New Roman",Georgia,serif; }
+  figure svg text.v{ font-style:italic; }
+  figure svg text.vb{ font-weight:bold; }
+  .secref{ color:var(--accent); text-decoration:none; border-bottom:1px dotted #b98; }
+  .secref:hover{ border-bottom:1px solid var(--accent); }
+  .toc{ background:var(--box); padding:.8rem 1.2rem; border-radius:6px; font-size:.95rem; }
+  .toc ul{ list-style:none; padding-left:.3rem; margin:.3rem 0; } .toc a{ color:var(--accent); text-decoration:none; }
+  .small{ font-size:.88rem; color:var(--muted); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+  .keyresult{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; border-radius:4px; }
+</style>
+</head>
+<body>
+
+<h1>The Cohn&ndash;Elkies sphere-packing bound knows its own limit</h1>
+<p class="sub">A rigorous, self-contained walkthrough of Chapter 1 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (PDF pages 3&ndash;28): the exact exponential rate $\sqrt{e/2\pi}$ of the Cohn&ndash;Elkies linear program, the first improvement of the general sphere-packing exponent since 1978, and the asymptotic solution of the Fourier sign-uncertainty problem. Written for a reader with a PhD in <b>some</b> mathematical field &mdash; but not necessarily harmonic analysis or discrete geometry. Every symbol is defined before use; everything provable at the graduate-core level is proved.</p>
+
+<div class="toc">
+<b>Contents</b>
+<ul>
+<li><b>0.</b> <a href="#origin">Motivation &mdash; oranges, dimension eight, and a bound that knows its own limit</a></li>
+<li><b>1.</b> <a href="#precise">Sphere packing made precise, and the two theorems</a></li>
+<li><b>2.</b> <a href="#fourier">Fourier analysis on $\mathbb{R}^d$, from zero</a></li>
+<li><b>3.</b> <a href="#certificate">The Cohn&ndash;Elkies certificate: one function bounds every packing</a></li>
+<li><b>4.</b> <a href="#bridge">The bridge: one sign radius controls everything &mdash; and the proof map</a></li>
+<li><b>5.</b> <a href="#radial">The radial reduction</a></li>
+<li><b>6.</b> <a href="#mellin">The Mellin transform and the gamma workshop</a></li>
+<li><b>7.</b> <a href="#strip">Lower bound I &mdash; the strip obstruction (Proposition 3.1)</a></li>
+<li><b>8.</b> <a href="#packrate">Lower bound II &mdash; from trapped mass to the packing rate (Theorem 3.8)</a></li>
+<li><b>9.</b> <a href="#ansatz">Upper bound I &mdash; the Mellin ansatz: shells and polynomials</a></li>
+<li><b>10.</b> <a href="#saddlegeo">Upper bound II &mdash; saddle geometry</a></li>
+<li><b>11.</b> <a href="#global">Upper bound III &mdash; signs, interior positivity, and Theorem 4.1</a></li>
+<li><b>12.</b> <a href="#assembly">Assembling Theorems 1.1 and 1.2</a></li>
+<li><b>13.</b> <a href="#validation">Numerical validation</a></li>
+<li><b>14.</b> <a href="#scope">Scope &mdash; what is proved, what is missed</a></li>
+<li><b>A.</b> <a href="#appA">Appendix A: the two uncertainty constants never tie ($A_+(d) \lt A_-(d)$)</a></li>
+<li><b>B.</b> <a href="#notation">Appendix B: notation glossary</a></li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="origin">0. Motivation &mdash; oranges, dimension eight, and a bound that knows its own limit</h2>
+
+<p>How densely can identical balls fill space? In a grocer's crate the answer looks obvious: stack oranges in the familiar pyramid and you fill about $74\%$ of the volume. Proving that nothing beats the pyramid took four hundred years (Kepler conjectured it in 1611; Hales proved it in 1998, with a computer). In the plane the analogous fact is friendlier: the honeycomb arrangement of coins in Fig. 1 fills $\pi/\sqrt{12} \approx 90.69\%$ of the plane, and nothing does better.</p>
+
+<figure><!--FIG:fig_hex--><figcaption>The hexagonal packing of unit-diameter disks: every center sits at distance exactly $1$ (red segment) from its six nearest neighbors. It covers $\pi/\sqrt{12} \approx 0.9069$ of the plane &mdash; the best possible in dimension $2$.</figcaption></figure>
+
+<p>This chapter lives in the regime where all such pictures fail: dimension $d$ <b>large</b>. High-dimensional packing is not a curiosity &mdash; it is the geometry of error-correcting codes (codewords are sphere centers; decoding radius is the packing radius) and shows up, remarkably, in the physics of two-dimensional quantum gravity. And in high dimension the subject humbles intuition. Balls become vanishingly thin: a ball of radius $\tfrac12$ in $\mathbb{R}^{24}$ occupies less than $2\times 10^{-10}$ of a unit cube. The best packings known fill only an exponentially small fraction $\approx 2^{-d}$ of space, and nobody can do better than that by so much as an exponential hair. The best <i>upper</i> bounds sit far away, near $2^{-0.6d}$. Between those two exponentials lies one of the oldest open problems in geometry.</p>
+
+<p>You have probably heard of the one place where the story has a perfect ending: in 2016 Maryna Viazovska proved that the $E_8$ lattice is the densest packing in dimension $8$, and with Cohn, Kumar, Miller, and Radchenko the same happened for the Leech lattice in dimension $24$. Those proofs did not enumerate packings. They exhibited a single auxiliary <i>function</i> with two sign properties &mdash; one on the function, one on its Fourier transform &mdash; and a general principle then converted that one function into a bound on <i>every</i> packing at once. The principle is the <b>Cohn&ndash;Elkies linear program</b>, the only general-purpose upper-bound machine that works in all dimensions. In $d = 8$ and $24$ a "magic function" makes the machine's bound exactly tight.</p>
+
+<p>So the obvious question &mdash; open since the method appeared around 2000, and the subject of an explicit conjecture from the physics side (the modular bootstrap of conformal field theory produces the very same optimization problem) &mdash; is: <i>how strong is the machine in high dimension?</i> Two things were conceivable. Maybe magic functions exist in all dimensions and the linear program tracks the truth. Or maybe the machine has a built-in floor it cannot cross. The chapter we walk through settles this completely. Writing $\mathrm{LP}_d$ for the best bound the machine can produce in dimension $d$, it proves the <i>exact exponential rate</i></p>
+
+<div class="keyresult">$$\lim_{d\to\infty} \mathrm{LP}_d^{1/d} \;=\; \sqrt{\frac{e}{2\pi}} \;=\; 0.65774\ldots$$</div>
+
+<p>One equation, two punchlines, pointing in opposite directions:</p>
+<ul>
+<li><b>A new record.</b> The upper-bound half says some Cohn&ndash;Elkies function achieves $2^{-(0.60440\ldots)d}$ asymptotically &mdash; beating the exponent $0.59905\ldots$ of Kabatianskii&ndash;Levenshtein (1978), which had stood as the record for the general sphere-packing exponent for nearly half a century (Fig. 2).</li>
+<li><b>A ceiling.</b> The lower-bound half says <i>no</i> Cohn&ndash;Elkies function whatsoever can beat $0.60440\ldots$: the machine's power in high dimensions is now known exactly, and closing the remaining gap to the truth will require a genuinely different machine.</li>
+</ul>
+
+<figure><!--FIG:fig_timeline--><figcaption>The exponent $\alpha$ in the best known general upper bound $\Delta_d \le 2^{-(\alpha+o(1))d}$ on packing density, over time. Each step up is a stronger bound. The 1978 Kabatianskii&ndash;Levenshtein value $0.5990\ldots$ resisted improvement for 47 years; this chapter moves it to $0.60440\ldots$ &mdash; and proves the Cohn&ndash;Elkies method can go no further. The dashed green line marks the exponent $\alpha = 1$ of the densest packings actually known: the gap is the open problem.</figcaption></figure>
+
+<p>The proof runs through a second, beautiful problem that deserves its own billing: a <b>sign uncertainty principle</b>. The Fourier transform famously refuses to let a function and its transform both be sharply localized (Heisenberg). Bourgain, Clozel, and Kahane discovered a subtler refusal: if a function equals its own Fourier transform (or its negative), vanishes at the origin, and is eventually nonnegative, then its last sign change cannot happen too close to the origin. How close is "too close"? This chapter answers asymptotically: the critical radius is $(1/\pi + o(1))\sqrt{d}$, for both symmetry types &mdash; confirming predictions that, again, first appeared in the physics literature. The packing theorem and the uncertainty theorem turn out to be two faces of a single quantity: <i>the last sign-change radius of Fourier eigenfunctions</i>. Watching that single radius get squeezed from both sides &mdash; an analytic obstruction pushing it up, an explicit construction pushing it down until the two meet at $\sqrt d/\pi$ &mdash; is the experience this explainer is built to deliver.</p>
+
+<p>Here is the route, and why each stop exists.</p>
+<ul>
+<li><a class="secref" href="#precise">&sect;1</a> defines packing density honestly (it needs care), states both theorems exactly, and converts the headline constant into the exponent record.</li>
+<li><a class="secref" href="#fourier">&sect;2</a> builds Fourier analysis on $\mathbb{R}^d$ from zero &mdash; transform, inversion, Poisson summation &mdash; with complete proofs. If you know this material, skim; everything later cites it by name.</li>
+<li><a class="secref" href="#certificate">&sect;3</a> proves the Cohn&ndash;Elkies theorem itself, then runs the whole method by hand in dimension $1$, where a tent function makes the bound exactly tight.</li>
+<li><a class="secref" href="#bridge">&sect;4</a> is the hinge of the chapter: both theorems reduce to one question about the sign radius of Fourier eigenfunctions. A single diagram maps every lemma of the proof.</li>
+<li><a class="secref" href="#radial">&sect;5</a>&ndash;<a class="secref" href="#mellin">&sect;6</a> install the two workhorses: reduction to radial functions, and the Mellin transform &mdash; the change of variables in which the radial Fourier transform becomes a reflection.</li>
+<li><a class="secref" href="#strip">&sect;7</a>&ndash;<a class="secref" href="#packrate">&sect;8</a> prove the lower bound: eigenfunctions vanishing at the origin have exponentially little mass inside radius $c\sqrt d$ for $c \lt 1/\pi$, and this forces every Cohn&ndash;Elkies bound above $(\sqrt{e/2\pi}-o(1))^d$.</li>
+<li><a class="secref" href="#ansatz">&sect;9</a>&ndash;<a class="secref" href="#global">&sect;11</a> prove the upper bound: an explicit deformation of the Gaussian &mdash; two "shells" and three small polynomials &mdash; whose sign radius comes down to $(1/\pi+o(1))\sqrt d$.</li>
+<li><a class="secref" href="#assembly">&sect;12</a> assembles both theorems; <a class="secref" href="#validation">&sect;13</a> re-derives every key constant numerically, including a full simulation of the construction in dimension $6\times 10^6$; <a class="secref" href="#scope">&sect;14</a> states honestly what is settled and what remains open.</li>
+</ul>
+
+<p class="small">Source of truth: Chapter 1, "Exponential Growth Rate of the Cohn&ndash;Elkies Sphere Packing Linear Program", pp. 1&ndash;26 of the paper (PDF pages 3&ndash;28). The chapter's own numbering &mdash; Theorems 1.1&ndash;1.2, equations (1)&ndash;(89), Lemmas 3.2&ndash;3.6 and 4.2&ndash;4.10, Proposition A.1 &mdash; is preserved so you can cross-read. Results labeled with letters (Proposition A, B, &hellip;) are classical background proved here for self-containment; the four facts we import without proof are boxed as Imports 1&ndash;4 with precise statements and citations.</p>

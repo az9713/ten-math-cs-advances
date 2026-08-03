@@ -1,0 +1,128 @@
+<h2 id="vna">1. Group von Neumann algebras from zero</h2>
+
+<p>Let $G$ be a countable discrete group. Its natural Hilbert space is
+$$\ell^2(G) \;=\; \Bigl\{ \xi : G \to \mathbb C \;:\; \textstyle\sum_g |\xi(g)|^2 \lt \infty \Bigr\},$$
+with inner product $\langle \xi, \eta\rangle = \sum_g \xi(g)\overline{\eta(g)}$ and orthonormal basis $(\delta_g)_{g \in G}$, where $\delta_g$ is the indicator of $\{g\}$. Write $B(\mathcal H)$ for the algebra of bounded linear operators on a Hilbert space $\mathcal H$, $x^*$ for the adjoint of $x$ (defined by $\langle x\xi, \eta\rangle = \langle \xi, x^*\eta\rangle$), and $\mathcal U(\mathcal H)$ for the group of unitaries ($u^*u = uu^* = 1$). The group acts on its own Hilbert space twice over &mdash; from the left and from the right:
+$$\lambda(g)\,\delta_h = \delta_{gh}, \qquad \rho(g)\,\delta_h = \delta_{hg^{-1}} \qquad (g, h \in G).$$
+Both are unitary representations, and they commute: $\lambda(g)\rho(k)\delta_h = \delta_{ghk^{-1}} = \rho(k)\lambda(g)\delta_h$ (Fig. 2).</p>
+
+<div class="def"><b>Definition (commutant; group von Neumann algebra; trace).</b> For a set $S \subseteq B(\mathcal H)$, the <b>commutant</b> is $S' = \{x \in B(\mathcal H) : xs = sx \text{ for all } s \in S\}$; it is always an algebra, closed under adjoints when $S$ is, and closed in every reasonable operator topology. The <b>group von Neumann algebra</b> of $G$ and its <b>canonical trace</b> are
+$$L(G) \;=\; \lambda(G)'' \;=\; \bigl(\lambda(G)'\bigr)', \qquad \tau(x) = \langle x\,\delta_1,\, \delta_1\rangle.$$
+For a finite linear combination $x = \sum_g a_g \lambda(g)$ one gets $\tau(x) = a_1$: the trace reads off the coefficient of the identity. A <b>von Neumann algebra</b> is any $*$-subalgebra of some $B(\mathcal H)$ of the form $M = M''$ containing $1$; a <b>factor</b> is one whose center $Z(M) = M \cap M'$ is just the scalars $\mathbb C 1$; a <b>II$_1$ factor</b> is an infinite-dimensional factor carrying a faithful normal tracial state (for $L(G)$, the state $\tau$ below).</div>
+
+<p>Think of $L(G)$ as the completion of the group ring: all &ldquo;infinite sums&rdquo; $\sum_g a_g \lambda(g)$ that still define bounded operators. Which infinite sums arise is subtle, but every element has well-defined <b>Fourier coefficients</b>, and they behave exactly like the finite case. Two elementary containments organize everything: $\rho(G) \subseteq \lambda(G)'$ (they commute), hence, taking commutants twice,
+$$\lambda(G) \;\subseteq\; L(G) \;=\; \lambda(G)'' \;\subseteq\; \rho(G)'.$$
+So every $x \in L(G)$ commutes with all right translations &mdash; the only fact we will ever use about the double commutant.</p>
+
+<div class="lem"><b>Lemma A (Fourier coefficients).</b> For $x \in L(G)$ define $a_g = \langle x\delta_1, \delta_g\rangle$, so $x\delta_1 = \sum_g a_g \delta_g$ with $\sum_g |a_g|^2 \lt \infty$. Then:
+<ol>
+<li>$x$ is determined by $x\delta_1$: indeed $x\,\delta_h = \rho(h^{-1})\,x\,\delta_1 = \sum_g a_g\, \delta_{gh}$ for every $h$.</li>
+<li>$\tau$ is a faithful tracial state: $\tau(1) = 1$, $\;\tau(x^*x) = \|x\delta_1\|^2 \ge 0$ with equality only for $x = 0$, and $\tau(xy) = \tau(yx)$.</li>
+<li>If $x$ commutes with every $\lambda(h)$, then the coefficient function is constant on conjugacy classes: $a_{hgh^{-1}} = a_g$ for all $g, h$.</li>
+</ol></div>
+
+<div class="proof">
+<p>(1) $\delta_h = \rho(h^{-1})\delta_1$, and $x$ commutes with $\rho(h^{-1})$, so $x\delta_h = \rho(h^{-1})x\delta_1 = \rho(h^{-1})\sum_g a_g\delta_g = \sum_g a_g \delta_{gh}$. In particular $x\delta_1 = 0$ forces $x = 0$ on the basis, hence everywhere.</p>
+<p>(2) $\tau(1) = \langle \delta_1, \delta_1\rangle = 1$ and $\tau(x^*x) = \langle x^*x\delta_1, \delta_1\rangle = \|x\delta_1\|^2$, which vanishes only when $x\delta_1 = 0$, i.e.&nbsp;$x = 0$ by (1). For traciality, let $y$ have coefficients $(b_g)$. First compute $x^*$'s coefficients: $\langle x^*\delta_1, \delta_g\rangle = \overline{\langle x\delta_g, \delta_1\rangle} = \overline{a_{g^{-1}}}$ by (1). Then
+$$\tau(xy) = \langle y\delta_1,\, x^*\delta_1\rangle = \sum_g b_g\, \overline{\overline{a_{g^{-1}}}} = \sum_g a_{g^{-1}}\, b_g,$$
+an absolutely convergent sum of two $\ell^2$ functions (Cauchy&ndash;Schwarz). Exchanging the roles of $x$ and $y$ gives $\tau(yx) = \sum_g b_{g^{-1}} a_g$, the same sum after the substitution $g \mapsto g^{-1}$.</p>
+<p>(3) $\lambda(h) x \lambda(h)^{-1} = x$ applied to $\delta_1$: since $\lambda(h)^{-1}\delta_1 = \delta_{h^{-1}} $, (1) gives $x\delta_{h^{-1}} = \sum_g a_g \delta_{gh^{-1}}$, and applying $\lambda(h)$ yields $\sum_g a_g \delta_{hgh^{-1}}$. Comparing coefficients of $\delta_{g'}$ with those of $x\delta_1$: $a_{h^{-1}g'h} = a_{g'}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 235" width="100%" role="img" aria-label="The regular representation: left translation, right translation, and an element of L(G) as an l2 coefficient vector">
+  <defs><marker id="c4arrB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- basis row -->
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.2">
+    <circle cx="70" cy="60" r="6"/><circle cx="130" cy="60" r="6"/><circle cx="190" cy="60" r="6"/><circle cx="250" cy="60" r="6"/><circle cx="310" cy="60" r="6"/><circle cx="370" cy="60" r="6"/>
+  </g>
+  <g font-size="11" fill="#555">
+    <text x="60" y="42">&#948;&#8321;</text><text x="118" y="42">&#948;<tspan baseline-shift="sub" font-size="8">g</tspan></text><text x="178" y="42">&#948;<tspan baseline-shift="sub" font-size="8">h</tspan></text><text x="238" y="42">&#948;<tspan baseline-shift="sub" font-size="8">gh</tspan></text><text x="299" y="42">&#8230;</text><text x="360" y="42">&#8230;</text>
+  </g>
+  <path d="M133,52 C160,28 220,28 247,52" stroke="#2a7d2a" stroke-width="1.7" fill="none" marker-end="url(#c4arrB)"/>
+  <text x="150" y="22" font-size="12" fill="#2a7d2a">&#955;(g): left-multiply the label</text>
+  <path d="M193,70 C220,94 280,94 307,70" stroke="#c0392b" stroke-width="1.7" fill="none" marker-end="url(#c4arrB)"/>
+  <text x="196" y="106" font-size="12" fill="#c0392b">&#961;(k): right-multiply &mdash; commutes with every &#955;(g)</text>
+  <!-- coefficient vector -->
+  <g stroke="#8899aa" stroke-width="1.1" fill="none"><line x1="60" y1="185" x2="420" y2="185"/></g>
+  <g fill="#2e5a8a">
+    <rect x="66" y="150" width="8" height="35"/><rect x="126" y="163" width="8" height="22"/><rect x="186" y="172" width="8" height="13"/><rect x="246" y="177" width="8" height="8"/><rect x="306" y="180" width="8" height="5"/><rect x="366" y="182" width="8" height="3"/>
+  </g>
+  <text x="60" y="142" font-size="11.5" fill="#2e5a8a">x&#948;&#8321; = &#931; a<tspan baseline-shift="sub" font-size="8">g</tspan>&#948;<tspan baseline-shift="sub" font-size="8">g</tspan>: an &#8467;&#178; coefficient vector</text>
+  <text x="60" y="215" font-size="12" fill="#7a1f1f">x &#8712; L(G) is an &ldquo;infinite group-ring element&rdquo;; it is pinned down by its coefficients (Lemma A)</text>
+  <text x="60" y="231" font-size="11.5" fill="#555">&#964;(x) = a&#8321; reads the identity coefficient &mdash; the noncommutative &ldquo;integral&rdquo;</text>
+</svg><figcaption><b>The stage.</b> Left translations $\lambda(g)$ generate $L(G)$; right translations $\rho(k)$ commute with them and force every $x \in L(G)$ to be determined by the single vector $x\delta_1$, an $\ell^2$ function on the group &mdash; its Fourier coefficient vector. The trace $\tau$ extracts the identity coefficient.</figcaption></figure>
+
+<p>Now the criterion that decides when the shadow is a <i>factor</i> &mdash; the chapter's group-factor criterion [MN43]. Recall: $G$ is <b>ICC</b> if it is infinite and the conjugacy class $\{hgh^{-1} : h \in G\}$ of every $g \neq 1$ is infinite.</p>
+
+<div class="prop"><b>Proposition B (Murray&ndash;von Neumann ICC criterion).</b> Let $G$ be an infinite countable group. Then $L(G)$ is a II$_1$ factor if and only if $G$ is ICC.</div>
+
+<div class="proof">
+<p>Fig. 3 draws the mechanism. Suppose $G$ is ICC and let $x$ lie in the center of $L(G)$. Then $x$ commutes with every $\lambda(h)$, so by Lemma A(3) its coefficient function $g \mapsto a_g$ is constant on conjugacy classes. But $\sum_g |a_g|^2 \lt \infty$: a function that takes a fixed nonzero value on an infinite set is not square-summable, so $a_g = 0$ on every infinite class. Since all classes except $\{1\}$ are infinite, $x\delta_1 = a_1\delta_1$, and Lemma A(1) gives $x = a_1 1$. The center is $\mathbb C 1$: a factor. It is infinite-dimensional (the $\lambda(g)$, $g \in G$, are linearly independent: applied to $\delta_1$ they give orthonormal vectors), and $\tau$ is a faithful tracial state by Lemma A(2) &mdash; a II$_1$ factor. (Normality of $\tau$ is inherited from the vector-state form $\tau = \langle\,\cdot\,\delta_1, \delta_1\rangle$.)</p>
+<p>Conversely, suppose some $g_0 \neq 1$ has a finite conjugacy class $C$. Set $z = \sum_{g \in C} \lambda(g)$, a finite sum, hence in $L(G)$. For every $h$, conjugation by $h$ permutes $C$, so $\lambda(h) z \lambda(h)^{-1} = z$: thus $z$ commutes with $\lambda(G)$, i.e.&nbsp;$z \in \lambda(G)'$; and $z \in \lambda(G)''$ trivially. So $z$ is central. But $z\delta_1 = \sum_{g\in C}\delta_g$ is not a multiple of $\delta_1$ (as $1 \notin C$), so $z \notin \mathbb C1$ &mdash; the center is bigger than the scalars and $L(G)$ is not a factor. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 220" width="100%" role="img" aria-label="ICC criterion: a central element has coefficients constant on conjugacy classes; infinite classes plus square-summability force zero">
+  <!-- conjugacy classes as rows of dots -->
+  <text x="24" y="30" font-size="12" fill="#555">coefficients of a central x, grouped by conjugacy class:</text>
+  <g fill="#2a7d2a"><circle cx="50" cy="55" r="5"/></g>
+  <text x="64" y="59" font-size="11.5" fill="#2a7d2a">class {1}: one coefficient a&#8321; &mdash; free to be anything</text>
+  <g fill="#c0392b">
+    <circle cx="50" cy="90" r="5"/><circle cx="74" cy="90" r="5"/><circle cx="98" cy="90" r="5"/><circle cx="122" cy="90" r="5"/><circle cx="146" cy="90" r="5"/><circle cx="170" cy="90" r="5"/><circle cx="194" cy="90" r="5"/>
+  </g>
+  <text x="210" y="94" font-size="12" fill="#c0392b">&#8943; infinite class: all coefficients EQUAL (Lemma A(3))</text>
+  <g fill="#c0392b" fill-opacity="0.6">
+    <circle cx="50" cy="122" r="5"/><circle cx="74" cy="122" r="5"/><circle cx="98" cy="122" r="5"/><circle cx="122" cy="122" r="5"/><circle cx="146" cy="122" r="5"/>
+  </g>
+  <text x="162" y="126" font-size="12" fill="#c0392b">&#8943; another infinite class: equal again</text>
+  <text x="24" y="162" font-size="12.5" fill="#1a1a1a">&#8721;|a<tspan baseline-shift="sub" font-size="8">g</tspan>|&#178; &lt; &#8734;  but  |class| = &#8734;  &#8658;  the common value is 0</text>
+  <text x="24" y="192" font-size="12" fill="#7a1f1f">ICC &#8658; center = &#8450;1 (factor). A finite class C would give the central non-scalar &#931;<tspan baseline-shift="sub" font-size="8">g&#8712;C</tspan>&#955;(g).</text>
+  <text x="24" y="211" font-size="11.5" fill="#555">this equivalence is the reason ICC appears in Connes's conjecture at all</text>
+</svg><figcaption><b>Proposition B in one picture.</b> A central element's Fourier coefficients are constant along conjugacy classes; square-summability then kills every infinite class, leaving only the identity coefficient. If instead some class is finite, summing $\lambda(g)$ over it manufactures a nonscalar central element.</figcaption></figure>
+
+<div class="note"><b>The amenable collapse (context, imported).</b> Connes's classification of injective factors [Con76] implies that <i>every</i> amenable ICC group has $L(G) \cong R$, the unique hyperfinite II$_1$ factor. So on the amenable side the fiber of $G \mapsto L(G)$ is one gigantic class, and any rigidity must come from non-amenability. Property (T) &mdash; which is incompatible with amenability for infinite groups &mdash; was the standard-bearer for the opposite behavior. This background motivates but is not used in the proof of Theorem 1.2.</div>
+
+<h2 id="propT">2. Property (T) and the Connes&ndash;Jones bridge</h2>
+
+<p>Property (T) was built from scratch in the Chapter 3 explainer (&sect;3 there, with proofs of the basic calibrations); we restate the definition in the form used here and add the two facts this chapter needs. A unitary representation $\pi : G \to \mathcal U(\mathcal H)$ has <b>almost invariant vectors</b> if for every finite $F \subseteq G$ and $\varepsilon \gt 0$ there is a unit vector $\xi$ with $\max_{g \in F}\|\pi(g)\xi - \xi\| \lt \varepsilon$.</p>
+
+<div class="def"><b>Definition (property (T); relative property (T); Kazhdan pair).</b> $G$ has <b>property (T)</b> if every unitary representation with almost invariant vectors has a nonzero invariant vector. Equivalently (for $G$ generated by a finite set $F$): there is $\kappa \gt 0$ &mdash; a <b>Kazhdan constant</b>, making $(F, \kappa)$ a <b>Kazhdan pair</b> &mdash; such that every representation without invariant vectors satisfies $\max_{g\in F}\|\pi(g)\xi - \xi\| \ge \kappa\|\xi\|$ for all $\xi$. For a subgroup $A \le G$, the pair $(G, A)$ has <b>relative property (T)</b> if every representation of $G$ with almost invariant vectors has a nonzero <i>$A$-invariant</i> vector.</div>
+
+<div class="prop"><b>Proposition C ((T) passes to quotients).</b> If $G$ has property (T) and $\varphi : G \twoheadrightarrow H$ is onto, then $H$ has property (T).</div>
+
+<div class="proof"><p>A representation $\pi$ of $H$ with almost invariant vectors pulls back to $\pi \circ \varphi$ on $G$, with the same vectors almost invariant (any finite $F \subseteq H$ lifts to a finite subset of $G$). Property (T) for $G$ gives a $\pi\circ\varphi$-invariant vector, which is $\pi$-invariant since $\varphi$ is onto. <span class="qed">&#8718;</span></p></div>
+
+<div class="note"><b>Import 5 (property-(T) inheritance) [BHV08].</b> Property (T) is preserved under passage to finite-index subgroups and finite-index extensions ($H \le G$ of finite index: $G$ has (T) iff $H$ does). Moreover every countable discrete property-(T) group is finitely generated. (Proofs run through induced representations; we import them.)</div>
+
+<p>The second new ingredient is the bridge between the group and its factor. There is a notion of property (T) for a II$_1$ factor (Connes&ndash;Jones), designed so that the following holds:</p>
+
+<div class="note"><b>Import 1 (Connes&ndash;Jones [CJ85]).</b> An ICC group $G$ has property (T) if and only if the II$_1$ factor $L(G)$ has property (T) in the sense of Connes&ndash;Jones. In particular, if $L(G) \cong L(H)$ and $H$ is ICC with property (T), then property (T) of the common factor forces property (T) for the ICC group $G$.</div>
+
+<div class="lem"><b>Lemma 2.1.</b> Let $G, H$ be countable discrete groups with $L(G) \cong L(H)$. If $H$ is ICC with property (T), then so is $G$.</div>
+
+<div class="proof"><p>$H$ ICC makes $L(H)$, hence $L(G)$, a II$_1$ factor (Proposition B). Applying Proposition B in the other direction: $G$ must be ICC ($G$ is infinite: a finite group has finite-dimensional $L(G)$). By Import 1 applied to $H$, the factor has property (T); by Import 1 applied to $G$, the group $G$ has property (T). <span class="qed">&#8718;</span></p></div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 210" width="100%" role="img" aria-label="Transfer of ICC and property (T) through an isomorphism of group factors">
+  <defs><marker id="c4arrC" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <g fill="none" stroke="#2e5a8a" stroke-width="1.4">
+    <rect x="30" y="30" width="150" height="52" rx="8"/>
+    <rect x="300" y="30" width="150" height="52" rx="8"/>
+  </g>
+  <g font-size="12.5" fill="#1a1a1a">
+    <text x="46" y="52">H: ICC + (T)</text>
+    <text x="46" y="70" font-size="11" fill="#555">(proved for &#923; in &#167;7)</text>
+    <text x="316" y="52">G: ICC + (T)</text>
+    <text x="316" y="70" font-size="11" fill="#555">(conclusion, free of charge)</text>
+  </g>
+  <g fill="none" stroke="#a06a1f" stroke-width="1.4">
+    <rect x="128" y="130" width="224" height="46" rx="8"/>
+  </g>
+  <text x="146" y="150" font-size="12.5" fill="#1a1a1a">L(H) &#8773; L(G): one II&#8321; factor</text>
+  <text x="146" y="168" font-size="11" fill="#555">factor-(T) in the Connes&#8211;Jones sense</text>
+  <g stroke="#7a1f1f" stroke-width="1.6" fill="none">
+    <path d="M105,84 L160,126" marker-end="url(#c4arrC)"/>
+    <path d="M320,126 L375,84" marker-end="url(#c4arrC)"/>
+  </g>
+  <text x="52" y="112" font-size="11.5" fill="#7a1f1f">Prop. B + Import 1 (down)</text>
+  <text x="330" y="112" font-size="11.5" fill="#7a1f1f">Import 1 + Prop. B (up)</text>
+  <text x="30" y="200" font-size="12" fill="#7a1f1f">rigidity is proved ONCE (for &#923;) and rides the factor isomorphism to every &#915;&#8345; (Lemma 2.1)</text>
+</svg><figcaption><b>The Connes&ndash;Jones bridge.</b> ICC and property (T) are both visible in the factor (ICC via Proposition B, property (T) via Import 1), so both transfer through any isomorphism $L(G) \cong L(H)$. The strategy of the whole chapter: prove rigidity for the one untwisted group $\Lambda$, then let the common factor propagate it to all the twisted groups $\Gamma_n$.</figcaption></figure>

@@ -1,0 +1,193 @@
+<h2 id="expanders">3. Property (T), expanders, and the two big imports (a reusable primer)</h2>
+
+<p>This section is the analytic toolbox: expander graphs, Kazhdan's property (T), one fully proved bridge between them (Proposition H), and the two deep imported theorems &mdash; Kun's expander decomposition and the Kun&ndash;Thom expander-centralizer theorem &mdash; whose gap <a class="secref" href="#matching">&sect;4</a> will close. Nothing here mentions the Leavitt algebra; the primer is written to stand alone (Chapter 4's explainer reuses it).</p>
+
+<h3 id="expdef">3.1 Expanders: graphs with no bottlenecks</h3>
+
+<p>All graphs here are finite <b>multigraphs</b>: parallel edges are allowed and counted with multiplicity, and loops (edges from a vertex to itself) are allowed but contribute nothing to any boundary. For a graph $L$ and a vertex subset $U \subseteq V(L)$, the <b>edge boundary</b> $\partial_L U$ is the multiset of edges with one endpoint in $U$ and the other in $V(L) \setminus U$. If $C$ is a connected component, $\partial_C U$ means the boundary of $U \subseteq C$ inside the induced graph on $C$.</p>
+
+<div class="def"><b>Definition ($\gamma$-expander).</b> A finite connected multigraph $C$ is a <b>$\gamma$-expander</b> ($\gamma \gt 0$) if
+$$|\partial_C U| \;\ge\; \gamma \,\min\{|U|,\, |C \setminus U|\} \qquad (U \subseteq C). \tag{3}$$
+Every subset, however chosen, leaks at least $\gamma$ boundary edges per vertex on its smaller side: the graph has no bottlenecks at any scale. A <i>family</i> of bounded-degree graphs is an <b>expander family</b> if one $\gamma \gt 0$ works for all of them.</div>
+
+<p>The definition is quantitative, so a computed contrast is the fastest way to calibrate it (Fig. 5). Take two graphs on $16$ vertices with maximum degree $3$. The first is two densely wired $8$-vertex blobs joined by a single bridge edge; brute force over all $2^{16}$ vertex subsets (<code>figgen/ch03_expander_data.py</code>) finds its worst ratio at exactly the blob: $|\partial U|/|U| = 1/8 = 0.125$. The second is the M&ouml;bius&ndash;Kantor graph (a classical symmetric cubic graph); the same brute force gives $0.75$ &mdash; six times better, and no subset does worse. As the bridge picture scales up, the ratio of the bottleneck cut tends to $0$; expander families are exactly the graphs for which this never happens.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="A bottleneck graph versus the Moebius-Kantor expander, with computed worst cut ratios">
+  <!-- left: dumbbell -->
+  <g stroke="#8899aa" stroke-width="1.3" fill="none">
+    <!-- blob 1: octagon around (75,95) r=42 -->
+    <path d="M117,95 L105,125 L75,137 L45,125 L33,95 L45,65 L75,53 L105,65 Z"/>
+    <line x1="105" y1="65" x2="45" y2="125"/><line x1="105" y1="125" x2="45" y2="65"/><line x1="75" y1="53" x2="75" y2="137"/>
+  </g>
+  <g stroke="#8899aa" stroke-width="1.3" fill="none">
+    <!-- blob 2 around (215,95) -->
+    <path d="M257,95 L245,125 L215,137 L185,125 L173,95 L185,65 L215,53 L245,65 Z"/>
+    <line x1="245" y1="65" x2="185" y2="125"/><line x1="245" y1="125" x2="185" y2="65"/><line x1="215" y1="53" x2="215" y2="137"/>
+  </g>
+  <line x1="117" y1="95" x2="173" y2="95" stroke="#c0392b" stroke-width="2.4"/>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1">
+    <circle cx="117" cy="95" r="4"/><circle cx="105" cy="125" r="4"/><circle cx="75" cy="137" r="4"/><circle cx="45" cy="125" r="4"/><circle cx="33" cy="95" r="4"/><circle cx="45" cy="65" r="4"/><circle cx="75" cy="53" r="4"/><circle cx="105" cy="65" r="4"/>
+  </g>
+  <g fill="#e8b87d" stroke="#a06a1f" stroke-width="1">
+    <circle cx="257" cy="95" r="4"/><circle cx="245" cy="125" r="4"/><circle cx="215" cy="137" r="4"/><circle cx="185" cy="125" r="4"/><circle cx="173" cy="95" r="4"/><circle cx="185" cy="65" r="4"/><circle cx="215" cy="53" r="4"/><circle cx="245" cy="65" r="4"/>
+  </g>
+  <text x="33" y="168" font-size="11.5" fill="#c0392b">worst cut: take one blob (8 vertices, 1 edge out)</text>
+  <text x="33" y="185" font-size="12" fill="#1a1a1a">min |&#8706;U|/|U| = 1/8 = 0.125 (computed)</text>
+  <text x="70" y="34" font-size="12" fill="#555">bottleneck</text>
+  <!-- right: Moebius-Kantor GP(8,3): outer octagon (390,95) r=52, inner r=28 -->
+  <g stroke="#8899aa" stroke-width="1.2" fill="none">
+    <path d="M442,95 L427,132 L390,147 L353,132 L338,95 L353,58 L390,43 L427,58 Z"/>
+    <line x1="442" y1="95" x2="418" y2="95"/><line x1="427" y1="132" x2="410" y2="115"/><line x1="390" y1="147" x2="390" y2="123"/><line x1="353" y1="132" x2="370" y2="115"/><line x1="338" y1="95" x2="362" y2="95"/><line x1="353" y1="58" x2="370" y2="75"/><line x1="390" y1="43" x2="390" y2="67"/><line x1="427" y1="58" x2="410" y2="75"/>
+    <!-- inner edges: i to i+3 on inner octagon, points at angles k*45deg: (418,95),(410,115),(390,123),(370,115),(362,95),(370,75),(390,67),(410,75) -->
+    <line x1="418" y1="95" x2="370" y2="115"/><line x1="410" y1="115" x2="362" y2="95"/><line x1="390" y1="123" x2="370" y2="75"/><line x1="370" y1="115" x2="390" y2="67"/><line x1="362" y1="95" x2="410" y2="75"/><line x1="370" y1="75" x2="418" y2="95"/><line x1="390" y1="67" x2="410" y2="115"/><line x1="410" y1="75" x2="390" y2="123"/>
+  </g>
+  <g fill="#7fbf8f" stroke="#2a7d2a" stroke-width="1">
+    <circle cx="442" cy="95" r="4"/><circle cx="427" cy="132" r="4"/><circle cx="390" cy="147" r="4"/><circle cx="353" cy="132" r="4"/><circle cx="338" cy="95" r="4"/><circle cx="353" cy="58" r="4"/><circle cx="390" cy="43" r="4"/><circle cx="427" cy="58" r="4"/>
+    <circle cx="418" cy="95" r="4"/><circle cx="410" cy="115" r="4"/><circle cx="390" cy="123" r="4"/><circle cx="370" cy="115" r="4"/><circle cx="362" cy="95" r="4"/><circle cx="370" cy="75" r="4"/><circle cx="390" cy="67" r="4"/><circle cx="410" cy="75" r="4"/>
+  </g>
+  <text x="322" y="168" font-size="11.5" fill="#2a7d2a">every cut leaks: best adversary still loses</text>
+  <text x="322" y="185" font-size="12" fill="#1a1a1a">min |&#8706;U|/|U| = 0.75 (computed)</text>
+  <text x="330" y="34" font-size="12" fill="#555">expander (M&#246;bius&#8211;Kantor)</text>
+  <text x="33" y="215" font-size="12" fill="#7a1f1f">both: 16 vertices, max degree 3 &mdash; expansion is about wiring, not size or density</text>
+  <text x="33" y="236" font-size="11.5" fill="#555">brute force over all 2&#185;&#8310; subsets: figgen/ch03_expander_data.py</text>
+</svg><figcaption><b>Expansion, calibrated by computation.</b> Left: two dense blobs joined by one bridge; the worst vertex subset $U$ (one blob) has $|\partial U|/|U| = 0.125$, and scaling the picture drives the ratio to $0$ &mdash; a bottleneck. Right: the M&ouml;bius&ndash;Kantor graph on the same $16$ vertices with the same maximum degree; an exhaustive search of all $2^{16}$ subsets finds nothing below $0.75$. Definition (3) demands such a uniform leak rate $\gamma$ at <i>every</i> scale.</figcaption></figure>
+
+<h3 id="genGraph">3.2 Generator graphs: how a sofic approximation becomes a graph</h3>
+
+<p>A sofic approximation $p_n : H \to \mathrm{Sym}(Y_n)$ turns each finite generating set into a sequence of graphs, and all the analysis of <a class="secref" href="#matching">&sect;4</a> happens on those graphs. Throughout, a finite <b>symmetric generating set</b> $S = S^{-1} \subseteq H$ is one closed under inverses and containing the identity $1$. Normalize the approximation so that inverse labels get inverse permutations and the identity label acts exactly as the identity (this changes only a vanishing fraction of values, by [ES06, Lemma 2.1]).</p>
+
+<div class="def"><b>Definition (generator graph).</b> The <b>$S$-generator multigraph</b> $X_n$ of $p_n$ has vertex set $Y_n$ and, for every $z \in Y_n$ and $s \in S$, an arc from $z$ to $p_n(s)z$. Pair each arc with the arc of the inverse label to get an undirected multigraph; fixed points (including the whole identity label) become loops. Parallel edges keep their multiplicity. Since $|S|$ is fixed, these graphs have uniformly bounded degree. The identity loops change no boundary $|\partial U|$; they are kept because they make the random walk on the graph <i>lazy</i>, a technical convenience in Kun's spectral argument.</div>
+
+<p>If $p_n$ were an exact transitive action, $X_n$ would be a Schreier graph of $H$ &mdash; connected, and shaped by $H$'s geometry. A sofic approximation is only an almost-action, so $X_n$ can be a mess: near-copies of pieces of $H$'s Cayley graph, wired together by the small fraction of defective edges, possibly in many fragments. The two imported theorems say that <i>property (T) tames this mess</i>.</p>
+
+<h3 id="propT">3.3 Kazhdan's property (T)</h3>
+
+<p>Property (T) is a rigidity property of a group's <i>unitary representations</i>. A <b>unitary representation</b> of a countable group $H$ on a (complex, possibly infinite-dimensional) Hilbert space $\mathcal H$ is a homomorphism $\pi$ from $H$ to the group of unitary (inner-product-preserving, invertible) linear operators on $\mathcal H$. A vector $\xi \in \mathcal H$ is <b>invariant</b> if $\pi(g)\xi = \xi$ for all $g$.</p>
+
+<div class="def"><b>Definition (property (T)).</b> Let $S$ be a finite generating set of $H$. The group $H$ has <b>property (T)</b> if there is a constant $\kappa \gt 0$ (a <b>Kazhdan constant</b> for $S$) such that every unitary representation $\pi$ of $H$ <i>without</i> nonzero invariant vectors satisfies
+$$\max_{s \in S}\, \bigl\| \pi(s)\xi - \xi \bigr\| \;\ge\; \kappa \|\xi\| \qquad (\xi \in \mathcal H).$$
+Equivalently: if some unit vector is moved less than $\kappa$ by every generator (an <b>almost-invariant</b> vector), then an exactly invariant vector exists. Whether the property holds does not depend on the choice of finite generating set (changing $S$ changes only $\kappa$).</div>
+
+<p>Two poles calibrate the definition. Finite groups have property (T): given an almost-invariant unit vector $\xi$, the average $\eta = \frac{1}{|H|}\sum_{g} \pi(g)\xi$ is exactly invariant, and a short estimate shows $\eta \neq 0$ when $\xi$ is moved little enough. At the opposite pole, the freest infinite groups fail it &mdash; and it is worth seeing the failure concretely, because the mechanism (spread-out bump vectors) is exactly what expansion forbids:</p>
+
+<div class="toy"><b>Toy 2 &mdash; $\mathbb Z$ does not have property (T).</b> Let $\pi$ be the shift representation of $\mathbb Z$ on $\ell^2(\mathbb Z)$ (square-summable sequences), $(\pi(k)\xi)(x) = \xi(x - k)$, with generating set $S = \{0, \pm 1\}$. There is no nonzero invariant vector: an invariant $\xi$ is a constant sequence, and a nonzero constant is not square-summable. But take the normalized bump $\xi_n = n^{-1/2}\,\mathbf 1_{\{1,\dots,n\}}$: shifting by one changes it in exactly two coordinates, so $\|\pi(\pm 1)\xi_n - \xi_n\|^2 = 2/n \to 0$. Almost-invariant vectors exist at every quality, invariant ones do not &mdash; property (T) fails. (This is the &ldquo;wide bump&rdquo; trick; compare the interval approximation of Fig. 2, which is the same geometry in permutation form.)</div>
+
+<p>Between the poles, the landmark examples are the higher-rank lattices: $\mathrm{SL}_d(\mathbb Z)$ has property (T) for every $d \ge 3$ (Kazhdan), while $\mathrm{SL}_2(\mathbb Z)$ does not. What this chapter needs is the ring-theoretic analogue of that fact &mdash; property (T) for <i>elementary matrix groups over an arbitrary finitely generated ring</i>, stated as Import 3 in <a class="secref" href="#leavitt">&sect;5</a>. For now, keep only the intuition: property (T) means <b>no almost-invariant vectors without invariant ones</b>, uniformly over all representations at once.</p>
+
+<p>The bridge to expanders is completely provable in the case of <i>exact</i> finite actions, and seeing it proved makes the imported theorems believable:</p>
+
+<div class="prop"><b>Proposition H (property (T) $\Rightarrow$ exact finite actions expand).</b> Let $H$ have property (T) with Kazhdan constant $\kappa \gt 0$ for the finite symmetric generating set $S$. Let $Y$ be a finite transitive $H$-set with $|Y| \ge 2$ (an exact action, every point reachable from every other). Then the $S$-generator graph on $Y$ satisfies
+$$|\partial U| \;\ge\; \frac{\kappa^2}{4}\, \min\{|U|,\, |Y \setminus U|\} \qquad (U \subseteq Y),$$
+i.e., it is a $\frac{\kappa^2}{4}$-expander.</div>
+
+<div class="proof">
+<p>Let $\ell^2_0(Y)$ be the space of complex functions on $Y$ summing to zero, with the action $(\pi(g)\xi)(y) = \xi(g^{-1}y)$. This is a unitary representation. It has no nonzero invariant vector: an invariant function is constant on orbits, the action is transitive, and a constant summing to zero is zero.</p>
+<p>Fix $U \subseteq Y$ with $0 \lt |U| \le |Y|/2$, write $U^c = Y \setminus U$, and consider the centered indicator
+$$\xi \;=\; \mathbf 1_U - \tfrac{|U|}{|Y|}\,\mathbf 1_Y \;\in\; \ell^2_0(Y), \qquad \|\xi\|^2 = \frac{|U|\,|U^c|}{|Y|} \;\ge\; \frac{|U|}{2}.$$
+(The norm: $\xi$ takes value $1 - |U|/|Y|$ on $U$ and $-|U|/|Y|$ on $U^c$; expand and simplify.) Property (T) supplies a generator $s \in S$ with $\|\pi(s)\xi - \xi\| \ge \kappa\|\xi\|$. But $\pi(s)\xi - \xi = \mathbf 1_{sU} - \mathbf 1_U$ (the constants cancel), which is supported on the symmetric difference $sU \,\triangle\, U$ and has modulus $1$ there, so
+$$\kappa^2 \, \frac{|U|}{2} \;\le\; \kappa^2\|\xi\|^2 \;\le\; \|\pi(s)\xi - \xi\|^2 \;=\; |sU \,\triangle\, U|.$$
+Every point of $sU \triangle U$ lies at an end of an $s$-labelled or $s^{-1}$-labelled boundary edge of $U$, and each such edge accounts for at most two points, so $|sU \triangle U| \le 2\,|\partial U|$. Combining, $|\partial U| \ge \frac{\kappa^2}{4}|U|$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 230" width="100%" role="img" aria-label="Proposition H: a centered indicator vector is moved by some generator proportionally to the boundary">
+  <defs><marker id="c3arrP" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- the set Y as a bar; U on left -->
+  <rect x="40" y="50" width="180" height="34" rx="4" fill="#7da7d9" fill-opacity="0.45" stroke="#2e5a8a"/>
+  <rect x="220" y="50" width="220" height="34" rx="4" fill="#ccc" fill-opacity="0.35" stroke="#8899aa"/>
+  <text x="115" y="72" font-size="13" fill="#1a1a1a" class="v">U</text>
+  <text x="320" y="72" font-size="13" fill="#1a1a1a">Y \ U</text>
+  <!-- xi as a step function below -->
+  <line x1="40" y1="140" x2="440" y2="140" stroke="#8899aa" stroke-width="1"/>
+  <path d="M40,112 L220,112" stroke="#2e5a8a" stroke-width="2.4" fill="none"/>
+  <path d="M220,155 L440,155" stroke="#8899aa" stroke-width="2.4" fill="none"/>
+  <line x1="220" y1="112" x2="220" y2="155" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <text x="60" y="105" font-size="11.5" fill="#2e5a8a">&#958; = 1 &#8722; |U|/|Y| on U</text>
+  <text x="285" y="175" font-size="11.5" fill="#555">&#958; = &#8722;|U|/|Y| off U</text>
+  <!-- generator arrow shifting the set -->
+  <path d="M150,44 C190,18 250,18 290,44" stroke="#2a7d2a" stroke-width="1.8" fill="none" marker-end="url(#c3arrP)"/>
+  <text x="178" y="20" font-size="12" fill="#2a7d2a">some s &#8712; S moves &#958; by &#8805; &#954;&#8901;&#8214;&#958;&#8214;</text>
+  <text x="228" y="130" font-size="11.5" fill="#c0392b">&#960;(s)&#958; &#8722; &#958; lives on sU &#9651; U &#8838; ends of &#8706;U</text>
+  <text x="40" y="205" font-size="12" fill="#7a1f1f">no bottleneck can hide from every generator: |&#8706;U| &#8805; (&#954;&#178;/4)&#8901;min{|U|, |Y\U|}</text>
+  <text x="40" y="224" font-size="11.5" fill="#555">this is exact-action expansion; Kun's theorem (Import 1) is the hard almost-action analogue</text>
+</svg><figcaption><b>The geometry of Proposition H.</b> A subset $U$ becomes the centered indicator vector $\xi \in \ell^2_0(Y)$ (a two-level step function, drawn below the set). Property (T) guarantees some generator moves $\xi$ by at least $\kappa\|\xi\|$; but the difference $\pi(s)\xi - \xi$ is supported exactly where $s$ crosses the boundary of $U$. Rigidity of representations becomes expansion of actions.</figcaption></figure>
+
+<h3 id="imports">3.4 The two big imports</h3>
+
+<p>A sofic approximation is not an exact action, so Proposition H does not apply to it; its defective points can, in principle, disconnect the generator graph or create bottlenecks. Kun's theorem says that for property-(T) groups the damage is confined to a vanishing edit:</p>
+
+<div class="note"><b>Import 1 (Kun's expander decomposition &mdash; Theorem 2.1 of the chapter) [Kun19, Thm. 1].</b> Let $H$ be an infinite finitely generated group with property (T), $S = S^{-1} \ni 1$ a finite generating set, and $p_n : H \to \mathrm{Sym}(Y_n)$ a sofic approximation with $|Y_n| \to \infty$; write $X_n$ for its $S$-generator multigraph. Then there are a constant $\gamma \gt 0$ and unlabelled uniformly-bounded-degree multigraphs $L_n$ on the same vertex sets with
+$$\bigl|E(X_n) \,\triangle\, E(L_n)\bigr| = o(|Y_n|)$$
+such that <b>every connected component of $L_n$ is a $\gamma$-expander</b>. (Conventions: boundaries and symmetric differences count multiplicity; if a convention drops identity loops, adjoin the same loop everywhere on both sides &mdash; neither boundaries nor the symmetric difference changes. The reference graphs are unlabelled: their edges need not remember generator labels, and decompositions built for different generating sets need not be compatible.)</div>
+
+<p>Crucially, Import 1 does <i>not</i> say the generator graph becomes <i>one</i> expander. It cannot: given any sofic approximation, the disjoint union of many copies of it is again a sofic approximation, with as many components as you like. The number of components is genuinely uncontrolled &mdash; only their internal quality ($\gamma$) is uniform (Fig. 7).</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="Kun's theorem: after editing a vanishing fraction of edges, the generator graph is a disjoint union of uniform expanders">
+  <defs><marker id="c3arrK" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- before: messy graph -->
+  <g stroke="#8899aa" stroke-width="1.1" fill="none">
+    <ellipse cx="90" cy="80" rx="52" ry="34"/>
+    <ellipse cx="90" cy="170" rx="42" ry="27"/>
+    <path d="M60,60 Q90,95 120,63 M64,95 Q92,66 118,96 M70,72 L112,88 M70,88 L112,72"/>
+    <path d="M68,160 Q90,185 112,162 M70,180 Q90,155 110,180"/>
+  </g>
+  <g stroke="#c0392b" stroke-width="1.5" fill="none">
+    <path d="M90,114 L90,143"/>
+    <path d="M124,96 Q150,125 122,152"/>
+    <path d="M46,66 Q10,120 52,158"/>
+  </g>
+  <text x="38" y="26" font-size="12" fill="#555">generator graph X&#8345; of a sofic approximation</text>
+  <text x="152" y="128" font-size="11.5" fill="#c0392b">o(N) defective</text>
+  <text x="152" y="144" font-size="11.5" fill="#c0392b">edges</text>
+  <line x1="230" y1="120" x2="268" y2="120" stroke="#555" stroke-width="1.8" marker-end="url(#c3arrK)"/>
+  <text x="222" y="106" font-size="11.5" fill="#555">edit o(N)</text>
+  <!-- after: disjoint expanders -->
+  <g stroke="#2a7d2a" stroke-width="1.4" fill="none">
+    <circle cx="315" cy="70" r="26"/><circle cx="380" cy="70" r="22"/><circle cx="440" cy="70" r="17"/>
+    <circle cx="320" cy="150" r="20"/><circle cx="378" cy="150" r="15"/><circle cx="426" cy="150" r="12"/>
+    <circle cx="330" cy="210" r="12"/><circle cx="370" cy="210" r="9"/><circle cx="404" cy="210" r="7"/><circle cx="432" cy="210" r="5"/>
+  </g>
+  <g font-size="10.5" fill="#2a7d2a">
+    <text x="303" y="74">&#947;-exp.</text><text x="368" y="74">&#947;-exp.</text><text x="430" y="74">&#947;</text>
+    <text x="308" y="154">&#947;-exp.</text><text x="370" y="154">&#947;</text>
+  </g>
+  <text x="300" y="26" font-size="12" fill="#555">reference graph L&#8345;: disjoint &#947;-expanders</text>
+  <text x="300" y="240" font-size="11.5" fill="#c0392b">&#8230;but how MANY components? uncontrolled.</text>
+  <text x="38" y="240" font-size="11.5" fill="#7a1f1f">same &#947; for every component and every n</text>
+</svg><figcaption><b>Import 1 (Kun).</b> For a property-(T) group, editing a vanishing fraction of the generator graph's edges leaves a disjoint union of $\gamma$-expanders with one uniform $\gamma$. The quality of each fragment is rigid; the number of fragments is not &mdash; disjoint unions of sofic approximations are sofic approximations.</figcaption></figure>
+
+<p>The second import turns a <i>single</i>-expander approximation into the exactness property of <a class="secref" href="#lef">&sect;2</a> &mdash; for a group <i>commuting</i> with the property-(T) group:</p>
+
+<div class="note"><b>Import 2 (Kun&ndash;Thom's expander-centralizer theorem &mdash; Theorem 2.2 of the chapter) [KT19, Thm. 1.1 and &sect;4].</b> Let $K$ have property (T), let $J$ be finitely generated, and fix a finite symmetric generating set $S_K \ni 1$ of $K$. Suppose $K \times J$ has a sofic approximation $p_n : K \times J \to \mathrm{Sym}(Y_n)$ whose $S_K$-generator multigraph $X_{K,n}$ satisfies, for some $\lambda \gt 0$ and every $n$,
+$$|\partial_{X_{K,n}} U| \;\ge\; \lambda\, \min\{|U|,\, |Y_n \setminus U|\} \qquad (U \subseteq Y_n)$$
+&mdash; one $\lambda$-expander <b>on the entire approximation set</b>. Then $J$ is LEF. (Multigraph version; boundaries count multiplicity.)</div>
+
+<p>Why the commuting factor? Intuition: on a single expander, the $K$-action is so well mixed that anything commuting with it is forced to behave almost like an exact symmetry of a finite structure; iterating over finite fragments of $J$ yields exact finite models &mdash; LEF. The proof is genuinely hard (it runs through property-(T) cohomology and spectral estimates) and we import it whole.</p>
+
+<h3 id="gap">3.5 The gap between the imports is real</h3>
+
+<p>Import 1 outputs <i>many</i> expanders; Import 2 demands <i>one</i>. The gap cannot be waved away, because the conclusion can genuinely fail for a union of expanders. The chapter records a known example. Take
+$$\Lambda = \mathrm{SL}_3(\mathbb Z), \qquad B = \mathrm{BS}(2,3) = \langle a, b \mid a b^2 a^{-1} = b^3 \rangle.$$
+Here $\Lambda$ has property (T) and is residually finite, hence sofic (Proposition A); the Baumslag&ndash;Solitar group $B$ is finitely presented and sofic but famously <i>not</i> residually finite [Pes08, Ex. 4.6], hence <b>not LEF</b> by Proposition E. Nevertheless the direct product $\Lambda \times B$ is sofic [ES06, Thm. 1(1)] &mdash; soficity is closed under direct products. Run Import 1 on the $\Lambda$-generators of any sofic approximation of $\Lambda \times B$: you get a union of expanding $\Lambda$-components. If some argument could upgrade &ldquo;union of expanders&rdquo; to &ldquo;one expander,&rdquo; Import 2 would force $B$ to be LEF &mdash; false. So <b>no general argument closes the gap</b>: the commuting group can shuffle whole components among themselves, using the freedom between the components that expansion does not police (Fig. 8).</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 220" width="100%" role="img" aria-label="The obstruction to closing the gap: the commuting group B permutes whole expanding components">
+  <defs><marker id="c3arrG2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/></marker></defs>
+  <g stroke="#2a7d2a" stroke-width="1.5" fill="#f1f7f1">
+    <circle cx="90" cy="95" r="38"/><circle cx="215" cy="95" r="38"/><circle cx="340" cy="95" r="38"/>
+  </g>
+  <g font-size="12" fill="#2a7d2a">
+    <text x="62" y="92">&#923;-expander</text><text x="187" y="92">&#923;-expander</text><text x="312" y="92">&#923;-expander</text>
+  </g>
+  <g font-size="11" fill="#555">
+    <text x="74" y="110">(rigid inside)</text><text x="199" y="110">(rigid inside)</text><text x="324" y="110">(rigid inside)</text>
+  </g>
+  <g stroke="#c0392b" stroke-width="1.8" fill="none">
+    <path d="M105,53 C140,20 165,20 200,53" marker-end="url(#c3arrG2)"/>
+    <path d="M230,53 C265,20 290,20 325,53" marker-end="url(#c3arrG2)"/>
+    <path d="M325,137 C250,185 145,180 100,140" marker-end="url(#c3arrG2)"/>
+  </g>
+  <text x="150" y="16" font-size="12" fill="#c0392b">B-generators hop between components</text>
+  <text x="404" y="98" font-size="13" fill="#555">&#8943;</text>
+  <text x="38" y="205" font-size="12" fill="#7a1f1f">&#923; &#215; B sofic, &#923; property (T), B not LEF: expansion inside components cannot constrain B's shuffling</text>
+</svg><figcaption><b>Why many components are not enough.</b> In a sofic approximation of $\Lambda \times B$ with $\Lambda = \mathrm{SL}_3(\mathbb Z)$, the $\Lambda$-generator graph decomposes into expanding components (Import 1), but the commuting group $B = \mathrm{BS}(2,3)$ may act by moving whole components around. Since $B$ is not LEF, no theorem can force a single expander here. The extra hypothesis that saves the day in <a class="secref" href="#matching">&sect;4</a> is a <i>contracting conjugation</i> absent from this example.</figcaption></figure>
+
+<p>What the example lacks &mdash; and what the Leavitt algebra will supply &mdash; is <i>nesting</i>. In <a class="secref" href="#matching">&sect;4</a> the ambient group $G$ contains a property-(T) subgroup $\Gamma$ and elements $t_i$ that conjugate $\Gamma$ <i>into itself</i>, $t_i \Gamma t_i^{-1} \le \Gamma$, with the commuting group $J$ also swallowed: $t_1 J t_1^{-1} \le \Gamma$. That self-compression is what the matching argument converts into control over the components.</p>

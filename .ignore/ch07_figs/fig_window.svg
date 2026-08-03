@@ -1,0 +1,15 @@
+<svg class="setupfig" viewBox="0 0 640 230" width="100%" role="img" aria-label="What is now known on the exponent axis">
+<defs><marker id="c7win_arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.0" markerHeight="5.0" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<line x1="50" y1="110" x2="608" y2="110" stroke="#333" stroke-width="1.5" marker-end="url(#c7win_arr)"/>
+<text x="600" y="132" font-size="11.5" text-anchor="end" fill="#333">exponent c in &#947; = n&#8202;<tspan baseline-shift="super" font-size="75%">c</tspan></text>
+<rect x="60" y="100" width="2.14" height="20" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="62.14" y1="84" x2="62.14" y2="120" stroke="#c0392b" stroke-width="1.4"/>
+<text x="66.14" y="78" font-size="11.5" text-anchor="start" fill="#c0392b">c = 1/400: NP-hard (Theorem 1, this chapter)</text>
+<rect x="62.14" y="100" width="425.28" height="20" rx="2" fill="#f3f1ec" stroke="#666" stroke-width="1.0"/>
+<text x="273.71" y="144" font-size="11.5" text-anchor="middle" fill="#666">open: is GapCVP(n<tspan baseline-shift="super" font-size="75%">c</tspan>) NP-hard for any 1/400 &lt; c &lt; 1/2?</text>
+<line x1="487.42" y1="84" x2="487.42" y2="136" stroke="#2e6da4" stroke-width="2"/>
+<text x="487.42" y="76" font-size="11.5" text-anchor="middle" fill="#2e6da4">c = 1/2: GapCVP(C&#8730;n) &#8712; NP &#8745; coNP</text>
+<text x="487.42" y="152" font-size="10.5" text-anchor="middle" fill="#2e6da4">NP-hardness here would give NP = coNP</text>
+<rect x="487.42" y="100" width="85.48" height="20" rx="2" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.0"/>
+<text x="310" y="200" font-size="11.5" text-anchor="middle" fill="#333">before this chapter, NO fixed c &gt; 0 was known; the previous record factor n<tspan baseline-shift="super" font-size="75%">a/log</tspan> log n has exponent &#8594; 0</text>
+</svg>

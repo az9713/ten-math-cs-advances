@@ -1,0 +1,36 @@
+<svg class="setupfig" viewBox="0 0 500 300" width="100%" role="img" aria-label="Nearest codeword in the 3-cube">
+<line x1="120" y1="236" x2="290" y2="236" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="120" y1="236" x2="120" y2="86" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="120" y1="236" x2="198" y2="174" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="290" y1="236" x2="290" y2="86" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="290" y1="236" x2="368" y2="174" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="120" y1="86" x2="290" y2="86" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="120" y1="86" x2="198" y2="24" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="290" y1="86" x2="368" y2="24" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="198" y1="174" x2="368" y2="174" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="198" y1="174" x2="198" y2="24" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="368" y1="174" x2="368" y2="24" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<line x1="198" y1="24" x2="368" y2="24" stroke="#666" stroke-width="1.1" opacity="0.7"/>
+<circle cx="120" cy="236" r="9" fill="#2a7d2a" stroke="#333" stroke-width="1.2"/>
+<text x="120" y="260" font-size="12" text-anchor="middle" fill="#2a7d2a" font-weight="bold">000</text>
+<circle cx="290" cy="236" r="6" fill="#bbb" stroke="none"/>
+<text x="290" y="260" font-size="12" text-anchor="middle" fill="#666">001</text>
+<circle cx="120" cy="86" r="6" fill="#bbb" stroke="none"/>
+<text x="120" y="72" font-size="12" text-anchor="middle" fill="#666">010</text>
+<circle cx="290" cy="86" r="9" fill="#2a7d2a" stroke="#333" stroke-width="1.2"/>
+<text x="290" y="72" font-size="12" text-anchor="middle" fill="#2a7d2a" font-weight="bold">011</text>
+<circle cx="198" cy="174" r="9" fill="#c0392b" stroke="none"/>
+<text x="198" y="198" font-size="12" text-anchor="middle" fill="#c0392b" font-weight="bold">100</text>
+<circle cx="368" cy="174" r="9" fill="#2a7d2a" stroke="#333" stroke-width="1.2"/>
+<text x="368" y="198" font-size="12" text-anchor="middle" fill="#2a7d2a" font-weight="bold">101</text>
+<circle cx="198" cy="24" r="9" fill="#2a7d2a" stroke="#333" stroke-width="1.2"/>
+<text x="198" y="10" font-size="12" text-anchor="middle" fill="#2a7d2a" font-weight="bold">110</text>
+<circle cx="368" cy="24" r="6" fill="#bbb" stroke="none"/>
+<text x="368" y="10" font-size="12" text-anchor="middle" fill="#666">111</text>
+<line x1="198" y1="174" x2="120" y2="236" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3" opacity="0.85"/>
+<line x1="198" y1="174" x2="368" y2="174" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3" opacity="0.85"/>
+<line x1="198" y1="174" x2="198" y2="24" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3" opacity="0.85"/>
+<text x="24" y="26" font-size="12" text-anchor="start" fill="#2a7d2a">code C = ker H = even-weight words (green)</text>
+<text x="24" y="44" font-size="12" text-anchor="start" fill="#c0392b">received u = 100 (red): three codewords at Hamming distance 1</text>
+<text x="24" y="286" font-size="12" text-anchor="start" fill="#333">d&#8344;(u, C) = min wt(u &#8722; c) = W(H, b) = 1  for H = [1 1 1], b = 1</text>
+</svg>

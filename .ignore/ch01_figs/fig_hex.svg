@@ -1,0 +1,44 @@
+<svg class="setupfig" viewBox="0 0 460 314" width="100%" role="img" aria-label="Hexagonal circle packing">
+<circle cx="57.53" cy="256.53" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="95.85" cy="190.23" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="57.53" cy="123.92" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="95.85" cy="57.62" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="134.18" cy="256.53" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="172.51" cy="190.23" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="134.18" cy="123.92" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="172.51" cy="57.62" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="210.84" cy="256.53" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="249.16" cy="190.23" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="210.84" cy="123.92" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="249.16" cy="57.62" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="287.49" cy="256.53" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="325.82" cy="190.23" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="287.49" cy="123.92" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="325.82" cy="57.62" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="364.15" cy="256.53" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="402.47" cy="190.23" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="364.15" cy="123.92" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="402.47" cy="57.62" r="38.33" fill="#2e6da4" opacity="0.25" stroke="#2e6da4" stroke-width="1.5"/>
+<circle cx="57.53" cy="256.53" r="2.4" fill="#333"/>
+<circle cx="95.85" cy="190.23" r="2.4" fill="#333"/>
+<circle cx="57.53" cy="123.92" r="2.4" fill="#333"/>
+<circle cx="95.85" cy="57.62" r="2.4" fill="#333"/>
+<circle cx="134.18" cy="256.53" r="2.4" fill="#333"/>
+<circle cx="172.51" cy="190.23" r="2.4" fill="#333"/>
+<circle cx="134.18" cy="123.92" r="2.4" fill="#333"/>
+<circle cx="172.51" cy="57.62" r="2.4" fill="#333"/>
+<circle cx="210.84" cy="256.53" r="2.4" fill="#333"/>
+<circle cx="249.16" cy="190.23" r="2.4" fill="#333"/>
+<circle cx="210.84" cy="123.92" r="2.4" fill="#333"/>
+<circle cx="249.16" cy="57.62" r="2.4" fill="#333"/>
+<circle cx="287.49" cy="256.53" r="2.4" fill="#333"/>
+<circle cx="325.82" cy="190.23" r="2.4" fill="#333"/>
+<circle cx="287.49" cy="123.92" r="2.4" fill="#333"/>
+<circle cx="325.82" cy="57.62" r="2.4" fill="#333"/>
+<circle cx="364.15" cy="256.53" r="2.4" fill="#333"/>
+<circle cx="402.47" cy="190.23" r="2.4" fill="#333"/>
+<circle cx="364.15" cy="123.92" r="2.4" fill="#333"/>
+<circle cx="402.47" cy="57.62" r="2.4" fill="#333"/>
+<polyline points="210.84,123.92 249.16,57.62" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="258.36" y="98.06" font-size="14" text-anchor="start" fill="#c0392b" class="v">1</text>
+</svg>

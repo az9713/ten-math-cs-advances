@@ -1,0 +1,24 @@
+<svg class="setupfig" viewBox="0 0 540 266" width="100%" role="img" aria-label="correlated sampling by shared darts">
+<rect x="70" y="50" width="84" height="150" rx="0" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+<rect x="70" y="125" width="40" height="75" fill="#2e6da4" opacity="0.55"/>
+<rect x="114" y="155" width="40" height="45" fill="#c0392b" opacity="0.55"/>
+<text x="112" y="216" font-size="11" text-anchor="middle" fill="#333">z = 1</text>
+<text x="90" y="119.0" font-size="10.5" text-anchor="middle" fill="#2e6da4">P=0.5</text>
+<text x="134" y="149.0" font-size="10.5" text-anchor="middle" fill="#c0392b">Q=0.3</text>
+<rect x="180" y="50" width="84" height="150" rx="0" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+<rect x="180" y="155" width="40" height="45" fill="#2e6da4" opacity="0.55"/>
+<rect x="224" y="155" width="40" height="45" fill="#c0392b" opacity="0.55"/>
+<text x="222" y="216" font-size="11" text-anchor="middle" fill="#333">z = 2</text>
+<text x="200" y="149.0" font-size="10.5" text-anchor="middle" fill="#2e6da4">P=0.3</text>
+<text x="244" y="149.0" font-size="10.5" text-anchor="middle" fill="#c0392b">Q=0.3</text>
+<rect x="290" y="50" width="84" height="150" rx="0" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+<rect x="290" y="170" width="40" height="30" fill="#2e6da4" opacity="0.55"/>
+<rect x="334" y="140" width="40" height="60" fill="#c0392b" opacity="0.55"/>
+<text x="332" y="216" font-size="11" text-anchor="middle" fill="#333">z = 3</text>
+<text x="310" y="164.0" font-size="10.5" text-anchor="middle" fill="#2e6da4">P=0.2</text>
+<text x="354" y="134.0" font-size="10.5" text-anchor="middle" fill="#c0392b">Q=0.4</text>
+<circle cx="112" cy="137" r="6" fill="#2a7d2a"><animate attributeName="cx" values="112;332;112;222;332;112" keyTimes="0.000;0.200;0.400;0.600;0.800;1" dur="10s" calcMode="discrete" repeatCount="indefinite"/><animate attributeName="cy" values="137;149;162;173;146;137" keyTimes="0.000;0.200;0.400;0.600;0.800;1" dur="10s" calcMode="discrete" repeatCount="indefinite"/><animate attributeName="fill" values="#b06a00;#b06a00;#2a7d2a;#2a7d2a;#b06a00;#b06a00" keyTimes="0.000;0.200;0.400;0.600;0.800;1" dur="10s" calcMode="discrete" repeatCount="indefinite"/></circle>
+<text x="270" y="26" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">shared darts (z, u): accept when u falls under your own curve</text>
+<text x="270" y="232" font-size="11" text-anchor="middle" fill="#333">green dart: accepted by BOTH → same output · orange: accepted by one only → possible disagreement</text>
+<text x="270" y="252" font-size="12" text-anchor="middle" fill="#333" font-weight="bold">P(outputs differ) = 2d<tspan baseline-shift="sub" font-size="70%">TV</tspan>/(1 + d<tspan baseline-shift="sub" font-size="70%">TV</tspan>) ≤ 2d<tspan baseline-shift="sub" font-size="70%">TV</tspan>(P, Q)</text>
+</svg>

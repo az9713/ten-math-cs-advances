@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One factor, infinitely many groups — Chapter 4, rigorous explainer</title>
+<!-- MathJax v3, SVG output. One CDN line; needs network on first open. -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'ams' },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-svg.js" integrity="sha384-msWocAZtTDh+149KSxjbRTGVfGbDjiff/j0JX1iu/A/GxxTWSu6ozNemlfkag/8d" crossorigin="anonymous" async></script>
+<style>
+  :root{ --fg:#1a1a1a; --muted:#555; --accent:#7a1f1f; --rule:#ddd; --box:#f6f4ef;
+         --toy:#2a7d2a; --toybg:#f1f7f1; --notebg:#fdf7e3; --noterule:#e3d27a; --card:#ffffff;
+         --codebg:#f3f1ec; --btnbg:#ffffff; --pagebg:#ffffff; }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:#e8e5df; --muted:#a49e92; --accent:#d98a6a; --rule:#3a3630; --box:#232019;
+           --toy:#7fbf8f; --toybg:#1d241d; --notebg:#2a2617; --noterule:#6a5d2a; --card:#f6f4ef;
+           --codebg:#2a2723; --btnbg:#232019; --pagebg:#161513; }
+  }
+  body{ background:var(--pagebg); }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ max-width: 50rem; margin: 2.5rem auto; padding: 0 1.25rem 6rem;
+        font: 16px/1.65 Georgia, 'Times New Roman', serif; color:var(--fg); counter-reset: fig; }
+  h1{ font-size: 1.9rem; line-height:1.2; margin:.2rem 0 .2rem; }
+  h2{ font-size:1.35rem; margin:2.4rem 0 .6rem; border-bottom:2px solid var(--accent); padding-bottom:.2rem; }
+  h3{ font-size:1.1rem; margin:1.6rem 0 .4rem; color:var(--accent); }
+  .sub{ color:var(--muted); font-style:italic; margin-top:0; }
+  code{ font-family: ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.92em; background:var(--codebg); padding:.05rem .25rem; border-radius:3px; }
+  pre{ background:var(--codebg); padding:.8rem 1rem; border-radius:5px; overflow:auto; font-size:.84rem; line-height:1.45; }
+  pre code{ background:none; padding:0; }
+  .codewrap{ position:relative; }
+  .copybtn{ position:absolute; top:.5rem; right:.5rem; display:inline-flex; align-items:center; gap:.3rem;
+    font:600 .72rem/1 ui-monospace,Consolas,monospace; color:var(--muted);
+    background:var(--btnbg); border:1px solid var(--rule); border-radius:5px; padding:.32rem .5rem; cursor:pointer; }
+  .copybtn:hover{ color:var(--accent); border-color:var(--accent); }
+  .copybtn.copied{ color:#2a7d2a; border-color:#2a7d2a; }
+  .copybtn svg{ width:13px; height:13px; }
+  .thm,.def,.lem,.prop{ background:var(--box); border-left:4px solid var(--accent); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .thm b,.def b,.lem b,.prop b{ color:var(--accent); }
+  .proof{ border-left:2px solid var(--rule); padding-left:.9rem; margin:.8rem 0 1.2rem; }
+  .proof::before{ content:"Proof."; font-style:italic; font-weight:bold; margin-right:.4rem; }
+  .qed{ float:right; }
+  .toy{ background:var(--toybg); border-left:4px solid var(--toy); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .toy b{ color:var(--toy); }
+  .note{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; margin:1rem 0; border-radius:4px; font-size:.92rem; }
+  table{ border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; }
+  th,td{ border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top; }
+  th{ background:var(--box); }
+  .tablewrap{ overflow-x:auto; }
+  figure{ margin:1.5rem 0; text-align:center; counter-increment: fig; }
+  figure > svg{ background:var(--card); border:1px solid var(--rule); border-radius:6px; }
+  figcaption{ color:var(--muted); font-size:.9rem; font-style:italic; margin-top:.4rem; }
+  figcaption::before{ content:"Fig. " counter(fig) ". "; font-weight:bold; font-style:normal; color:var(--accent); }
+  .proof figure,.thm figure,.lem figure,.prop figure{ margin:.2rem auto .7rem; max-width:460px; background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:.4rem; }
+  .proof figure > svg,.thm figure > svg,.lem figure > svg,.prop figure > svg{ border:none; }
+  .proof figcaption,.thm figcaption,.lem figcaption,.prop figcaption{ font-size:.8rem; line-height:1.4; }
+  .setupfig{ display:block; }
+  .setupfig text{ paint-order:stroke; stroke:#fff; stroke-width:2.5px; stroke-linejoin:round; }
+  .setupfig text[fill="#fff"], .setupfig text[fill="#ffffff"], .setupfig text[fill="white"], .setupfig text.onfill{ stroke:none; }
+  figure svg text{ font-family:"STIX Two Math",STIXGeneral,"Times New Roman",Georgia,serif; }
+  figure svg text.v{ font-style:italic; }
+  figure svg text.vb{ font-weight:bold; }
+  .secref{ color:var(--accent); text-decoration:none; border-bottom:1px dotted #b98; }
+  .secref:hover{ border-bottom:1px solid var(--accent); }
+  .toc{ background:var(--box); padding:.8rem 1.2rem; border-radius:6px; font-size:.95rem; }
+  .toc ul{ list-style:none; padding-left:.3rem; margin:.3rem 0; } .toc a{ color:var(--accent); text-decoration:none; }
+  .small{ font-size:.88rem; color:var(--muted); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+  .keyresult{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; border-radius:4px; }
+</style>
+</head>
+<body>
+
+<h1>One factor, infinitely many groups</h1>
+<p class="sub">A rigorous, self-contained walkthrough of Chapter 4 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (pp. 94&ndash;111) &mdash; the counterexample to Connes's rigidity conjecture &mdash; written for a reader with a PhD in <b>some</b> quantitative field but not in operator algebras. Every symbol is defined before use; everything provable at graduate-core level is proved (the group-factor ICC criterion, Fourier duality, the entire binary-carry construction, all orbit and spectral estimates); the five deep imports (Connes&ndash;Jones, Ershov&ndash;Jaikin-Zapirain, Suslin, the spectral theorem, and two property-(T) inheritance facts) are stated precisely and flagged; and the construction's identities and counts are re-verified by machine in <a href="#numerics" class="secref">&sect;10</a>.</p>
+
+<div class="toc">
+<b>Contents</b>
+<ul>
+<li><b>0.</b> <a href="#hook">Motivation &mdash; can you hear the shape of a group?</a></li>
+<li><b>1.</b> <a href="#vna">Group von Neumann algebras from zero</a></li>
+<li><b>2.</b> <a href="#propT">Property (T) and the Connes&ndash;Jones bridge</a></li>
+<li><b>3.</b> <a href="#fourier">Fourier duality: what the factor remembers</a></li>
+<li><b>4.</b> <a href="#toy4">The four-point toy: one measure, two group laws</a></li>
+<li><b>5.</b> <a href="#actingK">The acting group $K$: torsion-free, ICC, property (T)</a></li>
+<li><b>6.</b> <a href="#carry">The binary-carry construction: $\Lambda$ and $\Gamma_0$</a></li>
+<li><b>7.</b> <a href="#rigidity">Rigidity of $\Lambda$: infinite orbits and a spectral gap</a></li>
+<li><b>8.</b> <a href="#family">The infinite family $\Gamma_n$</a></li>
+<li><b>9.</b> <a href="#thm">Theorem 1.2 assembled &mdash; and the rigidity landscape</a></li>
+<li><b>10.</b> <a href="#numerics">Machine verification of the construction</a></li>
+<li><b>11.</b> <a href="#scope">Scope &mdash; proved here, imported, open</a></li>
+<li><b>A.</b> <a href="#notation">Appendix: notation glossary</a></li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="hook">0. Motivation &mdash; can you hear the shape of a group?</h2>
+
+<p>Kac's famous question about drums &mdash; can two different shapes sound identical? &mdash; has a noncommutative sibling. To every countable group $G$ one can attach an analytic object $L(G)$, its <b>group von Neumann algebra</b>: roughly, the ring of all &ldquo;infinite linear combinations&rdquo; of group elements that act boundedly on the Hilbert space $\ell^2(G)$. This object is the group's harmonic shadow. It forgets a lot: by a celebrated theorem of Connes, <i>every</i> amenable infinite group with infinite conjugacy classes &mdash; $\mathbb Z$'s lamplighter cousins, solvable groups, and countless others &mdash; casts <i>the same</i> shadow, a single algebra called the hyperfinite II$_1$ factor. The shadow of an amenable group remembers essentially nothing.</p>
+
+<p>Rigidity theory is the study of the opposite regime. Kazhdan's <b>property (T)</b> &mdash; the representation-theoretic rigidity we met in Chapter 3's explainer &mdash; was expected to prevent the collapse: a property-(T) group is so stiff that its shadow ought to determine it completely. Connes conjectured exactly this in the early 1980s:</p>
+
+<div class="keyresult"><b>Conjecture 1.1 (Connes's rigidity conjecture).</b> Let $G$ and $H$ be countable ICC groups with property (T) (ICC: every nonidentity conjugacy class is infinite). If $L(G) \cong L(H)$, then $G \cong H$.</div>
+
+<p>The conjecture stood for four decades, supported by spectacular partial evidence: Popa's deformation/rigidity theory recovered groups <i>and their actions</i> from crossed-product algebras; Ioana proved that Bernoulli actions of ICC property-(T) groups are $W^*$-superrigid; and in 2023 Chifan, Ioana, Osin, and Sun produced the first property-(T) groups that genuinely <i>are</i> determined by their von Neumann algebras. Popa proved in his 2006 ICM address that the map $G \mapsto L(G)$ is at most <i>countable-to-one</i> on ICC property-(T) groups, and asked whether its fibers must be finite. Chapter 4 demolishes the conjecture in the strongest possible way:</p>
+
+<div class="keyresult"><b>Theorem 1.2 (proved in <a class="secref" href="#thm">&sect;9</a>).</b> There exist finitely generated ICC property-(T) groups $\Lambda, \Gamma_0, \Gamma_1, \Gamma_2, \dots$, pairwise nonisomorphic, with
+$$L(\Gamma_n) \;\cong\; L(\Lambda) \qquad (n \ge 0).$$
+Moreover each $\Gamma_n$ contains a copy of $\Gamma_0$ of index $2^{4n}$, so the $\Gamma_n$ are mutually commensurable. In particular the fiber of the group-factor map at $L(\Lambda)$ is countably infinite: Popa's countability bound is sharp, and even the finite-to-one weakening of Connes's conjecture fails.</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="The group-factor map: amenable groups collapse to one point; the conjecture predicted property-(T) fibers of size one; the theorem builds an infinite fiber">
+  <defs><marker id="c4arrA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- top: groups -->
+  <rect x="20" y="30" width="440" height="60" rx="8" fill="#7da7d9" fill-opacity="0.15" stroke="#2e5a8a"/>
+  <text x="30" y="22" font-size="12" fill="#2e5a8a">countable ICC groups</text>
+  <g fill="#2e5a8a"><circle cx="60" cy="60" r="4"/><circle cx="90" cy="70" r="4"/><circle cx="120" cy="52" r="4"/><circle cx="150" cy="66" r="4"/></g>
+  <text x="48" y="46" font-size="11" fill="#2e5a8a">amenable ones</text>
+  <g fill="#c0392b"><circle cx="300" cy="52" r="4"/><circle cx="330" cy="68" r="4"/><circle cx="360" cy="55" r="4"/><circle cx="390" cy="70" r="4"/><circle cx="420" cy="58" r="4"/></g>
+  <text x="286" y="44" font-size="11" fill="#c0392b">&#923;, &#915;&#8320;, &#915;&#8321;, &#915;&#8322;, &#8230; (property (T))</text>
+  <!-- map arrows -->
+  <g stroke="#555" stroke-width="1.4" fill="none">
+    <path d="M60,92 C60,120 100,140 105,158" marker-end="url(#c4arrA)"/>
+    <path d="M120,92 C120,120 108,140 107,158" marker-end="url(#c4arrA)"/>
+    <path d="M150,92 C150,120 112,140 110,158" marker-end="url(#c4arrA)"/>
+  </g>
+  <g stroke="#c0392b" stroke-width="1.5" fill="none">
+    <path d="M300,92 C300,125 345,140 352,158" marker-end="url(#c4arrA)"/>
+    <path d="M330,92 C330,125 350,140 354,158" marker-end="url(#c4arrA)"/>
+    <path d="M390,92 C390,125 362,140 358,158" marker-end="url(#c4arrA)"/>
+    <path d="M420,92 C420,125 368,142 360,158" marker-end="url(#c4arrA)"/>
+  </g>
+  <text x="212" y="130" font-size="12.5" fill="#1a1a1a">G &#8614; L(G)</text>
+  <!-- bottom: factors -->
+  <rect x="20" y="162" width="440" height="46" rx="8" fill="#e8b87d" fill-opacity="0.2" stroke="#a06a1f"/>
+  <text x="30" y="156" font-size="12" fill="#a06a1f">II&#8321; factors</text>
+  <circle cx="107" cy="185" r="5" fill="#2e5a8a"/>
+  <text x="46" y="189" font-size="11" fill="#2e5a8a">hyperfinite R</text>
+  <circle cx="356" cy="185" r="5" fill="#c0392b"/>
+  <text x="368" y="189" font-size="11" fill="#c0392b">L(&#923;)</text>
+  <text x="20" y="232" font-size="12" fill="#7a1f1f">amenable: everything collapses (Connes 1976) &#8226; conjecture: property (T) &#8658; fibers of size 1 &#8226; Thm 1.2: an INFINITE fiber</text>
+  <text x="20" y="248" font-size="11.5" fill="#555">Popa 2006: property-(T) fibers are at most countable &mdash; Theorem 1.2 shows that bound is exact</text>
+</svg><figcaption><b>The group-factor map and its fibers.</b> Amenable ICC groups all map to one point (the hyperfinite II$_1$ factor $R$) &mdash; total collapse. Connes conjectured that on property-(T) groups the map is injective. Theorem 1.2 constructs a countably infinite fiber (red) inside the property-(T) class, exactly matching Popa's countability upper bound.</figcaption></figure>
+
+<p>What is remarkable is <i>how cheap</i> the counterexample turns out to be. No quantum machinery, no exotic cohomology &mdash; the whole thing rests on a trick you can explain on four points. Here it is. Take the set $\{0,1\}^2$ with the uniform measure. Coordinatewise addition mod $2$ makes it the Klein four-group $\mathbb Z/2 \times \mathbb Z/2$. But the twisted law
+$$(x, y) \diamond (x', y') = (x + x',\; y + y' + xx')$$
+makes it $\mathbb Z/4$ &mdash; the extra term $xx'$ is precisely the <b>carry bit</b> of binary addition ($x$ is the ones digit, $y$ the twos digit). Two genuinely different groups; <i>one and the same</i> measure space (<a class="secref" href="#toy4">&sect;4</a>). The proof strategy is now a pipeline of three moves:</p>
+
+<ul>
+<li><b>Move one (Fourier).</b> For a countable abelian group $A$ acted on by a group $K$, the von Neumann algebra $L(A \rtimes K)$ can be computed by Fourier transform: it equals a <i>crossed product</i> $L^\infty(\widehat A) \rtimes K$ built from the compact dual $\widehat A$ &mdash; but only from its <i>measure space and $K$-action</i>, never from its compact group law (<a class="secref" href="#fourier">&sect;3</a>). The shadow is measure-theoretic; the group law is invisible to it.</li>
+<li><b>Move two (carry).</b> Globalize the four-point trick $K$-equivariantly: put infinitely many different compact abelian group structures $C_0, C_1, C_2, \dots$ on one fixed measured $K$-space, by inserting the binary carry at coordinate position $n$ (<a class="secref" href="#carry">&sect;6</a>, <a class="secref" href="#family">&sect;8</a>). Their Pontryagin duals $E_n$ are genuinely different discrete groups; the semidirect products $\Gamma_n = E_n \rtimes K$ all have the factor of $\Lambda = D \rtimes K$, where $D$ is the untwisted model. An order-four element (the carry made algebra) distinguishes $\Gamma_n$ from $\Lambda$, and an intrinsic counting invariant of size $2^{4n}$ recovers $n$.</li>
+<li><b>Move three (rigidity bookkeeping).</b> None of this would touch Connes's conjecture unless the groups were ICC with property (T). The acting group $K$ is a congruence subgroup of $\mathrm{SL}_4(\mathbb Z[t])$ &mdash; property (T) by Ershov&ndash;Jaikin-Zapirain (the same import as Chapter 3) plus Suslin's theorem; ICC and torsion-free by direct matrix arguments (<a class="secref" href="#actingK">&sect;5</a>). The semidirect product $\Lambda$ is ICC by an infinite-orbit computation, and has property (T) by a beautiful hands-on spectral estimate whose engine is a quarter-support bound for quadratic Boolean polynomials &mdash; and which works precisely because the matrices are $4 \times 4$: rank $4$ is the smallest rank for which the numbers come out positive (<a class="secref" href="#rigidity">&sect;7</a>). Everything then transfers to every $\Gamma_n$ through the common factor via the Connes&ndash;Jones theorem (<a class="secref" href="#propT">&sect;2</a>).</li>
+</ul>
+
+<p>The plan: <a class="secref" href="#vna">&sect;1</a> builds group von Neumann algebras from nothing and proves the Murray&ndash;von Neumann ICC criterion. <a class="secref" href="#propT">&sect;2</a> recalls property (T) (Chapter 3's primer covers the basics; here we add relative property (T) and the Connes&ndash;Jones bridge). <a class="secref" href="#fourier">&sect;3</a> proves the Fourier mechanism, <a class="secref" href="#toy4">&sect;4</a> the four-point toy. <a class="secref" href="#actingK">&sect;5</a>&ndash;<a class="secref" href="#rigidity">&sect;7</a> build $K$, the carry group, and the rigidity proofs; <a class="secref" href="#family">&sect;8</a> produces the infinite family and its distinguishing invariant; <a class="secref" href="#thm">&sect;9</a> assembles Theorem 1.2 and maps the landscape; <a class="secref" href="#numerics">&sect;10</a> re-verifies the constructions by machine; <a class="secref" href="#scope">&sect;11</a> is the honest scorecard.</p>
+
+<p class="small">Source of truth: Chapter 4, &ldquo;A Counterexample to Connes's Rigidity Conjecture&rdquo;, pp. 94&ndash;111 of the paper (PDF pages 96&ndash;113). The chapter's numbering &mdash; Conjecture 1.1, Theorem 1.2, Lemmas 2.1, 3.2, 3.3, 4.2, 5.1&ndash;5.7, 6.1, 6.2, 6.6&ndash;6.8, Propositions 3.1, 4.1, 4.3, 5.3, 5.9, 6.3&ndash;6.5, 6.9, Corollary 5.10, and equations (2.1), (4.2), (5.1), (5.3), (6.3), (6.7)&ndash;(6.13) &mdash; is preserved. Results labeled with letters are background proved here; results labeled <b>Import 1&ndash;5</b> are deep external inputs, stated precisely but not proved.</p>

@@ -1,0 +1,311 @@
+<h2 id="matching">4. The expander-matching criterion (Proposition 2.3), in full</h2>
+
+<p>This section proves the chapter's analytic contribution: a general group-theoretic criterion, independent of the Leavitt algebra, that turns Kun's <i>many</i> expanders into Kun&ndash;Thom's <i>one</i> expander. The extra hypothesis &mdash; the one the $\Lambda \times B$ example of <a class="secref" href="#gap">&sect;3.5</a> lacks &mdash; is that some elements conjugate both the property-(T) subgroup and the commuting group <i>into</i> the property-(T) subgroup.</p>
+
+<div class="prop"><b>Proposition 2.3.</b> Let $\Gamma \le G$ be infinite finitely generated groups, both with property (T). Suppose
+$$G = \langle \Gamma, t_1, \dots, t_m \rangle, \qquad t_i \Gamma t_i^{-1} \le \Gamma \quad (1 \le i \le m), \qquad m \ge 1,$$
+and that a finitely generated subgroup $J \le G$ satisfies
+$$[\Gamma, J] = 1, \qquad \Gamma \cap J = \{1\}, \qquad t_1 J t_1^{-1} \le \Gamma.$$
+Then soficity of $G$ implies that $J$ is LEF.</div>
+
+<p>Before the proof, absorb the hypotheses. $[\Gamma, J] = 1$ means every element of $\Gamma$ commutes with every element of $J$; together with $\Gamma \cap J = \{1\}$ this identifies the subgroup $\Gamma J \le G$ with the direct product $\Gamma \times J$ (the map $(g, j) \mapsto gj$ is an injective homomorphism). The conjugations by $t_1$ compress <i>both</i> factors into $\Gamma$ at once:
+$$t_1 (\Gamma \times J) t_1^{-1} \;=\; \bigl(t_1 \Gamma t_1^{-1}\bigr) \times \bigl(t_1 J t_1^{-1}\bigr) \;\le\; \Gamma.$$
+This nesting is exactly what the direct product $\Lambda \times B$ of <a class="secref" href="#gap">&sect;3.5</a> does not have. The proof runs in five steps; Fig. 9 is the map.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 260" width="100%" role="img" aria-label="Roadmap of the five steps of the proof of Proposition 2.3">
+  <defs><marker id="c3arrR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <g fill="none" stroke="#b8a" stroke-width="1.3">
+    <rect x="20" y="18" width="440" height="38" rx="6"/>
+    <rect x="20" y="66" width="440" height="38" rx="6"/>
+    <rect x="20" y="114" width="440" height="38" rx="6"/>
+    <rect x="20" y="162" width="440" height="38" rx="6"/>
+    <rect x="20" y="210" width="440" height="38" rx="6"/>
+  </g>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="30" y="34"><tspan font-weight="bold" fill="#7a1f1f">Step 1.</tspan> Run Kun twice (for &#915; and for G); transport &#915;-components by &#964;&#7522; = p(t&#7522;);</text>
+    <text x="30" y="50">each transported component lands almost inside ONE original component.</text>
+    <text x="30" y="82"><tspan font-weight="bold" fill="#7a1f1f">Step 2.</tspan> Median-normalize component size: f = M/(M+m<tspan baseline-shift="sub" font-size="8">A</tspan>). Permutation bookkeeping +</text>
+    <text x="30" y="98">expansion of G-components &#8658; f &#8776; 1/2 a.e. &#8658; nearby components have equal size.</text>
+    <text x="30" y="130"><tspan font-weight="bold" fill="#7a1f1f">Step 3.</tspan> Equal sizes + almost-containment &#8658; each transported component fills &gt; half</text>
+    <text x="30" y="146">its target &#8658; the matching is injective &#8658; J-generators preserve &#915;-components a.e.</text>
+    <text x="30" y="178"><tspan font-weight="bold" fill="#7a1f1f">Step 4.</tspan> Averaging picks ONE &#915;-component Q&#8345; where all length-&#8467;&#8345; word tests for</text>
+    <text x="30" y="194">&#915; &#215; J pass outside a vanishing fraction; |Q&#8345;| &#8594; &#8734;.</text>
+    <text x="30" y="226"><tspan font-weight="bold" fill="#7a1f1f">Step 5.</tspan> Restrict, complete to permutations, excise the small bad cut B<tspan baseline-shift="sub" font-size="8">cut</tspan>; result: a</text>
+    <text x="30" y="242">sofic approximation of &#915; &#215; J on ONE &#955;-expander &#8658; Import 2 &#8658; J is LEF.</text>
+  </g>
+</svg><figcaption><b>The five steps of Proposition 2.3.</b> Steps 1&ndash;3 are the matching argument (transported components select distinct targets); Step 4 is a pigeonhole selection; Step 5 is combinatorial surgery restoring exact permutations and uniform expansion. Import 2 then delivers LEF.</figcaption></figure>
+
+<div class="proof">
+<p><b>Setup.</b> Assume $G$ is sofic and fix one sofic approximation $p_n : G \to \mathrm{Sym}(Y_n)$; by disjoint amplification (<a class="secref" href="#sofic">&sect;1</a>) arrange $N = |Y_n| \to \infty$. All $o(N)$ estimates refer to this one approximation; for readability write $p_g = p_n(g)$ and suppress $n$ on graphs and partitions.</p>
+
+<p><b>Step 1: locate a dominant original component inside each transported component.</b>
+Choose a finite symmetric generating set $S_\Gamma \ni 1$ for $\Gamma$. Adjoin the distinct nonidentity elements among $t_i^{\pm 1}$ to obtain a symmetric generating set $S_G$ for $G$; for each adjoined inverse pair fix one of the original $t_i$ as its <i>positive</i> representative. Thus every positive nonidentity $G$-generator either lies in $\Gamma$ or is one of the compressing elements $t_i$. Normalize inverse labels to inverse permutations and nonidentity involutive labels to exact involutions (allowing their $o(N)$ fixed points); this changes only $o(N)$ values [ES06, Lemma 2.1].</p>
+
+<p>Apply Import 1 (Theorem 2.1) twice: to the restriction of $p_n$ to $\Gamma$ with generating set $S_\Gamma$, and to $p_n$ itself with $S_G$. Record the outputs:</p>
+
+<div class="tablewrap"><table>
+<tr><th>applied to</th><th>reference graph</th><th>partition into components</th><th>expansion constant</th></tr>
+<tr><td>$\Gamma$, generators $S_\Gamma$</td><td>$L_\Gamma$</td><td>$\mathcal Q$ (&ldquo;<b>original components</b>&rdquo;)</td><td>$\gamma_\Gamma \gt 0$</td></tr>
+<tr><td>$G$, generators $S_G$</td><td>$L_G$</td><td>$\mathcal A$ (&ldquo;<b>ambient components</b>&rdquo;)</td><td>$\gamma_G \gt 0$</td></tr>
+</table></div>
+
+<p>Both partitions live on the same vertex set $Y_n$; neither is assumed to refine the other. Each reference graph differs from its generator graph in $o(N)$ edges. Since $L_\Gamma$ has no edges between original components, each $S_\Gamma$-generator crosses between members of $\mathcal Q$ at only $o(N)$ vertices; and if $w = s_1 \cdots s_r$ is a fixed $\Gamma$-word with $p_w = p_{s_1} \cdots p_{s_r}$, the same crossing estimate holds for $p_w$ ($r$ is fixed, each factor crosses rarely).</p>
+
+<p>Set $\tau_i = p_{t_i}$ and transport the whole reference graph through it (Fig. 10):
+$$I_i = \tau_i L_\Gamma, \qquad \mathcal P_i = \{\tau_i C : C \in \mathcal Q\}.$$
+Each member of $\mathcal P_i$ is a $\gamma_\Gamma$-expanding connected component of $I_i$ (relabeling vertices by a bijection preserves boundaries). Now use the hypothesis $t_i \Gamma t_i^{-1} \le \Gamma$: apart from $o(N)$ edited edges, the edges of $I_i$ follow the permutations $\tau_i p_s \tau_i^{-1}$ for $s \in S_\Gamma$; approximate multiplicativity identifies each of these, outside $o(N)$ vertices, with $p_w$ for a fixed $\Gamma$-word $w$ representing $t_i s t_i^{-1} \in \Gamma$. Such $p_w$ almost preserve the original components, so
+$$\#\{\text{$I_i$-edges joining different members of } \mathcal Q\} \;=\; o(N) \qquad (1 \le i \le m). \tag{4}$$</p>
+
+<p>For $P \in \mathcal P_i$, choose $Q(P) \in \mathcal Q$ maximizing the overlap $|P \cap Q(P)|$, and define the <b>unmatched mass</b>
+$$L(P) \;=\; |P| - |P \cap Q(P)|.$$
+Partition $P$ into the pieces $P \cap Q$, $Q \in \mathcal Q$. If the largest piece exceeds half of $|P|$, apply the expansion (3) of $P$ (inside $I_i$) to each <i>other</i> piece &mdash; their total size is $L(P)$; otherwise every piece has at most half the vertices, and apply expansion to all of them. Each edge between different pieces is counted at most twice, so in both cases
+$$\gamma_\Gamma\, L(P) \;\le\; 2\,\#\{\text{$I_i[P]$-edges joining different members of } \mathcal Q\}.$$
+Summing over $P \in \mathcal P_i$ and using (4): $\sum_{P} L(P) = o(N)$. Choose a sequence $\eta_n \downarrow 0$ slowly enough that, simultaneously for every $i$,
+$$\sum_{\substack{P \in \mathcal P_i \\ L(P) \gt \eta_n |P|}} |P| \;=\; o(N). \tag{5}$$
+(Possible since $\sum_P L(P) = o(N)$: the components violating $L(P) \le \eta_n|P|$ carry at most $\eta_n^{-1} \sum_P L(P)$ vertices; pick $\eta_n \to 0$ slower than the $o(N)$ rate.) So: for each $i$, all but $o(N)$ vertices lie in transported components with relative unmatched mass at most $\eta_n$. What is not yet ruled out: two transported components selecting the <i>same</i> target $Q(P)$.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="A transported component overlaps the original components, with one dominant target and small unmatched mass">
+  <defs><marker id="c3arrS1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- original components as tiles -->
+  <g stroke="#2a7d2a" stroke-width="1.4" fill="#f1f7f1">
+    <rect x="250" y="40" width="130" height="105" rx="10"/>
+    <rect x="392" y="40" width="70" height="105" rx="10"/>
+    <rect x="250" y="157" width="130" height="70" rx="10"/>
+    <rect x="392" y="157" width="70" height="70" rx="10"/>
+  </g>
+  <g font-size="11.5" fill="#2a7d2a">
+    <text x="258" y="58">Q(P) &#8712; &#119980;</text>
+    <text x="398" y="58">Q&#8242;</text>
+    <text x="258" y="173">Q&#8243;</text>
+    <text x="398" y="173">Q&#8244;</text>
+  </g>
+  <!-- transported component P as ellipse overlapping mostly Q(P) -->
+  <ellipse cx="318" cy="105" rx="80" ry="52" fill="#7da7d9" fill-opacity="0.35" stroke="#2e5a8a" stroke-width="1.6"/>
+  <text x="286" y="110" font-size="12.5" fill="#2e5a8a" font-weight="bold">P = &#964;&#7522;C</text>
+  <!-- unmatched slivers -->
+  <path d="M382,72 A80,52 0 0 1 396,105 L380,105 L380,72 Z" fill="#c0392b" fill-opacity="0.5" stroke="none"/>
+  <path d="M300,152 A80,52 0 0 0 340,155 L340,145 L300,145 Z" fill="#c0392b" fill-opacity="0.5" stroke="none"/>
+  <text x="360" y="243" font-size="11.5" fill="#c0392b">unmatched mass L(P) &#8804; &#951;&#8345;|P|</text>
+  <line x1="392" y1="232" x2="392" y2="140" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- left: original C transported -->
+  <ellipse cx="90" cy="105" rx="58" ry="42" fill="none" stroke="#2e5a8a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="66" y="110" font-size="12.5" fill="#2e5a8a">C &#8712; &#119980;</text>
+  <path d="M152,95 C185,80 205,80 240,92" stroke="#555" stroke-width="1.8" fill="none" marker-end="url(#c3arrS1)"/>
+  <text x="168" y="70" font-size="12" fill="#555">&#964;&#7522; = p(t&#7522;)</text>
+  <text x="24" y="180" font-size="11.5" fill="#555">a &#915;-component, relabeled by the</text>
+  <text x="24" y="196" font-size="11.5" fill="#555">permutation &#964;&#7522;: still a &#947;&#915;-expander</text>
+  <text x="24" y="30" font-size="12" fill="#7a1f1f">t&#7522;&#915;t&#7522;&#8315;&#185; &#8804; &#915; &#8658; edges of &#964;&#7522;L&#915; follow fixed &#915;-words &#8658; P rarely crosses &#119980;-borders</text>
+</svg><figcaption><b>Step 1.</b> Transporting an original component $C$ by $\tau_i$ gives an expander $P = \tau_i C$ whose edges, thanks to $t_i \Gamma t_i^{-1} \le \Gamma$, follow fixed $\Gamma$-words &mdash; so they rarely cross the borders of the original partition $\mathcal Q$ (green tiles). Expansion of $P$ then forces all but a fraction $\eta_n$ of $P$ into a single dominant target $Q(P)$; the red slivers are the unmatched mass $L(P)$. Not yet excluded: two different $P$'s choosing the same tile.</figcaption></figure>
+
+<p><b>Step 2: a bounded median normalization compares component sizes.</b>
+For $z \in Y_n$ let $C(z) \in \mathcal Q$ be its original component and $M(z) = |C(z)|$ its size. First, transport almost never shrinks $M$: suppose $P = \tau_i C$ has $L(P) \le \eta_n |P|$. For every $z \in C$ with $\tau_i z \in P \cap Q(P)$,
+$$M(\tau_i z) = |Q(P)| \;\ge\; |P \cap Q(P)| \;\ge\; (1 - \eta_n)|P| \;=\; (1 - \eta_n)\,M(z),$$
+and by (5) the failing components plus unmatched slivers hold $o(N)$ vertices, so
+$$M(\tau_i z) \;\ge\; (1 - \eta_n)\, M(z) \qquad \text{outside } o(N) \text{ vertices} \quad (1 \le i \le m). \tag{6}$$
+Likewise $M(p_s z) = M(z)$ outside $o(N)$ vertices for each $s \in S_\Gamma$ (Γ-generators almost never change component).</p>
+
+<p>The catch: $M$ is unbounded, so &ldquo;$o(N)$ exceptional vertices&rdquo; cannot control its total variation. The fix is to compress $M$ into $(0,1)$ by a <i>median normalization</i>. For each ambient component $A \in \mathcal A$, let $m_A \gt 0$ be a median of the vertex-indexed multiset $\{M(z) : z \in A\}$ (at least half the values are $\le m_A$ and at least half are $\ge m_A$; an original component $C$ contributes $|C \cap A|$ copies of $|C|$). Define
+$$f(z) \;=\; \frac{M(z)}{M(z) + m_A}, \qquad z \in A.$$
+Then $0 \lt f \lt 1$, $f$ is increasing in $M$, and $1/2$ is a median of $f$ on every $A$ (since $f(z) \ge 1/2 \iff M(z) \ge m_A$).</p>
+
+<p>Every $G$-generator crosses between ambient components at only $o(N)$ vertices, and on every non-crossing arc both endpoints use the <i>same</i> median $m_A$. For $s \in S_\Gamma$ this gives $f(p_s z) = f(z)$ outside $o(N)$ vertices. For a positive compressing generator $t_i$, feed (6) through the elementary inequality
+$$\frac{(1-\eta)x}{(1-\eta)x + a} \;\ge\; \frac{x}{x + a} - \eta \qquad (x, a \gt 0,\; 0 \le \eta \lt 1),$$
+which holds because the difference of the two fractions is
+$$\frac{x}{x+a} - \frac{(1-\eta)x}{(1-\eta)x + a} \;=\; \frac{\eta\, x a}{(x+a)\bigl((1-\eta)x + a\bigr)} \;=\; \eta \cdot \frac{x}{x+a} \cdot \frac{a}{(1-\eta)x + a} \;\le\; \eta$$
+(both final factors are $\le 1$). Since $t \mapsto t/(t+a)$ is increasing, (6) gives $f(\tau_i z) \ge \frac{(1-\eta_n)M(z)}{(1-\eta_n)M(z)+m_A} \ge f(z) - \eta_n$. So <b>every positive $G$-generator $s$ satisfies $f(p_s z) \ge f(z) - \eta_n$ outside $o(N)$ vertices</b>: $\Gamma$-generators almost preserve $f$, compressions almost never decrease it.</p>
+
+<p>Now the permutation bookkeeping. Because $p_s$ is a bijection of $Y_n$,
+$$\sum_{z \in Y_n} \bigl( f(p_s z) - f(z) \bigr) \;=\; 0$$
+&mdash; the sum reindexes to zero. The total decrease (sum of negative parts) is at most $\eta_n N + o(N) = o(N)$: nonexceptional vertices decrease by at most $\eta_n$, exceptional ones by at most $1$ (since $0 \lt f \lt 1$). A sum that vanishes has equal increase and decrease, so the total <i>absolute</i> variation is $o(N)$:
+$$\sum_{z \in Y_n} \bigl| f(p_s z) - f(z) \bigr| \;=\; o(N).$$
+The same holds for inverse generators ($|f(p_{s^{-1}}z) - f(z)|$ reindexes the same multiset). Summing over $S_G$ and passing from the generator graph to $L_G$ (each edited edge changes the sum by at most $1$):
+$$\sum_{\{z,w\} \in E(L_G)} |f(z) - f(w)| \;=\; o(N). \tag{7}$$</p>
+
+<p>Expansion converts small variation into concentration at the median (Fig. 11). Fix $A \in \mathcal A$. The finite <b>coarea identity</b> states
+$$\int_0^1 \bigl| \partial_A \{z \in A : f(z) \gt t\} \bigr| \, dt \;=\; \sum_{\{z,w\} \in E(L_G[A])} |f(z) - f(w)|,$$
+because an edge $\{z, w\}$ crosses the level set $\{f \gt t\}$ exactly for $t$ between $f(z)$ and $f(w)$ &mdash; an interval of length $|f(z) - f(w)|$. For $0 \lt t \lt 1/2$ the sublevel set $\{f \le t\}$ misses the median half, so it has at most $|A|/2$ vertices; for $1/2 \lt t \lt 1$ the same holds for $\{f \gt t\}$. Apply the expansion (3) of $A$ to these sets (complementary sets share one boundary), and integrate the layer-cake identity $\sum_{z \in A}|f(z) - \tfrac12| = \int_0^{1/2} |\{f \le t\}|\,dt + \int_{1/2}^1 |\{f \gt t\}|\,dt$ against it:
+$$\gamma_G \sum_{z \in A} \Bigl| f(z) - \tfrac12 \Bigr| \;\le\; \sum_{\{z,w\} \in E(L_G[A])} |f(z) - f(w)|.$$
+Summing over $A \in \mathcal A$ and using (7):
+$$\sum_{z \in Y_n} \Bigl| f(z) - \tfrac12 \Bigr| \;=\; o(N).$$
+Choose $\delta_n \downarrow 0$ slowly enough that the exceptional set
+$$E_n = \Bigl\{ z : \bigl|f(z) - \tfrac12\bigr| \gt \delta_n \Bigr\} \qquad \text{satisfies} \qquad |E_n| = o(N).$$
+Finally convert back to sizes: on $A$, inverting $f$ gives $M(z) = m_A \frac{f(z)}{1 - f(z)}$, and for $z, w \in A \setminus E_n$ both ratios $\frac{f}{1-f}$ lie in $\bigl[\frac{1-2\delta_n}{1+2\delta_n}, \frac{1+2\delta_n}{1-2\delta_n}\bigr]$, so
+$$\rho_n^{-1} \;\le\; \frac{M(w)}{M(z)} \;\le\; \rho_n, \qquad \rho_n = \Bigl( \frac{1 + 2\delta_n}{1 - 2\delta_n} \Bigr)^{\!2} \longrightarrow 1. \tag{8}$$
+<b>Original components meeting the same ambient component (off $E_n$) have sizes agreeing up to a factor $\to 1$.</b></p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 265" width="100%" role="img" aria-label="Animated coarea picture: a level t sweeps the values of f; boundary edges are exactly the edges crossed">
+  <!-- axes -->
+  <line x1="55" y1="215" x2="440" y2="215" stroke="#8899aa" stroke-width="1.2"/>
+  <line x1="55" y1="215" x2="55" y2="35" stroke="#8899aa" stroke-width="1.2"/>
+  <text x="444" y="219" font-size="11.5" fill="#555">z (vertices along a path in A)</text>
+  <text x="30" y="32" font-size="11.5" fill="#555" class="v">f(z)</text>
+  <!-- f as a step function over 10 vertices -->
+  <g stroke="#2e5a8a" stroke-width="2.4" fill="none">
+    <path d="M60,175 L95,175 M95,150 L130,150 M130,160 L165,160 M165,110 L200,110 M200,95 L235,95 M235,120 L270,120 M270,80 L305,80 M305,130 L340,130 M340,70 L375,70 M375,140 L410,140"/>
+  </g>
+  <g fill="#2e5a8a">
+    <circle cx="77" cy="175" r="3"/><circle cx="112" cy="150" r="3"/><circle cx="147" cy="160" r="3"/><circle cx="182" cy="110" r="3"/><circle cx="217" cy="95" r="3"/><circle cx="252" cy="120" r="3"/><circle cx="287" cy="80" r="3"/><circle cx="322" cy="130" r="3"/><circle cx="357" cy="70" r="3"/><circle cx="392" cy="140" r="3"/>
+  </g>
+  <!-- median line 1/2 -->
+  <line x1="55" y1="125" x2="440" y2="125" stroke="#2a7d2a" stroke-width="1.2" stroke-dasharray="7 4"/>
+  <text x="444" y="129" font-size="11.5" fill="#2a7d2a">1/2</text>
+  <!-- sweeping level t -->
+  <g>
+    <line x1="55" y1="205" x2="440" y2="205" stroke="#c0392b" stroke-width="1.4">
+      <animate attributeName="y1" values="205;45;205" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="205;45;205" dur="8s" repeatCount="indefinite"/>
+    </line>
+    <text x="18" y="209" font-size="11.5" fill="#c0392b">t<animate attributeName="y" values="209;49;209" dur="8s" repeatCount="indefinite"/></text>
+  </g>
+  <!-- crossing markers: steps between consecutive plateaus -->
+  <g stroke="#c0392b" stroke-width="1.4" stroke-dasharray="2 2">
+    <line x1="95" y1="150" x2="95" y2="175"/><line x1="130" y1="150" x2="130" y2="160"/><line x1="165" y1="110" x2="165" y2="160"/><line x1="200" y1="95" x2="200" y2="110"/><line x1="235" y1="95" x2="235" y2="120"/><line x1="270" y1="80" x2="270" y2="120"/><line x1="305" y1="80" x2="305" y2="130"/><line x1="340" y1="70" x2="340" y2="130"/><line x1="375" y1="70" x2="375" y2="140"/>
+  </g>
+  <text x="60" y="245" font-size="11.5" fill="#c0392b">an edge crosses level t exactly when t sits between its endpoint values: total crossing = &#931; |f(z) &#8722; f(w)|</text>
+  <text x="60" y="261" font-size="11.5" fill="#2a7d2a">every level set is a small side (median!) &#8658; expansion taxes each level &#8658; f pinned to 1/2</text>
+</svg><figcaption><b>Step 2's coarea argument</b> (animated: the red level $t$ sweeps $[0,1]$; the static frame shows all crossings dashed). The values of $f$ along vertices of an ambient component, with the median level $1/2$ dashed green. Each edge is &ldquo;taxed&rdquo; by every level $t$ between its endpoint values; integrating over $t$ counts each edge by its increment $|f(z)-f(w)|$ &mdash; the coarea identity. Because $1/2$ is the median, every level set is its own smaller side, so expansion of $A$ bounds $\sum_z |f(z)-\frac12|$ by the total variation, which Step 2's permutation bookkeeping made $o(N)$.</figcaption></figure>
+
+<p><b>Step 3: match the first transported partition almost bijectively.</b>
+All the $t_i$ were needed above (they are part of $S_G$, so they shaped $L_G$ and the medians). From here on only the first transport matters: set $\tau = \tau_1$, $\mathcal P = \mathcal P_1$. <b>Retain</b> a component $P = \tau C \in \mathcal P$ precisely when
+$$L(P) \le \eta_n |P| \qquad \text{and} \qquad \exists\, z \in C : \quad \tau z \in P \cap Q(P), \quad z, \tau z \notin E_n, \quad z, \tau z \text{ in the same } A \in \mathcal A. \tag{9}$$
+The witness $z$ ties the sizes together: the last condition means $z$ and $\tau z$ share one normalizing median.</p>
+
+<p>Nonretained components are negligible. The crossing set $H_n = \{z : z, \tau z \text{ in different members of } \mathcal A\}$ has size $o(N)$, because $t_1$ is a fixed word in $S_G$ and each generator crosses $\mathcal A$ rarely. If $P$ passes the loss bound but has no witness, then every $z \in \tau^{-1}(P \cap Q(P))$ fails one of the witness conditions:
+$$\tau^{-1}\bigl(P \cap Q(P)\bigr) \;\subseteq\; H_n \cup E_n \cup \tau^{-1}(E_n).$$
+The sets $\tau^{-1}(P \cap Q(P))$ are disjoint as $P$ varies and each holds at least $(1 - \eta_n)|P|$ vertices, so witness-less components contribute $o(N)$ vertices; components failing the loss bound contribute $o(N)$ by (5).</p>
+
+<p>For a retained $P$ with witness $z$: $M(z) = |C| = |P|$ and $M(\tau z) = |Q(P)|$, so the size comparison (8) (applied in the shared $A$, off $E_n$) gives
+$$\rho_n^{-1} |P| \;\le\; |Q(P)| \;\le\; \rho_n |P|.$$
+Since at most $\eta_n |P|$ vertices of $P$ lie outside $Q(P)$: $|P \setminus Q(P)| \le \eta_n|P|$ and $|Q(P) \setminus P| \le (\rho_n - 1 + \eta_n)|P|$, whence
+$$|P \,\triangle\, Q(P)| \;\le\; (\rho_n - 1 + 2\eta_n)\,|P| \;=\; o(|P|).$$
+In particular $|P \cap Q(P)| \ge (1-\eta_n)|P| \ge (1-\eta_n)\rho_n^{-1}|Q(P)| \gt \frac12 |Q(P)|$ for all large $n$: <b>each retained transported component occupies a strict majority of its target</b>. Distinct transported components are disjoint, so no two can both hold a majority of the same target: $P \mapsto Q(P)$ is <b>injective</b> on retained components (Fig. 12). The matched intersections $P \cap Q(P)$ cover $N - o(N)$ vertices.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 235" width="100%" role="img" aria-label="Injective matching: each retained transported component fills a strict majority of its target original component">
+  <defs><marker id="c3arrM" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e5a8a"/></marker></defs>
+  <!-- row of targets -->
+  <g stroke="#2a7d2a" stroke-width="1.4" fill="#f1f7f1">
+    <rect x="30" y="120" width="120" height="72" rx="10"/>
+    <rect x="180" y="120" width="120" height="72" rx="10"/>
+    <rect x="330" y="120" width="120" height="72" rx="10"/>
+  </g>
+  <!-- majority fills -->
+  <rect x="36" y="126" width="84" height="60" rx="7" fill="#7da7d9" fill-opacity="0.55"/>
+  <rect x="186" y="126" width="90" height="60" rx="7" fill="#e8b87d" fill-opacity="0.55"/>
+  <rect x="336" y="126" width="80" height="60" rx="7" fill="#c79fd9" fill-opacity="0.55"/>
+  <g font-size="11.5" fill="#1a1a1a">
+    <text x="46" y="160">&gt; &#189; of Q&#8321;</text>
+    <text x="196" y="160">&gt; &#189; of Q&#8322;</text>
+    <text x="346" y="160">&gt; &#189; of Q&#8323;</text>
+  </g>
+  <g font-size="11.5" fill="#2a7d2a">
+    <text x="88" y="210">Q&#8321;</text><text x="238" y="210">Q&#8322;</text><text x="388" y="210">Q&#8323;</text>
+  </g>
+  <!-- sources -->
+  <g font-size="12" fill="#2e5a8a">
+    <text x="52" y="38">&#964;C&#8321;</text><text x="222" y="38">&#964;C&#8322;</text><text x="392" y="38">&#964;C&#8323;</text>
+  </g>
+  <g stroke="#2e5a8a" stroke-width="1.7" fill="none">
+    <path d="M66,46 L84,112" marker-end="url(#c3arrM)"/>
+    <path d="M236,46 L236,112" marker-end="url(#c3arrM)"/>
+    <path d="M404,46 L392,112" marker-end="url(#c3arrM)"/>
+  </g>
+  <!-- forbidden double-selection -->
+  <path d="M250,46 C300,70 210,95 118,116" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 4" fill="none"/>
+  <line x1="160" y1="78" x2="196" y2="104" stroke="#c0392b" stroke-width="2.2"/>
+  <line x1="196" y1="78" x2="160" y2="104" stroke="#c0392b" stroke-width="2.2"/>
+  <text x="130" y="66" font-size="11.5" fill="#c0392b">two majorities can't share one tile</text>
+  <text x="30" y="228" font-size="12" fill="#7a1f1f">equal sizes (Step 2) + almost-containment (Step 1) &#8658; majority occupancy &#8658; P &#8614; Q(P) injective</text>
+</svg><figcaption><b>Step 3.</b> Each retained transported component $\tau C$ fills more than half of its target tile (sizes match by (8), containment up to $\eta_n$ by Step 1). Disjoint sets cannot each fill a strict majority of the same tile, so the assignment $P \mapsto Q(P)$ is injective &mdash; the transported partition matches the original partition almost bijectively.</figcaption></figure>
+
+<p>The payoff of injectivity: <b>$\Gamma$-words preserve transported components.</b> Fix a $\Gamma$-word $w$. Discard vertices outside the matched intersections, vertices whose $p_w$-image leaves them, and vertices where $p_w$ crosses between original components &mdash; all $o(N)$. For each surviving $z$: both $z$ and $p_w z$ lie in matched intersections of the <i>same</i> original component; injectivity says only one transported component matches it, so both lie in the same member of $\mathcal P$:
+$$\#\{z : z \text{ and } p_w z \text{ lie in different members of } \mathcal P\} \;=\; o(N). \tag{10}$$
+Now conjugate back. For $j \in J$, the hypothesis $t_1 J t_1^{-1} \le \Gamma$ lets us choose a fixed $\Gamma$-word $w_j$ representing $t_1 j t_1^{-1}$; put
+$$q_j \;=\; \tau^{-1} p_{w_j} \tau.$$
+Approximate multiplicativity gives $q_j = p_j$ outside $o(N)$ vertices. Moreover $\tau q_j z = p_{w_j} \tau z$, and the transported component of $\tau z$ is $\tau C(z)$; so $z$ and $q_j z$ share an original component exactly when $\tau z$ and $p_{w_j}\tau z$ share a transported component. Applying (10) to $w_j$:
+$$\#\{z : C(q_j z) \neq C(z)\} \;=\; o(N). \tag{11}$$
+<b>Every fixed generator of $\Gamma$ or of $J$ now preserves the original-component partition outside $o(N)$ vertices.</b></p>
+
+<p><b>Step 4: select one component carrying all required word tests.</b>
+Choose finite symmetric generating sets $T_\Gamma = S_\Gamma$, $T_J \subseteq J \setminus \{1\}$, and $T = T_\Gamma \cup T_J$ (so $1 \in T_\Gamma$; $T_J$ empty is allowed if $J$ is trivial). For $s \in T_\Gamma$ define $q_s = p_s$; for $j \in T_J$ use the $q_j$ of Step 3. Normalize inverse labels, and make involutive $J$-labels exact by replacing all cycles of length $\gt 2$ with fixed points; these changes touch $o(N)$ vertices and perturb any fixed word test at only $o(N)$ starting points. Since $[\Gamma, J] = 1$ and $\Gamma \cap J = \{1\}$, the group $\Gamma \times J$ sits inside $G$, and the permutations $q_t$ pass each of its fixed equality and distinctness tests outside $o(N)$ vertices.</p>
+
+<p>Collect every kind of exception into one explicit set. The <b>generator exits</b> are
+$$\mathcal C_n = \{z : C(q_t z) \neq C(z) \text{ for some } t \in T\}, \qquad |\mathcal C_n| = o(N)$$
+(by the crossing estimates for $\Gamma$-generators and (11) for $J$-generators). Let $\Delta_n$ be the vertices incident to the edge-multiset difference between the $\Gamma$-generator graph and $L_\Gamma$; $|\Delta_n| = o(N)$. For $\ell \ge 0$ let $W_\ell$ be the (finite) set of formal words in the alphabet $T$ of length $\le \ell$, including the empty word; for $w \in W_\ell$ write $q_w$ for the product of permutations and $\overline w \in \Gamma \times J$ for the represented element. The word-test failures are
+$$F_{n,\ell} \;=\; \bigcup_{\substack{w, w' \in W_\ell \\ \overline w = \overline{w'}}} \{z : q_w z \neq q_{w'} z\} \;\cup\; \bigcup_{\substack{w, w' \in W_\ell \\ \overline w \neq \overline{w'}}} \{z : q_w z = q_{w'} z\},$$
+and for $\ell \ge 1$ the full exceptional set is
+$$B_{n,\ell} \;=\; \Delta_n \,\cup\, F_{n,\ell} \,\cup \bigcup_{w \in W_{\ell-1}} q_w^{-1}(\mathcal C_n)$$
+(the last term flags word paths that step across a component border at any prefix). For fixed $\ell$: $F_{n,\ell}$ is a finite union of equality tests (each fails at $o(N)$ points by approximate multiplicativity) and distinctness tests (each fails at $o(N)$ points because $p$ of a nonidentity element moves almost every point), so $|B_{n,\ell}| = o(N)$. Choose $\ell_n \to \infty$ slowly enough that
+$$e_n \;=\; \frac{|B_{n,\ell_n}|}{N} \longrightarrow 0, \qquad B_n = B_{n,\ell_n}.$$</p>
+
+<p>Now pigeonhole over the original components, weighting by size. If every $Q \in \mathcal Q$ had $|Q \cap B_n| \gt e_n |Q|$, summing over $\mathcal Q$ would give $|B_n| \gt e_n N$ &mdash; false. So some component $Q_n \in \mathcal Q$ satisfies
+$$|Q_n \cap B_n| \;\le\; e_n\,|Q_n| \tag{12}$$
+for every $n$. This one tile carries all the tests (Fig. 13). And it is large: for each element of the word-metric ball of $\Gamma$ (generating set $T_\Gamma$) of radius $\lfloor \ell_n/2 \rfloor$, fix a representing word of that length or shorter; starting at any $z \in Q_n \setminus B_n$, the exit tests keep every such word path inside $Q_n$ and the distinctness tests give different endpoints for different elements. The whole ball injects into $Q_n$; since $\Gamma$ is infinite, its balls grow without bound, so
+$$|Q_n| \longrightarrow \infty.$$</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 240" width="100%" role="img" aria-label="Step 4: one selected component where all word tests pass outside a sparse bad set">
+  <g stroke="#2a7d2a" stroke-width="1.6" fill="#f1f7f1">
+    <rect x="60" y="40" width="360" height="150" rx="14"/>
+  </g>
+  <text x="72" y="62" font-size="12.5" fill="#2a7d2a" font-weight="bold">Q&#8345; (one original &#947;&#915;-expander)</text>
+  <!-- sparse bad set -->
+  <g fill="#c0392b" fill-opacity="0.75">
+    <circle cx="120" cy="100" r="4"/><circle cx="300" cy="70" r="4"/><circle cx="395" cy="150" r="4"/><circle cx="210" cy="170" r="4"/><circle cx="352" cy="103" r="4"/>
+  </g>
+  <text x="332" y="180" font-size="11" fill="#c0392b">B&#8345; &#8745; Q&#8345;: &#8804; e&#8345;|Q&#8345;|</text>
+  <!-- word path -->
+  <g stroke="#2e5a8a" stroke-width="1.8" fill="none">
+    <path d="M110,150 L150,120 L190,140 L230,105 L268,125 L305,95 L340,130"/>
+  </g>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1">
+    <circle cx="110" cy="150" r="4.5"/><circle cx="150" cy="120" r="4.5"/><circle cx="190" cy="140" r="4.5"/><circle cx="230" cy="105" r="4.5"/><circle cx="268" cy="125" r="4.5"/><circle cx="305" cy="95" r="4.5"/><circle cx="340" cy="130" r="4.5"/>
+  </g>
+  <text x="96" y="168" font-size="11.5" fill="#2e5a8a">z &#8713; B&#8345;</text>
+  <text x="238" y="88" font-size="11.5" fill="#2e5a8a">every T-word of length &#8804; &#8467;&#8345;: stays in Q&#8345;, lands correctly</text>
+  <text x="60" y="215" font-size="12" fill="#7a1f1f">weighted pigeonhole: some tile meets the bad set in fraction &#8804; e&#8345; &#8594; 0; word ball of &#915; injects &#8658; |Q&#8345;| &#8594; &#8734;</text>
+  <text x="60" y="233" font-size="11.5" fill="#555">what remains: turn these almost-actions on Q&#8345; into exact permutations with uniform expansion (Step 5)</text>
+</svg><figcaption><b>Step 4.</b> Averaging over tiles with size weights finds one original component $Q_n$ meeting the exceptional set $B_n$ in a fraction $\le e_n \to 0$. From any good starting vertex, every formal word of length $\le \ell_n$ in the $\Gamma$- and $J$-generators stays inside $Q_n$ and satisfies its equality/distinctness tests; the word ball of the infinite group $\Gamma$ injects, so $|Q_n| \to \infty$.</figcaption></figure>
+
+<p><b>Step 5: complete the partial actions and remove the additive expansion error.</b>
+Write $P = Q_n$ (an <i>original</i> component now). For one representative of each nonidentity inverse pair in $T$, restrict $q_t$ to its internal arcs
+$$A_t = \{z \in P : q_t z \in P\}, \qquad q_t : A_t \to q_t(A_t),$$
+a partial bijection of $P$ whose missing domain $P \setminus A_t$ and missing range $P \setminus q_t(A_t)$ have equal cardinality; choose any bijection between them to complete it to a permutation $\widehat q_t \in \mathrm{Sym}(P)$ (for an involution the missing domain equals the missing range, complete by fixed points; use $\widehat q_t^{-1}$ for the inverse label, identity for $1$). Since $P \setminus A_t \subseteq \mathcal C_n \cap P \subseteq B_n \cap P$, the bound (12) says only $O(e_n |P|)$ values changed. Every word path of length $\le \ell_n$ from $P \setminus B_n$ stayed inside $P$ anyway, so its tests are untouched. To get maps on the whole group, fix once and for all a representative word $w_g$ for each $g \in \Gamma \times J$ (empty for $1$, the letter itself for $t \in T$) and set $\widehat p_n(g) = \widehat q_{w_g} \in \mathrm{Sym}(Q_n)$. For fixed $g, h$, the multiplication test compares $w_{gh}$ against the concatenation $w_g w_h$ &mdash; a fixed pair of formal words, covered by the $F$-tests once $\ell_n$ exceeds their lengths &mdash; and the distinctness test compares $w_g$ to the empty word. As $\ell_n \to \infty$, each fixed test's failure fraction tends to $0$: <b>$\widehat p_n$ is a sofic approximation of $\Gamma \times J$ on $Q_n$.</b></p>
+
+<p>One defect remains: expansion. Let $I_0$ be the $T_\Gamma$-generator multigraph of $\widehat p_n$. Since $\Delta_n \cup \mathcal C_n \subseteq B_n$, the edits relative to the original expander satisfy $|E(I_0) \,\triangle\, E(L_\Gamma[P])| = O_{|S_\Gamma|}(e_n |P|)$, so for some $a_n \to 0$,
+$$|\partial_{I_0} X| \;\ge\; \gamma_\Gamma \min\{|X|, |P \setminus X|\} - a_n |P| \qquad (X \subseteq P). \tag{13}$$
+An additive error $a_n|P|$ is fatal for small sets ($X$ of size $\ll a_n|P|$ might have no boundary at all), so we excise the worst offender. Fix $0 \lt \lambda \lt \gamma_\Gamma$. If some nonempty $B_{\mathrm{cut}} \subseteq P$ has $|B_{\mathrm{cut}}| \le |P|/2$ and $|\partial_{I_0} B_{\mathrm{cut}}| \lt \lambda |B_{\mathrm{cut}}|$, choose such a set of <i>maximum</i> cardinality; otherwise $B_{\mathrm{cut}} = \emptyset$. By (13) applied to $B_{\mathrm{cut}}$: $\gamma_\Gamma |B_{\mathrm{cut}}| - a_n|P| \le |\partial_{I_0}B_{\mathrm{cut}}| \lt \lambda|B_{\mathrm{cut}}|$, so
+$$|B_{\mathrm{cut}}| \;\le\; \frac{a_n}{\gamma_\Gamma - \lambda}\,|P| \;=\; o(|P|).$$
+Put $Z = P \setminus B_{\mathrm{cut}}$. <i>Claim: for all large $n$, the induced graph $I_0[Z]$ is a $\lambda$-expander.</i> Let $X \subseteq Z$, $0 \lt |X| \le |Z|/2$. If $|X| + |B_{\mathrm{cut}}| \le |P|/2$, then maximality of $B_{\mathrm{cut}}$ forces the union to expand: $\lambda(|X| + |B_{\mathrm{cut}}|) \le |\partial_{I_0}(X \cup B_{\mathrm{cut}})| \le |\partial_{I_0[Z]} X| + |\partial_{I_0} B_{\mathrm{cut}}|$, and subtracting $|\partial_{I_0}B_{\mathrm{cut}}| \lt \lambda|B_{\mathrm{cut}}|$ leaves $|\partial_{I_0[Z]}X| \ge \lambda|X|$ (if $B_{\mathrm{cut}} = \emptyset$ this is immediate from its defining maximality). Otherwise $|X| \gt |P|/2 - |B_{\mathrm{cut}}| = (\tfrac12 - o(1))|P|$, and with $d$ bounding degrees, (13) gives
+$$|\partial_{I_0[Z]} X| \;\ge\; \gamma_\Gamma |X| - a_n|P| - d\,|B_{\mathrm{cut}}| \;\ge\; \lambda |X|$$
+for large $n$. The claim holds (Fig. 14).</p>
+
+<p>The permutations $\widehat q_t$ still act on $P$; restrict each to $\{z \in Z : \widehat q_t z \in Z\}$ and complete to $\widetilde q_t \in \mathrm{Sym}(Z)$ exactly as before (fixed points for involutions, inverses for inverse labels). Each $\widetilde q_t$ differs from $\widehat q_t$ at $\le |B_{\mathrm{cut}}| = o(|Z|)$ vertices, every internal $\Gamma$-edge of $I_0[Z]$ survives, and completion edges can only <i>add</i> boundary &mdash; so the $T_\Gamma$-generator graph of $(\widetilde q_t)$ contains the $\lambda$-expander $I_0[Z]$ as a spanning submultigraph and is itself a $\lambda$-expander on all of $Z$. For any fixed word $w$, the $\widetilde q$-path and the $\widehat q$-path from $z$ first differ only when a prefix hits a repaired value, and prefixes act by permutations, so
+$$\bigl|\{z \in Z : \widetilde q_w z \neq \widehat q_w z\}\bigr| \;\le\; |w| \cdot |B_{\mathrm{cut}}| \;=\; o(|Z|):$$
+every fixed equality, commutation, and distinctness test still fails at only $o(|Z|)$ vertices, and $|Z| = (1 - o(1))|P| \to \infty$. The maps $g \mapsto \widetilde q_{w_g}$ are therefore a sofic approximation of $\Gamma \times J$ whose $\Gamma$-generator graph is one uniform $\lambda$-expander on the entire set $Z$. Import 2 (Kun&ndash;Thom) applies with $K = \Gamma$ and concludes: $J$ is LEF. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 225" width="100%" role="img" aria-label="Step 5: excising the maximal bad cut restores uniform expansion">
+  <defs><marker id="c3arrX" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- P with additive-error expansion -->
+  <g stroke="#2a7d2a" stroke-width="1.6" fill="#f1f7f1">
+    <ellipse cx="110" cy="100" rx="85" ry="62"/>
+  </g>
+  <ellipse cx="158" cy="128" rx="26" ry="17" fill="#c0392b" fill-opacity="0.45" stroke="#c0392b" stroke-width="1.3"/>
+  <text x="139" y="132" font-size="10.5" fill="#1a1a1a">B<tspan baseline-shift="sub" font-size="8">cut</tspan></text>
+  <text x="52" y="92" font-size="12" fill="#1a1a1a">P = Q&#8345;</text>
+  <text x="42" y="110" font-size="10.5" fill="#555">|&#8706;X| &#8805; &#947;&#915;|X| &#8722; a&#8345;|P|</text>
+  <text x="30" y="190" font-size="11.5" fill="#c0392b">additive error: tiny sets may not expand;</text>
+  <text x="30" y="206" font-size="11.5" fill="#c0392b">take the LARGEST small-boundary set B<tspan baseline-shift="sub" font-size="8">cut</tspan></text>
+  <line x1="215" y1="100" x2="258" y2="100" stroke="#555" stroke-width="1.8" marker-end="url(#c3arrX)"/>
+  <text x="216" y="86" font-size="11.5" fill="#555">excise</text>
+  <!-- Z clean expander -->
+  <g stroke="#2a7d2a" stroke-width="1.8" fill="#f1f7f1">
+    <ellipse cx="360" cy="100" rx="85" ry="62"/>
+  </g>
+  <text x="308" y="92" font-size="12" fill="#1a1a1a">Z = P &#8726; B<tspan baseline-shift="sub" font-size="8">cut</tspan></text>
+  <text x="306" y="112" font-size="10.5" fill="#2a7d2a">|&#8706;X| &#8805; &#955;|X| for ALL X</text>
+  <text x="266" y="190" font-size="11.5" fill="#2a7d2a">maximality: any small-boundary X would have merged</text>
+  <text x="266" y="206" font-size="11.5" fill="#2a7d2a">into B<tspan baseline-shift="sub" font-size="8">cut</tspan> &mdash; so none is left; |B<tspan baseline-shift="sub" font-size="8">cut</tspan>| = o(|P|)</text>
+  <text x="120" y="30" font-size="12" fill="#7a1f1f">complete permutations twice: after restriction to P, and again after restriction to Z</text>
+</svg><figcaption><b>Step 5's surgery.</b> Restricting the generator actions to $Q_n$ and completing them to permutations yields a graph expanding only up to an additive error $a_n|P|$ (13). Removing one maximal small-boundary set $B_{\mathrm{cut}}$ (necessarily of size $o(|P|)$) leaves a genuine $\lambda$-expander: any remaining small-boundary set could have been absorbed into $B_{\mathrm{cut}}$, contradicting maximality. A second completion turns the actions into permutations of $Z$ at $o(|Z|)$ cost per generator.</figcaption></figure>
+
+<div class="note"><b>What was actually used.</b> Property (T) of $\Gamma$ entered through Import 1 (original components expand) and Import 2 (the final step); property (T) of $G$ entered through Import 1 applied to $S_G$ (ambient components expand &mdash; the engine of Step 2's concentration). The compressions $t_i\Gamma t_i^{-1} \le \Gamma$ gave (4); the single compression $t_1 J t_1^{-1} \le \Gamma$ gave the $J$-preservation (11). Commutation $[\Gamma, J] = 1$ was needed only at the very end, to make $\Gamma \times J$ a group that the repaired permutations approximate. Every estimate was an $o(N)$ bookkeeping step; the only nonelementary inputs are the two imports.</div>

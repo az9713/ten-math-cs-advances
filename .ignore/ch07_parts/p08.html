@@ -1,0 +1,82 @@
+<hr>
+<h2 id="reconstruction">8. Interlude: reconstructing unordered data from power sums</h2>
+
+<p>We now leave 3SAT completely. This section and the next develop, as a free-standing piece of algebra, the paper's central tool: an inverse problem about unordered sets whose power sums vary polynomially. Nothing here mentions clauses, tables, or binary systems &mdash; which is exactly what makes the tool trustworthy when soundness later feeds it hostile data.</p>
+
+<h3 id="s8-setup">8.1 Bounded polynomial-moment families</h3>
+
+<p>Let $K$ be a finite field and $P \subseteq K$ a set of evaluation points. Suppose that at each $p \in P$ we are handed an <i>unordered</i> set $S(p) \subseteq K$ &mdash; the <b>fiber</b> at $p$ &mdash; forming a family $\mathcal{S} = (S(p))_{p\in P}$. No correspondence between the elements at different points is given, and sizes may vary. Write
+$$m_j(p) = \sum_{w \in S(p)} w^j$$
+for the $j$-th <b>moment</b> (power sum) of the fiber, with the convention $w^0 = 1$ even for $w = 0$; thus $m_0(p)$ is $\lvert S(p)\rvert$ <i>as an element of $K$</i> &mdash; in characteristic two, the parity of the size, not the size.</p>
+
+<div class="def"><b>Definition 9 (bounded polynomial-moment family).</b> Let $d, K_{\mathrm{cap}} \in \mathbb{Z}_{\ge 1}$ and $T \in \mathbb{Z}_{\ge 0}$ with $dT &lt; \lvert P\rvert$. The family $\mathcal{S}$ is a <b>$(d, T, K_{\mathrm{cap}})$-bounded polynomial-moment family</b> if:
+<ul>
+<li><b>(M1)</b> every fiber is small: $\lvert S(p)\rvert \le K_{\mathrm{cap}}$ for all $p \in P$ (empty fibers allowed);</li>
+<li><b>(M2)</b> the moments vary polynomially: for every $0 \le j \le T$ there is $\mu_j(X) \in K[X]$ with $\deg \mu_j \le dj$ and $\mu_j(p) = m_j(p)$ for all $p \in P$.</li>
+</ul>
+Since $dj \le dT &lt; \lvert P\rvert$, each <b>moment polynomial</b> $\mu_j$ is unique (Proposition D). In the paper the cap is written $K$; we write $K_{\mathrm{cap}}$ when the field is nearby.</div>
+
+<p>The condition is subtle precisely because the fibers are unordered: each <i>individual</i> element may jump around wildly with $p$, while the symmetric quantities $m_j$ behave like evaluations of low-degree polynomials. What global structure does that force?</p>
+
+<p>To calibrate, first look at the structured example where the answer is obvious. Take $h$ polynomials $q_1, \dots, q_h \in K[X]$ of degree $\le d$ whose values are pairwise distinct at every $p$, and let $S(p) = \{q_1(p), \dots, q_h(p)\}$. Then
+$$\mu_j(X) = \sum_{t=1}^{h} q_t(X)^j, \qquad \deg \mu_j \le dj,$$
+so the family is bounded polynomial-moment, and everything about it is explained by the single polynomial
+$$G(Y) = \prod_{t=1}^{h} \big( Y - q_t(X) \big) \in K[X][Y]:$$
+its roots are the &ldquo;label curves&rdquo; $q_t$, and specializing its coefficients at $p$ gives the monic polynomial with root set exactly $S(p)$. Fig.&nbsp;23 contrasts this labeled picture with the unlabeled data we actually have.</p>
+
+<figure><!--FIG:fig_family--><figcaption>The reconstruction problem. Left: the structured case &mdash; fibers obtained by evaluating $h$ global label curves $q_t(X)$. Right: the same points with labels erased, which is all that moments can see. A bounded polynomial-moment family need not come from any global labeling; the reconstruction lemma will nevertheless produce a global algebraic description &mdash; at the price of allowing the &ldquo;curves&rdquo; to be algebraic functions rather than polynomials.</figcaption></figure>
+
+<p>The goal, stated precisely: writing $F = K(X)$ for the field of rational functions $g/h$ ($g, h \in K[X]$, $h \neq 0$) and $h = \max_p \lvert S(p)\rvert$, produce a monic <i>separable</i> polynomial $G(Y) \in F[Y]$ of degree $h$ whose distinct roots $R = \{\alpha : G(\alpha) = 0\}$, living in a finite separable extension $E/F$, satisfy
+$$\sum_{\alpha \in R} \alpha^j = \mu_j(X) \quad (0 \le j \le T),$$
+and whose coefficients specialize, at every maximum-size fiber, to the monic polynomial vanishing exactly on $S(p)$. (The terms <i>separable</i> and <i>splitting field</i> are defined in &sect;8.4 below.) The roots play the role of the $q_t$ &mdash; but they may genuinely fail to be rational functions, as the example in &sect;8.5 shows.</p>
+
+<h3 id="s8-hankel">8.2 Encoding a set without labeling it: the Hankel system</h3>
+
+<p>The natural label-free encoding of a single finite set $S(p)$ is the monic polynomial that vanishes on it,
+$$\prod_{w \in S(p)} (Y - w) \in K[Y],$$
+whose coefficients are (up to sign, invisible in characteristic two) the elementary symmetric functions of the elements &mdash; unchanged under reordering, no labels required; the empty product is $1$. The classical fact (behind Massey's 1969 shift-register decoding of BCH codes) is that the <i>moments determine this polynomial linearly</i>. Suppose $\lvert S(p)\rvert = h &gt; 0$ and write
+$$\prod_{w\in S(p)}(Y - w) = Y^h + \sum_{l=0}^{h-1} g_{p,l}\, Y^l .$$
+Multiply by $w^i$ and sum over $w \in S(p)$: since the product vanishes at each such $w$,
+$$0 \;=\; \sum_{w \in S(p)} w^i \Big( w^h + \sum_{l=0}^{h-1} g_{p,l} w^l \Big) \;=\; m_{i+h}(p) + \sum_{l=0}^{h-1} g_{p,l}\, m_{i+l}(p) \qquad (0 \le i &lt; h).$$
+So the unknown coefficients $g_{p,l}$ satisfy an $h \times h$ linear system whose matrix $\big(m_{i+l}(p)\big)_{0\le i,l&lt;h}$ is a <b>Hankel matrix</b>: entries depend only on $i + l$ (constant anti-diagonals). And this matrix is invertible, by a factorization worth internalizing (Fig.&nbsp;24): listing $S(p) = \{w_1,\dots,w_h\}$ and forming the <b>Vandermonde matrix</b> $V_p = (w_s^i)_{0\le i&lt;h,\ 1\le s\le h}$,
+$$\big(m_{i+l}(p)\big)_{i,l} = V_p V_p^{\mathsf T}, \qquad \det V_p = \prod_{1 \le s &lt; t \le h} (w_t - w_s) \ne 0$$
+(the Vandermonde determinant formula, proved below as Proposition G), so $\det = (\det V_p)^2 \neq 0$. The moments pin down the whole polynomial without ever identifying an individual element.</p>
+
+<figure><!--FIG:fig_hankel--><figcaption>The Hankel system. Left: the moment matrix has constant anti-diagonals. Right: at a size-$h$ fiber it factors as $V V^{\mathsf T}$ with $V$ Vandermonde on the fiber's distinct elements, so its determinant is the squared Vandermonde determinant $\prod_{s&lt;t}(w_t - w_s)^2 \ne 0$; at a smaller fiber the same factorization has fewer columns, so the determinant vanishes. Solving the system once with $X$ symbolic yields one global polynomial $G$.</figcaption></figure>
+
+<div class="prop"><b>Proposition G (Vandermonde determinant).</b> For elements $w_1, \dots, w_h$ of any commutative ring, $\det\big( w_s^{\,i} \big)_{0 \le i &lt; h,\ 1 \le s \le h} = \prod_{1\le s &lt; t \le h} (w_t - w_s)$. In particular over a field it is nonzero iff the $w_s$ are distinct.</div>
+<div class="proof">Both sides are polynomial identities in the $w_s$, so it suffices to prove them over $\mathbb{Z}[w_1,\dots,w_h]$, i.e. as an identity of integer polynomials, which we do by induction on $h$; the case $h=1$ reads $1 = 1$ (empty product). View the determinant $D(w_h)$ as a polynomial in $w_h$ of degree $\le h-1$ (expand along the last column). It vanishes at $w_h = w_s$ for each $s &lt; h$ (two equal columns), so $D = c \prod_{s&lt;h}(w_h - w_s)$ with $c$ the coefficient of $w_h^{h-1}$, which by cofactor expansion is the $(h-1)$-point Vandermonde determinant of $w_1,\dots,w_{h-1}$; apply the inductive formula to $c$. <span class="qed">&#8718;</span></div>
+
+<h3 id="s8-global">8.3 One global polynomial</h3>
+
+<p>The pointwise Hankel systems at different $p$ are not independent puzzles: every entry $m_{i+l}(p)$ is the evaluation of the <i>same</i> polynomial $\mu_{i+l}(X)$. So all of them are specializations of a single matrix of polynomials, $\big(\mu_{i+l}(X)\big)_{0\le i,l &lt; h}$, and we can solve <i>one</i> linear system with $X$ left symbolic:
+$$\sum_{l=0}^{h-1} \mu_{i+l}(X)\, c_l(X) \;=\; -\,\mu_{i+h}(X) \qquad (0 \le i &lt; h). \tag{7}$$
+At any point with $\lvert S(p)\rvert = h$ the coefficient matrix specializes to an invertible one, so its determinant $\Delta_h(X)$ is not the zero polynomial, and (7) has a unique solution over the rational function field $F = K(X)$ &mdash; by Cramer's rule, $c_l = n_l/\Delta_h$ with polynomial numerators. Division by $\Delta_h$ is exactly why the coefficients live in $F$ rather than $K[X]$. They define one monic polynomial
+$$G(Y) \;=\; Y^h + \sum_{l=0}^{h-1} c_l(X)\, Y^l \;\in\; F[Y],$$
+and at every full-size fiber the coefficients have no pole (the common denominator $\Delta_h(p) \neq 0$), specialize to the pointwise solution, and hence recover $\prod_{w\in S(p)}(Y-w)$. All of this is made precise and quantitative in Lemma 10.</p>
+
+<h3 id="s8-separable">8.4 Separability and splitting fields, in the amount needed</h3>
+
+<p>Two definitions before the lemma can even be stated. A <b>splitting field</b> of a nonzero $G \in F[Y]$ is an extension field $E \supseteq F$ in which $G$ factors into linear factors and which is generated over $F$ by the roots; one always exists by the iterated-quotient construction used in Proposition C (adjoin a root of an irreducible factor, repeat), and it is a finite extension. $G$ is <b>separable</b> if its roots in a splitting field are distinct. The workable test:</p>
+
+<div class="prop"><b>Proposition F (derivative criterion).</b> A nonzero $G \in F[Y]$ is separable if and only if $\gcd(G, \frac{dG}{dY}) = 1$, where the formal derivative and the gcd are computed in $F[Y]$.</div>
+<div class="proof">The Euclidean algorithm computes the same monic gcd over $F$ as over any extension $E \supseteq F$ (the algorithm's steps never leave the smaller field), so we may test the gcd in a splitting field $E$. If $\alpha$ is a repeated root, $G = (Y-\alpha)^2 H$, and the product rule gives $G' = 2(Y-\alpha)H + (Y-\alpha)^2 H'$, divisible by $(Y-\alpha)$: gcd $\neq 1$. Conversely if $\gcd \ne 1$ it has a root $\alpha$ in $E$ shared by $G$ and $G'$; writing $G = (Y-\alpha)G_1$ we get $G' = G_1 + (Y-\alpha)G_1'$, so $0 = G'(\alpha) = G_1(\alpha)$, making $\alpha$ a repeated root of $G$. <span class="qed">&#8718;</span></div>
+
+<p>The criterion has teeth in characteristic two: $\frac{d}{dY}(Y^2 - c) = 2Y = 0$, so $Y^2 - c$ is <i>never</i> separable &mdash; it is the square of $Y - \sqrt c$ in a splitting field. Separability is a genuine hypothesis, not a formality, and Lemma 10 will have to <i>earn</i> it for its $G$ (it will fall out of the Hankel determinant). We will also need to split many separable polynomials in one place:</p>
+
+<div class="lem"><b>Lemma 3 (common separable splitting field).</b> Let $G_1, \dots, G_r \in F[Y]$ be separable. There is a single finite extension $E/F$, separable over $F$, in which every $G_i$ splits into linear factors.</div>
+<div class="proof">Take a splitting field $E$ of the product $G_1 \cdots G_r$; it is finite over $F$, and it is generated by the roots of the $G_i$, each of which is a root of a separable polynomial, hence separable over $F$ (its minimal polynomial divides $G_i$; a divisor of a separable polynomial is separable, since its roots are a subset). A finite extension generated by separable elements is separable &mdash; this is part of the imported field-theory package, Import 2(a) in <a class="secref" href="#valuations">&sect;10</a>. Note the product itself need not be separable (two $G_i$ may share a root); only each factor matters. <span class="qed">&#8718;</span></div>
+
+<h3 id="s8-artin">8.5 A worked example where the roots are genuinely algebraic</h3>
+
+<div class="toy"><b>Toy (Artin&ndash;Schreier fibers in $\mathbb{F}_{16}$, machine-verified).</b> In $K = \mathbb{F}_{16}$, let $P'$ be the set of $p$ with $\operatorname{Tr}(p) = 0$, where $\operatorname{Tr}(a) = a + a^2 + a^4 + a^8$ &mdash; there are exactly $8$ such $p$ &mdash; and define fibers
+$$S(p) = \{\, w \in K : w^2 + w = p \,\}.$$
+Each such fiber has exactly two elements (if $w$ is a solution so is $w + 1$, and a quadratic has at most 2 roots; solvability for trace-zero $p$ is verified by machine). The computed moment polynomials are
+$$\mu_0 = 0 \ (\text{parity of } 2), \qquad \mu_1 = 1, \qquad \mu_2 = 1, \qquad \mu_3 = 1 + X, \quad \dots$$
+all of degree $\le \lceil j/2\rceil$, comfortably a bounded polynomial-moment family. Solving the $2\times 2$ Hankel system (7) symbolically gives
+$$c_1 = 1, \qquad c_0 = X, \qquad \text{i.e.}\quad G(Y) = Y^2 + Y + X, \qquad \Delta_2 = 1.$$
+This $G$ is separable ($G' = 1$; Proposition F) but has <i>no root in $K(X)$</i>, indeed none in $K[X]$: a polynomial root $y$ would force $\deg(y^2) = 2\deg y = 1$ (machine check: none of the $698{,}896$ candidates of degree $\le 2$ works, and the degree argument rules out the rest, including rational roots after clearing denominators). Its two roots live in a genuine quadratic extension of $K(X)$, differ by $1$, and satisfy $\Delta_2 = (\alpha_2 - \alpha_1)^2 = 1$ &mdash; matching equation (8) of Lemma 10. The Newton recurrence $s_j = s_{j-1} + X s_{j-2}$ derived from $G$ reproduces every computed moment polynomial. Fig.&nbsp;25 shows the real-line shadow of this two-sheeted object and the actual $\mathbb{F}_{16}$ fiber table.</div>
+
+<figure><!--FIG:fig_sheets--><figcaption>Left: the real curve $Y^2 + Y = X$ &mdash; two branches (&ldquo;sheets&rdquo;) over the $X$-line meeting at the branch point where the discriminant vanishes; each vertical line meets the curve in the fiber $S(p)$. Right: the same equation over $\mathbb{F}_{16}$: the eight trace-zero points $p$ each carry a two-element fiber $\{w, w+1\}$. The reconstruction lemma recovers $G(Y) = Y^2 + Y + X$ from the moment polynomials alone; its roots are algebraic functions that are not rational, which is why Lemma 10 must work in an extension field of $K(X)$.</figcaption></figure>
+
+<p>This example is the mental model to carry into the proof: <i>fibers that no polynomial labeling explains, yet one global algebraic equation governs them all</i>. The reconstruction lemma says this is the general situation, and quantifies every degree and every exceptional point.</p>

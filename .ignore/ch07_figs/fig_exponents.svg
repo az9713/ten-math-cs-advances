@@ -1,0 +1,28 @@
+<svg class="setupfig" viewBox="0 0 640 258" width="100%" role="img" aria-label="Where the exponent 1/400 comes from">
+<defs><marker id="c7exp_a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="16" y="30" width="120" height="56" rx="6" fill="#f3f1ec" stroke="#333" stroke-width="1.4"/>
+<text x="76" y="53" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">formula &#966;</text>
+<text x="76" y="73" font-size="12.5" text-anchor="middle" fill="#333">size s, N &#8776; s</text>
+<rect x="176" y="30" width="140" height="56" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.4"/>
+<text x="246" y="53" font-size="12.5" text-anchor="middle" fill="#2e6da4" font-weight="bold">field F&#8339;</text>
+<text x="246" y="73" font-size="12.5" text-anchor="middle" fill="#2e6da4">q &#8776; N&#178;&#8304;&#8304;</text>
+<rect x="356" y="30" width="150" height="56" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.4"/>
+<text x="431" y="53" font-size="12.5" text-anchor="middle" fill="#2e6da4" font-weight="bold">dimension</text>
+<text x="431" y="73" font-size="12.5" text-anchor="middle" fill="#2e6da4">M &#8804; 40N&#8308;&#8304;&#185;</text>
+<rect x="16" y="156" width="210" height="56" rx="6" fill="#f0f7f0" stroke="#2a7d2a" stroke-width="1.4"/>
+<text x="121" y="179" font-size="12.5" text-anchor="middle" fill="#2a7d2a" font-weight="bold">binary gap factor</text>
+<text x="121" y="199" font-size="12.5" text-anchor="middle" fill="#2a7d2a">4&#8201;M<tspan baseline-shift="super" font-size="75%">1/200</tspan></text>
+<rect x="286" y="156" width="200" height="56" rx="6" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.4"/>
+<text x="386" y="179" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">Euclidean factor</text>
+<text x="386" y="199" font-size="12.5" text-anchor="middle" fill="#c0392b">M<tspan baseline-shift="super" font-size="75%">1/400</tspan> = n<tspan baseline-shift="super" font-size="75%">1/400</tspan></text>
+<line x1="136" y1="58" x2="172" y2="58" stroke="#333" stroke-width="1.6" marker-end="url(#c7exp_a)"/>
+<text x="154" y="48" font-size="10" text-anchor="middle" fill="#666">&#167;7</text>
+<line x1="316" y1="58" x2="352" y2="58" stroke="#333" stroke-width="1.6" marker-end="url(#c7exp_a)"/>
+<text x="334" y="48" font-size="9.5" text-anchor="middle" fill="#666">M &#8776; 9N&#183;q&#178;</text>
+<line x1="420" y1="86" x2="140" y2="152" stroke="#333" stroke-width="1.6" marker-end="url(#c7exp_a)"/>
+<text x="300" y="118" font-size="10.5" text-anchor="middle" fill="#666">soundness threshold (Prop 14)</text>
+<line x1="226" y1="184" x2="282" y2="184" stroke="#333" stroke-width="1.6" marker-end="url(#c7exp_a)"/>
+<text x="254" y="174" font-size="10" text-anchor="middle" fill="#666">&#8730; of Lemma 7</text>
+<text x="20" y="120" font-size="10.5" text-anchor="start" fill="#666">q &#8776; N&#178;&#8304;&#8304; makes every error term (Markov losses, discriminant zeros, valuation windows) vanish against |P| &#8776; q</text>
+<text x="20" y="238" font-size="10.5" text-anchor="start" fill="#666">M &#8776; N&#8308;&#8304;&#185; &#8776; q&#178; &#8658; M<tspan baseline-shift="super" font-size="75%">1/200</tspan> &#8776; q<tspan baseline-shift="super" font-size="75%">1/100</tspan> &#8776; N&#178;: a huge gap in absolute terms, a tiny power of the dimension</text>
+</svg>

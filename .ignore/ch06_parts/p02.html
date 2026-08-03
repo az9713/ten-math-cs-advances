@@ -1,0 +1,67 @@
+<hr>
+
+<h2 id="games">2. Nonlocal games and the entangled value: CHSH worked in full</h2>
+
+<p>This section makes Fig. 1 into mathematics (following the chapter's Section 2), then plays one game completely &mdash; CHSH &mdash; because it is the smallest example that simultaneously teaches what a strategy is, what entanglement buys, and what a "value" computation looks like on both sides of the classical/quantum divide.</p>
+
+<h3 id="s2-def">2.1 The definition</h3>
+
+<div class="def" id="def-game"><b>Definition 2.1 (finite one-round two-player entangled game).</b> A game is a tuple
+$$G = (X, Y, A, B, \mu, V), \qquad V : X\times Y\times A\times B \to \{0,1\},$$
+where the question sets $X, Y$ and answer alphabets $A, B$ are finite, $A, B$ are nonempty, and $\mu$ is an arbitrary probability distribution on $X\times Y$. A finite-dimensional <b>tensor-product strategy</b> consists of finite Hilbert spaces $\mathcal{H}_A, \mathcal{H}_B$, a unit vector $\psi \in \mathcal{H}_A\otimes\mathcal{H}_B$, and for each question a local POVM:
+$$E^a_x \succeq 0,\;\; \sum_{a\in A} E^a_x = I_{\mathcal{H}_A} \;\;(x \in X), \qquad
+F^b_y \succeq 0,\;\; \sum_{b\in B} F^b_y = I_{\mathcal{H}_B} \;\;(y \in Y).$$
+Its winning probability is
+$$\omega^*(G;\psi,E,F) \;=\; \sum_{x,y} \mu(x,y) \sum_{a,b} V(x,y,a,b)\, \langle\psi|\, E^a_x\otimes F^b_y\, |\psi\rangle ,$$
+and the <b>entangled value</b> is the supremum over all such strategies, with no bound on the local dimensions:
+$$\omega^*(G) \;=\; \sup_{\mathcal{H}_A,\mathcal{H}_B,\,\psi,\,E,\,F}\; \omega^*(G;\psi,E,F).$$
+No attaining strategy is assumed to exist &mdash; the supremum need not be achieved.</div>
+
+<p>Three bookkeeping conventions from the chapter, recorded once. The <b>question marginals</b> are $\mu_X(x) = \sum_y \mu(x,y)$ and $\mu_Y(y) = \sum_x \mu(x,y)$. Questions with zero marginal can be deleted without changing any value, so conditionals
+$$\mu(x\mid y) = \frac{\mu(x,y)}{\mu_Y(y)}, \qquad \mu(y\mid x) = \frac{\mu(x,y)}{\mu_X(x)}$$
+are used only where the denominators are positive. The <b>support</b> $E_\mu = \{(x,y): \mu(x,y) \gt 0\}$ need not be a product set and need not be connected &mdash; and, remarkably, nothing in the whole proof will care.</p>
+
+<p>The <b>classical value</b> $\omega(G)$ is the same supremum restricted to strategies without entanglement: the players share a random variable $\lambda$ (agreed beforehand) and answer by functions $a = f_\lambda(x)$, $b = g_\lambda(y)$. It is the special case of Definition 2.1 in which all effects commute (diagonal matrices), so $\omega(G) \le \omega^*(G)$ always.</p>
+
+<div class="prop" id="prop-det"><b>Proposition D (deterministic strategies suffice classically).</b>
+$$\omega(G) \;=\; \max_{f: X\to A,\; g: Y\to B}\; \sum_{x,y}\mu(x,y)\, V(x,y,f(x),g(y)).$$
+</div>
+<div class="proof">A shared-randomness strategy wins with probability $\mathbb{E}_\lambda[w(\lambda)]$ where $w(\lambda)$ is the winning probability of the deterministic pair $(f_\lambda, g_\lambda)$. An average never exceeds its maximum, so some deterministic pair does at least as well; conversely a deterministic pair is itself a legal strategy. The maximum exists because there are finitely many pairs. <span class="qed">&#8718;</span></div>
+
+<h3 id="s2-chsh">2.2 The CHSH game, both values computed exactly</h3>
+
+<div class="toy"><b>Toy (CHSH).</b> Questions and answers are single bits: $X = Y = A = B = \{0,1\}$, the questions are independent fair coins ($\mu$ uniform on $\{0,1\}^2$), and the players win iff
+$$a \oplus b \;=\; x\wedge y,$$
+i.e. the answers must <i>agree</i> unless both questions are $1$, in which case they must <i>disagree</i> (Fig. 5, left). We will show
+$$\omega(\mathrm{CHSH}) = \tfrac34, \qquad \omega^*(\mathrm{CHSH}) = \cos^2(\pi/8) = \tfrac12 + \tfrac{\sqrt2}{4} \approx 0.8536.$$
+</div>
+
+<div class="prop" id="prop-chsh-classical"><b>Proposition E (classical value).</b> $\omega(\mathrm{CHSH}) = 3/4$.</div>
+<div class="proof">By <a class="secref" href="#prop-det">Proposition D</a> it suffices to consider deterministic $f, g$. The four win conditions, one per question pair, are
+$$f(0)\oplus g(0) = 0,\quad f(0)\oplus g(1) = 0,\quad f(1)\oplus g(0) = 0,\quad f(1)\oplus g(1) = 1 .$$
+XOR-ing all four equations: every value $f(x), g(y)$ appears exactly twice on the left, so the left side XORs to $0$, while the right side XORs to $1$. Hence the four conditions are never simultaneously satisfiable, so at most $3$ of the $4$ equally likely question pairs can be won: $\omega \le 3/4$. Constant answers $f \equiv g \equiv 0$ win exactly the three pairs with $x\wedge y = 0$. (Machine check <code>c01</code> in <a class="secref" href="#validation">&sect;15</a> confirms the maximum over all $16$ deterministic pairs.) <span class="qed">&#8718;</span></div>
+
+<div class="prop" id="prop-chsh-quantum"><b>Proposition F (entangled players reach $\cos^2(\pi/8)$).</b> There is a tensor-product strategy for CHSH with winning probability exactly $\cos^2(\pi/8)$.</div>
+<div class="proof">Share $|\Phi^+\rangle$ from <a class="secref" href="#s1-tensor">&sect;1.3</a>, and measure in rotated real bases: Alice uses angle $\theta_A(0) = 0$ or $\theta_A(1) = \pi/4$; Bob uses $\theta_B(0) = \pi/8$ or $\theta_B(1) = -\pi/8$ (Fig. 5, right). By the identity $\mathbb{P}(a = b) = \cos^2(\theta_A - \theta_B)$ proved in &sect;1.3, on the three question pairs requiring agreement the relative angle is $\pm\pi/8$, giving success $\cos^2(\pi/8)$; on the pair $x = y = 1$, requiring disagreement, the relative angle is $\pi/4 - (-\pi/8) = 3\pi/8$, giving success $1 - \cos^2(3\pi/8) = \cos^2(\pi/8)$ again. Every question pair is won with probability exactly $\cos^2(\pi/8)$, hence so is the average. (Machine check <code>c02</code>.) <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_chsh--><figcaption>The CHSH game. Left: the four question pairs and what they demand. No assignment of fixed bits satisfies all four demands (the XOR of the four conditions is the contradiction $0 = 1$), capping classical players at $3/4$. Right: the optimal measurement directions. Every needed relative angle is $22.5^\circ$ &mdash; small enough that the $\Phi^+$ correlation $\cos^2(22.5^\circ) \approx 0.854$ survives on all four question pairs simultaneously.</figcaption></figure>
+
+<p>Could a cleverer entangled strategy do better than $\cos^2(\pi/8)$? No &mdash; and the proof, due to Tsirelson, is two lines of operator algebra once the right object is written down. For a two-outcome POVM $\{E^0, E^1\}$ define its <b>observable</b> $M = E^0 - E^1$, a Hermitian operator with $-I \preceq M \preceq I$ (a <i>Hermitian contraction</i>); when the POVM is projective, $M^2 = I$ (call such $M$ a <i>symmetry</i>). Writing $A_x = E^0_x - E^1_x$ and $B_y = F^0_y - F^1_y$, the correlator $\mathbb{E}[(-1)^{a\oplus b}\mid x,y] = \langle\psi|A_x\otimes B_y|\psi\rangle$, and since $\mathbb{P}(a\oplus b = 0 \mid x,y) = \tfrac12(1 + \mathbb{E}[(-1)^{a\oplus b}])$, the CHSH winning probability of any strategy is
+$$\omega^*(\mathrm{CHSH};\psi,E,F) \;=\; \frac12 + \frac{\langle\psi|\,\mathcal{B}\,|\psi\rangle}{8},
+\qquad
+\mathcal{B} = A_0\otimes B_0 + A_0\otimes B_1 + A_1\otimes B_0 - A_1\otimes B_1 .$$
+</p>
+
+<div class="prop" id="prop-tsirelson"><b>Proposition G (Tsirelson's bound).</b> For all Hermitian contractions $A_0, A_1$ on $\mathcal{H}_A$ and $B_0, B_1$ on $\mathcal{H}_B$, the Bell operator above satisfies $\|\mathcal{B}\| \le 2\sqrt2$. Consequently $\omega^*(\mathrm{CHSH}) \le \tfrac12 + \tfrac{2\sqrt2}{8} = \cos^2(\pi/8)$, and with <a class="secref" href="#prop-chsh-quantum">Proposition F</a>, $\omega^*(\mathrm{CHSH}) = \cos^2(\pi/8)$.</div>
+<div class="proof"><p>First reduce to symmetries. $\langle\psi|\mathcal{B}|\psi\rangle$ is affine in each of the four observables separately, and the set of Hermitian contractions is convex and compact, so the supremum is attained at operators that are extreme points of that set. An extreme point must have all eigenvalues in $\{-1, +1\}$: if some eigenvalue $\sigma \in (-1,1)$ with unit eigenvector $v$, then $M \pm (1-|\sigma|)|v\rangle\langle v|$ are distinct Hermitian contractions averaging to $M$. So we may assume $A_x^2 = I$, $B_y^2 = I$.
+Now group $\mathcal{B} = A_0\otimes(B_0 + B_1) + A_1\otimes(B_0 - B_1)$ and square:
+$$\mathcal{B}^2 = A_0^2\otimes(B_0+B_1)^2 + A_1^2\otimes(B_0-B_1)^2 + A_0A_1\otimes(B_0+B_1)(B_0-B_1) + A_1A_0\otimes(B_0-B_1)(B_0+B_1).$$
+Using $B_y^2 = I$: $(B_0+B_1)^2 + (B_0-B_1)^2 = 4I$, $(B_0+B_1)(B_0-B_1) = -[B_0,B_1]$ and $(B_0-B_1)(B_0+B_1) = [B_0,B_1]$, where $[S,T] = ST - TS$. Hence
+$$\mathcal{B}^2 \;=\; 4\, I\otimes I \;-\; [A_0,A_1]\otimes[B_0,B_1].$$
+Since $\|[S,T]\| \le 2\|S\|\|T\| \le 2$ for contractions, $\|\mathcal{B}^2\| \le 4 + 4 = 8$ and $\|\mathcal{B}\| = \|\mathcal{B}^2\|^{1/2} \le 2\sqrt2$ (the last equality because $\mathcal{B}$ is Hermitian, so $\|\mathcal{B}\|^2 = \|\mathcal{B}^2\|$ by <a class="secref" href="#prop-spectral">Proposition A</a>). Finally $\cos^2(\pi/8) = \tfrac{1 + \cos(\pi/4)}{2} = \tfrac12 + \tfrac{\sqrt2}{4}$. (Machine checks <code>c03a</code>, <code>c03b</code>: the norm is exactly $2\sqrt2$ at the optimal angles, and $360$ random observable quadruples never exceed it.) <span class="qed">&#8718;</span></p></div>
+
+<p>The punchline of the computation is worth internalizing before we move on, because the whole chapter is about what happens when such a game is repeated. Entanglement is a genuine resource: it moved the value from $0.750$ to $0.854$. But it is a <i>bounded</i> resource: the commutator term in $\mathcal{B}^2$ is the exact algebraic measure of how much, and it caps the advantage strictly below $1$. Fig. 6 shows the entangled value of the whole one-parameter family of rotation strategies; the optimum sits at $\beta = 22.5^\circ$, comfortably above the classical line, below the ceiling.</p>
+
+<figure><!--FIG:fig_chshcurve--><figcaption>Winning probability of the rotation strategy family for CHSH, computed numerically (engine of <a class="secref" href="#validation">&sect;15</a>): Alice at angles $\{0, 45^\circ\}$, Bob at $\{\beta, -\beta\}$, shared state $\Phi^+$. The curve peaks at $\beta = 22.5^\circ$ with value $\cos^2(\pi/8) \approx 0.8536$ &mdash; exactly Tsirelson's ceiling &mdash; versus the classical maximum $3/4$.</figcaption></figure>
+
+<p class="small">A remark on models, needed for honesty in <a class="secref" href="#scope">&sect;16</a>: Definition 2.1 is the <i>tensor-product</i> model of locality. There is a more permissive <i>commuting-operator</i> model (one shared Hilbert space, Alice's and Bob's operators merely commuting); in infinite dimension the two models genuinely differ ($\mathrm{MIP}^* = \mathrm{RE}$ implies as much). Everything in this chapter concerns the tensor-product value with finite-dimensional strategies, as does the open question it answers.</p>

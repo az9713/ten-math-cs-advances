@@ -1,0 +1,32 @@
+<svg class="setupfig" viewBox="0 0 640 300" width="100%" role="img" aria-label="Parity matching of clause roots (Lemma 13)">
+<text x="18" y="24" font-size="11.5" text-anchor="start" fill="#333">clause C: the parity constraint (C2) forces &#956;&#8320;,&#11388; = &#8721;&#946; &#956;(C,&#946;),&#11388; &#8658; power sums of the multiset difference vanish</text>
+<rect x="40" y="60" width="120" height="170" rx="6" fill="#f3f1ec" stroke="#333" stroke-width="1.3"/>
+<text x="100" y="50" font-size="11.5" text-anchor="middle" fill="#333">global roots R&#8320;</text>
+<circle cx="100" cy="100" r="7" fill="#c0392b" stroke="none"/>
+<circle cx="100" cy="150" r="7" fill="#2e6da4" stroke="none"/>
+<circle cx="100" cy="200" r="7" fill="#2a7d2a" stroke="none"/>
+<rect x="260" y="40" width="150" height="52" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.2"/>
+<text x="335" y="32" font-size="11" text-anchor="middle" fill="#2e6da4">R(C, &#946;&#8321;)</text>
+<circle cx="300" cy="66" r="7" fill="#c0392b" stroke="none"/>
+<rect x="260" y="120" width="150" height="52" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.2"/>
+<text x="335" y="112" font-size="11" text-anchor="middle" fill="#2e6da4">R(C, &#946;&#8322;)</text>
+<circle cx="300" cy="146" r="7" fill="#2e6da4" stroke="none"/>
+<circle cx="340" cy="146" r="7" fill="#2a7d2a" stroke="none"/>
+<rect x="260" y="200" width="150" height="52" rx="6" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.2"/>
+<text x="335" y="192" font-size="11" text-anchor="middle" fill="#2e6da4">R(C, &#946;&#8323;)</text>
+<text x="335" y="230" font-size="10" text-anchor="middle" fill="#666">(empty)</text>
+<line x1="107" y1="100" x2="296" y2="66" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="107" y1="150" x2="296" y2="146" stroke="#2e6da4" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="107" y1="200" x2="336" y2="150" stroke="#2a7d2a" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="452" y="80" font-size="11" text-anchor="start" fill="#333">if some &#945; &#8712; R&#8320; appeared in</text>
+<text x="452" y="96" font-size="11" text-anchor="start" fill="#333">NO clause set, it would sit an odd</text>
+<text x="452" y="112" font-size="11" text-anchor="start" fill="#333">number of times in the difference:</text>
+<text x="452" y="136" font-size="12" text-anchor="start" fill="#c0392b">&#8721;&#945;&#8712;W&#8202;&#945;<tspan baseline-shift="super" font-size="75%">j</tspan> = 0,</text>
+<text x="452" y="154" font-size="11" text-anchor="start" fill="#c0392b">j = 0, &#8230;, |W|&#8722;1</text>
+<text x="452" y="178" font-size="11.5" text-anchor="start" fill="#333">Vandermonde &#183; (1&#8230;1)&#7511; = 0</text>
+<text x="452" y="196" font-size="11.5" text-anchor="start" fill="#333">with V invertible &#8212;</text>
+<text x="452" y="214" font-size="11.5" text-anchor="start" fill="#333">impossible. So W = &#8709;:</text>
+<text x="452" y="240" font-size="11.5" text-anchor="start" fill="#2a7d2a">every global root matches</text>
+<text x="452" y="258" font-size="11.5" text-anchor="start" fill="#2a7d2a">a satisfying local assignment</text>
+<text x="18" y="282" font-size="10.5" text-anchor="start" fill="#666">|W| &#8804; 9K &lt; T + 1, so enough moment equations exist to run the Vandermonde argument</text>
+</svg>

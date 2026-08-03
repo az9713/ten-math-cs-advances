@@ -1,0 +1,163 @@
+<h2 id="mellin">6. The Mellin transform and the gamma workshop</h2>
+
+<p>Here is the change of variables that powers the entire chapter. The Fourier transform turns <i>translations</i> into multiplication by characters $e^{2\pi i\xi\cdot x}$. But radial functions have no translations &mdash; their natural symmetry is <i>dilation</i> $g(r) \mapsto g(cr)$. The transform adapted to dilations is the <b>Mellin transform</b>, a Fourier transform in the logarithmic radius $v = \log r$. The payoff, proved in &sect;6.3, is spectacular: in Mellin coordinates, the $d$-dimensional radial Fourier transform is just a <i>reflection</i> of the Mellin variable times an explicit ratio of gamma functions. All the analysis of &sect;7&ndash;&sect;11 happens in these coordinates.</p>
+
+<h3 id="mellindef">6.1 Mellin coordinates</h3>
+
+<p>Throughout, $g$ is radial on $\mathbb{R}^d$, its profile written $g(r)$, and</p>
+$$\lambda \;=\; \frac{d}{2}$$
+<p>&mdash; the single most used symbol from here on. For $\operatorname{Re} z \gt 0$ define (eq. (8))</p>
+$$\mathcal{M}g(z) = \int_0^\infty g(r)\, r^{z-1}\, dr, \qquad X_g(t) = \mathcal{M}g(\lambda - it), \qquad \Phi_g(v) = e^{\lambda v} g(e^v).$$
+<p>Convergence for radial Schwartz $g$: near $r=0$ the integrand is bounded times $r^{\operatorname{Re}z - 1}$, integrable when $\operatorname{Re}z \gt 0$; at infinity Schwartz decay wins. $X_g$ is the restriction of $\mathcal{M}g$ to the <b>critical line</b> $\operatorname{Re} z = \lambda$, written in the real coordinate $t$; $\Phi_g$ is $g$ read in logarithmic radius (Fig. 14), weighted so that the two are exact Fourier partners:</p>
+
+<div class="lem" id="lemPhi"><b>Lemma N (log coordinates).</b> For radial Schwartz $g$: $\Phi_g \in \mathcal{S}(\mathbb{R};\mathbb{R})$, and
+$$X_g(t) = \int_{\mathbb{R}} \Phi_g(v)\, e^{-itv}\, dv, \qquad \Phi_g(v) = \frac{1}{2\pi}\int_{\mathbb{R}} X_g(t)\, e^{itv}\, dt, \qquad g(r) = \frac{r^{-\lambda}}{2\pi}\int_{\mathbb{R}} X_g(t)\, r^{it}\, dt.$$
+Moreover $\widehat g(0) = \int_{\mathbb{R}^d} g = S_d\,\mathcal{M}g(d)$.</div>
+<div class="proof">
+<p>Substituting $r = e^v$, $dr = e^v dv$ in the definition of $\mathcal Mg(\lambda - it)$ gives $X_g(t) = \int g(e^v)e^{(\lambda-it)v}dv = \int \Phi_g(v)e^{-itv}dv$. For the Schwartz claim: as $v \to +\infty$, every derivative of $\Phi_g$ is a finite sum of terms $c\,e^{(\lambda+j)v}g^{(k)}(e^v)$ (chain rule), and $g^{(k)}(e^v)$ decays faster than any power of $e^v$ &mdash; super-exponential decay in $v$. As $v \to -\infty$, $g^{(k)}(e^v)$ stays bounded (smoothness at $r = 0$), so each term decays like $e^{(\lambda+j)v} \to 0$ exponentially. Hence $\Phi_g$ and all derivatives decay faster than any polynomial: $\Phi_g \in \mathcal S(\mathbb{R})$. The displayed inversion is one-dimensional Fourier inversion (Theorem 2.4, rewritten in the angular-frequency normalization: if $X(t) = \int\Phi(v)e^{-itv}dv$ then $\Phi(v) = \frac{1}{2\pi}\int X(t)e^{itv}dt$; substitute $\xi = t/2\pi$ to match (1)), applicable because $\Phi_g \in \mathcal S$ forces $X_g$ to be Schwartz, hence integrable (Proposition 2.5 in $d = 1$). The last display is $\Phi_g(\log r) = r^\lambda g(r)$. The normalization identity is Lemma I: $\int g = S_d\int_0^\infty g(r)r^{d-1}dr = S_d\mathcal Mg(d)$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_phi--><figcaption>The log-radius profile $\Phi_g(v) = e^{\lambda v}g(e^v)$ of a Gaussian ($\lambda = 4$): a clean Schwartz bump on the whole line. The left tail decays like $e^{\lambda v}$ (smoothness of $g$ at $r=0$), the right tail super-exponentially (Schwartz decay of $g$). This bump is what the strip analysis of <a class="secref" href="#strip">&sect;7</a> actually manipulates.</figcaption></figure>
+
+<h3 id="gammawork">6.2 The gamma workshop</h3>
+
+<p>The chapter leans on a toolbox of gamma-function identities (its display (7)). We prove all of them except two classical facts, which we import with precise statements.</p>
+
+<div class="lem" id="lemgamma"><b>Lemma O (gamma basics).</b> On $\operatorname{Re}z\gt0$:
+<br>(a) $\Gamma(z+1) = z\,\Gamma(z)$; consequently $\Gamma(n+1) = n!$ and $\Gamma$ extends meromorphically to $\mathbb{C}$ by $\Gamma(z) = \Gamma(z+n+1)/\bigl(z(z+1)\cdots(z+n)\bigr)$, with simple poles at $z = -n$, $n = 0,1,2,\dots$, of residue $(-1)^n/n!$, and no other singularities.
+<br>(b) $\Gamma(\tfrac12) = \sqrt\pi$.
+<br>(c) <i>Conjugation symmetry:</i> $\Gamma(\bar z) = \overline{\Gamma(z)}$.
+<br>(d) <i>Euler's limit formula:</i> $\displaystyle\Gamma(z) = \lim_{n\to\infty}\frac{n!\, n^z}{z(z+1)\cdots(z+n)}$.
+</div>
+<div class="proof">
+<p>(a) Integrate by parts: $\Gamma(z+1) = \int_0^\infty t^z e^{-t}dt = \bigl[-t^ze^{-t}\bigr]_0^\infty + z\int_0^\infty t^{z-1}e^{-t}dt = z\Gamma(z)$. With $\Gamma(1) = 1$, induction gives the factorial. The displayed quotient defines the extension: the right side is analytic on $\operatorname{Re}z \gt -(n+1)$ except at the listed zeros of the denominator; near $z = -n$ the factor $1/(z+n)$ produces a simple pole with residue $\Gamma(1)/\bigl((-n)(-n+1)\cdots(-1)\bigr) = (-1)^n/n!$.</p>
+<p>(b) $\Gamma(\tfrac12) = \int_0^\infty t^{-1/2}e^{-t}dt = 2\int_0^\infty e^{-s^2}ds = \int_{\mathbb{R}} e^{-s^2}ds = \sqrt\pi$ ($t = s^2$; the Gaussian integral from the proof of Proposition 2.3, rescaled).</p>
+<p>(c) Conjugate the defining integral (real integrand except through $z$): $\overline{t^{z-1}} = t^{\bar z - 1}$.</p>
+<p>(d) Write $I_n = \int_0^n t^{z-1}(1 - t/n)^n dt$. Repeated integration by parts (each step trades one factor $(1-t/n)$ for a factor $t$) gives
+$$I_n = \frac{n}{n}\cdot\frac{n-1}{n}\cdots\frac{1}{n}\cdot\frac{n^{\,?}}{z(z+1)\cdots(z+n-1)}\int_0^n t^{z+n-1}\,n^{-0}\,dt\Big/\ \cdots = \frac{n!\; n^z}{z(z+1)\cdots(z+n)},$$
+a two-line induction: $\int_0^n t^{z-1}(1-t/n)^k dt = \frac{k}{nz}\int_0^n t^z(1-t/n)^{k-1}dt$ for $k \ge 1$, applied $n$ times, then $\int_0^n t^{z+n-1}dt = n^{z+n}/(z+n)$. Since $0 \le (1-t/n)^n \uparrow e^{-t}$ for $t$ fixed ($n \ge t$) and $|t^{z-1}|(1-t/n)^n \le t^{\operatorname{Re}z-1}e^{-t}$, dominated convergence gives $I_n \to \Gamma(z)$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note" id="import1"><b>Import 1 (reflection formula) [DLMF (5.5.3)].</b> For all non-integer $z$: $\;\Gamma(z)\,\Gamma(1-z) = \dfrac{\pi}{\sin \pi z}$. Consequence: $\Gamma$ has <i>no zeros</i> (a zero of $\Gamma$ at $z$ would force a pole of $\Gamma(1-z)$ at a non-pole location). Standard proofs run through the product formula for $\sin$ or contour integration of the Beta integral; we take it as given.</div>
+
+<div class="prop" id="propmoduli"><b>Proposition P (the moduli identities of (7)).</b> For real $b \ne 0$:
+$$|\Gamma(ib)|^2 = \frac{\pi}{b\,\sinh(\pi b)}, \qquad |\Gamma(\tfrac12 + ib)|^2 = \frac{\pi}{\cosh(\pi b)}.$$</div>
+<div class="proof">
+<p>By conjugation symmetry (Lemma O(c)), $|\Gamma(ib)|^2 = \Gamma(ib)\Gamma(-ib)$. The recurrence gives $\Gamma(-ib) = \Gamma(1-ib)/(-ib)$, so
+$$|\Gamma(ib)|^2 = \frac{\Gamma(ib)\Gamma(1-ib)}{-ib} = \frac{1}{-ib}\cdot\frac{\pi}{\sin(\pi i b)} = \frac{\pi}{-ib\cdot i\sinh(\pi b)} = \frac{\pi}{b\sinh(\pi b)},$$
+using Import 1 and $\sin(ix) = i\sinh x$. Similarly $|\Gamma(\tfrac12+ib)|^2 = \Gamma(\tfrac12+ib)\Gamma(\tfrac12-ib) = \pi/\sin(\pi(\tfrac12+ib)) = \pi/\cos(i\pi b) = \pi/\cosh(\pi b)$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="prop" id="propdigamma"><b>Proposition Q (digamma and polygamma).</b> Let $\psi = \Gamma'/\Gamma$ (the <b>digamma</b> function) and $\psi^{(1)} = \psi'$, $\psi^{(2)} = \psi''$ (<b>tri-</b> and <b>tetragamma</b>). For $\operatorname{Re}z \gt 0$:
+$$\psi(z) = -\gamma + \sum_{k=0}^\infty\Bigl(\frac{1}{k+1} - \frac{1}{k+z}\Bigr), \qquad \psi'(z) = \sum_{k=0}^\infty \frac{1}{(z+k)^2}, \qquad \psi''(z) = -2\sum_{k=0}^\infty\frac{1}{(z+k)^3},$$
+where $\gamma = \lim_n(\sum_{k=1}^n \tfrac1k - \log n)$ is Euler's constant. Consequences used later:
+<br>(i) $\;\operatorname{Im}\psi(a+ib) = \sum_{k\ge0} \dfrac{b}{(k+a)^2+b^2} \gt 0$ for $a, b \gt 0$;
+<br>(ii) <i>uniform polygamma bounds:</i> for real $m \ge \tfrac12$: $\;\dfrac{1}{2m} \le \psi'(m) \le \dfrac{3}{m}$ and $|\psi''(m)| \le \dfrac{4}{m^2}$;
+<br>(iii) $\;\psi(m) = \log m + O(1/m)$ as $m \to \infty$, and $\psi$ is increasing on $(0,\infty)$.
+</div>
+<div class="proof">
+<p>Take logarithms in Euler's limit formula (Lemma O(d)): $\log\Gamma(z) = \lim_n\bigl[\log n! + z\log n - \sum_{k=0}^n \log(z+k)\bigr]$ (a branch chosen continuously; on the positive reals everything is real). The convergence is locally uniform on $\operatorname{Re}z\gt0$: rewriting the bracket as $-\log z + \sum_{k=1}^n\bigl[\tfrac zk - \log(1+\tfrac zk)\bigr] + z(\log n - \sum_1^n\tfrac1k)$, the summands are $O(|z|^2/k^2)$ and the last term converges to $-\gamma z$, uniformly on compacts. Locally uniform limits of holomorphic functions may be differentiated termwise (Cauchy estimates), giving
+$$\psi(z) = \lim_n\Bigl[\log n - \sum_{k=0}^n\frac{1}{z+k}\Bigr] = -\gamma + \sum_{k=0}^\infty\Bigl(\frac1{k+1} - \frac1{k+z}\Bigr),$$
+where we inserted $\log n = \sum_{k=1}^n \tfrac1k - \gamma + o(1)$. Differentiating the (locally uniformly convergent) series once and twice gives $\psi'$ and $\psi''$.</p>
+<p>(i) Take imaginary parts termwise: $\operatorname{Im}\frac{-1}{k+a+ib} = \frac{b}{(k+a)^2+b^2}$.</p>
+<p>(ii) Integral comparison for the decreasing function $x \mapsto (m+x)^{-2}$: since the series $\psi'(m) = \sum_{k\ge0}(m+k)^{-2}$ dominates the integral from each left endpoint and is dominated from each right endpoint,
+$$\frac1m = \int_0^\infty\frac{dx}{(m+x)^2} \;\le\; \psi'(m) \;\le\; \frac{1}{m^2} + \int_0^\infty\frac{dx}{(m+x)^2} = \frac{1}{m^2} + \frac1m.$$
+Hence $\psi'(m) \ge \tfrac1m \ge \tfrac1{2m}$, and for $m \ge \tfrac12$, $\psi'(m) \le \tfrac1{m^2}+\tfrac1m \le \tfrac3m$. Likewise $|\psi''(m)| = 2\sum_{k\ge0}(m+k)^{-3} \le 2\bigl(\tfrac1{m^3} + \int_0^\infty\tfrac{dx}{(m+x)^3}\bigr) = \tfrac{2}{m^3} + \tfrac{1}{m^2} \le \tfrac4{m^2}$ for $m \ge \tfrac12$.</p>
+<p>(iii) From the series, $\psi(m+1) - \psi(m) = 1/m$, and for integer $n$, $\psi(n) = -\gamma + \sum_{k=1}^{n-1}\tfrac1k = \log n + O(1/n)$; monotonicity of $\psi$ (its derivative $\psi' \gt 0$) squeezes real $m$ between integers. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="lem" id="lemmalmsten"><b>Lemma R (integral representations; the source of (45)).</b> For $\operatorname{Re}z \gt 0$:
+$$\gamma = \int_0^\infty\Bigl(\frac{1}{1-e^{-t}} - \frac1t\Bigr)e^{-t}\,dt, \qquad
+\psi(z) = \int_0^\infty\Bigl(\frac{e^{-t}}{t} - \frac{e^{-zt}}{1-e^{-t}}\Bigr)dt \quad\text{(Gauss)}.$$
+Consequently, for $\operatorname{Re}z_1 \gt 0$ and $z_2$ with $\operatorname{Re}z_2 \gt 0$,
+$$\log\Gamma(z_2) - \log\Gamma(z_1) + (z_1 - z_2)\,\psi(z_1) \;=\; \int_0^\infty \frac{e^{-z_2 t} - e^{-z_1 t} + (z_2 - z_1)\,t\,e^{-z_1 t}}{t\,(1-e^{-t})}\,dt,$$
+with absolute convergence.</div>
+<div class="proof">
+<p><i>The $\gamma$ integral.</i> Start from $\gamma = \lim_n(\sum_{k=1}^n\tfrac1k - \log n)$. Write $\tfrac1k = \int_0^\infty e^{-kt}dt$, and represent the logarithm by a Frullani integral, proved in one line by Tonelli (all terms positive):
+$$\int_0^\infty\frac{e^{-t}-e^{-nt}}{t}\,dt = \int_0^\infty\!\!\int_1^n e^{-ut}\,du\,dt = \int_1^n\frac{du}{u} = \log n.$$
+Then
+$$\sum_{k=1}^n \frac1k - \log n = \int_0^\infty\Bigl(e^{-t}\,\frac{1-e^{-nt}}{1-e^{-t}} - \frac{e^{-t}-e^{-nt}}{t}\Bigr)dt.$$
+As $n \to \infty$ the integrand converges pointwise to $\bigl(\frac{1}{1-e^{-t}} - \frac1t\bigr)e^{-t} + \text{(vanishing terms)}$ and is dominated by an integrable function (near $0$ the bracket is $O(1)$ uniformly in $n$, since $\frac{1}{1-e^{-t}} - \frac1t$ is bounded near $0$ and $\frac{1-e^{-nt}}{t}\cdot t$-corrections cancel to first order; for $t \ge 1$ everything is $O(e^{-t/2})$). Dominated convergence gives the $\gamma$ integral.</p>
+<p><i>Gauss's formula.</i> In the digamma series (Proposition Q) write $\frac{1}{k+z} = \int_0^\infty e^{-(k+z)t}dt$ and $\frac{1}{k+1} = \int_0^\infty e^{-(k+1)t}dt$, sum the geometric series $\sum_{k\ge0}e^{-kt} = \frac{1}{1-e^{-t}}$ (interchange legal: partial sums are dominated, and the combined integrand $\frac{e^{-t}-e^{-zt}}{1-e^{-t}}$ is absolutely integrable away from $0$ while the $k$-truncated tails vanish):
+$$\psi(z) = -\gamma + \int_0^\infty \frac{e^{-t} - e^{-zt}}{1-e^{-t}}\,dt,$$
+this integral being absolutely convergent at $0$ (numerator $= (z-1)t + O(t^2)$, denominator $\sim t$). Substituting the $\gamma$ integral and cancelling $\frac{e^{-t}}{1-e^{-t}}$ yields Gauss's formula, now with the two singular pieces $\frac{e^{-t}}{t}$ and $\frac{e^{-zt}}{1-e^{-t}}$ individually matched so that the difference is $O(1)$ at $0$.</p>
+<p><i>The two-point formula.</i> Integrate Gauss's formula along the straight segment from $z_1$ to $z_2$ (legitimate: for $z$ on the segment, the integrand is holomorphic in $z$ and dominated locally uniformly, so the $z$-integral may be taken inside):
+$$\log\Gamma(z_2) - \log\Gamma(z_1) = \int_{z_1}^{z_2}\psi(z)\,dz = \int_0^\infty\Bigl(\frac{(z_2-z_1)e^{-t}}{t} - \frac{e^{-z_1t} - e^{-z_2t}}{t(1-e^{-t})}\Bigr)dt,$$
+using $\int_{z_1}^{z_2} e^{-zt}dz = (e^{-z_1t}-e^{-z_2t})/t$. Add $(z_1-z_2)\psi(z_1)$ in its Gauss form; the $\frac{(z_2-z_1)e^{-t}}{t}$ terms cancel, leaving exactly the displayed integrand. Absolute convergence at $0$: the numerator is $O(t^2)$ (its value and $t$-derivative vanish at $t=0$), the denominator $\sim t^2$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note" id="import2"><b>Import 2 (Stirling package) [DLMF &sect;5.11].</b> Uniformly in every sector $|\arg z| \le \pi - \delta$:
+$$\log\Gamma(z) = \bigl(z - \tfrac12\bigr)\log z - z + \tfrac12\log(2\pi) + O(1/|z|),$$
+and on vertical lines, for $a$ in a fixed compact set and $|b| \to \infty$:
+$$|\Gamma(a+ib)| = \sqrt{2\pi}\,|b|^{a - 1/2}\, e^{-\pi|b|/2}\,\bigl(1 + O(1/|b|)\bigr).$$
+The second display is the workhorse "vertical decay" of the gamma function: on any vertical line it decays like $e^{-\pi|b|/2}$. Two consequences we cite by name: $v_d^{1/d}\sqrt d \to \sqrt{2\pi e}$ (apply the first display to $\Gamma(d/2+1)$; verified numerically as <code>c22b</code>), and $h_\lambda(y) = -\lambda\log|y| + O_\lambda(1)$ as $|y| \to \infty$ in &sect;7.</div>
+
+<h3 id="hankel">6.3 The Mellin&ndash;Hankel functional equation</h3>
+
+<p>Now the theorem that makes everything else possible. Recall from &sect;1.2 that $\widehat{g}$ of a radial function is radial (Lemma L). Here is what the Fourier transform looks like through Mellin glasses:</p>
+
+<div class="thm" id="thmhankel"><b>Theorem S (Mellin&ndash;Hankel functional equation; eq. (9)).</b> For radial $g \in \mathcal{S}(\mathbb{R}^d)$ and $0 \lt \operatorname{Re} z \lt d$:
+$$\mathcal{M}\widehat g(z) \;=\; \pi^{\lambda - z}\,\frac{\Gamma(z/2)}{\Gamma((d-z)/2)}\;\mathcal{M}g(d - z).$$
+The Fourier transform reflects the Mellin variable across the critical point $z = \lambda$ and multiplies by an explicit gamma ratio (Fig. 15).</div>
+<div class="proof">
+<p>The key is to write the power $|x|^{-w}$ as a superposition of Gaussians &mdash; the one family whose Fourier behavior we know exactly. For $0 \lt \operatorname{Re}w \lt d$ and $x \ne 0$, the substitution $t = \pi s|x|^2$ in the gamma integral gives
+$$\int_0^\infty s^{w/2-1} e^{-\pi s|x|^2}\,ds = \Gamma\bigl(\tfrac w2\bigr)\,(\pi|x|^2)^{-w/2}, \qquad\text{i.e.}\qquad |x|^{-w} = \frac{\pi^{w/2}}{\Gamma(w/2)}\int_0^\infty s^{w/2-1}e^{-\pi s|x|^2}ds. \tag{∗}$$
+Fix $z$ with $0 \lt \operatorname{Re}z \lt d$ and set $w = d - z$ (so $0 \lt \operatorname{Re}w \lt d$ too). By polar integration (Lemma I),
+$$\mathcal M\widehat g(z) = \int_0^\infty \widehat g(\rho)\rho^{z-1}d\rho = \frac{1}{S_d}\int_{\mathbb{R}^d} \widehat g(x)\,|x|^{z-d}\,dx = \frac{1}{S_d}\cdot\frac{\pi^{w/2}}{\Gamma(w/2)}\int_0^\infty s^{w/2-1}\Bigl(\int_{\mathbb{R}^d}\widehat g(x)\,e^{-\pi s|x|^2}dx\Bigr)ds,$$
+by (∗) and Fubini. Fubini is justified by splitting at $s = 1$: for $s \le 1$, $\bigl|\int\widehat g\,e^{-\pi s|x|^2}\bigr| \le \|\widehat g\|_1$ and $s^{\operatorname{Re}w/2-1}$ is integrable near $0$ since $\operatorname{Re}w \gt 0$; for $s \ge 1$, the inner integral is $O(s^{-d/2})$ by the computation below, and $s^{\operatorname{Re}w/2 - 1 - d/2} = s^{-\operatorname{Re}z/2 - 1}$ is integrable at $\infty$ since $\operatorname{Re}z \gt 0$.</p>
+<p>Now the multiplication formula (Lemma 2.2(iii)) with the Gaussian pair of Proposition 2.3:
+$$\int \widehat g(x)\,e^{-\pi s|x|^2}dx = \int g(\xi)\,\widehat{g_s}(\xi)\,d\xi = s^{-d/2}\int g(\xi)\,e^{-\pi|\xi|^2/s}\,d\xi.$$
+Substitute $u = 1/s$ (so $ds = -du/u^2$, and $s^{w/2 - 1 - d/2}ds$ becomes $u^{d/2 - w/2 + 1}u^{-2}du = u^{z/2-1}du$):
+$$\mathcal M\widehat g(z) = \frac{\pi^{w/2}}{S_d\,\Gamma(w/2)}\int_0^\infty u^{z/2-1}\Bigl(\int g(\xi)e^{-\pi u|\xi|^2}d\xi\Bigr)du = \frac{\pi^{w/2}}{S_d\,\Gamma(w/2)}\cdot\Gamma\bigl(\tfrac z2\bigr)\pi^{-z/2}\int_{\mathbb{R}^d} g(\xi)\,|\xi|^{-z}\,d\xi,$$
+running (∗) backwards with $w$ replaced by $z$ (again legitimate by the same split). Finally, polar integration once more: $\int g(\xi)|\xi|^{-z}d\xi = S_d\int_0^\infty g(\rho)\rho^{d-z-1}d\rho = S_d\,\mathcal Mg(d-z)$. Collecting the powers of $\pi$: $\pi^{(d-z)/2 - z/2} = \pi^{\lambda - z}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="toy"><b>Sanity checks.</b> (1) On the Gaussian $g = e^{-\pi r^2}$: both sides can be computed in closed form &mdash; $\mathcal Mg(z) = \Gamma(z/2)/(2\pi^{z/2})$ &mdash; and the equation balances identically (a two-line exercise with Lemma O(a)). (2) Numerically, in $d = 3$ with the decidedly non-Gaussian $g(r) = r^2e^{-\pi r^2}/(1+r^2)$, both sides agree to $14$ digits at $z = 1.3$ and $z = 2 + 0.7i$: check <code>c08</code> in <a class="secref" href="#validation">&sect;13</a>.</div>
+
+<figure><svg class="setupfig" viewBox="0 0 460 250" width="100%" role="img" aria-label="The Mellin strip and the reflection">
+  <defs><marker id="c1striparr" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#7d3c98"/></marker></defs>
+  <rect x="120" y="20" width="220" height="190" fill="#2e6da4" opacity="0.10"/>
+  <line x1="40" y1="115" x2="440" y2="115" stroke="#333" stroke-width="1.2"/>
+  <line x1="120" y1="20" x2="120" y2="210" stroke="#2e6da4" stroke-width="1.6"/>
+  <line x1="340" y1="20" x2="340" y2="210" stroke="#2e6da4" stroke-width="1.6"/>
+  <line x1="230" y1="58" x2="230" y2="176" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="7 4"/>
+  <text x="120" y="232" font-size="12" text-anchor="middle" fill="#2e6da4">Re z = 0</text>
+  <text x="340" y="232" font-size="12" text-anchor="middle" fill="#2e6da4">Re z = d</text>
+  <text x="230" y="232" font-size="12" text-anchor="middle" fill="#c0392b">critical line Re z = &lambda; = d/2</text>
+  <path d="M 168 78 C 195 58, 265 58, 292 78" fill="none" stroke="#7d3c98" stroke-width="1.8" marker-end="url(#c1striparr)"/>
+  <path d="M 292 152 C 265 172, 195 172, 168 152" fill="none" stroke="#7d3c98" stroke-width="1.8" marker-end="url(#c1striparr)"/>
+  <text x="230" y="50" font-size="12.5" text-anchor="middle" fill="#7d3c98">Fourier = reflection z &#8614; d &minus; z</text>
+  <text x="230" y="196" font-size="11.5" text-anchor="middle" fill="#7d3c98">(times the gamma ratio &pi;<tspan baseline-shift="super" font-size="8">&lambda;&minus;z</tspan> &Gamma;(z/2)/&Gamma;((d&minus;z)/2))</text>
+  <circle cx="120" cy="115" r="4" fill="#b06a00"/>
+  <circle cx="76" cy="115" r="4" fill="#b06a00"/>
+  <text x="98" y="100" font-size="11" fill="#b06a00">poles of &Gamma;(z/2): z = 0, &minus;2, &hellip;</text>
+  <circle cx="168" cy="78" r="3" fill="#333"/><circle cx="292" cy="78" r="3" fill="#333"/>
+  <text x="160" y="72" font-size="11.5" text-anchor="end" fill="#333" class="v">z</text>
+  <text x="300" y="72" font-size="11.5" fill="#333">d &minus; z</text>
+</svg><figcaption>Theorem S in a picture: on the strip $0 \lt \operatorname{Re}z \lt d$, taking a Fourier transform amounts to reflecting the Mellin variable across the critical line $\operatorname{Re}z = \lambda$ (dashes) and multiplying by an explicit unimodular-on-the-line gamma factor. The pole of $\Gamma(z/2)$ at $z=0$ (orange) blocks continuation to the boundary &mdash; unless the function vanishes at the origin (Lemma U), which is exactly why the constraint $g(0) = 0$ has analytic teeth.</figcaption></figure>
+
+<h3 id="critline">6.4 On the critical line: the unimodular multiplier</h3>
+
+<div class="prop" id="propmult"><b>Proposition T (eq. (10)).</b> For radial $g \in \mathcal S(\mathbb{R}^d)$ and $t \in \mathbb{R}$:
+$$X_{\widehat g}(t) = m_\lambda(t)\,X_g(-t), \qquad m_\lambda(t) = \pi^{it}\,\frac{\Gamma\bigl(\frac{\lambda - it}{2}\bigr)}{\Gamma\bigl(\frac{\lambda + it}{2}\bigr)},$$
+and the multiplier satisfies $\;m_\lambda(-t) = \overline{m_\lambda(t)} = m_\lambda(t)^{-1}$, $\;|m_\lambda(t)| = 1$.</div>
+<div class="proof">
+<p>Set $z = \lambda - it$ in Theorem S: $\operatorname{Re}z = \lambda \in (0,d)$, $d - z = \lambda + it$, and $\pi^{\lambda - z} = \pi^{it}$; note $\mathcal Mg(\lambda + it) = X_g(-t)$. For the multiplier: $\overline{m_\lambda(t)} = \pi^{-it}\overline{\Gamma((\lambda-it)/2)}/\overline{\Gamma((\lambda+it)/2)} = \pi^{-it}\Gamma((\lambda+it)/2)/\Gamma((\lambda-it)/2) = m_\lambda(t)^{-1}$ by Lemma O(c), and the same computation shows $m_\lambda(-t) = \overline{m_\lambda(t)}$; hence $|m_\lambda|^2 = m_\lambda\overline{m_\lambda} = 1$. (Numerical check: <code>c12</code>.) <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Pause on what Proposition T buys. An anti-self-Fourier condition $\widehat g = -g$, a genuinely $d$-dimensional constraint, has become the <i>one-dimensional reflection identity</i> $X_g(t) = -m_\lambda(t)X_g(-t)$. Conversely &mdash; and this is how the construction of &sect;9 works &mdash; to build eigenfunctions one just writes down functions $X(t)$ satisfying the reflection identity and runs Mellin inversion. The entire Fourier constraint has been reduced to bookkeeping with a known unimodular multiplier.</p>
+
+<h3 id="continuation">6.5 Crossing the boundary: what $g(0) = 0$ does analytically</h3>
+
+<div class="lem" id="lemcontin"><b>Lemma U (continuation past the gamma pole).</b> Let $g$ be radial Schwartz with $g(0) = \widehat g(0) = 0$. Then:
+<br>(i) $g(r) = O(r^2)$ and $\widehat g(r) = O(r^2)$ as $r \to 0$;
+<br>(ii) $\mathcal Mg$ and $\mathcal M\widehat g$ extend holomorphically to $\operatorname{Re}z \gt -2$;
+<br>(iii) the functional equation of Theorem S remains valid on $0 \le \operatorname{Re}z \lt d$; at $z = 0$ the pole of $\Gamma(z/2)$ is cancelled by the zero of $\mathcal Mg(d - z)$ at $z = 0$: indeed $\mathcal Mg(d) = S_d^{-1}\widehat g(0) = 0$ and
+$$\mathcal Mg(d-z) = -z\,\mathcal Mg'(d) + O(z^2), \qquad \Gamma(z/2) = \frac2z + O(1).$$</div>
+<div class="proof">
+<p>(i) The profile of a smooth radial function is smooth on $[0,\infty)$ and extends evenly: $g(r) = g(re_1)$ with the right side smooth in $r \in \mathbb{R}$ and even. Evenness forces $g'(0) = 0$ (the derivative of an even smooth function at $0$). With $g(0) = 0$ as well, Taylor gives $g(r) = O(r^2)$; the same applies to $\widehat g$, which is also radial Schwartz and vanishes at the origin by hypothesis.</p>
+<p>(ii) Split $\mathcal Mg(z) = \int_0^1 + \int_1^\infty$. The piece $\int_1^\infty g(r)r^{z-1}dr$ is entire in $z$ (Schwartz decay dominates any $r^{\operatorname{Re}z-1}$; holomorphy by differentiation under the integral). The piece $\int_0^1 g(r)r^{z-1}dr$ converges and is holomorphic for $\operatorname{Re}z \gt -2$ because $|g(r)r^{z-1}| \le Cr^{\operatorname{Re}z+1}$ there. Same for $\widehat g$.</p>
+<p>(iii) Both sides of Theorem S are now holomorphic on $-2 \lt \operatorname{Re}z \lt d$ <i>except</i> that the right side carries the explicit factor $\Gamma(z/2)$ with its pole at $z = 0$; but the accompanying factor $\mathcal Mg(d-z)$ vanishes at $z = 0$ (its value is $\mathcal Mg(d) = S_d^{-1}\widehat g(0) = 0$ by Lemma N), so the product extends holomorphically, with the displayed expansions (Taylor for $\mathcal Mg(d-z)$ at $z=0$; Lemma O(a) for the residue of $\Gamma(z/2)$: $\Gamma(z/2) = \frac{\Gamma(z/2+1)}{z/2} = \frac{2}{z}(1 + O(z))$). By the identity theorem, the equation, valid on $0\lt\operatorname{Re}z\lt d$, persists on the larger domain. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>This is the analytic cash value of the innocent-looking constraint $g(0) = 0$ in Theorem 1.2's definition (6): <i>it unlocks the closed strip.</i> The obstruction argument of &sect;7 lives on exactly the strip $0 \le \operatorname{Im}t \le$ (boundary), and without the pole cancellation of Lemma U there would be no strip to work on.</p>

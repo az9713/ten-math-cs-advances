@@ -1,0 +1,18 @@
+<svg class="setupfig" viewBox="0 0 460 150" width="100%" role="img" aria-label="Where the packing rate lives">
+<line x1="20" y1="72.96" x2="440" y2="72.96" stroke="#333" stroke-width="1.6"/>
+<rect x="84.62" y="63.96" width="254.81" height="18" fill="#2e6da4" opacity="0.15"/>
+<line x1="84.62" y1="62.96" x2="84.62" y2="82.96" stroke="#2a7d2a" stroke-width="2.4"/>
+<text x="84.62" y="39.36" font-size="11" text-anchor="middle" fill="#2a7d2a">½</text>
+<text x="84.62" y="55.04" font-size="9.5" text-anchor="middle" fill="#555">Minkowski packings</text>
+<line x1="339.43" y1="62.96" x2="339.43" y2="82.96" stroke="#c0392b" stroke-width="2.4"/>
+<text x="339.43" y="39.36" font-size="11" text-anchor="middle" fill="#c0392b">0.6577</text>
+<text x="339.43" y="55.04" font-size="9.5" text-anchor="middle" fill="#555">new upper bound = LP limit</text>
+<line x1="343.35" y1="62.96" x2="343.35" y2="82.96" stroke="#b06a00" stroke-width="2.4"/>
+<text x="343.35" y="102.08" font-size="11" text-anchor="middle" fill="#b06a00">0.6602</text>
+<text x="343.35" y="117.76" font-size="9.5" text-anchor="middle" fill="#555">KL 1978</text>
+<line x1="419.18" y1="62.96" x2="419.18" y2="82.96" stroke="#888" stroke-width="2.4"/>
+<text x="419.18" y="39.36" font-size="11" text-anchor="middle" fill="#888">0.7071</text>
+<text x="419.18" y="55.04" font-size="9.5" text-anchor="middle" fill="#555">Blichfeldt</text>
+<text x="210.62" y="86.4" font-size="10.5" text-anchor="middle" fill="#2e6da4">Δd<tspan baseline-shift="super" font-size="7">1/d</tspan> lives somewhere in here</text>
+<text x="440" y="113.28" font-size="11" text-anchor="end" fill="#333">Δd<tspan baseline-shift="super" font-size="7">1/d</tspan> →</text>
+</svg>

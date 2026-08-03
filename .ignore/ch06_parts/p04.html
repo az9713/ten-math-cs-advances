@@ -1,0 +1,92 @@
+<hr>
+
+<h2 id="info">4. The classical information toolkit</h2>
+
+<p>The proof of Theorem 1.1 is an information-theoretic argument wearing quantum clothes. This section builds the classical wardrobe: relative entropy and its chain rule, Pinsker's inequality, the entropy function $H_1$ with Jensen's inequality, conditional expectation, and the exact correlated-sampling lemma (Lemma 3.4 of the chapter). Everything is proved; everything is finite.</p>
+
+<h3 id="s4-div">4.1 Relative entropy and total variation</h3>
+
+<div class="def" id="def-div"><b>Definition (relative entropy, total variation).</b> For probability distributions $\mathcal{D}, \mathcal{E}$ on a finite set $U$,
+$$D(\mathcal{D}\,\|\,\mathcal{E}) = \sum_{u\in U} \mathcal{D}(u)\,\log\frac{\mathcal{D}(u)}{\mathcal{E}(u)},
+\qquad
+d_{\mathrm{TV}}(\mathcal{D},\mathcal{E}) = \frac12\sum_{u\in U}\big|\mathcal{D}(u) - \mathcal{E}(u)\big|,$$
+with the conventions $0\log 0 = 0$ and $D(\mathcal{D}\|\mathcal{E}) = +\infty$ when $\operatorname{supp}\mathcal{D} \not\subseteq \operatorname{supp}\mathcal{E}$. Logarithms are natural throughout. Named distributions are written in calligraphic font ($\mathcal{P}$, $\mathcal{Q}$, $\mathcal{J}_A$, $\mathcal{J}_B$); the referee's question distribution keeps its conventional symbol $\mu$.</div>
+
+<p>Total variation is the operational distance: $d_{\mathrm{TV}}(\mathcal{D},\mathcal{E}) = \max_{S\subseteq U}\,[\mathcal{D}(S) - \mathcal{E}(S)]$ (take $S = \{u : \mathcal{D}(u) \gt \mathcal{E}(u)\}$; any other $S$ only loses mass), so two distributions at total variation $\kappa$ assign every event probabilities within $\kappa$. More generally, for any function $w: U \to [0,1]$: subtracting the constant $\tfrac12$ from $w$ changes neither side of the difference below, and leaves $|w - \tfrac12| \le \tfrac12$, so
+$$\big|\mathbb{E}_{\mathcal{D}} w - \mathbb{E}_{\mathcal{E}} w\big| \;=\; \Big|\sum_u \big(\mathcal{D}(u)-\mathcal{E}(u)\big)\big(w(u)-\tfrac12\big)\Big| \;\le\; \tfrac12\sum_u \big|\mathcal{D}(u)-\mathcal{E}(u)\big| \;=\; d_{\mathrm{TV}}(\mathcal{D},\mathcal{E}).$$
+We use this <b>expectation transfer</b> bound repeatedly in <a class="secref" href="#rounding">&sect;9</a>.</p>
+
+<p>Relative entropy is the bookkeeping currency. Its two engines are next.</p>
+
+<div class="prop" id="prop-logsum"><b>Proposition J (log-sum inequality).</b> For nonnegative numbers $a_1,\dots,a_k$ and $b_1,\dots,b_k$ with $a = \sum_i a_i$, $b = \sum_i b_i \gt 0$,
+$$\sum_{i=1}^k a_i \log\frac{a_i}{b_i} \;\ge\; a\,\log\frac{a}{b},$$
+with the conventions above. In particular (taking $k = |U|$, $a_i = \mathcal{D}(u)$, $b_i = \mathcal{E}(u)$): $D(\mathcal{D}\|\mathcal{E}) \ge 0$, with equality iff $\mathcal{D} = \mathcal{E}$.</div>
+<div class="proof">The function $f(t) = t\log t$ is strictly convex on $[0,\infty)$ ($f''(t) = 1/t \gt 0$). Write $\lambda_i = b_i / b$ (a probability vector; terms with $b_i = 0$ force $a_i = 0$ or the left side is $+\infty$ and there is nothing to prove) and $t_i = a_i/b_i$. Then by Jensen's inequality (<a class="secref" href="#prop-jensen">Proposition L</a> below, whose proof is independent),
+$$\sum_i a_i\log\frac{a_i}{b_i} = b\sum_i \lambda_i f(t_i) \;\ge\; b\, f\!\Big(\sum_i \lambda_i t_i\Big) = b\,f(a/b) = a\log\frac{a}{b}.$$
+Equality in strict convexity forces all $t_i$ equal, i.e. $\mathcal{D}$ proportional &mdash; hence equal &mdash; to $\mathcal{E}$. (Machine check <code>c13</code>.) <span class="qed">&#8718;</span></div>
+
+<div class="prop" id="prop-chain"><b>Proposition K (chain rule and its consequences).</b> Let $\mathcal{D}, \mathcal{E}$ be distributions of a pair $(U, V)$. Then
+$$D(\mathcal{D}_{UV}\,\|\,\mathcal{E}_{UV}) \;=\; D(\mathcal{D}_U\,\|\,\mathcal{E}_U) \;+\; \mathbb{E}_{u\sim \mathcal{D}_U}\, D\big(\mathcal{D}_{V|U=u}\,\big\|\,\mathcal{E}_{V|U=u}\big).$$
+Consequences (all used later):
+(a) <i>marginalization can only lose:</i> $D(\mathcal{D}_U\|\mathcal{E}_U) \le D(\mathcal{D}_{UV}\|\mathcal{E}_{UV})$;
+(b) <i>convexity in the first argument:</i> $D\big(\sum_k \lambda_k \mathcal{P}_k\,\big\|\,\mathcal{R}\big) \le \sum_k \lambda_k D(\mathcal{P}_k\|\mathcal{R})$;
+(c) <i>coordinate subadditivity against product references:</i> if $\mathcal{E} = \rho_1\otimes\cdots\otimes\rho_m$ is a product distribution, then $\sum_{i=1}^m D(\mathcal{D}_{U_i}\|\rho_i) \le D(\mathcal{D}_{U_1\cdots U_m}\|\mathcal{E})$.</div>
+<div class="proof"><p>The chain rule is the identity $\log\frac{\mathcal{D}(u,v)}{\mathcal{E}(u,v)} = \log\frac{\mathcal{D}_U(u)}{\mathcal{E}_U(u)} + \log\frac{\mathcal{D}(v|u)}{\mathcal{E}(v|u)}$ averaged over $\mathcal{D}$. (a): the conditional term is an average of relative entropies, nonnegative by <a class="secref" href="#prop-logsum">Proposition J</a>. (b): apply the log-sum inequality entrywise: for each outcome $u$, with $a_k = \lambda_k \mathcal{P}_k(u)$ and $b_k = \lambda_k \mathcal{R}(u)$,
+$$\Big(\sum_k\lambda_k\mathcal{P}_k(u)\Big)\log\frac{\sum_k\lambda_k\mathcal{P}_k(u)}{\mathcal{R}(u)} \le \sum_k \lambda_k\,\mathcal{P}_k(u)\log\frac{\mathcal{P}_k(u)}{\mathcal{R}(u)};$$
+sum over $u$. (c): induct on $m$. By the chain rule with $U = U_1$, $V = (U_2,\dots,U_m)$:
+$$D(\mathcal{D}\|\mathcal{E}) = D(\mathcal{D}_{U_1}\|\rho_1) + \mathbb{E}_{u_1} D\big(\mathcal{D}_{U_2\cdots U_m | u_1}\,\big\|\,\rho_2\otimes\cdots\otimes\rho_m\big)
+\ge D(\mathcal{D}_{U_1}\|\rho_1) + \sum_{i=2}^m \mathbb{E}_{u_1} D\big(\mathcal{D}_{U_i|u_1}\,\big\|\,\rho_i\big)$$
+by the induction hypothesis applied conditionally; then $\mathbb{E}_{u_1} D(\mathcal{D}_{U_i|u_1}\|\rho_i) \ge D(\mathcal{D}_{U_i}\|\rho_i)$ by (b), since $\mathcal{D}_{U_i} = \mathbb{E}_{u_1}[\mathcal{D}_{U_i|u_1}]$. <span class="qed">&#8718;</span></p></div>
+
+<h3 id="s4-pinsker">4.2 Pinsker's inequality</h3>
+
+<div class="prop" id="prop-pinsker"><b>Proposition&nbsp;(Pinsker's inequality).</b> For all distributions $\mathcal{D}, \mathcal{E}$ on a finite set,
+$$d_{\mathrm{TV}}(\mathcal{D},\mathcal{E}) \;\le\; \sqrt{\tfrac12\, D(\mathcal{D}\,\|\,\mathcal{E})}.$$
+</div>
+<div class="proof"><p><i>Step 1: reduce to two outcomes.</i> Let $S = \{u : \mathcal{D}(u) \gt \mathcal{E}(u)\}$, and let $\bar{\mathcal{D}} = (\mathcal{D}(S), 1-\mathcal{D}(S))$, $\bar{\mathcal{E}} = (\mathcal{E}(S), 1-\mathcal{E}(S))$ be the induced two-outcome distributions. Then $d_{\mathrm{TV}}(\bar{\mathcal{D}},\bar{\mathcal{E}}) = \mathcal{D}(S) - \mathcal{E}(S) = d_{\mathrm{TV}}(\mathcal{D},\mathcal{E})$, while grouping outcomes can only decrease relative entropy: applying the log-sum inequality separately to the terms inside $S$ and inside $S^c$ gives $D(\bar{\mathcal{D}}\|\bar{\mathcal{E}}) \le D(\mathcal{D}\|\mathcal{E})$. So the binary case suffices.</p>
+<p><i>Step 2: binary case.</i> For $p = \mathcal{D}(S)$, $q = \mathcal{E}(S)$ define
+$$g(q) \;=\; p\log\frac{p}{q} + (1-p)\log\frac{1-p}{1-q} \;-\; 2(p-q)^2 .$$
+Then $g(p) = 0$ and
+$$g'(q) = -\frac{p}{q} + \frac{1-p}{1-q} + 4(p - q) = (q-p)\left[\frac{1}{q(1-q)} - 4\right].$$
+Since $q(1-q) \le \tfrac14$, the bracket is $\ge 0$, so $g' \le 0$ for $q \lt p$ and $g' \ge 0$ for $q \gt p$: the minimum of $g$ is $g(p) = 0$. Hence $D_2(p\|q) \ge 2(p-q)^2 = 2\,d_{\mathrm{TV}}^2$, which rearranges to the claim. (Machine checks <code>c07</code>, <code>c07b</code>: $500$ random pairs, and near-equality for close binary distributions &mdash; Fig. 10 shows the binary picture.) <span class="qed">&#8718;</span></p></div>
+
+<figure><!--FIG:fig_pinsker--><figcaption>Pinsker's inequality on the binary family: a coin of bias $p$ against a fair coin. The total variation $|p - \tfrac12|$ (blue) stays below the Pinsker majorant $\sqrt{D/2}$ (red) everywhere, and the two curves osculate at $p = \tfrac12$ &mdash; the inequality is tight to second order, which is why the $\sqrt{\eta}$-type losses it produces in <a class="secref" href="#classical">&sect;14</a> are essentially unavoidable within this method.</figcaption></figure>
+
+<h3 id="s4-h1">4.3 The entropy function $H_1$ and Jensen's inequality</h3>
+
+<div class="prop" id="prop-jensen"><b>Proposition L (Jensen, finite form).</b> Let $f$ be concave on an interval $I$, let $t_1,\dots,t_k \in I$ and let $\lambda_1,\dots,\lambda_k \ge 0$ sum to $1$. Then $\sum_i \lambda_i f(t_i) \le f\big(\sum_i \lambda_i t_i\big)$. For convex $f$ the inequality reverses.</div>
+<div class="proof">Induction on $k$; the case $k=2$ is the definition of concavity. For $k \gt 2$ with $\lambda_k \lt 1$: write $\sum_{i\le k}\lambda_i t_i = (1-\lambda_k)\, s + \lambda_k t_k$ with $s = \sum_{i\lt k}\frac{\lambda_i}{1-\lambda_k} t_i \in I$; apply the $k=2$ case and then the induction hypothesis to $s$. <span class="qed">&#8718;</span></div>
+
+<p>The scalar entropy $H_1(v) = -v\log v$ (with $H_1(0) = 0$) from <a class="secref" href="#s1-spaces">&sect;1.1</a> is concave, so Jensen gives $\mathbb{E}\,H_1(V) \le H_1(\mathbb{E} V)$ for any $[0,1]$-valued random variable $V$ &mdash; Fig. 11. Two consequences we will use verbatim:</p>
+<ul>
+<li><b>Counting form.</b> If nonnegative numbers $p_1, \dots, p_N$ sum to $P \le 1$, then, by the log-sum inequality with $b_i = 1$, $\sum_i p_i \log p_i \ge P \log(P/N)$, i.e.
+$$\sum_{i=1}^N H_1(p_i) \;\le\; H_1(P) + P\log N .$$
+This is the exact accounting step of Lemma 4.5 in <a class="secref" href="#budget">&sect;13</a>.</li>
+<li><b>Power form.</b> For a nonnegative random variable $Z$ and $0 \lt \theta \lt 1$, concavity of $t\mapsto t^\theta$ gives $\mathbb{E}[Z^{\theta}] \le (\mathbb{E} Z)^{\theta}$. We use $\theta = \tfrac1{12}$ (on $Z = \|\cdot\|^2$-type quantities) and $\theta = \tfrac12$ in <a class="secref" href="#rounding">&sect;9</a>.</li>
+</ul>
+
+<figure><!--FIG:fig_h1--><figcaption>The entropy function $H_1(v) = -v\log v$ on $[0,1]$: zero at both ends, maximum $1/e$ at $v = 1/e$, and concave. Concavity means every chord (orange) lies below the curve: $H_1(\mathbb{E}v) \ge \mathbb{E}H_1(v)$. The <i>gap</i> between curve and chord is the "entropy spent" when a prediction $\mathbb{E}v$ is refined into its possible values $v$ &mdash; the quantity that the resolvent purification of <a class="secref" href="#resolvent">&sect;12</a> converts into a bound on quantum state disturbance.</figcaption></figure>
+
+<h3 id="s4-condexp">4.4 Conditional expectation, for numbers and for operators</h3>
+
+<p>Let $\Omega$ be a finite probability space and $\mathcal{G}$ a partition of $\Omega$ into "atoms" (the information available: which atom occurred). The <b>conditional expectation</b> of a random object $F : \Omega \to \mathcal{V}$ (values in any real vector space: scalars, vectors, or Hermitian operators) is the $\mathcal{G}$-measurable object
+$$\mathbb{E}[F \mid \mathcal{G}](\omega) \;=\; \frac{1}{\mathbb{P}(A_\omega)}\sum_{\omega'\in A_\omega} \mathbb{P}(\omega')\,F(\omega'), \qquad A_\omega = \text{the atom containing } \omega,$$
+defined on atoms of positive probability. Two facts, immediate from the formula: <b>linearity</b>, and the <b>tower property</b> &mdash; if $\mathcal{G}'$ refines $\mathcal{G}$, then $\mathbb{E}\big[\,\mathbb{E}[F\mid\mathcal{G}']\,\big\vert\,\mathcal{G}\big] = \mathbb{E}[F\mid\mathcal{G}]$, since both sides are the $\mathbb{P}$-weighted average of $F$ over each $\mathcal{G}$-atom. For operator-valued $F$: if every value satisfies $0 \preceq F(\omega) \preceq I$, then $0 \preceq \mathbb{E}[F|\mathcal{G}] \preceq I$, because a convex combination of PSD operators is PSD. A sequence $F_0, F_1, \dots, F_N$ adapted to a growing chain of partitions with $\mathbb{E}[F_{j+1}\mid \mathcal{G}_j] = F_j$ is a <b>martingale</b>; the ones we need arise as $F_j = \mathbb{E}[F \mid \mathcal{G}_j]$ for a fixed $F$ (a <i>Doob martingale</i> &mdash; "reveal information one step at a time and track the running best prediction"), for which the martingale property is exactly the tower property. They enter in <a class="secref" href="#martingales">&sect;11</a>.</p>
+
+<h3 id="s4-sampling">4.5 Exact finite correlated sampling (Lemma 3.4)</h3>
+
+<p>The last tool answers an operational question: two parties each hold a probability distribution &mdash; possibly different &mdash; over the same finite set, and want to sample from their own distributions while agreeing as often as their distributions allow. No communication; only shared randomness prepared in advance.</p>
+
+<div class="lem" id="lem-34"><b>Lemma 3.4 (exact finite classical correlated sampling).</b> Let $\mathcal{F}$ be a finite family of probability distributions on a finite set $R$. There exists a single finite-valued shared random variable and, for each $\mathcal{D}\in\mathcal{F}$, an output $R_{\mathcal{D}}$ computable from the shared variable alone, having <i>exactly</i> distribution $\mathcal{D}$, such that
+$$\mathbb{P}(R_{\mathcal{D}} \ne R_{\mathcal{E}}) \;\le\; 2\, d_{\mathrm{TV}}(\mathcal{D},\mathcal{E}) \qquad (\mathcal{D},\mathcal{E}\in\mathcal{F}). \tag{10}$$
+</div>
+<div class="proof"><p>(Chapter's Appendix A.7.) Generate a shared i.i.d. stream of <i>proposals</i> $(Z_j, U_j)_{j\ge1}$ with $Z_j$ uniform on $R$ and $U_j$ uniform on $[0,1]$ &mdash; darts thrown uniformly under the box of Fig. 12. The procedure indexed by $\mathcal{D}$ outputs the first $Z_j$ whose companion satisfies $U_j \le \mathcal{D}(Z_j)$. Each proposal is accepted with probability $\sum_z \frac1{|R|}\mathcal{D}(z) = \frac1{|R|}$, and conditional on acceptance the accepted $z$ has probability proportional to $\mathcal{D}(z)$ &mdash; so the output has exactly distribution $\mathcal{D}$, for every $\mathcal{D}$ simultaneously, from the same stream.</p>
+<p>Now compare the runs for $\mathcal{D}$ and $\mathcal{E}$. Inspect the first proposal accepted by <i>either</i> procedure. Conditional on being that proposal, its pair $(z, u)$ is uniform under the pointwise maximum: the probability that it is accepted by only one procedure is
+$$\frac{\sum_z |\mathcal{D}(z)-\mathcal{E}(z)|}{\sum_z \max\{\mathcal{D}(z),\mathcal{E}(z)\}}
+= \frac{2\,d_{\mathrm{TV}}(\mathcal{D},\mathcal{E})}{1 + d_{\mathrm{TV}}(\mathcal{D},\mathcal{E})} \;\le\; 2\,d_{\mathrm{TV}}(\mathcal{D},\mathcal{E}),$$
+using $\sum_z\max = \sum_z\tfrac{\mathcal{D}+\mathcal{E}}{2} + \sum_z\tfrac{|\mathcal{D}-\mathcal{E}|}{2} = 1 + d_{\mathrm{TV}}$. If the first-accepted proposal is accepted by <i>both</i>, both procedures stop there with the same output; so disagreement requires the complementary event, giving (10).</p>
+<p>Finally, finiteness. Since $\mathcal{F}$ is finite, with probability one every procedure terminates, and the joint output vector $(R_{\mathcal{D}})_{\mathcal{D}\in\mathcal{F}}$ takes values in the finite set $R^{\mathcal{F}}$. Use <i>that vector itself</i> as the shared random variable: each party reads off the component indexed by the distribution they locally hold. This preserves the exact marginals and all pairwise disagreement bounds, with no infinite randomness register. (Machine checks <code>c08a</code>, <code>c08b</code>: the exact disagreement formula and a $200{,}000$-run simulation.) <span class="qed">&#8718;</span></p></div>
+
+<figure><!--FIG:fig_sampling--><figcaption>Correlated sampling as shared darts (animation; a static frame carries the same content). Both parties see the same stream of uniform proposals $(z, u)$; each accepts a dart iff it falls under their <i>own</i> distribution's bar. Green darts land under both curves &mdash; both parties stop and output the same $z$. Orange darts land under exactly one curve and can cause disagreement; their share among accepted darts is $2d_{\mathrm{TV}}/(1+d_{\mathrm{TV}})$.</figcaption></figure>
+
+<p>Lemma 3.4 is the entire classical half of the eventual strategy: in <a class="secref" href="#rounding">&sect;9</a>, Alice and Bob will apply it to the family of conditional history distributions $\{\mathcal{Q}(R\mid i, X_i = x),\ \mathcal{Q}(R\mid i, Y_i = y)\}_{i,x,y}$, so that from separate questions they can settle on a <i>common</i> transcript of the conditioned repeated game. What it cannot do is prepare a quantum <i>state</i>; that requires the one imported theorem (&sect;9), and the bulk of the proof (&sect;11&ndash;&sect;14) is about making both halves' inputs small.</p>

@@ -1,0 +1,16 @@
+<svg class="setupfig" viewBox="0 0 460 232" width="100%" role="img" aria-label="the ideal state and its two local descriptions">
+<line x1="230" y1="54" x2="94" y2="168" stroke="#888" stroke-width="1.6"/>
+<line x1="230" y1="54" x2="366" y2="168" stroke="#888" stroke-width="1.6"/>
+<line x1="102" y1="180" x2="358" y2="180" stroke="#888" stroke-width="1.6" stroke-dasharray="5 3"/>
+<circle cx="230" cy="44" r="7" fill="#7d3c98"/>
+<circle cx="80" cy="180" r="7" fill="#2e6da4"/>
+<circle cx="380" cy="180" r="7" fill="#c0392b"/>
+<text x="230" y="28" font-size="12.5" text-anchor="middle" fill="#7d3c98" font-weight="bold">ideal Ψ (needs r, x AND y)</text>
+<text x="80" y="204" font-size="12" text-anchor="middle" fill="#2e6da4">Ψᴬ: Alice can</text>
+<text x="80" y="220" font-size="12" text-anchor="middle" fill="#2e6da4">describe from (r, x)</text>
+<text x="380" y="204" font-size="12" text-anchor="middle" fill="#c0392b">Ψᴮ: Bob can</text>
+<text x="380" y="220" font-size="12" text-anchor="middle" fill="#c0392b">describe from (r, y)</text>
+<text x="136" y="102" font-size="12.5" text-anchor="middle" fill="#333">E‖Ψ − Ψᴬ‖² ≤ 8η</text>
+<text x="330" y="102" font-size="12.5" text-anchor="middle" fill="#333">E‖Ψ − Ψᴮ‖² ≤ 8η</text>
+<text x="230" y="168" font-size="11.5" text-anchor="middle" fill="#555">E‖Ψᴬ − Ψᴮ‖² ≤ 32η (triangle)</text>
+</svg>

@@ -1,0 +1,180 @@
+<h2 id="sofic">1. Sofic groups from zero</h2>
+
+<p>Notation first. A <b>group</b> $H$ is a set with an associative multiplication, an identity $1$, and inverses; it is <b>countable</b> if its elements can be listed, and <b>finitely generated</b> if some finite subset generates it (every element is a finite product of generators and their inverses). For a nonempty finite set $Y$, $\mathrm{Sym}(Y)$ is the group of <b>permutations</b> (bijections $Y \to Y$), and the <b>normalized Hamming distance</b> between two permutations counts the disagreement fraction:
+$$d_{\mathrm H}(p, q) \;=\; \frac{\bigl|\{z \in Y : pz \neq qz\}\bigr|}{|Y|} \qquad (p, q \in \mathrm{Sym}(Y)).$$
+Thus $d_{\mathrm H}(p, q) = 0$ means $p = q$, and $d_{\mathrm H}(p, \mathrm{id}) = 1$ means $p$ moves every point.</p>
+
+<div class="def"><b>Definition (sofic approximation; sofic group).</b> A <b>sofic approximation</b> of a countable group $H$ is a sequence of maps $p_n : H \to \mathrm{Sym}(Y_n)$, for nonempty finite sets $Y_n$, satisfying $p_n(1) = 1$ and
+$$d_{\mathrm H}\bigl(p_n(gh),\, p_n(g)p_n(h)\bigr) \longrightarrow 0 \quad (\text{every } g, h \in H), \qquad d_{\mathrm H}\bigl(p_n(g),\, 1\bigr) \longrightarrow 1 \quad (\text{every } g \neq 1).$$
+The maps need not be homomorphisms &mdash; that is the whole point: multiplication must hold at <i>almost every</i> point of $Y_n$ (asymptotically), and each nonidentity element must move <i>almost every</i> point. $H$ is <b>sofic</b> if it admits a sofic approximation. Replacing each $Y_n$ by many disjoint copies of itself (with the same permutation on each copy) changes no distances, so we may always assume $|Y_n| \to \infty$.</div>
+
+<p>Some calibration, with proofs, before the machinery arrives. First: exact models are allowed, and two huge classes of groups have them.</p>
+
+<div class="toy"><b>Toy 1 &mdash; finite groups are sofic, exactly.</b> For finite $H$ take every $Y_n = H$ and $p_n(g) = $ left multiplication by $g$. Multiplication holds at <i>every</i> point ($g(hz) = (gh)z$ is associativity), and for $g \neq 1$, $gz = z$ would force $g = 1$, so $p_n(g)$ moves every point. Both defects are exactly $0$ and $1$ &mdash; no asymptotics needed.</div>
+
+<div class="def"><b>Definition (residually finite).</b> $H$ is <b>residually finite</b> if for every $g \neq 1$ there is a homomorphism $\varphi$ from $H$ onto a finite group with $\varphi(g) \neq 1$: every nonidentity element survives into some finite quotient. Examples: free groups, $\mathbb Z^d$, and $\mathrm{SL}_d(\mathbb Z)$ are residually finite (reduce matrices mod $m$).</div>
+
+<div class="prop"><b>Proposition A.</b> Every residually finite group is sofic.</div>
+
+<div class="proof">
+<p>Let $H$ be residually finite and first suppose it is finitely generated, with generating set $S$. For each $n$, the ball $B_n \subseteq H$ of radius $n$ in the generators is finite, so there is a homomorphism $\varphi_n$ onto a finite group $F_n$ injective on $B_n$ (take the product of finitely many quotients, one killing each bad coincidence $\varphi(x) = \varphi(y)$ for distinct $x, y \in B_n$ &mdash; a finite product of finite groups is finite). Let $p_n(g)$ be left multiplication by $\varphi_n(g)$ on $Y_n = F_n$. Multiplication is exact ($\varphi_n$ is a homomorphism), and for fixed $g \neq 1$: once $n$ exceeds the length of $g$, injectivity on $B_n$ gives $\varphi_n(g) \neq 1$, whose left multiplication moves every point. So $p_n$ is a sofic approximation. The general countable case follows from Proposition C below, since every finitely generated subgroup of a residually finite group is residually finite (restrict the homomorphisms). <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Second: where does the &ldquo;almost&rdquo; genuinely work? The simplest showcase is $\mathbb Z$ approximated <i>without</i> exploiting its finite quotients (Fig. 2): shift the interval $\{1, \dots, n\}$ one step right. The shift is only partially defined &mdash; the last point has nowhere to go &mdash; so patch it arbitrarily (send it to the front). The patch breaks multiplicativity at a vanishing fraction $O(k/n)$ of points for the word test $p(1)^k$ vs $p(k)$; the same recipe with F&oslash;lner sets in place of intervals proves every <i>amenable</i> group sofic, which we note but do not need.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 170" width="100%" role="img" aria-label="Animated: shifting an interval approximates the integers with one defect point">
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.3">
+    <circle cx="60" cy="70" r="7"/><circle cx="110" cy="70" r="7"/><circle cx="160" cy="70" r="7"/><circle cx="210" cy="70" r="7"/><circle cx="260" cy="70" r="7"/><circle cx="310" cy="70" r="7"/><circle cx="360" cy="70" r="7"/>
+  </g>
+  <circle cx="410" cy="70" r="7" fill="#c0392b"/>
+  <g stroke="#2a7d2a" stroke-width="1.6" fill="none">
+    <path d="M64,60 Q85,44 106,60"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.8;1" dur="6s" repeatCount="indefinite"/></path>
+    <path d="M114,60 Q135,44 156,60"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.8;1" dur="6s" repeatCount="indefinite"/></path>
+    <path d="M164,60 Q185,44 206,60"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.8;1" dur="6s" repeatCount="indefinite"/></path>
+    <path d="M214,60 Q235,44 256,60"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.8;1" dur="6s" repeatCount="indefinite"/></path>
+    <path d="M264,60 Q285,44 306,60"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.8;1" dur="6s" repeatCount="indefinite"/></path>
+    <path d="M314,60 Q335,44 356,60"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.8;1" dur="6s" repeatCount="indefinite"/></path>
+    <path d="M364,60 Q385,44 406,60"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.8;1" dur="6s" repeatCount="indefinite"/></path>
+  </g>
+  <path d="M406,82 Q235,150 64,82" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5 4" fill="none">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.4;0.55;0.8;1" dur="6s" repeatCount="indefinite"/>
+  </path>
+  <text x="46" y="105" font-size="11.5" fill="#2a7d2a">the shift +1, defined honestly on n &#8722; 1 points&#8230;</text>
+  <text x="188" y="150" font-size="11.5" fill="#c0392b">&#8230;patched arbitrarily at one point: defect 1/n &#8594; 0</text>
+  <text x="46" y="30" font-size="12" fill="#555">&#8484; simulated on Y = {1, &#8230;, n}</text>
+</svg><figcaption><b>The &ldquo;almost&rdquo; at work</b> (animated; the static picture shows both layers). Approximating $\mathbb Z$ by the one-step shift of an interval: green arrows are the true shift, the red patch closes it into a permutation at the cost of one defect point. Every fixed word test fails only near the ends of the interval &mdash; a vanishing fraction. Soficity tolerates exactly this kind of boundary error, which is why the notion is so hard to obstruct.</figcaption></figure>
+
+<p>Third: two closure properties we will use, with one-line proofs, and a longer list we will not.</p>
+
+<div class="prop"><b>Proposition B.</b> Every subgroup of a sofic group is sofic.</div>
+
+<div class="proof"><p>Restrict a sofic approximation of the big group to the subgroup: the defining conditions quantify over elements one at a time (or in pairs) and survive restriction verbatim. <span class="qed">&#8718;</span></p></div>
+
+<div class="prop"><b>Proposition C.</b> If every finitely generated subgroup of a countable group $H$ is sofic, then $H$ is sofic.</div>
+
+<div class="proof">
+<p>List $H = \{h_1, h_2, \dots\}$ and let $H_k = \langle h_1, \dots, h_k\rangle$. Since $H_k$ is sofic, there are a finite set $Y_k$ and a map $q_k : H_k \to \mathrm{Sym}(Y_k)$ with $q_k(1) = 1$ whose multiplicative defect on every pair from $\{h_1, \dots, h_k\}^{\pm 1}$-products of length $\le k$&hellip; more simply: whose defects satisfy $d_{\mathrm H}(q_k(gh), q_k(g)q_k(h)) \le 1/k$ and $d_{\mathrm H}(q_k(g), 1) \ge 1 - 1/k$ for all $g, h$ in the finite set $\{h_i h_j, h_i : i, j \le k\} \setminus \{1\}$ (pick a term far enough along $H_k$'s sofic approximation; only finitely many conditions are imposed). Define $p_k : H \to \mathrm{Sym}(Y_k)$ by $p_k(g) = q_k(g)$ for $g \in H_k$ and $p_k(g) = 1$ otherwise. For any fixed $g, h \in H$, all of $g, h, gh$ lie in $\{h_i, h_ih_j : i,j \le k\}$ for every large $k$, so both limits hold. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>Why a nonsofic group was so elusive.</b> Soficity survives essentially every standard construction: subgroups and direct limits (above), direct and free products, extensions with amenable quotient, amalgams over amenable subgroups, inverse limits, graph products&hellip; (see Pestov's survey [Pes08] for the full list). Every group anyone can write down by combining familiar pieces is therefore sofic. Earlier routes to a counterexample &mdash; Bowen&ndash;Burton via flexible stability of $\mathrm{PSL}_d(\mathbb Z)$ [BB20], Gohla&ndash;Thom and Chapman&ndash;Dikstein&ndash;Lubotzky via central extensions of $p$-adic lattices [GT24, CDL24] &mdash; were all conditional on unproved stability hypotheses. The related (strictly stronger) <b>Aldous&ndash;Lyons conjecture</b> about unimodular random networks was disproved in 2024&ndash;25 by Bowen, Chapman, Lubotzky, and Vidick [BCLV24, BCV25] using the quantum-information machinery behind $\mathsf{MIP}^* = \mathsf{RE}$; but a non-co-sofic <i>invariant random subgroup</i> need not be concentrated on a normal subgroup, so that breakthrough did not produce a nonsofic <i>group</i>. Theorem 1.1 needs no unproved hypothesis and no quantum machinery. (<a class="secref" href="#thm">&sect;8</a> returns to this landscape.)</div>
+
+<h2 id="lef">2. The obstruction: LEF groups and Thompson's group $V$</h2>
+
+<p>To prove a group is <i>not</i> sofic we need a consequence of soficity that some concrete group visibly lacks. The consequence will be an <i>exact</i> finite approximation property:</p>
+
+<div class="def"><b>Definition (LEF).</b> A group $J$ is <b>locally embeddable into finite groups (LEF)</b> if for every finite subset $F \subseteq J$ there are a finite group $B$ and an injection $\phi : F \to B$ with
+$$\phi(xy) = \phi(x)\phi(y) \qquad \text{whenever } x, y, xy \in F.$$
+The multiplication table of $F$ embeds <i>exactly</i>; only the receiving finite group may vary with $F$.</div>
+
+<p>LEF sits strictly inside sofic (exact beats approximate):</p>
+
+<div class="prop"><b>Proposition D.</b> Every LEF group is sofic. In particular every residually finite group is LEF and sofic (take $B$ = a finite quotient injective on $F$).</div>
+
+<div class="proof">
+<p>Fix a finite $F_n \subseteq J$ increasing to $J$ (countability; for uncountable $J$ soficity is defined via countable subgroups, which we do not need). We may assume $1 \in F_n$; note $\phi(1) = \phi(1)\phi(1)$ forces $\phi(1) = 1$ when $1, 1\cdot 1 \in F_n$. Let $\phi_n : F_n \to B_n$ be a local embedding and let $p_n(g)$ be left multiplication by $\phi_n(g)$ on $Y_n = B_n$ for $g \in F_n$, and the identity otherwise. For fixed $g, h$: eventually $g, h, gh \in F_n$, and then $p_n(g)p_n(h) = p_n(gh)$ <i>exactly</i>; for fixed $g \neq 1$: eventually $\phi_n(g) \neq \phi_n(1) = 1$ by injectivity, and left multiplication by a nonidentity element moves every point. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>The wedge that will crack the conjecture is a pair of rigidity facts pulling in opposite directions (Fig. 4):</p>
+
+<div class="prop"><b>Proposition E (finitely presented + LEF $\Rightarrow$ residually finite).</b> Suppose $J = \langle x_1, \dots, x_d \mid \rho_1, \dots, \rho_r\rangle$ is a finitely presented LEF group (finitely many generators and finitely many defining relations $\rho_i$, words in the generators whose consequences are all relations of $J$). Then $J$ is residually finite.</div>
+
+<div class="proof">
+<p>Fix $1 \neq g \in J$ and write $g$ as a word of length $\ell$ in the generators. Let $F \subseteq J$ be the ball of radius $L = \max(\ell, \max_i |\rho_i|)$ in the generators &mdash; a finite set containing $1$, the generators, $g$, and every prefix-evaluation of every relator. Take a local embedding $\phi : F \to B$. Define a homomorphism $\psi$ from the <i>free</i> group on $x_1, \dots, x_d$ to $B$ by $\psi(x_i) = \phi(x_i)$. For any word $w$ of length $\le L$, all prefixes of $w$ evaluate inside $F$, and multiplying one generator at a time, $\phi$'s partial multiplicativity gives $\psi(w) = \phi(\overline w)$, where $\overline w \in J$ is the evaluation of $w$. In particular $\psi(\rho_i) = \phi(\overline{\rho_i}) = \phi(1) = 1$ for every relator, so $\psi$ descends to a homomorphism $\overline\psi : J \to B$; and $\overline\psi(g) = \phi(g) \neq \phi(1) = 1$ by injectivity of $\phi$ on $F$. Thus every nonidentity $g$ survives in a finite quotient. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="prop"><b>Proposition F (infinite simple $\Rightarrow$ not residually finite, hence not LEF if finitely presented).</b> A group is <b>simple</b> if its only normal subgroups are $\{1\}$ and itself. An infinite simple group $J$ has no nontrivial homomorphism to any finite group, so it is not residually finite; if moreover $J$ is finitely presented, Proposition E shows $J$ is not LEF.</div>
+
+<div class="proof">
+<p>Let $\varphi : J \to B$ be a homomorphism to a finite group. Its kernel is normal, hence $\{1\}$ or $J$. Kernel $\{1\}$ would embed the infinite $J$ into the finite $B$ &mdash; impossible. So the kernel is everything: $\varphi \equiv 1$, and no nonidentity element survives into any finite quotient. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="thompsonv">2.1 Thompson's group $V$</h3>
+
+<p>Now the concrete group that will play the role of $J$. Work with the space of <b>infinite binary strings</b> $\omega \in \{0,1\}^{\mathbb N}$. For a finite binary word $a$, the <b>cylinder</b> $[a]$ is the set of infinite strings beginning with $a$. A <b>prefix code</b> is a finite list $E = (a_1, \dots, a_q)$ of words, none a prefix of another (so the cylinders $[a_i]$ are pairwise disjoint); it is <b>complete</b> if the cylinders $[a_i]$ partition <i>all</i> infinite strings. Splitting a cylinder $[a]$ into its children $[a0], [a1]$ repeatedly produces complete prefix codes with any prescribed number of words.</p>
+
+<div class="def"><b>Definition (prefix replacement; Thompson's group $V$).</b> Take two complete prefix codes $E = (a_1, \dots, a_q)$, $E' = (b_1, \dots, b_q)$ with a bijection $a_i \mapsto b_i$. Every infinite string is uniquely $a_i\omega$ with $a_i \in E$ and $\omega$ an infinite tail; the <b>prefix replacement</b> acts by
+$$g(a_i \omega) = b_i \omega$$
+&mdash; swap the initial word, keep the tail. Completeness of $E'$ makes this a bijection of $\{0,1\}^{\mathbb N}$ (the inverse replaces $b_i$ by $a_i$). <b>Thompson's group $V$</b> is the group of all prefix replacements. For a finite word $l$, $V_l \cong V$ denotes the copy acting the same way inside the cylinder $[l]$ (replace prefixes <i>after</i> $l$) and fixing everything outside it.</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="A prefix replacement: exchange cylinders [0] and [10], fix [11]">
+  <defs><marker id="c3arrV" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- domain tree -->
+  <g stroke="#8899aa" stroke-width="1.4" fill="none">
+    <line x1="110" y1="40" x2="60" y2="90"/><line x1="110" y1="40" x2="160" y2="90"/>
+    <line x1="160" y1="90" x2="120" y2="140"/><line x1="160" y1="90" x2="200" y2="140"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.3">
+    <circle cx="110" cy="40" r="5"/><circle cx="160" cy="90" r="5"/>
+  </g>
+  <rect x="38" y="90" width="44" height="26" rx="5" fill="#c0392b" fill-opacity="0.25" stroke="#c0392b"/>
+  <rect x="98" y="140" width="44" height="26" rx="5" fill="#2e6da4" fill-opacity="0.25" stroke="#2e6da4"/>
+  <rect x="178" y="140" width="44" height="26" rx="5" fill="#999" fill-opacity="0.2" stroke="#999"/>
+  <text x="52" y="108" font-size="12" fill="#1a1a1a">[0]</text>
+  <text x="106" y="158" font-size="12" fill="#1a1a1a">[10]</text>
+  <text x="186" y="158" font-size="12" fill="#1a1a1a">[11]</text>
+  <text x="60" y="200" font-size="12" fill="#555">domain code E = (0, 10, 11)</text>
+  <!-- arrows -->
+  <g stroke="#555" stroke-width="1.5" fill="none">
+    <path d="M84,96 C200,60 300,70 356,96" marker-end="url(#c3arrV)"/>
+    <path d="M144,152 C220,190 300,190 350,158" marker-end="url(#c3arrV)"/>
+    <path d="M222,152 C280,175 380,180 416,166" marker-end="url(#c3arrV)"/>
+  </g>
+  <!-- range tree -->
+  <g stroke="#8899aa" stroke-width="1.4" fill="none">
+    <line x1="390" y1="40" x2="340" y2="90"/><line x1="390" y1="40" x2="440" y2="90"/>
+    <line x1="340" y1="90" x2="300" y2="140"/><line x1="340" y1="90" x2="380" y2="140"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.3">
+    <circle cx="390" cy="40" r="5"/><circle cx="340" cy="90" r="5"/>
+  </g>
+  <rect x="418" y="90" width="44" height="26" rx="5" fill="#999" fill-opacity="0.2" stroke="#999"/>
+  <rect x="278" y="140" width="44" height="26" rx="5" fill="#c0392b" fill-opacity="0.25" stroke="#c0392b"/>
+  <rect x="358" y="140" width="44" height="26" rx="5" fill="#2e6da4" fill-opacity="0.25" stroke="#2e6da4"/>
+  <text x="286" y="158" font-size="12" fill="#1a1a1a">[10]</text>
+  <text x="366" y="158" font-size="12" fill="#1a1a1a">[0]&#8230;</text>
+  <text x="426" y="108" font-size="12" fill="#1a1a1a">[11]</text>
+  <text x="286" y="200" font-size="12" fill="#555">range code E&#8242; = (10, 0, 11)</text>
+  <text x="60" y="232" font-size="12" fill="#7a1f1f">g(0&#969;) = 10&#969;,&#160;&#160; g(10&#969;) = 0&#969;,&#160;&#160; g(11&#969;) = 11&#969; &mdash; a &ldquo;cut and reglue&rdquo; of the space of binary strings</text>
+</svg><figcaption><b>An element of Thompson's group $V$:</b> the prefix replacement exchanging the cylinders $[0]$ and $[10]$ while fixing $[11]$ (red box $\to$ red box, blue $\to$ blue). $V$'s elements chop the space of infinite binary strings into finitely many cylinders and reassemble them &mdash; a piecewise self-similarity group. In <a class="secref" href="#thompson">&sect;6</a> exactly this element reappears as an <i>algebraic unit</i> $s_{10}t_0 + s_0 t_{10} + s_{11}t_{11}$ of the Leavitt algebra.</figcaption></figure>
+
+<p>$V$ is visibly infinite (the swaps of $[0^k 1]$ with $[0^{k+1}1]$, say, are distinct for all $k$; distinct replacements differ on some cylinder). Everything else we need about it is classical and deep, and we import it:</p>
+
+<div class="note"><b>Import 4 (Thompson's group $V$) [CFP96; BQ17].</b> $V$ is finitely presented, infinite, and <b>simple</b>. Moreover $V$ is generated by its <b>cylinder swaps</b>: the involutions $\tau_{\rho,\sigma}$ exchanging two disjoint cylinders $[\rho] \leftrightarrow [\sigma]$ (prefix-incomparable $\rho, \sigma$) and fixing everything else [BQ17, Thm. 1.1]. (Discovered by Richard Thompson in 1965; $V$ was among the first known infinite finitely presented simple groups.)</div>
+
+<div class="keyresult"><b>Corollary G (the obstruction).</b> Thompson's group $V$ is finitely generated but <b>not LEF</b>. <span class="small">(Proof: $V$ is finitely presented, infinite, simple [Import 4]; by Proposition F it is not residually finite and, being finitely presented, not LEF by Proposition E.)</span></div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 240" width="100%" role="img" aria-label="Logic ladder: approximation classes and where V sits">
+  <defs><marker id="c3arrL" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <g fill="none" stroke="#b8a" stroke-width="1.3">
+    <rect x="20" y="25" width="200" height="40" rx="6"/>
+    <rect x="20" y="95" width="200" height="40" rx="6"/>
+    <rect x="20" y="165" width="200" height="40" rx="6"/>
+  </g>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="32" y="42">residually finite:</text>
+    <text x="32" y="58">survives into finite quotients</text>
+    <text x="32" y="112">LEF: finite patches of the table</text>
+    <text x="32" y="128">embed into finite groups EXACTLY</text>
+    <text x="32" y="182">sofic: finite patches simulated</text>
+    <text x="32" y="198">by permutations APPROXIMATELY</text>
+  </g>
+  <g stroke="#7a1f1f" stroke-width="1.5" fill="none">
+    <line x1="120" y1="65" x2="120" y2="88" marker-end="url(#c3arrL)"/>
+    <line x1="120" y1="135" x2="120" y2="158" marker-end="url(#c3arrL)"/>
+  </g>
+  <text x="128" y="82" font-size="10.5" fill="#555">(Prop. D)</text>
+  <text x="128" y="152" font-size="10.5" fill="#555">(Prop. D)</text>
+  <!-- right: V panel -->
+  <g fill="none" stroke="#c0392b" stroke-width="1.4">
+    <rect x="258" y="55" width="204" height="120" rx="8"/>
+  </g>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="272" y="80">Thompson's V: finitely presented</text>
+    <text x="272" y="98">+ infinite + simple &#8658; not RF (Prop. F)</text>
+    <text x="272" y="122">f.p. + LEF would force RF (Prop. E)</text>
+    <text x="272" y="146" fill="#c0392b">&#8658; V is NOT LEF</text>
+  </g>
+  <text x="258" y="205" font-size="12" fill="#7a1f1f">the trap: build V commuting with rigidity that</text>
+  <text x="258" y="222" font-size="12" fill="#7a1f1f">turns &ldquo;sofic&rdquo; into &ldquo;LEF&rdquo; &mdash; then V refuses</text>
+  <text x="26" y="228" font-size="11.5" fill="#555">both inclusions are strict</text>
+</svg><figcaption><b>The approximation ladder and the trap.</b> Residually finite $\subset$ LEF $\subset$ sofic, with exactness degrading at each step. Thompson's $V$ falls off the ladder at the LEF rung: finite presentation would upgrade LEF to residual finiteness (Proposition E), which simplicity forbids (Proposition F). The entire remaining task of the chapter is to engineer a situation where <i>soficity of some group would force $V$ to be LEF</i> &mdash; that engineering is Kun's and Kun&ndash;Thom's expander theorems (<a class="secref" href="#expanders">&sect;3</a>) plus the matching argument (<a class="secref" href="#matching">&sect;4</a>) plus the Leavitt configuration (<a class="secref" href="#leavitt">&sect;5</a>&ndash;<a class="secref" href="#config">&sect;7</a>).</figcaption></figure>

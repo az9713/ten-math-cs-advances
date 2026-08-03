@@ -1,0 +1,26 @@
+<svg class="setupfig" viewBox="0 0 640 350" width="100%" role="img" aria-label="The constraint system at a glance">
+<text x="18" y="24" font-size="12.5" text-anchor="start" fill="#333">the four constraint families, drawn on the tables they constrain</text>
+<text x="106" y="44" font-size="11" text-anchor="middle" fill="#333">global table 0</text>
+<rect x="40" y="60" width="132" height="130" rx="6" fill="none" stroke="#333" stroke-width="1.1"/>
+<circle cx="51" cy="79.5" r="3.4" fill="#c0392b" stroke="none"/>
+<circle cx="73" cy="118.5" r="3.4" fill="#c0392b" stroke="none"/>
+<circle cx="95" cy="157.5" r="3.4" fill="#c0392b" stroke="none"/>
+<circle cx="117" cy="66.5" r="3.4" fill="#c0392b" stroke="none"/>
+<circle cx="139" cy="105.5" r="3.4" fill="#c0392b" stroke="none"/>
+<circle cx="161" cy="144.5" r="3.4" fill="#c0392b" stroke="none"/>
+<rect x="86" y="61" width="18" height="128" rx="6" fill="none" stroke="#7d3c98" stroke-width="1.6" stroke-dasharray="4 2"/>
+<text x="106" y="206" font-size="10.5" text-anchor="middle" fill="#7d3c98">(C1): every global fiber has an odd</text>
+<text x="106" y="220" font-size="10.5" text-anchor="middle" fill="#7d3c98">number of ones (&#8721;&#8202;x = 1 in F&#8322;)</text>
+<text x="340" y="44" font-size="11" text-anchor="middle" fill="#333">clause subtypes of C</text>
+<rect x="250" y="60" width="50" height="130" rx="6" fill="none" stroke="#2a7d2a" stroke-width="1.1"/>
+<circle cx="262" cy="79.5" r="3.2" fill="#2a7d2a" stroke="none"/>
+<circle cx="284" cy="118.5" r="3.2" fill="#2a7d2a" stroke="none"/>
+<rect x="312" y="60" width="50" height="130" rx="6" fill="none" stroke="#aaa" stroke-width="1.1"/>
+<rect x="374" y="60" width="50" height="130" rx="6" fill="none" stroke="#aaa" stroke-width="1.1"/>
+<text x="340" y="206" font-size="10.5" text-anchor="middle" fill="#2a7d2a">(C2): fiber-by-fiber, the subtype tables</text>
+<text x="340" y="220" font-size="10.5" text-anchor="middle" fill="#2a7d2a">XOR to the global fiber</text>
+<text x="18" y="246" font-size="11.5" text-anchor="start" fill="#2e6da4">(C3): for each table and each j &#8804; T, the j-th power sums of the fibers,  p &#8614; &#8721;&#8202;w&#8201;x&#964;,p,w&#8201;w&#8202;<tspan baseline-shift="super" font-size="75%">j</tspan>, form a Reed&#8211;Solomon codeword of degree &#8804; dj</text>
+<text x="18" y="270" font-size="11.5" text-anchor="start" fill="#7d3c98">(C4): for each clause subtype and each variable i of the clause, the shifted sums with (w &#8722; &#946;&#7522;)/(p &#8722; a&#7522;) form a codeword of degree &#8804; (d&#8722;1)j</text>
+<text x="18" y="300" font-size="11.5" text-anchor="start" fill="#333" font-weight="bold">all four families are LINEAR over F&#8322; in the indicators x&#964;,p,w &#8212; field powers w<tspan baseline-shift="super" font-size="75%">j</tspan> are known coefficients, never unknowns</text>
+<text x="18" y="324" font-size="11.5" text-anchor="start" fill="#333">together: one explicit binary affine system Hx = b   (equation (3); toy: 8949 equations, M = 3120 unknowns)</text>
+</svg>

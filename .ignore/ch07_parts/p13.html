@@ -1,0 +1,36 @@
+<hr>
+<h2 id="matching">13. Soundness III: parity matching and the endgame (Lemma 13, Proposition 14)</h2>
+
+<p>Two pieces remain. Lemma 12 tells us what the roots of a <i>clause</i> table know; we must still connect the <i>global</i> table's roots to the clause tables (that is constraint (C2)'s job), and then glue the per-clause information into one assignment.</p>
+
+<h3 id="s13-match">13.1 Every global root joins some clause table</h3>
+
+<div class="lem"><b>Lemma 13 (parity matching of clause roots).</b> For each clause $C$, every $\alpha \in R_0$ belongs to $R_{(C,\beta)}$ for at least one $\beta \in B_C$.</div>
+<div class="proof">Constraint (C2) says that at every $p \in P$ and $w \in K$, the bit $x_{0,p,w}$ equals $\sum_{\beta\in B_C} x_{(C,\beta),p,w}$ in $\mathbb{F}_2$. Multiply by $w^j$ and sum over $w$: pointwise, $\mu_{0,j}(p) = \sum_{\beta \in B_C} \mu_{(C,\beta),j}(p)$ for all $p$. Both sides are polynomials of degree $\le dj &lt; \lvert P\rvert$, so by the root bound this is a polynomial identity for each $0 \le j \le T$. Substituting the root-moment identities (15) and moving everything to one side (characteristic two: signs are free):
+$$\sum_{\alpha \in R_0} \alpha^j \;+\; \sum_{\beta \in B_C} \sum_{\alpha \in R_{(C,\beta)}} \alpha^j \;=\; 0 \qquad (0 \le j \le T).$$
+Let $W_C \subseteq E$ be the set of <i>distinct</i> roots occurring an <i>odd</i> number of times across these $1 + \lvert B_C\rvert$ root sets. Pairs cancel in characteristic two, so
+$$\sum_{\alpha \in W_C} \alpha^j = 0 \qquad (0 \le j \le T), \qquad\quad \lvert W_C \rvert \le (1 + \lvert B_C\rvert) K_{\mathrm{cap}} \le 9K_{\mathrm{cap}} &lt; T + 1 .$$
+If $W_C \ne \varnothing$, take just the first $\lvert W_C\rvert$ equations ($j = 0, \dots, \lvert W_C\rvert - 1$): they say that the Vandermonde matrix of the distinct elements of $W_C$, applied to the all-ones vector, gives zero &mdash; impossible, since that matrix is invertible (Proposition G) and the all-ones vector is not zero. So $W_C = \varnothing$: every root occurs an even number of times in total. A root $\alpha \in R_0$ occurs exactly once in $R_0$ (root sets are sets), so it must occur at least once among the clause subtype root sets of $C$ (Fig.&nbsp;33). <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_matching--><figcaption>Lemma 13. Constraint (C2) forces the global moment polynomials to equal the sum of the clause subtypes' moment polynomials; through the reconstruction (15), the multiset difference of root sets has all power sums zero up to $j = T$. Since at most $9K_{\mathrm{cap}} &lt; T{+}1$ distinct roots are involved, an invertible Vandermonde system forces the odd-occurrence set to be empty &mdash; so each global root (left) is caught by at least one satisfying-local-assignment table (right).</figcaption></figure>
+
+<p>Note what the lemma does <i>not</i> say: it does not say the clause tables equal the global table, nor that only one $\beta$ catches $\alpha$. Parity is all that survives characteristic two &mdash; and parity is enough.</p>
+
+<h3 id="s13-endgame">13.2 The endgame</h3>
+
+<div class="prop"><b>Proposition 14 (binary nearest-codeword soundness).</b> If the affine system (3) has a binary solution $x$ with
+$$\mathrm{wt}(x) \le 4M^{1/200} R, \qquad R = (\ell+1)\lvert P\rvert,$$
+then $\varphi$ is satisfiable.</div>
+<div class="proof">Fix such a solution. As verified in <a class="secref" href="#soundness">&sect;11</a>, each trimmed support family $\mathcal{S}_\tau$ satisfies Definition 9 and the numerical hypotheses of Lemma 10; apply the reconstruction lemma to each table and fix the common finite separable splitting field $E$ (Lemma 3), the root sets $R_\tau$, and &mdash; per variable $i$ &mdash; the single extended valuation $v_i$ of <a class="secref" href="#extraction">&sect;12</a>.</p>
+<p>By Corollary 11, $R_0 \neq \varnothing$; <b>choose one $\alpha \in R_0$</b> and keep it for the rest of the proof. For every clause $C$, Lemma 13 supplies a satisfying local assignment $\beta(C) \in B_C$ with $\alpha \in R_{(C,\beta(C))}$. Now the different clauses must agree about shared variables. Let the variable $v_i$ appear in two clauses $C$ and $C'$. Lemma 12, applied to the two tables $(C, \beta(C))$ and $(C', \beta(C'))$ <i>with the same valuation $v_i$ on the same field $E$</i>, gives
+$$v_i\big( \alpha - \beta(C)_i \big) \ge 1, \qquad v_i\big( \alpha - \beta(C')_i \big) \ge 1 .$$
+Both $\beta(C)_i$ and $\beta(C')_i$ are the constants $0$ or $1$ of $K$; by Lemma 5 (uniqueness of a constant residue), they are equal (Fig.&nbsp;34). So all selected local tuples agree wherever they overlap, and &mdash; since preprocessing removed variables occurring in no clause &mdash; the definitions
+$$\sigma_i := \beta(C)_i \quad \text{for any clause } C \text{ containing } v_i$$
+are consistent and cover every variable, assembling one global assignment $\sigma \in \{0,1\}^m$. Each clause $C$ is satisfied by $\sigma$, because $\sigma|_{I_C} = \beta(C) \in B_C$ by construction. Hence $\varphi$ is satisfiable. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_glue--><figcaption>The endgame of Proposition 14. One global root $\alpha$ (Corollary 11) is matched, per clause, to a satisfying local assignment table (Lemma 13). Lemma 12 pins $\alpha$'s residue at each shared anchor to the committed bit of <i>both</i> tables, and Lemma 5 says a residue cannot equal two different constants &mdash; so the local tuples agree and glue into one global satisfying assignment.</figcaption></figure>
+
+<p>Together with completeness this closes the binary gap. For every formula $\varphi$ (with the trivial cases deferred to <a class="secref" href="#transfer">&sect;14</a>):
+$$\varphi \text{ satisfiable} \;\Longrightarrow\; W(H,b) \le R, \qquad\qquad
+\varphi \text{ unsatisfiable, } Hx=b \text{ consistent} \;\Longrightarrow\; W(H,b) &gt; 4M^{1/200} R,$$
+the second implication being the contrapositive of Proposition 14. One conceptual remark before the transfer: notice how the proof <i>used</i> a single algebraic object &mdash; the chosen root $\alpha$ &mdash; as a coherent &ldquo;virtual assignment&rdquo;. The solution $x$ may be smeared across many spurious table entries, but the reconstruction lemma condenses each table into finitely many algebraic functions, and the valuations force those functions to take Boolean values at the anchors. The root $\alpha$ is, in effect, an assignment polynomial that was never written down.</p>

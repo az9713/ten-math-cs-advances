@@ -1,0 +1,122 @@
+<h2 id="precise">1. Sphere packing made precise, and the two theorems</h2>
+
+<h3 id="density">1.1 What exactly is being maximized</h3>
+
+<p>Fix the dimension $d \ge 1$. A <b>packing</b> is a set $\mathcal{P} \subset \mathbb{R}^d$ of centers whose pairwise distances are all at least $1$; around each center we place a ball of radius $\tfrac12$, and the separation condition says exactly that these balls have disjoint interiors. "Fraction of space filled" needs care, because packings are infinite: we measure the fraction inside a large box and let the box grow (Fig. 3). For $R \gt 0$ let $Q_R = [-R,R]^d$ be the cube of side $2R$ and $\operatorname{vol}$ the Lebesgue measure ("volume"). The <b>upper density</b> of the packing $\mathcal{P}$ is</p>
+$$\bar\delta(\mathcal{P}) \;=\; \limsup_{R \to \infty} \frac{\operatorname{vol}\!\Bigl(Q_R \cap \bigcup_{x \in \mathcal{P}} B\bigl(x,\tfrac12\bigr)\Bigr)}{\operatorname{vol}(Q_R)},$$
+<p>where $B(x,\rho)$ is the ball of radius $\rho$ centered at $x$. The $\limsup$ (the largest limit point) is forced on us: a packing can leave huge empty stadiums at some scales and be crowded at others, so the plain limit may not exist. Finally,</p>
+$$\Delta_d \;=\; \sup_{\mathcal{P} \text{ packing}} \bar\delta(\mathcal{P})$$
+<p>is the <b>sphere-packing density</b> of dimension $d$ &mdash; the number the whole subject is about.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 460 240" width="100%" role="img" aria-label="Density measured through a growing window">
+  <rect x="30" y="18" width="204" height="204" fill="none" stroke="#333" stroke-width="1.6"/>
+  <g stroke="#2e6da4" stroke-width="1.4" fill="#2e6da4" fill-opacity="0.22">
+    <circle cx="62" cy="52" r="22"/><circle cx="110" cy="80" r="22"/><circle cx="66" cy="104" r="22"/>
+    <circle cx="158" cy="52" r="22"/><circle cx="204" cy="82" r="22"/><circle cx="160" cy="112" r="22"/>
+    <circle cx="106" cy="146" r="22"/><circle cx="196" cy="152" r="22"/><circle cx="66" cy="176" r="22"/>
+    <circle cx="150" cy="188" r="22"/><circle cx="230" cy="22" r="22"/><circle cx="26" cy="140" r="22"/>
+    <circle cx="238" cy="196" r="22"/>
+  </g>
+  <line x1="30" y1="236" x2="98" y2="236" stroke="#555" stroke-width="1.1"/>
+  <line x1="166" y1="236" x2="234" y2="236" stroke="#555" stroke-width="1.1"/>
+  <text x="132" y="239" font-size="12" text-anchor="middle" fill="#555">side 2R</text>
+  <text x="256" y="60" font-size="12" fill="#333">covered volume inside Q<tspan baseline-shift="sub" font-size="9">R</tspan></text>
+  <text x="256" y="78" font-size="12" fill="#333">&divide; volume of Q<tspan baseline-shift="sub" font-size="9">R</tspan>,</text>
+  <text x="256" y="96" font-size="12" fill="#333">then limsup as R &rarr; &infin;.</text>
+  <text x="256" y="130" font-size="12" fill="#555">Boundary-crossing balls</text>
+  <text x="256" y="147" font-size="12" fill="#555">contribute O(1/R) &mdash; they</text>
+  <text x="256" y="164" font-size="12" fill="#555">never matter in the limit.</text>
+</svg><figcaption>The upper density $\bar\delta(\mathcal{P})$: the covered fraction of a growing cubical window. Balls straddling the boundary affect the ratio only by $O(1/R)$, a fact we will use quietly whenever we periodize a packing in <a class="secref" href="#certificate">&sect;3</a>.</figcaption></figure>
+
+<p>Two dimensions are easy to state: $\Delta_1 = 1$ (unit intervals tile the line) and $\Delta_2 = \pi/\sqrt{12}$ (the honeycomb of Fig. 1; already a hard theorem, due to Thue and Fejes T&oacute;th). Beyond $d = 3$, $8$, $24$, no exact value is known in any dimension.</p>
+
+<p>We will constantly need the volume of a ball. Here the <b>gamma function</b> enters for the first time, so we define it: for $\operatorname{Re} z \gt 0$,</p>
+$$\Gamma(z) \;=\; \int_0^\infty t^{z-1} e^{-t}\, dt,$$
+<p>the smooth interpolation of the factorial: $\Gamma(n+1) = n!$ for integers $n \ge 0$, and $\Gamma(\tfrac12) = \sqrt{\pi}$ (both proved, along with everything else we need about $\Gamma$, in the workshop of <a class="secref" href="#mellin">&sect;6</a>). In terms of it, the volume of the <i>unit</i> ball is</p>
+<div class="prop" id="propvd"><b>Proposition A (ball volume).</b> $\;\operatorname{vol}(B(0,1)) = v_d = \dfrac{\pi^{d/2}}{\Gamma(d/2+1)}$, so a packing ball of radius $\tfrac12$ has volume $v_d/2^d$. <span class="small">(Proved in <a class="secref" href="#polar">&sect;5.1</a> once polar integration is set up; sanity checks: $v_2 = \pi$, $v_3 = \tfrac43\pi$.)</span></div>
+
+<p>The formula contains the first high-dimensional shock: $v_d/2^d \to 0$ super-exponentially fast (Fig. 4), because $\Gamma(d/2+1)$ grows like $(d/2e)^{d/2}$. A radius-$\tfrac12$ ball in $\mathbb{R}^{24}$ has volume $1.9\times 10^{-10}$; in $\mathbb{R}^{64}$, about $10^{-40}$. Density statements in high dimension are therefore inherently statements about exponents, which motivates measuring everything on the scale $\Delta_d^{1/d}$.</p>
+
+<figure><!--FIG:fig_vd--><figcaption>The volume of a single packing ball (radius $\tfrac12$), on a $\log_{10}$ scale, versus dimension. The collapse is super-exponential &mdash; the reason all high-dimensional density statements are phrased through the $d$-th root $\Delta_d^{1/d}$.</figcaption></figure>
+
+<p>How large is $\Delta_d$? One direction is nearly free, and worth proving immediately because its "doubling" trick reappears at the heart of the chapter (<a class="secref" href="#bridge">&sect;4</a>).</p>
+
+<div class="prop" id="propgreedy"><b>Proposition B (easy lower bound).</b> For every $d \ge 1$, $\;\Delta_d \ge 2^{-d}$.</div>
+<div class="proof">
+<p>Call a packing $\mathcal{P}$ <b>saturated</b> if no point can be added to it &mdash; every $y \in \mathbb{R}^d$ lies within distance $1$ of some center (else $y$ could join $\mathcal{P}$). Saturated packings exist by Zorn's lemma (any chain of packings, ordered by inclusion, has its union as an upper bound; the separation condition survives unions of chains). Fix one. Then the balls $B(x,1)$, $x \in \mathcal{P}$, cover $\mathbb{R}^d$. Inside the window $Q_R$, every point is covered by balls of radius $1$ centered in $Q_{R+1}$, so, writing $N_R = |\mathcal{P} \cap Q_{R+1}|$ (finite, since centers are $1$-separated),
+$$\operatorname{vol}(Q_R) \;\le\; N_R \cdot v_d.$$
+The disjoint radius-$\tfrac12$ balls around those same $N_R$ centers occupy volume $N_R\, v_d/2^d$ inside $Q_{R+2}$, so the covered fraction of $Q_{R+2}$ is at least
+$$\frac{N_R\, v_d / 2^d}{\operatorname{vol}(Q_{R+2})} \;\ge\; 2^{-d}\,\frac{\operatorname{vol}(Q_R)}{\operatorname{vol}(Q_{R+2})} \;=\; 2^{-d}\Bigl(\frac{R}{R+2}\Bigr)^{d} \;\longrightarrow\; 2^{-d}.$$
+Hence $\bar\delta(\mathcal{P}) \ge 2^{-d}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Remarkably, a century of effort has improved this greedy bound only by factors polynomial in $d$ (Minkowski, Rogers, Ball, Venkatesh, Campos&ndash;Jenssen&ndash;Michelen&ndash;Sahasrabudhe): the best known packings still have $\Delta_d^{1/d} \to \tfrac12$. Upper bounds are where the action is, and Fig. 5 shows the state of play on the $d$-th-root scale: the truth lives somewhere in the blue interval, and this chapter's contribution is the right endpoint.</p>
+
+<figure><!--FIG:fig_expmap--><figcaption>The known window for $\Delta_d^{1/d}$ as $d \to \infty$. Constructions give $\tfrac12$; Blichfeldt (1929) gave $2^{-1/2} = 0.7071$; Kabatianskii&ndash;Levenshtein (1978) gave $0.6602$; this chapter's Theorem 1.1 gives $\sqrt{e/2\pi} = 0.6577$ &mdash; and proves it is exactly the floor of the Cohn&ndash;Elkies method.</figcaption></figure>
+
+<h3 id="lpdef">1.2 The linear program, and Theorem 1.1</h3>
+
+<p>Throughout, the <b>Fourier transform</b> of an integrable $f : \mathbb{R}^d \to \mathbb{R}$ uses the convention</p>
+$$\widehat{f}(\xi) \;=\; \int_{\mathbb{R}^d} f(x)\, e^{-2\pi i x\cdot\xi}\, dx, \tag{1}$$
+<p>with $x \cdot \xi$ the usual dot product ($2\pi$ in the exponent keeps all constants clean; <a class="secref" href="#fourier">&sect;2</a> develops everything we need from scratch). We write $\mathcal{S}(\mathbb{R}^d;\mathbb{R})$ for the real <b>Schwartz space</b>: infinitely differentiable functions all of whose derivatives decay faster than any power (Definition 2.1 makes this precise). The machine's raw material is the following class of auxiliary functions:</p>
+
+<div class="def" id="defAd"><b>Definition (admissible functions, eq. (2)).</b>
+$$\mathcal{A}_d \;=\; \Bigl\{\, f \in \mathcal{S}(\mathbb{R}^d;\mathbb{R}) \;:\; \widehat{f}(0) \gt 0, \quad \widehat{f} \ge 0 \text{ on } \mathbb{R}^d, \quad f \le 0 \text{ on } \{|x| \ge 1\} \,\Bigr\}. \tag{2}$$
+Each condition is engineered against a specific failure mode, visible in the proof of the certificate theorem in <a class="secref" href="#certificate">&sect;3</a>: $f \le 0$ outside radius $1$ makes $f$ "blind" to pairs of distinct centers (their distance is $\ge 1$, so cross terms only help); $\widehat f \ge 0$ makes a certain quadratic form in the packing automatically nonnegative; $\widehat f(0) \gt 0$ (the integral of $f$) normalizes the bound. Fourier inversion forces $f(0) \gt 0$ for such $f$ (shown in &sect;3), so the following ratio is well defined.</div>
+
+<div class="def" id="defLP"><b>Definition (the Cohn&ndash;Elkies bound, eq. (3)).</b>
+$$\mathrm{LP}_d \;=\; \frac{v_d}{2^d}\, \inf_{f \in \mathcal{A}_d} \frac{f(0)}{\widehat{f}(0)}. \tag{3}$$
+The name "linear program" is honest: the constraints on $f$ and $\widehat f$ are linear inequalities, and minimizing $f(0)$ at normalized $\widehat f(0)$ is a linear objective &mdash; an infinite-dimensional linear program over functions.</div>
+
+<p>The Gorbachev&ndash;Cohn&ndash;Elkies theorem, proved in full in <a class="secref" href="#certificate">&sect;3</a>, is the statement that every admissible $f$ certifies a bound on every packing:</p>
+<div class="keyresult">$$\Delta_d \;\le\; \mathrm{LP}_d. \tag{4}$$</div>
+
+<p>In dimensions $8$ and $24$ the magic functions of Viazovska et al. make (4) an equality. The chapter's first main theorem determines the machine's exact strength as $d \to \infty$:</p>
+
+<div class="thm" id="thm11"><b>Theorem 1.1.</b> As $d \to \infty$, $\quad \mathrm{LP}_d^{1/d} \longrightarrow \sqrt{\dfrac{e}{2\pi}}$.</div>
+
+<p>Feeding Theorem 1.1 into (4) and taking logarithms turns the constant into an exponent: $\Delta_d \le \mathrm{LP}_d = 2^{-(\alpha^* + o(1))d}$ with</p>
+$$\alpha^* \;=\; \tfrac12 \log_2\!\frac{2\pi}{e} \;=\; 0.604400544\ldots,$$
+<p>improving the Kabatianskii&ndash;Levenshtein exponent $0.599055\ldots$ &mdash; the first improvement of the general sphere-packing exponent since 1978. (Numbers verified in <a class="secref" href="#validation">&sect;13</a>.) Equally important is the other direction hiding in the limit: since the limit is <i>exactly</i> $\sqrt{e/2\pi}$, no admissible function can certify a smaller exponential rate. The table records the landscape.</p>
+
+<div class="tablewrap"><table>
+<tr><th>Statement</th><th>Rate for $\Delta_d^{1/d}$</th><th>Exponent $\alpha$ in $2^{-\alpha d}$</th><th>Status</th></tr>
+<tr><td>Best packings known (greedy + refinements)</td><td>$\ge \tfrac12$</td><td>$1$</td><td>constructions</td></tr>
+<tr><td>Kabatianskii&ndash;Levenshtein 1978</td><td>$\le 0.66017\ldots$</td><td>$0.599055\ldots$</td><td>previous record</td></tr>
+<tr><td><b>This chapter (Thm 1.1 + (4))</b></td><td>$\le \sqrt{e/2\pi} = 0.65774\ldots$</td><td>$0.604400\ldots$</td><td><b>new record</b></td></tr>
+<tr><td>Cohn&ndash;Elkies method, any function (Thm 1.1)</td><td>LP floor $= \sqrt{e/2\pi}$</td><td>cannot exceed $0.604400\ldots$</td><td><b>exact ceiling</b></td></tr>
+</table></div>
+
+<h3 id="signdef">1.3 Sign uncertainty, and Theorem 1.2</h3>
+
+<p>The second theorem concerns functions that are their own Fourier transform, up to sign. Say $g \in L^1(\mathbb{R}^d;\mathbb{R})$ (real and integrable) is a <b>Fourier eigenfunction</b> with eigenvalue $\varsigma \in \{-1,+1\}$ if $\widehat g = \varsigma g$. For such $g$ the transform $\widehat g = \varsigma g$ is itself in $L^1$, so Fourier inversion (Theorem 2.4 below) supplies a continuous representative of $g$; <i>every pointwise statement about $g$ below refers to that continuous representative</i>. The Gaussian $e^{-\pi|x|^2}$ is the model eigenfunction with $\varsigma = +1$; eigenfunctions with $\varsigma = -1$ exist too, e.g. $\bigl(|x|^2 - \tfrac{d}{4\pi}\bigr)e^{-\pi|x|^2}$ (both verified in <a class="secref" href="#fourier">&sect;2.4</a>).</p>
+
+<div class="def" id="defsign"><b>Definition (last-sign radius and uncertainty constants, eqs. (5)&ndash;(6)).</b> For $g$ as above,
+$$r(g) \;=\; \inf\{\, R \ge 0 \;:\; g(x) \ge 0 \text{ for all } |x| \ge R \,\}, \tag{5}$$
+with $r(g) = \infty$ if no such radius exists &mdash; the radius after which $g$ is nonnegative for good (Fig. 6). The <b>sign-uncertainty constant</b> of eigenvalue $\varsigma$ is
+$$A_\varsigma(d) \;=\; \inf\{\, r(g) \;:\; 0 \ne g \in L^1(\mathbb{R}^d;\mathbb{R}), \;\widehat g = \varsigma g, \;g(0) = 0 \,\}. \tag{6}$$</div>
+
+<figure><svg class="setupfig" viewBox="0 0 460 220" width="100%" role="img" aria-label="The last-sign radius of an eigenfunction">
+  <line x1="30" y1="150" x2="440" y2="150" stroke="#333" stroke-width="1.3"/>
+  <line x1="40" y1="30" x2="40" y2="200" stroke="#333" stroke-width="1.3"/>
+  <path d="M 40 150 C 70 205, 120 215, 165 150 C 195 108, 240 92, 300 120 C 350 143, 400 146, 438 148"
+        fill="none" stroke="#7d3c98" stroke-width="2.6"/>
+  <circle cx="40" cy="150" r="4.5" fill="#2a7d2a"/>
+  <text x="50" y="136" font-size="12" fill="#2a7d2a">g(0) = 0 (required)</text>
+  <line x1="165" y1="60" x2="165" y2="196" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="165" y="50" font-size="13" text-anchor="middle" fill="#c0392b">r(g): last sign change</text>
+  <text x="44" y="192" font-size="12" fill="#555">g may dip negative here</text>
+  <text x="285" y="100" font-size="12" fill="#555">g &ge; 0 forever after</text>
+  <text x="430" y="168" font-size="13" fill="#333" class="v">|x|</text>
+  <text x="26" y="42" font-size="13" fill="#333" class="v">g</text>
+</svg><figcaption>The quantity everything hinges on: for an eigenfunction ($\widehat g = \pm g$) vanishing at the origin, $r(g)$ is the radius of the <i>last</i> sign change (schematic profile). Theorem 1.2 pins down how small $r(g)$ can possibly be.</figcaption></figure>
+
+<p>Why is this an "uncertainty principle"? Without the constraint $g(0) = 0$ the question is empty: the Gaussian has $r = 0$. But $g(0) = 0$ together with $\widehat g = \varsigma g$ pulls in two opposite directions. If $\varsigma = +1$, then $\int g = \widehat g(0) = g(0) = 0, $ so $g$ must carry genuinely negative mass; if it is nonnegative outside a small ball, all that negative mass is trapped near the origin &mdash; and the Fourier constraint resists such trapping. Bourgain, Clozel, and Kahane introduced $A_+(d)$ and showed $c\sqrt d \le A_+(d) \le C\sqrt d$; Cohn and Gon&ccedil;alves introduced the $\varsigma = -1$ twin and connected it to sphere packing (that connection is exactly our <a class="secref" href="#bridge">&sect;4</a>). The physics literature (modular bootstrap) predicted the sharp constant. The chapter's second theorem confirms it:</p>
+
+<div class="thm" id="thm12"><b>Theorem 1.2.</b> $\quad\displaystyle \lim_{d\to\infty} \frac{A_+(d)}{\sqrt d} \;=\; \lim_{d\to\infty} \frac{A_-(d)}{\sqrt d} \;=\; \frac{1}{\pi}.$</div>
+
+<p>The two constants share an asymptotic but are never equal: Appendix <a class="secref" href="#appA">A</a> proves the strict inequality $A_+(d) \lt A_-(d)$ in <i>every</i> dimension, by an explicit averaging operator that converts a $(-1)$-eigenfunction into a $(+1)$-eigenfunction while strictly shrinking its sign radius.</p>
+
+<div class="note"><b>Orientation.</b> Keep the two theorems mentally linked by the number $\tfrac1\pi$: the sign radius $\bigl(\tfrac1\pi + o(1)\bigr)\sqrt d$ of Theorem 1.2 <i>is</i> the source of the packing rate, via Stirling's formula:
+$$\text{sign radius } \tfrac{\sqrt d}{\pi} \;\xrightarrow{\ \text{(3)}\ } \; \mathrm{LP}_d \approx \frac{v_d}{2^d}\Bigl(\frac{\sqrt d}{\pi}\Bigr)^{\!d}, \qquad v_d^{1/d}\sqrt d \to \sqrt{2\pi e} \;\Longrightarrow\; \mathrm{LP}_d^{1/d} \to \frac{\sqrt{2\pi e}}{2\pi} = \sqrt{\frac{e}{2\pi}}.$$
+<a class="secref" href="#bridge">&sect;4</a> makes both arrows precise. Everything in between is the war over that single radius.</div>

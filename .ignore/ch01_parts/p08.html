@@ -1,0 +1,44 @@
+<h2 id="packrate">8. Lower bound II &mdash; from trapped mass to the packing rate (Theorem 3.8)</h2>
+
+<p>Proposition 3.1 says eigenfunctions cannot concentrate mass inside radius $c\sqrt d$. We now cash this in twice: once against sign-uncertainty competitors (Proposition 3.7 &mdash; the lower halves of Theorem 1.2), and once, through Bridge one (Proposition F), against every Cohn&ndash;Elkies certificate (Theorem 3.8 &mdash; the "ceiling" half of Theorem 1.1).</p>
+
+<h3 id="prop37">8.1 No eigenfunction turns nonnegative early (Proposition 3.7)</h3>
+
+<div class="prop" id="prop37box"><b>Proposition 3.7.</b> For every $0 \lt c \lt 1/\pi$ there is $d_0(c)$ such that for every $d \ge d_0(c)$ and $\varsigma \in \{-1,+1\}$: no nonzero $g \in L^1(\mathbb{R}^d;\mathbb{R})$ satisfies $\widehat g = \varsigma g$, $g(0) = 0$, and $g(x) \ge 0$ for $|x| \ge c\sqrt d$ (continuous representative throughout). Equivalently: $A_\varsigma(d) \ge c\sqrt d$ for $d \ge d_0(c)$.</div>
+
+<div class="proof">
+<p><i>Radial Schwartz case.</i> Suppose first $g \in \mathcal S_{\mathrm{rad}}$, nonzero, $\widehat g = \varsigma g$, $g(0) = 0$, $g \ge 0$ outside $B(0, c\sqrt d)$. Split $g = g_+ - g_-$ into positive and negative parts. Since
+$$\int_{\mathbb{R}^d} g = \widehat g(0) = \varsigma\,g(0) = 0,$$
+we get $\int g_+ = \int g_-$, hence $\int g_- = \tfrac12\|g\|_1$ &mdash; <i>half the total mass is negative mass</i>. The sign hypothesis forces $g_-$ to vanish outside $B(0,c\sqrt d)$: all of that half-mass is trapped in the ball (exactly the situation of Fig. 11). But Proposition 3.1 caps the trapped mass:
+$$\tfrac12\|g\|_1 = \int_{\mathbb{R}^d} g_- \le \int_{|x|\lt c\sqrt d}|g(x)|\,dx \le C_c e^{-\gamma_c d}\|g\|_1.$$
+Once $C_ce^{-\gamma_c d} \lt \tfrac12$, this forces $\|g\|_1 = 0$, contradiction.</p>
+<p><i>General case.</i> Let $g \in L^1$ be a counterexample. Its rotational average $h = \mathcal Rg$ is nonzero (Proposition J(iii); note $r(g) \le c\sqrt d \lt \infty$), radial, integrable, with $\widehat h = \varsigma h$, $h(0) = g(0) = 0$, and $h \ge 0$ outside $B(0, R)$, $R = c\sqrt d$ (Proposition J(ii)). Lemma K supplies radial Schwartz eigenfunctions $h_n \to h$ in $L^1$ with $\widehat{h_n} = \varsigma h_n$ and $h_n(0) = 0$. The exterior nonnegativity of $h$ controls the negative part of $h_n$:
+$$\int_{\mathbb{R}^d}(h_n)_- \;\le\; \int_{|x|\lt R}|h_n(x)|\,dx \;+\; \int_{|x|\ge R}\bigl|h_n(x) - h(x)\bigr|\,dx,$$
+because outside the ball $(h_n)_- \le (h_n - h)_- \le |h_n - h|$ (as $h \ge 0$ there), while inside we bound crudely by $|h_n|$. Apply Proposition 3.1 to $h_n$ and the eigenfunction identity $\int h_n = \varsigma h_n(0) = 0$ (so $\int (h_n)_- = \tfrac12\|h_n\|_1$):
+$$\tfrac12\|h_n\|_1 \;\le\; C_ce^{-\gamma_c d}\,\|h_n\|_1 + \|h_n - h\|_1.$$
+Let $n \to \infty$: $\;\tfrac12\|h\|_1 \le C_ce^{-\gamma_c d}\|h\|_1$, contradicting $h \ne 0$ for $d \ge d_0(c)$. Finally, "no such $g$ with $r(g) \le c\sqrt d$" is precisely $A_\varsigma(d) \ge c\sqrt d$ by definition (6). <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="keyresult">Taking $c \uparrow 1/\pi$: $\;\displaystyle\liminf_{d\to\infty}\frac{A_\varsigma(d)}{\sqrt d} \ge \frac1\pi\;$ for both $\varsigma = \pm1$ &mdash; the lower halves of Theorem 1.2 are done.</div>
+
+<h3 id="thm38">8.2 Every certificate obeys the floor (Theorem 3.8)</h3>
+
+<div class="thm" id="thm38box"><b>Theorem 3.8 (eq. (28)).</b> There is a sequence $\epsilon_d \to 0$ such that for all sufficiently large $d$ and every $F \in \mathcal A_d$:
+$$\frac{F(0)}{\widehat F(0)} \;\ge\; \frac{2^d}{v_d}\Bigl(\sqrt{\tfrac{e}{2\pi}} - \epsilon_d\Bigr)^{\!d}.$$
+Equivalently: $\;\mathrm{LP}_d \ge \bigl(\sqrt{e/2\pi} - \epsilon_d\bigr)^d$, so $\liminf_d \mathrm{LP}_d^{1/d} \ge \sqrt{e/2\pi}$.</div>
+
+<div class="proof">
+<p>Replace $F$ by its rotational average: by Proposition J(i) this stays admissible and preserves $F(0)$ and $\widehat F(0)$, so assume $F$ radial. Bridge one (Proposition F) manufactures from $F$ a <i>nonzero</i> $g = \widehat h - h \in \mathcal S_{\mathrm{rad}}$ with
+$$\widehat g = -g, \qquad g(0) = 0, \qquad g \ge 0 \text{ on } \{|x| \ge 1/a\}, \qquad a = \bigl(\widehat F(0)/F(0)\bigr)^{1/d}.$$
+Fix $c \lt 1/\pi$. For $d \ge d_0(c)$ (a threshold independent of $F$), Proposition 3.7 forbids such a $g$ with sign radius $\le c\sqrt d$; hence $1/a \gt c\sqrt d$, i.e.
+$$\Bigl(\frac{F(0)}{\widehat F(0)}\Bigr)^{1/d} = \frac1a \;\gt\; c\,\sqrt d \qquad\text{uniformly over } F \in \mathcal A_d.$$
+Taking the infimum over $F$ and then $c \uparrow 1/\pi$ (eq. (31)):
+$$\inf_{F\in\mathcal A_d}\Bigl(\frac{F(0)}{\widehat F(0)}\Bigr)^{1/d} \;\ge\; \Bigl(\frac1\pi - o(1)\Bigr)\sqrt d.$$
+Now convert to the packing normalization. By Import 2 (Stirling, real axis; numerically <code>c22b</code>),
+$$v_d^{1/d} = \Bigl(\frac{\pi^{d/2}}{\Gamma(d/2+1)}\Bigr)^{1/d} = (1+o(1))\,\sqrt{\frac{2\pi e}{d}},$$
+so, per definition (3),
+$$\mathrm{LP}_d^{1/d} = \frac{v_d^{1/d}}{2}\,\inf_F\Bigl(\frac{F(0)}{\widehat F(0)}\Bigr)^{1/d} \;\ge\; (1+o(1))\,\frac{\sqrt{2\pi e/d}}{2}\cdot\Bigl(\frac1\pi - o(1)\Bigr)\sqrt d \;=\; (1 - o(1))\,\frac{\sqrt{2\pi e}}{2\pi} \;=\; (1-o(1))\sqrt{\frac{e}{2\pi}},$$
+using $\sqrt{2\pi e}/(2\pi) = \sqrt{2\pi e/(4\pi^2)} = \sqrt{e/2\pi}$. Rearranged, this is (28) with a single sequence $\epsilon_d \to 0$ independent of $F$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>Why "the LP knows its own limit" is now half-proved.</b> Theorem 3.8 is a statement about <i>every possible</i> auxiliary function, including all the magic functions nobody has found: none can certify a density below $(\sqrt{e/2\pi} - o(1))^d$. Note the striking route: a bound on an <i>optimization over functions</i> was proved by converting each candidate function into an eigenfunction and applying an uncertainty principle. The remaining half of both theorems &mdash; that this floor is actually attained &mdash; is a construction problem, taken up next.</div>

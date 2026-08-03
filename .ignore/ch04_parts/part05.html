@@ -1,0 +1,191 @@
+<h2 id="rigidity">7. Rigidity of $\Lambda$: infinite orbits and a spectral gap</h2>
+
+<p>By Lemma 2.1, the entire family will inherit ICC and property (T) from the single untwisted group $\Lambda = D \rtimes K$. This section proves both properties for $\Lambda$, by hand. The ICC part is an orbit computation with transvections; the property-(T) part is a genuinely quantitative spectral estimate whose constants are checked by machine in <a class="secref" href="#numerics">&sect;10</a>.</p>
+
+<h3 id="iccpart">7.1 ICC</h3>
+
+<div class="lem"><b>Lemma 5.1.</b> Let an ICC group $H$ act by automorphisms on an abelian group $A$. If every nonzero element of $A$ has an infinite $H$-orbit, then $A \rtimes H$ is ICC.</div>
+
+<div class="proof"><p>Take $(a, h) \neq (0, 1)$. If $h \neq 1$: conjugating by $(0, k)$ and projecting to $H$ shows the conjugacy class of $(a,h)$ surjects onto the class of $h$ in $H$, which is infinite. If $h = 1$, $a \neq 0$: $(0,k)(a,1)(0,k)^{-1} = (k\cdot a, 1)$, and the orbit $\{k\cdot a\}$ is infinite by hypothesis. <span class="qed">&#8718;</span></p></div>
+
+<div class="lem"><b>Lemma 5.2.</b> Every nonzero element of $V \oplus B$ has an infinite $Q$-orbit ($Q = \mathrm{SL}_4(R)$ acting through the standard action on $V = R^4$ and diagonally on $B \subset V\otimes_{\mathbb F_2} V$).</div>
+
+<div class="proof">
+<p><i>On $V$.</i> Let $v \neq 0$; pick $j$ with $v_j \neq 0$ and any $i \neq j$. The transvections $g_n = I + t^nE_{ij} \in Q$ give $g_nv = v + t^n v_j\,e_i$, pairwise distinct for $n \ge 1$ (the added terms have distinct degrees; Fig. 15).</p>
+<p><i>On $B$.</i> The tensor square wants its own variable for each factor: set $S = \mathbb F_2[t_1, t_2]$ and identify
+$$V \otimes_{\mathbb F_2} V \;\cong\; (R \otimes_{\mathbb F_2} R)^{16} \;\cong\; S^{16}, \qquad t_1 = t\otimes 1, \quad t_2 = 1\otimes t,$$
+(the $16$ slots are the pairs $(e_i, e_j)$), with $g \in Q$ acting as $g(t_1)\otimes g(t_2)$. Given $w \in S^{16}\setminus\{0\}$, strip its largest common power of $t_2$: $w = t_2^a w_0$ with $w_0(t_1, 0) \neq 0$, and expand the specialization in the second-factor basis: $w_0(t_1, 0) = \sum_{j=1}^4 e_j \otimes w_j$ with $w_j \in \mathbb F_2[t_1]^4$. Choose $j$ with $w_j \neq 0$, any $i \neq j$, and set
+$$z = (E_{ij}\otimes I)\,w_0(t_1, 0) \neq 0, \qquad h_r = I + t^rE_{ij} \in Q.$$
+If $h_rw = h_sw$ for $r \neq s$, cancel the invertible-in-context factor $t_2^a$ (compare coefficients of $t_2^a$-multiples) and specialize $t_2 = 0$: the element $h_r$ acts as $h_r(t_1)\otimes h_r(t_2)$ with $h_r(t_2) = I + t_2^rE_{ij}$, and since $r \ge 1$ the second factor becomes $I$ at $t_2 = 0$. The specialized equation reads $(I + t_1^rE_{ij}\otimes I)\,w_0(t_1,0) = (I + t_1^sE_{ij}\otimes I)\,w_0(t_1,0)$, i.e.
+$$(t_1^r + t_1^s)\,z = 0.$$
+Since $\mathbb F_2[t_1]^{16}$ is torsion-free and $z \neq 0$, $r = s$. So the maps $w \mapsto h_rw$ are pairwise distinct on $w$: an infinite orbit.</p>
+<p><i>On $D = V\oplus B$.</i> For $(v, w) \neq 0$: if $v \neq 0$ apply the equivariant projection to $V$ and the first part; if $v = 0, w \neq 0$ apply the second part to the $B$-component. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="prop"><b>Proposition 5.3.</b> $\Lambda = D\rtimes K$ is ICC.</div>
+
+<div class="proof"><p>$K$ acts on $D$ through the surjection $\pi_2 : K\twoheadrightarrow Q$, so $K$-orbits coincide with $Q$-orbits, infinite on $D\setminus\{0\}$ by Lemma 5.2. $K$ itself is ICC (Lemma 3.3). Lemma 5.1 concludes. <span class="qed">&#8718;</span></p></div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 220" width="100%" role="img" aria-label="Transvections produce infinite orbits: adding t to the n distinct tails to a vector; on the tensor square, a second variable and specialization isolate the same transvections">
+  <defs><marker id="c4arrO" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2a7d2a"/></marker></defs>
+  <text x="24" y="26" font-size="12.5" fill="#1a1a1a">g&#8345; = I + t&#8319;E&#7522;&#8342;:&#160; g&#8345;v = v + t&#8319;v&#8342;e&#7522; &mdash; new degree every time</text>
+  <!-- degree ruler -->
+  <line x1="60" y1="70" x2="440" y2="70" stroke="#8899aa" stroke-width="1.2"/>
+  <g font-size="10.5" fill="#555">
+    <text x="60" y="88">deg 0</text><text x="130" y="88">1</text><text x="190" y="88">2</text><text x="250" y="88">3</text><text x="310" y="88">4</text><text x="370" y="88">5</text>
+  </g>
+  <rect x="56" y="52" width="50" height="12" fill="#7da7d9" fill-opacity="0.6"/>
+  <g fill="#2a7d2a">
+    <rect x="126" y="52" width="14" height="12"/><rect x="186" y="52" width="14" height="12"/><rect x="246" y="52" width="14" height="12"/><rect x="306" y="52" width="14" height="12"/><rect x="366" y="52" width="14" height="12"/>
+  </g>
+  <g stroke="#2a7d2a" stroke-width="1.3" fill="none">
+    <path d="M100,46 C110,38 120,38 130,46" marker-end="url(#c4arrO)"/>
+    <path d="M160,46 C170,38 180,38 190,46" marker-end="url(#c4arrO)"/>
+    <path d="M220,46 C230,38 240,38 250,46" marker-end="url(#c4arrO)"/>
+  </g>
+  <text x="24" y="118" font-size="12" fill="#555">the added tail t&#8319;v&#8342; lands at ever-higher degree: the orbit points g&#8321;v, g&#8322;v, g&#8323;v, &#8230; are pairwise distinct</text>
+  <text x="24" y="152" font-size="12.5" fill="#c0392b">on B &#8834; V&#8855;V: give each factor its own variable (t&#8321;, t&#8322;), strip t&#8322;-powers, set t&#8322; = 0;</text>
+  <text x="24" y="172" font-size="12.5" fill="#c0392b">the second factor collapses to I and the SAME degree argument applies: (t&#8321;&#678; + t&#8321;&#738;)z = 0 &#8658; r = s</text>
+  <text x="24" y="204" font-size="12" fill="#7a1f1f">infinite orbits on D &#8726; {0} + K ICC &#8658; &#923; = D &#8906; K is ICC (Lemmas 5.1&#8211;5.2)</text>
+</svg><figcaption><b>Infinite orbits by degree bookkeeping.</b> A transvection $I + t^nE_{ij}$ adds a tail of degree $n$ to a vector, so varying $n$ produces infinitely many distinct images. On the tensor square the same argument survives after giving the two factors independent variables and specializing one of them to zero &mdash; a trick that turns a bilinear problem back into a linear one.</figcaption></figure>
+
+<h3 id="spectral">7.2 The spectral criterion</h3>
+
+<p>For property (T) we need one piece of standard functional analysis:</p>
+
+<div class="note"><b>Import 4 (joint spectral theorem for abelian unitary representations).</b> Let $\pi : A \rtimes H \to \mathcal U(\mathcal H)$ be a unitary representation with $A$ countable abelian. There is a unique projection-valued Borel measure $P$ on $\widehat A$ with
+$$\pi(a) = \int_{\widehat A} \chi(a)\, dP(\chi) \qquad (a \in A),$$
+and it obeys the <b>covariance relation</b> $\pi(h)P(U)\pi(h)^{-1} = P(h\cdot U)$ for Borel $U \subseteq \widehat A$, $h \in H$. Moreover $P(\{\mathbf 1\})$ is exactly the projection onto the $A$-fixed vectors. (Standard spectral theory of commuting unitaries; the covariance follows from uniqueness.)</div>
+
+<p>The criterion below is a spectral form of the Cornulier&ndash;Tessera relative-property-(T) criterion [CT11]; its proof is short and self-contained given Import 4. Intuition (Fig. 16): an almost-invariant vector produces an $H$-invariant probability measure on $\widehat A$ concentrating near the trivial character; if a fixed finite &ldquo;detector set&rdquo; $J \subseteq A$ sees every invariant measure at definite strength unless the measure charges $\{\mathbf 1\}$, then the concentration is only possible by actually charging $\{\mathbf 1\}$ &mdash; and an atom at $\mathbf 1$ is an invariant vector.</p>
+
+<div class="lem"><b>Lemma 5.4 (spectral criterion).</b> Let a countable property-(T) group $H$ act by automorphisms on a countable abelian group $A$. Suppose there are a finite $J \subseteq A$ and $c \gt 0$ such that every $H$-invariant Borel probability measure $\mu$ on $\widehat A$ satisfies
+$$\sum_{a \in J}\int_{\widehat A}|\chi(a) - 1|^2\, d\mu(\chi) \;\ge\; c\,\bigl(1 - \mu(\{\mathbf 1\})\bigr). \tag{5.1}$$
+Then $A \rtimes H$ has property (T).</div>
+
+<div class="proof">
+<p>Suppose not: some unitary representation $\pi$ of $A\rtimes H$ has asymptotically invariant unit vectors $(\xi_n)$ (i.e.&nbsp;$\|\pi(g)\xi_n - \xi_n\| \to 0$ for every fixed $g$) but no nonzero invariant vector. Let $(F, \kappa)$ be a Kazhdan pair for $H$ and $P_H$ the projection onto the $H$-fixed subspace $\mathcal H^H$. On the orthogonal complement $(\mathcal H^H)^\perp$, the restriction of $\pi|_H$ has no invariant vectors, so the Kazhdan estimate applies there and gives
+$$\|\xi_n - P_H\xi_n\| \;\le\; \kappa^{-1}\max_{h\in F}\|\pi(h)\xi_n - \xi_n\| \longrightarrow 0.$$
+Hence for large $n$ the normalized projections $\eta_n = P_H\xi_n/\|P_H\xi_n\|$ are $H$-invariant unit vectors with $\|\eta_n - \xi_n\| \to 0$.</p>
+<p>Let $P$ be the spectral measure of $\pi|_A$ (Import 4) and set $\mu_n(U) = \langle P(U)\eta_n, \eta_n\rangle$, a Borel probability measure on $\widehat A$; covariance plus $H$-invariance of $\eta_n$ makes each $\mu_n$ $H$-invariant. For $a \in J$,
+$$\int|\chi(a)-1|^2 d\mu_n(\chi) = \|\pi(a)\eta_n - \eta_n\|^2 \le \bigl(2\|\eta_n - \xi_n\| + \|\pi(a)\xi_n - \xi_n\|\bigr)^2 \longrightarrow 0.$$
+Since $J$ is finite, (5.1) forces $\mu_n(\{\mathbf 1\}) \to 1$; in particular $P(\{\mathbf 1\})\eta_n \neq 0$ for large $n$. This vector is $A$-fixed (that is what $P(\{\mathbf 1\})$ projects onto) and $H$-fixed (covariance: $\mathbf 1$ is an $H$-fixed point of $\widehat A$, so $P(\{\mathbf 1\})$ commutes with $\pi(H)$, and $\eta_n$ is $H$-fixed). A nonzero $A\rtimes H$-invariant vector &mdash; contradiction. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 235" width="100%" role="img" aria-label="Flow of the spectral criterion: almost-invariant vectors give invariant spectral measures; the detection estimate forces an atom at the trivial character; the atom is an invariant vector">
+  <defs><marker id="c4arrS" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <g fill="none" stroke="#b8a" stroke-width="1.3">
+    <rect x="20" y="20" width="440" height="40" rx="6"/>
+    <rect x="20" y="76" width="440" height="40" rx="6"/>
+    <rect x="20" y="132" width="440" height="40" rx="6"/>
+    <rect x="20" y="188" width="440" height="40" rx="6"/>
+  </g>
+  <g font-size="11.8" fill="#1a1a1a">
+    <text x="30" y="37">almost-invariant unit vectors &#958;&#8345; &#8594; project to H-INVARIANT vectors &#951;&#8345;</text>
+    <text x="30" y="53" font-size="10.5" fill="#555">(Kazhdan pair of H controls the distance to the fixed space)</text>
+    <text x="30" y="93">&#951;&#8345; + spectral theorem &#8658; H-invariant probability measures &#956;&#8345; on &#194;</text>
+    <text x="30" y="109" font-size="10.5" fill="#555">&#956;&#8345;(U) = &#9001;P(U)&#951;&#8345;, &#951;&#8345;&#9002;; almost-invariance &#8658; &#8747;|&#967;(a)&#8722;1|&#178;d&#956;&#8345; &#8594; 0 for a &#8712; J</text>
+    <text x="30" y="149">detection estimate (5.1): small integrals &#8658; &#956;&#8345;({1}) &#8594; 1 &mdash; an ATOM at the trivial character</text>
+    <text x="30" y="165" font-size="10.5" fill="#555">the finite set J &ldquo;hears&rdquo; every invariant measure that avoids 1</text>
+    <text x="30" y="205">P({1})&#951;&#8345; &#8800; 0: an A-fixed, H-fixed vector &#8658; (A &#8906; H)-invariant &#8658; contradiction &#8658; (T)</text>
+  </g>
+  <g stroke="#7a1f1f" stroke-width="1.5" fill="none">
+    <line x1="240" y1="60" x2="240" y2="72" marker-end="url(#c4arrS)"/>
+    <line x1="240" y1="116" x2="240" y2="128" marker-end="url(#c4arrS)"/>
+    <line x1="240" y1="172" x2="240" y2="184" marker-end="url(#c4arrS)"/>
+  </g>
+</svg><figcaption><b>The spectral criterion (Lemma 5.4).</b> Property (T) of $H$ upgrades almost-invariant vectors to exactly $H$-invariant ones; the spectral theorem converts those into $H$-invariant measures on the dual; the uniform detection estimate (5.1) pins such measures to the trivial character; and the resulting atom is an invariant vector for the whole semidirect product. All that remains is to <i>prove</i> (5.1) for $D \rtimes K$ &mdash; a concrete counting problem.</figcaption></figure>
+
+<h3 id="boolean">7.3 The quadratic Boolean estimate</h3>
+
+<p>The estimate (5.1) will come from Boolean-function combinatorics. Every function $p : \mathbb F_2^m \to \mathbb F_2$ has a unique multilinear polynomial representative; $\deg p$ is its degree and $\mathrm{supp}(p) = \{x : p(x) \neq 0\}$.</p>
+
+<div class="lem"><b>Lemma 5.5 (quarter-support bound).</b> Let $m \ge 2$ and let $p : \mathbb F_2^m \to \mathbb F_2$ be a nonzero polynomial function of degree $\le 2$. Then $|\mathrm{supp}(p)| \ge 2^{m-2}$: $p$ is nonzero on at least a quarter of the Boolean cube.</div>
+
+<div class="proof">
+<p>Induct on $m$. For $m = 2$ every nonzero function has support $\ge 1 = 2^0$. For $m \ge 3$, split off the last variable: $p(x', x_m) = p_0(x') + x_mp_1(x')$ with $\deg p_0 \le 2$, $\deg p_1 \le 1$.</p>
+<p>If $p_1 = 0$: then $p_0 \neq 0$ and $p$ ignores $x_m$, so by induction $|\mathrm{supp}(p)| = 2\,|\mathrm{supp}(p_0)| \ge 2\cdot 2^{(m-1)-2} = 2^{m-2}$.</p>
+<p>If $p_1 \neq 0$: a nonzero affine-linear function on $\mathbb F_2^{m-1}$ is nonzero on at least $2^{m-2}$ points &mdash; it is either the constant $1$ (nonzero everywhere) or nonconstant, in which case its two level sets are cosets of a hyperplane, each of size exactly $2^{m-2}$. For every $x' \in \mathrm{supp}(p_1)$, the two values $p(x', 0) = p_0(x')$ and $p(x', 1) = p_0(x') + p_1(x')$ differ, so exactly one is nonzero. Hence $|\mathrm{supp}(p)| \ge |\mathrm{supp}(p_1)| \ge 2^{m-2}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>The bound is exact and small cases are fully checkable: exhaustive enumeration (<a class="secref" href="#numerics">&sect;10</a>) over all $2^{11}-1 = 2047$ nonzero polynomials of degree $\le 2$ on $\mathbb F_2^4$ finds minimum support exactly $4 = 2^{4-2}$, and over all $65535$ on $\mathbb F_2^5$ minimum $8 = 2^{5-2}$ (Fig. 17 shows the computed profile).</p>
+
+<h3 id="uniform">7.4 The uniform evaluation estimate, and why rank $4$</h3>
+
+<p>Now the counting. A vector $v \in R^4$ is <b>primitive</b> if its four coordinate polynomials generate the unit ideal of $R$ (equivalently: their gcd is $1$). Let $\mathcal P$ be the set of primitive vectors, and truncate:
+$$R_N = \mathrm{span}_{\mathbb F_2}\{1, t, \dots, t^{N-1}\}, \qquad V_N = R_N^4 \;(\cong \mathbb F_2^{4N}).$$</p>
+
+<div class="lem"><b>Lemma 5.6.</b> $K$ acts transitively on $\mathcal P$, and
+$$|\mathcal P \cap V_N| \;=\; 7\cdot 2^{4N-3} + 1, \qquad\text{i.e.}\qquad \frac{|\mathcal P\cap V_N|}{|V_N|} = \frac78 + 2^{-4N}.$$</div>
+
+<div class="proof">
+<p><i>Transitivity.</i> Since $\pi_2$ is onto, $K$-orbits on $V$ are $\mathrm{SL}_4(R)$-orbits. $R$ is Euclidean, and the row-reduction of Lemma H, applied to a primitive column vector, runs Euclid on its entries down to their gcd $= 1$ and moves it to the top: every primitive vector maps to $e = (1,0,0,0)$ under some element of $\mathrm{SL}_4(R)$.</p>
+<p><i>The count.</i> Let $P_N = |\mathcal P\cap V_N|$, with $P_0 = 0$. Every nonzero $v \in V_N$ factors uniquely as $v = g\,w$ with $g$ the monic gcd of its coordinates, say of degree $d \le N-1$, and $w$ primitive in $V_{N-d}$. There are $2^d$ monic polynomials of degree $d$, so
+$$2^{4N} - 1 \;=\; \sum_{d=0}^{N-1} 2^d\, P_{N-d}.$$
+Subtract twice the same identity for $N-1$ (whose sum, shifted by one, matches the $d \ge 1$ terms):
+$$P_N = (2^{4N}-1) - 2(2^{4(N-1)}-1) = 2^{4N} - 2^{4N-3} + 1 = 7\cdot2^{4N-3}+1.$$
+(Machine-checked: $P_1 = 15$, $P_2 = 225$, $P_3 = 3585$; see <a class="secref" href="#numerics">&sect;10</a>.) <span class="qed">&#8718;</span></p>
+</div>
+
+<p>For $z = (\ell, q) \in X\times Y = \widehat D$ define the <b>two-bit evaluation</b>
+$$z[v] \;=\; \bigl(\ell(v),\; q(b(v))\bigr) \in \mathbb F_2^2,$$
+and say $v$ <b>detects</b> $z$ if $z[v] \neq (0,0)$. (The two bits are read separately, by the group elements $(v, 0)$ and $(0, b(v))$ of $D$; adding them into one bit would allow cancellations.)</p>
+
+<div class="lem"><b>Lemma 5.7 (one-seventh detection).</b> Every $K$-invariant Borel probability measure $\mu$ on $X\times Y$ satisfies
+$$\mu\{z : z[e] \neq (0,0)\} \;\ge\; \tfrac17\bigl(1 - \mu(\{(0,0)\})\bigr). \tag{5.3}$$</div>
+
+<div class="proof">
+<p>Detection probability is constant on the primitive orbit: since $(k\cdot z)[k\cdot v] = z[v]$ and $\mu$ is $K$-invariant, $p_\mu := \mu\{z : z[v] \neq (0,0)\}$ is the same for every $v \in \mathcal P$ (Lemma 5.6, transitivity).</p>
+<p>Fix $N$ and suppose $z = (\ell, q)$ is detected by <i>some</i> $v \in V_N$. Then at least one of the Boolean functions $v \mapsto \ell(v)$ (linear) and $v \mapsto q(b(v))$ (degree $\le 2$, by Lemma I / Fig. 11) is nonzero on $V_N \cong \mathbb F_2^{4N}$; Lemma 5.5 gives at least $2^{4N-2}$ detecting vectors in $V_N$. By Lemma 5.6 the nonprimitive vectors of $V_N$ number
+$$|V_N| - |\mathcal P\cap V_N| = 2^{4N} - 7\cdot2^{4N-3} - 1 = 2^{4N-3}-1,$$
+so at least $2^{4N-2} - (2^{4N-3}-1) = 2^{4N-3}+1$ <b>primitive</b> vectors detect $z$. Let $U_N = \{z : z[v] \neq (0,0)$ for some $v \in V_N\}$. Integrating the pointwise count of primitive detectors over $\mu$:
+$$p_\mu\,|\mathcal P\cap V_N| \;=\; \sum_{v \in \mathcal P\cap V_N}\mu\{z : z[v]\neq(0,0)\} \;\ge\; (2^{4N-3}+1)\,\mu(U_N) \;\ge\; \tfrac17\,|\mathcal P\cap V_N|\;\mu(U_N),$$
+using $7(2^{4N-3}+1) \ge 7\cdot2^{4N-3}+1$. Divide by $|\mathcal P\cap V_N|$. As $N \to \infty$ the sets $U_N$ increase to $(X\times Y)\setminus\{(0,0)\}$ &mdash; a character pair other than $(0,0)$ is nonzero somewhere, and the $b(v)$ span $B$ &mdash; so monotone convergence gives (5.3). <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>Remark 5.8 (why rank $4$ exactly).</b> The constant $\frac17 = \frac{1/4 - 1/8}{7/8}$ is a competition between two densities: a nonzero quadratic detects on $\ge \frac14$ of the cube (Lemma 5.5), while the nonprimitive vectors, which transitivity cannot use, have asymptotic density $\frac18$ in rank $4$. In rank $j \ge 3$ the same argument yields
+$$c_j \;=\; \frac{1/4 - 2^{1-j}}{1 - 2^{1-j}} \;=\; \frac{2^{j-3}-1}{2^{j-1}-1},$$
+computed in <a class="secref" href="#numerics">&sect;10</a>: $c_3 = 0$, $c_4 = \frac17$, $c_5 = \frac15$, $c_6 = \frac{7}{31}$, $c_7 = \frac{5}{21}$ (Fig. 17). The bound is positive exactly for $j \ge 4$: <b>rank $4$ is the smallest rank where the quadratic quarter-support beats the nonprimitive density</b> &mdash; the reason the whole chapter is set in $\mathrm{SL}_4$.</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 260" width="100%" role="img" aria-label="Computed data: minimum supports of quadratic Boolean polynomials, and the detection constants c_j by rank with rank 3 giving zero and rank 4 the first positive value">
+  <!-- left: support histogram facts -->
+  <rect x="20" y="34" width="200" height="150" rx="8" fill="none" stroke="#2e5a8a" stroke-width="1.3"/>
+  <text x="30" y="26" font-size="12" fill="#2e5a8a">Lemma 5.5, exhaustively checked</text>
+  <text x="32" y="60" font-size="12" fill="#1a1a1a">m = 4: all 2047 nonzero</text>
+  <text x="32" y="78" font-size="12" fill="#1a1a1a">quadratics: min supp = 4 = 2&#178;</text>
+  <text x="32" y="106" font-size="12" fill="#1a1a1a">m = 5: all 65535:</text>
+  <text x="32" y="124" font-size="12" fill="#1a1a1a">min supp = 8 = 2&#179;</text>
+  <text x="32" y="152" font-size="11.5" fill="#555">the quarter bound is tight</text>
+  <text x="32" y="170" font-size="11.5" fill="#555">(script: see caption)</text>
+  <!-- right: c_j bar chart -->
+  <text x="252" y="26" font-size="12" fill="#c0392b">detection constant c&#8342; by rank j (computed)</text>
+  <line x1="260" y1="180" x2="450" y2="180" stroke="#8899aa" stroke-width="1.2"/>
+  <!-- bars: c3=0, c4=1/7~.143, c5=.2, c6=7/31~.226, c7=5/21~.238; scale 500px/unit -->
+  <g fill="#c0392b" fill-opacity="0.7">
+    <rect x="300" y="108.5" width="26" height="71.5"/>
+    <rect x="336" y="80" width="26" height="100"/>
+    <rect x="372" y="67" width="26" height="113"/>
+    <rect x="408" y="61" width="26" height="119"/>
+  </g>
+  <rect x="264" y="178" width="26" height="2" fill="#c0392b" fill-opacity="0.7"/>
+  <g font-size="10.5" fill="#555">
+    <text x="270" y="196">j=3</text><text x="306" y="196">j=4</text><text x="342" y="196">j=5</text><text x="378" y="196">j=6</text><text x="414" y="196">j=7</text>
+    <text x="266" y="172">0</text><text x="300" y="102">1/7</text><text x="338" y="74">1/5</text><text x="370" y="61">7/31</text><text x="406" y="55">5/21</text>
+  </g>
+  <text x="252" y="222" font-size="11.5" fill="#7a1f1f">rank 3: the bound dies (c&#8323; = 0); rank 4: first positive &#8658; SL&#8324; it is</text>
+  <text x="20" y="248" font-size="12" fill="#7a1f1f">c&#8342; = (quarter support &#8722; nonprimitive density 2&#185;&#8315;&#690;) / (primitive density) &mdash; a race of densities</text>
+</svg><figcaption><b>The numbers behind the spectral gap</b> (all computed by <code>figgen/ch04_figs.py</code>). Left: the quarter-support bound of Lemma 5.5 is exhaustively verified and tight for $m = 4, 5$. Right: the rank-$j$ detection constant $c_j = (2^{j-3}-1)/(2^{j-1}-1)$ vanishes at rank $3$ and turns positive at rank $4$, where it equals $\frac17$ &mdash; the chapter's choice of $\mathrm{SL}_4$ is forced by this race.</figcaption></figure>
+
+<div class="prop"><b>Proposition 5.9.</b> $\Lambda = D \rtimes K$ has property (T).</div>
+
+<div class="proof">
+<p>Apply Lemma 5.4 with $H = K$ (property (T) by Proposition 3.1), $A = D$, detector set $J = \{d_1, d_2\}$ where
+$$d_1 = (e, 0), \qquad d_2 = (0, b(e)) \;\in\; D = V\oplus B.$$
+A character $z = (\ell, q) \in \widehat D$ evaluates as $z(d_1) = (-1)^{\ell(e)}$ and $z(d_2) = (-1)^{q(b(e))}$, so $|z(d_i) - 1|^2 \in \{0, 4\}$, nonzero exactly when the corresponding bit of $z[e]$ is $1$. Hence the pointwise inequality
+$$|z(d_1)-1|^2 + |z(d_2)-1|^2 \;\ge\; 4\cdot\mathbf 1_{\{z[e]\neq(0,0)\}}.$$
+Integrating against any $K$-invariant probability measure $\mu$ and applying Lemma 5.7:
+$$\sum_{j=1}^2\int_{\widehat D}|\chi(d_j)-1|^2\,d\mu(\chi) \;\ge\; 4\,\mu\{z[e]\neq(0,0)\} \;\ge\; \tfrac47\bigl(1 - \mu(\{\mathbf 1\})\bigr).$$
+This is (5.1) with $c = \frac47$; Lemma 5.4 concludes. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="keyresult"><b>Corollary 5.10 (the two-group counterexample).</b> $\Lambda$ and $\Gamma_0$ are nonisomorphic ICC property-(T) groups with $L(\Lambda) \cong L(\Gamma_0)$. <span class="small">(Proof: nonisomorphic with one factor by Proposition 4.3; $\Lambda$ is ICC with (T) by Propositions 5.3 and 5.9; both properties transfer to $\Gamma_0$ through the factor by Lemma 2.1.)</span> Connes's Conjecture 1.1 is false.</div>

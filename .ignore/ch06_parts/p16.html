@@ -1,0 +1,82 @@
+<hr>
+
+<h2 id="scope">16. Scope &mdash; what is proved, what is missed</h2>
+
+<p>An honest ledger of what Theorem 1.1 does and does not establish.</p>
+
+<p><b>Proved, in full strength.</b> For <i>every</i> finite two-player one-round game &mdash; arbitrary predicate $V$, arbitrary correlated question distribution $\mu$, arbitrary finite answer alphabets &mdash; the entangled value of the unchanged repeated game decays exponentially, at a rate depending only on $\varepsilon$ and $\log(|A||B|)$, uniformly over games and over the entanglement dimension of the strategies. The proof is effective: the constant is the explicit $c_{\mathrm{qs}} = \tfrac18(4B_{\mathrm{qs}})^{-12}$ with $B_{\mathrm{qs}}$ from (11), once a concrete $K_{\mathrm{qs}}$ from Import 1 is fixed. Within this document, everything except Import 1 is proved from linear algebra and finite probability.</p>
+
+<p><b>The exponent is certainly not optimal.</b> Classically the same architecture yields $\varepsilon^3$ (Holenstein); here the embezzlement import's $1/12$-power loss inflates the exponent to $13$. The chapter itself flags this: the exponent "arises from the quantitative loss in a standard quantum correlated-sampling lemma" and is not claimed sharp. Any improvement in the exponent of Import 1 propagates mechanically through (11), (16), and &sect;10. In the other direction, Raz's counterexample already rules out a linear-in-$\varepsilon$ rate classically, so <i>some</i> polynomial loss is necessary; where between $1$ and $13$ the truth lies is open.</p>
+
+<p><b>The constants are galactic.</b> Fig. 23 was blunt: even at the illustrative floor $K_{\mathrm{qs}} = 1$, the guaranteed rate $\gamma$ at $\varepsilon = 0.3$ is $\sim10^{-31}$ per copy. Theorem 1.1 is a structural fact about the shape of decay &mdash; it says nothing usable about, say, $n = 100$ copies of a real Bell test. For practical soundness amplification one still reaches for anchored repetition (Bavarian&ndash;Vidick&ndash;Yuen), whose modified-game bounds have humane constants.</p>
+
+<p><b>Model boundaries.</b> Three are built into Definition 2.1. (i) <i>Two players, one round</i>: the dependency-breaking reveal argument is intrinsically two-sided (the coverage condition (2) partitions coordinates between exactly two players); multiplayer quantum parallel repetition remains open in general. (ii) <i>Tensor-product strategies, finite dimension</i>: the theorem bounds the finite-dimensional tensor-product value; the commuting-operator value of infinite-dimensional strategies (the other natural quantum model, strictly larger in general by the resolution of Tsirelson's problem) is not addressed. (iii) <i>Fixed game repeated independently</i>: nothing is claimed about repeating with correlated question tuples across coordinates.</p>
+
+<p><b>Where this sits in the larger program.</b> Parallel repetition is the standard soundness-amplification tool for multiprover proof systems, and the entangled-game setting is exactly the world of $\mathrm{MIP}^*$ &mdash; whose equality with $\mathrm{RE}$ made entangled games a lens on undecidability. Amplification lemmas of this kind slot into that machinery (recent examples in the chapter's bibliography: succinct perfect zero-knowledge for $\mathrm{MIP}^*$, and the co-r.e. characterization of the commuting-operator class $\mathrm{MIP}^{co}$). The specific advance here &mdash; postselection-stable quantum conditioning &mdash; is plausibly portable: any argument that needs players to re-create a measured-and-conditioned quantum state now has a template that does not pay $1/p$.</p>
+
+<h2 id="notation">Appendix: notation glossary</h2>
+
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Meaning</th><th>Defined</th></tr>
+<tr><td>$G = (X,Y,A,B,\mu,V)$</td><td>finite one-round two-player game: question sets, answer alphabets, question distribution, predicate</td><td>Def. 2.1, <a class="secref" href="#games">&sect;2</a></td></tr>
+<tr><td>$\omega(G)$, $\omega^*(G)$</td><td>classical / entangled value; $\varepsilon = 1-\omega^*(G)$, $\ell = \log(|A||B|)$</td><td><a class="secref" href="#games">&sect;2</a>, <a class="secref" href="#repetition">&sect;3</a></td></tr>
+<tr><td>$G^{\otimes n}$, $v_n$, $V^{\otimes n}$</td><td>$n$-fold parallel repetition and its value; win-all predicate</td><td>Def. 2.2</td></tr>
+<tr><td>$E^{a^n}_{x^n}, F^{b^n}_{y^n}$; $E^{a_D}_{x^n}, F^{b_D}_{y^n}$</td><td>repeated-strategy POVMs; their core-answer marginals</td><td><a class="secref" href="#architecture">&sect;5</a>, <a class="secref" href="#ideal">&sect;7</a></td></tr>
+<tr><td>$W_i$, $W_D$, $\vartheta$</td><td>win events; $\vartheta = \mathcal{P}(W_{[n]})$</td><td><a class="secref" href="#architecture">&sect;5</a></td></tr>
+<tr><td>$D$, $m$, $p$, $q$, $\eta$; $\tau$, $s$</td><td>core; live count $n-|D|$; core-success mass; average live conditional success; info cost $(\tau+s)/m$ with $\tau = \log(1/p)$, $s = |D|\ell$</td><td>(1), <a class="secref" href="#martingales">&sect;11</a></td></tr>
+<tr><td>$\delta$, $\gamma$, $\alpha$; $K_{\mathrm{qs}}, U_*, B_{\mathrm{qs}}, c_{\mathrm{qs}}$</td><td>conditioning slack $\varepsilon/4$; contradiction rate; catalyst accuracy; the universal constants</td><td><a class="secref" href="#endgame">&sect;10</a>, (11), (16)</td></tr>
+<tr><td>$\lambda$, $i$, $C_X, C_Y$</td><td>public randomness; live coordinate; revealed-coordinate sets, condition (2)</td><td><a class="secref" href="#s7-reveal">&sect;7.1</a>, <a class="secref" href="#martingales">&sect;11</a></td></tr>
+<tr><td>$T$, $Z$, $R = (T,Z)$; $r = (t,z)$</td><td>revealed-question history; core answer word; full history and its realizations</td><td><a class="secref" href="#s7-reveal">&sect;7.1</a></td></tr>
+<tr><td>$\mathcal{P}$, $\mathcal{P}_0$, $\mathcal{Q}$, $\mathcal{J}_A, \mathcal{J}_B$</td><td>prior; answers-discarded prior; posterior $\mathcal{P}(\cdot|W_D)$; locally generated tuple distributions (6)</td><td><a class="secref" href="#architecture">&sect;5</a>&ndash;<a class="secref" href="#central">&sect;8</a></td></tr>
+<tr><td>$H_{r,x}, K_{r,y}$; $\bar H_{r,y}, \bar K_{r,x}$</td><td>effective local effects; their averages over the other player's live question</td><td><a class="secref" href="#s7-effects">&sect;7.3</a>, <a class="secref" href="#central">&sect;8</a></td></tr>
+<tr><td>$H^a_{r,x}, K^b_{r,y}$; $\widetilde M^a_{r,x}, \widetilde N^b_{r,y}$</td><td>answer refinements; the simulating POVMs of Lemma 3.2</td><td><a class="secref" href="#s7-simulate">&sect;7.4</a></td></tr>
+<tr><td>$\Gamma$, $\mathcal{A}$, $g_\sigma$</td><td>purification (5); auxiliary space; resolvent profiles $\sigma/(\sigma+u)$</td><td><a class="secref" href="#ideal">&sect;7</a>, Def. 4.2</td></tr>
+<tr><td>$\phi_{r,x,y}, \phi^A_{r,x}, \phi^B_{r,y}$; $\Psi_\cdot$</td><td>ideal and surrogate branches (7); their normalized states</td><td><a class="secref" href="#ideal">&sect;7</a>&ndash;<a class="secref" href="#central">&sect;8</a></td></tr>
+<tr><td>$p_r(x,y)$</td><td>branch probability $\|\phi_{r,x,y}\|^2$, eq. (4)</td><td><a class="secref" href="#s7-effects">&sect;7.3</a></td></tr>
+<tr><td>$\kappa$</td><td>$\sqrt{3\eta/2}$: history sampling error scale</td><td>Lemma 3.3</td></tr>
+<tr><td>$L_X, L_Y^+$ (or $L_X^+, L_Y$), $\pi$, $k$, $U$, $N$</td><td>reveal partition, orders, cuts, background (21), block size</td><td><a class="secref" href="#martingales">&sect;11</a></td></tr>
+<tr><td>$F_j, G_j, K$</td><td>reveal martingales and the frozen partner effect (22)&ndash;(23)</td><td>Lemma 4.1</td></tr>
+<tr><td>$H_1$, $D(\cdot\|\cdot)$, $d_{\mathrm{TV}}$</td><td>entropy function $-v\log v$ (scalar and operator); relative entropy; total variation</td><td><a class="secref" href="#toolkit">&sect;1</a>, <a class="secref" href="#info">&sect;4</a></td></tr>
+<tr><td>$I_A, I_B$</td><td>unnormalized Alice-/Bob-reveal costs</td><td><a class="secref" href="#budget">&sect;13</a></td></tr>
+<tr><td>$\rho_K$</td><td>$K$-absorbed reduced operator, eq. (27)</td><td>Lemma 4.4</td></tr>
+<tr><td>$|E_b\rangle$, $d'$</td><td>embezzlement state; catalyst dimension</td><td>Import 1, <a class="secref" href="#rounding">&sect;9</a></td></tr>
+<tr><td>$S_\alpha$, $e(i,r,x,y)$, $w(i,r,x,y)$</td><td>the rounded strategy; its branch state-error and ideal win probability</td><td>Lemma 3.6</td></tr>
+</table></div>
+
+<p class="small">Built from Chapter 6 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (PDF pages 154&ndash;182); the chapter's numbering of Theorem 1.1, Definitions 2.1/2.2/4.2, Lemmas 3.1&ndash;3.6, 4.1&ndash;4.9, A.1 and equations (1)&ndash;(35) is preserved throughout. Sister explainers in this series: Ch. 1 (sphere packing), Ch. 3 (non-sofic group), Ch. 4 (Connes rigidity), Ch. 8 (Ehrhart volume), Ch. 9 (Ramsey), Ch. 10 (compactness &amp; degeneracy). Figure data and the 34-check validation battery: <code>figgen/ch06_figs.py</code>.</p>
+
+<script>
+function copyCode(btn){
+  var code = btn.parentElement.querySelector('code');
+  if(!code) return;
+  var text = code.textContent;
+  var done = function(){
+    var label = btn.querySelector('span'), prev = label.textContent;
+    btn.classList.add('copied'); label.textContent = 'Copied!';
+    setTimeout(function(){ btn.classList.remove('copied'); label.textContent = prev; }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+(function(){
+  try{
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('svg').forEach(function(svg){
+        if(typeof svg.pauseAnimations === 'function'){
+          if(typeof svg.setCurrentTime === 'function') svg.setCurrentTime(4.2);
+          svg.pauseAnimations();
+        }
+      });
+    }
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>

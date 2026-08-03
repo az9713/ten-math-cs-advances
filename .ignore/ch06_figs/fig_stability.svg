@@ -1,0 +1,18 @@
+<svg class="setupfig" viewBox="0 0 540 200" width="100%" role="img" aria-label="the postselection-stability idea">
+<defs><marker id="c6sA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<text x="135" y="24" font-size="12.5" text-anchor="middle" fill="#b06a00" font-weight="bold">naive route (lossy)</text>
+<rect x="28" y="36" width="214" height="96" rx="6" fill="#fff8ee" stroke="#b06a00" stroke-width="1.4"/>
+<text x="135" y="58" font-size="11" text-anchor="middle" fill="#333">prove a bound on the PRIOR</text>
+<text x="135" y="75" font-size="11" text-anchor="middle" fill="#333">experiment, then condition:</text>
+<text x="135" y="92" font-size="11" text-anchor="middle" fill="#333">posterior error ≤ prior/p.</text>
+<text x="135" y="109" font-size="11" text-anchor="middle" fill="#333">with p ≈ e⁻ᵞⁿ this explodes</text>
+<text x="405" y="24" font-size="12.5" text-anchor="middle" fill="#2a7d2a" font-weight="bold">postselection-stable route</text>
+<rect x="298" y="36" width="214" height="96" rx="6" fill="#f2f7f2" stroke="#2a7d2a" stroke-width="1.4"/>
+<text x="405" y="58" font-size="11" text-anchor="middle" fill="#333">keep branches UNNORMALIZED:</text>
+<text x="405" y="75" font-size="11" text-anchor="middle" fill="#333">budget itself carries a factor p</text>
+<text x="405" y="92" font-size="11" text-anchor="middle" fill="#333">(Lemma 4.5).  Posterior weight</text>
+<text x="405" y="109" font-size="11" text-anchor="middle" fill="#333">divides by p — exact cancellation</text>
+<text x="135" y="158" font-size="12.5" text-anchor="middle" fill="#b06a00">cost ∝ (τ+s)/(m·p)</text>
+<text x="405" y="158" font-size="12.5" text-anchor="middle" fill="#2a7d2a" font-weight="bold">cost ≤ 8(τ+s)/m = 8η</text>
+<text x="270" y="186" font-size="12" text-anchor="middle" fill="#333">this single cancellation is what upgrades polynomial decay (Yuen 2016) to exponential decay</text>
+</svg>

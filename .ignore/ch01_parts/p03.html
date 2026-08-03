@@ -1,0 +1,71 @@
+<h2 id="certificate">3. The Cohn&ndash;Elkies certificate: one function bounds every packing</h2>
+
+<p>This section proves inequality (4): every admissible $f$ is a <i>certificate</i> that no packing anywhere in $\mathbb{R}^d$ can beat the density $v_d f(0) / (2^d\widehat f(0))$. The proof is a double count of pair interactions &mdash; one count using the sign of $f$, one using the sign of $\widehat f$ &mdash; glued by Poisson summation. We first handle periodic packings, where the count is finite, then show periodic packings capture $\Delta_d$.</p>
+
+<h3 id="periodic">3.1 The periodic case: a double count</h3>
+
+<p>A <b>periodic packing</b> is a finite union of lattice translates: fix a lattice $L$ and points $t_1, \dots, t_N$, distinct modulo $L$, and take $\mathcal{P} = \bigcup_{j=1}^N (t_j + L)$, assumed $1$-separated. Its density is exact (no $\limsup$ needed): each fundamental cell of volume $\operatorname{covol}(L)$ contains exactly $N$ centers, so the fraction of space covered by the radius-$\tfrac12$ balls is
+$$\bar\delta(\mathcal{P}) \;=\; \frac{N}{\operatorname{covol}(L)}\cdot\frac{v_d}{2^d}.$$</p>
+
+<div class="prop" id="propcert"><b>Proposition C (certificate bound, periodic case).</b> Let $f \in \mathcal{A}_d$ and let $\mathcal{P} = \bigcup_j (t_j+L)$ be a periodic packing as above. Then
+$$\frac{N}{\operatorname{covol}(L)} \;\le\; \frac{f(0)}{\widehat f(0)}, \qquad\text{hence}\qquad \bar\delta(\mathcal{P}) \;\le\; \frac{v_d}{2^d}\,\frac{f(0)}{\widehat f(0)}.$$</div>
+
+<div class="proof">
+<p>Consider the finite-plus-lattice pair sum
+$$S \;=\; \sum_{j=1}^N \sum_{k=1}^N \sum_{\ell \in L} f(t_j - t_k + \ell),$$
+absolutely convergent by Schwartz decay. We bound $S$ from above and below.</p>
+<p><b>Above (real side, using $f \le 0$ outside radius 1).</b> Split off the terms with $j = k$ and $\ell = 0$, which contribute $N f(0)$. Every other term evaluates $f$ at $t_j - t_k + \ell$ with either $j \ne k$ or $\ell \ne 0$; in both cases $t_j + \ell$ and $t_k$ are two <i>distinct</i> points of the packing $\mathcal{P}$, so $|t_j - t_k + \ell| \ge 1$ by $1$-separation, and admissibility gives $f(t_j-t_k+\ell) \le 0$. Hence
+$$S \;\le\; N f(0).$$</p>
+<p><b>Below (Fourier side, using $\widehat f \ge 0$).</b> Apply Poisson summation (Theorem 2.8) to the inner sum at the point $x = t_j - t_k$:
+$$S = \sum_{j,k}\frac{1}{\operatorname{covol}(L)}\sum_{m \in L^*}\widehat f(m)\, e^{2\pi i m\cdot(t_j-t_k)} = \frac{1}{\operatorname{covol}(L)}\sum_{m \in L^*}\widehat f(m)\, \Bigl|\sum_{j=1}^N e^{2\pi i m\cdot t_j}\Bigr|^2,$$
+where we swapped the finite sums with the absolutely convergent $m$-sum and factored $\sum_{j,k} e^{2\pi i m \cdot t_j}\overline{e^{2\pi i m\cdot t_k}} = |\sum_j e^{2\pi i m\cdot t_j}|^2$. Every summand is $\ge 0$ (this is where $\widehat f \ge 0$ acts), so keeping only $m = 0$, where the exponential sum is $N$:
+$$S \;\ge\; \frac{\widehat f(0)\, N^2}{\operatorname{covol}(L)}.$$</p>
+<p>Chaining the two bounds (Fig. 9), $\widehat f(0)N^2/\operatorname{covol}(L) \le S \le Nf(0)$; divide by $N \widehat f(0) \gt 0$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 460 190" width="100%" role="img" aria-label="The certificate double count">
+  <defs><marker id="c1certarr" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#555"/></marker></defs>
+  <rect x="18" y="20" width="188" height="62" rx="7" fill="#f6d5cf" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="112" y="43" font-size="12.5" text-anchor="middle" fill="#333">real side:  f &le; 0 at distances &ge; 1</text>
+  <text x="112" y="63" font-size="13" text-anchor="middle" fill="#c0392b">S &le; N f(0)</text>
+  <rect x="254" y="20" width="188" height="62" rx="7" fill="#d7e3f0" stroke="#2e6da4" stroke-width="1.5"/>
+  <text x="348" y="43" font-size="12.5" text-anchor="middle" fill="#333">Fourier side:  f&#770; &ge; 0, keep m = 0</text>
+  <text x="348" y="63" font-size="13" text-anchor="middle" fill="#2e6da4">S &ge; N&sup2; f&#770;(0)/covol</text>
+  <line x1="112" y1="86" x2="205" y2="128" stroke="#555" stroke-width="1.4" marker-end="url(#c1certarr)"/>
+  <line x1="348" y1="86" x2="255" y2="128" stroke="#555" stroke-width="1.4" marker-end="url(#c1certarr)"/>
+  <rect x="120" y="132" width="220" height="44" rx="7" fill="#efe9dd" stroke="#7a5a1e" stroke-width="1.5"/>
+  <text x="230" y="152" font-size="13" text-anchor="middle" fill="#333">center density N/covol &le; f(0)/f&#770;(0)</text>
+  <text x="230" y="169" font-size="11.5" text-anchor="middle" fill="#555">one function bounds every periodic packing</text>
+  <text x="230" y="108" font-size="12" text-anchor="middle" fill="#555">same pair sum S, counted twice</text>
+</svg><figcaption>The certificate logic of Proposition C: a single pair sum $S$ over the periodic packing, squeezed from above by the sign of $f$ and from below by the sign of $\widehat f$. Poisson summation (Theorem 2.8) is the bridge between the two counts.</figcaption></figure>
+
+<div class="note"><b>What would break.</b> Drop "$f \le 0$ outside radius $1$" and the upper count fails: distant pairs could contribute positively and $S \le Nf(0)$ dies. Drop "$\widehat f \ge 0$" and the lower count fails: negative Fourier modes could cancel the $m=0$ term. Drop "$\widehat f(0) \gt 0$" and the final division is illegal (and the bound trivializes). The three conditions of (2) are exactly the three joints of this proof &mdash; nothing is decorative.</div>
+
+<h3 id="reduction">3.2 Reduction to periodic packings</h3>
+
+<div class="lem" id="lemperiodic"><b>Lemma D (periodic packings suffice).</b> For every packing $\mathcal{P}$ and every $\varepsilon \gt 0$ there is a periodic packing $\mathcal{P}'$ with $\bar\delta(\mathcal{P}') \ge \bar\delta(\mathcal{P}) - \varepsilon$. Consequently $\Delta_d = \sup\{\bar\delta(\mathcal{P}') : \mathcal{P}' \text{ periodic}\}$.</div>
+<div class="proof">
+<p>Choose radii $R_n \to \infty$ realizing the $\limsup$: the covered fraction $\delta_n$ of $Q_{R_n}$ tends to $\bar\delta(\mathcal{P})$. Fix $n$, write $R = R_n$. Every point of $Q_R$ covered by a packing ball is covered by a ball whose center lies in $Q_{R+1}$, so the finite set $\mathcal{F} = \mathcal{P} \cap Q_{R+1}$ (finite: its points are $1$-separated, so the balls $B(x,\tfrac12)$, $x \in \mathcal F$, are disjoint and all fit in $Q_{R+2}$, bounding $|\mathcal F| \le \operatorname{vol}(Q_{R+2})2^d/v_d$) satisfies
+$$|\mathcal{F}|\cdot \frac{v_d}{2^d} \;\ge\; \operatorname{vol}\Bigl(Q_R \cap \bigcup_{x\in\mathcal{P}} B(x,\tfrac12)\Bigr) \;=\; \delta_n \operatorname{vol}(Q_R).$$
+Now periodize $\mathcal{F}$ with the lattice $L = (2R+3)\,\mathbb{Z}^d$: let $\mathcal{P}' = \mathcal{F} + L$. This is a packing: two points in the same translate of $\mathcal{F}$ are $1$-separated already; two points in different translates differ, in some coordinate, by at least $(2R+3) - 2(R+1) = 1$. Its density is exact:
+$$\bar\delta(\mathcal{P}') = \frac{|\mathcal{F}|}{(2R+3)^d}\cdot\frac{v_d}{2^d} \;\ge\; \delta_n\,\frac{\operatorname{vol}(Q_R)}{(2R+3)^d} = \delta_n \Bigl(\frac{2R}{2R+3}\Bigr)^{\!d}.$$
+As $n \to \infty$, $\delta_n \to \bar\delta(\mathcal{P})$ and the volume ratio tends to $1$; choose $n$ large enough. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="thm" id="thmCE"><b>Theorem E (Gorbachev, Cohn&ndash;Elkies; eq. (4)).</b> For every $f \in \mathcal{A}_d$,
+$$\Delta_d \;\le\; \frac{v_d}{2^d}\,\frac{f(0)}{\widehat f(0)}, \qquad\text{and therefore}\qquad \Delta_d \le \mathrm{LP}_d.$$</div>
+<div class="proof">
+<p>By Lemma D it suffices to bound periodic packings, and Proposition C does exactly that, uniformly. Taking the infimum over $f \in \mathcal{A}_d$ gives (4) with $\mathrm{LP}_d$ as in (3). <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="toy1d">3.3 The whole method in dimension one</h3>
+
+<p>Here is the entire machine, run by hand where every step is visible. In $d = 1$ take the <b>tent function</b> and compute its transform by writing it as a convolution of two box functions $\chi = \mathbf{1}_{[-1/2,1/2]}$:</p>
+$$f(x) = \max(1 - |x|,\, 0) = (\chi * \chi)(x), \qquad \widehat f(\xi) = \widehat\chi(\xi)^2 = \Bigl(\frac{\sin \pi\xi}{\pi\xi}\Bigr)^{\!2},$$
+<p>using Lemma 2.2(iv) and the elementary integral $\widehat\chi(\xi) = \int_{-1/2}^{1/2}e^{-2\pi i x\xi}dx = \frac{\sin\pi\xi}{\pi\xi}$. Check the three certificate conditions against Fig. 10: $f \le 0$ (indeed $= 0$) for $|x| \ge 1$; $\widehat f = \mathrm{sinc}^2 \ge 0$ everywhere; $\widehat f(0) = 1 \gt 0$. And $f(0) = 1$, so the certified bound is
+$$\Delta_1 \;\le\; \frac{v_1}{2^1}\cdot\frac{f(0)}{\widehat f(0)} \;=\; \frac{2}{2}\cdot\frac{1}{1} \;=\; 1,$$
+<p>which is <i>exactly</i> $\Delta_1 = 1$: the machine is tight in dimension one, with the tent as its magic function. (The tent is continuous but not Schwartz; the double-count proof of Proposition C never used more than continuity, decay $|f(x)| \le C(1+|x|)^{-2}$, and $\sum_m|\widehat f(m)| \lt \infty$ &mdash; all true for the tent, since $\widehat f(m) = O(m^{-2})$, so the certificate is legitimate as stated. With extra mollification care one checks the Schwartz infimum in (3) is also exactly $1$; we never need that refinement.)</p>
+
+<figure><!--FIG:fig_tent--><figcaption>The $d=1$ magic function: the tent $f(x) = (1-|x|)_+$ (red) vanishes outside $[-1,1]$, and its transform $\widehat f = \mathrm{sinc}^2$ (blue, dashes) is nonnegative. Certified bound: $\Delta_1 \le 1$ &mdash; sharp, since unit intervals tile. Numerics: check <code>c20</code> in <a class="secref" href="#validation">&sect;13</a>.</figcaption></figure>
+
+<p>Dimension one also reveals what tightness requires. Where must equality hold in the double count? Every inequality we discarded must be an equality: $f$ must vanish at every nonzero inter-point distance of the optimal packing (the tent vanishes at $\mathbb{Z}\setminus\{0\}$ &mdash; the distances of the integer packing), and $\widehat f$ must vanish at every nonzero dual-lattice point (here $\mathrm{sinc}^2$ vanishes on $\mathbb{Z}\setminus\{0\}$). This "forced interpolation" of zeros is exactly the structure Viazovska engineered in $d = 8$ with modular forms. In high dimensions, Theorem 1.1 says no function &mdash; magic or otherwise &mdash; can push the machine below $(\sqrt{e/2\pi}+o(1))^d$.</p>

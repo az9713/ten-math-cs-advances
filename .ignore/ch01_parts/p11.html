@@ -1,0 +1,94 @@
+<h2 id="global">11. Upper bound III &mdash; signs, interior positivity, and Theorem 4.1</h2>
+
+<p>The damping estimates now pay off: on each contour the centered integrand collapses onto a Gaussian, the polynomial factor freezes at its value $P_j(iu)$, and the sign of $f_j$ at the saddle radius is the sign of $P_j(iu)$. That handles every radius $r \ge e^{v(u_*)}$; a separate residue-series argument (Lemma 4.10) covers the interior $[0, e^{v(u_*)}]$ for $f_+$.</p>
+
+<h3 id="lem48">11.1 The uniform saddle formula (Lemma 4.8)</h3>
+
+<div class="lem" id="lem48box"><b>Lemma 4.8.</b> Fix $0 \lt \epsilon \lt \epsilon_0$ and let $\lambda = d/2$. For $u \gt -1$ and $P \in \{P_+, P_-, P_0\}$ put
+$$I_{\lambda,P}(u) \;=\; \int_{\mathbb{R}} e^{L_u(T)}\,P(T + iu)\,dT.$$
+Then, as $d \to \infty$ (eq. (70)),
+$$I_{\lambda,P}(u) \;=\; P(iu)\,\sqrt{\frac{2\pi}{\lambda V(u)}}\;\bigl(1 + o_\epsilon(1)\bigr),$$
+uniformly over $u \ge u_*$ for $P = P_+$, and uniformly over $u \ge u_0$ for $P \in \{P_-, P_0\}$.</div>
+
+<figure><!--FIG:fig_laplace--><figcaption>The Laplace-method engine: the centered integrand's modulus $e^{-D_u(T)}$ at $u = u_0$ ($\epsilon = 0.05$), plotted against the rescaled variable $x = T\sqrt{\lambda V}$, collapses onto the Gaussian $e^{-x^2/2}$ (green) as $d$ grows &mdash; the deviation visible at $d = 64$ is the cubic term $\lambda M_3|T|^3$ of (50), much reduced by $d = 1024$.</figcaption></figure>
+
+<p>Figure 29 shows the mechanism; the work is in making it uniform.</p>
+
+<div class="proof">
+<p><i>Setting.</i> By Lemma 4.3's decay bound (†) the contour of (38) may be shifted to $t = \lambda(T+iu)$ for any $u \gt -1$ (all poles sit at $u \le -1$). At the saddle radius this reads (eq. (71))
+$$f_j\bigl(e^{v(u)}\bigr) \;=\; \frac{\lambda\,E_\lambda(i\lambda u)}{2\pi}\;e^{-(1+u)\lambda v(u)}\;I_{\lambda,P_j}(u),$$
+where $E_\lambda(i\lambda u) = \pi^{-\lambda u/2}\,\Gamma(m)\,e^{\lambda h_\epsilon(iu)} \gt 0$: the prefactor is positive, so the sign of $f_j(e^{v(u)})$ <i>is</i> the sign of $\operatorname{Re}I_{\lambda,P_j}(u)$, and (70) will identify it with the sign of $P_j(iu)$. On the stated ranges the polynomials are bounded away from zero in the normalized sense (72): $P_+(iu) \gt 0$ on $u \gt -1$; $P_-(iu) \lt 0$ and $P_0(iu) \gt 0$ on $u \ge u_0$ (Fig. 25); their fixed degree gives
+$$\frac{|P(T+iu)|}{|P(iu)|} \ll_\epsilon 1 + |T|^3, \qquad \frac{P(T+iu)}{P(iu)} = 1 + O_\epsilon(|T| + |T|^3),$$
+uniformly on the respective $u$-ranges (the coefficients of $P(\cdot + iu)/P(iu)$, as a cubic in $T$, are ratios of polynomials in $u$ whose denominators are exactly the nonvanishing $P(iu)$; boundedness as $u \to \infty$ holds because numerator and denominator have matching degrees).</p>
+<p><i>The central window.</i> Choose an amplitude $K = K(\lambda) \to \infty$ (specified per range below) and set $T_* = K/\sqrt{\lambda V(u)}$. On $|T| \le T_*$, the Taylor bound (50) gives
+$$L_u(T) = -\frac{\lambda V(u)}{2}T^2 + O(\lambda M_3|T|^3), \qquad \sup_{|T|\le T_*}\bigl|L_u(T) + \tfrac{\lambda V}{2}T^2\bigr| \;\le\; C\,\frac{K^3M_3}{\sqrt\lambda\,V^{3/2}}.$$
+Provided (a) $T_* = o_\epsilon(1)$ and (b) $K^3M_3/(\sqrt\lambda V^{3/2}) = o_\epsilon(1)$, the substitution $x = T\sqrt{\lambda V}$ turns the central piece into a Gaussian integral:
+$$\int_{|T|\le T_*}e^{L_u(T)}P(T+iu)\,dT = \frac{P(iu)}{\sqrt{\lambda V}}\int_{|x|\le K}e^{-x^2/2}\bigl(1 + o_\epsilon(1)\bigr)\,dx = P(iu)\sqrt{\frac{2\pi}{\lambda V}}\bigl(1 + o_\epsilon(1)\bigr),$$
+where the polynomial correction $O_\epsilon(|T| + |T|^3)$ integrates to $O_\epsilon(1/\sqrt{\lambda V} + \cdots) = o_\epsilon(1)$ relative terms (odd powers also cancel to leading order). It remains to prove that (a), (b) hold and that the tail $|T| \gt T_*$ contributes $o_\epsilon(|P(iu)|/\sqrt{\lambda V})$, separately on the two ranges.</p>
+<p><i>Gamma-controlled range $u_* \le u \le U$.</i> Write $L = \lambda\eta \ge \tfrac14\log\lambda$ (Lemma 4.5). There $V \asymp_\epsilon \eta^{-1}$ and $M_3 \ll_\epsilon \eta^{-2}$ by (56)&ndash;(57). Take $K = L^{1/12}$: then
+$$T_* \asymp \frac{K}{\sqrt{\lambda/\eta}} = K\sqrt{\frac\eta\lambda} \ll_\epsilon \eta L^{-5/12} = o(1), \qquad \frac{K^3M_3}{\sqrt\lambda V^{3/2}} \ll_\epsilon \frac{L^{1/4}\eta^{-2}}{\sqrt\lambda\,\eta^{-3/2}} = L^{1/4}\cdot\frac{1}{\sqrt{\lambda\eta}} = L^{-1/4} = o(1),$$
+verifying (a), (b) &mdash; uniformly, since $L \ge \tfrac14\log\lambda \to \infty$. Tails: by (55) and (53), the damping is quadratic up to $|T| = \eta$ and linear beyond:
+$$\sqrt{\lambda V}\int_{T_*\le|T|\le\eta}(1+|T|^3)\,e^{-D_u(T)}\,dT \ll_\epsilon e^{-c_\epsilon K^2}, \qquad \sqrt{\lambda V}\int_{|T|\ge\eta}(1+|T|^3)\,e^{-D_u(T)}\,dT \ll_\epsilon e^{-c_\epsilon L},$$
+the first by $D_u \ge c\epsilon\lambda T^2/\eta \ge c_\epsilon x^2$ in the rescaled variable (so the tail of a Gaussian beyond $K$), the second by $D_u \ge c_\epsilon\lambda|T| \ge c_\epsilon L$ there, with the polynomial factors absorbed into the exponential. Both vanish uniformly because $K^2, L \to \infty$.</p>
+<p><i>Shell-controlled range $u \ge U$.</i> Now $V \asymp_\epsilon V_B \gg_\epsilon 1$ and $M_3 \ll_\epsilon V$ by (63), (66). Take $K = \lambda^{1/12}$: then $T_* \ll_\epsilon \lambda^{1/12}/\sqrt\lambda = \lambda^{-5/12}$ and $K^3M_3/(\sqrt\lambda V^{3/2}) \ll_\epsilon \lambda^{1/4}/(\sqrt\lambda\sqrt V) \ll_\epsilon \lambda^{-1/4}$, so (a), (b) hold; also $T_* \lt T_0$ for large $\lambda$ ($T_0$ is an $\epsilon$-constant). Tails, using Lemma 4.7 range by range (eq. (73)&ndash;(75)):
+on $T_* \le |T| \le T_0$, (67) is quadratic and gives $\ll_\epsilon e^{-c_\epsilon K^2}$ as before. On $T_0 \le |T| \le \eta$, (68) gives the flat floor $c_\epsilon\lambda Qe^{\delta B}$; the integrand's polynomial mass over that window is at most $C(1+\eta^4)$, and $\sqrt{\lambda V} \ll \sqrt\lambda\,(B+1)\sqrt{Q}e^{\delta(B+1)/2}$ by (64), so the whole contribution is
+$$\ll_\epsilon \sqrt\lambda\;\exp\Bigl(\frac{B+1}{2}\delta + 4\log(2+\delta) - c_\epsilon\lambda Qe^{B\delta}\Bigr) = o_\epsilon(1), \tag{74}$$
+because the exponent is decreasing in $\delta \ge \epsilon/2$ (its $\delta$-derivative is $\tfrac{B+1}2 + \tfrac4{2+\delta} - c_\epsilon\lambda BQe^{B\delta} \lt 0$ for $\lambda$ large: the last term dominates since $Qe^{B\delta} \ge Qe^{B\epsilon/2} = e^{\epsilon B/8}$ is an $\epsilon$-constant times which $\lambda$ grows) and at $\delta = \epsilon/2$ it equals $-c_\epsilon\lambda + O_\epsilon(1)$. On $|T| \ge \eta$, (69) supplies $c\lambda|T|$ plus the same flat floor, and the identical bookkeeping gives $\ll_\epsilon e^{-c_\epsilon\lambda}$, uniformly in $\delta$ (the floor $-c_\epsilon\lambda Qe^{B\delta}$ absorbs the polynomial growth of $\sqrt{V}$ in $\delta$). Combining central window and tails proves (70) on $u \ge U$; together with the previous range, on all of $u \ge u_*$ (for $P_+$; the $P_-, P_0$ statements only claim $u \ge u_0$, where their normalizing values are nonzero). <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_fprofiles--><figcaption>Lemma 4.8, verified end to end: dots are the fully computed normalized saddle integrals $\sqrt{\lambda V/2\pi}\,\operatorname{Re}I_{\lambda,P_j}(u)$ for the actual construction (shells, taper, and all) in dimension $d = 6\times10^6$, $\epsilon = 0.1$; dashed curves are the predicted limits $P_j(iu)$. Maximum deviation $6\times10^{-4}$ (check <code>c19</code>); the computed $f_-$ flips sign at $u = 1.0201$, matching the root of $P_-(iu)$ at $1.0206$ (check <code>c19a</code>). A cautionary numerical note: at $d = 4000$ the same computation still wobbles visibly near $u_0$ &mdash; the constants $\lambda_\epsilon$ of &sect;10 are of order $e^{1/8\epsilon^2}$, a vivid reminder that "$d \to \infty$ with $\epsilon$ fixed" is meant seriously.</figcaption></figure>
+
+<div class="prop" id="cor49"><b>Corollary 4.9 (exterior signs; eq. (76)).</b> For every fixed $0 \lt \epsilon \lt \epsilon_0$ there is $d_\epsilon$ such that for all $d \ge d_\epsilon$:
+$$f_+(r) \gt 0 \;\;(r \ge e^{v(u_*)}), \qquad f_-(r) \lt 0 \;\;(r \ge e^{v(u_0)}), \qquad f_0(r) \gt 0 \;\;(r \ge e^{v(u_0)}).$$</div>
+<div class="proof">
+<p>By (71) the sign of $f_j(e^{v(u)})$ equals the sign of $I_{\lambda,P_j}(u)$, which by (70) equals the sign of $P_j(iu)$ once $d \ge d_\epsilon$ (uniformity!). The map $u \mapsto e^{v(u)}$ is strictly increasing on $[u_*,\infty)$ &mdash; $v' = V \gt 0$ by (56) and (63) &mdash; and $v(u) \to \infty$ as $u \to \infty$ (the positive-shell term of (44) is $\ge cQe^{\delta B}/B \to \infty$), so $[u_*,\infty)$ parametrizes exactly the radii $[e^{v(u_*)},\infty)$ and $[u_0,\infty)$ the radii $[e^{v(u_0)},\infty)$. Now read the signs off Fig. 25: $P_+(iu) \gt 0$ on the whole branch; $P_-(iu) \lt 0$ and $P_0(iu) \gt 0$ for $u \ge u_0$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="lem410">11.2 Interior positivity of $f_+$ (Lemma 4.10)</h3>
+
+<p>The one remaining gap: is $f_+ \gt 0$ also on $[0, r_*]$, $r_* = e^{v(u_*)}$? Here the low floor $u_* \to -1$ earns its keep: it makes $r_*$ small enough that on $[0, r_*]$ the function $f_+$ is governed by finitely many residue terms &mdash; a truncated exponential series.</p>
+
+<div class="lem" id="lem410box"><b>Lemma 4.10.</b> Fix $0 \lt \epsilon \lt \epsilon_0$, let $\lambda = d/2$, $r_* = e^{v(u_*)}$, and $h_1' = \int_0^\infty w(a)\,a\sinh a\,da$. Then, as $d \to \infty$,
+$$\sup_{0\le r\le r_*}\Bigl|\,e^{y}\,\frac{f_+(r)}{f_+(0)} - 1\,\Bigr| \longrightarrow 0, \qquad y = \pi e^{2h_1'}r^2.$$
+In particular $f_+ \gt 0$ on $[0, r_*]$ for all sufficiently large $d$.</div>
+<div class="proof">
+<p><i>Step 1: how large can $y$ get?</i> Let $H(u) = \int w(a)a\sinh(ua)\,da$ (so $h_1' = H(1)$, and $H$ is odd with bounded derivative near $u = -1$ for fixed $\epsilon$). With $\eta_* = 1 + u_* = \frac{\log\lambda}{4\lambda}$ and $m_* = \lambda\eta_*/2 = \tfrac18\log\lambda$, the saddle equation (44) gives
+$$y(r_*) = \pi e^{2h_1'}e^{2v(u_*)} = \exp\bigl(\psi(m_*) + 2H(u_*) + 2h_1'\bigr) = \exp\bigl(\psi(m_*) + O_\epsilon(\eta_*)\bigr),$$
+since $H(u_*) + h_1' = H(-1+\eta_*) - H(-1) = O_\epsilon(\eta_*)$ by oddness. By $\psi(m) = \log m + O(1/m)$ (Proposition Q(iii)),
+$$0 \le y \le y(r_*) = \tfrac18\log\lambda + O_\epsilon(1). \tag{77}$$
+So $e^{-y}$ can be as small as $\lambda^{-1/8}$ &mdash; polynomially small, meaning all error terms must be beaten <i>relative to</i> $e^{-y}$.</p>
+<p><i>Step 2: the shifted contour and the series.</i> Set $N = \lceil\log\lambda\rceil$, $p = N + \tfrac12$, $\kappa = 1 + 2p/\lambda$. The contour $t = s - i(\lambda + 2p)$ passes exactly between consecutive gamma poles ($p$ is a half-integer). To justify shifting (38) down to it we need decay on the vertical sides, i.e. an exponential margin surviving the perturbation: for every intermediate height $0 \le q \le \kappa$, the positive shell contributes nonpositively to $\operatorname{Re}[h_\epsilon(s/\lambda - iq) - h_\epsilon(-iq)]$ (its density is positive and $\cos(as/\lambda)\cosh(aq) - \cosh(aq) \le 0$), while the negative shell's contribution to $\lambda\operatorname{Re}[h_\epsilon(s/\lambda - iq) - h_\epsilon(-iq)]$ is bounded in absolute value by
+$$(1-c\epsilon)\,\frac\lambda2\int_0^\infty\frac{1-\cos(as/\lambda)}{a^2}\,da \;=\; (1-c\epsilon)\,\frac{\pi|s|}{4},$$
+using the taper margin $b(a)e^{2pa/\lambda} \le 1 - c\epsilon$ on $[a_0,A]$ (valid since $pA/\lambda = o_\epsilon(1)$) to compare $|w_s(a)|\cosh(qa)$ with $\tfrac{1}{2a^2}$, and the classical integral $\int_0^\infty(1-\cos(ax))a^{-2}da = \pi|x|/2$. Import 2's vertical decay supplies the complementary factor $e^{-\pi|s|/4}$ from the gamma function, so the integrand decays like $e^{-c\epsilon|s|}$ on every intermediate line: the shift is legitimate and crosses exactly the poles $t = -i(\lambda+2n)$, $0 \le n \le N$. The residue formula (41) plus the origin value (42) yield (eq. (78))
+$$\frac{f_+(r)}{f_+(0)} \;=\; \sum_{n=0}^{N}\frac{(-y)^n}{n!}\,A_{\lambda,n} \;+\; R_{\lambda,p}(r), \qquad
+A_{\lambda,n} = e^{\lambda[h_\epsilon(i(1+2n/\lambda)) - h_\epsilon(i)] - 2nh_1'}\;\frac{P_+(-i(1+2n/\lambda))}{\beta},$$
+where the definition $y = \pi e^{2h_1'}r^2$ was used to absorb $(\pi r^2)^n e^{2nh_1'} = y^n$.</p>
+<p><i>Step 3: the coefficients are nearly 1 (eq. (79)).</i> Taylor-expand $h_\epsilon$ on the imaginary axis at $u = 1$: $\lambda[h_\epsilon(i(1+\tfrac{2n}\lambda)) - h_\epsilon(i)] = 2n\,h_\epsilon'$-part $= 2nh_1' + O_\epsilon(n^2/\lambda)$ (the derivative of $h_\epsilon(iu)$ is $\int w\,a\sinh(ua)\,da = H(u)$, with $H(1) = h_1'$ and $H$ Lipschitz near $1$ for fixed $\epsilon$), and $P_+(-i(1+\tfrac{2n}\lambda))/\beta = 1 + O_\epsilon(n/\lambda)$ (polynomial with $P_+(-i) = \beta$). Hence $|A_{\lambda,n} - 1| \ll_\epsilon n(1+n)/\lambda$ uniformly for $n \le N$ (note $N^2/\lambda = o(1)$).</p>
+<p><i>Step 4: the remainder (eq. (80)).</i> On the final contour, with $\kappa = 1 + 2p/\lambda$,
+$$R_{\lambda,p}(r) = \frac{\pi^{\lambda/2+p}\,r^{2p}}{2\pi\,f_+(0)}\int_{\mathbb{R}}\pi^{is/2}\,\Gamma\bigl(-p - \tfrac{is}2\bigr)\,e^{\lambda h_\epsilon(s/\lambda - i\kappa)}\,P_+\bigl(\tfrac s\lambda - i\kappa\bigr)\,ds.$$
+The reflection formula (Import 1) plus vertical decay (Import 2) give the standard estimate $|\Gamma(-p - is/2)| \ll e^{-\pi|s|/4}/\Gamma(1+p)$ for half-integer $p$ (reflection converts $\Gamma$ at $-p-is/2$ into $\pi/[\sin(\pi(\cdot))\Gamma(1+p+is/2)]$; the sine is bounded away from zero on the half-integer line and $|\Gamma(1+p+is/2)| \ge \Gamma(1+p)e^{-\pi|s|/4}\cdot c$), while the shell factor obeys the same $e^{(1-c\epsilon)\pi|s|/4}$ bound as in Step 2, and $P_+(\tfrac s\lambda - i\kappa)/\beta = O_\epsilon(1 + |s|^3)$. Integrating in $s$ and using $\lambda[h_\epsilon(i\kappa) - h_\epsilon(i)] = 2ph_1' + O_\epsilon(p^2/\lambda)$ together with $(\pi r^2)^pe^{2ph_1'} = y^p$:
+$$|R_{\lambda,p}(r)| \;\ll_\epsilon\; \frac{y^{\,p}}{\Gamma(1+p)}. \tag{80}$$</p>
+<p><i>Step 5: compare with $e^{-y}$ (eqs. (81)&ndash;(82)).</i> Three error sources against the target $e^{-y}$, all uniform on (77):
+$$e^y\sum_{n=0}^N\frac{y^n}{n!}\bigl|A_{\lambda,n}-1\bigr| \ll_\epsilon \frac{(1+y)^2e^{2y}}{\lambda} \ll_\epsilon \frac{(\log\lambda)^2}{\lambda^{3/4}},$$
+using $\sum_n n(1+n)y^n/n! = (y^2+2y)e^y$ and $e^{2y} \le \lambda^{1/4}e^{O_\epsilon(1)}$ from (77). For the two tails put $L = \log\lambda$, so $y \le L/8 + O_\epsilon(1)$ and $p, N+1 = L + O(1)$; Stirling (Import 2, real axis) gives
+$$\log\frac{e^y\,y^p}{\Gamma(1+p)} \;\le\; \Bigl(\frac18 + 1 - \log 8\Bigr)L + O_\epsilon(\log L),$$
+maximizing over the allowed $y$ (the exponent is increasing in $y$) and using $y^p \le (L/8)^p e^{O(p/L)}$, $\log\Gamma(1+p) = p\log p - p + O(\log p)$: indeed $p\log(L/8) - p\log p + p + y = L\log(L/8) - L\log L + L + L/8 + O(\log L) = L(1 + \tfrac18 - \log 8) + O(\log L)$. The margin
+$$\tfrac18 + 1 - \log 8 = -0.9544\ldots \lt 0$$
+(check <code>c24</code>) kills both $e^y|R_{\lambda,p}|$ and the omitted series tail $e^y\sum_{n\gt N}y^n/n! \le e^yy^{N+1}/(N+1)!$ (same estimate with $p \to N+1$) at a polynomial rate $\lambda^{-0.95+o(1)}$, faster than the coefficient error. Assembling: uniformly on $0 \le r \le r_*$,
+$$\frac{f_+(r)}{f_+(0)} = e^{-y}\Bigl(1 + O_\epsilon\bigl((\log\lambda)^2\lambda^{-3/4}\bigr)\Bigr) \gt 0. \tag{82}$$
+(The whole lemma is verified numerically at $d = 6\times10^6$: computed $f_+(r)/f_+(0)$ matches $e^{-y}$ to $2\times10^{-4}$ across $[0, r_*]$ &mdash; Fig. 31 and check <code>c19b</code>.) <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_fplus_int--><figcaption>Interior positivity, computed: $f_+(r)/f_+(0)$ evaluated by numerical contour integration at $u_*$ (purple) against the predicted $e^{-y}$ (green), for the true construction at $d = 6\times10^6$, $\epsilon = 0.1$, on the full interior range $[0, r_*]$. Agreement to $2\times10^{-4}$; in particular $f_+ \gt 0$ throughout (checks <code>c19b</code>, <code>c19c</code>).</figcaption></figure>
+
+<h3 id="thm41">11.3 The construction theorem</h3>
+
+<div class="thm" id="thm41box"><b>Theorem 4.1.</b> There is $\epsilon_0 \gt 0$ such that for every fixed $0 \lt \epsilon \lt \epsilon_0$ and every sufficiently large $d$, there exist real radial Schwartz $f_-, f_+, f_0$ and $R_{\epsilon,d} \gt 0$ with: $f_+ \gt 0$ everywhere; $f_- \lt 0 \lt f_0$ on $\{|x| \ge R_{\epsilon,d}\}$; and
+$$\widehat{f_-} = f_+, \qquad \widehat{f_0} = f_0, \qquad f_-(0) = f_+(0) \gt 0, \qquad f_0(0) = 0.$$
+Moreover
+$$\lim_{\epsilon\downarrow0}\;\lim_{d\to\infty}\;\frac{R_{\epsilon,d}}{\sqrt d} \;=\; \frac1\pi.$$</div>
+<div class="proof">
+<p>Take the $f_j$ of Lemma 4.3 and $R_{\epsilon,d} = e^{v(u_0)}$. The Fourier identities and origin values are (40) and (42). Corollary 4.9 gives the exterior signs of $f_-$ and $f_0$ beyond $e^{v(u_0)}$, and the positivity of $f_+$ on $[e^{v(u_*)},\infty)$; Lemma 4.10 covers $f_+ \gt 0$ on $[0, e^{v(u_*)}]$. For the radius (eq. (84)): at fixed $\epsilon$, insert the digamma asymptotic $\psi(m_0) = \log m_0 + O(1/m_0)$ (Proposition Q(iii)), $m_0 = \lambda(1+u_0)/2$, into the saddle equation (44):
+$$\frac{R_{\epsilon,d}}{\sqrt d} = \frac{e^{v(u_0)}}{\sqrt{2\lambda}} = \frac{1}{\sqrt{2\lambda}}\cdot\frac{1}{\sqrt\pi}\,\sqrt{\frac{\lambda(1+u_0)}{2}}\;e^{\int_0^\infty w(a)a\sinh(u_0a)\,da}\,\bigl(1+o(1)\bigr) \;\longrightarrow\; \sqrt{\frac{1+u_0}{4\pi}}\;\exp\Bigl(\int_0^\infty w(a)\,a\sinh(u_0a)\,da\Bigr).$$
+By Lemma 4.2(ii)&ndash;(iii) the shell integral is $-\tfrac12\log(\pi/2) + O(\epsilon)$, and $u_0 = 1 + \epsilon/4 \to 1$, so letting $\epsilon \downarrow 0$ the limit is $\sqrt{\tfrac{2}{4\pi}}\,e^{-\frac12\log(\pi/2)} = \tfrac1{\sqrt{2\pi}}\sqrt{\tfrac2\pi} = \tfrac1\pi$, which is (85). (The double limit is traced numerically in <code>c17</code>: the fixed-$\epsilon$ limits are $0.3429,\ 0.3293,\ 0.3225,\ 0.3204$ for $\epsilon = 0.1, 0.05, 0.02, 0.01$, marching down to $1/\pi = 0.3183$.) <span class="qed">&#8718;</span></p>
+</div>

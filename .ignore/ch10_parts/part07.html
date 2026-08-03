@@ -1,0 +1,138 @@
+<h2 id="host">9. The sampled Hamming-ball host</h2>
+
+<h3 id="hostdef">9.1 The construction and its two thresholds</h3>
+
+<p>The <b>Hamming distance</b> $\mathrm{dist}(x, y)$ between two binary strings $x, y \in \{0,1\}^m$ is the number of coordinates where they differ. For $m \ge 1$ put
+$$U = \{0,1\}^m, \qquad Q = 2^m, \qquad p = 2^{-\beta m}, \qquad k = \lfloor \tau m\rfloor,$$
+where the <b>Hamming radius</b> $\tau \in (0, \tfrac12)$ and the <b>sampling exponent</b> $\beta \in (0,1)$ are parameters. Take two disjoint copies $U_{\mathrm L}, U_{\mathrm R}$ of $U$ and join $x \in U_{\mathrm L}$ to $y \in U_{\mathrm R}$ whenever $\mathrm{dist}(x,y) \le k$ &mdash; a bipartite graph in which the neighborhood of any vertex is a <i>Hamming ball</i> of radius $k$ on the opposite side. Now <b>sample</b>: retain each of the $2Q$ vertices independently with probability $p$, and let $G_m$ be the subgraph induced by the retained vertices (Fig. 18, left).</p>
+
+<p>Two exponential thresholds govern the construction:
+$$A(\tau) := \kappa + \tau \log_2 3, \qquad C(\tau) := 2h(\tau) - 1.$$
+$C(\tau)$ is the <i>edge-count</i> threshold: the host's edges per side are $Q \cdot |B_k|$ where the ball size is $|B_k| = 2^{(h(\tau)+o(1))m}$ (proved in <a class="secref" href="#finish">&sect;11</a>), and after sampling, $\beta \lt C(\tau)$ is exactly what makes the retained graph denser than $n^{3/2}$. $A(\tau)$ is the <i>exclusion</i> threshold: it is the largest per-coordinate conditional entropy that Lemma 5.1 permits a child at disagreement rate $\tau$, once the entropy-swing term is amortized away; $\beta \gt A(\tau)$ will make surviving copies of $H$ too improbable to exist. We therefore assume
+$$A(\tau) \;\lt\; \beta \;\lt\; C(\tau), \tag{13}$$
+deferring to <a class="secref" href="#finish">&sect;11</a> the verification that such $(\tau, \beta)$ exist &mdash; the window is genuinely there, but hair-thin. Given (13), fix a slack
+$$0 \lt \delta \lt \frac{\beta - A(\tau)}4,$$
+then fix $L_0 \ge 4$ large enough that for every $L \ge L_0$ (possible since $\eta(L) = o(1)$ and $\binom L2 \asymp L^2$ while the other terms are $O(L)$):
+$$\eta(L) \lt \delta, \qquad L + 3\log_2\!\left(\binom L2 + 1\right) - \delta \binom L2 \;\lt\; -1, \tag{14}$$
+and finally an integer $s \ge 2$ with
+$$2s\bigl(\beta - A(\tau) - 2\delta\bigr) \gt 1. \tag{15}$$
+These are the parameters $L_0, s$ of the layered graph $H$ from <a class="secref" href="#layered">&sect;7</a>. Everything is now fixed; only $m$ (hence $n$) grows.</p>
+
+<h3 id="arrays">9.2 Parent arrays, child arrays, and the entropy score</h3>
+
+<p>For a <b>parent array</b> $\mathbf u = (u_a)_{a=1}^L \in U^L$ (an ordered list of $L$ strings on one side, repeats allowed) and a <b>child array</b> $\mathbf z = (z_{\{a,b\}})_{\{a,b\} \in \binom{[L]}2} \in U^M$, $M = \binom L2$ (one string per parent pair), run the following experiment: choose a uniformly random parent pair $\{a, b\}$ and orient it with an independent fair coin. In coordinate $j$, write $X_j, Y_j$ for the two parent bits (in the coin's order) and $Z_j$ for the child bit $z_{\{a,b\}}(j)$, and define the <b>entropy score</b>
+$$E(\mathbf u, \mathbf z) := \frac1m \sum_{j=1}^m H(Z_j \mid X_j, Y_j).$$
+This is precisely the quantity Lemmas 5.1&ndash;5.2 bound: for each coordinate, $(X_j, Y_j)$ is a without-replacement draw of two bits from the parent column $j$.</p>
+
+<p>The exclusion argument is a race of exponentials, and it pays to see the ledger before the proof (Fig. 18, right). A child array whose score is $E$ has only about $2^{mME}$ realizations (a counting bound, below); requiring all $M$ children to survive sampling costs $2^{-\beta m M}$. Since $M \asymp L^2$ swamps $L$, the $2^{mL}$ choices of parent array are rounding error: whenever $E \lt \beta$, expected counts vanish. That is why the threshold $A(\tau)$, which caps realizable scores, must sit <i>below</i> the price $\beta$.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 270" width="100%" role="img" aria-label="The sampled Hamming host and the counting ledger">
+  <!-- left: two sides with ball -->
+  <rect x="30" y="35" width="60" height="190" rx="8" fill="none" stroke="#8899aa" stroke-width="1.5"/>
+  <rect x="150" y="35" width="60" height="190" rx="8" fill="none" stroke="#8899aa" stroke-width="1.5"/>
+  <text x="34" y="26" font-size="11.5" fill="#555">U<tspan baseline-shift="sub" font-size="8.5">L</tspan> = {0,1}<tspan baseline-shift="super" font-size="8.5">m</tspan></text>
+  <text x="154" y="26" font-size="11.5" fill="#555">U<tspan baseline-shift="sub" font-size="8.5">R</tspan> = {0,1}<tspan baseline-shift="super" font-size="8.5">m</tspan></text>
+  <circle cx="60" cy="120" r="6" fill="#c0392b"/>
+  <text x="18" y="112" font-size="11.5" fill="#c0392b" class="v">x</text>
+  <path d="M150,80 Q128,120 150,160" fill="none" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <path d="M66,116 L152,84 M66,124 L152,156" stroke="#c0392b" stroke-width="1" opacity="0.6"/>
+  <text x="128" y="120" font-size="10.5" fill="#c0392b">ball</text>
+  <text x="216" y="88" font-size="10.5" fill="#555">edges: dist &#8804; &#8970;&#964;m&#8971;</text>
+  <g fill="#2a7d2a"><circle cx="45" cy="60" r="3.4"/><circle cx="75" cy="95" r="3.4"/><circle cx="52" cy="170" r="3.4"/><circle cx="80" cy="205" r="3.4"/><circle cx="165" cy="70" r="3.4"/><circle cx="192" cy="110" r="3.4"/><circle cx="170" cy="150" r="3.4"/><circle cx="188" cy="195" r="3.4"/></g>
+  <text x="216" y="108" font-size="10.5" fill="#2a7d2a">green: retained, prob p = 2<tspan baseline-shift="super" font-size="8">&#8722;&#946;m</tspan> each</text>
+  <!-- right: the ledger -->
+  <g font-size="11.5" fill="#1a1a1a">
+    <text x="248" y="150">parent arrays:</text>
+    <text x="248" y="175">low-entropy child arrays:</text>
+    <text x="248" y="200">survival of M distinct children:</text>
+    <text x="248" y="235">total exponent (per m):</text>
+  </g>
+  <g font-size="11.5" fill="#7a1f1f">
+    <text x="365" y="150">2<tspan baseline-shift="super" font-size="8.5">mL</tspan></text>
+    <text x="408" y="175">&#8804; 2<tspan baseline-shift="super" font-size="8.5">mM(&#946;&#8722;&#948;)</tspan>&#183;poly</text>
+    <text x="428" y="200">2<tspan baseline-shift="super" font-size="8.5">&#8722;&#946;mM</tspan></text>
+    <text x="365" y="235">L &#8722; &#948;M &#8810; &#8722;1</text>
+  </g>
+  <line x1="248" y1="212" x2="462" y2="212" stroke="#999" stroke-width="1"/>
+  <text x="248" y="256" font-size="10.5" fill="#555">M = L(L&#8722;1)/2 &#8811; L: the union bound wins</text>
+  <text x="30" y="250" font-size="10.5" fill="#555">n = # retained vertices &#8776; 2p&#183;2<tspan baseline-shift="super" font-size="8">m</tspan></text>
+</svg><figcaption><b>The host and the ledger.</b> Left: two copies of the $m$-cube joined below Hamming distance $k = \lfloor\tau m\rfloor$; sampling keeps each vertex with probability $2^{-\beta m}$ (green). Right: the Lemma 7.1 budget, exponents per factor $2^m$ &mdash; parent choices cost $L$, low-entropy child arrays supply at most $M(\beta - \delta)$ plus polynomial clutter, survival charges $\beta M$; the balance $L + 3\log_2(M{+}1) - \delta M$ is forced below $-1$ by (14) because $M \asymp L^2$ dwarfs $L$.</figcaption></figure>
+
+<h3 id="lem71">9.3 Excluding low-entropy arrays</h3>
+
+<p>The counting bound behind the ledger is the classic entropy bound on binomial coefficients:</p>
+
+<div class="lem"><b>Proposition J (binomial&ndash;entropy bound).</b> For integers $0 \le r \le N$, $\;\binom Nr \le 2^{N h(r/N)}$.</div>
+
+<div class="proof">
+<p>Trivial for $r \in \{0, N\}$. Otherwise, with $\rho = r/N \in (0,1)$: expanding $1 = (\rho + (1-\rho))^N$ by the binomial theorem and keeping one term, $1 \ge \binom Nr \rho^r (1-\rho)^{N-r}$; rearranging, $\binom Nr \le \rho^{-r}(1-\rho)^{-(N-r)} = 2^{Nh(\rho)}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="lem"><b>Lemma 7.1 (exclusion of low-entropy arrays).</b> With probability at least $1 - 2s\,2^{-m}$, simultaneously on both host sides and at every transition $i \in \{1, \dots, s\}$: there is <i>no</i> parent array of length $L_{i-1}$ and pairwise-distinct retained child array of length $L_i$ satisfying
+$$E(\mathbf u, \mathbf z) \;\le\; \beta - \delta. \tag{16}$$</div>
+
+<div class="proof">
+<p>Fix a host side, a transition, and a parent array $\mathbf u$; write $L = L_{i-1}$, $M = L_i = \binom L2$. For each coordinate $j$, partition the $M$ parent pairs into groups by their bit type at coordinate $j$:
+$$\mathcal G = \{00,\ 11,\ 01\},$$
+where $01$ collects the mixed pairs in both orientations. Let $N_{g,j}$ be the size of group $g$ (determined by $\mathbf u$ alone), and let $b_{g,j}$ count the children of group-$g$ pairs whose $j$-th bit is $1$. Conditioned on the type of the drawn pair at coordinate $j$, the pair is uniform in its group and the child bit is $1$ with probability $b_{g,j}/N_{g,j}$ (for the mixed group this holds whichever orientation the coin chose, since the child bit ignores orientation); hence
+$$H(Z_j \mid X_j, Y_j) \;=\; \sum_{g \in \mathcal G} \frac{N_{g,j}}M\, h\!\left(\frac{b_{g,j}}{N_{g,j}}\right).$$</p>
+<p>Call $(b_{g,j})_{g \in \mathcal G,\, j \le m}$ the <b>profile</b> of $\mathbf z$ (given $\mathbf u$): there are at most $(M+1)^{3m}$ possible profiles. For a fixed profile, a child array is determined by choosing, for every $(g, j)$, <i>which</i> $b_{g,j}$ of the $N_{g,j}$ group members get bit $1$ at coordinate $j$; so the number of child arrays with that profile (repeats among children allowed) is
+$$\prod_{j=1}^m \prod_{g \in \mathcal G} \binom{N_{g,j}}{b_{g,j}} \;\le\; 2^{\sum_{j,g} N_{g,j}\, h(b_{g,j}/N_{g,j})} \;=\; 2^{m M\, E(\mathbf u, \mathbf z)},$$
+by Proposition J and the display above. Therefore at most $(M+1)^{3m}\, 2^{mM(\beta - \delta)}$ child arrays satisfy (16).</p>
+<p>If the entries of $\mathbf z$ are pairwise distinct, the event that all $M$ of them are retained has probability exactly $p^M = 2^{-\beta m M}$. Union-bounding over the $Q^L = 2^{mL}$ parent arrays and the low-entropy child arrays, (14) gives
+$$\mathbb P(\text{some bad retained array}) \;\le\; 2^{mL} (M+1)^{3m}\, 2^{mM(\beta-\delta)}\, 2^{-\beta mM} \;=\; 2^{m[L + 3\log_2(M+1) - \delta M]} \;\le\; 2^{-m}.$$
+A union bound over the two host sides and the $s$ transitions finishes. <span class="qed">&#8718;</span></p>
+</div>
+
+<h2 id="exclusion">10. The potential argument: no copy of $H$ survives</h2>
+
+<p>Now the two halves meet: the entropy inequality says an embedded layer must have a <i>high</i> score whenever the potential doesn't rise much, and Lemma 7.1 says retained layers must have <i>low</i>&hellip; rather, that scores at most $\beta - \delta$ are unavailable &mdash; forcing every embedded transition's score <i>above</i> $\beta - \delta$, which in turn forces the potential to rise by a fixed amount, layer after layer. A quantity trapped in $[0,1]$ cannot rise forever.</p>
+
+<div class="prop"><b>Proposition 8.1 (exclusion of the layered graph).</b> With probability $1 - o(1)$ as $m \to \infty$, the sampled graph $G_m$ is $H$-free.</div>
+
+<div class="proof">
+<p>Work on the event of Lemma 7.1 and suppose an embedding $\iota : H \hookrightarrow G_m$ exists. $H$ is connected and bipartite with the layers as color classes refined by parity (Fact 6.1), so consecutive layers of $\iota(H)$ occupy opposite host sides. For transition $i$, list the images of $V_{i-1}$ as a parent array $\mathbf u_i$ (length $L_{i-1}$) and the images of $V_i$ as the child array $\mathbf z_i$ indexed by parent pairs &mdash; exactly the format of <a class="secref" href="#arrays">&sect;9.2</a>, with the children pairwise distinct (injectivity of $\iota$) and retained (they lie in $G_m$). Lemma 7.1 therefore forbids (16):
+$$E_i := E(\mathbf u_i, \mathbf z_i) \;\gt\; \beta - \delta. \tag{17}$$</p>
+<p>Define the <b>entropy potential</b> of layer $i$:
+$$\Phi_i \;=\; \frac1m \sum_{j=1}^m h\!\left(\frac1{L_i}\sum_{z \in \iota(V_i)} z(j)\right) \;\in\; [0, 1]$$
+&mdash; the average, over coordinates, of the binary entropy of the layer's bit-frequency at that coordinate. (It is $0$ for a layer of identical strings, $1$ for perfectly balanced columns; it measures how &ldquo;spread out&rdquo; the layer is, coordinate by coordinate.)</p>
+<p>At transition $i$, write $d_j = \tfrac12(\mathbb P(X_j \neq Z_j) + \mathbb P(Y_j \neq Z_j))$ for the per-coordinate disagreement in the experiment of <a class="secref" href="#arrays">&sect;9.2</a>. Every child is adjacent <i>in the host</i> to both its parents, so $\mathrm{dist}(u_a, z_{\{a,b\}}) \le k$ and $\mathrm{dist}(u_b, z_{\{a,b\}}) \le k$; averaging over the uniform pair (each of the $L_i$ pairs equally likely) and summing over coordinates,
+$$\frac1m \sum_{j=1}^m d_j \;=\; \frac1{2 m L_i} \sum_{\{a,b\} \in \binom{V_{i-1}}2} \Bigl(\mathrm{dist}\bigl(u_a, z_{\{a,b\}}\bigr) + \mathrm{dist}\bigl(u_b, z_{\{a,b\}}\bigr)\Bigr) \;\le\; \frac{2k L_i}{2 m L_i} \;=\; \frac km \;\le\; \tau.$$</p>
+<p>Now apply Lemma 5.2 in each coordinate $j$ (its $q$ is the parents' bit-frequency, its $v$ the children's, its $L = L_{i-1} \ge L_0$ so $\eta(L_{i-1}) \lt \delta$ by (14)) and average over $j$: the $h(q_j)$-average is $\Phi_{i-1}$, the $h(v_j)$-average is $\Phi_i$, and the $d_j$-average is at most $\tau$:
+$$E_i \;\le\; \kappa + (\log_2 3)\,\tau + \frac{\Phi_i - \Phi_{i-1}}2 + \eta(L_{i-1}) \;=\; A(\tau) + \frac{\Phi_i - \Phi_{i-1}}2 + \eta(L_{i-1}). \tag{18}$$
+Combining (17), (18), and $\eta(L_{i-1}) \lt \delta$:
+$$\Phi_i - \Phi_{i-1} \;\gt\; 2\bigl(\beta - A(\tau) - 2\delta\bigr) \qquad (1 \le i \le s).$$
+Telescoping over the $s$ transitions and applying (15):
+$$\Phi_s - \Phi_0 \;\gt\; 2s\bigl(\beta - A(\tau) - 2\delta\bigr) \;\gt\; 1,$$
+contradicting $0 \le \Phi_i \le 1$ (Fig. 19). So on the Lemma 7.1 event there is no embedding:
+$$\mathbb P(H \subseteq G_m) \;\le\; 2s\, 2^{-m} = o(1). \qquad\qquad$$<span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 260" width="100%" role="img" aria-label="Animated staircase: the entropy potential is forced up each layer and breaks the ceiling">
+  <line x1="60" y1="220" x2="450" y2="220" stroke="#999" stroke-width="1.4"/>
+  <line x1="60" y1="220" x2="60" y2="25" stroke="#999" stroke-width="1.4"/>
+  <line x1="60" y1="40" x2="450" y2="40" stroke="#2e6da4" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <g font-size="10" fill="#777">
+    <line x1="56" y1="220" x2="60" y2="220" stroke="#999"/><text x="46" y="224">0</text>
+    <line x1="56" y1="40" x2="60" y2="40" stroke="#999"/><text x="46" y="44">1</text>
+  </g>
+  <text x="66" y="34" font-size="11.5" fill="#2e6da4">ceiling: &#934; can never exceed 1</text>
+  <text x="20" y="130" font-size="11.5" fill="#555" transform="rotate(-90 20 130)">entropy potential &#934;&#7522;</text>
+  <text x="200" y="245" font-size="11" fill="#555">layer i = 0, 1, 2, &#8230;, s</text>
+  <!-- static faint staircase -->
+  <polyline points="70,215 115,215 115,192.5 160,192.5 160,170 205,170 205,147.5 250,147.5 250,125 295,125 295,102.5 340,102.5 340,80 385,80 385,57.5 430,57.5 430,35" fill="none" stroke="#ddd" stroke-width="1.6"/>
+  <!-- animated draw-on -->
+  <polyline points="70,215 115,215 115,192.5 160,192.5 160,170 205,170 205,147.5 250,147.5 250,125 295,125 295,102.5 340,102.5 340,80 385,80 385,57.5 430,57.5 430,35" fill="none" stroke="#c0392b" stroke-width="2.6" stroke-dasharray="540 540">
+    <animate attributeName="stroke-dashoffset" values="540;540;0;0" keyTimes="0;0.08;0.85;1" dur="10s" repeatCount="indefinite"/>
+  </polyline>
+  <!-- crossing marker -->
+  <g>
+    <circle cx="430" cy="40" r="7" fill="none" stroke="#c0392b" stroke-width="2">
+      <animate attributeName="opacity" values="0;0;0;1;1" keyTimes="0;0.85;0.86;0.9;1" dur="10s" repeatCount="indefinite"/>
+    </circle>
+    <text x="316" y="26" font-size="12" fill="#c0392b">
+      <animate attributeName="opacity" values="0;0;0;1;1" keyTimes="0;0.85;0.86;0.9;1" dur="10s" repeatCount="indefinite"/>
+      &#934; forced past 1 &mdash; impossible</text>
+  </g>
+  <text x="84" y="205" font-size="11" fill="#7a1f1f">each embedded layer forces &#934; up by &#8805; 2(&#946; &#8722; A(&#964;) &#8722; 2&#948;)</text>
+</svg><figcaption><b>The staircase contradiction of Proposition 8.1</b> (animated line-draw; the full staircase stays visible in gray if motion is off). Each transition of an embedded copy of $H$ pumps the potential $\Phi$ &mdash; a per-coordinate entropy average trapped in $[0,1]$ &mdash; upward by at least $2(\beta - A(\tau) - 2\delta)$, drawn here exaggerated. With the real numbers from <a class="secref" href="#finish">&sect;11</a> the increment is about $0.0028$, so about $358$ layers overflow the ceiling &mdash; which is exactly how the depth $s$ of $H$ is chosen. Ceiling breached, embedding refuted.</figcaption></figure>

@@ -1,0 +1,26 @@
+<svg class="setupfig" viewBox="0 0 620 240" width="100%" role="img" aria-label="Proof geometry of Lemma 7">
+<text x="18" y="28" font-size="12.5" text-anchor="start" fill="#333">integer error vector u &#8722; &#955; (coordinates):</text>
+<text x="118" y="168" font-size="12" text-anchor="middle" fill="#333">0</text>
+<text x="118" y="62" font-size="10.5" text-anchor="middle" fill="#666">even</text>
+<rect x="160" y="150" width="56" height="52" rx="3" fill="#9db6c9" stroke="#333" stroke-width="1.0" opacity="0.9"/>
+<text x="188" y="220" font-size="12" text-anchor="middle" fill="#333">-2</text>
+<text x="188" y="62" font-size="10.5" text-anchor="middle" fill="#666">even</text>
+<rect x="230" y="124" width="56" height="26" rx="3" fill="#c0392b" stroke="#333" stroke-width="1.0" opacity="0.9"/>
+<text x="258" y="168" font-size="12" text-anchor="middle" fill="#333">1</text>
+<text x="258" y="62" font-size="10.5" text-anchor="middle" fill="#c0392b">odd</text>
+<text x="328" y="168" font-size="12" text-anchor="middle" fill="#333">0</text>
+<text x="328" y="62" font-size="10.5" text-anchor="middle" fill="#666">even</text>
+<rect x="370" y="72" width="56" height="78" rx="3" fill="#c0392b" stroke="#333" stroke-width="1.0" opacity="0.9"/>
+<text x="398" y="168" font-size="12" text-anchor="middle" fill="#333">3</text>
+<text x="398" y="62" font-size="10.5" text-anchor="middle" fill="#c0392b">odd</text>
+<rect x="440" y="150" width="56" height="26" rx="3" fill="#c0392b" stroke="#333" stroke-width="1.0" opacity="0.9"/>
+<text x="468" y="194" font-size="12" text-anchor="middle" fill="#333">-1</text>
+<text x="468" y="62" font-size="10.5" text-anchor="middle" fill="#c0392b">odd</text>
+<text x="538" y="168" font-size="12" text-anchor="middle" fill="#333">0</text>
+<text x="538" y="62" font-size="10.5" text-anchor="middle" fill="#666">even</text>
+<line x1="74" y1="150" x2="580" y2="150" stroke="#333" stroke-width="1.3"/>
+<line x1="74" y1="124" x2="580" y2="124" stroke="#c0392b" stroke-width="1.1" stroke-dasharray="5 3"/>
+<text x="582" y="128" font-size="11" text-anchor="start" fill="#c0392b">1</text>
+<text x="18" y="206" font-size="11.5" text-anchor="start" fill="#333">x = (u &#8722; &#955;) mod 2 selects the odd coordinates (red). Each odd coordinate has |u&#11388; &#8722; &#955;&#11388;| &#8805; 1,</text>
+<text x="18" y="224" font-size="11.5" text-anchor="start" fill="#333">so &#8721; |u&#11388; &#8722; &#955;&#11388;|&#8348; &#8805; wt(x) &#8805; W(H, b) &#8212; and the lift of a minimum-weight solution achieves equality with &#177;1 entries.</text>
+</svg>

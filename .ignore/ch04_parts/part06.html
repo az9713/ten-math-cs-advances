@@ -1,0 +1,203 @@
+<h2 id="family">8. The infinite family $\Gamma_n$</h2>
+
+<p>One counterexample down; now the infinite fiber. The idea is almost embarrassingly simple: <i>slide the carry</i>. Instead of feeding position $j$'s carry from position $j$, feed it from position $j + n$ &mdash; the first $n$ coordinate positions in each of the four directions then never participate in any carry. Each shift $n$ gives a new compact group law $\star_n$ on the <i>same</i> measured $K$-space, hence a new group $\Gamma_n$ with the same factor; and the shift is recoverable from the abstract group.</p>
+
+<h3 id="shifted">8.1 Pulling back the carry</h3>
+
+<p>For $n \ge 0$ define the <b>shift</b>
+$$T_n : X \to X, \qquad (T_n\ell)(v) = \ell(t^nv).$$
+Because $K$ acts $R$-linearly on $V$ (matrices over $R$ commute with multiplication by $t^n$), $T_n$ is $K$-equivariant; it is continuous (each output coordinate reads one input coordinate) and surjective (a functional prescribed on $t^nV$ extends to $V$). Its kernel is
+$$Z_n = \{\ell \in X : \ell|_{t^nV} = 0\} \;\cong\; \mathrm{Hom}_{\mathbb F_2}(V/t^nV, \mathbb F_2), \qquad |Z_n| = 2^{4n}$$
+(since $V/t^nV \cong (R/(t^n))^4$ has $\mathbb F_2$-dimension $4n$; the count $|Z_n| = 2^{4n}$ is machine-checked in <a class="secref" href="#numerics">&sect;10</a>). Now pull the cocycle back through the shift and twist:
+$$c_n(\ell, \ell') = r_{T_n\ell,\, T_n\ell'} \in Y, \qquad (\ell,q)\star_n(\ell',q') = \bigl(\ell+\ell',\; q+q'+c_n(\ell,\ell')\bigr). \tag{6.3}$$
+In coordinates $x_{i,j} = \ell(t^je_i)$ and $y_{i,j} = q(b(t^je_i))$: since $c_n(\ell,\ell')(b(t^je_i)) = x_{i,j+n}\,x'_{i,j+n}$, the coordinate pair $(x_{i,j+n},\, y_{i,j})$ adds by the four-point carry law $\diamond$ of <a class="secref" href="#toy4">&sect;4</a>, while the first $n$ coordinates $x_{i,0},\dots,x_{i,n-1}$ of each direction feed no carry at all (Fig. 18). For $n = 0$, Proposition 4.1's map $\Phi_0$ identifies $(X\times Y, \star_0)$ with the function-space group $C_0$; we adopt this as a standing identification and write
+$$C_n = (X\times Y, \star_n) \qquad (n \ge 0).$$</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 260" width="100%" role="img" aria-label="Animated shift register: the carry into y position j comes from x position j plus n; the first n x cells are carry-free">
+  <defs><marker id="c4arrN" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/></marker></defs>
+  <text x="24" y="26" font-size="12.5" fill="#1a1a1a">one of the four directions e&#7522;: coordinate strips of &#8467; (top) and q (bottom), carry shifted by n = 2</text>
+  <!-- x track -->
+  <text x="24" y="66" font-size="12" fill="#2e5a8a">x<tspan baseline-shift="sub" font-size="8">i,j</tspan> = &#8467;(t&#690;e&#7522;)</text>
+  <g stroke="#2e5a8a" stroke-width="1.2">
+    <rect x="130" y="48" width="34" height="26" fill="#8899aa" fill-opacity="0.35"/>
+    <rect x="168" y="48" width="34" height="26" fill="#8899aa" fill-opacity="0.35"/>
+    <rect x="206" y="48" width="34" height="26" fill="#7da7d9" fill-opacity="0.45"/>
+    <rect x="244" y="48" width="34" height="26" fill="#7da7d9" fill-opacity="0.45"/>
+    <rect x="282" y="48" width="34" height="26" fill="#7da7d9" fill-opacity="0.45"/>
+    <rect x="320" y="48" width="34" height="26" fill="#7da7d9" fill-opacity="0.45"/>
+    <rect x="358" y="48" width="34" height="26" fill="#7da7d9" fill-opacity="0.45"/>
+  </g>
+  <g font-size="10" fill="#555">
+    <text x="140" y="88">j=0</text><text x="178" y="88">1</text><text x="216" y="88">2</text><text x="254" y="88">3</text><text x="292" y="88">4</text><text x="330" y="88">5</text><text x="368" y="88">6</text>
+  </g>
+  <text x="118" y="106" font-size="11" fill="#8899aa">&#9668; carry-free cells (never read by any carry)</text>
+  <!-- y track -->
+  <text x="24" y="196" font-size="12" fill="#a06a1f">y<tspan baseline-shift="sub" font-size="8">i,j</tspan> = q(b(t&#690;e&#7522;))</text>
+  <g stroke="#a06a1f" stroke-width="1.2">
+    <rect x="130" y="178" width="34" height="26" fill="#e8b87d" fill-opacity="0.5"/>
+    <rect x="168" y="178" width="34" height="26" fill="#e8b87d" fill-opacity="0.5"/>
+    <rect x="206" y="178" width="34" height="26" fill="#e8b87d" fill-opacity="0.5"/>
+    <rect x="244" y="178" width="34" height="26" fill="#e8b87d" fill-opacity="0.5"/>
+    <rect x="282" y="178" width="34" height="26" fill="#e8b87d" fill-opacity="0.5"/>
+  </g>
+  <g font-size="10" fill="#555">
+    <text x="140" y="218">j=0</text><text x="178" y="218">1</text><text x="216" y="218">2</text><text x="254" y="218">3</text><text x="292" y="218">4</text>
+  </g>
+  <!-- shifted carry arrows -->
+  <g stroke="#c0392b" stroke-width="1.7" fill="none">
+    <path d="M223,76 C200,120 165,140 150,174" marker-end="url(#c4arrN)">
+      <animate attributeName="opacity" values="0.15;1;0.15" dur="4s" repeatCount="indefinite"/>
+    </path>
+    <path d="M261,76 C238,120 203,140 188,174" marker-end="url(#c4arrN)">
+      <animate attributeName="opacity" values="0.15;1;0.15" begin="1.3s" dur="4s" repeatCount="indefinite"/>
+    </path>
+    <path d="M299,76 C276,120 241,140 226,174" marker-end="url(#c4arrN)">
+      <animate attributeName="opacity" values="0.15;1;0.15" begin="2.6s" dur="4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <text x="316" y="140" font-size="12" fill="#c0392b">carry of (x<tspan baseline-shift="sub" font-size="8">i,j+n</tspan>, x&#8242;<tspan baseline-shift="sub" font-size="8">i,j+n</tspan>)</text>
+  <text x="316" y="156" font-size="12" fill="#c0392b">feeds y<tspan baseline-shift="sub" font-size="8">i,j</tspan></text>
+  <text x="24" y="244" font-size="12" fill="#7a1f1f">each pair (x<tspan baseline-shift="sub" font-size="8">i,j+n</tspan>, y<tspan baseline-shift="sub" font-size="8">i,j</tspan>) is a &#8484;/4 digit-pair; the 4n grey cells are pure exponent-2 &mdash; the fingerprint of n</text>
+</svg><figcaption><b>The shifted carry $\star_n$</b> (animated: carry arrows fire from $x$-position $j{+}n$ into $y$-position $j$). Sliding the carry source by $n$ positions leaves the first $n$ coordinates of each of the four directions carry-free: $4n$ bits of pure Klein behavior grafted onto a $\mathbb Z/4$-style tail. All these group laws share the measured $K$-space $(X\times Y, m)$; the integer $n$ is stored in <i>where</i> the carry begins.</figcaption></figure>
+
+<div class="lem"><b>Lemma 6.1.</b> For every $n \ge 0$, $\star_n$ makes $C_n$ a compact abelian group with Haar measure $m$, and $K$ acts on $C_n$ by continuous automorphisms through the coordinate action $k\cdot(\ell,q) = (k\cdot\ell, k\cdot q)$ &mdash; which does not depend on $n$.</div>
+
+<div class="proof"><p>$c_n$ inherits continuity, symmetry, bilinearity, and $K$-equivariance from $r$ and $T_n$. Bilinearity gives the cocycle identity $c_n(\ell,\ell') + c_n(\ell+\ell',\ell'') = c_n(\ell',\ell'') + c_n(\ell,\ell'+\ell'')$, which is exactly associativity of (6.3); symmetry gives commutativity; $(0,0)$ is the identity and $(\ell,\, q + c_n(\ell,\ell))$ inverts $(\ell, q)$ (check: the carry term produced on adding is $c_n(\ell,\ell)$, cancelling). The law is continuous, so $C_n$ is a compact abelian topological group; equivariance of $c_n$ makes each $k$ an automorphism. Translations are triangular over $X$ exactly as in Proposition 4.1, so they preserve $m$; a translation-invariant Borel probability measure on a compact group is its Haar measure. <span class="qed">&#8718;</span></p></div>
+
+<p>Two maps organize the bookkeeping. The projection $\rho_n(\ell,q) = \ell$ exhibits $C_n$ as an extension of $X$ by $Y$; and comparing carries,
+$$p_n : C_n \to C_0, \qquad p_n(\ell, q) = (T_n\ell,\, q)$$
+is a continuous surjective $K$-equivariant <b>homomorphism</b> &mdash; because $c_n(\ell,\ell') = r_{T_n\ell, T_n\ell'}$ literally says &ldquo;the $\star_n$-carry is the $\star_0$-carry of the shifted arguments&rdquo; &mdash; with
+$$\ker p_n = Z_n \times \{0\}, \qquad |{\ker p_n}| = 2^{4n}.$$
+So $p_n$ forgets exactly the $4n$ carry-free bits. (A continuous linear section of $T_n$ shows $C_n \cong C_0 \times (\mathbb Z/2)^{4n}$ as compact groups &mdash; but for $n \gt 0$ this splitting is <i>never</i> $K$-equivariant, and &sect;8.5 will extract $n$ from precisely this failure.)</p>
+
+<h3 id="dualfamily">8.2 The dual groups $E_n$ and the groups $\Gamma_n$</h3>
+
+<p>Set
+$$E_n = \widehat{C_n}, \qquad \Gamma_n = E_n \rtimes K,$$
+consistent (for $n = 0$) with <a class="secref" href="#carry">&sect;6</a> under the standing identification. Define $\iota_n(v)(\ell,q) = (-1)^{\ell(v)}$ for $v \in V$, and let $\sigma_n(\eta) \in B$ be determined by $\eta(0, q) = (-1)^{q(\sigma_n(\eta))}$ for all $q \in Y$ (restriction to $\{0\}\times Y$ is a character of $Y$, and $\widehat Y = B$).</p>
+
+<div class="lem"><b>Lemma 6.2.</b> $E_n$ is countable and fits in the $K$-equivariant exact sequence
+$$0 \longrightarrow V \xrightarrow{\;\iota_n\;} E_n \xrightarrow{\;\sigma_n\;} B \longrightarrow 0. \tag{6.7}$$
+For $v \in V$ define $\varepsilon^{(n)}_v = \varepsilon^{(0)}_v \circ p_n \in E_n$. Then
+$$\sigma_n\bigl(\varepsilon^{(n)}_v\bigr) = b(v), \qquad 2\,\varepsilon^{(n)}_v = \iota_n(t^nv). \tag{6.8}$$
+In particular $\varepsilon^{(n)}_e$ has order $4$.</div>
+
+<div class="proof"><p>Dualize the compact exact sequence $0 \to Y \to C_n \xrightarrow{\rho_n} X \to 0$ (Import 6(ii)) and identify $\widehat X = V$, $\widehat Y = B$: this is (6.7), with the stated formulas for $\iota_n, \sigma_n$ falling out of the identifications exactly as in Lemma 4.2. Countability is Import 6(i) ($C_n$ compact metrizable). For (6.8), evaluate: writing elements of $C_n$ as pairs $(\ell,q)$ and recalling $p_n(\ell,q) = (T_n\ell, q) \leftrightarrow F_{T_n\ell,\,q}$,
+$$\varepsilon^{(n)}_v(0, q) = \varepsilon^{(0)}_v(F_{0,q}) = (-1)^{q(b(v))} \implies \sigma_n(\varepsilon^{(n)}_v) = b(v),$$
+$$\bigl(\varepsilon^{(n)}_v(\ell,q)\bigr)^2 = i^{\,2F_{T_n\ell, q}(v)} = (-1)^{(T_n\ell)(v)} = (-1)^{\ell(t^nv)} \implies 2\varepsilon^{(n)}_v = \iota_n(t^nv).$$
+Since $t^ne \neq 0$ and $\iota_n$ is injective, $2\varepsilon^{(n)}_e \neq 0$, and $4\varepsilon^{(n)}_e = 2\iota_n(t^nv)|_{v=e} = 0$: order $4$. <span class="qed">&#8718;</span></p></div>
+
+<p><b>Read (6.8) twice.</b> Every $E_n$ contains order-four lifts of every $b(v)$ &mdash; so no $E_n$ is the untwisted $D$ &mdash; but the <i>double</i> of the lift is $\iota_n(t^nv)$: the carry's location $n$ is stamped into the doubling map. &sect;8.5 turns that stamp into an isomorphism invariant.</p>
+
+<h3 id="commonfactor">8.3 Common factor, and rigidity for free</h3>
+
+<div class="prop"><b>Proposition 6.3.</b> $L(\Gamma_n) \cong L(\Lambda)$ for every $n \ge 0$.</div>
+
+<div class="proof"><p>By Lemma 6.1 the identity map $(C_n, m) \to (X\times Y, m)$ is a $K$-equivariant isomorphism of probability spaces (the action is coordinatewise and $n$-independent; only the group laws differ). Propositions F and G give
+$$L(\Gamma_n) \cong L^\infty(C_n, m)\rtimes K \cong L^\infty(X\times Y, m)\rtimes K \cong L(\Lambda).$$
+<span class="qed">&#8718;</span></p></div>
+
+<div class="prop"><b>Proposition 6.4.</b> Every $\Gamma_n$ is ICC and has property (T).</div>
+
+<div class="proof"><p>$\Lambda$ is ICC with property (T) (Propositions 5.3, 5.9); $L(\Gamma_n) \cong L(\Lambda)$ (Proposition 6.3); transfer both through the factor (Lemma 2.1). <span class="qed">&#8718;</span></p></div>
+
+<h3 id="commensurable">8.4 Finite-index embeddings and commensurability</h3>
+
+<div class="prop"><b>Proposition 6.5.</b> For every $n \ge 0$, $\Gamma_n$ contains a subgroup isomorphic to $\Gamma_0$ of index $2^{4n}$; consequently the groups $(\Gamma_n)_{n\ge0}$ are mutually commensurable.</div>
+
+<div class="proof"><p>Dualize the compact exact sequence $0 \to Z_n\times\{0\} \to C_n \xrightarrow{p_n} C_0 \to 0$ (Import 6(ii)):
+$$0 \longrightarrow E_0 \xrightarrow{\;p_n^*\;} E_n \xrightarrow{\;\mathrm{res}_{Z_n}\;} \widehat{Z_n} \longrightarrow 0, \qquad p_n^*(\eta) = \eta\circ p_n,$$
+where $\mathrm{res}_{Z_n}(\eta)$ is the restriction $\ell \mapsto \eta(\ell, 0)$ to the kernel (onto, by Import 6(iii)). The embedding $p_n^*$ is $K$-equivariant, so $p_n^*(E_0)\rtimes K \cong \Gamma_0$ sits inside $\Gamma_n = E_n\rtimes K$ with index
+$$[\Gamma_n : p_n^*(E_0)\rtimes K] = [E_n : p_n^*(E_0)] = |\widehat{Z_n}| = |Z_n| = 2^{4n}$$
+(a finite abelian group has $|\widehat{Z}| = |Z|$: its characters biject with it, e.g.&nbsp;by the structure theorem, or by counting an orthonormal basis of functions on $Z$). Each $\Gamma_n$ thus shares the finite-index subgroup (a copy of) $\Gamma_0$ with every other: mutual commensurability (Fig. 19). <span class="qed">&#8718;</span></p></div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 220" width="100%" role="img" aria-label="Commensurability web: each Gamma n contains a copy of Gamma 0 with index 2 to the 4n">
+  <defs><marker id="c4arrW" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e5a8a"/></marker></defs>
+  <g fill="none" stroke="#c0392b" stroke-width="1.5">
+    <rect x="40" y="30" width="90" height="38" rx="8"/>
+    <rect x="160" y="30" width="90" height="38" rx="8"/>
+    <rect x="280" y="30" width="90" height="38" rx="8"/>
+    <rect x="400" y="30" width="60" height="38" rx="8"/>
+  </g>
+  <g font-size="12.5" fill="#1a1a1a">
+    <text x="66" y="53">&#915;&#8320;</text><text x="186" y="53">&#915;&#8321;</text><text x="306" y="53">&#915;&#8322;</text><text x="418" y="53">&#915;&#8323;&#8943;</text>
+  </g>
+  <ellipse cx="240" cy="160" rx="80" ry="26" fill="#7da7d9" fill-opacity="0.25" stroke="#2e5a8a" stroke-width="1.5"/>
+  <text x="204" y="165" font-size="12.5" fill="#1a1a1a">copies of &#915;&#8320;</text>
+  <g stroke="#2e5a8a" stroke-width="1.4" fill="none">
+    <path d="M85,68 C110,110 170,135 200,148" marker-end="url(#c4arrW)"/>
+    <path d="M205,68 C215,100 225,120 232,134" marker-end="url(#c4arrW)"/>
+    <path d="M325,68 C310,105 280,128 262,140" marker-end="url(#c4arrW)"/>
+    <path d="M428,68 C400,115 330,140 310,150" marker-end="url(#c4arrW)"/>
+  </g>
+  <g font-size="10.5" fill="#2e5a8a">
+    <text x="60" y="100">index 1</text>
+    <text x="228" y="100">index 2&#8308;</text>
+    <text x="330" y="100">index 2&#8312;</text>
+    <text x="424" y="100">index 2&#185;&#178;</text>
+  </g>
+  <text x="40" y="205" font-size="12" fill="#7a1f1f">all &#915;&#8345; share a common finite-index subgroup &#8773; &#915;&#8320; (via p&#8345;*): mutually commensurable, yet pairwise distinct</text>
+</svg><figcaption><b>The commensurability web.</b> Dualizing $p_n$ embeds $E_0$ into $E_n$ with index $|Z_n| = 2^{4n}$, hence $\Gamma_0 \hookrightarrow \Gamma_n$ with the same index. The family is as tightly related as nonisomorphic groups can be &mdash; commensurable, one factor &mdash; which makes their pairwise nonisomorphism (next) the more striking.</figcaption></figure>
+
+<h3 id="noniso">8.5 Recovering $n$: the intrinsic invariant</h3>
+
+<p>By (6.3), doubling in $C_n$ is $2(\ell,q) = (0,\, c_n(\ell,\ell))$, so $C_n$ &mdash; and dually $E_n$ &mdash; has exponent dividing $4$. Since $K$ is torsion-free, an element $(\eta, k) \in \Gamma_n$ of finite order must have $k = 1$; hence
+$$\mathrm{Tor}(\Gamma_n) = E_n,$$
+<b>a characteristic abelian subgroup</b> of the abstract group $\Gamma_n$ &mdash; any isomorphism of the $\Gamma$'s must match up the $E$'s and intertwine the conjugation actions of the quotients $\Gamma_n/E_n \cong K$. For an abelian group $A$ write $A[2] = \{a : 2a = 0\}$ and $2A = \{2a\}$; both are preserved by automorphisms, so
+$$A_n \;=\; E_n[2]\,/\,2E_n$$
+with its $\Gamma_n/E_n$-action is intrinsic, and so is the count of its finite-orbit elements:
+$$i(\Gamma_n) \;=\; \bigl|\{a \in A_n : \text{the } (\Gamma_n/E_n)\text{-orbit of } a \text{ is finite}\}\bigr|.$$
+We now compute $i(\Gamma_n) = 2^{4n}$, through three lemmas that make the doubling map completely explicit.</p>
+
+<div class="lem"><b>Lemma 6.6.</b> There is a unique $K$-equivariant surjective $\mathbb F_2$-linear map $d : B \to V$ with $d(b(v)) = v$ for all $v$.</div>
+
+<div class="proof"><p>Fix an ordered basis $(u_i)$ of $V$ and define $d$ on the basis of $B$ from Lemma I: $u_i\otimes u_i \mapsto u_i$ and $u_i\otimes u_j + u_j\otimes u_i \mapsto 0$ ($i \lt j$). Then the expansion of Lemma I(2) gives $d(b(v)) = \sum_i x_iu_i = v$ (the quadratic terms die). Since the $b(v)$ span $B$, the property $d(b(v)) = v$ determines $d$ on a spanning set, giving uniqueness; surjectivity is clear; and equivariance follows on the spanning set: $d(k\cdot b(v)) = d(b(k v)) = kv = k\cdot d(b(v))$. <span class="qed">&#8718;</span></p></div>
+
+<div class="lem"><b>Lemma 6.7 (the doubling formula).</b> For every $n \ge 0$ and $\eta \in E_n$,
+$$2\eta \;=\; \iota_n\bigl(t^n\, d(\sigma_n(\eta))\bigr). \tag{6.10}$$
+Consequently
+$$2E_n = \iota_n(t^nV) \qquad\text{and}\qquad E_n[2] = \sigma_n^{-1}(\ker d). \tag{6.11}$$</div>
+
+<div class="proof"><p>Both sides of (6.10) are homomorphisms in $\eta$ (composites of the homomorphisms $\sigma_n$, $d$, multiplication by $t^n$, $\iota_n$, and doubling). They agree on the generators of $E_n$: on $\varepsilon^{(n)}_v$, the left side is $\iota_n(t^nv)$ by (6.8) and the right side is $\iota_n(t^n d(b(v))) = \iota_n(t^nv)$; on $\iota_n(v)$, both sides vanish ($\iota_n(v)$ has order $\le 2$; and $\sigma_n\circ\iota_n = 0$ by exactness). These elements generate: the $\sigma_n$-images $b(v)$ of the $\varepsilon$'s span $B$, and $\ker\sigma_n = \iota_n(V)$. This proves (6.10). Then $2E_n = \iota_n(t^n\,d(\sigma_n(E_n))) = \iota_n(t^nV)$ ($\sigma_n$ and $d$ are onto), and $2\eta = 0 \iff t^nd(\sigma_n\eta) = 0 \iff d(\sigma_n\eta) = 0$ (multiplication by $t^n$ on $V$ and $\iota_n$ are injective), i.e.&nbsp;$E_n[2] = \sigma_n^{-1}(\ker d)$. <span class="qed">&#8718;</span></p></div>
+
+<div class="lem"><b>Lemma 6.8.</b> There is a $K$-equivariant exact sequence
+$$0 \longrightarrow V/t^nV \longrightarrow A_n \longrightarrow \ker d \longrightarrow 0, \tag{6.13}$$
+with maps $v + t^nV \mapsto \iota_n(v) + 2E_n$ and $\eta + 2E_n \mapsto \sigma_n(\eta)$. Under the resulting identification of $V/t^nV$ with its image,
+$$A_n^{\mathrm{fin}} \;=\; \{a \in A_n : K\cdot a \text{ finite}\} \;=\; V/t^nV, \qquad |A_n^{\mathrm{fin}}| = 2^{4n}.$$</div>
+
+<div class="proof"><p>Restrict $\sigma_n$ to $E_n[2] = \sigma_n^{-1}(\ker d)$: it maps onto $\ker d$ (any preimage $\eta$ of $w \in \ker d$ has $2\eta = \iota_n(t^nd(w)) = 0$) with kernel $\iota_n(V)$; quotient the resulting sequence $0 \to V \to E_n[2] \to \ker d \to 0$ by $2E_n = \iota_n(t^nV) \subseteq \iota_n(V)$ to get (6.13).</p>
+<p>Finite orbits: $V/t^nV$ is a finite set ($2^{4n}$ elements), so all its orbits are finite. Conversely, if $a \in A_n$ has nonzero image $w \in \ker d \subseteq B$, then $w$ has an <i>infinite</i> $K$-orbit (Lemma 5.2 via $K \twoheadrightarrow Q$), and the equivariant map $A_n \to \ker d$ sends the orbit of $a$ onto the orbit of $w$: the orbit of $a$ is infinite. So the finite-orbit part is exactly $V/t^nV \cong (R/(t^n))^4$, of order $2^{4n}$. <span class="qed">&#8718;</span></p></div>
+
+<div class="prop"><b>Proposition 6.9.</b> The groups $(\Gamma_n)_{n \ge 0}$ are pairwise nonisomorphic.</div>
+
+<div class="proof"><p>An abstract isomorphism $\Gamma_n \cong \Gamma_m$ carries $\mathrm{Tor}(\Gamma_n) = E_n$ onto $\mathrm{Tor}(\Gamma_m) = E_m$, hence induces an isomorphism $A_n \cong A_m$ intertwining the intrinsic quotient-group actions, hence a bijection of finite-orbit parts. Lemma 6.8 gives $2^{4n} = i(\Gamma_n) = i(\Gamma_m) = 2^{4m}$, so $n = m$. <span class="qed">&#8718;</span></p></div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 240" width="100%" role="img" aria-label="The invariant pipeline: from the abstract group take torsion, then the 2-torsion modulo doubles, then the finite-orbit part; its size reveals n">
+  <defs><marker id="c4arrP2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <g fill="none" stroke="#b8a" stroke-width="1.3">
+    <rect x="20" y="24" width="200" height="40" rx="6"/>
+    <rect x="260" y="24" width="200" height="40" rx="6"/>
+    <rect x="20" y="104" width="200" height="40" rx="6"/>
+    <rect x="260" y="104" width="200" height="40" rx="6"/>
+  </g>
+  <g font-size="11.8" fill="#1a1a1a">
+    <text x="32" y="41">abstract group &#915;&#8345;</text>
+    <text x="32" y="57" font-size="10.5" fill="#555">no coordinates, no duality given</text>
+    <text x="272" y="41">Tor(&#915;&#8345;) = E&#8345;</text>
+    <text x="272" y="57" font-size="10.5" fill="#555">K torsion-free &#8658; torsion is characteristic</text>
+    <text x="32" y="121">A&#8345; = E&#8345;[2]/2E&#8345;</text>
+    <text x="32" y="137" font-size="10.5" fill="#555">with intrinsic &#915;&#8345;/E&#8345;-action</text>
+    <text x="272" y="121">finite-orbit part = V/t&#8319;V</text>
+    <text x="272" y="137" font-size="10.5" fill="#555">ker d carries only infinite orbits</text>
+  </g>
+  <g stroke="#7a1f1f" stroke-width="1.6" fill="none">
+    <path d="M220,44 L256,44" marker-end="url(#c4arrP2)"/>
+    <path d="M360,64 C360,84 240,84 130,100" marker-end="url(#c4arrP2)"/>
+    <path d="M220,124 L256,124" marker-end="url(#c4arrP2)"/>
+  </g>
+  <rect x="130" y="176" width="220" height="42" rx="8" fill="none" stroke="#c0392b" stroke-width="1.7"/>
+  <text x="146" y="196" font-size="13" fill="#c0392b" font-weight="bold">i(&#915;&#8345;) = |V/t&#8319;V| = 2&#8308;&#8319;</text>
+  <text x="146" y="212" font-size="11" fill="#555">1, 16, 256, &#8230; &#8658; reads off n</text>
+  <line x1="360" y1="144" x2="300" y2="172" stroke="#7a1f1f" stroke-width="1.6" marker-end="url(#c4arrP2)"/>
+  <text x="20" y="236" font-size="12" fill="#7a1f1f">every arrow is preserved by ANY group isomorphism &#8658; &#915;&#8345; &#8773; &#915;&#8340; forces 2&#8308;&#8319; = 2&#8308;&#8340; &#8658; n = m</text>
+</svg><figcaption><b>The invariant pipeline.</b> Torsion (characteristic, since $K$ is torsion-free) $\to$ the intrinsic quotient $A_n = E_n[2]/2E_n$ with its conjugation action $\to$ its finite-orbit part, which the doubling formula (6.10) identifies with $V/t^nV$: exactly the $4n$ carry-free bits, now counted abstractly. The size $2^{4n}$ recovers $n$ from the naked group.</figcaption></figure>

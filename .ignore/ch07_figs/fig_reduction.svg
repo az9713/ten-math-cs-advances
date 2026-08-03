@@ -1,0 +1,21 @@
+<svg class="setupfig" viewBox="0 0 620 268" width="100%" role="img" aria-label="A gap-producing many-one reduction">
+<defs><marker id="c7red_a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker><marker id="c7red_g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a7d2a"/></marker><marker id="c7red_r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker></defs>
+<ellipse cx="130" cy="130" rx="105" ry="96" fill="#f3f1ec" stroke="#333" stroke-width="1.3"/>
+<ellipse cx="470" cy="130" rx="118" ry="96" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.3"/>
+<line x1="60" y1="130" x2="200" y2="130" stroke="#666" stroke-width="1.1" stroke-dasharray="4 3"/>
+<line x1="360" y1="130" x2="582" y2="130" stroke="#666" stroke-width="1.1" stroke-dasharray="4 3"/>
+<text x="130" y="48" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">3SAT instances</text>
+<text x="470" y="48" font-size="12.5" text-anchor="middle" fill="#2e6da4" font-weight="bold">GapCVP instances</text>
+<text x="130" y="100" font-size="12" text-anchor="middle" fill="#2a7d2a">satisfiable &#966;</text>
+<text x="130" y="172" font-size="12" text-anchor="middle" fill="#c0392b">unsatisfiable &#966;</text>
+<text x="470" y="88" font-size="12" text-anchor="middle" fill="#2a7d2a">YES: dist&#8322;(t, L) &#8804; r</text>
+<text x="470" y="166" font-size="12" text-anchor="middle" fill="#c0392b">NO: dist&#8322;(t, L) &gt; n<tspan baseline-shift="super" font-size="75%">1/400</tspan>&#8201;r</text>
+<text x="470" y="196" font-size="10.5" text-anchor="middle" fill="#666">(gap: nothing in between)</text>
+<line x1="214" y1="96" x2="366" y2="84" stroke="#2a7d2a" stroke-width="2.0" marker-end="url(#c7red_g)"/>
+<line x1="214" y1="168" x2="366" y2="162" stroke="#c0392b" stroke-width="2.0" marker-end="url(#c7red_r)"/>
+<text x="292" y="74" font-size="12" text-anchor="middle" fill="#333" class="v">&#966; &#8614; (B, t, r)</text>
+<text x="292" y="116" font-size="10.5" text-anchor="middle" fill="#666">deterministic</text>
+<text x="292" y="128" font-size="10.5" text-anchor="middle" fill="#666">polynomial time</text>
+<rect x="96" y="226" width="430" height="34" rx="6" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.2"/>
+<text x="311" y="248" font-size="12" text-anchor="middle" fill="#c0392b">an n<tspan baseline-shift="super" font-size="75%">1/400</tspan>-approximator for CVP would decide 3SAT &#8658; P = NP</text>
+</svg>

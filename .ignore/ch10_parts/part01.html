@@ -1,0 +1,131 @@
+<h2 id="exnum">1. Extremal numbers from zero: Mantel, K&#337;v&aacute;ri&ndash;S&oacute;s&ndash;Tur&aacute;n, and the first incidence geometry</h2>
+
+<p>First the vocabulary, all of it standard. A <b>graph</b> $G$ is a finite set $V(G)$ of <i>vertices</i> together with a set $E(G)$ of <i>edges</i>, each edge an unordered pair of distinct vertices (so: no loops, no repeated edges, no directions &mdash; the paper's convention, and ours). Two vertices joined by an edge are <i>adjacent</i>; the <b>neighborhood</b> $N_G(v)$ is the set of vertices adjacent to $v$, and the <b>degree</b> $d(v) = |N_G(v)|$ counts them. We write $\delta(G)$ and $\Delta(G)$ for the minimum and maximum degree, and $e(G) = |E(G)|$ for the edge count. A <b>path</b> is a sequence of distinct vertices, consecutive ones adjacent; a <b>cycle</b> $C_k$ is a closed loop of $k \ge 3$ distinct vertices; a graph is <b>connected</b> if every two vertices are joined by a path. A graph is <b>bipartite</b> if $V(G)$ splits into two <i>classes</i> (also called <i>sides</i>) with every edge running between the classes &mdash; equivalently (a classical exercise we will not need) if it contains no odd cycle. The <b>girth</b> of a graph is the length of its shortest cycle.</p>
+
+<p>Containment is the crucial convention: $H \subseteq G$ means $G$ has a <b>subgraph</b> isomorphic to $H$ &mdash; some injection $V(H) \hookrightarrow V(G)$ carrying edges to edges. Extra edges of $G$ among the image vertices are irrelevant (this is <i>not</i> &ldquo;induced subgraph&rdquo;). Given a family $\mathcal F$ of graphs, $G$ is <b>$\mathcal F$-free</b> if it contains no member of $\mathcal F$ as a subgraph.</p>
+
+<div class="def"><b>Definition (extremal number).</b> For a family $\mathcal F$ and $n \ge 1$,
+$$\mathrm{ex}(n, \mathcal F) := \max\bigl\{\, |E(G)| \;:\; |V(G)| = n,\ G \text{ is } \mathcal F\text{-free} \,\bigr\}.$$
+For a single graph $H$ we abbreviate $\mathrm{ex}(n,\{H\})$ to $\mathrm{ex}(n,H)$. Throughout, asymptotic notation is in $n$ with the forbidden graphs held fixed: $f = O(g)$ and $f \ll g$ both mean $f \le Cg$ for a constant $C$ possibly depending on $\mathcal F$; $f = \Omega(g)$ and $f \gg g$ mean $g = O(f)$; $f = \Theta(g)$ means both.</div>
+
+<p>Two cultures live inside this one definition. If $H$ is <i>not</i> bipartite (a triangle, say), then $\mathrm{ex}(n,H) = \Theta(n^2)$ &mdash; a constant <i>fraction</i> of all possible edges survives, and the whole game is the constant. The founding result is worth proving because its two-line counting style returns, industrialized, in <a class="secref" href="#upper">&sect;4</a>:</p>
+
+<div class="prop"><b>Proposition A (Mantel 1907).</b> $\mathrm{ex}(n, C_3) = \lfloor n^2/4 \rfloor$.</div>
+
+<div class="proof">
+<p>Let $G$ be triangle-free with $m$ edges. For every edge $uv$, the neighborhoods $N(u)$ and $N(v)$ are disjoint (a common neighbor would close a triangle), so $d(u) + d(v) \le n$. Summing over all edges, each vertex $v$ appears once per incident edge, i.e. $d(v)$ times:
+$$\sum_{uv \in E} \bigl(d(u)+d(v)\bigr) \;=\; \sum_{v} d(v)^2 \;\ge\; \frac{\bigl(\sum_v d(v)\bigr)^2}{n} \;=\; \frac{4m^2}{n},$$
+the middle inequality by Cauchy&ndash;Schwarz. The left side is at most $nm$, so $4m^2/n \le nm$, i.e. $m \le n^2/4$. For the matching construction, split the vertices into halves of sizes $\lfloor n/2\rfloor, \lceil n/2\rceil$ and take <i>all</i> edges between the halves (the <b>complete bipartite graph</b> $K_{\lfloor n/2\rfloor, \lceil n/2\rceil}$): it is bipartite, hence triangle-free, with $\lfloor n^2/4\rfloor$ edges. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>But if $H$ <i>is</i> bipartite, the complete bipartite construction is useless &mdash; it contains every bipartite pattern &mdash; and the extremal number crashes below $n^2$ to some power $n^{1+\alpha}$, $\alpha \lt 1$. Determining these exponents is the <b>degenerate Tur&aacute;n problem</b>, open for most patterns and the arena of this whole chapter. The one case every treatment starts with, and the one we will lean on, is the four-cycle.</p>
+
+<h3 id="kst">1.1 The four-cycle: upper bound by counting cherries</h3>
+
+<div class="prop"><b>Proposition B (K&#337;v&aacute;ri&ndash;S&oacute;s&ndash;Tur&aacute;n for $C_4$, 1954).</b> Every $n$-vertex $C_4$-free graph has at most $\tfrac n4\bigl(1 + \sqrt{4n-3}\bigr) = \tfrac12 n^{3/2} + O(n)$ edges.</div>
+
+<div class="proof">
+<p>Call a path $x - v - y$ with endpoints $x \neq y$ a <b>cherry</b> centered at $v$ (Fig. 2). Count cherries two ways. Centered at $v$ there are exactly $\binom{d(v)}{2}$ of them &mdash; choose the two endpoints among $v$'s neighbors. And each unordered endpoint pair $\{x,y\}$ supports <i>at most one</i> cherry in a $C_4$-free graph: two cherries $x-v-y$ and $x-v'-y$ with $v \neq v'$ are precisely a four-cycle. Hence
+$$\sum_{v \in V} \binom{d(v)}{2} \;\le\; \binom n2.$$
+The function $t \mapsto \binom t2 = \tfrac{t(t-1)}2$ is convex, so by Jensen's inequality, with $\bar d = \tfrac1n\sum_v d(v) = 2m/n$,
+$$n \binom{\bar d}{2} \;\le\; \sum_v \binom{d(v)}2 \;\le\; \binom n2, \qquad\text{i.e.}\qquad \bar d^2 - \bar d - (n-1) \le 0.$$
+Solving the quadratic for $\bar d$: $\;\bar d \le \tfrac12\bigl(1+\sqrt{4n-3}\bigr)$, and $m = n\bar d/2$ gives the claim. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 190" width="100%" role="img" aria-label="Cherry counting: two cherries on the same endpoints form a C4">
+  <!-- left: one cherry -->
+  <g stroke="#2e6da4" stroke-width="2.2">
+    <line x1="45" y1="130" x2="105" y2="55"/><line x1="105" y1="55" x2="165" y2="130"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.5">
+    <circle cx="45" cy="130" r="7"/><circle cx="165" cy="130" r="7"/>
+  </g>
+  <circle cx="105" cy="55" r="7" fill="#2e6da4"/>
+  <text x="100" y="40" font-size="12.5" fill="#2e6da4" class="v">v</text>
+  <text x="30" y="152" font-size="12.5" fill="#555" class="v">x</text>
+  <text x="160" y="152" font-size="12.5" fill="#555" class="v">y</text>
+  <text x="46" y="177" font-size="11.5" fill="#555">a cherry: &#8968;choose 2 of d(v) neighbors&#8969;</text>
+  <!-- right: two cherries = C4 -->
+  <g stroke="#2e6da4" stroke-width="2.2">
+    <line x1="285" y1="130" x2="345" y2="55"/><line x1="345" y1="55" x2="405" y2="130"/>
+  </g>
+  <g stroke="#c0392b" stroke-width="2.2">
+    <line x1="285" y1="130" x2="345" y2="160"/><line x1="345" y1="160" x2="405" y2="130"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.5">
+    <circle cx="285" cy="130" r="7"/><circle cx="405" cy="130" r="7"/>
+  </g>
+  <circle cx="345" cy="55" r="7" fill="#2e6da4"/>
+  <circle cx="345" cy="160" r="7" fill="#c0392b"/>
+  <text x="340" y="40" font-size="12.5" fill="#2e6da4" class="v">v</text>
+  <text x="340" y="182" font-size="12.5" fill="#c0392b">v&#8242;</text>
+  <text x="268" y="124" font-size="12.5" fill="#555" class="v">x</text>
+  <text x="412" y="124" font-size="12.5" fill="#555" class="v">y</text>
+  <text x="252" y="30" font-size="11.5" fill="#c0392b">two cherries on the same {x, y} = a C&#8324;</text>
+</svg><figcaption><b>The cherry count behind Proposition B.</b> Left: each vertex $v$ centers $\binom{d(v)}2$ cherries. Right: in a $C_4$-free graph, an endpoint pair $\{x,y\}$ can support at most one cherry &mdash; a second one closes the forbidden four-cycle. Comparing the two counts caps the edge total at $\approx \tfrac12 n^{3/2}$. The identical move &mdash; <i>count paths, charge them to endpoint pairs, let the forbidden pattern cap the charge</i> &mdash; drives the whole of <a class="secref" href="#upper">&sect;4</a>.</figcaption></figure>
+
+<h3 id="planes">1.2 The four-cycle: lower bound from projective planes</h3>
+
+<p>Is $n^{3/2}$ the truth, or just what this counting sees? Random graphs say nothing useful here: a random graph with $n^{1.01}$ edges already contains four-cycles in abundance. The genuinely extremal networks come from <b>finite geometry</b>, and this is the single most important idea to take into <a class="secref" href="#quadrangle">&sect;5</a>. Let $q$ be a <i>prime power</i> (a prime, or a power of one &mdash; the sizes for which a finite field $\mathbb F_q$ with $q$ elements exists; we prove everything only for prime $q$, where $\mathbb F_q$ is just arithmetic mod $q$, and that suffices). The <b>projective plane</b> $\mathrm{PG}(2,q)$ has as <i>points</i> the one-dimensional linear subspaces of the vector space $\mathbb F_q^3$, and as <i>lines</i> its two-dimensional linear subspaces, with incidence given by containment. The classical Fano plane is the case $q=2$ (Fig. 3).</p>
+
+<div class="prop"><b>Proposition C (incidence graphs beat $\tfrac12\cdot$, up to $\sqrt2$).</b> Let $I_q$ be the bipartite <b>incidence graph</b> of $\mathrm{PG}(2,q)$: one vertex per point, one per line, an edge when the point lies on the line. Then $I_q$ has $n_q = 2(q^2+q+1)$ vertices and $(q+1)(q^2+q+1) = \bigl(\tfrac{1}{\sqrt2}+o(1)\bigr)\tfrac12 n_q^{3/2}$ edges, and contains no $C_4$. Consequently $\mathrm{ex}(n, C_4) = \Theta(n^{3/2})$.</div>
+
+<div class="proof">
+<p><i>Counts.</i> $\mathbb F_q^3$ has $q^3 - 1$ nonzero vectors; each 1-dimensional subspace contains $q-1$ of them, so there are $(q^3-1)/(q-1) = q^2+q+1$ points, and by the same count inside a 2-dimensional subspace, each line carries $(q^2-1)/(q-1) = q+1$ points. Dually, the lines through a fixed point $P$ correspond to the 1-dimensional subspaces of the quotient $\mathbb F_q^3/P \cong \mathbb F_q^2$, so there are $(q^2-1)/(q-1) = q+1$ of them, and &mdash; multiplying and dividing &mdash; there are $q^2+q+1$ lines. The edge count is (points)$\times$(lines per point) $= (q^2+q+1)(q+1)$.</p>
+<p><i>No $C_4$.</i> A four-cycle in a bipartite incidence graph is two distinct points both lying on two distinct lines. But two distinct points $P \neq P'$ span a unique 2-dimensional subspace, so they lie on exactly one common line. No $C_4$ exists.</p>
+<p><i>All $n$.</i> The graphs $I_q$ exist only for special sizes $n_q$, but that is enough: given any $n$, pick the largest prime $q$ with $n_q \le n$. By Bertrand's postulate (there is a prime between $x$ and $2x$; this is the one classical fact we quote in this section) the next prime is at most $2q$, so $n \lt n_{2q} \le 9 n_q$, i.e. $n_q \ge n/9$. Add $n - n_q$ isolated vertices to $I_q$: the graph stays $C_4$-free and keeps $\Theta(n_q^{3/2}) = \Theta(n^{3/2})$ edges. With Proposition B, $\mathrm{ex}(n,C_4) = \Theta(n^{3/2})$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 400" width="82%" role="img" aria-label="The Fano plane: 7 points, 7 lines">
+  <!-- lines: 3 sides, 3 medians, 1 incircle -->
+  <g stroke="#2e6da4" stroke-width="1.8" fill="none">
+    <line x1="240" y1="50" x2="70" y2="344"/><line x1="240" y1="50" x2="410" y2="344"/><line x1="70" y1="344" x2="410" y2="344"/>
+    <line x1="240" y1="50" x2="240" y2="344"/><line x1="70" y1="344" x2="325" y2="197"/><line x1="410" y1="344" x2="155" y2="197"/>
+    <circle cx="240" cy="246" r="98" stroke="#c0392b"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.6">
+    <circle cx="240" cy="50" r="8"/><circle cx="70" cy="344" r="8"/><circle cx="410" cy="344" r="8"/>
+    <circle cx="155" cy="197" r="8"/><circle cx="325" cy="197" r="8"/><circle cx="240" cy="344" r="8"/>
+  </g>
+  <circle cx="240" cy="246" r="8" fill="#7a1f1f"/>
+  <text x="240" y="34" font-size="12" fill="#555" text-anchor="middle">100</text>
+  <text x="48" y="368" font-size="12" fill="#555">010</text>
+  <text x="398" y="368" font-size="12" fill="#555">001</text>
+  <text x="132" y="188" font-size="12" fill="#555">110</text>
+  <text x="334" y="188" font-size="12" fill="#555">101</text>
+  <text x="240" y="368" font-size="12" fill="#555" text-anchor="middle">011</text>
+  <text x="254" y="240" font-size="12" fill="#7a1f1f">111</text>
+  <text x="60" y="60" font-size="12" fill="#555">7 points &#183; 7 lines</text>
+  <text x="60" y="78" font-size="12" fill="#555">3 points per line</text>
+  <text x="60" y="96" font-size="12" fill="#555">3 lines per point</text>
+  <text x="300" y="60" font-size="12" fill="#c0392b">one &ldquo;line&rdquo; is drawn</text>
+  <text x="300" y="78" font-size="12" fill="#c0392b">as a circle: {110,101,011}</text>
+</svg><figcaption><b>The Fano plane $\mathrm{PG}(2,2)$</b> &mdash; the smallest projective plane. Points are labeled by representative vectors of $\mathbb F_2^3$; the seven lines are the solution sets of $\ell \cdot x = 0$ (three triangle sides, three medians, and the circled triple). Any two points lie on exactly one common line &mdash; which is exactly $C_4$-freeness of the incidence graph (here the 14-vertex, 21-edge Heawood graph, girth 6; our script verifies girth 6 for $q = 2, 3, 5$).</figcaption></figure>
+
+<p>How close do these geometric networks get to the cherry-counting ceiling? Fig. 4 shows both on a log&ndash;log plot: the constructions run parallel to the bound at ratio $\to 1/\sqrt2 \approx 0.707$ (computed ratios $0.725, 0.724, \dots, 0.711$ for $q = 2, \dots, 23$), and a finer classical construction (a <i>polarity</i> quotient of $I_q$, which we will not need) closes even the $\sqrt2$. The exponent $3/2$ is exact.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="log-log plot: KST upper bound versus projective plane constructions">
+  <line x1="60" y1="210" x2="440" y2="210" stroke="#999" stroke-width="1.4"/>
+  <line x1="60" y1="210" x2="60" y2="25" stroke="#999" stroke-width="1.4"/>
+  <g font-size="10" fill="#777">
+    <line x1="110.7" y1="210" x2="110.7" y2="214" stroke="#999"/><text x="99" y="226">10&#185;</text>
+    <line x1="237.3" y1="210" x2="237.3" y2="214" stroke="#999"/><text x="226" y="226">10&#178;</text>
+    <line x1="364.0" y1="210" x2="364.0" y2="214" stroke="#999"/><text x="353" y="226">10&#179;</text>
+    <line x1="56" y1="184.6" x2="60" y2="184.6" stroke="#999"/><text x="32" y="188">10&#185;</text>
+    <line x1="56" y1="148.3" x2="60" y2="148.3" stroke="#999"/><text x="32" y="152">10&#178;</text>
+    <line x1="56" y1="112.1" x2="60" y2="112.1" stroke="#999"/><text x="32" y="116">10&#179;</text>
+    <line x1="56" y1="75.8"  x2="60" y2="75.8"  stroke="#999"/><text x="32" y="79">10&#8308;</text>
+    <line x1="56" y1="39.5"  x2="60" y2="39.5"  stroke="#999"/><text x="32" y="43">10&#8309;</text>
+  </g>
+  <text x="200" y="245" font-size="11" fill="#555">vertices n (log scale)</text>
+  <text x="66" y="20" font-size="11" fill="#555">edges m (log scale)</text>
+  <polyline points="60.0,196.9 66.4,194.2 72.9,191.5 79.3,188.8 85.8,186.1 92.2,183.4 98.6,180.6 105.1,177.9 111.5,175.2 118.0,172.5 124.4,169.8 130.8,167.1 137.3,164.4 143.7,161.7 150.2,159.0 156.6,156.3 163.1,153.6 169.5,150.9 175.9,148.2 182.4,145.5 188.8,142.8 195.3,140.1 201.7,137.3 208.1,134.6 214.6,131.9 221.0,129.2 227.5,126.4 233.9,123.7 240.3,121.0 246.8,118.3 253.2,115.5 259.7,112.8 266.1,110.1 272.5,107.3 279.0,104.6 285.4,101.8 291.9,99.1 298.3,96.4 304.7,93.6 311.2,90.9 317.6,88.1 324.1,85.4 330.5,82.6 336.9,79.9 343.4,77.1 349.8,74.4 356.3,71.6 362.7,68.9 369.2,66.1 375.6,63.4 382.0,60.6 388.5,57.9 394.9,55.1 401.4,52.3 407.8,49.6 414.2,46.8 420.7,44.1 427.1,41.3 433.6,38.6 440.0,35.8" fill="none" stroke="#888" stroke-width="2" stroke-dasharray="7 5"/>
+  <g fill="#c0392b">
+    <circle cx="129.2" cy="172.9" r="4"/><circle cx="163.2" cy="158.6" r="4"/><circle cx="211.0" cy="138.6" r="4"/><circle cx="244.5" cy="124.4" r="4"/><circle cx="291.2" cy="104.7" r="4"/><circle cx="308.7" cy="97.2" r="4"/><circle cx="337.2" cy="85.1" r="4"/><circle cx="349.0" cy="80.1" r="4"/><circle cx="369.5" cy="71.3" r="4"/>
+  </g>
+  <text x="120" y="70" font-size="11.5" fill="#888">K&#337;v&aacute;ri&ndash;S&oacute;s&ndash;Tur&aacute;n ceiling (n/4)(1+&#8730;(4n&#8722;3))</text>
+  <text x="212" y="160" font-size="11.5" fill="#c0392b">incidence graphs of PG(2,q), q = 2 &#8230; 23</text>
+  <text x="248" y="177" font-size="10.5" fill="#c0392b">(ratio to ceiling &#8594; 1/&#8730;2 &#8776; 0.707)</text>
+</svg><figcaption><b>Both sides of $\mathrm{ex}(n, C_4) = \Theta(n^{3/2})$</b> on log&ndash;log axes (data computed in <code>figgen/ch10_figs.py</code>). Gray dashed: the Proposition B ceiling. Red points: the projective-plane incidence graphs of Proposition C for $q = 2,3,5,7,11,13,17,19,23$, each verified $C_4$-free by construction (and by machine for $q \le 5$). Parallel lines of slope $3/2$: the exponent is settled, only the constant is fought over.</figcaption></figure>
+
+<div class="note"><b>The moral to carry forward.</b> Upper bounds come from <i>counting configurations and charging them to vertex pairs</i>; matching lower bounds come from <i>incidence geometries over finite fields</i>, whose axioms (&ldquo;two points, one line&rdquo;) are short-cycle bans in disguise. Chapter 10's compactness half is precisely this template, one level up: the counting gets three more layers (<a class="secref" href="#upper">&sect;4</a>), and the projective plane is replaced by its girth-eight cousin, the generalized quadrangle (<a class="secref" href="#quadrangle">&sect;5</a>).</div>

@@ -1,0 +1,100 @@
+<h2 id="radial">5. The radial reduction</h2>
+
+<p>Both halves of the chapter work exclusively with <b>radial</b> functions &mdash; functions of $|x|$ alone &mdash; because only for radial functions does the Mellin machinery of <a class="secref" href="#mellin">&sect;6</a> exist. This section pays for that convenience honestly: polar integration (&sect;5.1), the averaging that reduces the general problems to the radial ones (&sect;5.2), and the mollification that upgrades merely-integrable eigenfunctions to Schwartz ones (&sect;5.3).</p>
+
+<h3 id="polar">5.1 Polar integration, and the ball volume</h3>
+
+<p>Write $S^{d-1} = \{\theta \in \mathbb{R}^d : |\theta| = 1\}$ for the unit sphere. Define the <b>normalized spherical measure</b> $\sigma$ of a (Borel) subset $A \subseteq S^{d-1}$ through the cone over it:
+$$\sigma(A) \;=\; \frac{\operatorname{vol}\bigl(\{\,r\theta : 0 \lt r \le 1,\ \theta \in A\,\}\bigr)}{v_d},$$
+a probability measure. Because Lebesgue measure is rotation invariant and cones transform to cones, $\sigma$ is rotation invariant; because cones are symmetric under $\theta \mapsto -\theta$ up to reflection (a rotation composed with a coordinate flip, all measure preserving), $\sigma$ is also symmetric.</p>
+
+<div class="lem" id="lempolar"><b>Lemma I (polar decomposition of Lebesgue measure).</b> For every integrable $f : \mathbb{R}^d \to \mathbb{R}$,
+$$\int_{\mathbb{R}^d} f(x)\, dx \;=\; S_d \int_0^\infty \Bigl(\int_{S^{d-1}} f(r\theta)\, d\sigma(\theta)\Bigr)\, r^{d-1}\, dr, \qquad S_d = d\, v_d,$$
+and $S_d$ is the surface area of $S^{d-1}$. In particular, for radial $f$ (writing $f(r)$ for the profile): $\int_{\mathbb{R}^d} f = S_d\int_0^\infty f(r)r^{d-1}dr$.</div>
+<div class="proof">
+<p>Both sides are measures in $f$ (countably additive, agreeing under monotone limits), so it suffices to check them on a generating family: the "annular sectors" $E = \{r\theta : a \lt r \le b,\ \theta \in A\}$, which generate the Borel sets of $\mathbb{R}^d\setminus\{0\}$. Left side: by scaling of Lebesgue measure, $\operatorname{vol}(E) = (b^d - a^d)\,v_d\,\sigma(A)$ (the cone to radius $b$ minus the cone to radius $a$, each a dilate of the unit cone over $A$). Right side: the inner integral is $\sigma(A)$ for $a \lt r \le b$ and $0$ otherwise, so the right side equals $d\,v_d\,\sigma(A)\int_a^b r^{d-1}dr = v_d\,\sigma(A)(b^d - a^d)$. They agree; the standard machine (simple functions, monotone convergence, dominated convergence) extends the identity to all integrable $f$. That $S_d$ is the sphere's area is the case $f = \mathbf{1}_{\{1 \lt |x| \le 1+\epsilon\}}$, $\epsilon \to 0$: $\operatorname{vol} = v_d((1+\epsilon)^d - 1) = S_d\,\epsilon + O(\epsilon^2)$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="proof">
+<p><b>Proof of Proposition A (ball volume).</b> Apply Lemma I to the Gaussian and use Proposition 2.3 at $\xi = 0$ (i.e. $\int e^{-\pi|x|^2}dx = 1$):
+$$1 = \int_{\mathbb{R}^d} e^{-\pi|x|^2}dx = S_d\int_0^\infty e^{-\pi r^2}r^{d-1}dr = S_d\cdot\frac{\Gamma(d/2)}{2\pi^{d/2}},$$
+where the last integral is the substitution $t = \pi r^2$: $\int_0^\infty e^{-t}(t/\pi)^{d/2-1}\frac{dt}{2\pi} = \Gamma(d/2)/(2\pi^{d/2})$. Hence
+$$S_d = \frac{2\pi^{d/2}}{\Gamma(d/2)}, \qquad v_d = \frac{S_d}{d} = \frac{\pi^{d/2}}{(d/2)\Gamma(d/2)} = \frac{\pi^{d/2}}{\Gamma(d/2+1)},$$
+the last step using the recurrence $\Gamma(z+1) = z\Gamma(z)$ (proved as (7a) in &sect;6.2). <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="averaging">5.2 Rotational averaging</h3>
+
+<p>The reduction to radial functions is by averaging over spheres (Fig. 13). Using the measure $\sigma$ just built, define the <b>rotational average</b> of a continuous integrable $f : \mathbb{R}^d \to \mathbb{R}$ by
+$$\mathcal Rf(x) \;=\; \int_{S^{d-1}} f\bigl(|x|\,\theta\bigr)\, d\sigma(\theta)$$
+&mdash; the mean of $f$ over the sphere through $x$. By construction $\mathcal Rf$ is radial, $\mathcal Rf(0) = f(0)$, and $|\mathcal Rf(x)| \le \sup_{|y| = |x|}|f(y)|$, so $\mathcal Rf$ inherits continuity (dominated convergence) and any radial decay bound $f$ satisfies. Lemma I gives $\int \mathcal Rf = \int f$ at once. The two substantive facts are that averaging commutes with the Fourier transform, and that the average of a Schwartz function is Schwartz.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 460 200" width="100%" role="img" aria-label="Rotational averaging makes level sets circular">
+  <defs><marker id="c1avgarr" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#555"/></marker></defs>
+  <g fill="none" stroke="#2e6da4" stroke-width="1.8">
+    <path d="M 100 100 m -62 0 c 8 -46, 56 -54, 86 -30 c 30 22, 44 52, 12 72 c -34 20, -90 8, -98 -42 Z"/>
+    <path d="M 100 100 m -38 0 c 6 -28, 34 -34, 52 -18 c 18 14, 26 32, 8 44 c -22 13, -55 4, -60 -26 Z"/>
+    <path d="M 100 100 m -16 0 c 3 -12, 15 -15, 23 -8 c 8 6, 11 14, 3 19 c -10 6, -24 2, -26 -11 Z"/>
+  </g>
+  <circle cx="100" cy="100" r="2.6" fill="#333"/>
+  <text x="100" y="34" font-size="12" text-anchor="middle" fill="#2e6da4">f: lopsided level sets</text>
+  <line x1="180" y1="100" x2="260" y2="100" stroke="#555" stroke-width="1.6" marker-end="url(#c1avgarr)"/>
+  <text x="220" y="86" font-size="12" text-anchor="middle" fill="#555">&#8475;f = average</text>
+  <text x="220" y="120" font-size="12" text-anchor="middle" fill="#555">over each sphere</text>
+  <g fill="none" stroke="#c0392b" stroke-width="1.8">
+    <circle cx="352" cy="100" r="62"/><circle cx="352" cy="100" r="38"/><circle cx="352" cy="100" r="16"/>
+  </g>
+  <circle cx="352" cy="100" r="2.6" fill="#333"/>
+  <text x="352" y="34" font-size="12" text-anchor="middle" fill="#c0392b">&#8475;f: radial</text>
+</svg><figcaption>Rotational averaging: $\mathcal Rf$ replaces $f$ by its mean over every sphere centered at the origin. Values at the origin, integrals, Fourier transforms, and all the sign conditions of (2) survive the averaging (Lemma L, Proposition J).</figcaption></figure>
+
+<div class="lem" id="lemL"><b>Lemma L (averaging commutes with the transform).</b> For continuous $f$ with $|f(x)| \le C(1+|x|)^{-d-1}$,
+$$\widehat{\mathcal Rf} \;=\; \mathcal R\widehat f.$$</div>
+<div class="proof">
+<p>Define the <b>spherical character integral</b> $K(s) = \int_{S^{d-1}} e^{-2\pi i s\,\omega\cdot e_1}\,d\sigma(\omega)$ for $s \ge 0$, where $e_1$ is the first standard basis vector. Rotation invariance of $\sigma$ gives, for any $\xi \ne 0$ and $r \ge 0$,
+$$\int_{S^{d-1}} e^{-2\pi i r\,\omega\cdot\xi}\, d\sigma(\omega) \;=\; K\bigl(r|\xi|\bigr)$$
+(rotate $\xi/|\xi|$ to $e_1$). Now compute both sides of the claim against this kernel. First,
+$$\widehat{\mathcal Rf}(\xi) = \int_{\mathbb{R}^d}\mathcal Rf(x)\,e^{-2\pi i x\cdot\xi}dx \overset{\text{Lem. I}}{=} S_d\int_0^\infty r^{d-1}\,\mathcal Rf(r e_1)\Bigl(\int_{S^{d-1}} e^{-2\pi i r\omega\cdot\xi}d\sigma(\omega)\Bigr)dr = S_d\int_0^\infty r^{d-1}\varphi(r)\,K(r|\xi|)\,dr,$$
+where $\varphi(r) = \int f(r\theta)d\sigma(\theta)$ is the profile of $\mathcal Rf$; we used that $\mathcal Rf(x)$ depends only on $r = |x|$ to pull it out of the $\omega$-average. Second,
+$$\mathcal R\widehat f(\xi) = \int_{S^{d-1}}\widehat f\bigl(|\xi|\theta\bigr)d\sigma(\theta) = \int_{S^{d-1}}\!\int_{\mathbb{R}^d} f(x)\,e^{-2\pi i |\xi|\,x\cdot\theta}\,dx\,d\sigma(\theta) = \int_{\mathbb{R}^d} f(x)\,K\bigl(|x||\xi|\bigr)\,dx,$$
+by Fubini (dominant $|f(x)|$, integrable) and the kernel identity with the roles of the two vectors exchanged ($x\cdot\theta$ is symmetric). Applying Lemma I once more to the radial-kernel integral:
+$$\mathcal R\widehat f(\xi) = S_d\int_0^\infty r^{d-1}\Bigl(\int_{S^{d-1}} f(r\theta)d\sigma(\theta)\Bigr) K(r|\xi|)\,dr = S_d\int_0^\infty r^{d-1}\varphi(r)K(r|\xi|)\,dr.$$
+The two expressions are identical. (At $\xi = 0$ both sides are $\int f$.) <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="lem" id="lemM"><b>Lemma M (the average of a Schwartz function is Schwartz).</b> If $f \in \mathcal{S}(\mathbb{R}^d;\mathbb{R})$ then $\mathcal Rf \in \mathcal{S}_{\mathrm{rad}}(\mathbb{R}^d;\mathbb{R})$.</div>
+<div class="proof">
+<p>The profile $\varphi(r) = \int_{S^{d-1}} f(r\theta)\,d\sigma(\theta)$ makes sense for all $r \in \mathbb{R}$ and is smooth: differentiating under the (probability) integral, $\varphi^{(k)}(r) = \int (\theta\cdot\nabla)^k f(r\theta)\,d\sigma(\theta)$, dominated uniformly by Schwartz seminorms of $f$; moreover $|\varphi^{(k)}(r)| \le \sup_{|y|=|r|}|(\nabla^k f)(y)|\cdot 1 \le C_{k,N}(1+|r|)^{-N}$ for every $N$. And $\varphi$ is <i>even</i>, because $\sigma$ is symmetric under $\theta \mapsto -\theta$ (&sect;5.1).</p>
+<p>It remains to see that $x \mapsto \varphi(|x|)$ is smooth at the origin (elsewhere it is a composition of smooth maps). Since $\varphi$ is even and smooth, every odd derivative vanishes at $0$, so Taylor's theorem with integral remainder gives, for each $N$,
+$$\varphi(r) = \sum_{k=0}^{N} a_k\, r^{2k} + r^{2N+2}\,\rho_N(r), \qquad \rho_N(r) = \frac{1}{(2N+1)!}\int_0^1 (1-t)^{2N+1}\varphi^{(2N+2)}(tr)\,dt,$$
+with $\rho_N$ smooth (differentiate under the $t$-integral) and even. Hence $\varphi(|x|) = \sum_k a_k |x|^{2k} + |x|^{2N+2}\rho_N(|x|)$; the polynomial part is a polynomial in the coordinates ($|x|^{2k} = (x_1^2+\cdots+x_d^2)^k$), and the remainder term $x \mapsto |x|^{2N+2}\rho_N(|x|)$ is of class $C^{N}$ on all of $\mathbb{R}^d$: away from the origin it is smooth, and each of its partial derivatives of order $j \le N$ is a finite sum of terms (chain and product rule) carrying at least $2N+2-2j \ge 2$ surviving powers of the coordinates, hence extends continuously by $0$ to the origin. Since $N$ was arbitrary, $\varphi(|x|)$ has continuous partial derivatives of every order: $\mathcal Rf$ is smooth. The decay bounds $|\varphi^{(k)}(r)| \le C_{k,N}(1+|r|)^{-N}$ then bound every Schwartz seminorm of $\mathcal Rf$ via the chain rule on $|x| \ge 1$ and the smoothness just proved on $|x| \le 1$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="prop" id="propJ"><b>Proposition J (averaging preserves everything relevant).</b>
+(i) If $f \in \mathcal{A}_d$ then $\mathcal Rf \in \mathcal{A}_d^{\mathrm{rad}} := \mathcal{A}_d \cap \mathcal{S}_{\mathrm{rad}}$, with $\mathcal Rf(0) = f(0)$ and $\widehat{\mathcal Rf}(0) = \widehat f(0)$; hence the infimum in (3) is unchanged when restricted to radial admissible functions.
+(ii) If $g \in L^1$ is continuous with $\widehat g = \varsigma g$, then $\widehat{\mathcal Rg} = \varsigma\,\mathcal Rg$ and $r(\mathcal Rg) \le r(g)$.
+(iii) If moreover $g \ne 0$ and $r(g) \lt \infty$, then $\mathcal Rg \ne 0$.</div>
+<div class="proof">
+<p>(i) $\mathcal Rf$ is radial Schwartz by Lemma M. Signs: for $|x| \ge 1$, $\mathcal Rf(x)$ averages values $f(|x|\theta) \le 0$; $\widehat{\mathcal Rf} = \mathcal R\widehat f \ge 0$ pointwise (average of nonnegative values); $\widehat{\mathcal Rf}(0) = \mathcal R\widehat f(0) = \widehat f(0) \gt 0$; and $\mathcal Rf(0) = f(0)$. So $\mathcal Rf$ is an admissible radial function with the same objective ratio, and conversely every radial admissible function competes in (3); the infima agree.</p>
+<p>(ii) Lemma L applies ($g$ continuous; the decay hypothesis of Lemma L can be replaced by $g \in L^1$ plus continuity, since its proof only used Fubini with dominant $|g| \in L^1$ and continuity to define values): $\widehat{\mathcal Rg} = \mathcal R\widehat g = \varsigma\mathcal Rg$. If $g \ge 0$ outside radius $r(g)$, so are its spherical means: $r(\mathcal Rg) \le r(g)$.</p>
+<p>(iii) Suppose $\mathcal Rg = 0$. Outside $B(0, r(g))$ the function $g$ is continuous, nonnegative, with vanishing mean on every sphere of radius $\rho \gt r(g)$; a nonnegative continuous function with zero $\sigma$-mean vanishes on that sphere, because $\sigma$ charges every nonempty relatively open subset (its cone has positive volume). Hence $g = 0$ outside a compact ball, so $\widehat g$ extends to a function real-analytic along every line (the compact-support analyticity argument in Proposition F), and $\widehat g = \varsigma g$ also vanishes outside that ball; by the identity theorem along lines through the origin, $\widehat g \equiv 0$, so $g = \varsigma \widehat g \equiv 0$ &mdash; contradiction. <span class="qed">&#8718;</span></p>
+</div>
+<h3 id="mollify">5.3 From $L^1$ eigenfunctions to Schwartz eigenfunctions</h3>
+
+<p>The obstruction of &sect;7 will be proved for radial <i>Schwartz</i> eigenfunctions. Definition (6) allows arbitrary $L^1$ eigenfunctions, so we need an approximation that preserves the three constraints &mdash; eigenvalue, real radial class, vanishing at the origin &mdash; while landing in $\mathcal{S}$. Gaussians do all the work.</p>
+
+<div class="lem" id="lemK"><b>Lemma K (eigenfunction mollification).</b> Let $g \in L^1_{\mathrm{rad}}(\mathbb{R}^d;\mathbb{R})$ satisfy $\widehat g = \varsigma g$ and $g(0) = 0$ (continuous representative, &sect;2.3). For $n \ge 1$ set
+$$\kappa_n(x) = n^d e^{-\pi n^2|x|^2}, \qquad \eta_n(x) = e^{-\pi|x|^2/n^2}, \qquad q_n = \eta_n\,(g * \kappa_n),$$
+$$p_n = \frac{q_n + \varsigma\,\widehat{q_n}}{2}, \qquad g_n = p_n - \frac{p_n(0)}{\psi_\varsigma(0)}\,\psi_\varsigma,$$
+with $\psi_\pm$ from Proposition 2.6. Then $g_n \in \mathcal{S}_{\mathrm{rad}}(\mathbb{R}^d;\mathbb{R})$, $\widehat{g_n} = \varsigma g_n$, $g_n(0) = 0$, and $g_n \to g$ in $L^1$.</div>
+<div class="proof">
+<p><i>$q_n$ is radial Schwartz.</i> $g * \kappa_n$ is smooth (differentiate under the convolution integral; $\kappa_n$ Schwartz, $g \in L^1$) with all derivatives bounded by $\|g\|_1$ times seminorms of $\kappa_n$; multiplying by the Gaussian $\eta_n$ imposes super-polynomial decay on the product and all its derivatives (Leibniz), giving Schwartz. Radial: convolution of radial functions is radial ($g*\kappa_n(Ux) = \int g(Ux - y)\kappa_n(y)dy$, substitute $y = Uz$), and $\eta_n$ is radial. Real: all three factors are real.</p>
+<p><i>Convergence.</i> $\|q_n - g\|_1 \le \|\eta_n(g*\kappa_n - g)\|_1 + \|(\eta_n - 1)g\|_1 \le \|g*\kappa_n - g\|_1 + \|(1-\eta_n)g\|_1 \to 0$: the first term by the approximate-identity property of $\kappa_n$ (mass concentrating at $0$; same estimate as in Theorem 2.4), the second by dominated convergence ($\eta_n \uparrow 1$ pointwise). </p>
+<p><i>Transform.</i> By Proposition 2.3 (with $s = n^2$ and the dilation rule), $\widehat{\kappa_n} = \eta_n$ and $\widehat{\eta_n} = \kappa_n$. Hence, by Lemma 2.2(iv) and the multiplication&ndash;convolution duality applied in the other direction (for $q_n = \eta_n\cdot(g*\kappa_n)$, whose factors are in $L^1$ with integrable transforms, one checks via Fubini exactly as in Lemma 2.2 that $\widehat{q_n} = \widehat{\eta_n} * \widehat{(g*\kappa_n)}$):
+$$\widehat{q_n} = \kappa_n * (\eta_n\, \widehat g\,) \longrightarrow \widehat g \text{ in } L^1,$$
+by the same two-term estimate. Note $\widehat{q_n}$ is again real, radial, and Schwartz.</p>
+<p><i>Origin values.</i> $q_n(0) = (g*\kappa_n)(0) = \int g(-y)\kappa_n(y)dy \to g(0) = 0$, since $g$'s continuous representative is continuous at $0$ and bounded ($\|\widehat g\|_\infty \le \|g\|_1$ plus inversion) &mdash; the approximate-identity limit at a continuity point. Likewise $\widehat{q_n}(0) = \int q_n \to \int g = \widehat g(0) = \varsigma g(0) = 0$.</p>
+<p><i>Symmetrize and correct.</i> $\widehat{p_n} = \tfrac12(\widehat{q_n} + \varsigma\,\widehat{\widehat{q_n}}) = \tfrac12(\widehat{q_n} + \varsigma q_n) = \varsigma p_n$, using Lemma H on the radial $q_n$. And $p_n \to \tfrac12(g + \varsigma\widehat g) = g$ in $L^1$, with $p_n(0) = \tfrac12(q_n(0) + \varsigma\widehat{q_n}(0)) \to 0$. Since $\widehat{\psi_\varsigma} = \varsigma\psi_\varsigma$ and $\psi_\varsigma(0) \ne 0$ (Proposition 2.6), the corrected $g_n$ is a radial Schwartz $\varsigma$-eigenfunction with $g_n(0) = 0$ exactly, and $\|g_n - p_n\|_1 = |p_n(0)/\psi_\varsigma(0)|\cdot\|\psi_\varsigma\|_1 \to 0$, so $g_n \to g$ in $L^1$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>Why $L^1$ convergence is the right currency.</b> The obstruction of &sect;7 is an $L^1$-mass statement ("exponentially little of $\|g\|_1$ lives inside the ball"), and &sect;8 will apply it to the approximants $g_n$ and pass to the limit. Pointwise convergence is neither available nor needed.</div>

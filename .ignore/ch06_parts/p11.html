@@ -1,0 +1,67 @@
+<hr>
+
+<h2 id="martingales">11. Proof of the central lemma, I: reveal martingales (Lemma 4.1)</h2>
+
+<p>The remaining four sections prove Lemma 3.3, following the chapter's Section 4. Throughout them, fix the repeated-game strategy and the core $D\subsetneq[n]$ with $p = \mathcal{P}(W_D)\gt0$, and abbreviate
+$$M = [n]\setminus D, \qquad m = |M|, \qquad \tau = \log(1/p), \qquad s = |D|\log(|A||B|), \qquad \eta = \frac{\tau+s}{m}.$$
+</p>
+
+<h3 id="s11-roadmap">11.1 What the state difference really is</h3>
+
+<p>Start by understanding the quantity $\|\Psi_{r,x,y}-\Psi^A_{r,x}\|$ that (8) bounds. The branches
+$$\phi_{r,x,y} = \big(\Gamma(H_{r,x})\otimes\Gamma(K_{r,y})\big)|\psi\rangle,
+\qquad
+\phi^A_{r,x} = \big(\Gamma(H_{r,x})\otimes\Gamma(\bar K_{r,x})\big)|\psi\rangle$$
+differ in exactly one operator: Bob's effect, conditioned on his actual live question $Y_i = y$ in the first, averaged over it in the second ($\bar K_{r,x} = \mathbb{E}_{Y_i\sim\mu(\cdot|x)}K_{r,Y_i}$). So the difference is <i>precisely the change caused by revealing one question</i>, $Y_i$.</p>
+
+<p>A single reveal can be violent &mdash; nothing prevents one question from carrying a lot of information about the core answers. The chapter's move: don't study the live reveal in isolation. Imagine keeping Alice's relevant questions fixed and uncovering Bob's remaining questions <b>one at a time, in a random order</b>; somewhere along the way, the live coordinate's turn comes up. After $j$ reveals, the best prediction of Bob's core-answer effect is the conditional expectation
+$$G_j = \mathbb{E}\big[F^{b_D}_{Y^n}\,\big\vert\, \text{everything fixed at the start},\ \text{first } j \text{ revealed questions}\big],$$
+and as $j$ grows these predictions form a <b>Doob martingale</b> under the prior (Fig. 25; <a class="secref" href="#s4-condexp">&sect;4.4</a>). Immediately before the live step the prediction is the averaged effect $\bar K$; immediately after, the revealed effect $K$. The state difference we care about is therefore <i>one increment of a long martingale</i>, taken at a uniformly random position &mdash; and a uniformly random increment can be charged to the total movement budget of the whole path. Making "total movement budget" precise (it will be an operator entropy) is &sect;12's job; this section builds the randomized reveal order and proves its three structural properties.</p>
+
+<figure><!--FIG:fig_martingale--><figcaption>A reveal martingale (computed as a genuine Doob martingale of a function of $8$ i.i.d. bits; the moving dot animates the reveal order). Each step updates the prediction $\mathbb{E}[F\mid\text{first }j\text{ reveals}]$; the red increment at the uniformly random cut $k$ is the live reveal. No single increment need be small &mdash; but the increments' total squared size is bounded by an entropy budget (&sect;12), so a random one is small on average.</figcaption></figure>
+
+<h3 id="s11-forward">11.2 The forward reveal construction</h3>
+
+<p>Here, finally, is the public randomness $\lambda$ promised in <a class="secref" href="#s7-reveal">&sect;7.1</a>. Choose $i$ uniformly in $M$; partition $M\setminus\{i\}$ fairly (each element independently, probability $\tfrac12$ each way) into $L_X\sqcup L_Y$; choose independent uniform random orders (permutations) $\pi_{X,-i}$ of $L_X$ and $\pi_{Y,-i}$ of $L_Y$ &mdash; the subscript $-i$ records that these orders exclude the live coordinate; and choose independent uniform cuts
+$$k_X\in\{0,\dots,|L_X|\}, \qquad k_Y\in\{0,\dots,|L_Y|\}.$$
+Assemble
+$$\lambda = (i,\ L_X,\ L_Y,\ \pi_{X,-i},\ \pi_{Y,-i},\ k_X,\ k_Y), \qquad
+C_X = D\cup L_X\cup \pi_{Y,-i}^{\le k_Y}, \qquad
+C_Y = D\cup L_Y\cup \pi_{X,-i}^{\le k_X},$$
+where $\pi^{\le k}$ denotes the set of the first $k$ elements in the order $\pi$. So Alice's revealed questions are those on $D$, on her side $L_X$ of the partition, and on the first $k_Y$ elements of Bob's side; symmetrically for Bob. This satisfies the coverage condition (2): both core questions revealed, neither live question revealed, and every other coordinate reveals at least one side (its own side of the partition, at minimum). It is a symmetric random-reveal variant of Holenstein's classical dependency-breaking construction; the random orders and cuts exist precisely so that the live question can later be identified with a uniformly random martingale increment.</p>
+
+<p>Write $\mathcal{P}_0$ for the marginal of $\mathcal{P}$ that keeps the public randomness and the questions but discards all answers: $\mathcal{P}_0(\lambda, x^n, y^n) = \mathbb{P}(\lambda)\prod_{j=1}^n\mu(x_j,y_j)$; its induced marginal on $(i, T, X_i, Y_i)$ is denoted $\mathcal{P}_0(i,t,x,y)$. One bookkeeping identity we will need in &sect;13: since $(t,z)$ determines core success, and given $(t,x,y)$ the word $Z = z$ has probability $p_r(x,y) = \|\phi_{r,x,y}\|^2$ by (4), summing over accepted branches recovers the total core-success mass:
+$$\sum_{i,t,x,y,z}\ \mathcal{P}_0(i,t,x,y)\;\mathbf{1}_{W_D}(t,z)\;p_r(x,y) \;=\; \mathcal{P}(W_D) \;=\; p. $$
+This exact factor $p$ is the one that will cancel the posterior's $1/p$.</p>
+
+<h3 id="s11-reverse">11.3 The reverse description: the live step is a uniform cut</h3>
+
+<p>The forward construction picks $i$ first and the orders afterwards. The proof needs the opposite view: <i>first</i> pick which block of coordinates will be revealed on Bob's side, <i>then</i> realize the live coordinate as a uniformly random position inside that block. The next lemma says the two views produce identically distributed histories, and identifies the martingale's boundary values with the effects of &sect;7&ndash;&sect;8. It comes in two mirror-image directions; the "Alice-reveal" direction uncovers Alice's questions one at a time (its martingale tracks Alice's effect, with Bob's effect frozen), and vice versa.</p>
+
+<div class="lem" id="lem-41"><p><b>Lemma 4.1 (random live-coordinate martingales).</b> The forward history admits the following equivalent reverse descriptions.</p>
+<p><i>Alice-reveal direction.</i> Sample a partition $M = L_X\sqcup L_Y^+$ with probability
+$$\mathbb{P}(L_X, L_Y^+) = 2^{-m}\,\frac{2\,|L_Y^+|}{m},$$
+a uniform order $\pi_Y$ of $L_Y^+$, and an independent uniform cut $k_Y\in\{0,\dots,|L_Y^+|-1\}$; set $i = \pi_Y[k_Y{+}1]$ (the $(k_Y{+}1)$-st element) and $L_Y = L_Y^+\setminus\{i\}$; then draw $\pi_{X,-i}$ and $k_X$ as in the forward experiment. This reproduces the forward distribution of $\lambda$ exactly. Moreover, with the background
+$$U = \big(X_D,\ Y_D,\ X_{L_X},\ Y_{L_Y^+},\ Y_{\pi_{X,-i}^{\le k_X}}\big), \tag{21}$$
+the effects
+$$F_j = \mathbb{E}\big[E^{a_D}_{X^n}\,\big\vert\, U,\ X_{\pi_Y^{\le j}}\big] \quad (0\le j\le |L_Y^+|),
+\qquad
+K = \mathbb{E}\big[F^{b_D}_{Y^n}\,\big\vert\, U\big] \tag{22}$$
+form a prior martingale in $j$ with fixed Bob effect $K$, and at the live cut
+$$F_{k_Y} = \bar H_{r,Y_i}, \qquad F_{k_Y+1} = H_{r,X_i}, \qquad K = K_{r,Y_i}. \tag{23}$$
+</p>
+<p><i>Bob-reveal direction (mirror).</i> Sample $M = L_X^+\sqcup L_Y$ with probability $2^{-m}\,2|L_X^+|/m$, a uniform order $\pi_X$ of $L_X^+$ and uniform cut $k_X$, set $i = \pi_X[k_X{+}1]$; with $U = (X_D, Y_D, X_{L_X^+}, Y_{L_Y}, X_{\pi_{Y,-i}^{\le k_Y}})$, the effects $G_j = \mathbb{E}\big[F^{b_D}_{Y^n}\mid U, Y_{\pi_X^{\le j}}\big]$ form a prior martingale with fixed Alice effect $H_{r,X_i}$, and
+$$G_{k_X} = \bar K_{r,X_i}, \qquad G_{k_X+1} = K_{r,Y_i}.$$
+</p></div>
+
+<div class="proof"><p>(Chapter's Appendix A.3.) <i>Distributional identity.</i> Consider the Alice-reveal direction and write $N = |L_Y^+|$. A forward outcome $(i, L_X, L_Y, \pi_{X,-i}, \pi_{Y,-i}, k_X, k_Y)$ has probability
+$$\underbrace{\frac1m}_{i}\;\underbrace{2^{-(m-1)}}_{\text{fair partition of } M\setminus\{i\}}\;\underbrace{\frac{1}{|L_X|!}}_{\pi_{X,-i}}\;\underbrace{\frac{1}{(N-1)!}}_{\pi_{Y,-i}}\;\underbrace{\frac{1}{|L_X|+1}}_{k_X}\;\underbrace{\frac1N}_{k_Y}
+\;=\; \frac{2^{1-m}}{m\,|L_X|!\,(|L_X|+1)\,(N-1)!\,N},$$
+using $|L_Y| = N-1$, so $\pi_{Y,-i}$ has $(N-1)!$ values and $k_Y$ ranges over $\{0,\dots,N-1\}$ &mdash; $N$ values. In the reverse experiment, the same outcome arises from: the partition $(L_X, L_Y^+)$ with $L_Y^+ = L_Y\cup\{i\}$, probability $2^{-m}\,2N/m$; the unique order $\pi_Y$ of $L_Y^+$ that puts $i$ in position $k_Y{+}1$ and restricts to $\pi_{Y,-i}$ on the rest, probability $1/N!$; the cut $k_Y$, probability $1/N$; and $(\pi_{X,-i}, k_X)$ as forward. Total:
+$$2^{-m}\,\frac{2N}{m}\cdot\frac{1}{N!}\cdot\frac1N\cdot\frac{1}{|L_X|!}\cdot\frac{1}{|L_X|+1}
+= \frac{2^{1-m}}{m\,|L_X|!\,(|L_X|+1)\,(N-1)!\,N}. $$
+The two agree outcome by outcome. (Machine checks <code>c14</code>, <code>c14b</code>: exact enumeration at $m=4$, all $480$ realized histories, zero deviation.) Note also that the reverse partition weights are a probability distribution: summing $2^{-m}\,2N/m$ over all $2^m$ partitions is $\mathbb{E}[2N/m]$ under fair coin assignment, and $\mathbb{E}[N] = m/2$.</p>
+<p><i>Martingale property.</i> Fix the partition, the orders, $k_X$, and hence the background $U$ of (21). Under the prior, conditionally on $U$, the still-unrevealed Alice questions $X_j$ for $j\in L_Y^+$ are independent with laws $\mu(\cdot\mid Y_j)$ &mdash; their partners $Y_j$ all belong to $Y_{L_Y^+}\subseteq U$, and distinct coordinates are independent (this is the factorization mechanism of <a class="secref" href="#s7-factor">&sect;7.2</a> again). The tower property of conditional expectation (<a class="secref" href="#s4-condexp">&sect;4.4</a>) applied to the growing conditioning chain $\{U\}\subseteq\{U, X_{\pi_Y^{\le1}}\}\subseteq\cdots$ gives $\mathbb{E}[F_{j+1}\mid U, X_{\pi_Y^{\le j}}] = F_j$: a martingale. The Bob effect $K$ is fixed along the chain because $F^{b_D}_{Y^n}$ depends only on Bob's questions, all of which are either in $U$ or averaged in its definition &mdash; revealing Alice's questions never changes it.</p>
+<p><i>Boundary values (23).</i> At $j = k_Y$: the conditioning $(U, X_{\pi_Y^{\le k_Y}})$ carries exactly the question content of $(T, Y_i)$ &mdash; Alice's questions on $C_X = D\cup L_X\cup\pi_Y^{\le k_Y}$, Bob's on $C_Y\cup\{i\}$ &mdash; and averaging $E^{a_D}_{X^n}$ over the remaining Alice questions (including $X_i\sim\mu(\cdot\mid Y_i)$) yields $\mathbb{E}_{X_i}[H_{r,X_i}\mid Y_i] = \bar H_{r,Y_i}$ by the tower property. At $j = k_Y{+}1$: the reveal adds exactly $X_{\pi_Y[k_Y+1]} = X_i$, giving $H_{r,X_i}$ by definition. And $K = \mathbb{E}[F^{b_D}_{Y^n}\mid U]$ averages Bob's effect over his unrevealed questions given $(T, Y_i)$-equivalent data, which is $K_{r,Y_i}$. Interchanging the roles of Alice and Bob gives the mirror statements. <span class="qed">&#8718;</span></p></div>
+
+<p>The lemma delivers exactly the three features the rest of the proof consumes: <b>(a)</b> the live reveal is a <i>uniform</i> step of an $N$-step martingale (the cut $k_Y$ is uniform and independent of the path), <b>(b)</b> the block containing the live coordinate is chosen with the <i>size bias</i> $2N/m$ &mdash; a factor that will cancel against the $1/N$ of the uniform step in <a class="secref" href="#budget">&sect;13</a> &mdash; and <b>(c)</b> the martingale's values at the cut are exactly the averaged and revealed effects $\bar H, H$ (resp. $\bar K, K$) whose purified difference is the state error. What is still missing is a bound on the increments of a purified martingale; that is the next section's entropy machine.</p>

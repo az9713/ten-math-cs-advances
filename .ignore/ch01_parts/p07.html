@@ -1,0 +1,119 @@
+<h2 id="strip">7. Lower bound I &mdash; the strip obstruction (Proposition 3.1)</h2>
+
+<p>This section proves the analytic heart of the chapter: an eigenfunction vanishing at the origin cannot hide its mass near the origin. Precisely (the chapter's Proposition 3.1):</p>
+
+<div class="prop" id="prop31"><b>Proposition 3.1 (mass concentration; eq. (11)).</b> For every $0 \lt c \lt 1/\pi$ there exist $C_c, \gamma_c \gt 0$ and $d_0(c)$ such that for every $d \ge d_0(c)$, every $\varsigma \in \{-1,+1\}$, and every nonzero $g \in \mathcal S_{\mathrm{rad}}(\mathbb{R}^d;\mathbb{R})$ with $\widehat g = \varsigma g$ and $g(0) = 0$:
+$$\int_{|x| \lt c\sqrt d} |g(x)|\,dx \;\le\; C_c\, e^{-\gamma_c d}\, \|g\|_1. \tag{11}$$
+Inside the ball of radius $c\sqrt d$ lives an <i>exponentially small</i> fraction of the eigenfunction's mass &mdash; uniformly over all eigenfunctions and both eigenvalues.</div>
+
+<p>Figure 16 shows the phenomenon empirically before we prove it: explicit eigenfunctions in growing dimensions, whose radial mass visibly deserts the region left of $\sqrt d/\pi$.</p>
+
+<figure><!--FIG:fig_mass--><figcaption>Mass concentration in action. For each $d$, the plotted curve is the radial mass density $r^{d-1}|g(r)|$ (normalized) of the explicit $(+1)$-eigenfunction $g = \varphi_2/\varphi_2(0) - \varphi_0$ built from Laguerre eigenfunctions with $g(0)=0$, against $r/\sqrt d$. The interior mass fraction at $c = 0.25 \lt 1/\pi$ collapses: $1.4\%$ at $d=16$, $5\times10^{-6}$ at $d=64$, $10^{-19}$ at $d=256$ (check <code>c11</code>). Proposition 3.1 says this is forced on <i>every</i> eigenfunction vanishing at the origin.</figcaption></figure>
+
+<p><b>The plan.</b> Fix once and for all $0 \lt c \lt 1/\pi$, a dimension $d$ with $\lambda = d/2$, the radius $R = c\sqrt d = c\sqrt{2\lambda}$, and a nonzero $g \in \mathcal S_{\mathrm{rad}}$ with $\widehat g = \varsigma g$, $g(0) = 0$. We normalize $g$'s Mellin data into a function $Z$ on a horizontal strip of the complex $t$-plane. Figure 17 sets the stage; three inputs control $Z$: on the <i>top</i> edge, $|Z| \le 1$ because total mass is normalized; on the <i>bottom</i> edge, the functional equation (Theorem S) converts $Z$'s values into top-edge values times an explicit gamma factor, giving a boundary majorant $h_\lambda$; and inside, $\log|Z|$ is subharmonic, so a harmonic-measure (Poisson) estimate propagates the boundary control to any interior line. The bottom-edge majorant turns out to behave like $\lambda\bigl(\log(2\pi c^2) + J_\sigma\bigr)$ with $J_\sigma \to \log(\pi/2)$ &mdash; so the interior bound decays exponentially in $\lambda$ exactly when $\log(\pi^2c^2) \lt 0$, i.e. when $c \lt 1/\pi$. That is where the constant $1/\pi$ is born. Mellin inversion then converts smallness of $Z$ on an interior line into smallness of interior mass.</p>
+
+<h3 id="normalize">7.1 Normalization: the function $Z$ on the strip</h3>
+
+<p>In the logarithmic coordinate $r = Re^v$ (radius measured in units of $R$, logarithmically), define (eq. (12))</p>
+$$\varphi(v) \;=\; \frac{S_d}{\|g\|_1}\,\bigl(Re^v\bigr)^{d}\, g\bigl(Re^v\bigr), \qquad
+Z(t) \;=\; \frac{S_d}{\|g\|_1}\, R^{\lambda + it}\, \mathcal Mg(\lambda - it),$$
+<p>where $\mathcal Mg(\lambda - it)$ means the holomorphic continuation of Lemma U when $\operatorname{Im}t \le 0$ takes the Mellin argument outside $\{\operatorname{Re}\gt0\}$. Three bookkeeping identities (eq. (13)), all instances of polar integration (Lemma I) plus $\widehat g(0) = \varsigma g(0) = 0$:</p>
+$$\|\varphi\|_1 = \frac{S_d}{\|g\|_1}\int_0^\infty r^{d-1}|g(r)|\,dr = 1, \qquad \int_{\mathbb{R}}\varphi = \frac{\widehat g(0)}{\|g\|_1} = 0, \qquad \int_{-\infty}^0 |\varphi(v)|\,dv = \frac{1}{\|g\|_1}\int_{|x|\lt R}|g(x)|\,dx.$$
+<p>The last identity says: <i>the quantity Proposition 3.1 bounds is exactly the mass of $\varphi$ on the negative half-line.</i> Our goal has become: show $\int_{-\infty}^0|\varphi| \le C_ce^{-\gamma_c d}$.</p>
+
+<h3 id="lem32">7.2 The strip bound (Lemma 3.2)</h3>
+
+<div class="lem" id="lem32box"><b>Lemma 3.2.</b> For every $-1 \lt \sigma \lt 1$: $Z$ is bounded and holomorphic on a neighborhood of the strip $|\operatorname{Im} t| \le \lambda$. Its boundary values satisfy $|Z(y + i\lambda)| \le 1$, and $\log|Z(y - i\lambda)| \le h_\lambda(y)$ for $y \ne 0$, where (eq. (14))
+$$h_\lambda(y) \;=\; \lambda\log(\pi R^2) + \log\bigl|\Gamma(-iy/2)\bigr| - \log\bigl|\Gamma(\lambda + iy/2)\bigr|.$$
+Writing $\theta = \pi(1+\sigma)/2$ and (eq. (15))
+$$P_\sigma(T) = \frac{\sin\theta}{4\bigl(\cosh(\pi T/2) - \cos\theta\bigr)}, \qquad M_\sigma = \int_{\mathbb{R}} P_\sigma = \frac{1-\sigma}{2},$$
+one has, for every $s \in \mathbb{R}$ (eq. (18)),
+$$|Z(s + i\sigma\lambda)| \;\le\; e^{H_\sigma(s)}, \qquad H_\sigma(s) = \int_{\mathbb{R}} P_\sigma(T)\, h_\lambda(s - \lambda T)\, dT.$$</div>
+
+<figure><svg class="setupfig" viewBox="0 0 460 250" width="100%" role="img" aria-label="Boundary data on the strip">
+  <rect x="40" y="45" width="400" height="150" fill="#7d3c98" opacity="0.08"/>
+  <line x1="40" y1="45" x2="440" y2="45" stroke="#2a7d2a" stroke-width="2.2"/>
+  <line x1="40" y1="195" x2="440" y2="195" stroke="#c0392b" stroke-width="2.2"/>
+  <line x1="40" y1="120" x2="440" y2="120" stroke="#555" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="40" y1="152" x2="440" y2="152" stroke="#2e6da4" stroke-width="1.6" stroke-dasharray="8 4"/>
+  <circle cx="240" cy="152" r="4.5" fill="#2e6da4"/>
+  <text x="436" y="62" font-size="12" text-anchor="end" fill="#2a7d2a">Im t = +&lambda;</text>
+  <text x="436" y="188" font-size="12" text-anchor="end" fill="#c0392b">Im t = &minus;&lambda;</text>
+  <text x="436" y="114" font-size="11" text-anchor="end" fill="#555">Im t = 0</text>
+  <text x="60" y="35" font-size="12.5" fill="#2a7d2a">top edge: |Z| &le; 1  (mass normalization; Fourier transform of &phi;)</text>
+  <text x="60" y="215" font-size="12.5" fill="#c0392b">bottom edge: log|Z| &le; h&lambda;(y)  (functional equation + top edge)</text>
+  <text x="60" y="232" font-size="11" fill="#555">log spike +&infin; at y = 0, but Z stays bounded there: the zero Z(i&lambda;) = 0 eats the gamma pole</text>
+  <text x="248" y="144" font-size="12" fill="#2e6da4">t&#8320; = s + i&sigma;&lambda;: target line</text>
+  <text x="60" y="175" font-size="11.5" fill="#7d3c98">log|Z| subharmonic inside &rArr; Poisson average of the two edges</text>
+</svg><figcaption>The stage for Lemma 3.2. $Z$ is holomorphic and bounded on the closed strip $|\operatorname{Im}t| \le \lambda$; the top edge carries the trivial bound $|Z|\le1$, the bottom edge the gamma majorant $h_\lambda$, and harmonic measure interpolates them on the interior line $\operatorname{Im}t = \sigma\lambda$ (blue dashes), which Lemma 3.6 will feed back into Mellin inversion.</figcaption></figure>
+
+<div class="note" id="import3"><b>Import 3 (Poisson bound on the half-plane) [Ahl79, Ch. 6].</b> Let $u$ be subharmonic and bounded above on the open upper half-plane $\mathbb H$, and suppose $\limsup_{w \to x} u(w) \le \phi(x)$ for every boundary point $x \in \mathbb{R}$, where $\phi$ is bounded and measurable. Then for every $w_0 \in \mathbb H$,
+$$u(w_0) \;\le\; \frac1\pi\int_{\mathbb{R}} \frac{\operatorname{Im} w_0}{|x - w_0|^2}\;\phi(x)\,dx.$$
+(The kernel is the harmonic-measure density of the boundary as seen from $w_0$; the standard proof majorizes $u$ by the Poisson integral plus $\epsilon\,\operatorname{Im}w$ and applies the maximum principle on large half-disks.) We also use the textbook computation that the harmonic measure of the negative real axis seen from $w_0 = \rho e^{i\theta}$ is $\theta/\pi$ &mdash; immediate, since $\arg(w)/\pi$ is harmonic with boundary values $0$ on the positive and $1$ on the negative axis.</div>
+
+<div class="proof">
+<p><b>Proof of Lemma 3.2.</b> <i>Holomorphy and boundedness.</i> By Lemma U (applicable: $g(0) = \widehat g(0) = 0$), $\mathcal Mg(\lambda - it)$ is holomorphic where $\operatorname{Re}(\lambda - it) = \lambda + \operatorname{Im}t \gt -2$, i.e. on $\operatorname{Im}t \gt -\lambda - 2$ &mdash; a neighborhood of the closed strip. For boundedness, take $t = s + i\eta$ with $-\lambda \le \eta \le \lambda$:
+$$|Z(s+i\eta)| \;\le\; \frac{S_d\,R^{\lambda - \eta}}{\|g\|_1}\int_0^\infty |g(r)|\,r^{\lambda + \eta - 1}\,dr,$$
+and splitting the integral at $r = 1$: on $[0,1]$, $|g(r)| \le Cr^2$ (Lemma U(i)) makes $r^{\lambda+\eta+1}$ integrable even at $\eta = -\lambda$; on $[1,\infty)$, $r^{\lambda+\eta-1} \le r^{d-1}$ and Schwartz decay wins. Both bounds are uniform in $s$ and $\eta$, so $Z$ is bounded on the closed strip. In particular (the case $\eta = -\lambda$)
+$$\sup_{y\in\mathbb{R}}|Z(y - i\lambda)| \;\le\; \frac{S_dR^{d}}{\|g\|_1}\int_0^\infty\frac{|g(r)|}{r}\,dr \;\lt\; \infty.$$</p>
+<p><i>Top edge.</i> At $t = y + i\lambda$ the Mellin argument is $\lambda - it = d - iy$, and the substitution $r = Re^v$ gives (eq. (16))
+$$Z(y+i\lambda) = \frac{S_d}{\|g\|_1}R^{iy}\int_0^\infty g(r)r^{d-iy-1}dr = \int_{\mathbb{R}}\varphi(v)\,e^{-iyv}\,dv, \qquad |Z(y+i\lambda)| \le \|\varphi\|_1 = 1.$$</p>
+<p><i>Bottom edge.</i> Apply Theorem S to $\widehat g = \varsigma g$ at $z = -iy$ ($y \ne 0$; legitimate on $\operatorname{Re}z = 0$ by Lemma U(iii)):
+$$\varsigma\,\mathcal Mg(-iy) = \mathcal M\widehat g(-iy) = \pi^{\lambda + iy}\,\frac{\Gamma(-iy/2)}{\Gamma(\lambda + iy/2)}\,\mathcal Mg(d + iy).$$
+Multiplying both sides by $(S_d/\|g\|_1)R^{2\lambda + iy}$ and recognizing $Z(y - i\lambda) = (S_d/\|g\|_1)R^{2\lambda+iy}\mathcal Mg(-iy)$ and $Z(-y+i\lambda) = (S_d/\|g\|_1)R^{-iy}\mathcal Mg(d + iy)$:
+$$Z(y - i\lambda) \;=\; \varsigma\,(\pi R^2)^{\lambda + iy}\,\frac{\Gamma(-iy/2)}{\Gamma(\lambda + iy/2)}\;Z(-y + i\lambda). \tag{17}$$
+Taking absolute values, using $|(\pi R^2)^{iy}| = 1$, $|\varsigma| = 1$, and the top-edge bound $|Z(-y+i\lambda)| \le 1$: $\log|Z(y-i\lambda)| \le h_\lambda(y)$, independently of $\varsigma$. Near $y = 0$ the majorant $h_\lambda(y) = -\log|y| + O_\lambda(1)$ blows up (the pole of $\Gamma(-iy/2)$), but $Z$ itself stays bounded there, as shown; the mechanism is that the zero $Z(i\lambda) = (S_d/\|g\|_1)R^{2\lambda}\mathcal Mg(d)\cdot\pi$-free $= 0$ (by $\int\varphi = 0$) cancels the gamma pole in (17).</p>
+<p><i>The conformal map and the kernel.</i> Map the open strip $\{|\operatorname{Im}t| \lt \lambda\}$ onto the upper half-plane $\mathbb H$ by
+$$w(t) = \exp\Bigl(\frac{\pi(t + i\lambda)}{2\lambda}\Bigr):$$
+the bottom edge $t = y - i\lambda$ goes to the positive real axis $w = e^{\pi y/2\lambda}$, the top edge to the negative real axis, and the interior point $t_0 = s + i\sigma\lambda$ to
+$$w_0 = \rho_0\,e^{i\theta}, \qquad \rho_0 = e^{\pi s/2\lambda}, \qquad \theta = \frac{\pi(1+\sigma)}{2} \in (0,\pi).$$
+The function $\log|Z(t(w))|$ is subharmonic on $\mathbb H$ (log-modulus of a holomorphic function, composed with the conformal inverse $t(w)$) and bounded above; its boundary values are controlled by $0$ on the negative axis (top edge) and by the bottom-edge data on the positive axis. Pulling the half-plane kernel of Import 3 back to the strip along the positive axis, with $x = w(y - i\lambda) = e^{\pi y/2\lambda}$, $dx = \frac{\pi}{2\lambda}e^{\pi y/2\lambda}dy$:
+$$\frac1\pi\,\frac{\operatorname{Im}w_0}{|x - w_0|^2}\,\frac{dx}{dy}
+= \frac{1}{2\lambda}\,\frac{e^{\pi(s+y)/2\lambda}\sin\theta}{e^{\pi y/\lambda} - 2e^{\pi(s+y)/2\lambda}\cos\theta + e^{\pi s/\lambda}}
+= \frac{\sin\theta}{4\lambda\bigl(\cosh\bigl(\frac{\pi(s-y)}{2\lambda}\bigr) - \cos\theta\bigr)}
+= \frac1\lambda\,P_\sigma\Bigl(\frac{s-y}{\lambda}\Bigr),$$
+factoring $e^{\pi(s+y)/2\lambda}$ out of the denominator in the middle step. So the lower-edge harmonic measure seen from $t_0$ is $\lambda^{-1}P_\sigma((s-y)/\lambda)\,dy$, with $P_\sigma$ exactly as in (15) (the kernels are plotted in Fig. 19). The <i>total</i> harmonic measure of the upper edge is the harmonic measure of the negative axis from $\rho_0e^{i\theta}$, namely $\theta/\pi = (1+\sigma)/2$ (Import 3); hence the lower edge carries total mass $M_\sigma = 1 - (1+\sigma)/2 = (1-\sigma)/2$, which is also the direct integral $\int P_\sigma$ (numerical check <code>c07</code>).</p>
+<p><i>Truncation and passage to the limit.</i> The boundary datum $h_\lambda$ is unbounded at $y = 0$, so Import 3 does not apply to it directly. But we showed $\sup_y|Z(y-i\lambda)| \lt \infty$; choose $D \gt \max\{0, \sup_y \log|Z(y-i\lambda)|\}$. Then the truncated majorant $\min\{h_\lambda, D\}$ is a bounded measurable upper bound for the boundary values, still valid pointwise, and $0$ majorizes the top edge. Import 3 gives
+$$\log|Z(t_0)| \;\le\; \int_{\mathbb{R}}\frac1\lambda P_\sigma\Bigl(\frac{s-y}{\lambda}\Bigr)\min\{h_\lambda(y), D\}\,dy.$$
+Now let $D \to \infty$: the kernel decays like $e^{-\pi|T|/2}$, the singularity $-\log|y|$ of $h_\lambda$ is locally integrable, and $h_\lambda(y) = -\lambda\log|y| + O_\lambda(1)$ at infinity (Import 2's vertical-decay asymptotics applied to (14); Fig. 18 shows the majorant's actual shape), so the untruncated integral converges absolutely and dominated convergence applies. Substituting $T = (s-y)/\lambda$ produces exactly $H_\sigma(s)$ of (18). <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_hlam--><figcaption>The bottom-edge majorant $h_\lambda(y)$ of (14), computed exactly for $\lambda = 16$, $c = \tfrac14$: a logarithmic spike to $+\infty$ at $y = 0$ (the gamma pole &mdash; harmless, because $Z$ itself stays bounded there), then decay like $-\lambda\log|y|$. Lemma 3.3 shows its typical height on the scale $y \asymp \lambda$ is $\lambda(\log(2\pi c^2) - \int_0^1 f_T)$ &mdash; negative for small $c$, which is what the Poisson average inherits.</figcaption></figure>
+
+<figure><!--FIG:fig_Psigma--><figcaption>The lower-edge harmonic-measure kernels $P_\sigma(T)$ of (15) for four values of $\sigma$. As the observation line $\operatorname{Im}t = \sigma\lambda$ rises toward the top edge ($\sigma \uparrow 1$), the kernel's total mass $M_\sigma = (1-\sigma)/2$ shrinks &mdash; the bottom edge is seen ever more faintly &mdash; but its <i>shape</i>, renormalized, converges to a universal $\operatorname{sech}^2$ profile (Fig. 21). Exact algebra verified numerically in &sect;13.</figcaption></figure>
+
+<h3 id="lem33">7.3 The boundary data as a Riemann sum (Lemma 3.3)</h3>
+
+<p>Next we must actually evaluate $H_\sigma$. The majorant $h_\lambda$ is a ratio of gamma moduli; the recurrence unravels it into a Riemann sum of the elementary kernel</p>
+$$f_T(x) \;=\; \log\sqrt{x^2 + T^2/4},$$
+<p>which is where the eventual constant comes from.</p>
+
+<div class="lem" id="lem33box"><b>Lemma 3.3.</b> For every $-1 \lt \sigma \lt 1$ there is $C_\sigma \gt 0$, independent of $d$, $c$, $g$, with
+$$\int_{\mathbb{R}} P_\sigma(T)\,\Bigl|\,h_\lambda(\lambda T) - \lambda\Bigl(\log(2\pi c^2) - \int_0^1 f_T(x)\,dx\Bigr)\Bigr|\,dT \;\le\; C_\sigma\log(2+\lambda). \tag{19}$$
+Define
+$$J_\sigma \;=\; -\frac{1}{M_\sigma}\int_{\mathbb{R}} P_\sigma(T)\int_0^1 f_T(x)\,dx\,dT.$$
+Then for every $s$ (eq. (20)):
+$$H_\sigma(s) \;\le\; H_\sigma(0) \;=\; \lambda M_\sigma\bigl(\log(2\pi c^2) + J_\sigma\bigr) + O_\sigma(\log(2+\lambda)).$$</div>
+
+<figure><!--FIG:fig_stair--><figcaption>The mechanism of Lemma 3.3 (shown for $T = 0.6$, $n = 8$): the gamma recurrence turns $h_\lambda(\lambda T)$ into a left-endpoint Riemann sum of the increasing kernel $f_T(x) = \log\sqrt{x^2+T^2/4}$ over $[0,1]$ (blue boxes versus red curve). The sum-vs-integral error is at most $f_T(1) - f_T(0) = \tfrac12\log(1 + 4/T^2)$ per unit &mdash; logarithmic, hence harmless after integration against $P_\sigma$.</figcaption></figure>
+
+<div class="proof">
+<p><i>Even dimensions.</i> Let $d = 2n$, so $\lambda = n$, and take $y = \lambda T = nT$, $T \ne 0$, $b = \lambda T/2$. Iterating $\Gamma(z+1) = z\Gamma(z)$ $n$ times from $z = iy/2$:
+$$\bigl|\Gamma(n + iy/2)\bigr| = \bigl|\Gamma(iy/2)\bigr|\prod_{k=0}^{n-1}\bigl|k + iy/2\bigr| = \bigl|\Gamma(iy/2)\bigr|\;n^{\,n}\prod_{k=0}^{n-1}\sqrt{\Bigl(\frac kn\Bigr)^{\!2} + \frac{T^2}{4}},$$
+using $|k + inT/2| = n\sqrt{(k/n)^2 + T^2/4}$. Since $|\Gamma(-iy/2)| = |\Gamma(iy/2)|$ (conjugation symmetry plus evenness of the modulus, Lemma O(c)), the gamma terms of (14) collapse:
+$$h_n(nT) = n\log(\pi R^2) - n\log n - \sum_{k=0}^{n-1}f_T\bigl(k/n\bigr) = n\log(2\pi c^2) - \sum_{k=0}^{n-1}f_T\bigl(k/n\bigr),$$
+because $\pi R^2 = 2\pi c^2\lambda$ makes $n\log(\pi R^2) - n\log n = n\log(2\pi c^2)$. The sum is a left-endpoint Riemann approximation of $n\int_0^1 f_T$; as $f_T$ is increasing on $[0,1]$ (Fig. 20),
+$$0 \;\le\; h_n(nT) - n\Bigl(\log(2\pi c^2) - \int_0^1 f_T\Bigr) \;\le\; f_T(1) - f_T(0) = \tfrac12\log\bigl(1 + 4/T^2\bigr).$$</p>
+<p><i>Odd dimensions.</i> Let $d = 2n+1$, $\lambda = n + \tfrac12$. Now iterate the recurrence down to argument $\tfrac12 + iy/2$ and use both moduli identities of Proposition P at $b = y/2 = \lambda T /2$:
+$$\log\frac{|\Gamma(-iy/2)|}{|\Gamma(\frac12+iy/2)|} = \frac12\log\frac{\pi/(|b|\sinh\pi|b|)}{\pi/\cosh(\pi|b|)} = \frac12\log\frac{\coth(\pi|b|)}{|b|},$$
+so the same computation gives
+$$h_\lambda(\lambda T) = \lambda\log(2\pi c^2) - \sum_{k=0}^{n-1}f_T\Bigl(\frac{k+\frac12}{\lambda}\Bigr) + \frac12\log\lambda + \frac12\log\frac{\coth(\pi|b|)}{|b|},$$
+the $\tfrac12\log\lambda$ arising because only $n = \lambda - \tfrac12$ recurrence factors are available against the weight $\lambda\log\lambda$ from $\pi R^2 = 2\pi c^2\lambda$. The sum is now a <i>midpoint</i> rule on $[0, n/\lambda]$; for the increasing $f_T$ its error is at most $f_T(n/\lambda) - f_T(0)$, and the missing sliver $[n/\lambda, 1]$ has length $1/2\lambda$ and integrand of size $O(\log(2+|T|) + \log(2+|T|^{-1}))$. All the error terms together are bounded by
+$$C\bigl(1 + \log(2+|T|) + \log(2+|T|^{-1})\bigr) + C\log(2+\lambda),$$
+the last piece absorbing $\tfrac12\log\lambda + \tfrac12\log(\coth(\pi|b|)/|b|)$ (for $|b| \ge 1$ the coth term is $O(1)$; for $|b| \le 1$ it is $O(\log(2+|T|^{-1})) + O(\log(2+\lambda))$ since $b = \lambda T/2$). Since $P_\sigma(T) \le C_\sigma e^{-\pi|T|/2}$ and $\log(2+|T|^{-1})$ is locally integrable, integrating the even- and odd-dimensional error bounds against $P_\sigma$ proves (19).</p>
+<p><i>The maximum sits at $s = 0$.</i> Both $P_\sigma$ and $h_\lambda$ are even; we claim their convolution $H_\sigma$ peaks at the center. First, $h_\lambda$ is strictly decreasing on $(0,\infty)$: by the digamma series (Proposition Q(i)), for $y \gt 0$,
+$$h_\lambda'(y) = \frac{d}{dy}\Bigl(\operatorname{Re}\log\Gamma(-iy/2) - \operatorname{Re}\log\Gamma(\lambda+iy/2)\Bigr) = \frac12\bigl(\operatorname{Im}\psi(\lambda + iy/2) - \operatorname{Im}\psi(iy/2)\bigr) \lt 0,$$
+because $\operatorname{Im}\psi(a + ib) = \sum_{k\ge0}\frac{b}{(k+a)^2 + b^2}$ is strictly decreasing in $a \gt 0$ &mdash; each summand is &mdash; and $\lambda \gt 0$. (Computing $h_\lambda'$: $\frac{d}{dy}\log|\Gamma(x+iy/2)| = \operatorname{Re}\frac{i}{2}\psi(x+iy/2) = -\frac12\operatorname{Im}\psi(x+iy/2)$; apply at $x = 0$ with $y \mapsto -y$ symmetry and at $x = \lambda$.) The explicit kernel $P_\sigma$ is likewise even and decreasing on $(0,\infty)$. Now use the layer-cake decomposition: for $N \gt 0$, $q_N = (h_\lambda + N)_+$ is nonnegative, integrable, even, nonincreasing on $(0,\infty)$, so both $q_N$ and $P_\sigma$ are superpositions $\int \mathbf 1_{[-a,a]}\,d\mu(a)$ of centered indicator functions (with $\mu$ the distribution of level-set widths). The convolution of two centered indicators is a symmetric trapezoid, maximal at $0$; integrating in both layers, $P_\sigma * q_N$ is maximal at $0$. Then
+$$H_\sigma(s) = \bigl(P_\sigma * h_\lambda\bigr)(s) = \bigl(P_\sigma * q_N\bigr)(s) - NM_\sigma - \bigl(P_\sigma * (h_\lambda + N)_-\bigr)(s),$$
+and as $N \to \infty$ the last term tends to $0$ uniformly on compacts (it is supported where $h_\lambda \lt -N$, far out, against the exponentially decaying kernel); passing to the limit in the inequality $(P_\sigma*q_N)(s) \le (P_\sigma*q_N)(0)$ gives $H_\sigma(s) \le H_\sigma(0)$. Finally, evaluate at $s = 0$: $H_\sigma(0) = \int P_\sigma(T)h_\lambda(-\lambda T)\,dT = \int P_\sigma(T)h_\lambda(\lambda T)\,dT$ by evenness, and (19) replaces $h_\lambda(\lambda T)$ by $\lambda(\log(2\pi c^2) - \int_0^1 f_T)$ up to $O_\sigma(\log(2+\lambda))$, which is the display (20) with $J_\sigma$'s definition. <span class="qed">&#8718;</span></p>
+</div>

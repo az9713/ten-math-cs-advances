@@ -1,0 +1,85 @@
+<hr>
+
+<h2 id="resolvent">12. Proof II: resolvent purification and entropy control (Lemmas 4.3&ndash;4.4)</h2>
+
+<p>&sect;11 reduced the state error to a uniformly random increment of a martingale of <i>effects</i>. To control the resulting change of <i>states</i>, we must finally choose the purification $\Gamma$ of <a class="secref" href="#s7-effects">&sect;7.3</a>. The obvious $\Gamma(F) = F^{1/2}$ satisfies the Born property (5) but admits no useful bound on $\|F^{1/2}-\bar F^{1/2}\|$-type increments in terms of information quantities. The chapter's choice does: purify by <i>resolvents</i>.</p>
+
+<h3 id="s12-def">12.1 The resolvent purification</h3>
+
+<div class="def" id="def-42"><b>Definition 4.2 (resolvent purification).</b> Let $\mathcal{S}$ be the (finite) collection of all values of the effects $H_{r,x}, K_{r,y}, \bar H_{r,y}, \bar K_{r,x}$ and of the martingale effects $F_j, G_j$ of Lemma 4.1, over all realized data &mdash; finite because the question, answer, and public-randomness alphabets are finite. Let $\Sigma$ be the union of the <i>positive</i> eigenvalues of the operators in $\mathcal{S}$. Set
+$$g_\sigma(u) = \frac{\sigma}{\sigma+u}, \qquad
+\mathcal{A}_0 = \operatorname{span}\{g_\sigma : \sigma\in\Sigma\} \subseteq L^2\big((0,\infty),du\big), \qquad
+\mathcal{A} = \mathcal{A}_0\oplus\mathbb{C}\,|0\rangle,$$
+a finite-dimensional auxiliary space, $\dim\mathcal{A}\le|\Sigma|+1$ (the extra vector $|0\rangle$ just keeps $\mathcal{A}$ nonzero and leaves room for defaults). For each effect $F$ define
+$$[\Gamma(F)v](u) \;=\; F\,(F+uI)^{-1}\,v, \qquad \Gamma(F): \mathcal{H}\to\mathcal{H}\otimes\mathcal{A}.$$
+</div>
+
+<p>Unpacking: $\Gamma(F)v$ is a function of $u\in(0,\infty)$ with values in $\mathcal{H}$ &mdash; equivalently a vector in $\mathcal{H}\otimes L^2$. Diagonalizing $F = \sum_k\sigma_k|v_k\rangle\langle v_k|$ (<a class="secref" href="#prop-spectral">Proposition A</a>),
+$$\Gamma(F)\,v \;=\; \sum_{k:\ \sigma_k\gt0} \langle v_k, v\rangle\; v_k\otimes g_{\sigma_k},$$
+so the function part lives in $\mathcal{A}_0$ whenever $F\in\mathcal{S}$ &mdash; the map really lands in the finite space $\mathcal{H}\otimes\mathcal{A}$, and kernel directions of $F$ are annihilated. Fig. 26 shows the profile functions $g_\sigma$.</p>
+
+<div class="prop" id="prop-born24"><b>Born-probability property.</b> $\Gamma(F)^\dagger\Gamma(F) = F$ for every PSD $F$ &mdash; including singular $F$ &mdash; so Definition 4.2 is a legitimate purification in the sense of (5). <span class="small">(Chapter's equation (24).)</span></div>
+<div class="proof">For each positive eigenvalue $\sigma$,
+$$\int_0^\infty\Big(\frac{\sigma}{\sigma+u}\Big)^2 du \;=\; \Big[-\frac{\sigma^2}{\sigma+u}\Big]_0^\infty \;=\; \sigma,$$
+and there are no cross terms: in the eigenexpansion $\Gamma(F)v = \sum_k\langle v_k,v\rangle\,v_k\otimes g_{\sigma_k}$, distinct eigenvectors are orthogonal in the $\mathcal{H}$ factor. Hence, for $v, w\in\mathcal{H}$,
+$$\langle\Gamma(F)v,\ \Gamma(F)w\rangle
+= \sum_{k:\ \sigma_k\gt0}\overline{\langle v_k, v\rangle}\,\langle v_k, w\rangle\int_0^\infty g_{\sigma_k}(u)^2\,du
+= \sum_{k}\sigma_k\,\overline{\langle v_k, v\rangle}\,\langle v_k, w\rangle
+= \langle v, F w\rangle .$$
+Zero eigenvalues contribute zero on both sides. (Machine checks <code>c09</code>, <code>c10</code>: the scalar integral, and the operator identity for random $2\times2$ and $3\times3$ effects including singular ones, via the exact Gram formula $\int_0^\infty g_\sigma g_\tau\,du = \frac{\sigma\tau\,\log(\tau/\sigma)}{\tau-\sigma}$, itself verified against quadrature in <code>c09b</code>.) <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_gsigma--><figcaption>The resolvent profiles $g_\sigma(u) = \sigma/(\sigma+u)$ attached to eigenvalues $\sigma$ of an effect. Each has $\int_0^\infty g_\sigma^2\,du = \sigma$ exactly (shaded: the $\sigma = 1/2$ profile), which is the Born property (24): purifying by resolvents changes no outcome probability. Unlike $\sqrt\sigma$, the profiles vary <i>smoothly and boundedly</i> with $\sigma$ near $0$ &mdash; the analytic reason resolvents admit the entropy estimate that square roots do not.</figcaption></figure>
+
+<h3 id="s12-onestep">12.2 One purified step is controlled by an entropy decrease</h3>
+
+<p>Here is the estimate the whole quantum half of Lemma 3.3 stands on. Revealing one question refines an averaged effect $\bar F = \mathbb{E}F$ into a random better-informed effect $F$. The claim: the purified movement, squared, is dominated &mdash; as an operator &mdash; by the decrease of the operator entropy $H_1$ ($\!$<a class="secref" href="#s1-spaces">&sect;1.1</a>).</p>
+
+<div class="lem" id="lem-43"><b>Lemma 4.3 (one-step purified variation $\preceq$ entropy gap).</b> Let $F$ be a finitely supported random positive contraction taking values in $\mathcal{S}$, and suppose $\bar F = \mathbb{E}_F F\in\mathcal{S}$ as well. Then
+$$\mathbb{E}_F\Big[\big(\Gamma(F)-\Gamma(\bar F)\big)^\dagger\big(\Gamma(F)-\Gamma(\bar F)\big)\Big] \;\preceq\; H_1(\bar F) - \mathbb{E}_F\,H_1(F). \tag{25}$$
+</div>
+
+<p>Before the proof, the conceptual reading. For positive definite effects, the right side is the expected <i>operator Bregman divergence</i> of the convex function $f(v) = v\log v$ (Petz 2007): $D_f(F,\bar F) = f(F) - f(\bar F) - \mathrm{D}f(\bar F)[F-\bar F]$, whose derivative term dies under the expectation because $\mathbb{E}F = \bar F$, leaving $\mathbb{E}f(F) - f(\bar F) = H_1(\bar F) - \mathbb{E}H_1(F) \succeq 0$ (operator concavity; closely related resolvent estimates appear in Kim 2014). So (25) says: <i>the purification converts information gain into an upper bound on physical disturbance, at exchange rate one.</i> The proof below is self-contained and covers singular effects.</p>
+
+<div class="proof"><p>(Chapter's Appendix A.4.) Fix $u\gt0$ and abbreviate
+$$R_F = (F+uI)^{-1}, \qquad R_{\bar F} = (\bar F+uI)^{-1}, \qquad J = F - \bar F .$$
+<i>Step 1: the pointwise difference.</i> Since $FR_F = I - uR_F$,
+$$L_u \;:=\; F R_F - \bar F R_{\bar F} \;=\; u\,(R_{\bar F} - R_F) \;=\; u\,R_{\bar F}\,J\,R_F \;=\; u\,R_F\,J\,R_{\bar F},$$
+the last two by the resolvent identity $R_{\bar F} - R_F = R_{\bar F}\big[(F+u)-(\bar F+u)\big]R_F = R_{\bar F}JR_F$ (and its mirror). Note $L_u$ is Hermitian.</p>
+<p><i>Step 2: a square bound.</i> The eigenvalues of $uR_F$ are $u/(\sigma+u)\le1$, so $uR_F\preceq I$ and hence $u R_F^2 = R_F^{1/2}(uR_F)R_F^{1/2}\preceq R_F$. Conjugating by $JR_{\bar F}$:
+$$L_u^2 \;=\; \big(uR_{\bar F}JR_F\big)\big(uR_FJR_{\bar F}\big) \;=\; u^2\,R_{\bar F}J\,R_F^2\,JR_{\bar F} \;\preceq\; u\,R_{\bar F}\,J\,R_F\,J\,R_{\bar F}.$$
+<i>Step 3: average out the first-order term.</i> The second-order resolvent identity
+$$R_F - R_{\bar F} + R_{\bar F}JR_{\bar F} \;=\; R_{\bar F}\,J\,R_F\,J\,R_{\bar F}$$
+holds because the left side equals $-R_{\bar F}JR_F + R_{\bar F}JR_{\bar F} = R_{\bar F}J(R_{\bar F}-R_F) = R_{\bar F}J\,R_{\bar F}JR_F$, and $R_{\bar F}JR_F = R_FJR_{\bar F}$ lets us symmetrize the tail. Taking $\mathbb{E}_F$ and using $\mathbb{E}J = 0$ (so the term $R_{\bar F}JR_{\bar F}$, linear in $J$ with fixed outer factors, averages to zero):
+$$\mathbb{E}_F\,L_u^2 \;\preceq\; u\,\big(\mathbb{E}_F R_F - R_{\bar F}\big).$$
+<i>Step 4: integrate over $u$.</i> For any PSD $C$ and $T\gt0$, functional calculus on each eigenvalue gives
+$$\int_0^T u\,(C+uI)^{-1}\,du \;=\; T\,I - C\log(C+TI) + C\log C,$$
+with $0\log0=0$ (check on an eigenvalue $c$: $\int_0^T\frac{u}{c+u}du = T - c\log\frac{c+T}{c}$). Apply this to $C = F$ (inside $\mathbb{E}$) and to $C=\bar F$ and subtract; the $TI$ terms cancel, and as $T\to\infty$ the remaining $T$-dependence vanishes: $\log(C+TI) = (\log T)I + \log(I + C/T)$, the $(\log T)$ parts cancel in expectation because $\mathbb{E}F = \bar F$, and $C\log(I+C/T)\to0$. Hence
+$$\int_0^\infty \mathbb{E}_F\,L_u^2\,du \;\preceq\; \mathbb{E}_F[F\log F] - \bar F\log\bar F \;=\; H_1(\bar F) - \mathbb{E}_F H_1(F).$$
+<i>Step 5: recognize the left side.</i> For $v\in\mathcal{H}$, the vector $\big(\Gamma(F)-\Gamma(\bar F)\big)v$ is the function $u\mapsto L_u v$, and the $\mathcal{H}\otimes\mathcal{A}$ inner product integrates over $u$: $\langle v, (\Gamma(F)-\Gamma(\bar F))^\dagger(\Gamma(F)-\Gamma(\bar F))\,v\rangle = \int_0^\infty \langle v, L_u^2\,v\rangle\,du$. So the integrated inequality is exactly (25). (Machine check <code>c11</code>: forty random ensembles of non-commuting $2\times2$ and $3\times3$ effects, including singular ones, computed with the exact resolvent Gram matrix &mdash; the operator gap RHS $-$ LHS is PSD every time.) <span class="qed">&#8718;</span></p></div>
+
+<h3 id="s12-mart">12.3 A purified martingale has a small random increment</h3>
+
+<p>The one-step estimate becomes powerful because entropy decreases <i>telescope</i> along a reveal martingale &mdash; the quantum counterpart of the classical chain rule for relative entropy (Fig. 27). Applying it at every step and summing charges the whole path to the entropy of the initial branch probability; a uniformly random step then costs a $1/N$ fraction.</p>
+
+<div class="lem" id="lem-44"><b>Lemma 4.4 (purified martingale increments).</b> Let $F_0,\dots,F_N$ ($N\ge1$) be a positive-contraction martingale with values in $\mathcal{S}$, $F_0$ deterministic: $\mathbb{E}[F_{j+1}\mid F_0,\dots,F_j] = F_j$. Fix a positive contraction $K$ on Bob's space and a shared unit vector $|\psi\rangle$. Let $k$ be uniform on $\{0,\dots,N-1\}$, independent of the martingale, and write $p_0 = \langle\psi|F_0\otimes K|\psi\rangle$. Then
+$$\mathbb{E}_{k,F}\,\Big\|\big(\Gamma(F_{k+1})-\Gamma(F_k)\big)\otimes\Gamma(K)\,|\psi\rangle\Big\|^2 \;\le\; \frac{H_1(p_0)}{N}. \tag{26}$$
+The same holds conditionally when previously revealed information fixes $F_0$ and $K$.</div>
+
+<div class="proof"><p>Absorb Bob's fixed effect into the positive operator
+$$\rho_K \;=\; \operatorname{Tr}_B\Big[(I\otimes K^{1/2})\,|\psi\rangle\langle\psi|\,(I\otimes K^{1/2})\Big]$$
+on Alice's purified side (partial trace: <a class="secref" href="#s1-partial">&sect;1.4</a>). By the defining property of $\operatorname{Tr}_B$, for every operator $C$ on Alice's side
+$$\operatorname{Tr}(\rho_K\,C) = \langle\psi|\,C\otimes K\,|\psi\rangle, \qquad \operatorname{Tr}\rho_K = \langle\psi|I\otimes K|\psi\rangle\le1. \tag{27}$$
+In particular $p_0 = \operatorname{Tr}(\rho_K F_0)$, and with $\Delta_j = \Gamma(F_{j+1})-\Gamma(F_j)$, using $\Gamma(K)^\dagger\Gamma(K) = K$ (property (24)),
+$$\big\|(\Delta_j\otimes\Gamma(K))|\psi\rangle\big\|^2 = \langle\psi|\,\Delta_j^\dagger\Delta_j\otimes K\,|\psi\rangle = \operatorname{Tr}\big(\rho_K\,\Delta_j^\dagger\Delta_j\big).$$
+Conditionally on $\mathcal{F}_j = \sigma(F_0,\dots,F_j)$, Lemma 4.3 with the random contraction $F_{j+1}$ and its mean $F_j$ gives
+$$\mathbb{E}\big[\Delta_j^\dagger\Delta_j\mid\mathcal{F}_j\big] \;\preceq\; H_1(F_j) - \mathbb{E}\big[H_1(F_{j+1})\mid\mathcal{F}_j\big].$$
+Trace against $\rho_K$ (trace monotonicity, &sect;1.1), take full expectations, and sum over $j$: the intermediate entropies cancel in pairs &mdash; the telescope &mdash; leaving
+$$\sum_{j=0}^{N-1}\mathbb{E}\,\big\|(\Delta_j\otimes\Gamma(K))|\psi\rangle\big\|^2 \;\le\; \operatorname{Tr}\big(\rho_K\,[H_1(F_0) - \mathbb{E}H_1(F_N)]\big) \;\le\; \operatorname{Tr}\big(\rho_K H_1(F_0)\big), \tag{28}$$
+the last step because $H_1(F_N)\succeq0$ and $\rho_K\succeq0$.</p>
+<p>Finally, bound the budget by a scalar entropy. Diagonalize $F_0 = \sum_a\sigma_a|v_a\rangle\langle v_a|$ and put $w_a = \langle v_a|\rho_K|v_a\rangle\ge0$; then $\sum_a w_a = \operatorname{Tr}\rho_K\le1$, and appending a fictitious eigenvalue $0$ with weight $1-\operatorname{Tr}\rho_K$ makes the weights a probability vector. Concavity of $H_1$ with Jensen (<a class="secref" href="#prop-jensen">Proposition L</a>; $H_1(0)=0$):
+$$\operatorname{Tr}\big(\rho_K H_1(F_0)\big) = \sum_a w_a H_1(\sigma_a) \;\le\; H_1\Big(\sum_a w_a\sigma_a\Big) = H_1\big(\operatorname{Tr}(\rho_K F_0)\big) = H_1(p_0).$$
+The uniform cut $k$ selects each of the $N$ increments with probability $1/N$ independently of the path, so its expected squared movement is the sum in (28) divided by $N$: this is (26). Conditional versions are word-for-word identical. (Machine checks <code>c12</code>, <code>c12b</code>: a genuine $3$-step operator Doob martingale on random $2\times2$ effects, with all Gram integrals exact.) <span class="qed">&#8718;</span></p></div>
+
+<figure><!--FIG:fig_telescope--><figcaption>The telescoping budget of Lemma 4.4 (schematic values). Bars: the running entropy $\operatorname{Tr}(\rho_K H_1(F_j))$ of the prediction. By the one-step Lemma 4.3, each reveal step's squared purified movement is paid for by the entropy drop from its predecessor (red labels); the drops telescope, summing to at most the initial budget $H_1(p_0)$. A uniformly random one of the $N$ steps therefore costs at most $H_1(p_0)/N$ in expected squared movement.</figcaption></figure>
+
+<p>Notice what (26) already whispers about postselection stability: the bound is $H_1(p_0)/N = p_0\log(1/p_0)/N$ &mdash; it <i>vanishes</i> as the branch probability $p_0\to0$, rather than blowing up. Small-probability branches make small contributions to unnormalized budgets. The next section turns that whisper into the exact cancellation.</p>

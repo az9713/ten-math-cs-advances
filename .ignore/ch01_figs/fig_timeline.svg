@@ -1,0 +1,30 @@
+<svg class="setupfig" viewBox="0 0 460 250" width="100%" role="img" aria-label="Upper-bound exponent timeline">
+<line x1="52" y1="216" x2="446" y2="216" stroke="#333" stroke-width="1.2"/>
+<line x1="52" y1="216" x2="52" y2="12" stroke="#333" stroke-width="1.2"/>
+<line x1="109.94" y1="216" x2="109.94" y2="220" stroke="#333" stroke-width="1"/>
+<text x="109.94" y="232" font-size="11" text-anchor="middle" fill="#333">1920</text>
+<line x1="225.82" y1="216" x2="225.82" y2="220" stroke="#333" stroke-width="1"/>
+<text x="225.82" y="232" font-size="11" text-anchor="middle" fill="#333">1960</text>
+<line x1="341.71" y1="216" x2="341.71" y2="220" stroke="#333" stroke-width="1"/>
+<text x="341.71" y="232" font-size="11" text-anchor="middle" fill="#333">2000</text>
+<line x1="48" y1="192" x2="52" y2="192" stroke="#333" stroke-width="1"/>
+<text x="45" y="196" font-size="11" text-anchor="end" fill="#333">0.5</text>
+<line x1="48" y1="162" x2="52" y2="162" stroke="#333" stroke-width="1"/>
+<text x="45" y="166" font-size="11" text-anchor="end" fill="#333">0.6</text>
+<line x1="48" y1="42" x2="52" y2="42" stroke="#333" stroke-width="1"/>
+<text x="45" y="46" font-size="11" text-anchor="end" fill="#333">1</text>
+<text x="446" y="244" font-size="12" text-anchor="end" fill="#333">year</text>
+<text x="48" y="19" font-size="12" text-anchor="start" fill="#333">exponent α in Δd ≤ 2<tspan baseline-shift="super" font-size="8">−αd</tspan></text>
+<line x1="52" y1="42" x2="446" y2="42" stroke="#2a7d2a" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="63.59" y="31.5" font-size="11" text-anchor="start" fill="#2a7d2a">best packings known: α = 1</text>
+<polyline points="136.01,192 220.03,192 220.03,189.12 277.97,189.12 277.97,162.3 414.13,162.3 414.13,160.68 446,160.68" fill="none" stroke="#c0392b" stroke-width="2.4"/>
+<circle cx="136.01" cy="192" r="3.5" fill="#c0392b"/>
+<circle cx="220.03" cy="189.12" r="3.5" fill="#c0392b"/>
+<circle cx="277.97" cy="162.3" r="3.5" fill="#c0392b"/>
+<circle cx="414.13" cy="160.68" r="3.5" fill="#c0392b"/>
+<text x="54.9" y="204.6" font-size="10" text-anchor="start" fill="#555">Blichfeldt ½</text>
+<text x="222.93" y="181.5" font-size="10" text-anchor="start" fill="#555">Rogers .5096</text>
+<text x="179.47" y="154.5" font-size="10" text-anchor="start" fill="#555">Kabatianskii–Levenshtein .5990</text>
+<text x="304.04" y="139.8" font-size="11" text-anchor="start" fill="#c0392b">this chapter: .60440</text>
+<text x="249" y="72" font-size="10" text-anchor="start" fill="#555">the gap: nobody knows where Δd really lives</text>
+</svg>

@@ -1,0 +1,122 @@
+<h2 id="numerics">12. Numeric validation &mdash; every checkable claim, checked</h2>
+
+<p>The two theorems are asymptotic, but their ingredients are concrete finite objects and exact constants, and nearly every ingredient can be rebuilt and tested by machine. The listing below is self-contained (standard library only): it constructs $W(2)$ and $W(3)$ from the symplectic definition of <a class="secref" href="#quadrangle">&sect;5</a>, checks Propositions F&ndash;G claim by claim, tests the pattern statements <i>including both imports</i> at $q = 2, 3$, and evaluates the window constants of <a class="secref" href="#finish">&sect;11</a>. It runs in about a minute.</p>
+
+<div class="codewrap"><button class="copybtn" type="button" onclick="copyCode(this)" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button><pre><code>INSERT_LISTING_CODE</code></pre></div>
+
+<p>Its output, verbatim:</p>
+
+<pre>W(2): |P|=15 |M|=15 want 15; girth=8; edges=45 vs (q+1)^2(q^2+1)=45; 2^(-4/3)n^(4/3)=37.0
+  P-side triads r-dist {3: 20, 1: 60}, J-patterns=0
+  M-side triads r-dist {1: 60, 3: 20}, J-patterns=0
+W(3): |P|=40 |M|=40 want 40; girth=8; edges=160 vs (q+1)^2(q^2+1)=160; 2^(-4/3)n^(4/3)=136.8
+  P-side triads r-dist {4: 360, 1: 2880}, J-patterns=0
+  M-side triads r-dist {0: 1080, 2: 2160}, J-patterns=12960
+kappa=0.311278 tau*=0.366025 A=0.891415 C=0.895143
+window width C-A=0.003728 closed form=0.003728</pre>
+
+<p>Reading the output against the text:</p>
+
+<div class="tablewrap"><table>
+<tr><th>Claim in the text</th><th>Machine check</th><th>Verdict</th></tr>
+<tr><td>Prop. F: $|\mathcal P| = |\mathcal M| = (q{+}1)(q^2{+}1)$; degrees $q+1$; $e_q = (q{+}1)^2(q^2{+}1)$</td><td>$15, 15, 45$ at $q{=}2$; $40, 40, 160$ at $q{=}3$</td><td>match</td></tr>
+<tr><td>Prop. G: girth $\ge 8$ (no $C_4$, $C_6$)</td><td>BFS girth $= 8$ for both $I_2$, $I_3$</td><td>match</td></tr>
+<tr><td>Eq. (8): $e_q \ge 2^{-4/3} n_q^{4/3}$</td><td>$45 \ge 37.0$; $160 \ge 136.8$</td><td>match</td></tr>
+<tr><td>&sect;5.2, point class: no $J$-pattern in $\mathcal P$, any $q$ (proved outright)</td><td>$J$-patterns $= 0$ on the $P$-side at $q = 2$ and $q = 3$</td><td>match</td></tr>
+<tr><td><b>Import 1</b> consequence: for even $q$, no $J$-pattern in $\mathcal M$ either</td><td>$J$-patterns $= 0$ on the $M$-side at $q = 2$</td><td>verified at $q{=}2$</td></tr>
+<tr><td><b>Import 2</b>: for odd $q$, every independent triple in $\mathcal M$ has $0$ or $2$ centers</td><td>$M$-side distribution at $q = 3$: $\{0{:}\,1080,\ 2{:}\,2160\}$ &mdash; nothing else; no $S_3$-pattern</td><td>verified at $q{=}3$</td></tr>
+<tr><td>The asymmetry is real: odd-$q$ quadrangles do <i>not</i> dodge $\mathcal J$</td><td>$12960$ $J$-patterns on the $M$-side of $I_3$</td><td>as expected</td></tr>
+<tr><td>Prop. M: $\kappa$, $\tau^*$, window width, closed form</td><td>$0.311278$, $0.366025$, $0.003728 = 0.003728$</td><td>match</td></tr>
+</table></div>
+
+<p>Beyond the listing, <code>figgen/ch10_figs.py</code> runs four more checks quoted in the text. (i) <i>Lemma 5.1 is sharp and correct as an inequality about arbitrary conditional laws:</i> maximizing $H(Z|X,Y) - (\log_2 3)d - \tfrac12(h(v) - h(q))$ over a $161^3$ grid of conditional laws and $49$ values of $q$ yields exactly $0.311278 = \kappa$, at $q = \tfrac12$ &mdash; an independent confirmation of (9) that exercises the whole proof, not just the final optimization. (ii) <i>Proposition C's witnesses:</i> the incidence graphs of $\mathrm{PG}(2,q)$ for $q = 2, 3, 5$ have machine-verified girth $6$ (no $C_4$), and brute force over all graphs gives $\mathrm{ex}(4, C_4) = 4$, $\mathrm{ex}(5, C_4) = 6$, $\mathrm{ex}(6, C_4) = 7$, consistent with the Proposition B ceiling ($7 \le \tfrac64(1+\sqrt{21}) = 8.37$). (iii) <i>Proposition K in practice:</i> at $\tau = \tau^*$, $\tfrac1m\log_2 D_m = 0.9453$ at $m = 2000$ against the limit $h(\tau^*) = 0.9476$ &mdash; the $o(1)$ is visibly shrinking. (iv) <i>The concrete instantiation:</i> $\varepsilon_{\max} = 0.01775$ (at $\tau = 0.3706$), and at mid-window $\beta$: $\delta = 2.3 \times 10^{-4}$, increment $0.0028$, $s = 358$, $L_0 = 47531$ &mdash; the numbers quoted in <a class="secref" href="#finish">&sect;11</a>.</p>
+
+<h2 id="scope">13. Scope &mdash; proved here, imported, open</h2>
+
+<p><b>Proved in full in this document.</b> All of <a class="secref" href="#exnum">&sect;1</a> (Mantel; K&#337;v&aacute;ri&ndash;S&oacute;s&ndash;Tur&aacute;n for $C_4$; projective-plane witnesses including all counting); Lemma E; the entire upper-bound chain Lemmas 3.1&ndash;3.3 and Proposition 3.4; the quadrangle axioms and girth (Propositions F&ndash;G), the footprint Lemma H, the point-class $J$-pattern exclusion, and Proposition 4.3; Theorem 1.1; Fact 6.1; the Gibbs inequality, Lemma 5.1 with the optimization made rigorous (Lemma I), and Lemma 5.2 with an explicit $\eta(L)$; Proposition J, Lemma 7.1, Proposition 8.1; Proposition K, Lemma L, Proposition M; Theorem 1.2. The two theorems' proofs are, modulo the two imports below, complete on this page.</p>
+
+<p><b>Imported (deep finite geometry), stated precisely, machine-verified in small cases.</b> Import 1: self-duality of $W(q)$ for even $q$. Import 2: the $0$-or-$2$ triad law in the dual quadrangle for odd $q$. Both are textbook results of the theory of generalized quadrangles [PT09]; our checks at $q = 2, 3$ (<a class="secref" href="#numerics">&sect;12</a>) confirm the exact statements used. Nothing else in the chapter is taken on faith.</p>
+
+<p><b>What the counterexamples do and do not say.</b> Honest calibration of the two headline results:</p>
+
+<ul>
+<li><i>Compactness.</i> The refutation is asymptotic and slow: the separation $n^{1/48}$ passes a factor of $10$ only around $n \approx 10^{48}$ (Fig. 15). The true order of $\mathrm{ex}(n, \mathcal F)$ is unknown &mdash; the proof traps it below $n^{21/16}$, but the best <i>lower</i> bounds for the whole family (from high-girth graphs, which avoid every member for girth beyond $30$) are far smaller, and nobody expects $21/16$ to be sharp. A compactness statement could survive in weakened forms &mdash; e.g. for families of two graphs, or with $n^{o(1)}$ losses &mdash; and where the true boundary lies is open.</li>
+<li><i>Degeneracy.</i> The exponent gain over the conjectured $3/2$ is at most $\varepsilon \lt 0.0178$ by this method, and the witness $H$ is a fixed graph with $\approx 2^{10^{109}}$ vertices &mdash; the construction refutes the conjecture without exhibiting anything a computer could store. Finding a <i>small</i> 2-degenerate counterexample, determining the largest achievable $\varepsilon$, and deciding the fate of the conjecture's weaker cousins (is $\mathrm{ex}(n,H) = O(n^{2 - 1/r - o(1)})$ for $r$-degenerate $H$? the Alon&ndash;Krivelevich&ndash;Sudakov exponent $2 - \tfrac1{4r}$ is still the best general upper bound) are all open. For $r \ge 3$ the conjecture (3) now looks doomed, but no counterexample is written down.</li>
+<li><i>What survives.</i> The positive cases in the table of <a class="secref" href="#degeneracy">&sect;2.2</a> (bounded-degree side; tree blow-ups; grids) are untouched: they delimit where the conjecture is a theorem. And the guiding heuristic behind both dead conjectures &mdash; extremal numbers are governed by local densities &mdash; survives in the many settings where it is proved, just not universally.</li>
+</ul>
+
+<p class="small">Erd&#337;s-problem bookkeeping: the chapter resolves the compactness conjecture ([ES82]; Bloom's <i>Erd&#337;s problems</i> #575), the $r$-degenerate conjecture at $r = 2$ ([Erd67]; #146), and the forward half of the 2-degeneracy characterization ([Erd81]; #113); the folklore example of &sect;2.1 is #180.</p>
+
+<hr>
+
+<h2 id="notation">A. Appendix: notation glossary</h2>
+
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Meaning</th><th>Defined</th></tr>
+<tr><td>$V(G), E(G), e(G)$</td><td>vertex set, edge set, edge count of a graph</td><td><a class="secref" href="#exnum">&sect;1</a></td></tr>
+<tr><td>$N_G(v),\ d(v),\ \delta,\ \Delta$</td><td>neighborhood, degree, minimum/maximum degree</td><td><a class="secref" href="#exnum">&sect;1</a></td></tr>
+<tr><td>$C_k$, $K_{a,b}$, girth</td><td>$k$-cycle; complete bipartite graph; shortest cycle length</td><td><a class="secref" href="#exnum">&sect;1</a></td></tr>
+<tr><td>$\mathrm{ex}(n, \mathcal F)$</td><td>extremal number: max edges of an $n$-vertex $\mathcal F$-free graph</td><td><a class="secref" href="#exnum">&sect;1</a></td></tr>
+<tr><td>$O, \Omega, \Theta, \ll, \gg$</td><td>asymptotics in $n$; $\ll$ = up to an absolute constant factor</td><td><a class="secref" href="#exnum">&sect;1</a>, <a class="secref" href="#upper">&sect;4.4</a></td></tr>
+<tr><td>$S_k$; bases, centers, subdivision vertices</td><td>$K_{3,k}$ with each edge subdivided once; its vertex roles</td><td><a class="secref" href="#family">&sect;3</a>, Def. 2.1</td></tr>
+<tr><td>$J_0, K_0$; $\lambda$; $d_1 d_2$</td><td>the two templates; the linking vertex; the bridge edge</td><td><a class="secref" href="#family">&sect;3</a>, Defs. 2.3&ndash;2.4</td></tr>
+<tr><td>$T/{\approx}$, admissible</td><td>quotient by an identification respecting colors and the distinguished copies</td><td><a class="secref" href="#family">&sect;3</a>, Def. 2.2</td></tr>
+<tr><td>$\mathcal J, \mathcal K, \mathcal F$</td><td>quotient families; the forbidden family $\{C_4, C_6\}\cup\mathcal J\cup\mathcal K$</td><td><a class="secref" href="#family">&sect;3</a>, Def. 2.5</td></tr>
+<tr><td>$B$, $S$, $N$</td><td>the cleaned bipartite host, one side of it, its order</td><td><a class="secref" href="#upper">&sect;4</a></td></tr>
+<tr><td>$R_S$, $u \sim v$, $Z_{uv}$, $t_{uv}$</td><td>common-neighbor graph; related; common relatives of an unrelated pair, and their count</td><td><a class="secref" href="#upper">&sect;4.1</a>&ndash;4.2</td></tr>
+<tr><td>$L(T)$, $r(T)$, $T_S$, $A_{yz}$, $C_u$, $U$</td><td>common centers of a triple and their count; rich triples; candidate third bases; $S_2$-copies at $u$; non-$S_3$-centers (in <a class="secref" href="#upper">&sect;4</a> only)</td><td><a class="secref" href="#upper">&sect;4</a></td></tr>
+<tr><td>$\mathbb F_q$, $V = \mathbb F_q^4$, $\langle\cdot,\cdot\rangle$, $W^\perp$</td><td>finite field; the symplectic space, form, and perp (here $U$ means a 2-space)</td><td><a class="secref" href="#quadrangle">&sect;5.1</a></td></tr>
+<tr><td>$W(q)$, $\mathcal P$, $\mathcal M$, $I_q$, $n_q$, $e_q$</td><td>symplectic quadrangle, its points/lines, incidence graph, order, size</td><td><a class="secref" href="#quadrangle">&sect;5</a></td></tr>
+<tr><td>$J$-pattern, $S_3$-pattern</td><td>the footprints of $\mathcal J$-, $\mathcal K$-members in one class</td><td><a class="secref" href="#quadrangle">&sect;5.2</a>, Def. 4.1</td></tr>
+<tr><td>$H$; $V_i$, $L_i$; $L_0$, $s$</td><td>the layered graph, its layers and sizes, base size and depth</td><td><a class="secref" href="#layered">&sect;7</a></td></tr>
+<tr><td>$h(x)$, $\mathbb H$, $H(Z|X,Y)$, $\kappa$</td><td>binary entropy; entropy; conditional entropy; $\tfrac32 - \tfrac34\log_2 3$</td><td><a class="secref" href="#entropy">&sect;8.1</a></td></tr>
+<tr><td>$v, d, q, u$</td><td>child marginal; mean disagreement; parent parameter; $2q - 1$</td><td><a class="secref" href="#entropy">&sect;8.2</a>, Lem. 5.1</td></tr>
+<tr><td>$\eta(L)$</td><td>without-replacement correction $\tfrac{1+\log_2 3}L + \tfrac12 h(1/L)$</td><td><a class="secref" href="#entropy">&sect;8.3</a>, Lem. 5.2</td></tr>
+<tr><td>$U {=} \{0,1\}^m$, $Q$, $p$, $k$, $\tau$, $\beta$, $G_m$</td><td>the cube, $2^m$, retention $2^{-\beta m}$, radius $\lfloor\tau m\rfloor$, parameters, sampled host</td><td><a class="secref" href="#host">&sect;9.1</a></td></tr>
+<tr><td>$A(\tau)$, $C(\tau)$, $\delta$</td><td>exclusion/density thresholds $\kappa + \tau\log_2 3$, $2h(\tau) - 1$; slack</td><td><a class="secref" href="#host">&sect;9.1</a></td></tr>
+<tr><td>$\mathbf u, \mathbf z$, $M$, $E(\mathbf u, \mathbf z)$</td><td>parent/child arrays, $\binom L2$, entropy score</td><td><a class="secref" href="#host">&sect;9.2</a></td></tr>
+<tr><td>$\Phi_i$</td><td>entropy potential of embedded layer $i$</td><td><a class="secref" href="#exclusion">&sect;10</a></td></tr>
+<tr><td>$D_m$, $W_m$, $e_m$, $N_m$</td><td>ball size; retained vertex/edge counts; padded order</td><td><a class="secref" href="#finish">&sect;11</a></td></tr>
+<tr><td>$f(\tau)$, $\tau^*$, $r$, $\varepsilon$</td><td>window width $C - A$; optimizer $1/(1{+}\sqrt3)$; $\sqrt3$; the exponent gain of (19)</td><td><a class="secref" href="#finish">&sect;11.3</a>&ndash;11.4</td></tr>
+</table></div>
+
+<p class="small">Citations in brackets ([ES82], [Wig], [CMP26], [Ver16], [Erd67], [Erd81], [Erd97], [Jan23], [AKS03], [Fur91], [GJN22], [BJST23], [DGL25], [BC18], [FS13], [PT09], [BHKT18], [Blo113/146/180/575], [Con26]) refer to the chapter's reference list on p. 247 of the paper.</p>
+
+<hr>
+<p class="small">Built from Chapter 10 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (OpenAI), pp. 234&ndash;247 (PDF pages 236&ndash;249). All formulas transcribed from the rendered PDF pages; background results (Propositions A&ndash;M, Lemmas E, H, I, L, and the entire &sect;1) proved independently; every finite claim reproduced by <code>figgen/ch10_figs.py</code> and the listing above. MathJax is embedded inline &mdash; the page renders offline.</p>
+
+<script>
+function copyCode(btn){
+  var code = btn.parentElement.querySelector('code');
+  if(!code) return;
+  var text = code.textContent;
+  var done = function(){
+    var label = btn.querySelector('span'), prev = label.textContent;
+    btn.classList.add('copied'); label.textContent = 'Copied!';
+    setTimeout(function(){ btn.classList.remove('copied'); label.textContent = prev; }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+(function(){
+  try{
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('svg').forEach(function(svg){
+        if(typeof svg.pauseAnimations === 'function'){
+          if(typeof svg.setCurrentTime === 'function') svg.setCurrentTime(6.5);
+          svg.pauseAnimations();
+        }
+      });
+    }
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>

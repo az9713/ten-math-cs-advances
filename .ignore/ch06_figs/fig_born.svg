@@ -1,0 +1,21 @@
+<svg class="setupfig" viewBox="0 0 500 210" width="100%" role="img" aria-label="Born rule for a rotated basis measurement">
+<defs><marker id="c6bA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2e6da4"/></marker><marker id="c6bR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker></defs>
+<circle cx="120" cy="108" r="78" fill="none" stroke="#888" stroke-width="1.2"/>
+<line x1="34" y1="108" x2="206" y2="108" stroke="#bbb" stroke-width="1"/>
+<line x1="120" y1="194" x2="120" y2="22" stroke="#bbb" stroke-width="1"/>
+<line x1="120" y1="108" x2="198" y2="108" stroke="#c0392b" stroke-width="2.4" marker-end="url(#c6bR)"/>
+<text x="192" y="128" font-size="12" text-anchor="end" fill="#c0392b">state ψ</text>
+<line x1="120" y1="108" x2="183.1033255612459" y2="62.15275032118709" stroke="#2e6da4" stroke-width="2.2" marker-end="url(#c6bA)"/>
+<line x1="120" y1="108" x2="86.9899802312547" y2="62.56560559590295" stroke="#2e6da4" stroke-width="2.2" stroke-dasharray="5 3" marker-end="url(#c6bA)"/>
+<text x="191.1033255612459" y="64.15275032118709" font-size="12.5" text-anchor="start" fill="#2e6da4" class="v">v₀</text>
+<text x="84.9899802312547" y="54.56560559590295" font-size="12.5" text-anchor="middle" fill="#2e6da4" class="v">v₁</text>
+<path d="M 154,108 A 34 34 0 0 0 147.5065778087482,88.01530142205591" fill="none" stroke="#333" stroke-width="1.2"/>
+<text x="166" y="96" font-size="13" text-anchor="middle" fill="#333">θ</text>
+<line x1="198" y1="108" x2="171.05166278062296" y2="70.90879586448901" stroke="#888" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="268" y="52" font-size="12.5" text-anchor="start" fill="#333">outcome 0:  probability |⟨v₀, ψ⟩|² = cos²θ</text>
+<text x="268" y="78" font-size="12.5" text-anchor="start" fill="#333">outcome 1:  probability |⟨v₁, ψ⟩|² = sin²θ</text>
+<text x="268" y="116" font-size="12" text-anchor="start" fill="#555">a measurement is a choice of</text>
+<text x="268" y="134" font-size="12" text-anchor="start" fill="#555">orthonormal directions; the state</text>
+<text x="268" y="152" font-size="12" text-anchor="start" fill="#555">picks each with the squared</text>
+<text x="268" y="170" font-size="12" text-anchor="start" fill="#555">overlap (Born rule).</text>
+</svg>

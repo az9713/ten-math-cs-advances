@@ -1,0 +1,61 @@
+<hr>
+
+<h2 id="central">8. Local surrogates and the central lemma (Lemma 3.3)</h2>
+
+<p>The ideal experiment fails to be a strategy on three counts: the questions under $\mathcal{Q}$ may be biased by the conditioning, the history is not supplied to anyone, and the state depends on both players' questions. This section builds the best <i>locally available</i> substitutes for the history and the state, and states the lemma asserting they are good.</p>
+
+<h3 id="s8-histories">8.1 Locally generated histories</h3>
+
+<p>Consider the actual experiment the players can run. The referee draws fresh questions $(x,y)\sim\mu$; shared randomness selects a uniform live coordinate $i\in[n]\setminus D$. Alice knows $x$ but not $y$, so the best-informed distribution over histories she can target is the posterior conditioned on <i>her</i> data:
+$$r_A \sim \mathcal{Q}(R \mid i,\ X_i = x),$$
+and symmetrically Bob targets $r_B\sim\mathcal{Q}(R\mid i, Y_i = y)$. These are exactly the sampling tasks Lemma 3.4 couples. Record the two resulting <b>tuple distributions</b>: for Alice's version,
+$$\mathcal{J}_A(i, r, x, y) \;=\; \frac1m\,\mu(x,y)\;\mathcal{Q}(r\mid i, X_i = x),
+\qquad
+\mathcal{J}_B(i, r, x, y) \;=\; \frac1m\,\mu(x,y)\;\mathcal{Q}(r\mid i, Y_i = y). \tag{6}$$
+Both retain the genuine question distribution $\mu$ &mdash; the bias sits entirely in the history coordinate. If $\mathcal{J}_A$ and $\mathcal{J}_B$ were both equal to $\mathcal{Q}$, histories would be perfectly sampleable; the lemma will bound the actual distances (Fig. 20).</p>
+
+<h3 id="s8-states">8.2 Locally describable states</h3>
+
+<p>Even on the event $r_A = r_B = r$, the target state $\Psi_{r,x,y}$ still depends on both questions. The remedy: each player replaces the <i>other player's</i> effect by its average over the other question, weighted by what their own question says about it:
+$$\bar H_{r,y} \;=\; \sum_{x'}\mu(x'\mid y)\,H_{r,x'},
+\qquad
+\bar K_{r,x} \;=\; \sum_{y'}\mu(y'\mid x)\,K_{r,y'} .$$
+Read the subscripts carefully: $\bar H_{r,y}$ is <i>Bob's</i> estimate of Alice's effect (he knows $y$), and $\bar K_{r,x}$ is <i>Alice's</i> estimate of Bob's effect. Collect the exact branch and its two one-sided surrogates:
+$$\phi_{r,x,y} = \big(\Gamma(H_{r,x})\otimes\Gamma(K_{r,y})\big)|\psi\rangle,
+\qquad
+\phi^A_{r,x} = \big(\Gamma(H_{r,x})\otimes\Gamma(\bar K_{r,x})\big)|\psi\rangle,
+\qquad
+\phi^B_{r,y} = \big(\Gamma(\bar H_{r,y})\otimes\Gamma(K_{r,y})\big)|\psi\rangle, \tag{7}$$
+and the normalized states
+$$\Psi^A_{r,x} = \frac{\phi^A_{r,x}}{\|\phi^A_{r,x}\|}, \qquad \Psi^B_{r,y} = \frac{\phi^B_{r,y}}{\|\phi^B_{r,y}\|}.$$
+Alice can write down a complete classical description of the bipartite vector $\Psi^A_{r,x}$ from $(r,x)$ alone &mdash; it involves only $H_{r,x}$, $\bar K_{r,x}$, $\Gamma$, $\psi$, all computable from the publicly known strategy plus her data; likewise Bob with $\Psi^B_{r,y}$. (Describing a state classically is not the same as holding it; the imported theorem in <a class="secref" href="#rounding">&sect;9</a> is what converts matching descriptions into a physical state.)</p>
+
+<p>These normalized surrogates are well defined wherever the posterior lives: if $\mathcal{Q}(i,r,x,y) \gt 0$ then $\mu(x,y) \gt 0$ and $p_r(x,y) \gt 0$, and the operator inequalities $\bar H_{r,y} \succeq \mu(x\mid y)\,H_{r,x}$ and $\bar K_{r,x} \succeq \mu(y\mid x)\,K_{r,y}$ (drop all other terms from the defining sums) give, via (5) and conjugation-monotonicity of the order (<a class="secref" href="#s1-spaces">&sect;1.1</a>),
+$$\|\phi^A_{r,x}\|^2 = \langle\psi| H_{r,x}\otimes \bar K_{r,x}|\psi\rangle \;\ge\; \mu(y\mid x)\,p_r(x,y) \gt 0,
+\qquad
+\|\phi^B_{r,y}\|^2 \;\ge\; \mu(x\mid y)\,p_r(x,y) \gt 0 .$$
+</p>
+
+<h3 id="s8-lemma">8.3 The central lemma</h3>
+
+<p>The attempt to mimic the ideal experiment thus needs two guarantees: the locally generated histories must (approximately) agree with each other and with $\mathcal{Q}$, and the locally described states must (approximately) match the ideal one. The following lemma &mdash; the chapter's new technical contribution &mdash; provides exactly these, with bounds depending only on $\eta$. Recall $\eta = \big(\log(1/p) + |D|\log(|A||B|)\big)/m$ from (1), and that $(i,r,x,y)\sim\mathcal{Q}$ denotes a tuple from the posterior.</p>
+
+<div class="lem" id="lem-33"><b>Lemma 3.3 (postselected state alignment and history sampleability).</b> For every finite repeated-game strategy and every $D\subsetneq[n]$ with $p = \mathcal{P}(W_D) \gt 0$, with the histories, branches, surrogates, and distributions defined above:
+$$\mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\,\big\|\Psi_{r,x,y} - \Psi^A_{r,x}\big\|^2 \;\le\; 8\eta,
+\qquad
+\mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\,\big\|\Psi_{r,x,y} - \Psi^B_{r,y}\big\|^2 \;\le\; 8\eta. \tag{8}$$
+Moreover, with
+$$\kappa = \sqrt{\tfrac32\,\eta},$$
+one has $d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_A) \le \kappa$ and $d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_B) \le \kappa$. There exists finite shared randomness such that, on $(x,y)\sim\mu$, Alice and Bob sample a common uniform $i\in[n]\setminus D$ and histories $r_A, r_B$ with respective tuple distributions $\mathcal{J}_A, \mathcal{J}_B$, satisfying
+$$\mathbb{P}(r_A \ne r_B) \;\le\; 4\kappa. \tag{9}$$
+</div>
+
+<figure><!--FIG:fig_triangle--><figcaption>The state half of Lemma 3.3. The ideal state $\Psi_{r,x,y}$ needs data no single player has; Alice can describe $\Psi^A_{r,x}$, Bob can describe $\Psi^B_{r,y}$. Both are within $8\eta$ of the ideal in posterior-average squared distance (8), hence within $32\eta$ of <i>each other</i> by the triangle inequality &mdash; the closeness that quantum correlated sampling (&sect;9) will need.</figcaption></figure>
+
+<p>Read the two halves correctly. The state inequalities (8) are <b>averages under the posterior</b>: they say that when the repeated experiment is conditioned on $W_D$, the ideal state is <i>typically</i> close to each player's description &mdash; not that every branch is good. (Rare terrible branches are permitted and later absorbed into the average.) The total-variation half compares the ideal posterior with what each player can actually generate from their own question; feeding the family $\{\mathcal{Q}(R\mid i, X_i=x),\ \mathcal{Q}(R\mid i, Y_i=y)\}_{i,x,y}$ into the exact correlated-sampling Lemma 3.4 and averaging (10) over $(x,y)\sim\mu$ gives
+$$\mathbb{P}(r_A\ne r_B) \;\le\; 2\,d_{\mathrm{TV}}(\mathcal{J}_A,\mathcal{J}_B) \;\le\; 2\big(d_{\mathrm{TV}}(\mathcal{J}_A,\mathcal{Q}) + d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_B)\big) \;\le\; 4\kappa,$$
+which is precisely how (9) follows from the total-variation bounds &mdash; so the genuinely new content is (8) and the two $d_{\mathrm{TV}}\le\kappa$ estimates. Their proof occupies <a class="secref" href="#martingales">&sect;11</a>&ndash;<a class="secref" href="#classical">&sect;14</a>.</p>
+
+<figure><!--FIG:fig_distributions--><figcaption>The history half of Lemma 3.3. The posterior $\mathcal{Q}$ over (coordinate, history, questions) is not directly sampleable by either player, but it sits within total variation $\kappa = \sqrt{3\eta/2}$ of Alice's locally generated $\mathcal{J}_A$ and Bob's $\mathcal{J}_B$; exact correlated sampling (Lemma 3.4, Fig. 12) then produces a <i>common</i> history except with probability $4\kappa$.</figcaption></figure>
+
+<div class="note"><b>Where the magic sits.</b> Both statements of Lemma 3.3 are "obvious" analogues of classical facts from Holenstein's proof &mdash; with one exception: the bounds contain no factor $1/p$ or $1/\mu_{\min}$. Every earlier quantum analogue degraded as the conditioning event got rarer or as the question distribution got more skewed. Here $p$ enters only through $\log(1/p)$ inside $\eta$ &mdash; the information cost &mdash; never as an inverse power. That single feature is what turns polynomial into exponential decay, and it is bought by the unnormalized-budget bookkeeping of <a class="secref" href="#budget">&sect;13</a>.</div>

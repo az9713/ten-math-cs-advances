@@ -1,0 +1,59 @@
+<hr>
+<h2 id="valuations">10. The valuation toolbox (Lemmas 2&ndash;5)</h2>
+
+<p>Soundness will need to evaluate algebraic functions <i>at the anchors</i> &mdash; exactly the points the evaluation set $P$ excludes, where the interesting functions may have poles, and where the roots produced by Lemma 10 may not be evaluable at all in the naive sense. The correct tool is the valuation: a bookkeeping device for orders of vanishing that survives passage to extension fields. This section builds it, self-contained except for one precisely-stated import from commutative algebra.</p>
+
+<h3 id="s10-ord">10.1 Orders of vanishing on the rational function field</h3>
+
+<p>Let $K$ be any field and $F = K(X)$ its rational function field. Fix $a \in K$ and abbreviate $\ell_a = X - a$. A rational function need not be evaluable at $a$ ($1/\ell_a$ has a pole there), but it always has a well-defined <i>order</i> at $a$. For a nonzero polynomial $g \in K[X]$, let $\mathrm{ord}_{\ell_a}(g)$ be the largest $m \ge 0$ with $\ell_a^m \mid g$; equivalently $g = \ell_a^m g_0$ with $g_0(a) \ne 0$. Extend to nonzero rational functions by
+$$\mathrm{ord}_{\ell_a}\!\Big(\frac{g}{h}\Big) = \mathrm{ord}_{\ell_a}(g) - \mathrm{ord}_{\ell_a}(h), \qquad \mathrm{ord}_{\ell_a}(0) = +\infty,$$
+which is independent of the representation $g/h$ by unique factorization in $K[X]$. Positive order means a zero at $a$, negative a pole, zero a finite nonzero value (Fig.&nbsp;28); for instance $\mathrm{ord}_{\ell_a}(\ell_a^3) = 3$, $\mathrm{ord}_{\ell_a}(1/\ell_a) = -1$, $\mathrm{ord}_{\ell_a}(c) = 0$ for $c \in K^\times$.</p>
+
+<figure><!--FIG:fig_ord--><figcaption>Orders of vanishing at a point $a$ (real plots as intuition; the definition is algebraic and works over any field). Order $1$: simple zero. Order $3$: flatter zero. Order $-1$: pole. Order $0$: unit &mdash; finite and nonzero at $a$. The two displayed laws, multiplicativity and the ultrametric inequality, are all the structure the soundness argument uses.</figcaption></figure>
+
+<div class="def"><b>Definition (valuation).</b> An (additive, rational-valued) <b>valuation</b> on a field $E$ is a map $v : E \to \mathbb{Q} \cup \{+\infty\}$ such that for all $x, y \in E$:
+$$v(x) = +\infty \iff x = 0, \qquad v(xy) = v(x) + v(y), \qquad v(x + y) \ge \min\{v(x), v(y)\}.$$
+The third axiom is the <b>ultrametric inequality</b>. Multiplicativity forces $v(1) = 0$ (from $1\cdot 1 = 1$), hence $v(-1) = 0$ (from $(-1)^2 = 1$), $v(-x) = v(x)$, and $v(x^j) = j\,v(x)$ for $x \ne 0$, $j \ge 0$.</div>
+
+<p>The reader should check (immediately, from unique factorization) that $\mathrm{ord}_{\ell_a}$ is a valuation on $F$ with integer values. The one non-obvious &mdash; and endlessly useful &mdash; consequence of the axioms is that a <i>strict</i> minimum survives addition (Fig.&nbsp;29):</p>
+
+<div class="lem"><b>Lemma 2 (minimum-valuation principle).</b> Let $v$ be a valuation on $E$. If $v(x) \ne v(y)$ then $v(x+y) = \min\{v(x), v(y)\}$. More generally, if $r \ge 2$ and $x_1, \dots, x_r \in E^\times$ are such that exactly one $x_j$ attains the minimum valuation, then
+$$v\Big( \sum_{i=1}^r x_i \Big) = v(x_j);$$
+in particular the sum is not zero.</div>
+<div class="proof">Say $v(x) &lt; v(y)$. The ultrametric axiom gives $v(x+y) \ge v(x)$. If the inequality were strict, then applying the axiom to $x = (x+y) + (-y)$ would give
+$$v(x) \ge \min\{v(x+y),\, v(y)\} &gt; v(x),$$
+a contradiction (using $v(-y) = v(y)$). For the general case set $y = \sum_{i\ne j} x_i$; repeated use of the axiom gives $v(y) \ge \min_{i \ne j} v(x_i) &gt; v(x_j)$, and the two-term case applies to $x_j + y$. A sum of valuation $v(x_j) &lt; +\infty$ is nonzero. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_ultrametric--><figcaption>Lemma 2 in a picture (higher = larger valuation = &ldquo;smaller&rdquo; element). Left: when exactly one summand sits lowest, the sum lands exactly at that level &mdash; it cannot cancel away. Right: when two summands tie at the bottom, the axioms only give a lower bound; the sum may land anywhere at or above the tie. The entire soundness argument is engineered to manufacture situations of the left kind.</figcaption></figure>
+
+<h3 id="s10-extend">10.2 Extending a valuation to an algebraic extension</h3>
+
+<p>Lemma 10 hands us roots $\alpha$ in a finite separable extension $E/F$. To speak of &ldquo;the order of $\alpha - \beta_i$ at the anchor $a_i$&rdquo; we must extend $\mathrm{ord}_{\ell_a}$ from $F$ to $E$: a valuation $v_a$ on $E$ with $v_a(f) = \mathrm{ord}_{\ell_a}(f)$ for all $f \in F^\times$ (normalized so $v_a(\ell_a) = 1$). Such an extension cannot always stay integer-valued: if some $u \in E$ satisfies $u^e = \ell_a$, then $e\,v_a(u) = 1$ forces $v_a(u) = 1/e$. This phenomenon &mdash; fractional orders &mdash; is <b>ramification</b> (Fig.&nbsp;30). Existence is real mathematics; we quote the standard commutative-algebra package precisely, and then prove the lemma from it.</p>
+
+<figure><!--FIG:fig_ramify--><figcaption>Ramification refines the value ladder. On $F = K(X)$ the valuation $\mathrm{ord}_{\ell_a}$ takes integer values (left). After extending to a finite separable $E/F$ the values lie in $\frac{1}{e}\mathbb{Z}$ for some positive integer $e$ (right): an element $u$ with $u^2 = \ell_a$ must sit on the new half-integer rung $v_a(u) = 1/2$.</figcaption></figure>
+
+<div class="thm"><b>Import 2 (field-theory and Dedekind-domain package).</b> The following are standard results of graduate algebra, quoted with precise statements (proofs: e.g. Atiyah&ndash;Macdonald ch. 5, 9; Lang, <i>Algebra</i> V&ndash;VII; Serre, <i>Local Fields</i> I).
+<br><b>(a)</b> A finite field extension generated by elements whose minimal polynomials are separable is a separable extension (used in Lemma 3).
+<br><b>(b)</b> Let $A_0$ be a principal ideal domain with fraction field $F$ and let $E/F$ be a finite separable extension. The integral closure $A = \{z \in E : z \text{ satisfies a monic polynomial over } A_0\}$ is a finitely generated $A_0$-module and a Dedekind domain with fraction field $E$.
+<br><b>(c)</b> (Lying over) For every nonzero prime ideal $\mathfrak{q} \subset A_0$ there is a prime ideal $\mathfrak{p} \subset A$ with $\mathfrak{p} \cap A_0 = \mathfrak{q}$.
+<br><b>(d)</b> The localization $A_{\mathfrak{p}}$ of a Dedekind domain at a nonzero prime is a discrete valuation ring: its maximal ideal is generated by a single element $t$ (a <i>uniformizer</i>), and every $z \in E^\times$ has a unique expression $z = t^n w$ with $n \in \mathbb{Z}$ and $w$ a unit of $A_{\mathfrak{p}}$.</div>
+
+<div class="lem"><b>Lemma 4 (existence and normalization of extended valuations).</b> Let $K$ be a field, $F = K(X)$, $a \in K$, and $E/F$ a finite separable extension. There exists a valuation $v_a : E \to \mathbb{Q}\cup\{+\infty\}$ restricting to $\mathrm{ord}_{X-a}$ on $F^\times$, and a positive integer $e$ (the <b>ramification index</b>) such that $v_a(E^\times) \subseteq \frac{1}{e}\mathbb{Z}$.</div>
+<div class="proof">Apply Import 2(b) with $A_0 = K[X]$ (a PID) to get the integral closure $A \subseteq E$, a Dedekind domain. By lying over (c) there is a prime $\mathfrak{p} \subset A$ with $\mathfrak{p} \cap K[X] = (\ell_a)$. Localize (d): $A_\mathfrak{p}$ is a discrete valuation ring with uniformizer $t$, and the exponent map $\mathrm{ord}_\mathfrak{p}(z) = n$ from the unique expression $z = t^n w$ is a valuation on $E$ with values in $\mathbb{Z}$ (multiplicativity and the ultrametric inequality follow directly from unique expression: a sum of two elements $t^{n_1}w_1 + t^{n_2}w_2$ with $n_1 \le n_2$ equals $t^{n_1}(w_1 + t^{n_2-n_1}w_2)$, and the bracket lies in $A_\mathfrak{p}$, so its $t$-exponent is $\ge 0$). Set
+$$e = \mathrm{ord}_\mathfrak{p}(\ell_a) &gt; 0, \qquad v_a(z) = \frac{\mathrm{ord}_\mathfrak{p}(z)}{e}, \qquad v_a(0) = +\infty;$$
+positivity of $e$ holds because $\ell_a \in \mathfrak{p}$. It remains to check the restriction property. Let $g \in K[X]\setminus\{0\}$ and factor $g = \ell_a^m g_0$ with $g_0(a) \ne 0$. Then $g_0 \notin (\ell_a) = \mathfrak{p} \cap K[X]$, so $g_0 \notin \mathfrak{p}$: as an element of $A \setminus \mathfrak{p}$ it is a unit of the localization, giving
+$$\mathrm{ord}_\mathfrak{p}(g) = m\, \mathrm{ord}_\mathfrak{p}(\ell_a) = e\,m, \qquad v_a(g) = m = \mathrm{ord}_{\ell_a}(g).$$
+Applying this to numerator and denominator extends the identity to all of $F^\times$; and $v_a(\ell_a) = 1$. Finally $\mathrm{ord}_\mathfrak{p}(E^\times) \subseteq \mathbb{Z}$ gives $v_a(E^\times) \subseteq \frac1e \mathbb{Z}$. <span class="qed">&#8718;</span></div>
+
+<h3 id="s10-residue">10.3 Residues: evaluation, generalized</h3>
+
+<p>For a valuation $v_a$ on $E$, the <b>valuation ring</b> and its maximal ideal are
+$$\mathcal{O} = \{z : v_a(z) \ge 0\}, \qquad \mathfrak{m} = \{z : v_a(z) &gt; 0\},$$
+and the quotient $\kappa = \mathcal{O}/\mathfrak{m}$ is the <b>residue field</b>. Reduction mod $\mathfrak{m}$ generalizes evaluation at $a$: for a polynomial $f \in K[X]$, the factor theorem gives $f(X) - f(a) \in \ell_a K[X]$, so $v_a(f - f(a)) \ge 1 &gt; 0$ and $f$ has the same residue as the constant $f(a)$. Moreover distinct constants stay distinct in the residue field, because $v_a(c) = 0$ for every $c \in K^\times$. That one-line observation has a consequence we will use at the crucial moment of the endgame (<a class="secref" href="#matching">&sect;13</a>): an element of $E$ cannot be &ldquo;close to&rdquo; two different constants at once.</p>
+
+<div class="lem"><b>Lemma 5 (uniqueness of a constant residue).</b> Let $v_a$ extend $\mathrm{ord}_{X-a}$ to $E$, let $\alpha \in E$, and let $b, c \in K$. If $v_a(\alpha - b) &gt; 0$ and $v_a(\alpha - c) &gt; 0$, then $b = c$. (The same holds with both hypotheses strengthened to $\ge 1$, which is the form used later.)</div>
+<div class="proof">Suppose $b \ne c$. Then $b - c \in K^\times$, so $v_a(b - c) = \mathrm{ord}_{\ell_a}(b-c) = 0$. But
+$$b - c = (\alpha - c) - (\alpha - b), \qquad\text{so}\qquad v_a(b-c) \ge \min\{v_a(\alpha - c),\, v_a(\alpha - b)\} &gt; 0,$$
+a contradiction. <span class="qed">&#8718;</span></div>
+
+<p>The toolbox is complete: a way to measure vanishing at anchors (Lemma 4), a guarantee that strict minima survive sums (Lemma 2), and a rigidity statement for constants (Lemma 5). Now we can take apart a low-weight solution.</p>

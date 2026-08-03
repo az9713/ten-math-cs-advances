@@ -1,0 +1,26 @@
+<hr>
+
+<h2 id="conditioning">6. Greedy conditioning (Lemma 3.1)</h2>
+
+<p>The first step of the plan: find a small core $D$ such that, conditional on winning it, the <i>average</i> remaining coordinate is won with probability close to $1$. The mechanism is a greedy loop (Fig. 15): as long as some remaining coordinate is still frequently lost under the current conditioning, add the worst offender to the core. Each addition multiplies the conditioned mass by a factor below $1 - \delta$, and the mass can never drop below $\vartheta$ (the all-win event survives every conditioning), so the loop stops quickly.</p>
+
+<div class="lem" id="lem-31"><b>Lemma 3.1 (quantitative greedy conditioning).</b> Suppose $\vartheta = \mathcal{P}(W_{[n]}) \gt 0$, let $0 \lt \delta \lt 1$, and assume
+$$\frac{\log(1/\vartheta)}{\delta} \lt n .$$
+Then there exists $D \subsetneq [n]$ such that
+$$|D| \;\le\; \frac{\log(1/\vartheta)}{\delta}, \qquad
+\mathcal{P}(W_D) \;\ge\; \vartheta, \qquad
+\frac{1}{n - |D|}\sum_{i\in[n]\setminus D} \mathcal{P}(W_i\mid W_D) \;\ge\; 1 - \delta .$$
+</div>
+
+<div class="proof"><p>(Chapter's Appendix A.2.) Start with $D = \varnothing$. While the current core violates the third conclusion &mdash; that is, while
+$$\frac{1}{n-|D|}\sum_{i\notin D}\mathcal{P}(\overline{W_i}\mid W_D) \gt \delta,$$
+where $\overline{W_i}$ is the failure event &mdash; there is some $i \notin D$ whose individual conditional failure probability exceeds $\delta$ (an average exceeds $\delta$ only if some term does); add that $i$ to $D$. Every conditional probability appearing is well defined throughout, because $W_{[n]} \subseteq W_D$ gives $\mathcal{P}(W_D) \ge \vartheta \gt 0$ at every stage &mdash; which is also the second conclusion, at every stage including the last.</p>
+<p>Each addition shrinks the conditioned mass geometrically:
+$$\mathcal{P}(W_{D\cup\{i\}}) \;=\; \mathcal{P}(W_D)\,\mathcal{P}(W_i\mid W_D) \;\lt\; (1-\delta)\,\mathcal{P}(W_D).$$
+Hence after $k \ge 1$ additions, $\vartheta \le \mathcal{P}(W_D) \lt (1-\delta)^k$, so
+$$k \;\lt\; \frac{\log(1/\vartheta)}{-\log(1-\delta)} \;\le\; \frac{\log(1/\vartheta)}{\delta},$$
+using $-\log(1-\delta) \ge \delta$ (the tangent-line inequality $\log(1+t) \le t$ at $t = -\delta$). The hypothesis $\log(1/\vartheta)/\delta \lt n$ therefore prevents the loop from ever absorbing all $n$ coordinates: it stops at a proper subset $D \subsetneq [n]$. The stopping condition is precisely the asserted average-success inequality; if the loop makes no additions at all, the conclusions hold with $D = \varnothing$. (Machine check <code>c22</code> runs the loop on a $12$-coordinate toy experiment with strongly correlated wins and verifies all three conclusions.) <span class="qed">&#8718;</span></p></div>
+
+<figure><!--FIG:fig_greedy--><figcaption>The greedy loop, animated on a toy $10$-coordinate experiment with correlated wins (a static frame shows one stage). Bars: conditional per-coordinate success $\mathcal{P}(W_i \mid W_D)$ under the current core. The orange bar is the worst coordinate &mdash; the next to be absorbed into $D$ (red). Conditioning on the offender's success raises the other bars: exactly the mechanism by which the average climbs above $1 - \delta$.</figcaption></figure>
+
+<p>Two features of the output matter downstream. First, the guarantee is about the <i>average</i> conditional success $q \ge 1-\delta$, not about each coordinate &mdash; that is all the extraction argument needs, since it will pick its live coordinate uniformly at random. Second, the core is small &mdash; $|D| \le \log(1/\vartheta)/\delta$ &mdash; which in <a class="secref" href="#endgame">&sect;10</a>'s parameter regime is at most $n/2$, so at least half the coordinates remain live ($m \gt n/2$), and the information cost $\eta$ of equation (1) is at most $2\big(\log(1/\vartheta) + |D|\ell\big)/n$: logarithmic quantities spread over linearly many coordinates. The contradiction hypothesis "$\vartheta$ is too large" enters the quantitative endgame exactly here, by making $\log(1/\vartheta)$, hence $|D|$ and $\eta$, small.</p>

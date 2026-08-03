@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The soficity conjecture falls — Chapter 3, rigorous explainer</title>
+<!-- MathJax v3, SVG output. One CDN line; needs network on first open. -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'ams' },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-svg.js" integrity="sha384-msWocAZtTDh+149KSxjbRTGVfGbDjiff/j0JX1iu/A/GxxTWSu6ozNemlfkag/8d" crossorigin="anonymous" async></script>
+<style>
+  :root{ --fg:#1a1a1a; --muted:#555; --accent:#7a1f1f; --rule:#ddd; --box:#f6f4ef;
+         --toy:#2a7d2a; --toybg:#f1f7f1; --notebg:#fdf7e3; --noterule:#e3d27a; --card:#ffffff;
+         --codebg:#f3f1ec; --btnbg:#ffffff; --pagebg:#ffffff; }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:#e8e5df; --muted:#a49e92; --accent:#d98a6a; --rule:#3a3630; --box:#232019;
+           --toy:#7fbf8f; --toybg:#1d241d; --notebg:#2a2617; --noterule:#6a5d2a; --card:#f6f4ef;
+           --codebg:#2a2723; --btnbg:#232019; --pagebg:#161513; }
+  }
+  body{ background:var(--pagebg); }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ max-width: 50rem; margin: 2.5rem auto; padding: 0 1.25rem 6rem;
+        font: 16px/1.65 Georgia, 'Times New Roman', serif; color:var(--fg); counter-reset: fig; }
+  h1{ font-size: 1.9rem; line-height:1.2; margin:.2rem 0 .2rem; }
+  h2{ font-size:1.35rem; margin:2.4rem 0 .6rem; border-bottom:2px solid var(--accent); padding-bottom:.2rem; }
+  h3{ font-size:1.1rem; margin:1.6rem 0 .4rem; color:var(--accent); }
+  .sub{ color:var(--muted); font-style:italic; margin-top:0; }
+  code{ font-family: ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.92em; background:var(--codebg); padding:.05rem .25rem; border-radius:3px; }
+  pre{ background:var(--codebg); padding:.8rem 1rem; border-radius:5px; overflow:auto; font-size:.84rem; line-height:1.45; }
+  pre code{ background:none; padding:0; }
+  .codewrap{ position:relative; }
+  .copybtn{ position:absolute; top:.5rem; right:.5rem; display:inline-flex; align-items:center; gap:.3rem;
+    font:600 .72rem/1 ui-monospace,Consolas,monospace; color:var(--muted);
+    background:var(--btnbg); border:1px solid var(--rule); border-radius:5px; padding:.32rem .5rem; cursor:pointer; }
+  .copybtn:hover{ color:var(--accent); border-color:var(--accent); }
+  .copybtn.copied{ color:#2a7d2a; border-color:#2a7d2a; }
+  .copybtn svg{ width:13px; height:13px; }
+  .thm,.def,.lem,.prop{ background:var(--box); border-left:4px solid var(--accent); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .thm b,.def b,.lem b,.prop b{ color:var(--accent); }
+  .proof{ border-left:2px solid var(--rule); padding-left:.9rem; margin:.8rem 0 1.2rem; }
+  .proof::before{ content:"Proof."; font-style:italic; font-weight:bold; margin-right:.4rem; }
+  .qed{ float:right; }
+  .toy{ background:var(--toybg); border-left:4px solid var(--toy); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .toy b{ color:var(--toy); }
+  .note{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; margin:1rem 0; border-radius:4px; font-size:.92rem; }
+  table{ border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; }
+  th,td{ border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top; }
+  th{ background:var(--box); }
+  .tablewrap{ overflow-x:auto; }
+  figure{ margin:1.5rem 0; text-align:center; counter-increment: fig; }
+  figure > svg{ background:var(--card); border:1px solid var(--rule); border-radius:6px; }
+  figcaption{ color:var(--muted); font-size:.9rem; font-style:italic; margin-top:.4rem; }
+  figcaption::before{ content:"Fig. " counter(fig) ". "; font-weight:bold; font-style:normal; color:var(--accent); }
+  .proof figure,.thm figure,.lem figure,.prop figure{ margin:.2rem auto .7rem; max-width:460px; background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:.4rem; }
+  .proof figure > svg,.thm figure > svg,.lem figure > svg,.prop figure > svg{ border:none; }
+  .proof figcaption,.thm figcaption,.lem figcaption,.prop figcaption{ font-size:.8rem; line-height:1.4; }
+  .setupfig{ display:block; }
+  .setupfig text{ paint-order:stroke; stroke:#fff; stroke-width:2.5px; stroke-linejoin:round; }
+  .setupfig text[fill="#fff"], .setupfig text[fill="#ffffff"], .setupfig text[fill="white"], .setupfig text.onfill{ stroke:none; }
+  figure svg text{ font-family:"STIX Two Math",STIXGeneral,"Times New Roman",Georgia,serif; }
+  figure svg text.v{ font-style:italic; }
+  figure svg text.vb{ font-weight:bold; }
+  .secref{ color:var(--accent); text-decoration:none; border-bottom:1px dotted #b98; }
+  .secref:hover{ border-bottom:1px solid var(--accent); }
+  .toc{ background:var(--box); padding:.8rem 1.2rem; border-radius:6px; font-size:.95rem; }
+  .toc ul{ list-style:none; padding-left:.3rem; margin:.3rem 0; } .toc a{ color:var(--accent); text-decoration:none; }
+  .small{ font-size:.88rem; color:var(--muted); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+  .keyresult{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; border-radius:4px; }
+</style>
+</head>
+<body>
+
+<h1>The soficity conjecture falls</h1>
+<p class="sub">A rigorous, self-contained walkthrough of Chapter 3 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (pp. 77&ndash;93), written for a reader with a PhD in <b>some</b> quantitative field &mdash; but not in group theory or sofic approximation. Every symbol is defined before use; every step provable at graduate-core level is proved; the four deep imports (two expander theorems, one property-(T) theorem, and the classical facts about Thompson's group) are stated precisely and flagged; and every algebraic identity in the construction is re-verified by machine in <a href="#numerics" class="secref">&sect;9</a>.</p>
+
+<div class="toc">
+<b>Contents</b>
+<ul>
+<li><b>0.</b> <a href="#hook">Motivation &mdash; infinite symmetry, finite shuffles</a></li>
+<li><b>1.</b> <a href="#sofic">Sofic groups from zero</a></li>
+<li><b>2.</b> <a href="#lef">The obstruction: LEF groups and Thompson's group $V$</a></li>
+<li><b>3.</b> <a href="#expanders">Property (T), expanders, and the two big imports (a reusable primer)</a></li>
+<li><b>4.</b> <a href="#matching">The expander-matching criterion (Proposition 2.3), in full</a></li>
+<li><b>5.</b> <a href="#leavitt">The binary Leavitt algebra and its elementary groups</a></li>
+<li><b>6.</b> <a href="#thompson">Thompson's group inside the unit group</a></li>
+<li><b>7.</b> <a href="#config">The configuration: two contractions and a commuting obstruction</a></li>
+<li><b>8.</b> <a href="#thm">Theorem 1.1 assembled &mdash; and what it does and does not settle</a></li>
+<li><b>9.</b> <a href="#numerics">Machine verification of every algebraic identity</a></li>
+<li><b>10.</b> <a href="#scope">Scope &mdash; proved here, imported, open</a></li>
+<li><b>A.</b> <a href="#notation">Appendix: notation glossary</a></li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="hook">0. Motivation &mdash; infinite symmetry, finite shuffles</h2>
+
+<p>Can every infinite group be simulated, as accurately as you like, by shuffling a large finite deck? Make the question precise in the humblest possible way. A group is its multiplication table. Pick any finite fragment of that table &mdash; finitely many elements and their pairwise products. Ask for a large finite set $Y$ and, for each chosen group element, a permutation of $Y$, such that (i) the permutations compose the way the table says they should at <i>almost every</i> point of $Y$, and (ii) every nonidentity element's permutation moves <i>almost every</i> point. Groups admitting such simulations at every precision are called <b>sofic</b> (Fig. 1). Gromov introduced the idea in 1999 in his work on symbolic dynamics; Weiss named it and asked the innocent-sounding question: is there a group that is <i>not</i> sofic? For a quarter century the question &mdash; the <b>soficity conjecture</b>, in its optimistic phrasing &ldquo;every countable group is sofic&rdquo; &mdash; absorbed attacks from group theory, dynamics, operator algebras, and quantum information, and every candidate obstruction either failed or remained conditional. Chapter 3 answers it. There is a nonsofic group, and it is startlingly concrete: the group of invertible elements of a ring on four generators over the field of two elements.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 240" width="100%" role="img" aria-label="Simulating a multiplication table fragment by permutations of a finite set">
+  <defs><marker id="c3arrH" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- left: table fragment -->
+  <g fill="none" stroke="#8899aa" stroke-width="1.2">
+    <rect x="35" y="55" width="150" height="110" rx="4"/>
+    <line x1="35" y1="92" x2="185" y2="92"/><line x1="35" y1="129" x2="185" y2="129"/>
+    <line x1="85" y1="55" x2="85" y2="165"/><line x1="135" y1="55" x2="135" y2="165"/>
+  </g>
+  <g font-size="13" fill="#1a1a1a">
+    <text x="52" y="79" class="v">&#183;</text><text x="103" y="79" class="v">g</text><text x="152" y="79" class="v">h</text>
+    <text x="52" y="116" class="v">g</text><text x="98" y="116" class="v">g&#178;</text><text x="149" y="116" class="v">gh</text>
+    <text x="52" y="153" class="v">h</text><text x="98" y="153" class="v">hg</text><text x="149" y="153" class="v">h&#178;</text>
+  </g>
+  <text x="35" y="40" font-size="12" fill="#555">a finite patch of the multiplication table</text>
+  <line x1="200" y1="110" x2="240" y2="110" stroke="#555" stroke-width="1.6" marker-end="url(#c3arrH)"/>
+  <!-- right: permutations of Y -->
+  <text x="256" y="40" font-size="12" fill="#555">permutations of a big finite set Y</text>
+  <g fill="#7da7d9" stroke="#2e5a8a" stroke-width="1.2">
+    <circle cx="270" cy="70" r="5"/><circle cx="310" cy="70" r="5"/><circle cx="350" cy="70" r="5"/><circle cx="390" cy="70" r="5"/><circle cx="430" cy="70" r="5"/>
+    <circle cx="270" cy="130" r="5"/><circle cx="310" cy="130" r="5"/><circle cx="350" cy="130" r="5"/><circle cx="390" cy="130" r="5"/><circle cx="430" cy="130" r="5"/>
+  </g>
+  <g stroke="#2a7d2a" stroke-width="1.4" fill="none">
+    <path d="M270,75 C280,105 300,105 310,125" marker-end="url(#c3arrH)"/>
+    <path d="M310,75 C320,105 340,105 350,125" marker-end="url(#c3arrH)"/>
+    <path d="M350,75 C360,105 380,105 390,125" marker-end="url(#c3arrH)"/>
+    <path d="M390,75 C400,105 420,105 430,125" marker-end="url(#c3arrH)"/>
+  </g>
+  <path d="M430,75 C400,110 300,120 273,127" stroke="#c0392b" stroke-width="1.6" fill="none" marker-end="url(#c3arrH)"/>
+  <text x="256" y="160" font-size="11.5" fill="#2a7d2a">p(g)p(h) agrees with p(gh)&#8230;</text>
+  <text x="256" y="177" font-size="11.5" fill="#c0392b">&#8230;except on a vanishing fraction (red)</text>
+  <text x="256" y="200" font-size="11.5" fill="#555">and p(g) moves almost every point (g &#8800; 1)</text>
+  <text x="35" y="222" font-size="12" fill="#7a1f1f">sofic = simulable this way at every precision, for every finite patch</text>
+</svg><figcaption><b>The soficity game.</b> Simulate finitely many group elements by permutations of a finite set $Y$ so that the multiplication table holds at all but a vanishing fraction of points, and nonidentity elements act almost freely. Finite groups play perfectly (use the group itself); free groups, abelian groups, and every group built from these by the standard operations all win. The conjecture asked whether <i>every</i> countable group wins. It does not.</figcaption></figure>
+
+<p>Here is the villain. Let $\mathbb F_2$ be the field with two elements, and let
+$$R \;=\; L_{\mathbb F_2}(1,2) \;=\; \mathbb F_2\bigl\langle\, s_0, s_1, t_0, t_1 \;\big|\; t_i s_j = \delta_{ij},\; s_0 t_0 + s_1 t_1 = 1 \,\bigr\rangle \tag{1}$$
+be the <b>binary Leavitt algebra</b>: the ring on four noncommuting generators, coefficients mod $2$, subject to five short relations ($\delta_{ij}$ is $1$ if $i = j$, else $0$). Write $R^\times$ for its group of invertible elements. The relations encode something a linear-algebra eye recognizes instantly: $R$ is a ring isomorphic, as a module over itself, to <i>two</i> copies of itself &mdash; a violation of dimension-invariance that no field, and no ring of matrices over a field, can commit. That self-similarity is the engine of everything below.</p>
+
+<div class="keyresult"><b>Theorem 1.1 (proved in <a class="secref" href="#thm">&sect;8</a>).</b> The unit group $L_{\mathbb F_2}(1,2)^\times$ is not sofic.</div>
+
+<p>The proof is a three-act collision of machines built by different communities:</p>
+<ul>
+<li><b>Act one (rigidity).</b> Kazhdan's property (T) &mdash; a rigidity property of infinite groups &mdash; forces any sofic simulation of a property-(T) group to organize itself, after negligible edits, into a disjoint union of <i>expander graphs</i> (Kun's theorem). A companion theorem of Kun and Thom says: if the simulation is a <i>single</i> expander, then any group commuting with the property-(T) group must be LEF &mdash; simulable by finite groups <i>exactly</i>, not just approximately. The gap between &ldquo;union of expanders&rdquo; and &ldquo;one expander&rdquo; is genuine, and closing it is the chapter's analytic contribution (<a class="secref" href="#matching">&sect;4</a>): a matching argument shows that a suitable <i>contracting conjugation</i> ($t\Gamma t^{-1} \le \Gamma$) forbids the simulation from fragmenting.</li>
+<li><b>Act two (self-similarity).</b> Inside $R^\times$, the binary prefix structure of the Leavitt algebra manufactures exactly the objects Act one needs: a finitely generated property-(T) group $G$ (an <i>elementary matrix group</i> made internal to $R$), a property-(T) subgroup $\Gamma$ acting on &ldquo;half the space&rdquo;, contracting units $u, v$, and &mdash; crucially &mdash; a commuting copy $J$ of <b>Thompson's group $V$</b>, an infinite finitely presented <i>simple</i> group (<a class="secref" href="#leavitt">&sect;5</a>&ndash;<a class="secref" href="#config">&sect;7</a>).</li>
+<li><b>Act three (contradiction).</b> A finitely presented LEF group must be residually finite; an infinite simple group cannot be. So $V$ is not LEF (<a class="secref" href="#lef">&sect;2</a>) &mdash; yet soficity of $G$ would force it to be. Hence $G$, and with it $R^\times$, is not sofic (<a class="secref" href="#thm">&sect;8</a>).</li>
+</ul>
+
+<p>The plan: <a class="secref" href="#sofic">&sect;1</a> and <a class="secref" href="#lef">&sect;2</a> build the two ends of the trap (soficity, and the non-LEF group $V$) from nothing, proving all the foundational lemmas. <a class="secref" href="#expanders">&sect;3</a> is a self-contained primer on property (T) and expanders &mdash; written to be reusable by Chapter 4's explainer &mdash; stating the two imported expander theorems and showing, by a known example, why the gap between them is real. <a class="secref" href="#matching">&sect;4</a> proves the bridging Proposition 2.3 in full. <a class="secref" href="#leavitt">&sect;5</a>&ndash;<a class="secref" href="#config">&sect;7</a> build the Leavitt configuration, proving every algebraic identity. <a class="secref" href="#thm">&sect;8</a> assembles the theorem and maps what it settles; <a class="secref" href="#numerics">&sect;9</a> re-verifies all of <a class="secref" href="#leavitt">&sect;5</a>&ndash;<a class="secref" href="#config">&sect;7</a> by machine; <a class="secref" href="#scope">&sect;10</a> is the honest scorecard.</p>
+
+<p class="small">Source of truth: Chapter 3, &ldquo;A Counterexample to the Soficity Conjecture&rdquo;, pp. 77&ndash;93 of the paper (PDF pages 79&ndash;95). The chapter's numbering &mdash; Theorem 1.1, Theorems 2.1&ndash;2.2, Proposition 2.3, Lemma 3.1, Proposition 3.2, equations (1)&ndash;(18) &mdash; is preserved. Results labeled with letters (Propositions A&ndash;F, &hellip;) are background proved here; results labeled <b>Import 1&ndash;4</b> are deep external inputs, stated precisely but not proved.</p>

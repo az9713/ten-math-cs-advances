@@ -1,0 +1,50 @@
+<hr>
+<h2 id="encoding">6. Encoding an assignment: one polynomial, many tables</h2>
+
+<p>Now the construction proper. Fix a 3SAT formula $\varphi$ of encoding length $s$. First, harmless preprocessing: delete every tautological clause (one containing both $v_i$ and $\lnot v_i$ &mdash; satisfied by all assignments) and repeated literals within a clause. If an empty clause remains, $\varphi$ is trivially unsatisfiable; if no clauses remain, trivially satisfiable &mdash; both cases will be handled by fixed one-dimensional instances in <a class="secref" href="#transfer">&sect;14</a>. Otherwise delete variables that occur in no clause, and write
+$$v_1, \dots, v_m \quad\text{and}\quad C_1, \dots, C_\ell \qquad (m, \ell \ge 1)$$
+for the surviving variables and clauses, $[m] = \{1, \dots, m\}$ for the variable indices.</p>
+
+<h3 id="s6-interp">6.1 Assignments as interpolation polynomials</h3>
+
+<p>Let $K = \mathbb{F}_q$ be a characteristic-two field (built as in <a class="secref" href="#fields">&sect;5</a>) large enough to contain $m$ distinct elements
+$$a_1, \dots, a_m \in K,$$
+called the <b>anchors</b> &mdash; one per Boolean variable. Identify the Boolean values $0, 1$ with the corresponding field elements. By Lagrange interpolation (Proposition E), each assignment $\sigma = (\sigma_1,\dots,\sigma_m) \in \{0,1\}^m$ determines a unique <b>assignment polynomial</b>
+$$Q_\sigma \in K[X], \qquad \deg Q_\sigma \le m - 1, \qquad Q_\sigma(a_i) = \sigma_i \quad (1 \le i \le m),$$
+and conversely any polynomial of degree $\le m-1$ taking $\{0,1\}$-values at all anchors reads out an assignment. The polynomial is the assignment, wearing algebraic clothes (Fig.&nbsp;16). We write $d = m$ for a convenient degree bound.</p>
+
+<figure><!--FIG:fig_interp--><figcaption>Left: real-line analogy &mdash; the unique low-degree curve through the anchor values $(a_i, \sigma_i)$. Right: the genuine article in $\mathbb{F}_{16}$: the toy assignment $\sigma = (1,0,1)$ interpolated at anchors $1, g, g^2$ gives a degree-2 polynomial $Q_\sigma$, whose sixteen values are listed (anchors red, the 13 points of $P$ blue). Degree and anchor values are machine-checked in &sect;17.</figcaption></figure>
+
+<p>Evaluate everywhere <i>except</i> the anchors: let
+$$P = K \setminus \{a_1, \dots, a_m\}, \qquad \lvert P \rvert = q - m.$$
+The vector $(Q_\sigma(p))_{p\in P} \in \mathrm{RS}(P, m-1)$ is a Reed&ndash;Solomon encoding of the assignment. Excluding anchors guarantees $p - a_i \ne 0$ for all $p \in P$ and all $i$, so these differences may safely appear in denominators &mdash; the shifted moments of <a class="secref" href="#constraints">&sect;7</a> depend on it.</p>
+
+<p>The encoding must be <i>binary</i>, so we cannot store field elements directly. Instead, store indicator bits: for each evaluation point, one bit per candidate field value, exactly one of them set. This <b>one-hot</b> array is the <b>global evaluation table</b>: bits $x_{0,p,w}$ for $p \in P$, $w \in K$, with intended meaning
+$$x_{0, p, w} = 1 \iff w = Q_\sigma(p).$$
+</p>
+
+<h3 id="s6-clause">6.2 Clause tables</h3>
+
+<p>Satisfiability is a property of the assignment's restrictions to clauses, so the encoding carries clause-local copies. For a clause $C$ let
+$$I_C \subseteq [m]$$
+be the indices of its variables ($\lvert I_C\rvert \le 3$), and let
+$$B_C = \{\, \beta \in \{0,1\}^{I_C} : \beta \text{ satisfies } C \,\}$$
+be its <b>satisfying local assignments</b> &mdash; all ways to set just the clause's variables so the clause holds. A clause with three distinct literals excludes exactly one of the $8$ local patterns, so $\lvert B_C \rvert \le 8$ (our toy clauses have $\lvert B_C\rvert = 7$). If a global assignment $\sigma$ satisfies $C$, its restriction $\sigma|_{I_C}$ is one particular element of $B_C$.</p>
+
+<div class="def"><b>Definition (table types).</b> The <b>type index set</b> is
+$$\Theta = \{0\} \cup \{\, (C, \beta) : C \text{ a clause},\ \beta \in B_C \,\},$$
+so $\lvert\Theta\rvert = 1 + \sum_C \lvert B_C\rvert \le 1 + 8\ell$. Type $0$ is the global table; a type $(C,\beta)$ is a <b>clause subtype</b>: a full evaluation table reserved for the possibility that the eventual assignment restricts to $\beta$ on clause $C$. For every $\tau \in \Theta$, $p \in P$, $w \in K$ there is one binary unknown $x_{\tau,p,w} \in \mathbb{F}_2$; for fixed $(\tau, p)$, the bit vector $(x_{\tau,p,w})_{w \in K}$ is the <b>fiber</b> at $p$, and the <b>support</b> of that fiber is
+$$S_\tau(p) = \{\, w \in K : x_{\tau,p,w} = 1 \,\}.$$
+</div>
+
+<p>The <i>intended</i> assignment of all these bits, given a satisfying $\sigma$: declare type $0$ and, for each clause $C$, the single subtype $(C, \sigma|_{I_C})$ <b>active</b>; all other subtypes <b>inactive</b>. Each active table carries the same one-hot data,
+$$x_{\tau, p, w} = 1 \iff w = Q_\sigma(p) \qquad (\tau \text{ active}),$$
+and inactive tables are identically zero. So for the intended solution, every fiber of an active table has support $\{Q_\sigma(p)\}$, a single dot tracing the graph of $Q_\sigma$, and inactive fibers are empty (Figs.&nbsp;17, 18). A general binary vector $x$, of course, respects none of this &mdash; fibers may hold any number of dots &mdash; and the entire soundness argument (&sect;11&ndash;&sect;13) is about how the constraints of the next section tame arbitrary low-weight solutions anyway.</p>
+
+<figure><!--FIG:fig_tables--><figcaption>The global evaluation table for the toy instance: rows indexed by field values $w \in \mathbb{F}_{16}$, columns by the 13 evaluation points $p \in P$; the fiber at $p$ is the column above $p$. For the intended solution the single set bit per column traces the graph of $Q_\sigma$ (red). The animation flips $\sigma_3$ from 1 to 0: a new interpolation polynomial, and every dot jumps (blue). Below: each clause owns one table per satisfying local assignment; only the copy matching $\sigma|_{I_C}$ is populated &mdash; identical to the global table &mdash; and the rest are empty.</figcaption></figure>
+
+<figure><!--FIG:fig_types--><figcaption>The type set $\Theta$ for the toy formula: the global type $0$ plus seven subtypes per clause, $\lvert\Theta\rvert = 15$. Green: the $\ell + 1 = 3$ tables populated by the intended solution for $\sigma = (1,0,1)$ &mdash; the global table and, per clause, the subtype labeled by $\sigma$'s restriction.</figcaption></figure>
+
+<p>Why clause <i>subtypes</i> rather than one table per clause? Because the soundness argument will need each table to commit to a <i>specific</i> local assignment $\beta$: the shifted-moment constraints of <a class="secref" href="#constraints">&sect;7</a> are built from the pair $(C,\beta)$, and in <a class="secref" href="#extraction">&sect;12</a> a valuation argument will read the bit $\beta_i$ back off the algebraic roots associated with that table. The subtype structure is the reduction's way of making the eventual assignment <i>legible</i>, coordinate by coordinate, to algebra.</p>
+
+<div class="toy"><b>Toy bookkeeping.</b> $q = 16$, $m = 3$, $\ell = 2$: anchors $\{1, g, g^2\}$, $\lvert P\rvert = 13$, $\lvert\Theta\rvert = 1 + 7 + 7 = 15$, so the number of binary unknowns is $M = \lvert\Theta\rvert\,\lvert P\rvert\, q = 15 \cdot 13 \cdot 16 = 3120$. All numbers verified in &sect;17.</div>

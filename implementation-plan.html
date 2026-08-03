@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Implementation Plan — Ten Advances, PhD-Bridging Explainers</title>
+<style>
+  :root {
+    --bg: #faf9f6; --fg: #1a1a1a; --muted: #5a5a5a; --card: #ffffff;
+    --border: #ddd8ce; --accent: #7a4a1e; --accent2: #2d5a4a;
+    --chip: #efe9dd; --code: #f0ece3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161513; --fg: #e8e5df; --muted: #a09a8e; --card: #201e1b;
+      --border: #3a3630; --accent: #d9a05b; --accent2: #7fbfa5;
+      --chip: #2c2925; --code: #2a2723;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.65 Georgia, 'Times New Roman', serif;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+  h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 .3rem; }
+  h2 { font-size: 1.35rem; margin: 2.8rem 0 .8rem; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+  h3 { font-size: 1.08rem; margin: 1.6rem 0 .4rem; }
+  .sub { color: var(--muted); font-style: italic; margin-bottom: 2rem; }
+  .meta { font-family: ui-monospace, Consolas, monospace; font-size: .82rem; color: var(--muted); margin-bottom: .5rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.3rem 1.5rem; margin: 1.2rem 0;
+  }
+  .chapcard { border-left: 4px solid var(--accent); }
+  .chaphead { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem; margin-bottom: .4rem; }
+  .chaphead h3 { margin: 0; font-size: 1.15rem; }
+  .chip {
+    display: inline-block; background: var(--chip); border-radius: 999px;
+    padding: .1rem .65rem; font-size: .74rem; font-family: ui-monospace, Consolas, monospace;
+    color: var(--muted); white-space: nowrap;
+  }
+  .chip.hard { color: #b3462e; }
+  @media (prefers-color-scheme: dark) { .chip.hard { color: #e08363; } }
+  .result {
+    background: var(--code); border-radius: 6px; padding: .7rem .9rem;
+    font-size: .93rem; margin: .6rem 0;
+  }
+  .result b { color: var(--accent2); }
+  dt { font-weight: bold; font-size: .95rem; margin-top: .7rem; color: var(--accent2); }
+  dd { margin: .15rem 0 0 0; font-size: .95rem; }
+  ul, ol { padding-left: 1.3rem; }
+  li { margin: .3rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid var(--border); padding: .45rem .6rem; text-align: left; vertical-align: top; }
+  th { background: var(--chip); font-size: .82rem; }
+  .tablewrap { overflow-x: auto; }
+  em.term { font-style: normal; font-weight: bold; }
+  .why { border-left: 4px solid var(--accent2); }
+  .pathnote { font-size: .85rem; color: var(--muted); }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: .88em; background: var(--code); padding: .05rem .3rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="meta">source: ten-proofs-oai.pdf · 249 pages · verified 2026-08-02</div>
+<h1>Implementation Plan: Bridging Explainers for <i>Ten Advances in Mathematics and Theoretical Computer Science</i></h1>
+<p class="sub">Ten self-contained explainer artifacts, each engineered so that a reader with a PhD in <b>some</b> mathematical field — but not <b>this</b> one — genuinely understands the result and its proof.</p>
+
+<h2>1. The audience model (and why it drives everything)</h2>
+<div class="card">
+<p>The core design constraint: a PhD gives a reader two assets and one liability.</p>
+<ul>
+<li><b>Asset — mathematical maturity.</b> They can read quantifiers, follow a proof's logic, hold abstractions, and detect hand-waving. We never simplify the <i>logic</i>.</li>
+<li><b>Asset — one deep domain.</b> Somewhere they have expert-level intuition we can anchor analogies to.</li>
+<li><b>Liability — missing objects.</b> A combinatorist does not know what a II₁ factor is; an operator algebraist does not know what a Delsarte linear program is. The gap is <i>vocabulary and objects</i>, not reasoning ability.</li>
+</ul>
+<p><b>Baseline (the "common graduate core"):</b> linear algebra, basic measure theory and probability, basic group theory and point-set topology, big-O/asymptotics, comfort with proofs. Every concept above this line is built inside the explainer, with no exceptions and no "recall that…" for anything outside the core.</p>
+</div>
+
+<h2>2. Pipeline</h2>
+<div class="card">
+<ol>
+<li><b>Setup (one-time).</b> Install poppler (visual page rendering for equation verification). Extract per-chapter text with pypdf/pymupdf into <code>chapters/ch01.txt … ch10.txt</code>. Create <code>HANDOFF.md</code> progress tracker (chapter status: unread / read / drafted / verified / done).</li>
+<li><b>Calibration.</b> Process Chapter 9 (Ramsey, 7 pp) end-to-end: read → prerequisite audit → explainer HTML → verification. <b>You review it and set the bar</b> — depth of background boxes, prose-to-formalism ratio, diagram density — before the format is spent on 240 more pages.</li>
+<li><b>Shared primers (written once, linked everywhere).</b> Four pieces of machinery recur:
+  <ul>
+    <li><i>Property (T) &amp; expanders</i> — needed by Ch. 3 and Ch. 4</li>
+    <li><i>Lattices in ℝⁿ</i> — needed by Ch. 7 and Ch. 8 (and echoes in Ch. 1)</li>
+    <li><i>Linear-programming bounds (Delsarte / Cohn–Elkies)</i> — the conceptual spine of Ch. 1 and Ch. 2</li>
+    <li><i>Codes (Hamming/spherical)</i> — Ch. 2 and Ch. 7's nearest-codeword corollaries</li>
+  </ul>
+  Each primer is a standalone section reused by reference, so the reader learns it once.</li>
+<li><b>Main loop, one chapter at a time:</b> read full chapter → prerequisite audit (classify every concept: below baseline / build / gloss) → write explainer → verify every transcribed formula against rendered PDF pages → mark done.</li>
+<li><b>Order:</b> 9 → 8 → 10 → 3 → 4 → 1 → 6 → 7 → 5 → 2 (shortest first; format locks in before the 40–50-page monsters; the property-(T) primer built for Ch. 3 is fresh when Ch. 4 needs it; the lattice primer from Ch. 8 is fresh for Ch. 7... adjusted so paired chapters ride together).</li>
+<li><b>Index artifact last:</b> one master page — all ten results at a glance, significance, difficulty-for-outsiders rating, shared-machinery map, links.</li>
+</ol>
+<p class="pathnote">Budget: 1–3 chapters per session; Chapters 2 and 5 get a session each. Full set ≈ 4–7 sessions, tracked in <code>HANDOFF.md</code> so any session can resume cold.</p>
+</div>
+
+<h2>3. The explainer template (identical skeleton, all ten chapters)</h2>
+<div class="card">
+<ol>
+<li><b>Layer 0 — The problem in plain terms.</b> What is being asked, why the field cares, what was known before, stated so an outsider finishes this section knowing why the result is a big deal. No new notation.</li>
+<li><b>Layer 1 — The precise statement.</b> The theorem exactly as the paper states it, every symbol defined <i>just before first use</i>, every definition paired with its <i>engineering motivation</i> (what failure it is designed to rule out).</li>
+<li><b>Layer 2 — Proof architecture.</b> An SVG dependency diagram: main lemmas as boxes, arrows for what feeds what, one sentence of <i>idea</i> per box. The outsider's most valuable asset: the whole argument at a glance before any single step.</li>
+<li><b>Layer 3 — Full walkthrough.</b> Step-by-step proof with collapsible just-in-time background boxes wherever foreign-domain machinery appears.</li>
+</ol>
+<p><b>Standing devices in every explainer:</b> toy instance before every general definition · analogy anchors with explicit break-points ("this analogy fails when…") · persistent per-chapter symbol glossary (sticky/collapsible) · "what would break" notes at each hypothesis · honest-scope statement (what the reader will and won't be able to do afterward).</p>
+</div>
+
+<h2>4. Per-chapter plans</h2>
+
+<!-- CH 9 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 9 — Multicolor Ramsey Numbers</h3>
+<span class="chip">pp. 229–235 · 7 pp</span><span class="chip">outsider difficulty: low</span><span class="chip">order: 1st (calibration)</span></div>
+<div class="result"><b>Result.</b> R<sub>k</sub>(3) ≥ (ck<sup>1/3</sup>/log k)<sup>k</sup>, establishing R<sub>k</sub>(3) = k<sup>Θ(k)</sup> — the first super-exponential lower bound, settling a question with Erdős prize money attached ($100: is lim R<sub>k</sub>(3)<sup>1/k</sup> finite? Answer: no). Corollary: Shannon capacity of graphs with independence number 2 is unbounded.</div>
+<dl>
+<dt>Concepts to build (above baseline)</dt>
+<dd>Ramsey numbers (from R(3,3)=6, provable in one paragraph); the product construction + Fekete's lemma; Shannon capacity and the strong graph product; the paper's own machinery: saturated matrices, coordinate covers, palettes, recursive triangle-free colorings.</dd>
+<dt>Bridging devices</dt>
+<dd>Toy: hand-color K₅ with 2 colors triangle-free; show the classical sum-free/Schur constructions and exactly why they cap out at exponential (c<sup>k</sup>) — the reader then feels why super-exponential needed a new idea. Diagram: the recursive coloring as a nested/tensor picture.</dd>
+<dt>Who needs the most help</dt>
+<dd>Almost nobody — Ramsey theory is near the common core. That is exactly why this is the calibration chapter: format iteration is cheap when the math is friendly.</dd>
+</dl>
+</div>
+
+<!-- CH 8 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 8 — Ehrhart's Volume Conjecture</h3>
+<span class="chip">pp. 219–228 · 10 pp</span><span class="chip hard">outsider difficulty: high (dense)</span><span class="chip">order: 2nd</span></div>
+<div class="result"><b>Result.</b> A convex body K ⊂ ℝⁿ whose barycenter is its unique interior lattice point has vol(K) ≤ (n+1)ⁿ/n! — sharp (the centered dilated simplex attains it). Open since Ehrhart 1964; previous best was 4ⁿe<sup>−cn</sup>, exponentially far from sharp.</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>Lattice-point geometry (Minkowski's theorem as the gateway — shares the lattice primer); Grünbaum's barycentric half-space inequality; the shock of the method: <i>complex analysis</i> — real Monge–Ampère transport potentials (Berman–Berndtsson), Bergman spaces of holomorphic functions on (ℂ*)ⁿ, counting lattice points via dimensions of spaces of Laurent monomials.</dd>
+<dt>Bridging devices</dt>
+<dd>Toy: n=1 case (an interval with barycenter 0, unique lattice point 0, length ≤ 2 = (1+1)¹/1!) fully worked; then n=2 with a picture. Key analogy anchor: "dim H<sub>k</sub> = #(ℤⁿ ∩ int(kK)) turns a counting problem into a function-space problem — the same move as counting via generating functions, but the generating object is a Bergman space." Diagram: the transport map picture (e<sup>−φ</sup>dx → Lebesgue on K).</dd>
+<dt>Who needs the most help</dt>
+<dd>Discrete geometers own the <i>statement</i> but not the several-complex-variables toolkit; complex analysts own the toolkit but not the lattice-point tradition. This explainer bridges in both directions — the Layer-0 section is written for the analyst, the background boxes for the geometer. Only 10 pages but the densest per page; budget it like 25.</dd>
+</dl>
+</div>
+
+<!-- CH 10 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 10 — Compactness &amp; Degeneracy Conjectures (Extremal Graph Theory)</h3>
+<span class="chip">pp. 236–249 · 14 pp</span><span class="chip">outsider difficulty: low–medium</span><span class="chip">order: 3rd</span></div>
+<div class="result"><b>Result.</b> Two counterexamples: (i) a finite family 𝓕 of connected bipartite graphs with cycles where ex(n,𝓕) = O(n<sup>4/3−1/48</sup>) yet every single member F has ex(n,F) = Ω(n<sup>4/3</sup>) — killing the Erdős–Simonovits compactness conjecture; (ii) a connected bipartite <b>2-degenerate</b> H with ex(n,H) ≥ cn<sup>3/2+ε</sup> — killing Erdős's degeneracy conjecture at r = 2.</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>Extremal numbers ex(n,H) from zero (Turán, Kővári–Sós–Turán for C₄ as the worked example); r-degeneracy; generalized quadrangles (the witness structures); the entropy inequality used in the upper bound; sampled Hamming-ball graphs.</dd>
+<dt>Bridging devices</dt>
+<dd>Toy: prove ex(n,C₄) = Θ(n<sup>3/2</sup>) in a background box — it is short and introduces both the counting upper bound and the algebraic construction lower bound, the two modes this chapter plays against each other. Conceptual frame for Layer 0: "forbidding a <i>family</i> can be much more powerful than forbidding any one member — the members conspire." Diagram: the layered graph construction with its parameter thresholds as an annotated schematic.</dd>
+<dt>Who needs the most help</dt>
+<dd>Anyone outside combinatorics needs the ex(n,·) tradition installed, but the objects are finite graphs — no heavy machinery. The entropy method box serves analysts well (it is just careful counting with logs).</dd>
+</dl>
+</div>
+
+<!-- CH 3 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 3 — A Non-Sofic Group</h3>
+<span class="chip">pp. 79–95 · 17 pp</span><span class="chip hard">outsider difficulty: high</span><span class="chip">order: 4th</span></div>
+<div class="result"><b>Result.</b> The unit group of the binary Leavitt algebra L<sub>𝔽₂</sub>(1,2) is not sofic — the first group ever shown to admit no finite permutation approximations, resolving the Gromov–Weiss soficity conjecture with no unproved stability hypotheses.</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>Soficity itself (approximating a multiplication table by permutations — elementary to state, and we prove ℤ and residually finite groups sofic as toys); property (T) and expanders (<b>shared primer #1</b>, written here); Kun's expander decomposition and the Kun–Thom centralizer obstruction; the Leavitt algebra from its two-line presentation (t<sub>i</sub>s<sub>j</sub> = δ<sub>ij</sub>, s₀t₀+s₁t₁ = 1 — "a ring where 2-to-1 maps are invertible"); Thompson's group V; local embeddability into finite groups (LEF).</dd>
+<dt>Bridging devices</dt>
+<dd>The definition of sofic is the great equalizer: any PhD can verify a permutation approximation of ℤ/nℤ by hand in the toy box. Analogy anchor: soficity as "the group-theory analogue of hyperfiniteness / amenability approximations — but weaker, which is why a counterexample was so hard." Layer-2 diagram is essential here: the proof is a four-stage contradiction machine (expander matching → single expanding component → elementary groups over Leavitt force V to be LEF → V is known not to be LEF), and the outsider must see the machine before the gears.</dd>
+<dt>Who needs the most help</dt>
+<dd>Everyone except geometric group theorists and operator algebraists. The chapter also connects to Aldous–Lyons and MIP* = RE; Layer 0 places it in that landscape in prose so the reader understands why three research communities care.</dd>
+</dl>
+</div>
+
+<!-- CH 4 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 4 — Connes's Rigidity Conjecture Disproved</h3>
+<span class="chip">pp. 96–113 · 18 pp</span><span class="chip hard">outsider difficulty: highest</span><span class="chip">order: 5th</span></div>
+<div class="result"><b>Result.</b> Infinitely many pairwise nonisomorphic, finitely generated ICC property-(T) groups Γ₀, Γ₁, … with L(Γₙ) ≅ L(Λ) — one von Neumann algebra, infinitely many groups. Disproves Connes's 1982 conjecture and answers Popa's finite-to-one question negatively, showing Popa's countability bound is sharp.</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>The biggest primer of the project: von Neumann algebras from bounded operators up; the group von Neumann algebra L(G); II₁ factors and the trace; ICC; property (T) (reuses <b>shared primer #1</b> from Ch. 3 — deliberate ordering); Pontryagin duality / L<sup>∞</sup> of a compact abelian group; W*-superrigidity landscape (Popa's deformation/rigidity, in prose only).</dd>
+<dt>Bridging devices</dt>
+<dd>The paper's own key idea is the best bridge, because it is <i>elementary</i>: L<sup>∞</sup>(Â, m) sees only the probability space, not the group law — and <b>binary carry</b> gives different compact group structures with the same Haar measure and action. Toy box: the odometer on {0,1}<sup>∞</sup>, where "add 1 with carry" vs coordinatewise addition give different groups on the same coin-flip space — any probabilist gets this in one page. Analogy anchor: "L(G) is to G what a completion is to a dense subring: it closes the group algebra under limits, and the trace plays the role of normalized counting measure; the analogy breaks because completion here can destroy the group." Layer-2 diagram: how the two-group counterexample (Λ, Γ₀) upgrades to an infinite family via the index-24ⁿ subgroup tower.</dd>
+<dt>Who needs the most help</dt>
+<dd>Everyone outside operator algebras — this is the chapter where "self-contained" honestly means: statement precisely, architecture fully, walkthrough followable step-by-step, but not proof-reproduction-from-memory. That scope statement goes in the artifact itself.</dd>
+</dl>
+</div>
+
+<!-- CH 1 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 1 — High-Dimensional Sphere Packing</h3>
+<span class="chip">pp. 3–28 · 26 pp</span><span class="chip">outsider difficulty: medium</span><span class="chip">order: 6th</span></div>
+<div class="result"><b>Result.</b> The Cohn–Elkies linear program's exact exponential rate: LP<sub>d</sub><sup>1/d</sup> → √e/(2π). Consequence: sphere-packing density Δ<sub>d</sub> ≤ 2<sup>−(0.6044…+o(1))d</sup> — the <b>first improvement to the general sphere-packing exponent since Kabatianskii–Levenshtein 1978</b> (0.5990…), plus a matching lower bound showing no Cohn–Elkies function can do better, and the asymptotic solution of the Fourier sign-uncertainty problem (radii (1/π+o(1))√d).</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>Fourier analysis on ℝ<sup>d</sup> at working level (Schwartz space, the paper's transform convention, Poisson summation intuition); the Cohn–Elkies method itself (<b>shared primer #2: LP bounds</b> — an auxiliary function with sign conditions certifies a density bound); Bourgain–Clozel–Kahane sign-uncertainty; why d → ∞ asymptotics behave completely differently from the celebrated d = 8, 24 exact results (Viazovska), which the reader has likely heard of — that hook is the Layer-0 opener.</dd>
+<dt>Bridging devices</dt>
+<dd>Toy: the d = 1 LP bound worked completely by hand with an explicit auxiliary function — the entire method in miniature. Diagram: plot of a Cohn–Elkies function (f ≤ 0 outside radius 1, f̂ ≥ 0) and the "certificate" logic as a picture; timeline graphic KL78 → Viazovska 2016 → this. Two-sidedness is the story: the theorem is an <i>exact</i> rate, meaning the method's power AND its ceiling — "what would break" boxes at both directions.</dd>
+<dt>Who needs the most help</dt>
+<dd>Discrete mathematicians (need the Fourier/Schwartz primer) and analysts (need the packing/LP tradition). Both halves exist as separate on-ramps in Layer 1.</dd>
+</dl>
+</div>
+
+<!-- CH 6 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 6 — Quantum Parallel Repetition</h3>
+<span class="chip">pp. 154–182 · 29 pp</span><span class="chip hard">outsider difficulty: high</span><span class="chip">order: 7th</span></div>
+<div class="result"><b>Result.</b> For every finite two-player entangled game with ω*(G) = 1−ε &lt; 1: ω*(G<sup>⊗n</sup>) ≤ exp(−c·ε¹³/(ε+log|A||B|)·n) — exponential decay for <b>all</b> entangled games, open since ≈2004; previously only polynomial decay (Yuen) or exponential for special classes (anchored games, Bavarian–Vidick–Yuen). New ingredient: a postselection-stable quantum sampleability estimate.</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>Finite-dimensional quantum formalism from linear algebra (states, measurements, entanglement — the reader's linear algebra is sufficient footing); nonlocal games and entangled value ω*; why parallel repetition is subtle at all (answers may correlate across coordinates — the naive "independence" argument fails, shown with a concrete classical counterexample game); information-theoretic proof framework (conditioning, dependency-breaking) in schematic form.</dd>
+<dt>Bridging devices</dt>
+<dd>Toy: CHSH game fully worked — classical value 3/4, entangled value cos²(π/8) ≈ 0.854 — the one example that simultaneously teaches games, strategies, and why entanglement changes things. Layer-2 diagram: Raz/Holenstein classical skeleton side-by-side with the quantum obstructions, and where the new sampleability lemma plugs in. Analogy anchor for the key difficulty: "conditioning on winning a coordinate is like conditioning a random walk on a rare event — classically you can resample; quantumly, measurement destroys state, and the new lemma is what makes conditioning survivable."</dd>
+<dt>Who needs the most help</dt>
+<dd>Pure mathematicians with no quantum information exposure. The quantum primer is deliberately minimal-formalism (density matrices only as needed), leaning on their linear algebra.</dd>
+</dl>
+</div>
+
+<!-- CH 7 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 7 — Hardness of the Closest Vector Problem</h3>
+<span class="chip">pp. 183–218 · 36 pp</span><span class="chip">outsider difficulty: medium–high</span><span class="chip">order: 8th</span></div>
+<div class="result"><b>Result.</b> A deterministic polynomial-time reduction from 3SAT proves NP-hardness of approximating Euclidean CVP within n<sup>1/400</sup> — polynomial-factor hardness <b>without the PCP theorem</b> and without assuming the Projection Games Conjecture. Same construction: n<sup>1/200</sup> for nearest codeword and syndrome decoding, n<sup>1/(200p)</sup> for every ℓ<sub>p</sub>.</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>Lattices (<b>shared primer #3</b>, reused from Ch. 8); NP-hardness, many-one reductions, and gap problems (built from zero for mathematicians — "gap problem" as the formalization of 'even approximating is hard'); Reed–Solomon codes and power-sum constraints; Newton identities / reconstruction from power sums; valuations on rational function fields (for soundness). Why PCP-freeness matters is a Layer-0 story: the standard route to such results goes through heavy machinery; a direct reduction is both surprising and, for the reader, a gift — the whole proof is elementary algebra they can actually follow.</dd>
+<dt>Bridging devices</dt>
+<dd>Toy: CVP in ℝ² with a picture; a 3-variable 3SAT instance pushed through a scaled-down version of the encoding by hand. Layer-2 diagram: the reduction as a data-flow picture (3SAT φ → RS power-sum system → binary affine system → mod-2 lattice), with completeness and soundness as the two arrows to verify. This chapter rewards the number-theorist reader: the soundness argument (separable root sets over function fields, valuations) is <i>their</i> home machinery applied to a complexity question — the explainer says so explicitly to activate that intuition.</dd>
+<dt>Who needs the most help</dt>
+<dd>Mathematicians need the complexity-theory frame (reductions, gaps, why NP-hardness of approximation is the right question — including the crypto context: NIST lattice standards rest on related problems). Computer scientists need the function-field soundness toolbox.</dd>
+</dl>
+</div>
+
+<!-- CH 5 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 5 — Circuit &amp; Formula Lower Bounds for the Permanent</h3>
+<span class="chip">pp. 114–153 · 40 pp</span><span class="chip">outsider difficulty: medium</span><span class="chip">order: 9th</span></div>
+<div class="result"><b>Result.</b> Division-free arithmetic circuits for per<sub>n</sub> require Ω(n² log log n) gates — the first superlinear-in-n² bound, i.e. C(per<sub>n</sub>)/n² → ∞; arithmetic formulas require Ω(n⁴/log n) leaves (previous record Ω(n³)). Both proofs use properties specific to the permanent and provably do not transfer to the determinant — itself an instructive fact.</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>Arithmetic circuits and formulas from zero (they are just DAGs/trees of +, ×); the permanent-vs-determinant dichotomy and VNP-completeness as context (prose, not proofs); geometric degree bounds (Bézout-flavored); critical loci; transcendence-degree counting of coefficients.</dd>
+<dt>Bridging devices</dt>
+<dd>Toy: per₂ and per₃ by hand; Ryser's formula as "the best known upper bound," so the reader sees both sides of the gap. Layer-0 frame: "why is the determinant easy (Gaussian elimination) and the permanent believed hard, when they differ only in signs?" — the single best-known question in algebraic complexity, and one any mathematician finds natural. The proof machinery (affine specializations, vanishing gradients on low-dimensional sets, algebraic independence of coefficients) is classical algebraic geometry — for the pure mathematician this is the most home-turf chapter in the TCS half, and the explainer leans into that: the complexity definitions are the only foreign part.</dd>
+<dt>Who needs the most help</dt>
+<dd>Reversed polarity: here it is the <i>complexity theorist</i> who may need the algebraic-geometry boxes (degree bounds, critical loci), while the algebraist needs only the circuit definitions. Both boxes exist.</dd>
+</dl>
+</div>
+
+<!-- CH 2 -->
+<div class="card chapcard">
+<div class="chaphead"><h3>Ch. 2 — Binary and Spherical Codes</h3>
+<span class="chip">pp. 29–78 · 50 pp</span><span class="chip hard">outsider difficulty: high (longest)</span><span class="chip">order: 10th</span></div>
+<div class="result"><b>Result.</b> First improvements since 1977/1978 to the general asymptotic upper-bound exponents for binary codes (beating the optimized McEliece–Rodemich–Rumsey–Welch bound for every fixed relative distance 0 &lt; δ &lt; 1/2) and spherical codes (beating optimized Kabatianskii–Levenshtein for every 0 &lt; s &lt; 1). The s → 1 limit independently recovers Chapter 1's sphere-packing exponent.</div>
+<dl>
+<dt>Concepts to build</dt>
+<dd>Codes and rates (<b>shared primer #4</b>); Delsarte's two-point LP method and what a "certificate polynomial" is (reuses the LP-bounds spine from Ch. 1 — by this point the reader has seen the pattern twice); the new idea in isolation: classical certificates attach a <i>vector</i> to each code point, this proof attaches a <i>moving subspace</i> (projection P<sub>x</sub>, overlap tr(P<sub>x</sub>P<sub>y</sub>), bound (1−s)/(Λ−s)·D/d<sub>E</sub>); representation graphs and transition matrices; spherical harmonics at working level.</dd>
+<dt>Bridging devices</dt>
+<dd>Toy: a complete Delsarte certificate for a small binary code computed by hand. The central diagram of the whole project: vector-per-point vs subspace-per-point, side by side. Rate-vs-distance plot: MRRW curve vs the new bound (recreated as SVG). Analogy anchor: "upgrading scalar weights to moving subspaces is the same power-up as going from a function to a vector bundle — extra internal dimensions that transform with the symmetry"; break-point noted (the bound still only sees traces, i.e. two-point information). Saved for last deliberately: it is the longest, and it pays off two primers and one whole chapter (Ch. 1) of accumulated context.</dd>
+<dt>Who needs the most help</dt>
+<dd>Everyone gets 50 pages of machinery, but by explainer #10 the LP-certificate spine is familiar; the genuinely new load is the representation-graph formalism, which gets the largest Layer-3 background box in the project.</dd>
+</dl>
+</div>
+
+<h2>5. Why this design works for a PhD reader outside the domain</h2>
+<div class="card why">
+<p><b>1. It spends the reader's maturity instead of ignoring it.</b> Popular accounts simplify the logic and lose the result; textbooks assume the domain and lose the reader. This design holds logic at full rigor and rebuilds only the objects. A proof step is never paraphrased away — it is preceded by exactly the definition box needed to parse it. That is the correct division of labor for someone trained to read proofs but missing vocabulary.</p>
+<p><b>2. Just-in-time definitions respect working memory.</b> A front-loaded section of fifteen definitions is a memory test the outsider fails by page 3. Introducing each object at its first point of use — with its <i>motivation</i> (what failure it is engineered to rule out) — means every definition arrives with the context that makes it stick. Insiders don't need motivation because they absorbed it over years; motivation is precisely what a crash course must make explicit.</p>
+<p><b>3. Architecture before detail builds the schema first.</b> Domain experts read a new paper by pattern-matching its proof skeleton against skeletons they know. Outsiders have no skeletons — so we hand them one: the Layer-2 dependency diagram gives the global shape before any local step, converting "am I lost?" into "I am inside box 3 of 5." This is the single highest-leverage artifact per unit of reader effort.</p>
+<p><b>4. Toy instances create grounding that prose cannot.</b> Verifying a permutation approximation of ℤ/nℤ (Ch. 3), working the CHSH game (Ch. 6), or checking the n=1 Ehrhart bound (Ch. 8) takes minutes and converts an abstract definition into an owned object. Every abstraction in all ten explainers has a computed instance before its general form.</p>
+<p><b>5. Analogy anchors with declared break-points transfer intuition safely.</b> Each foreign concept is mapped to the nearest object in the common core — <i>and the map's failure modes are stated</i>, so borrowed intuition can't silently mislead. This is how mathematicians actually port intuition across fields; the explainers just do it in writing.</p>
+<p><b>6. Shared primers exploit the paper's hidden structure.</b> Property (T) unlocks two chapters, lattices two more, LP certificates two more. Writing these once and sequencing chapters so a primer is fresh when reused means the reader's investment compounds — by Chapter 2 they read Delsarte certificates like a third language they've been practicing.</p>
+<p><b>7. Honest scope statements preserve trust.</b> For Chapters 3, 4, and 6, "understand" means: statement precisely, architecture fully, every walkthrough step followable — not proof-reproduction unaided. Saying so inside the artifact prevents the reader from mistaking the residual difficulty for their own failure, which is the main reason experts abandon out-of-field reading.</p>
+<p><b>8. The calibration loop tunes to the actual reader, not a hypothetical one.</b> Chapter 9 ships first and cheap; your feedback on depth, pace, and diagram density is encoded into the template before the expensive chapters are written. Pedagogical parameters are fitted to data, not guessed.</p>
+</div>
+
+<h2>6. Deliverables & verification</h2>
+<div class="card">
+<div class="tablewrap"><table>
+<tr><th>Artifact</th><th>Contents</th><th>Acceptance check</th></tr>
+<tr><td><code>index.html</code></td><td>Ten results at a glance; significance; difficulty ratings; shared-machinery map; links</td><td>Every claim traceable to a chapter page number</td></tr>
+<tr><td><code>chNN-*.html</code> × 10</td><td>4-layer explainer per template; MathJax; SVG architecture diagram; glossary; toy boxes</td><td>Formula-by-formula verification against rendered PDF pages (poppler) before "done"</td></tr>
+<tr><td>4 shared primers</td><td>Property (T)/expanders · lattices · LP certificates · codes</td><td>Each ≤ a reading-hour; reused by ≥ 2 chapters</td></tr>
+<tr><td><code>HANDOFF.md</code></td><td>Per-chapter status, decisions log, next action</td><td>A cold session can resume from it alone</td></tr>
+</table></div>
+<p class="pathnote">Every mathematical statement in every artifact is verified against the visually rendered PDF page (not the extracted text, which flattens sub/superscripts) before a chapter is marked complete.</p>
+</div>
+
+</div>
+</body>
+</html>

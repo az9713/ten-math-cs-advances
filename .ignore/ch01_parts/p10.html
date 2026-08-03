@@ -1,0 +1,102 @@
+<h2 id="saddlegeo">10. Upper bound II &mdash; saddle geometry</h2>
+
+<p>To read off the sign of $f_j(r)$ from (38) we deform the inversion contour to height $\operatorname{Im}t = \lambda u$ and choose, for each $u$, the radius at which the integrand is <i>stationary</i> &mdash; a saddle-point (Laplace) analysis, but with three twists that this section must handle uniformly: the height $u$ ranges over an unbounded interval; the shells fight the gamma envelope's damping; and everything must hold for every large $d$ at once. Throughout, recall $u_0 = 1 + \epsilon/4$ and $U = 1 + \epsilon/2$ from (34), and set (eq. (43))</p>
+$$u_* \;=\; -1 + \frac{\log\lambda}{4\lambda}, \qquad m \;=\; \frac{\lambda\eta}{2}, \quad \eta = 1 + u, \qquad \delta = u - 1.$$
+<p>The floor $u_*$ hovers just above the first gamma pole at $u = -1$; on the whole working range $u \ge u_*$ the gamma argument $m \ge \lambda(1+u_*)/2 = \tfrac18\log\lambda$ still grows with $d$ &mdash; slowly, and that slowness is deliberate (it is what lets &sect;11 reach small radii).</p>
+
+<h3 id="saddleeq">10.1 The saddle equation (eq. (44))</h3>
+
+<p>On the contour $t = \lambda(T + iu)$, $T \in \mathbb{R}$, the gamma argument becomes $\frac{\lambda - it}{2} = m - \frac{i\lambda T}{2}$, and the logarithm of the integrand factor $E_\lambda(t)\,r^{it}$ is
+$$\frac{i\lambda(T+iu)}{2}\log\pi \;+\; \log\Gamma\Bigl(m - \frac{i\lambda T}2\Bigr) \;+\; \lambda h_\epsilon(T + iu) \;+\; i\lambda(T+iu)\log r.$$
+Differentiate in $T$ at $T = 0$ (using $\frac{d}{dT}h_\epsilon(T+iu)\big|_0 = -i\int_0^\infty w(a)\,a\sinh(ua)\,da$, from $h_\epsilon'(\zeta) = -\int w(a)\,a\sin(a\zeta)\,da$ and $\sin(iau) = i\sinh(au)$):
+$$i\lambda\Bigl(\frac12\log\pi - \frac12\psi(m) - \int_0^\infty w(a)\,a\sinh(ua)\,da + \log r\Bigr).$$
+So $T = 0$ is stationary exactly at $r = e^{v(u)}$, where
+$$v(u) = -\frac12\log\pi + \frac12\psi(m) + \int_0^\infty w(a)\,a\sinh(ua)\,da, \qquad
+V(u) := v'(u) = \frac\lambda4\psi'(m) + \int_0^\infty w(a)\,a^2\cosh(ua)\,da. \tag{44}$$
+Whenever $V \gt 0$, the saddle radius $e^{v(u)}$ increases with the contour height: the family of contours sweeps through all radii, and the quadratic decay rate of the integrand's modulus at the saddle is $\lambda V(u)T^2/2$. Figure 26 shows the sweep at $d = 64$: the plateau near $u \approx 1$ sits close to $1/\pi$ &mdash; the displacement of Lemma V at work &mdash; and past $U$ the positive shell sends the radius up a near-vertical wall, guaranteeing that <i>every</i> radius beyond the target is reached.</p>
+
+<figure><!--FIG:fig_vu--><figcaption>The saddle radius $e^{v(u)}/\sqrt d$ as a function of contour height $u$ ($d = 64$, $\epsilon = 0.1$; animated dot sweeps the curve). It rises from the interior regime at $u_*$ (purple), passes the target $u_0$ (blue dot and dashed marker) near the green line $1/\pi$, and just past it the shell $w_B$ takes over and the radius blows up almost vertically off the chart &mdash; the parametrization covers every radius. Monotonicity is checked on a fine grid in <code>c18</code>; the $d \to \infty$, $\epsilon \to 0$ limit of the marked value is exactly $1/\pi$ (<code>c17</code>).</figcaption></figure>
+
+<h3 id="damping">10.2 The damping ledger (eqs. (45)&ndash;(49))</h3>
+
+<p>Center the phase at the saddle: for $r = e^{v(u)}$ define (eq. (46))
+$$L_u(T) \;=\; \log\frac{E_\lambda(\lambda(T+iu))}{E_\lambda(i\lambda u)} + i\lambda T\,v(u),$$
+the log of the integrand normalized to be $0$ at $T=0$; linear terms cancel by the saddle equation. Lemma R (with $z_1 = m$, $z_2 = m - i\lambda T/2$, then $a = \lambda t/2$ in the integral, which turns $e^{-z_1t}$ into $e^{-\eta a}$ and $1 - e^{-t}$ into $1 - e^{-2a/\lambda}$) gives the exact <i>L&eacute;vy representation</i> of the gamma part (eq. (45)):
+$$G_{\lambda,\eta}(T) := \log\Gamma\Bigl(m - \frac{i\lambda T}{2}\Bigr) - \log\Gamma(m) + \frac{i\lambda T}{2}\psi(m) = \int_0^\infty\bigl(e^{iaT} - 1 - iaT\bigr)\,\mu_{\lambda,\eta}(a)\,da,$$
+with $\mu_{\lambda,\eta}$ the positive density (37). Its real part is pure damping:
+$$D_\gamma(T) := -\operatorname{Re}G_{\lambda,\eta}(T) = \int_0^\infty\bigl(1 - \cos(aT)\bigr)\,\mu_{\lambda,\eta}(a)\,da \;\ge\; 0.$$
+Adding the shells (expand $h_\epsilon(T+iu) - h_\epsilon(iu)$ with $\cos(a(T+iu)) = \cos(aT)\cosh(au)\cdots$; the bookkeeping is (46)) and taking real parts (eq. (47)):
+$$D_u(T) := -\operatorname{Re}L_u(T) = D_\gamma(T) + \lambda\int_0^\infty w(a)\cosh(ua)\bigl(1-\cos(aT)\bigr)\,da \;=\; D_\gamma(T) - D_s(T) + D_B(T),$$
+where $D_s, D_B \ge 0$ are the negative- and positive-shell contributions (eq. (49)); similarly $V(u) = V_\gamma - V_s + V_B$ with $V_\gamma = \frac1\lambda\int a^2\mu_{\lambda,\eta}$ and shell variances $V_s, V_B$, and the cubic scale
+$$M_3 = \frac1\lambda\int_0^\infty a^3\mu_{\lambda,\eta}(a)\,da + \int_0^\infty\bigl(|w_s(a)|+w_B(a)\bigr)\,a^3\cosh(ua)\,da. \tag{48}$$
+Figure 27 shows the ledger computed at the target contour. Equation (47) isolates the entire difficulty of the construction in one line: <b>$w_s$ subtracts damping, $w_B$ adds it</b>, and we must prove $D_u(T) \gt 0$ for every $T \ne 0$ and $V(u) \gt 0$ for every $u \ge u_*$. The gamma density will dominate $w_s$ on $[u_*, U]$ (Lemma 4.5), and $w_B$ will dominate $w_s$ on $[U,\infty)$ (Lemma 4.6).</p>
+
+<figure><!--FIG:fig_damp--><figcaption>The damping ledger at the target contour $u = u_0$ ($d = 64$, $\epsilon = 0.1$), computed exactly: gamma damping $D_\gamma$ (blue), the negative shell's subtraction $D_s$ (gray dashes), and the net $D_u = D_\gamma - D_s + D_B$ (red) &mdash; strictly positive for $T \ne 0$ with a definite margin, as Lemma 4.5 asserts (grid check <code>c14b</code>).</figcaption></figure>
+
+<h3 id="lem44">10.3 Uniform gamma estimates (Lemma 4.4)</h3>
+
+<div class="lem" id="lem44box"><b>Lemma 4.4.</b> There are absolute $c, C \gt 0$ such that for every $\lambda \gt 0$ and $u \gt -1$ with $\lambda\eta \ge 1$, and all $T$:
+$$\Bigl|L_u(T) + \frac{\lambda V(u)}{2}T^2\Bigr| \;\le\; C\lambda M_3|T|^3, \tag{50}$$
+$$\frac{1}{2\eta} \le V_\gamma \le \frac C\eta, \qquad \frac1\lambda\int_0^\infty a^3\mu_{\lambda,\eta}\,da \le \frac{C}{\eta^2}, \tag{51, 52}$$
+$$D_\gamma(T) \;\ge\; c\,\lambda\,\min\Bigl(\frac{T^2}{\eta},\,|T|\Bigr). \tag{53}$$</div>
+<div class="proof">
+<p>(50): apply the globally valid Taylor bounds $|e^{ix} - 1 - ix + \tfrac{x^2}2| \le C|x|^3$ and $|x - \sin x| \le C|x|^3$ inside the representations (45)&ndash;(46); the quadratic terms assemble exactly $-\lambda V(u)T^2/2$ (this is how $V_\gamma$ and the shell variances were defined), and the cubic errors are bounded by $|aT|^3$ against the total (absolute) measure, which is $\lambda M_3|T|^3$; the shell terms carry $|\sinh(ua)| \le \cosh(ua)$.</p>
+<p>(51)&ndash;(52): differentiating (45) at $T = 0$ twice and three times identifies the moments with polygammas:
+$$\frac1\lambda\int a^2\mu_{\lambda,\eta} = \frac\lambda4\psi'(m) = V_\gamma, \qquad \frac1\lambda\int a^3\mu_{\lambda,\eta} = -\frac{\lambda^2}{8}\psi''(m).$$
+Now the elementary polygamma bounds of Proposition Q(ii) at $m = \lambda\eta/2 \ge \tfrac12$: $\psi'(m) \in [\tfrac1{2m}, \tfrac3m]$ gives $V_\gamma \in [\tfrac{\lambda}{8m}, \tfrac{3\lambda}{4m}] = [\tfrac1{4\eta}, \tfrac3{2\eta}]$ &mdash; and sharpening the lower constant via $\psi'(m) \ge 1/m$ gives $V_\gamma \ge \lambda/(4m) = 1/(2\eta)$; $|\psi''(m)| \le 4/m^2$ gives the third-moment bound $\lambda^2\cdot4/(8m^2) = 2/\eta^2$.</p>
+<p>(53): by $1 - e^{-x} \le x$, the density is bounded below: $\mu_{\lambda,\eta}(a) \ge \lambda e^{-\eta a}/(2a^2)$. Let $T \ne 0$ and $L = \min(\eta^{-1}, |T|^{-1})$. On $0 \lt a \lt L$: $e^{-\eta a} \ge e^{-1}$ and $\frac{1-\cos(aT)}{a^2T^2} \ge c_0 \gt 0$ (since $|aT| \le 1$), so
+$$D_\gamma(T) \ge \int_0^L \frac{\lambda e^{-\eta a}}{2a^2}\,\bigl(1-\cos(aT)\bigr)\,da \ge c\,\lambda\,T^2 L = c\lambda\min\Bigl(\frac{T^2}\eta, |T|\Bigr).$$ <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="lem45">10.4 The gamma-controlled range $u_* \le u \le U$ (Lemma 4.5)</h3>
+
+<div class="lem" id="lem45box"><b>Lemma 4.5.</b> There are $\epsilon_0 \gt 0$ and an absolute $c \gt 0$ such that for $0 \lt \epsilon \lt \epsilon_0$ there exist $C_\epsilon, \lambda_\epsilon$ with: for every $\lambda \ge \lambda_\epsilon$ and $u_* \le u \le U$ (so $\lambda\eta \ge \tfrac14\log\lambda$),
+$$\lambda|w_s(a)|\cosh(ua) \le (1-c\epsilon)\,\mu_{\lambda,\eta}(a) \ \ (a\in[a_0,A]); \qquad D_u(T) \ge c\,\epsilon\, D_\gamma(T)\ \ (T\in\mathbb{R}); \tag{54, 55}$$
+$$\frac{c\epsilon}{\eta} \le V(u) \le \frac{C_\epsilon}{\eta}; \qquad M_3 \le \frac{C_\epsilon}{\eta^2}. \tag{56, 57}$$</div>
+<div class="proof">
+<p>(54) is Lemma 4.2(i) (valid for all $u \le U$; note $\mu_{\lambda,1+u} = \mu_{\lambda,\eta}$). Integrating (54) against the nonnegative weight $1 - \cos(aT)$ over $[a_0,A]$ bounds the negative shell's damping subtraction: $D_s(T) \le (1-c\epsilon)D_\gamma(T)$; since $D_B \ge 0$,
+$$D_u = D_\gamma - D_s + D_B \;\ge\; c\epsilon\,D_\gamma,$$
+which is (55). For the variance (56): integrating (54) against $a^2/\lambda$ gives $V_s \le (1-c\epsilon)V_\gamma$, so $V \ge c\epsilon V_\gamma + V_B \ge c\epsilon/(2\eta)$ by (51). Upward: on $u \le U$ the positive-shell variance is microscopic,
+$$V_B = \int_B^{B+1}w_B\,a^2\cosh(ua)\,da \le (B+1)^2\,Q\,e^{(U-1)(B+1)} = O_\epsilon(1)$$
+&mdash; the right side equals $(B+1)^2e^{(U-1-q_\epsilon)B + O(1)} = (B+1)^2e^{\epsilon B/8+O(1)}$, an enormous number, but a <i>constant depending only on $\epsilon$</i>, not on $\lambda$ or $u$. Since $\eta \le 2 + \epsilon/2$ is bounded, $O_\epsilon(1) \le C_\epsilon/\eta$, so $V \le V_\gamma + V_B \le C_\epsilon/\eta$ by (51). For (57): the negative-shell third moment is dominated by the gamma third moment (integrate (54) against $a^3/\lambda$), the positive-shell third moment is $O_\epsilon(1)$ as above, and (52) with $\eta$ bounded finishes. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="lem46">10.5 The shell-controlled range $u \ge U$ (Lemmas 4.6&ndash;4.7)</h3>
+
+<p>Past $U$ the factor $\cosh(ua)$ in (47) grows like $e^{\delta a}$, $\delta = u - 1 \ge \epsilon/2$, and the negative shell (supported at $a \le A$) can outgrow the gamma damping. This is what $w_B$ is for: supported at $a \approx B \gg A$, its damping grows like $e^{\delta B}$, eventually dwarfing the negative shell's $e^{\delta A}$. Two structural points first.</p>
+
+<p><b>Why an interval, not a point mass.</b> A shell concentrated at a single $a = B$ would have damping $\propto 1 - \cos(BT)$, which <i>vanishes</i> whenever $BT \in 2\pi\mathbb{Z}$: infinitely many resonant frequencies with no damping at all. Spreading over $[B, B+1]$ fills the dips (eq. (58)):
+$$\int_B^{B+1}\bigl(1 - \cos(aT)\bigr)\,da \;=\; 1 - \operatorname{sinc}\bigl(\tfrac T2\bigr)\cos\bigl(\bigl(B+\tfrac12\bigr)T\bigr), \qquad \operatorname{sinc}(x) = \frac{\sin x}{x},$$
+(elementary integration; check <code>c28</code>), and since $1 - |\operatorname{sinc}(T/2)| \ge c\min(T^2, 1)$, the right side is bounded below by $c\min(T^2,1)$ &mdash; a uniform floor at every $T \ne 0$ (Fig. 28).</p>
+
+<figure><!--FIG:fig_reson--><figcaption>Resonance avoidance (eq. (58), plotted with an illustrative $B = 6$): a point-mass shell at $a = B$ would have damping zeros at $T \in \frac{2\pi}{B}\mathbb{Z}$; the interval-supported shell's damping (purple) dips but never returns to zero, staying above a floor $\gg \min(T^2,1)$ (green dashes).</figcaption></figure>
+
+<p><b>The separation number.</b> Define $\rho_\epsilon = C_0\,Q^{-1}e^{-\frac\epsilon2(B - A)}$ with $C_0 = A + a_0^{-1}$; Lemma 4.2(iv) gives $\rho_\epsilon = O(e^{-c/\epsilon^2}) = o(1)$ as $\epsilon \downarrow 0$. It will bound the ratio of the two shells' damping at <i>every</i> frequency and every $u \ge U$.</p>
+
+<div class="lem" id="lem46box"><b>Lemma 4.6.</b> There are absolute $c, C \gt 0$ and $\epsilon_0 \gt 0$ such that for $0 \lt \epsilon \lt \epsilon_0$ there exist $\lambda_\epsilon, C_\epsilon, c_\epsilon \gt 0$ with: for every $\lambda \ge \lambda_\epsilon$, $u \ge U$, $T \in \mathbb{R}$ (recall $\delta = u - 1$):
+$$D_s(T) \le C\lambda C_0e^{\delta A}\min(T^2,1), \qquad D_B(T) \ge c\lambda Qe^{\delta B}\min(T^2,1), \tag{59, 60}$$
+$$D_s(T) \le C\rho_\epsilon D_B(T), \qquad D_u(T) \ge D_\gamma(T) + c\,D_B(T), \qquad cV_B \le V(u) \le CV_B, \tag{61, 62, 63}$$
+$$cB^2Qe^{\delta B} \le V_B \le (B+1)^2Qe^{\delta(B+1)}, \tag{64}$$
+$$\int_{a_0}^A|w_s|a^3\cosh(ua)\,da \le CA\rho_\epsilon V_B, \qquad \int_B^{B+1}w_Ba^3\cosh(ua)\,da \le (B+1)V_B, \tag{65}$$
+and consequently $M_3 \le C_\epsilon V(u)$ and $V(u) \ge c_\epsilon \gt 0$ on all of $u \ge U$ (eq. (66)).</div>
+<div class="proof">
+<p>First, on either shell ($a \ge a_0$, $u \ge U \gt 1$) we have the two-sided comparison $\cosh(ua) \asymp e^{ua} = e^{\delta a}e^a \asymp e^{\delta a}\cosh a$ with absolute constants ($\cosh x \in [\tfrac12e^x, e^x]$ for $x \ge 0$). Hence the shell densities obey
+$$|w_s(a)|\cosh(ua) \ll \frac{e^{-2a}}{a^2}e^{\delta a}\cosh a \ll \frac{e^{\delta a}}{a^2}, \qquad w_B(a)\cosh(ua) \asymp Qe^{\delta a}.$$
+(59): for $|T| \le 1$ use $1 - \cos(aT) = O(a^2T^2)$: $D_s \ll \lambda T^2\int_{a_0}^Ae^{\delta a}da \ll \lambda Ae^{\delta A}T^2 \le \lambda C_0e^{\delta A}T^2$; for $|T| \ge 1$ use $1-\cos \le 2$: $D_s \ll \lambda e^{\delta A}\int_{a_0}^Aa^{-2}da \ll \lambda a_0^{-1}e^{\delta A}$. (60): by (58) and $w_B\cosh(ua) \gg Qe^{\delta B}$ on $[B,B+1]$:
+$$D_B(T) \gg \lambda Qe^{\delta B}\int_B^{B+1}(1-\cos(aT))\,da \gg \lambda Qe^{\delta B}\min(T^2,1).$$
+(61): divide, using $\delta \ge \epsilon/2$: $D_s/D_B \ll C_0Q^{-1}e^{-\delta(B-A)} \le C_0Q^{-1}e^{-\frac\epsilon2(B-A)} = \rho_\epsilon$. Choosing $\epsilon_0$ so the implied constant times $\rho_\epsilon$ is $\le \tfrac12$, (62) follows from $D_u = D_\gamma - D_s + D_B \ge D_\gamma + (1 - C\rho_\epsilon)D_B$. Comparing quadratic coefficients (the $T \to 0$ limits of (59)&ndash;(60) after dividing by $\lambda T^2$) gives $V_s = O(\rho_\epsilon V_B)$, hence
+$$V_\gamma + cV_B \le V(u) = V_\gamma - V_s + V_B \le V_\gamma + V_B.$$
+(64): integrate $w_B a^2\cosh(ua) \asymp Qa^2e^{\delta a}$ over $[B,B+1]$. Since $\delta \ge \epsilon/2$,
+$$V_B \gg B^2Qe^{\epsilon B/2} = B^2e^{(\frac\epsilon2 - q_\epsilon)B} = B^2e^{\epsilon B/8} \gg 1, \qquad V_\gamma \ll \eta^{-1} \ll 1,$$
+so $V_\gamma = O(V_B)$ and (63) follows from the two-sided comparison above. (65): on the negative shell $a \le A$, so its third moment is $\le A\,V_s \ll A\rho_\epsilon V_B$; on the positive shell $a \le B+1$ bounds it by $(B+1)V_B$. Finally $M_3$: the gamma part is $O(1/\eta^2) = O(V_\gamma) = O(V_B)$ (by (51)&ndash;(52) with $\eta \ge 2$), the shell parts are $O_\epsilon(V_B)$ by (65) (note $A\rho_\epsilon = O_\epsilon(1)$ and $B + 1 = O_\epsilon(1)$ as $\epsilon$-dependent constants), and $V_B \asymp V(u)$; while $V(u) \gg V_B \gg B^2e^{\epsilon B/8} =: c_\epsilon \gt 0$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Finally, the tail-control lemma that &sect;11's saddle asymptotics will consume directly. Set $T_0 = \bigl(2(B+1)\bigr)^{-1}$ &mdash; the frequency below which the whole positive shell sees less than half an oscillation.</p>
+
+<div class="lem" id="lem47box"><b>Lemma 4.7.</b> There are $\epsilon_0 \gt 0$ and absolute $c \gt 0$ such that for $0 \lt \epsilon \lt \epsilon_0$ there are $c_\epsilon, \lambda_\epsilon$ with: for $\lambda \ge \lambda_\epsilon$, $u \ge U$, $\eta = 1+u$, $\delta = u -1$:
+$$D_u(T) \ge c_\epsilon\,\lambda V(u)\,T^2 \quad (|T| \le T_0), \tag{67}$$
+$$D_u(T) \ge c_\epsilon\,\lambda\,Qe^{\delta B} \quad (T_0 \le |T| \le \eta), \tag{68}$$
+$$D_u(T) \ge c\lambda|T| + c_\epsilon\lambda Qe^{\delta B} \quad (|T| \ge \eta). \tag{69}$$</div>
+<div class="proof">
+<p>(67): for $|T| \le T_0$ every $a \in [B, B+1]$ has $|aT| \le \tfrac12$, so $1 - \cos(aT) \ge ca^2T^2$ and $D_B(T) \ge c\lambda V_B T^2$ (recognizing the variance integral). Also $|T| \le T_0 \lt \eta$, so (53) gives $D_\gamma(T) \ge c\lambda T^2/\eta \ge c'\lambda V_\gamma T^2$ by (51). Adding via (62) and using $V \asymp V_\gamma + V_B$ (from (63) and its proof) gives (67). (68): for $T_0 \le |T| \le \eta$, $\min(T^2, 1) \ge T_0^2$, so (60) and (62) give $D_u \gg \lambda T_0^2Qe^{\delta B} \gg_\epsilon \lambda Qe^{\delta B}$ ($T_0$ depends only on $\epsilon$). (69): for $|T| \ge \eta$, $\min(T^2/\eta, |T|) = |T|$, so $D_\gamma \ge c\lambda|T|$ by (53), and adding the shell floor from (60) and (62) finishes. <span class="qed">&#8718;</span></p>
+</div>

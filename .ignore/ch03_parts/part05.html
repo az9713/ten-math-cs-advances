@@ -1,0 +1,299 @@
+<h2 id="thompson">6. Thompson's group inside the unit group</h2>
+
+<p>Next, the obstruction group. <a class="secref" href="#thompsonv">&sect;2.1</a> defined Thompson's group $V$ as prefix replacements of infinite binary strings; the Leavitt algebra realizes each replacement as a <i>unit</i> of $R$, by the standard construction [BS16, &sect;2.2]. For a prefix-replacement table $g : E \to E'$ between complete codes ($a_i \mapsto b_i = g(a_i)$), set
+$$U_g \;=\; \sum_{a \in E} s_{g(a)}\, t_a, \qquad U_{g^{-1}} \;=\; \sum_{a \in E} s_a\, t_{g(a)}.$$
+Read the first sum in the string model: $t_a$ strips the prefix $a$ (killing strings outside $[a]$), then $s_{g(a)}$ installs the prefix $g(a)$ &mdash; exactly &ldquo;replace $a$ by $g(a)$, keep the tail&rdquo;, done simultaneously for all table rows (Fig. 18).</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 235" width="100%" role="img" aria-label="From a prefix replacement table to a unit of the Leavitt algebra">
+  <defs><marker id="c3arrU6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <!-- table -->
+  <g fill="none" stroke="#8899aa" stroke-width="1.2">
+    <rect x="30" y="45" width="150" height="112" rx="4"/>
+    <line x1="30" y1="73" x2="180" y2="73"/><line x1="30" y1="101" x2="180" y2="101"/><line x1="30" y1="129" x2="180" y2="129"/>
+    <line x1="105" y1="45" x2="105" y2="157"/>
+  </g>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="44" y="64">a &#8712; E</text><text x="118" y="64">g(a)</text>
+    <text x="52" y="92">0</text><text x="126" y="92">10</text>
+    <text x="52" y="120">10</text><text x="126" y="120">0</text>
+    <text x="52" y="148">11</text><text x="126" y="148">11</text>
+  </g>
+  <text x="30" y="32" font-size="12" fill="#555">replacement table (the element of Fig. 3)</text>
+  <line x1="196" y1="100" x2="238" y2="100" stroke="#555" stroke-width="1.7" marker-end="url(#c3arrU6)"/>
+  <!-- algebra element -->
+  <g font-size="13.5" fill="#1a1a1a">
+    <text x="254" y="80">U&#8342; = s&#8321;&#8320;t&#8320; + s&#8320;t&#8321;&#8320; + s&#8321;&#8321;t&#8321;&#8321;</text>
+  </g>
+  <g font-size="11.5" fill="#555">
+    <text x="254" y="104">t&#8320;: strip prefix 0 &#8230; s&#8321;&#8320;: install prefix 10</text>
+    <text x="254" y="122">one summand per table row; the sums</text>
+    <text x="254" y="140">act disjointly and cover everything</text>
+  </g>
+  <text x="254" y="172" font-size="12" fill="#2a7d2a">U&#8342;U&#8342;&#8315;&#185; = U&#8342;&#8315;&#185;U&#8342; = 1 &mdash; a unit of R</text>
+  <text x="30" y="192" font-size="12" fill="#7a1f1f">domain complete &#8658; the t&#8342; strips cover every string; range complete &#8658; the s-installs tile every string</text>
+  <text x="30" y="212" font-size="11.5" fill="#555">g &#8614; U&#8342; is a group homomorphism V &#8594; R&#215;, faithful on the string model</text>
+</svg><figcaption><b>From table to unit.</b> Each row $a \mapsto g(a)$ of a prefix replacement contributes the summand $s_{g(a)}t_a$ (&ldquo;strip $a$, install $g(a)$&rdquo;). Completeness of the domain code makes the summands' supports partition all strings; completeness of the range code makes the images tile them. The result is a unit $U_g$ realizing $g$, and $g \mapsto U_g$ embeds $V$ into $R^\times$.</figcaption></figure>
+
+<div class="lem"><b>Lemma M (the realization $g \mapsto U_g$ is a well-defined faithful homomorphism).</b>
+<ol>
+<li>$U_g U_{g^{-1}} = U_{g^{-1}} U_g = 1$, so $U_g \in R^\times$.</li>
+<li>$s_b t_a = s_{b0}t_{a0} + s_{b1}t_{a1}$; hence refining one table row $a \mapsto b$ into the two rows $a0 \mapsto b0$, $a1 \mapsto b1$ leaves $U_g$ unchanged, and $U_g$ depends only on the prefix replacement $g$, not on the table chosen.</li>
+<li>$U_h U_g = U_{h \circ g}$ and $U_{\mathrm{id}} = 1$; the map $g \mapsto U_g$ is an injective homomorphism $V \hookrightarrow R^\times$. We write $V \le R^\times$ for its image, and $V_l \le R^\times$ for the copy supported in the cylinder $[l]$ (<a class="secref" href="#thompsonv">&sect;2.1</a>).</li>
+<li>Every $g \in V_l$ satisfies $g - 1 \in e_l R e_l. \tag{15}$</li>
+</ol></div>
+
+<div class="proof">
+<p>(1) $U_g U_{g^{-1}} = \sum_{a, a' \in E} s_{g(a)} (t_a s_{a'}) t_{g(a')} = \sum_{a} s_{g(a)}t_{g(a)} = e_{E'} = 1$, using $t_a s_{a'} = \delta_{aa'}$ (Lemma J(1)) and completeness of the range code $E'$ (Lemma J(3)). The product in the other order is symmetric, with the roles of $E$ and $E'$ exchanged.</p>
+<p>(2) $s_{b0}t_{a0} + s_{b1}t_{a1} = s_b s_0 t_0 t_a + s_b s_1 t_1 t_a = s_b(s_0t_0 + s_1t_1)t_a = s_b t_a$. Any two tables representing the same replacement $g$ have a common refinement (refine each until both domain codes coincide; a replacement determines the refined table); each refinement step preserves the sum.</p>
+<p>(3) Given tables $g : E \to E'$ and $h : F \to F'$, refine both (allowed by (2)) until $E' = F$. Then
+$$U_h U_g = \sum_{a \in E,\, c \in F} s_{h(c)}(t_c\, s_{g(a)})t_a = \sum_{a \in E} s_{h(g(a))} t_a = U_{h \circ g},$$
+again by $t_c s_{g(a)} = \delta_{c, g(a)}$. The identity table $a \mapsto a$ gives $U_{\mathrm{id}} = e_E = 1$. Injectivity: in the string model $U_g e_{a\omega} = e_{g(a)\omega}$, so $U_g$ acts on basis vectors exactly as $g$ acts on strings; distinct replacements differ on some string, hence on some basis vector, so their units differ.</p>
+<p>(4) An element $g \in V_l$ has a table fixing every cylinder outside $[l]$: choose a complete code containing $l$'s complement-leaves as fixed rows, so
+$$U_g = x + \sum_{c} e_c \qquad \text{with } x = \sum_{a \subseteq [l]} s_{g(a)}t_a,$$
+where the $c$ run over a prefix code with $e_l + \sum_c e_c = 1$. All words $a, g(a)$ in $x$ extend $l$, so $x = e_l\, x\, e_l \in e_l R e_l$; then $g - 1 = x + (1 - e_l) - 1 = x - e_l \in e_l R e_l$ ($e_l$ is the unit of the corner). <span class="qed">&#8718;</span></p>
+</div>
+
+<p>The bridge from $V$ to the elementary groups is the cylinder swap. For prefix-incomparable words $\rho, \sigma$, the swap $\tau_{\rho,\sigma} \in V$ exchanges $[\rho] \leftrightarrow [\sigma]$ and fixes everything else; its unit is
+$$\tau_{\rho,\sigma} \;=\; 1 + e_\rho + e_\sigma + s_\rho t_\sigma + s_\sigma t_\rho$$
+(characteristic $2$: this is &ldquo;$1$ minus the two projections, plus the two exchange pieces&rdquo;; on the string model it visibly swaps the two cylinders and fixes the rest). By Import 4, these swaps generate $V$. The following lemma is the chapter's Lemma 3.1, and its proof is a small miracle of characteristic $2$: <b>a swap is a product of three elementary roots</b> (Fig. 19).</p>
+
+<div class="lem"><b>Lemma 3.1.</b> $V \le G$. Moreover, if $l$ extends one of the three words $\alpha_i$, then $V_l \le \Gamma$.</div>
+
+<div class="proof">
+<p><i>Case 1: $\rho$ and $\sigma$ extend different leaves of a prefix code $E = (a_1, \dots, a_q)$,</i> say $\rho = a_i w$, $\sigma = a_j w'$ with $i \neq j$. Put
+$$P = s_\rho t_\sigma = s_{a_i}(s_w t_{w'})t_{a_j}, \qquad Q = s_\sigma t_\rho = s_{a_j}(s_{w'}t_w)t_{a_i},$$
+so $1 + P$ and $1 + Q$ are elementary $E$-roots. The needed products, all from Lemma J(1): $P^2 = s_\rho(t_\sigma s_\rho)t_\sigma = 0$ and $Q^2 = 0$ (incomparability of $\rho, \sigma$); $PQ = s_\rho(t_\sigma s_\sigma)t_\rho = e_\rho$; $QP = e_\sigma$; and $PQP = e_\rho\, s_\rho t_\sigma = P$ (since $e_\rho s_\rho = s_\rho t_\rho s_\rho = s_\rho$). Now expand over $\mathbb F_2$:
+$$(1+P)(1+Q)(1+P) = (1 + P + Q + PQ)(1+P) = 1 + P + Q + PQ + P + P^2 + QP + PQP,$$
+and the two copies of $P$ cancel mod $2$, $P^2 = 0$, $PQP = P$, leaving
+$$1 + Q + PQ + QP + P \;=\; 1 + e_\rho + e_\sigma + s_\rho t_\sigma + s_\sigma t_\rho \;=\; \tau_{\rho,\sigma}.$$
+(Machine-checked in <a class="secref" href="#numerics">&sect;9</a>.) So $\tau_{\rho,\sigma} \in \mathrm{EL}_E(R)$.</p>
+<p><i>Case 2: $\rho$ and $\sigma$ extend the same leaf $a_i$.</i> Choose a different leaf $a_j$. Both pairs $(\rho, a_j)$ and $(\sigma, a_j)$ extend different leaves, so their swaps lie in $\mathrm{EL}_E(R)$ by Case 1 &mdash; here incomparability of $\rho$ (or $\sigma$) with $a_j$ holds because they extend different leaves; note $\sigma \neq \rho$ are themselves incomparable by assumption. The transposition identity
+$$\tau_{\rho,\sigma} = \tau_{\rho, a_j}\, \tau_{\sigma, a_j}\, \tau_{\rho, a_j}$$
+&mdash; conjugating the swap $[\sigma] \leftrightarrow [a_j]$ by the swap $[\rho] \leftrightarrow [a_j]$ relabels $a_j$ to $\rho$, standard for transpositions; verified either on the string action (both sides send $\rho\omega \mapsto \sigma\omega$, $\sigma\omega \mapsto \rho\omega$, fix the rest &mdash; equality of units follows by faithfulness, Lemma M(3)) or by machine (<a class="secref" href="#numerics">&sect;9</a>) &mdash; puts $\tau_{\rho,\sigma} \in \mathrm{EL}_E(R)$.</p>
+<p><i>$V \le G$:</i> let $\tau_{\rho,\sigma}$ be any cylinder swap. Choose $k$ large enough that every word $\rho w$ and $\sigma w$ with $w \in \{0,1\}^k$ extends some leaf of the complete code $D$ (possible: $D$'s leaves have length $\le 4$, so $k = 4$ always suffices). Refinement (Lemma M(2)) splits the swap into the product of the $2^k$ disjoint smaller swaps
+$$\tau_{\rho,\sigma} \;=\; \prod_{w \in \{0,1\}^k} \tau_{\rho w,\, \sigma w}$$
+(the factors commute &mdash; disjoint supports &mdash; and the product acts as the original swap on strings; faithfulness upgrades this to equality in $R$). Each factor's two words extend leaves of $D$, so each lies in $\mathrm{EL}_D(R) = G$ by Cases 1&ndash;2. Since the swaps generate $V$ (Import 4), $V \le G$.</p>
+<p><i>$V_l \le \Gamma$ for $l$ extending $\alpha_i$:</i> $V_l$ is generated by the swaps of cylinder pairs inside $[l]$ (Import 4 applied within $[l]$). Any such swap has both words extending $l$, hence extending the leaf $\alpha_i$ of the code $\alpha$ &mdash; the same-leaf Case 2 with $E = \alpha$ puts it in $\mathrm{EL}_\alpha(R) = \Gamma$. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 225" width="100%" role="img" aria-label="A cylinder swap decomposes as a product of three elementary roots in characteristic 2">
+  <defs><marker id="c3arrW6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <!-- two cylinders -->
+  <rect x="55" y="45" width="90" height="34" rx="6" fill="#c0392b" fill-opacity="0.3" stroke="#c0392b"/>
+  <rect x="55" y="115" width="90" height="34" rx="6" fill="#2e6da4" fill-opacity="0.3" stroke="#2e6da4"/>
+  <text x="88" y="66" font-size="12.5">[&#961;]</text>
+  <text x="88" y="136" font-size="12.5">[&#963;]</text>
+  <path d="M150,62 C195,62 195,132 150,132" stroke="#7a1f1f" stroke-width="1.7" fill="none" marker-end="url(#c3arrW6)"/>
+  <path d="M55,132 C10,132 10,62 55,62" stroke="#7a1f1f" stroke-width="1.7" fill="none" marker-end="url(#c3arrW6)"/>
+  <text x="60" y="178" font-size="12" fill="#1a1a1a">&#964;<tspan baseline-shift="sub" font-size="8">&#961;,&#963;</tspan> = 1 + e<tspan baseline-shift="sub" font-size="8">&#961;</tspan> + e<tspan baseline-shift="sub" font-size="8">&#963;</tspan> + s<tspan baseline-shift="sub" font-size="8">&#961;</tspan>t<tspan baseline-shift="sub" font-size="8">&#963;</tspan> + s<tspan baseline-shift="sub" font-size="8">&#963;</tspan>t<tspan baseline-shift="sub" font-size="8">&#961;</tspan></text>
+  <!-- equals product -->
+  <text x="235" y="100" font-size="15" fill="#1a1a1a">=</text>
+  <g font-size="12.5" fill="#1a1a1a">
+    <text x="262" y="72">(1 + P)(1 + Q)(1 + P)</text>
+  </g>
+  <g font-size="11.5" fill="#555">
+    <text x="262" y="95">P = s<tspan baseline-shift="sub" font-size="8">&#961;</tspan>t<tspan baseline-shift="sub" font-size="8">&#963;</tspan>, Q = s<tspan baseline-shift="sub" font-size="8">&#963;</tspan>t<tspan baseline-shift="sub" font-size="8">&#961;</tspan>: elementary roots</text>
+    <text x="262" y="113">when &#961;, &#963; extend different code leaves</text>
+  </g>
+  <text x="262" y="143" font-size="11.5" fill="#2a7d2a">P&#178; = Q&#178; = 0, PQ = e<tspan baseline-shift="sub" font-size="8">&#961;</tspan>, QP = e<tspan baseline-shift="sub" font-size="8">&#963;</tspan>, PQP = P</text>
+  <text x="262" y="163" font-size="11.5" fill="#2a7d2a">expand mod 2 &#8658; the swap, exactly</text>
+  <text x="55" y="207" font-size="12" fill="#7a1f1f">permutation fact in disguise: a transposition = product of three &ldquo;shear&rdquo; moves &mdash; here shears are elementary roots</text>
+</svg><figcaption><b>Lemma 3.1's engine.</b> The cylinder swap $\tau_{\rho,\sigma}$ (left) factors as $(1+P)(1+Q)(1+P)$ with $P = s_\rho t_\sigma$, $Q = s_\sigma t_\rho$ &mdash; the same-shape identity as &ldquo;a transposition is three shears&rdquo; $\left(\begin{smallmatrix}0&amp;1\\1&amp;0\end{smallmatrix}\right) = \left(\begin{smallmatrix}1&amp;1\\0&amp;1\end{smallmatrix}\right)\left(\begin{smallmatrix}1&amp;0\\1&amp;1\end{smallmatrix}\right)\left(\begin{smallmatrix}1&amp;1\\0&amp;1\end{smallmatrix}\right)$ over $\mathbb F_2$. Since swaps generate $V$ (Import 4) and refinement chops any swap into $D$-compatible pieces, all of $V$ lands inside $G = \mathrm{EL}_D(R)$.</figcaption></figure>
+
+<h2 id="config">7. The configuration: two contractions and a commuting obstruction</h2>
+
+<p>All the machinery is now on the table; what remains is to <i>wire it up</i> so that Proposition 2.3 applies. We need: compressions $u, v$ with $\langle \Gamma, u, v \rangle = G$ and $u\Gamma u^{-1}, v\Gamma v^{-1} \le \Gamma$; and a commuting copy $J \cong V$ with $uJu^{-1} \le \Gamma$.</p>
+
+<h3 id="uvdef">7.1 The two contractions $u, v$</h3>
+
+<p>The three prefixes $\zeta = (100, 101, 11)$ partition $[1]$. Define $u, v \in V \le G$ by the replacement tables (the chapter's equation (16)):</p>
+
+<div class="tablewrap"><table>
+<tr><th>source prefix</th><td>$\alpha_i$</td><td>$\beta_i$</td><td>$\nu_i$</td><td rowspan="3" style="border-left:2px solid var(--accent); font-size:.9rem; color:var(--muted)">$(1 \le i \le 3)$<br>entry $b$ under source $a$ means: send $a\omega \mapsto b\omega$;<br>$\alpha_i 0$, $\alpha_i 1$ mean &ldquo;append that bit&rdquo;</td></tr>
+<tr><th>$u$ sends to</th><td>$\alpha_i 0$</td><td>$\alpha_i 1$</td><td>$\zeta_i$</td></tr>
+<tr><th>$v$ sends to</th><td>$\alpha_i 0$</td><td>$\zeta_i$</td><td>$\alpha_i 1$</td></tr>
+</table></div>
+
+<p>Both rows are complete prefix replacements: the nine sources are the complete code $D$; the nine targets are, in either row, the six words $\alpha_i 0, \alpha_i 1$ (whose cylinders partition $[0]$, since the $[\alpha_i]$ partition it) together with the three $\zeta_i$ (partitioning $[1]$) &mdash; again a complete code. Both $u$ and $v$ send $[\alpha_i] \to [\alpha_i 0]$; they differ on where the $\beta$- and $\nu$-blocks go:
+$$u([\beta_i]) = [\alpha_i 1], \quad u([\nu_i]) = [\zeta_i], \qquad v([\beta_i]) = [\zeta_i], \quad v([\nu_i]) = [\alpha_i 1].$$
+Watch the asymmetry: $u$ pulls the $\beta$-block into $[0]$, $v$ pulls the $\nu$-block into $[0]$ (Fig. 21, animated). Define the obstruction group on the first leaf of the $\beta$-block:
+$$J \;=\; V_{\beta_1} \;=\; V_{1000} \;\le\; G$$
+($J \le G$ by Lemma 3.1, first part &mdash; every $V_l$ is inside $V \le G$).</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 270" width="100%" role="img" aria-label="The nine-leaf code with the supports of Gamma and J marked: Gamma acts on [0], J on the single leaf 1000">
+  <g stroke="#8899aa" stroke-width="1.2" fill="none">
+    <line x1="240" y1="32" x2="120" y2="74"/><line x1="240" y1="32" x2="360" y2="74"/>
+    <line x1="120" y1="74" x2="60" y2="120"/><line x1="120" y1="74" x2="180" y2="120"/>
+    <line x1="60" y1="120" x2="32" y2="166"/><line x1="60" y1="120" x2="88" y2="166"/>
+    <line x1="360" y1="74" x2="300" y2="120"/><line x1="360" y1="74" x2="420" y2="120"/>
+    <line x1="300" y1="120" x2="266" y2="166"/><line x1="300" y1="120" x2="334" y2="166"/>
+    <line x1="266" y1="166" x2="244" y2="210"/><line x1="266" y1="166" x2="288" y2="210"/>
+    <line x1="420" y1="120" x2="392" y2="166"/><line x1="420" y1="120" x2="448" y2="166"/>
+    <line x1="392" y1="166" x2="370" y2="210"/><line x1="392" y1="166" x2="414" y2="210"/>
+  </g>
+  <!-- Gamma support halo over [0] subtree -->
+  <ellipse cx="105" cy="135" rx="102" ry="78" fill="#7da7d9" fill-opacity="0.14" stroke="#2e5a8a" stroke-width="1.3" stroke-dasharray="7 4"/>
+  <text x="34" y="52" font-size="12.5" fill="#2e5a8a" font-weight="bold">&#915; acts on [0]</text>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.1">
+    <circle cx="240" cy="32" r="5"/><circle cx="120" cy="74" r="5"/><circle cx="360" cy="74" r="5"/>
+    <circle cx="60" cy="120" r="5"/><circle cx="300" cy="120" r="5"/><circle cx="420" cy="120" r="5"/>
+    <circle cx="266" cy="166" r="5"/><circle cx="392" cy="166" r="5"/>
+  </g>
+  <g font-size="10.5" fill="#555"><text x="168" y="48">0</text><text x="306" y="48">1</text></g>
+  <g>
+    <rect x="14" y="166" width="38" height="28" rx="5" fill="#7da7d9" fill-opacity="0.45" stroke="#2e5a8a"/>
+    <rect x="70" y="166" width="38" height="28" rx="5" fill="#7da7d9" fill-opacity="0.45" stroke="#2e5a8a"/>
+    <rect x="162" y="120" width="38" height="28" rx="5" fill="#7da7d9" fill-opacity="0.45" stroke="#2e5a8a"/>
+  </g>
+  <g font-size="10.5" fill="#1a1a1a">
+    <text x="20" y="184">000 &#945;&#8321;</text><text x="76" y="184">001 &#945;&#8322;</text><text x="168" y="138">01 &#945;&#8323;</text>
+  </g>
+  <!-- J leaf violet -->
+  <rect x="224" y="210" width="42" height="28" rx="5" fill="#c79fd9" fill-opacity="0.6" stroke="#7a3f9a" stroke-width="1.6"/>
+  <g>
+    <rect x="272" y="210" width="40" height="28" rx="5" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+    <rect x="318" y="166" width="38" height="28" rx="5" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+  </g>
+  <g>
+    <rect x="352" y="210" width="40" height="28" rx="5" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+    <rect x="398" y="210" width="40" height="28" rx="5" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+    <rect x="432" y="166" width="36" height="28" rx="5" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+  </g>
+  <g font-size="10.5" fill="#1a1a1a">
+    <text x="228" y="228">1000 &#946;&#8321;</text><text x="276" y="228">1001 &#946;&#8322;</text><text x="324" y="184">101 &#946;&#8323;</text>
+    <text x="356" y="228">1100 &#957;&#8321;</text><text x="402" y="228">1101 &#957;&#8322;</text><text x="438" y="184">111 &#957;&#8323;</text>
+  </g>
+  <text x="188" y="258" font-size="12.5" fill="#7a3f9a" font-weight="bold">J = V<tspan baseline-shift="sub" font-size="8">&#946;&#8321;</tspan> = V&#8321;&#8320;&#8320;&#8320;</text>
+  <text x="20" y="258" font-size="11.5" fill="#555">disjoint supports:</text>
+  <text x="20" y="273" font-size="11.5" fill="#555" visibility="hidden">.</text>
+  <text x="330" y="258" font-size="11.5" fill="#555">e&#8320;e&#8321;&#8320;&#8320;&#8320; = 0</text>
+</svg><figcaption><b>The supports</b> (the chapter's Figure 1). $\Gamma = \mathrm{EL}_\alpha(R)$ acts only inside $[0]$ (blue halo); the obstruction $J = V_{1000} \cong V$ acts only inside the single violet leaf $[1000]$ of the $\beta$-block. Disjoint supports will make them commute; the contraction $u$ will drag $J$'s support into $[0001] \subseteq [0]$, right inside $\Gamma$'s territory.</figcaption></figure>
+
+<h3 id="commuting">7.2 The direct product $\Gamma \times J$</h3>
+
+<p>The supports of $\Gamma$ and $J$ are the disjoint cylinders $[0]$ and $[1000]$; algebraically, the words $0$ and $1000$ are prefix-incomparable, so Lemma J gives the orthogonality
+$$e_0\, e_{1000} = e_{1000}\, e_0 = 0.$$
+Every $g \in \Gamma$ satisfies $g - 1 \in e_0 R e_0$: the generators do ($1 + s_{\alpha_i}rt_{\alpha_j} - 1 = s_{\alpha_i}rt_{\alpha_j} = e_0(s_{\alpha_i}rt_{\alpha_j})e_0$ since $\alpha_i, \alpha_j$ extend $0$), and the property survives products: if $g - 1, h - 1 \in e_0Re_0$ then $gh - 1 = (g-1)(h-1) + (g-1) + (h-1) \in e_0Re_0$, and $g^{-1} - 1 = -g^{-1}(g - 1)$; here $g^{-1} = 1 + x$ with $x = g^{-1} - 1$ solving $x = -(g-1) - x(g-1) \in e_0Re_0$ by induction on word length&hellip; cleaner: each generator's inverse is itself an $\alpha$-root (characteristic 2), so every element of $\Gamma$ is a <i>product of generators</i>, and the product formula above closes the set $\{g : g - 1 \in e_0Re_0\}$ under multiplication. Meanwhile (15) gives $j - 1 \in e_{1000}Re_{1000}$ for every $j \in J$. Orthogonality kills all cross terms:
+$$(g-1)(j-1) \;=\; (g-1)\,e_0\,e_{1000}\,(j-1) \;=\; 0 \;=\; (j-1)(g-1),$$
+and expanding both zero products: $gj - g - j + 1 = 0 = jg - g - j + 1$, so $gj = jg$. If $g = j$, then $g - 1$ lies in both corners, and any $x \in e_0Re_0 \cap e_{1000}Re_{1000}$ satisfies $x = e_0 x e_0 = e_0(e_{1000}xe_{1000})e_0 = 0$; so $g = 1$. Hence
+$$[\Gamma, J] = 1, \qquad \Gamma \cap J = \{1\}, \qquad \Gamma \times J \;\le\; G.$$
+And by Corollary G, $J \cong V$ is finitely generated but <b>not LEF</b>. The trap is set; two conjugation computations spring it.</p>
+
+<h3 id="prop32">7.3 Proposition 3.2: the compressions work</h3>
+
+<div class="prop"><b>Proposition 3.2.</b> The prefix replacements $u, v$ of (16) satisfy
+$$u\Gamma u^{-1} \;=\; v\Gamma v^{-1} \;=\; \mathrm{EL}_{(\alpha_1 0,\, \alpha_2 0,\, \alpha_3 0)}(R) \;\le\; \Gamma, \qquad uJu^{-1} = V_{0001} \le \Gamma \tag{17}$$
+and
+$$G \;=\; \langle \Gamma,\, u,\, v \rangle. \tag{18}$$</div>
+
+<div class="proof">
+<p><b>The conjugation rule.</b> From the table (16), the words $\alpha_i$ are rows of $u$'s domain code with $u(\alpha_i) = \alpha_i 0$. Two one-line consequences of Lemma J(1) (with $u = \sum_c s_{u(c)}t_c$ over the nine rows $c \in D$):
+$$u\, s_{\alpha_i} = \sum_c s_{u(c)}(t_c s_{\alpha_i}) = s_{\alpha_i 0}, \qquad t_{\alpha_j}\, u^{-1} = \sum_c (t_{\alpha_j} s_c)\,t_{u(c)} = t_{\alpha_j 0},$$
+because only the row $c = \alpha_i$ (resp.&nbsp;$c = \alpha_j$) survives the delta. Hence, for $g \in \{u, v\}$ (both send $\alpha_i \mapsto \alpha_i 0$), and all $i \neq j$, $r \in R$:
+$$g\,(1 + s_{\alpha_i} r\, t_{\alpha_j})\,g^{-1} \;=\; 1 + s_{\alpha_i 0}\, r\, t_{\alpha_j 0}.$$
+As $r$ runs over $R$, the right-hand sides are exactly the elementary roots of the three-word prefix code $(\alpha_1 0, \alpha_2 0, \alpha_3 0)$, so both conjugates of $\Gamma$ equal $\mathrm{EL}_{(\alpha_10,\alpha_20,\alpha_30)}(R)$. This group lies inside $\Gamma$ because each of its roots is an $\alpha$-root in disguise:
+$$s_{\alpha_i 0}\, r\, t_{\alpha_j 0} \;=\; s_{\alpha_i}(s_0\, r\, t_0)t_{\alpha_j},$$
+an elementary $\alpha$-root with coefficient $s_0 r t_0$. So $u\Gamma u^{-1} = v\Gamma v^{-1} \le \Gamma$: the compressions squeeze $\Gamma$ into a deeper copy of itself.</p>
+<p><b>$uJu^{-1} = V_{0001} \le \Gamma$.</b> The table sends $\beta_1 = 1000$ to $\alpha_1 1 = 0001$. Conjugation in $V$ transports supports: for $j \in V_{1000}$ with table fixing everything outside $[1000]$, the composite $u j u^{-1}$ first pulls $[0001]$ back to $[1000]$ (via $u^{-1}$), applies $j$ there, and pushes back &mdash; a prefix replacement supported in $[0001]$, acting as $j$ does with prefix $1000$ replaced by $0001$. This is a group isomorphism $V_{1000} \to V_{0001}$ (inverse: conjugate by $u^{-1}$), so $uJu^{-1} = V_{0001}$. Since $0001$ extends $\alpha_1 = 000$, Lemma 3.1 gives $V_{0001} \le \Gamma$. This proves (17).</p>
+<p><b>Recovering $G$ (18).</b> The inclusion $\langle \Gamma, u, v\rangle \le G$ is clear ($u, v \in V \le G$ by Lemma 3.1). For the converse we must produce every elementary $D$-root from $\Gamma$ and the two contractions. Partition the six $\alpha$- and $\beta$-leaves into three two-leaf blocks $C_i = \{\alpha_i, \beta_i\}$ and set
+$$X_i = s_{\alpha_i}t_0 + s_{\beta_i}t_1, \qquad Y_j = s_0 t_{\alpha_j} + s_1 t_{\beta_j}.$$
+Two more delta computations with $u$'s table (rows $\alpha_i \mapsto \alpha_i 0$ and $\beta_i \mapsto \alpha_i 1$):
+$$u^{-1}s_{\alpha_i} = \sum_c s_c\, t_{u(c)} s_{\alpha_i} = s_{\alpha_i}t_0 + s_{\beta_i}t_1 = X_i, \qquad t_{\alpha_j}u = \sum_c t_{\alpha_j} s_{u(c)}\, t_c = s_0 t_{\alpha_j} + s_1 t_{\beta_j} = Y_j$$
+(for the first: $t_{u(c)}s_{\alpha_i}$ survives when $u(c)$ is a prefix of $\alpha_i$ or vice versa &mdash; rows $c = \alpha_i$ ($t_{\alpha_i0}s_{\alpha_i} = t_0$) and $c = \beta_i$ ($t_{\alpha_i1}s_{\alpha_i} = t_1$); for the second: $t_{\alpha_j}s_{u(c)}$ survives for $u(c) \in \{\alpha_j 0, \alpha_j 1\}$, giving $s_0, s_1$). Hence
+$$u^{-1}(1 + s_{\alpha_i}\,r\,t_{\alpha_j})\,u \;=\; 1 + X_i\, r\, Y_j \qquad (i \neq j).$$
+Now aim the coefficient. Write $\ell_{i,0} = \alpha_i$, $\ell_{i,1} = \beta_i$. Given a $2\times 2$ matrix $B = (b_{pq})$ over $R$, take $r = \sum_{p,q \in \{0,1\}} s_p\, b_{pq}\, t_q$; then $t_p\, r\, s_q = b_{pq}$ (Lemma J), and expanding,
+$$X_i\, r\, Y_j \;=\; \sum_{p,q} s_{\ell_{i,p}}\,(t_p\, r\, s_q)\,t_{\ell_{j,q}} \;=\; \sum_{p,q} s_{\ell_{i,p}}\, b_{pq}\, t_{\ell_{j,q}}.$$
+Choosing $B$ with a single nonzero entry $b_{pq} = r'$ produces $1 + s_{a}r't_{b}$ for <i>any</i> source leaf $a \in C_i$ and target leaf $b \in C_j$ in <b>different</b> blocks ($i \neq j$) &mdash; all conjugates of $\Gamma$-elements by $u^{-1}$, hence in $\langle \Gamma, u\rangle$. For two leaves $a, b$ in the <b>same</b> block, route through a third block ($q = 9 \ge 3$ blocks&hellip; precisely, three blocks): pick any leaf $c$ of a different block; the Steinberg commutator (Lemma L(2), valid verbatim for prefix roots by the matrix-unit calculus)
+$$[\,1 + s_a r\, t_c,\; 1 + s_c\, t_b\,] \;=\; 1 + s_a r\, t_b$$
+has both factors joining distinct blocks. Hence every elementary root on the six $(\alpha, \beta)$-leaves lies in $\langle \Gamma, u \rangle$: $\mathrm{EL}_{(\alpha,\beta)}(R) \le \langle \Gamma, u\rangle$. The identical argument with $v$ (whose table sends $\alpha_i \mapsto \alpha_i0$, $\nu_i \mapsto \alpha_i 1$) gives $\mathrm{EL}_{(\alpha,\nu)}(R) \le \langle \Gamma, v\rangle$. Finally, a root from a $\beta$-leaf $a$ to a $\nu$-leaf $b$ (or back): pick an $\alpha$-leaf $c$ and use the same commutator &mdash; the factor $1 + s_a r t_c$ lives on $(\alpha,\beta)$-leaves, the factor $1 + s_c t_b$ on $(\alpha,\nu)$-leaves, both already obtained. Swapping $a \leftrightarrow b$ gives the reverse roots. Every elementary $D$-root is now in $\langle \Gamma, u, v\rangle$, proving (18). <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 260" width="100%" role="img" aria-label="Animated: the contraction u slides the alpha-block deeper, pulls the beta-block into [0], and parks the nu-block on [1]">
+  <defs><marker id="c3arrC7" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a1f1f"/></marker></defs>
+  <!-- before row -->
+  <text x="20" y="30" font-size="12" fill="#555">before u: the nine cylinders of D tile the space</text>
+  <g stroke-width="1.2">
+    <rect x="20" y="42" width="50" height="28" rx="4" fill="#7da7d9" fill-opacity="0.5" stroke="#2e5a8a"/>
+    <rect x="74" y="42" width="50" height="28" rx="4" fill="#7da7d9" fill-opacity="0.5" stroke="#2e5a8a"/>
+    <rect x="128" y="42" width="50" height="28" rx="4" fill="#7da7d9" fill-opacity="0.5" stroke="#2e5a8a"/>
+    <rect x="186" y="42" width="44" height="28" rx="4" fill="#c79fd9" fill-opacity="0.6" stroke="#7a3f9a" stroke-width="1.6"/>
+    <rect x="234" y="42" width="44" height="28" rx="4" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+    <rect x="282" y="42" width="44" height="28" rx="4" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+    <rect x="334" y="42" width="42" height="28" rx="4" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+    <rect x="380" y="42" width="42" height="28" rx="4" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+    <rect x="426" y="42" width="42" height="28" rx="4" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+  </g>
+  <g font-size="10" fill="#1a1a1a">
+    <text x="34" y="60">&#945;&#8321;</text><text x="88" y="60">&#945;&#8322;</text><text x="142" y="60">&#945;&#8323;</text>
+    <text x="198" y="60">&#946;&#8321;=J</text><text x="248" y="60">&#946;&#8322;</text><text x="296" y="60">&#946;&#8323;</text>
+    <text x="348" y="60">&#957;&#8321;</text><text x="394" y="60">&#957;&#8322;</text><text x="440" y="60">&#957;&#8323;</text>
+  </g>
+  <line x1="20" y1="80" x2="178" y2="80" stroke="#2e5a8a" stroke-width="2"/>
+  <text x="88" y="94" font-size="10.5" fill="#2e5a8a">[0]</text>
+  <line x1="186" y1="80" x2="468" y2="80" stroke="#a06a1f" stroke-width="2"/>
+  <text x="316" y="94" font-size="10.5" fill="#a06a1f">[1]</text>
+  <!-- animated arrows from before to after -->
+  <g stroke="#7a1f1f" stroke-width="1.4" fill="none" opacity="0.85">
+    <path d="M45,74 L34,158" marker-end="url(#c3arrC7)"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.12;0.75;1" dur="7s" repeatCount="indefinite"/></path>
+    <path d="M208,74 C160,120 90,120 60,156" marker-end="url(#c3arrC7)" stroke-width="2"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.12;0.75;1" dur="7s" repeatCount="indefinite"/></path>
+    <path d="M355,74 C330,120 280,130 262,156" marker-end="url(#c3arrC7)"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.12;0.75;1" dur="7s" repeatCount="indefinite"/></path>
+  </g>
+  <!-- after row -->
+  <text x="20" y="140" font-size="12" fill="#555">after u: everything &#945;&#8322;&#946; is crushed into [0]; &#957; spreads over [1]</text>
+  <g stroke-width="1.2">
+    <rect x="20" y="152" width="26" height="28" rx="4" fill="#7da7d9" fill-opacity="0.5" stroke="#2e5a8a"/>
+    <rect x="50" y="152" width="26" height="28" rx="4" fill="#c79fd9" fill-opacity="0.6" stroke="#7a3f9a" stroke-width="1.6"/>
+    <rect x="80" y="152" width="26" height="28" rx="4" fill="#7da7d9" fill-opacity="0.5" stroke="#2e5a8a"/>
+    <rect x="110" y="152" width="26" height="28" rx="4" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+    <rect x="140" y="152" width="26" height="28" rx="4" fill="#7da7d9" fill-opacity="0.5" stroke="#2e5a8a"/>
+    <rect x="170" y="152" width="26" height="28" rx="4" fill="#7fd9c9" fill-opacity="0.5" stroke="#1f7a6a"/>
+    <rect x="204" y="152" width="86" height="28" rx="4" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+    <rect x="294" y="152" width="86" height="28" rx="4" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+    <rect x="384" y="152" width="84" height="28" rx="4" fill="#e8b87d" fill-opacity="0.5" stroke="#a06a1f"/>
+  </g>
+  <g font-size="9.5" fill="#1a1a1a">
+    <text x="23" y="170">&#945;&#8321;0</text><text x="52" y="170">&#945;&#8321;1</text><text x="83" y="170">&#945;&#8322;0</text><text x="112" y="170">&#945;&#8322;1</text><text x="143" y="170">&#945;&#8323;0</text><text x="172" y="170">&#945;&#8323;1</text>
+    <text x="238" y="170">&#950;&#8321;</text><text x="328" y="170">&#950;&#8322;</text><text x="418" y="170">&#950;&#8323;</text>
+  </g>
+  <line x1="20" y1="190" x2="196" y2="190" stroke="#2e5a8a" stroke-width="2"/>
+  <text x="98" y="204" font-size="10.5" fill="#2e5a8a">[0]</text>
+  <line x1="204" y1="190" x2="468" y2="190" stroke="#a06a1f" stroke-width="2"/>
+  <text x="330" y="204" font-size="10.5" fill="#a06a1f">[1]</text>
+  <text x="20" y="230" font-size="12" fill="#7a1f1f">u&#915;u&#8315;&#185; sits on the &#945;&#7522;0 leaves &#8848; &#915;; uJu&#8315;&#185; sits on [0001] = [&#945;&#8321;1] &#8848; &#915;'s territory [0]</text>
+  <text x="20" y="248" font-size="11.5" fill="#555">v does the same with &#946; &#8596; &#957; exchanged &mdash; together they can rebuild every D-root (Prop. 3.2)</text>
+</svg><figcaption><b>The contraction $u$, animated</b> (arrows fade in and out; the static frame shows source and target tilings). Top: the nine $D$-cylinders. Bottom: their images under $u$ &mdash; the $\alpha$-block descends to the $\alpha_i0$ leaves, the $\beta$-block (with $J$'s violet leaf $\beta_1$) is pulled inside $[0]$ onto the $\alpha_i1$ leaves, and the $\nu$-block expands over $[1]$. Both $\Gamma$ and $J$ end up inside $\Gamma$'s home cylinder $[0]$: the nesting $u(\Gamma \times J)u^{-1} \le \Gamma$ demanded by Proposition 2.3.</figcaption></figure>
+
+<figure><svg class="setupfig" viewBox="0 0 480 235" width="100%" role="img" aria-label="Block recovery: conjugating an alpha-root by u inverse spreads it over two-leaf blocks; a 2x2 coefficient matrix aims it at any pair of leaves">
+  <g fill="none" stroke="#8899aa" stroke-width="1.2">
+    <rect x="24" y="40" width="130" height="60" rx="6"/>
+    <rect x="24" y="130" width="130" height="60" rx="6"/>
+  </g>
+  <g font-size="12" fill="#1a1a1a">
+    <text x="34" y="60">C&#7522; = {&#945;&#7522;, &#946;&#7522;}</text>
+    <text x="34" y="150">C&#8342; = {&#945;&#8342;, &#946;&#8342;}</text>
+  </g>
+  <g font-size="11" fill="#555">
+    <text x="34" y="82">two leaves, one block</text>
+    <text x="34" y="172">two leaves, one block</text>
+  </g>
+  <g stroke="#7a1f1f" stroke-width="1.6" fill="none">
+    <path d="M155,70 C230,70 230,160 155,160" marker-end="url(#c3arrC7)"/>
+  </g>
+  <text x="196" y="122" font-size="12" fill="#7a1f1f">1 + X&#7522; r Y&#8342;</text>
+  <g font-size="12.5" fill="#1a1a1a">
+    <text x="268" y="58">u&#8315;&#185;(1 + s<tspan baseline-shift="sub" font-size="8">&#945;&#7522;</tspan>r t<tspan baseline-shift="sub" font-size="8">&#945;&#8342;</tspan>)u = 1 + X&#7522; r Y&#8342;</text>
+  </g>
+  <g font-size="11.5" fill="#555">
+    <text x="268" y="82">X&#7522; = s<tspan baseline-shift="sub" font-size="8">&#945;&#7522;</tspan>t&#8320; + s<tspan baseline-shift="sub" font-size="8">&#946;&#7522;</tspan>t&#8321; spans block C&#7522;</text>
+    <text x="268" y="100">Y&#8342; = s&#8320;t<tspan baseline-shift="sub" font-size="8">&#945;&#8342;</tspan> + s&#8321;t<tspan baseline-shift="sub" font-size="8">&#946;&#8342;</tspan> spans block C&#8342;</text>
+  </g>
+  <g font-size="11.5" fill="#2a7d2a">
+    <text x="268" y="132">r = &#931; s&#8346;b&#8346;&#8358;t&#8358; encodes a 2&#215;2 matrix B:</text>
+    <text x="268" y="150">X&#7522; r Y&#8342; = &#931; s<tspan baseline-shift="sub" font-size="8">&#8467;(i,p)</tspan> b&#8346;&#8358; t<tspan baseline-shift="sub" font-size="8">&#8467;(j,q)</tspan></text>
+    <text x="268" y="168">one nonzero entry &#8658; any root between the blocks</text>
+  </g>
+  <text x="24" y="215" font-size="12" fill="#7a1f1f">same-block roots: Steinberg commutator through a third block; &#946;&#8596;&#957; roots: route through an &#945;-leaf</text>
+  <text x="24" y="232" font-size="11.5" fill="#555">result: &#9001;&#915;, u, v&#9002; contains every elementary D-root &#8658; equals G (18)</text>
+</svg><figcaption><b>Rebuilding $G$ from $\Gamma$ and the contractions.</b> Conjugating an $\alpha$-root by $u^{-1}$ produces $1 + X_i r Y_j$, whose legs $X_i, Y_j$ each straddle a two-leaf block $C_i = \{\alpha_i, \beta_i\}$. Encoding a $2 \times 2$ matrix in the coefficient $r$ aims the root at any (source, target) pair of leaves across distinct blocks; Steinberg commutators fill in same-block and $\beta$&ndash;$\nu$ pairs. Every elementary $D$-root is reached: $\langle \Gamma, u, v\rangle = G$.</figcaption></figure>
+
+<div class="keyresult"><b>Configuration complete.</b> $G = \langle \Gamma, u, v\rangle$ with $u\Gamma u^{-1}, v\Gamma v^{-1} \le \Gamma$; $J \cong V$ with $[\Gamma, J] = 1$, $\Gamma \cap J = \{1\}$, $uJu^{-1} \le \Gamma$; $\Gamma, G$ infinite, finitely generated, property (T); $J$ finitely generated, not LEF. Every hypothesis of Proposition 2.3 is in hand.</div>

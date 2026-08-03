@@ -1,0 +1,180 @@
+<h2 id="fourier">3. Fourier duality: what the factor remembers</h2>
+
+<p>The engine of the counterexample is a precise statement of what $L(G)$ <i>can</i> see when $G = A \rtimes K$ is a semidirect product with abelian normal part. The answer: it sees the <b>dual probability space</b> of $A$ and the $K$-action on it &mdash; and nothing else.</p>
+
+<h3 id="pontryagin">3.1 Pontryagin duality for discrete abelian groups</h3>
+
+<p>Write $\mathbb T = \{z \in \mathbb C : |z| = 1\}$, a group under multiplication. For a countable discrete abelian group $A$, the <b>Pontryagin dual</b> is
+$$\widehat A \;=\; \mathrm{Hom}(A, \mathbb T) \;=\; \{\text{characters } \chi : A \to \mathbb T,\ \chi(a+b) = \chi(a)\chi(b)\},$$
+topologized by pointwise convergence. As a closed subset of the compact product $\mathbb T^A$, the dual $\widehat A$ is a <b>compact</b> abelian group (pointwise multiplication); it is metrizable since $A$ is countable, and it carries a unique translation-invariant Borel probability measure $m_{\widehat A}$, its <b>Haar measure</b> (for the concrete duals below we exhibit it directly &mdash; no existence theorem needed). The <b>trivial character</b> is $\mathbf 1(a) \equiv 1$. Three examples calibrate the notion (Fig. 5): $\widehat{\mathbb Z} \cong \mathbb T$ (a character of $\mathbb Z$ is determined by $\chi(1)$); the dual of a finite abelian group is isomorphic to itself; and &mdash; the case that runs this whole chapter &mdash; the dual of a countable $\mathbb F_2$-vector space $A = \bigoplus_{i \in I} \mathbb F_2$ is the compact product
+$$\widehat A \;\cong\; \prod_{i \in I} \mathbb F_2, \qquad \chi_x(a) = (-1)^{\sum_i x_i a_i},$$
+with Haar measure = the fair-coin product measure: each dual coordinate is an independent unbiased bit.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 235" width="100%" role="img" aria-label="Pontryagin duality gallery: Z and the circle, finite groups self-dual, direct sums of F2 dual to products of F2">
+  <defs><marker id="c4arrD" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <g font-size="12" fill="#555">
+    <text x="34" y="26">discrete, countable A</text>
+    <text x="330" y="26">compact dual &#194;</text>
+  </g>
+  <!-- Z <-> T -->
+  <g fill="#2e5a8a"><circle cx="40" cy="60" r="3.5"/><circle cx="62" cy="60" r="3.5"/><circle cx="84" cy="60" r="3.5"/><circle cx="106" cy="60" r="3.5"/><circle cx="128" cy="60" r="3.5"/></g>
+  <text x="140" y="64" font-size="12" fill="#2e5a8a">&#8484;</text>
+  <line x1="180" y1="60" x2="300" y2="60" stroke="#555" stroke-width="1.4" marker-end="url(#c4arrD)"/>
+  <circle cx="368" cy="60" r="22" fill="none" stroke="#2e5a8a" stroke-width="1.8"/>
+  <text x="398" y="64" font-size="12" fill="#2e5a8a">&#120139; (the circle)</text>
+  <!-- finite <-> finite -->
+  <g fill="#2a7d2a"><circle cx="40" cy="110" r="3.5"/><circle cx="62" cy="110" r="3.5"/><circle cx="84" cy="110" r="3.5"/></g>
+  <text x="96" y="114" font-size="12" fill="#2a7d2a">finite abelian</text>
+  <line x1="180" y1="110" x2="300" y2="110" stroke="#555" stroke-width="1.4" marker-end="url(#c4arrD)"/>
+  <g fill="#2a7d2a"><circle cx="340" cy="110" r="3.5"/><circle cx="362" cy="110" r="3.5"/><circle cx="384" cy="110" r="3.5"/></g>
+  <text x="396" y="114" font-size="12" fill="#2a7d2a">itself</text>
+  <!-- sum F2 <-> prod F2 -->
+  <text x="34" y="164" font-size="12.5" fill="#c0392b">&#8853;<tspan baseline-shift="sub" font-size="8">i</tspan> &#120125;&#8322; (finitely many 1s)</text>
+  <line x1="180" y1="160" x2="300" y2="160" stroke="#555" stroke-width="1.4" marker-end="url(#c4arrD)"/>
+  <text x="312" y="164" font-size="12.5" fill="#c0392b">&#8719;<tspan baseline-shift="sub" font-size="8">i</tspan> &#120125;&#8322; (all bit strings)</text>
+  <text x="34" y="186" font-size="11.5" fill="#555">pairing &#967;&#8339;(a) = (&#8722;1)^&#9001;x,a&#9002;; Haar = independent fair coins on the bits</text>
+  <text x="34" y="215" font-size="12" fill="#7a1f1f">discrete &#8596; compact; countable &#8596; metrizable; group law on A &#8596; pointwise multiplication of characters</text>
+</svg><figcaption><b>Duality gallery.</b> Pontryagin duality swaps discrete and compact: $\mathbb Z \leftrightarrow \mathbb T$, finite groups pair with themselves, and a countable direct sum of $\mathbb F_2$'s pairs with the compact product of $\mathbb F_2$'s &mdash; the space of infinite bit strings with the fair-coin measure. All the duals in this chapter are of the third kind, or mild twists of it.</figcaption></figure>
+
+<p>Two small facts make the duality usable, and both are provable from scratch:</p>
+
+<div class="lem"><b>Lemma D (characters separate points).</b> Let $A$ be a discrete abelian group and $a_0 \neq 0$. Then some $\chi \in \widehat A$ has $\chi(a_0) \neq 1$.</div>
+
+<div class="proof">
+<p>First define $\chi$ on the cyclic subgroup $\langle a_0\rangle$: if $a_0$ has finite order $n \ge 2$, send $a_0 \mapsto e^{2\pi i/n}$; if infinite order, send $a_0 \mapsto -1$. Now extend to all of $A$ one element at a time, using that $\mathbb T$ is <i>divisible</i> (every $z$ has an $n$-th root): given $\chi$ on a subgroup $H$ and $b \notin H$, let $n = \min\{n \ge 1 : nb \in H\}$ if it exists, pick $\zeta$ with $\zeta^n = \chi(nb)$, and set $\chi(h + kb) = \chi(h)\zeta^k$ &mdash; well-defined because any two representations of the same element differ by a multiple of $(nb, -n)$, on which the two factors cancel; if no multiple of $b$ lies in $H$, choose $\zeta = 1$. Zorn's lemma (or a straight enumeration of countable $A$) completes the extension to $A$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="lem"><b>Lemma E (Plancherel for countable discrete $A$).</b> The evaluation functions $\mathrm{ev}_a : \widehat A \to \mathbb C$, $\mathrm{ev}_a(\chi) = \chi(a)$, form an orthonormal basis of $L^2(\widehat A, m_{\widehat A})$. Consequently
+$$U : \ell^2(A) \longrightarrow L^2(\widehat A, m_{\widehat A}), \qquad U\delta_a = \mathrm{ev}_a$$
+is a unitary, and it converts the translation operator $\lambda_A(a)$ into multiplication by the function $\mathrm{ev}_a$.</div>
+
+<div class="proof">
+<p><i>Orthonormality.</i> $\mathrm{ev}_a\overline{\mathrm{ev}_b} = \mathrm{ev}_{a-b}$ pointwise, so it suffices to show $\int \mathrm{ev}_c\, dm = 0$ for $c \neq 0$ (and $= 1$ for $c = 0$, clear). By Lemma D choose $\chi_0$ with $\chi_0(c) \neq 1$. Translation invariance of Haar measure under the shift $\chi \mapsto \chi_0\chi$ gives
+$$\int \chi(c)\, dm(\chi) = \int (\chi_0\chi)(c)\, dm(\chi) = \chi_0(c)\int \chi(c)\, dm(\chi),$$
+and $(1 - \chi_0(c))\int \mathrm{ev}_c\,dm = 0$ forces the integral to vanish.</p>
+<p><i>Completeness.</i> The linear span of the $\mathrm{ev}_a$ is a unital $*$-subalgebra of $C(\widehat A)$ (products and conjugates are again evaluations) which separates the points of $\widehat A$ (two characters differing somewhere differ on some $\mathrm{ev}_a$ &mdash; tautologically). By the Stone&ndash;Weierstrass theorem (standard analysis, used as a black box) the span is uniformly dense in $C(\widehat A)$, hence dense in $L^2$. An orthonormal family with dense span is a basis.</p>
+<p><i>The conversion.</i> $U\lambda_A(a)\delta_b = U\delta_{a+b} = \mathrm{ev}_{a+b} = \mathrm{ev}_a \cdot \mathrm{ev}_b = \mathrm{ev}_a \cdot U\delta_b$, and both sides are bounded, so $U\lambda_A(a)U^* = M_{\mathrm{ev}_a}$, multiplication by $\mathrm{ev}_a$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="crossed">3.2 Crossed products, and the identity $L(A \rtimes K) \cong L^\infty(\widehat A) \rtimes K$</h3>
+
+<p>Now let a countable group $K$ act on $A$ by automorphisms $a \mapsto k \cdot a$. The <b>semidirect product</b> $A \rtimes K$ is the set $A \times K$ with $(a, k)(b, h) = (a + k\cdot b,\, kh)$. The action dualizes to $\widehat A$ and to functions on it:
+$$(k \cdot \chi)(a) = \chi(k^{-1}\cdot a), \qquad \alpha_k(f)(\chi) = f(k^{-1}\cdot\chi).$$
+Each $k$ acts on $\widehat A$ by a homeomorphic group automorphism preserving $m_{\widehat A}$ (the pushforward of Haar is translation-invariant, hence equals Haar by uniqueness). The <b>crossed product</b> $L^\infty(\widehat A, m) \rtimes K$ is the von Neumann algebra on $L^2(\widehat A) \otimes \ell^2(K)$ generated by the multiplication operators $M_f \otimes 1$ ($f \in L^\infty$) and the unitaries
+$$v_k \;=\; u_k \otimes \lambda_K(k), \qquad (u_k \xi)(\chi) = \xi(k^{-1}\cdot\chi),$$
+which satisfy the defining relations $v_k (M_f\otimes 1) v_k^* = M_{\alpha_k(f)}\otimes 1$ and $v_kv_h = v_{kh}$.</p>
+
+<div class="prop"><b>Proposition F (the chapter's equation (2.1)).</b> There is a trace-preserving isomorphism
+$$L(A \rtimes K) \;\cong\; L^\infty(\widehat A, m_{\widehat A}) \rtimes K.$$</div>
+
+<div class="proof">
+<p>Identify $\ell^2(A \rtimes K) \cong \ell^2(A)\otimes\ell^2(K)$ by $\delta_{(a,k)} \mapsto \delta_a \otimes \delta_k$. Compute the group unitaries in these coordinates:
+$$\lambda(a, 1)\,\delta_{(b,h)} = \delta_{(a+b,\,h)}, \qquad \lambda(0, k)\,\delta_{(b,h)} = \delta_{(k\cdot b,\, kh)},$$
+so $\lambda(a,1) = \lambda_A(a)\otimes 1$ and $\lambda(0,k) = \sigma_k \otimes \lambda_K(k)$, where $\sigma_k\delta_b = \delta_{k\cdot b}$ permutes the $A$-basis. Since $(a,k) = (a,1)(0,k)$, these operators generate $\lambda(A\rtimes K)$, hence (taking double commutants) all of $L(A\rtimes K)$.</p>
+<p>Now conjugate by the Fourier unitary $U\otimes 1$ of Lemma E. First, $U\lambda_A(a)U^* = M_{\mathrm{ev}_a}$. Second, $U\sigma_k U^* = u_k$: indeed $U\sigma_k\delta_b = \mathrm{ev}_{k\cdot b}$ and $(u_k\,\mathrm{ev}_b)(\chi) = \mathrm{ev}_b(k^{-1}\chi) = \chi(k\cdot b) = \mathrm{ev}_{k\cdot b}(\chi)$ &mdash; wait, one must check $(k^{-1}\cdot\chi)(b) = \chi(k \cdot b)$: by definition $(k^{-1}\cdot\chi)(b) = \chi((k^{-1})^{-1}\cdot b) = \chi(k\cdot b)$. Correct. So conjugation carries the generators of $L(A\rtimes K)$ exactly onto the generators $M_{\mathrm{ev}_a}\otimes 1$ and $v_k$ of the crossed product; the functions $\mathrm{ev}_a$ generate $L^\infty(\widehat A)$ as a von Neumann algebra (their span is weak-$*$ dense, by Lemma E and density of $C(\widehat A)$ in $L^\infty$ in the relevant topology), so the two von Neumann algebras coincide after conjugation. The canonical traces match: $\tau(\,\cdot\,) = \langle \,\cdot\,(\mathbf 1_{\widehat A}\otimes\delta_1), \mathbf 1_{\widehat A}\otimes\delta_1\rangle$ corresponds to $\langle\,\cdot\,\delta_{(0,1)},\delta_{(0,1)}\rangle$ since $U\delta_0 = \mathrm{ev}_0 = \mathbf 1_{\widehat A}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<p>The right-hand side of Proposition F is built from three pieces of data: the probability space $(\widehat A, m_{\widehat A})$, the measure-preserving $K$-action on it, and nothing else. In particular <b>the compact group law on $\widehat A$ has disappeared</b>. That observation, made precise, is the mechanism of the whole chapter:</p>
+
+<div class="prop"><b>Proposition G (transport principle).</b> Let $A, A'$ be countable discrete abelian $K$-modules, and let $\theta : \widehat A \to \widehat{A'}$ be a bijection modulo null sets which is measurable with measurable inverse, measure-preserving ($\theta_*m_{\widehat A} = m_{\widehat{A'}}$), and $K$-equivariant ($\theta(k\cdot\chi) = k\cdot\theta(\chi)$ a.e.). Then
+$$L(A \rtimes K) \;\cong\; L(A' \rtimes K).$$
+No compatibility whatsoever between the group laws of $\widehat A$ and $\widehat{A'}$ is required.</div>
+
+<div class="proof">
+<p>Composition $W : L^2(\widehat{A}) \to L^2(\widehat{A'})$, $W\xi = \xi\circ\theta^{-1}$, is unitary (measure preservation) and satisfies $W M_f W^* = M_{f\circ\theta^{-1}}$ and $W u_k W^* = u'_k$ (equivariance: $(W u_k \xi)(\chi') = \xi(k^{-1}\cdot\theta^{-1}\chi') = \xi(\theta^{-1}(k^{-1}\cdot\chi'))$). Hence $W\otimes 1$ conjugates the generators of $L^\infty(\widehat A)\rtimes K$ onto those of $L^\infty(\widehat{A'})\rtimes K$. Combine with Proposition F on both sides. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 250" width="100%" role="img" aria-label="The mechanism: two different discrete groups whose duals share one measured K-space have the same group factor">
+  <defs><marker id="c4arrE" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <g fill="none" stroke="#2e5a8a" stroke-width="1.4">
+    <rect x="24" y="24" width="180" height="46" rx="8"/>
+    <rect x="276" y="24" width="180" height="46" rx="8"/>
+  </g>
+  <text x="40" y="44" font-size="12.5" fill="#1a1a1a">discrete A &#8906; K</text>
+  <text x="40" y="61" font-size="11" fill="#555">e.g. &#923; = D &#8906; K (no carry)</text>
+  <text x="292" y="44" font-size="12.5" fill="#1a1a1a">discrete A&#8242; &#8906; K</text>
+  <text x="292" y="61" font-size="11" fill="#555">e.g. &#915;&#8345; = E&#8345; &#8906; K (carry at n)</text>
+  <g stroke="#555" stroke-width="1.5" fill="none">
+    <line x1="114" y1="70" x2="114" y2="112" marker-end="url(#c4arrE)"/>
+    <line x1="366" y1="70" x2="366" y2="112" marker-end="url(#c4arrE)"/>
+  </g>
+  <text x="122" y="96" font-size="11.5" fill="#555">Fourier (Prop. F)</text>
+  <text x="374" y="96" font-size="11.5" fill="#555">Fourier (Prop. F)</text>
+  <g fill="none" stroke="#a06a1f" stroke-width="1.4">
+    <rect x="24" y="118" width="180" height="52" rx="8"/>
+    <rect x="276" y="118" width="180" height="52" rx="8"/>
+  </g>
+  <text x="36" y="138" font-size="12" fill="#1a1a1a">L&#8734;(&#194;, m) &#8906; K</text>
+  <text x="36" y="156" font-size="11" fill="#555">only the measured K-space</text>
+  <text x="288" y="138" font-size="12" fill="#1a1a1a">L&#8734;(&#194;&#8242;, m&#8242;) &#8906; K</text>
+  <text x="288" y="156" font-size="11" fill="#555">only the measured K-space</text>
+  <path d="M204,144 L272,144" stroke="#c0392b" stroke-width="1.8" fill="none" marker-end="url(#c4arrE)"/>
+  <text x="206" y="132" font-size="11.5" fill="#c0392b">&#952;: measure-preserving,</text>
+  <text x="206" y="166" font-size="11.5" fill="#c0392b">K-equivariant (Prop. G)</text>
+  <text x="24" y="200" font-size="12.5" fill="#7a1f1f">same measured K-space &#8658; L(A &#8906; K) &#8773; L(A&#8242; &#8906; K) &mdash; even if &#194; and &#194;&#8242; have wildly different group laws</text>
+  <text x="24" y="222" font-size="11.5" fill="#555">the factor is deaf to the compact group law; only Pontryagin duality (going back up) can hear it</text>
+  <text x="24" y="240" font-size="11.5" fill="#555">strategy: build many K-invariant compact group laws on ONE probability space, then dualize</text>
+</svg><figcaption><b>The mechanism.</b> Fourier transform (Proposition F) computes the group factor of $A \rtimes K$ from the measured $K$-space $(\widehat A, m)$ alone. Any measure-preserving equivariant identification $\theta$ of two such duals &mdash; with no respect for their group laws &mdash; forces the factors to coincide (Proposition G). Different group laws upstairs then give different discrete groups with one factor.</figcaption></figure>
+
+<h2 id="toy4">4. The four-point toy: one measure, two group laws</h2>
+
+<p>Everything hinges on the possibility of genuinely different compact group laws with the same measure and the same symmetries. The minimal example has four points, and deserves to be savored (Fig. 7). On the set $\mathbb F_2^2 = \{(x,y) : x, y \in \{0,1\}\}$ with the uniform probability measure, consider two operations:
+$$(x,y) + (x',y') = (x + x',\, y + y'), \qquad (x,y) \diamond (x',y') = (x + x',\, y + y' + xx'),$$
+all coordinates computed mod $2$. The first is the <b>Klein four-group</b> $\mathbb Z/2 \times \mathbb Z/2$: every element has order $\le 2$. For the second, write $\tilde s \in \{0,1\} \subset \mathbb Z$ for the standard representative of $s \in \mathbb F_2$; then
+$$(x, y) \longmapsto \tilde x + 2\tilde y \pmod 4$$
+is an isomorphism from $(\mathbb F_2^2, \diamond)$ to $\mathbb Z/4$ (machine-checked over all $16$ pairs in <a class="secref" href="#numerics">&sect;10</a>; conceptually it is the <b>binary-carry identity</b>
+$$\tilde s + \tilde{s'} \;=\; \widetilde{s + s'} + 2\,\tilde s\,\tilde{s'} \pmod 4,$$
+&ldquo;ones digits add, and their carry $ss'$ feeds the twos digit&rdquo;). The element $(1,0)$ has $\diamond$-order $4$. Two facts stare at each other:</p>
+
+<ul>
+<li>$(\mathbb F_2^2, +)$ and $(\mathbb F_2^2, \diamond)$ are <b>not isomorphic</b> groups (exponent $2$ versus an element of order $4$);</li>
+<li>they are <b>identical as measured spaces</b> &mdash; literally the same four points with the same uniform measure, and for either law the measure is the Haar measure.</li>
+</ul>
+
+<figure><svg class="setupfig" viewBox="0 0 480 260" width="100%" role="img" aria-label="Animated: the two addition tables on four points; the carry bit xx' is the only difference and lights up periodically">
+  <!-- left table: Klein -->
+  <text x="42" y="26" font-size="12.5" fill="#2e5a8a">Klein group: (x,y) + (x&#8242;,y&#8242;)</text>
+  <g fill="none" stroke="#8899aa" stroke-width="1.1">
+    <rect x="30" y="38" width="180" height="150" rx="4"/>
+    <line x1="30" y1="68" x2="210" y2="68"/><line x1="30" y1="98" x2="210" y2="98"/><line x1="30" y1="128" x2="210" y2="128"/><line x1="30" y1="158" x2="210" y2="158"/>
+    <line x1="66" y1="38" x2="66" y2="188"/><line x1="102" y1="38" x2="102" y2="188"/><line x1="138" y1="38" x2="138" y2="188"/><line x1="174" y1="38" x2="174" y2="188"/>
+  </g>
+  <g font-size="10.5" fill="#555">
+    <text x="40" y="58">+</text><text x="72" y="58">00</text><text x="108" y="58">10</text><text x="144" y="58">01</text><text x="180" y="58">11</text>
+    <text x="38" y="88">00</text><text x="38" y="118">10</text><text x="38" y="148">01</text><text x="38" y="178">11</text>
+  </g>
+  <g font-size="10.5" fill="#1a1a1a">
+    <text x="72" y="88">00</text><text x="108" y="88">10</text><text x="144" y="88">01</text><text x="180" y="88">11</text>
+    <text x="72" y="118">10</text><text x="108" y="118">00</text><text x="144" y="118">11</text><text x="180" y="118">01</text>
+    <text x="72" y="148">01</text><text x="108" y="148">11</text><text x="144" y="148">00</text><text x="180" y="148">10</text>
+    <text x="72" y="178">11</text><text x="108" y="178">01</text><text x="144" y="178">10</text><text x="180" y="178">00</text>
+  </g>
+  <text x="30" y="208" font-size="11.5" fill="#2e5a8a">every element squares to 00: exponent 2</text>
+  <!-- right table: Z/4 -->
+  <text x="272" y="26" font-size="12.5" fill="#c0392b">carry law: &#8853; carry x&#8901;x&#8242; &#8594; &#8484;/4</text>
+  <g fill="none" stroke="#8899aa" stroke-width="1.1">
+    <rect x="260" y="38" width="180" height="150" rx="4"/>
+    <line x1="260" y1="68" x2="440" y2="68"/><line x1="260" y1="98" x2="440" y2="98"/><line x1="260" y1="128" x2="440" y2="128"/><line x1="260" y1="158" x2="440" y2="158"/>
+    <line x1="296" y1="38" x2="296" y2="188"/><line x1="332" y1="38" x2="332" y2="188"/><line x1="368" y1="38" x2="368" y2="188"/><line x1="404" y1="38" x2="404" y2="188"/>
+  </g>
+  <g font-size="10.5" fill="#555">
+    <text x="268" y="58">&#9671;</text><text x="302" y="58">00</text><text x="338" y="58">10</text><text x="374" y="58">01</text><text x="410" y="58">11</text>
+    <text x="268" y="88">00</text><text x="268" y="118">10</text><text x="268" y="148">01</text><text x="268" y="178">11</text>
+  </g>
+  <g font-size="10.5" fill="#1a1a1a">
+    <text x="302" y="88">00</text><text x="338" y="88">10</text><text x="374" y="88">01</text><text x="410" y="88">11</text>
+    <text x="302" y="118">10</text><text x="374" y="118">11</text><text x="410" y="118">00</text>
+    <text x="302" y="148">01</text><text x="338" y="148">11</text><text x="374" y="148">00</text><text x="410" y="148">10</text>
+    <text x="302" y="178">11</text><text x="338" y="178">01</text><text x="374" y="178">10</text><text x="410" y="178">01</text>
+  </g>
+  <!-- the carry cell highlighted + animated -->
+  <rect x="333" y="100" width="34" height="27" rx="3" fill="#c0392b" fill-opacity="0.25" stroke="#c0392b" stroke-width="1.3">
+    <animate attributeName="fill-opacity" values="0.12;0.5;0.12" dur="3.5s" repeatCount="indefinite"/>
+  </rect>
+  <text x="338" y="118" font-size="10.5" fill="#c0392b" font-weight="bold">01</text>
+  <text x="252" y="208" font-size="11.5" fill="#c0392b">10 &#9671; 10 = 01: the carry makes (1,0) have order 4</text>
+  <text x="30" y="234" font-size="12.5" fill="#7a1f1f">same four points, same uniform measure &mdash; different groups: exponent 2 vs &#8484;/4</text>
+  <text x="30" y="252" font-size="11.5" fill="#555">the ONLY difference between the tables is the carry bit xx&#8242; (pulsing cell); measure theory cannot see it</text>
+</svg><figcaption><b>The four-point toy</b> (animated: the one table entry changed by the carry pulses). Coordinatewise addition gives the Klein four-group; adding the binary carry $xx'$ to the second coordinate gives $\mathbb Z/4$ via $(x,y)\mapsto \tilde x + 2\tilde y$. Both laws have the same underlying uniform probability space. Everything in <a class="secref" href="#carry">&sect;6</a>&ndash;<a class="secref" href="#family">&sect;8</a> is this picture, globalized $K$-equivariantly over infinitely many coordinates.</figcaption></figure>
+
+<p>By the transport principle (with trivial $K$), the &ldquo;group algebras&rdquo; built measure-theoretically from the two laws coincide &mdash; for four points this is no surprise and no counterexample (finite groups are nowhere near ICC, and both algebras are just $\mathbb C^4$). The content of the chapter is engineering: embed this toy in a setting where (i) the ambient measured space carries an action of a property-(T) group $K$ commuting with <i>both</i> group laws, (ii) the resulting semidirect products are ICC with property (T), and (iii) the difference between the laws survives in the <i>discrete duals</i> as torsion &mdash; the order-$4$ carry element. Then Fourier duality (Propositions F and G) turns &ldquo;same measured space&rdquo; into &ldquo;same factor&rdquo;, while Pontryagin duality preserves &ldquo;different groups&rdquo;. That engineering occupies the rest of the document.</p>

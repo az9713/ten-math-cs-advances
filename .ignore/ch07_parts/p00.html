@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NP-hardness of approximating the closest vector problem within n^(1/400) &mdash; Chapter 7, rigorous explainer</title>
+<!-- MathJax v3, SVG output. One CDN line; needs network on first open. -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'ams' },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-svg.js"
+  integrity="sha384-msWocAZtTDh+149KSxjbRTGVfGbDjiff/j0JX1iu/A/GxxTWSu6ozNemlfkag/8d"
+  crossorigin="anonymous"></script>
+<style>
+  :root{ --fg:#1a1a1a; --muted:#555; --accent:#7a1f1f; --rule:#ddd; --box:#f6f4ef;
+         --toy:#2a7d2a; --toybg:#f1f7f1; --notebg:#fdf7e3; --noterule:#e3d27a; --card:#ffffff;
+         --codebg:#f3f1ec; --btnbg:#ffffff; --pagebg:#ffffff; }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:#e8e5df; --muted:#a49e92; --accent:#d98a6a; --rule:#3a3630; --box:#232019;
+           --toy:#7fbf8f; --toybg:#1d241d; --notebg:#2a2617; --noterule:#6a5d2a; --card:#f6f4ef;
+           --codebg:#2a2723; --btnbg:#232019; --pagebg:#161513; }
+  }
+  body{ background:var(--pagebg); }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ max-width: 50rem; margin: 2.5rem auto; padding: 0 1.25rem 6rem;
+        font: 16px/1.65 Georgia, 'Times New Roman', serif; color:var(--fg); counter-reset: fig; }
+  h1{ font-size: 1.9rem; line-height:1.2; margin:.2rem 0 .2rem; }
+  h2{ font-size:1.35rem; margin:2.4rem 0 .6rem; border-bottom:2px solid var(--accent); padding-bottom:.2rem; }
+  h3{ font-size:1.1rem; margin:1.6rem 0 .4rem; color:var(--accent); }
+  .sub{ color:var(--muted); font-style:italic; margin-top:0; }
+  code{ font-family: ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.92em; background:var(--codebg); padding:.05rem .25rem; border-radius:3px; }
+  pre{ background:var(--codebg); padding:.8rem 1rem; border-radius:5px; overflow:auto; font-size:.84rem; line-height:1.45; }
+  pre code{ background:none; padding:0; }
+  .codewrap{ position:relative; }
+  .copybtn{ position:absolute; top:.5rem; right:.5rem; display:inline-flex; align-items:center; gap:.3rem;
+    font:600 .72rem/1 ui-monospace,Consolas,monospace; color:var(--muted);
+    background:var(--btnbg); border:1px solid var(--rule); border-radius:5px; padding:.32rem .5rem; cursor:pointer; }
+  .copybtn:hover{ color:var(--accent); border-color:var(--accent); }
+  .copybtn.copied{ color:#2a7d2a; border-color:#2a7d2a; }
+  .copybtn svg{ width:13px; height:13px; }
+  .thm,.def,.lem,.prop{ background:var(--box); border-left:4px solid var(--accent); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .thm b,.def b,.lem b,.prop b{ color:var(--accent); }
+  .proof{ border-left:2px solid var(--rule); padding-left:.9rem; margin:.8rem 0 1.2rem; }
+  .proof::before{ content:"Proof."; font-style:italic; font-weight:bold; margin-right:.4rem; }
+  .qed{ float:right; }
+  .toy{ background:var(--toybg); border-left:4px solid var(--toy); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .toy b{ color:var(--toy); }
+  .note{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; margin:1rem 0; border-radius:4px; font-size:.92rem; }
+  table{ border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; }
+  th,td{ border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top; }
+  th{ background:var(--box); }
+  .tablewrap{ overflow-x:auto; }
+  figure{ margin:1.5rem 0; text-align:center; counter-increment: fig; }
+  figure > svg{ background:var(--card); border:1px solid var(--rule); border-radius:6px; }
+  figcaption{ color:var(--muted); font-size:.9rem; font-style:italic; margin-top:.4rem; }
+  figcaption::before{ content:"Fig. " counter(fig) ". "; font-weight:bold; font-style:normal; color:var(--accent); }
+  .proof figure,.thm figure,.lem figure,.prop figure{ margin:.2rem auto .7rem; max-width:460px; background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:.4rem; }
+  .proof figure > svg,.thm figure > svg,.lem figure > svg,.prop figure > svg{ border:none; }
+  .proof figcaption,.thm figcaption,.lem figcaption,.prop figcaption{ font-size:.8rem; line-height:1.4; }
+  .setupfig{ display:block; }
+  .setupfig text{ paint-order:stroke; stroke:#fff; stroke-width:2.5px; stroke-linejoin:round; }
+  .setupfig text[fill="#fff"], .setupfig text[fill="#ffffff"], .setupfig text[fill="white"], .setupfig text.onfill{ stroke:none; }
+  figure svg text{ font-family:"STIX Two Math",STIXGeneral,"Times New Roman",Georgia,serif; }
+  figure svg text.v{ font-style:italic; }
+  figure svg text.vb{ font-weight:bold; }
+  .secref{ color:var(--accent); text-decoration:none; border-bottom:1px dotted #b98; }
+  .secref:hover{ border-bottom:1px solid var(--accent); }
+  .toc{ background:var(--box); padding:.8rem 1.2rem; border-radius:6px; font-size:.95rem; }
+  .toc ul{ list-style:none; padding-left:.3rem; margin:.3rem 0; } .toc a{ color:var(--accent); text-decoration:none; }
+  .small{ font-size:.88rem; color:var(--muted); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+  .keyresult{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; border-radius:4px; }
+  @media (prefers-reduced-motion: reduce){ svg animate, svg animateMotion, svg animateTransform{ display:none; } }
+</style>
+</head>
+<body>
+
+<h1>Hard even to approximate: the closest vector problem within $n^{1/400}$</h1>
+<p class="sub">A rigorous, self-contained walkthrough of Chapter 7 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (PDF pages 183&ndash;218): a deterministic polynomial-time reduction from 3SAT proves that approximating the Euclidean closest vector problem within a factor $n^{1/400}$ of optimal is NP-hard &mdash; the first <b>fixed-polynomial</b> hardness factor, obtained <b>without</b> the PCP theorem and without any conjecture. Written for a reader with a PhD in <b>some</b> mathematical field, but not necessarily complexity theory, coding theory, or the geometry of numbers. Every symbol is defined before use; everything provable at the graduate-core level is proved; exactly two external results are imported, each with a precise statement.</p>
+
+<div class="toc">
+<b>Contents</b>
+<ul>
+<li><b>0.</b> <a href="#origin">Motivation &mdash; the nearest point in a crystal</a></li>
+<li><b>1.</b> <a href="#lattices">Lattices, targets, and the gap version of &ldquo;closest&rdquo;</a></li>
+<li><b>2.</b> <a href="#hardness">The complexity frame: 3SAT, reductions, and hardness of approximation</a></li>
+<li><b>3.</b> <a href="#theorem">Theorem 1 and the plan of the proof</a></li>
+<li><b>4.</b> <a href="#codes">The last mile first: binary codes and the parity-lift lattice (Lemmas 6&ndash;7)</a></li>
+<li><b>5.</b> <a href="#fields">Characteristic-two fields and Reed&ndash;Solomon codes</a></li>
+<li><b>6.</b> <a href="#encoding">Encoding an assignment: one polynomial, many tables</a></li>
+<li><b>7.</b> <a href="#constraints">The moment constraints, completeness (Lemma 8), and the parameters</a></li>
+<li><b>8.</b> <a href="#reconstruction">Interlude: reconstructing unordered data from power sums</a></li>
+<li><b>9.</b> <a href="#lemma10">The algebraic reconstruction lemma (Lemma 10), proved in full</a></li>
+<li><b>10.</b> <a href="#valuations">The valuation toolbox (Lemmas 2&ndash;5)</a></li>
+<li><b>11.</b> <a href="#soundness">Soundness I: support sets, Markov discard, and per-table root sets</a></li>
+<li><b>12.</b> <a href="#extraction">Soundness II: roots remember clause bits (Lemma 12)</a></li>
+<li><b>13.</b> <a href="#matching">Soundness III: parity matching and the endgame (Lemma 13, Proposition 14)</a></li>
+<li><b>14.</b> <a href="#transfer">Transfer to CVP: the proof of Theorem 1</a></li>
+<li><b>15.</b> <a href="#consequences">Consequences: decoding problems and every fixed $\ell_p$ norm</a></li>
+<li><b>16.</b> <a href="#scope">Scope &mdash; what is proved, what is open</a></li>
+<li><b>17.</b> <a href="#validation">Numerical validation: the toy instance end to end</a></li>
+<li><b>A.</b> <a href="#notation">Appendix: notation glossary</a></li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="origin">0. Motivation &mdash; the nearest point in a crystal</h2>
+
+<p>Take an infinite, perfectly regular grid of points in $n$-dimensional space &mdash; think of the atoms of an ideal crystal, extended forever. Now mark an arbitrary location $t$ in that space, not necessarily a grid point. Question: <i>which grid point is nearest to $t$, and how far away is it?</i> In the plane you would answer instantly with a glance (Fig.&nbsp;1). The astonishing content of this chapter is that in high dimension, even a wildly approximate version of that glance &mdash; &ldquo;is the nearest point within distance $r$, or is <i>every</i> point at least $n^{1/400} \cdot r$ away?&rdquo; &mdash; is as hard as any problem whose answers can be checked efficiently. Hard in the precise, universal sense: NP-hard.</p>
+
+<figure><!--FIG:fig_cvp2d--><figcaption>The closest vector problem (CVP) in the plane. A lattice $L(B)$ consists of all integer combinations of basis vectors $b_1, b_2$ (red arrows). Given a target $t$ (red star), the problem asks for the lattice point $v^\star$ minimizing the Euclidean distance $\lVert t - v^\star\rVert_2$. In two dimensions the answer is visually obvious; the chapter proves that in dimension $n$, even estimating this distance within a factor $n^{1/400}$ is NP-hard.</figcaption></figure>
+
+<p>Why should anyone care about approximate nearest lattice points? Because a remarkable amount of modern computation leans on them. The Lenstra&ndash;Lenstra&ndash;Lov&aacute;sz basis-reduction algorithm (1982) &mdash; which finds <i>somewhat</i> close lattice points in polynomial time &mdash; powered polynomial factorization, integer programming in fixed dimension, and famous cryptanalyses. In the other direction, the <i>hardness</i> of lattice problems is the security foundation of post-quantum cryptography: the encryption and signature schemes standardized by NIST in 2024 (the FIPS&nbsp;203 and 204 module-lattice standards) rest on the presumed intractability of structured lattice problems. Those cryptographic constructions use average-case assumptions rather than worst-case NP-hardness, but the two questions bracket the same landscape: <i>which approximation regimes for lattice problems are genuinely intractable?</i> This chapter moves the unconditional frontier for the central such problem.</p>
+
+<p>Here is the landscape before and after (Fig.&nbsp;2). Exact CVP was proved NP-hard by van Emde Boas in 1981. Approximating within any fixed <i>constant</i> factor was proved NP-hard by Arora, Babai, Stern, and Sweedyk in 1997. Dinur, Kindler, Raz, and Safra (2003) reached factors of the shape $n^{a/\log\log n}$ &mdash; growing faster than any power of $\log n$, yet with an exponent $a/\log\log n$ that <i>tends to zero</i>, so their result establishes hardness for no fixed power $n^c$ whatsoever. On the other side, Aharonov and Regev (2005) showed that at factor $C\sqrt{n}$ the problem sits in $\mathsf{NP} \cap \mathsf{coNP}$, so NP-hardness there would collapse the polynomial hierarchy's first level ($\mathsf{NP} = \mathsf{coNP}$) &mdash; a barrier. Between &ldquo;no fixed power&rdquo; and the $\sqrt{n}$ barrier lay a wide-open regime. The chapter's main theorem plants a flag inside it: <b>hardness at the fixed power $n^{1/400}$</b>, by a reduction that is deterministic and completely elementary.</p>
+
+<figure><!--FIG:fig_landscape--><figcaption>The approximation landscape for Euclidean CVP, ordered by the approximation factor $\gamma(n)$. Red: regimes where the problem is NP-hard (exact, every constant, $n^{a/\log\log n}$, and now $n^{1/400}$). Gray: the open window up to $\sqrt{n}$. Blue: at $C\sqrt n$ the gap problem lies in $\mathsf{NP}\cap\mathsf{coNP}$, so NP-hardness there would imply $\mathsf{NP}=\mathsf{coNP}$. Green: factors around $2^{n\log\log n/\log n}$ are achievable in polynomial time by lattice-basis reduction.</figcaption></figure>
+
+<p>The second surprise is <i>how</i> the theorem is proved. Since the 1990s, strong hardness-of-approximation results have almost universally passed through the PCP theorem &mdash; the deep machinery of probabilistically checkable proofs &mdash; or through conjectural strengthenings of it such as the Projection Games Conjecture, which was previously known to imply fixed-polynomial CVP hardness (Moshkovitz 2015, Mukhopadhyay 2022). This chapter uses none of that. The reduction goes directly from 3SAT, the original NP-complete problem, using mathematics a well-trained algebra student can verify line by line: polynomial interpolation over a finite field of characteristic two, power sums and Hankel matrices, Newton's identities, and valuations on rational function fields. For a mathematician reader this is a gift twice over &mdash; the whole proof is actually checkable, and the soundness argument turns out to be <i>your</i> machinery (separable polynomials, splitting fields, ramified valuations) deployed on a complexity-theoretic battlefield.</p>
+
+<figure><!--FIG:fig_pipeline--><figcaption>The proof as a pipeline. A 3SAT formula $\varphi$ is encoded (&sect;6&ndash;&sect;7) into evaluation tables tied together by Reed&ndash;Solomon moment constraints, producing an explicit binary affine system $Hx=b$ over the two-element field. The standard parity-lift construction (&sect;4) turns that system into an integer lattice with a target. Completeness (green): a satisfying assignment yields a binary solution of small weight $R$, hence a nearby lattice point. Soundness (purple, the hard direction): any solution of weight at most $4M^{1/200}R$ can be decoded back into a satisfying assignment &mdash; so for unsatisfiable $\varphi$ the lattice distance must be large.</figcaption></figure>
+
+<p>The paper we walk through proves, precisely:</p>
+
+<div class="keyresult"><b>Theorem 1</b> (main theorem; proved in <a class="secref" href="#transfer">&sect;14</a>). There is a deterministic polynomial-time mapping that assigns to each 3SAT formula $\varphi$ a nonsingular matrix $B \in \mathbb{Z}^{n\times n}$, a target $t \in \mathbb{Z}^n$, and a radius $r \in \mathbb{Q}_{&gt;0}$ such that
+$$\varphi \text{ satisfiable} \;\Longrightarrow\; \mathrm{dist}_2(t, L(B)) \le r, \qquad
+\varphi \text{ unsatisfiable} \;\Longrightarrow\; \mathrm{dist}_2(t, L(B)) &gt; n^{1/400}\, r.$$
+Consequently $\mathrm{GapCVP}^{(2)}_{n^{1/400}}$ is NP-hard under deterministic polynomial-time many-one reductions. The same construction yields NP-hardness of approximating binary nearest codeword and syndrome decoding within $n^{1/200}$, and of closest vector in every fixed rational $\ell_p$ norm ($p \ge 1$) within $n^{1/(200p)}$.</div>
+
+<p>Every symbol in that box will be defined from scratch &mdash; $L(B)$ and $\mathrm{dist}_2$ in <a class="secref" href="#lattices">&sect;1</a>, 3SAT, NP-hardness, and the Gap notation in <a class="secref" href="#hardness">&sect;2</a>. Here is the route; it is a single spine, each section using only its predecessors.</p>
+
+<ul>
+<li><a class="secref" href="#lattices">&sect;1</a> defines lattices, the closest vector problem, and the promise (&ldquo;gap&rdquo;) formulation that makes &ldquo;hard to approximate&rdquo; a theorem-shaped statement.</li>
+<li><a class="secref" href="#hardness">&sect;2</a> builds the complexity frame from zero for mathematicians: decision problems, 3SAT, polynomial-time many-one reductions, NP-hardness, and why gap hardness is exactly approximation hardness.</li>
+<li><a class="secref" href="#theorem">&sect;3</a> states the theorem's architecture and the parameters that produce the curious exponent $1/400$.</li>
+<li><a class="secref" href="#codes">&sect;4</a> proves the <i>last</i> arrow of the pipeline first &mdash; from binary linear codes to lattices (Lemmas 6 and 7, with a worked three-dimensional example). After this section, everything is about binary linear algebra.</li>
+<li><a class="secref" href="#fields">&sect;5</a> constructs the finite fields $\mathbb{F}_{2^e}$ and Reed&ndash;Solomon evaluation codes.</li>
+<li><a class="secref" href="#encoding">&sect;6</a>&ndash;<a class="secref" href="#constraints">&sect;7</a> encode a Boolean assignment as an interpolation polynomial, build the evaluation tables and the four constraint families, prove completeness (Lemma 8), and fix the parameters.</li>
+<li><a class="secref" href="#reconstruction">&sect;8</a>&ndash;<a class="secref" href="#lemma10">&sect;9</a> develop and fully prove the chapter's algebraic heart: bounded unordered sets whose power sums vary polynomially are the root sets of a single separable polynomial over a rational function field (Lemma 10).</li>
+<li><a class="secref" href="#valuations">&sect;10</a> installs the valuation toolbox: orders of vanishing, the ultrametric inequality, separable extensions, and existence of extended valuations (Lemmas 2&ndash;5).</li>
+<li><a class="secref" href="#soundness">&sect;11</a>&ndash;<a class="secref" href="#matching">&sect;13</a> execute the soundness argument: a low-weight solution yields root sets; valuations read the clause bits off the roots (Lemma 12); a parity-matching argument glues everything into a satisfying assignment (Lemma 13, Proposition 14).</li>
+<li><a class="secref" href="#transfer">&sect;14</a>&ndash;<a class="secref" href="#consequences">&sect;15</a> assemble Theorem 1 and its corollaries for decoding and for every fixed $\ell_p$ norm.</li>
+<li><a class="secref" href="#scope">&sect;16</a> takes stock honestly; <a class="secref" href="#validation">&sect;17</a> re-runs the entire construction by machine on a toy formula in $\mathbb{F}_{16}$.</li>
+</ul>
+
+<p class="small">Source of truth: Chapter 7, &ldquo;$n^{1/400}$-Hardness of the Euclidean Closest Vector Problem&rdquo;, PDF pages 183&ndash;218 of the volume. The chapter's own numbering &mdash; Theorem 1, Lemmas 2&ndash;8, Definition 9, Lemma 10, Corollary 11, Lemmas 12&ndash;13, Proposition 14, Corollaries 15&ndash;16, equations (1)&ndash;(21) &mdash; is preserved so you can cross-read. Results labeled with letters (Proposition A, B, &hellip;) are classical background proved here for self-containment. Exactly two facts are imported without proof, each stated precisely: the Cook&ndash;Levin theorem (Import 1, <a class="secref" href="#hardness">&sect;2</a>) and the Dedekind-domain package behind the existence of extended valuations (Import 2, <a class="secref" href="#valuations">&sect;10</a>). The lattice-geometry background (Minkowski's theorem and friends) that Chapter 8's explainer develops is <i>not needed</i> here &mdash; this chapter's lattice arguments are self-contained.</p>

@@ -1,0 +1,62 @@
+<hr>
+<h2 id="extraction">12. Soundness II: roots remember clause bits (Lemma 12)</h2>
+
+<p>Here is the payoff of the shifted moments (C4). Each clause table $(C,\beta)$ <i>committed</i> to a local assignment $\beta$; the following lemma shows that this commitment is burned into every root of the table's polynomial $G_{(C,\beta)}$: at the anchor $a_i$ of each clause variable, the root is infinitesimally close to the committed bit $\beta_i$. The proof is the chapter's technical summit &mdash; a pure valuation-theory argument, using every tool from <a class="secref" href="#valuations">&sect;10</a>.</p>
+
+<p>Setup: for each variable index $i$, the anchor $a_i$ lies <i>outside</i> $P$, and by Lemma 4 there is a valuation $v_i$ on the common splitting field $E$ extending $\mathrm{ord}_{X - a_i}$. <b>Fix one such $v_i$ per variable, once and for all</b> &mdash; the same $v_i$ is used for every clause table involving variable $i$. (This shared choice is what will let different clauses talk to each other in <a class="secref" href="#matching">&sect;13</a>.)</p>
+
+<div class="lem"><b>Lemma 12 (local valuation extraction).</b> Let $\tau = (C, \beta)$ be a clause subtype, $i \in I_C$, and $E/F$ the common finite separable splitting field of <a class="secref" href="#soundness">&sect;11</a>. Then for every root $\alpha \in R_\tau$,
+$$v_i(\alpha - \beta_i) \;\ge\; 1. \tag{16}$$
+</div>
+
+<div class="proof"><p>Write $\ell_i = X - a_i$, $h = h_\tau$, and enumerate the distinct roots as $\alpha_1, \dots, \alpha_h$; there is nothing to prove if $h = 0$. Abbreviate this table's Hankel determinant $\Delta_h(X) = \det(\mu_{\tau, r+s}(X))_{0\le r,s&lt;h}$.</p>
+
+<p><b>Step 0: the shifted moments are polynomials tied to the ordinary ones.</b> Recall from (2) that $\eta_{\tau,i,j}(X)$ is the unique polynomial of degree $\le (d-1)j$ interpolating the shifted moment vector. Pointwise, for each $p \in P$ and $w \in S_\tau(p)$, the binomial theorem gives $(w - \beta_i)^j = \sum_{l=0}^j \binom{j}{l} (-\beta_i)^{j-l} w^l$ (an identity with integer coefficients, valid in any characteristic); multiplying the definition of $\eta_{\tau,i,j}(p)$ by $(p - a_i)^j$ and summing over the fiber:
+$$\ell_i^{\,j}\, \eta_{\tau,i,j}(X) \;=\; \sum_{l=0}^{j} \binom{j}{l} (-\beta_i)^{j-l}\, \mu_{\tau,l}(X) \tag{17}$$
+holds at every $p \in P$; both sides are polynomials of degree $\le dj &lt; \lvert P\rvert$, so by the root bound (17) is an identity in $K[X]$ &mdash; not merely an agreement on the sampled grid.</p>
+
+<p><b>Step 1: recentered roots and their power sums.</b> Define the recentered, rescaled roots
+$$y_s \;=\; \frac{\alpha_s - \beta_i}{\ell_i} \;\in\; E \qquad (1 \le s \le h).$$
+Combining (17) with the root-moment identities (15) &mdash; expand $(\alpha_s - \beta_i)^j$ binomially, sum over $s$, and compare with (17) &mdash; yields
+$$\sum_{s=1}^{h} y_s^{\,j} \;=\; \eta_{\tau,i,j}(X) \qquad (0 \le j \le T). \tag{18}$$
+The right-hand side is a <i>polynomial</i> in $X$, so every displayed power sum has $v_i \ge 0$. The whole game is now: the $y_s$ have nonnegative-valuation power sums, and we must conclude each $y_s$ itself has nonnegative valuation, i.e. $v_i(\alpha_s - \beta_i) = v_i(y_s \ell_i) = v_i(y_s) + 1 \ge 1$.</p>
+
+<p><b>Step 2: the $y_s$ satisfy a monic equation with controlled coefficients.</b> Write $G_\tau(Y) = Y^h + \sum_{l&lt;h} c_l Y^l$ and $D_0 = dh^2 + h$. Lemma 10(iii) gives $c_l = n_l/\Delta_h$ with polynomial numerator and denominator, so
+$$v_i(c_l) = \mathrm{ord}_{\ell_i}(n_l) - \mathrm{ord}_{\ell_i}(\Delta_h) \ \ge\ 0 - \deg \Delta_h \ \ge\ -dh(h-1) \ \ge\ -dh^2$$
+(a nonzero polynomial's order at a point is between $0$ and its degree). The $y_s$ are precisely the roots of the recentered polynomial
+$$\ell_i^{-h}\, G_\tau(\ell_i Y + \beta_i) \;=\; Y^h + \sum_{l &lt; h} b_l\, Y^l, \qquad
+b_l = \ell_i^{\,l-h} \Bigg[ \binom{h}{l} \beta_i^{\,h-l} + \sum_{k'=l}^{h-1} c_{k'} \binom{k'}{l} \beta_i^{\,k'-l} \Bigg] \in F,$$
+(substitute $Y \mapsto \ell_i Y + \beta_i$ and expand binomially) and each coefficient obeys, term by term,
+$$v_i(b_l) \;\ge\; (l - h) + \min(0,\ \min_{k'} v_i(c_{k'})) \;\ge\; -h - dh^2 \;=\; -D_0 . \tag{&#8224;}$$
+Set $b_h = 1$. If some $y_s = 0$, then $v_i(y_s) = +\infty$ and (16) already holds for that root; so fix $s$ with $y_s \ne 0$ and let $t_s = v_i(y_s) \in \mathbb{Q}$.</p>
+
+<p><b>Step 3: a floor.</b> If $t_s &lt; -D_0$, then in the vanishing sum $y_s^h + \sum_{l&lt;h} b_l y_s^l = 0$ the leading term would be the <i>unique</i> minimum-valuation summand: for every $l &lt; h$ with $b_l \ne 0$,
+$$v_i(b_l\, y_s^{\,l}) \ \ge\ -D_0 + l\, t_s \ &gt;\ (h-l)\,t_s + l\,t_s \ =\ v_i(y_s^{\,h}),$$
+using $(h-l)t_s \le t_s &lt; -D_0$. By Lemma 2 such a sum cannot vanish &mdash; contradiction. Hence
+$$t_s \ \ge\ -D_0. \tag{19}$$</p>
+
+<p><b>Step 4: negative means substantially negative.</b> Suppose $t_s &lt; 0$. Since $\sum_{l=0}^{h} b_l y_s^l = 0$ (with $b_h = 1$), Lemma 2 forces the minimum of $v_i(b_l) + l\,t_s$ over the indices with $b_l \neq 0$ to be attained at least twice: say at $l &lt; k'$. The coefficients $b_l$ lie in $F$, where $v_i$ is the integer-valued $\mathrm{ord}_{\ell_i}$, so
+$$(k' - l)\, t_s \;=\; v_i(b_l) - v_i(b_{k'}) \;\in\; \mathbb{Z}, \qquad 1 \le k' - l \le h,$$
+i.e. $t_s$ is a fraction with denominator at most $h$; being negative, it satisfies
+$$t_s \le -\tfrac1h. \tag{20}$$
+This is the pivot of the whole proof (Fig.&nbsp;32): <i>ramification can shrink valuations, but only down to $1/h$-quanta</i> &mdash; a negative $t_s$ cannot sneak arbitrarily close to zero.</p>
+
+<p><b>Step 5: amplification through the moment window.</b> Let $V = (y_s^{\,j})_{0 \le j &lt; h,\ 1 \le s \le h}$, the Vandermonde matrix of the $y_s$. Since $y_s - y_r = (\alpha_s - \alpha_r)/\ell_i$, Proposition G and equation (8) give
+$$(\det V)^2 = \prod_{r&lt;s} (y_s - y_r)^2 = \ell_i^{-h(h-1)}\, \Delta_h .$$
+As $\Delta_h \in K[X]\setminus\{0\}$, we get $0 \le v_i(\Delta_h) \le \deg \Delta_h \le dh(h-1)$; so $V$ is invertible and
+$$2\, v_i(\det V) = v_i(\Delta_h) - h(h-1) \quad\Longrightarrow\quad v_i(\det V) \le \tfrac12 (d-1)h(h-1) \le dh^2 .$$
+By (19) every entry of $V$ has $v_i \ge (h-1)(-D_0) \ge -hD_0$, so every cofactor (a sum of products of $h - 1$ entries) has $v_i \ge -h^2 D_0$, and the inverse $V^{-1} = \mathrm{adj}(V)/\det V$ satisfies
+$$v_i\big( (V^{-1})_{s,j} \big) \ \ge\ -h^2 D_0 - dh^2 \ \ge\ -U_h, \qquad U_h := h^2 D_0 + dh^2 + 1 \ \le\ 4N^{17}. \tag{21}$$
+Now choose the amplification exponent
+$$z = h\,U_h + 1;$$
+the required moments exist because $z + h - 1 \le 4N^{21} + N^4 \le 5N^{21} &lt; T = N^{30}$. Equation (18) at exponents $z, z+1, \dots, z+h-1$ reads, in matrix form,
+$$V \begin{pmatrix} y_1^{\,z} \\ \vdots \\ y_h^{\,z} \end{pmatrix} = \begin{pmatrix} \eta_{\tau,i,z} \\ \vdots \\ \eta_{\tau,i,z+h-1} \end{pmatrix},$$
+(the $j$-th row is $\sum_s y_s^{\,j}\, y_s^{\,z} = \sum_s y_s^{\,z+j}$). The right-hand entries are polynomials: $v_i \ge 0$. Applying $V^{-1}$ and the ultrametric inequality entrywise with (21):
+$$v_i\big( y_s^{\,z} \big) \ \ge\ -U_h \qquad (1 \le s \le h).$$
+But if $t_s &lt; 0$, then by (20)
+$$v_i\big( y_s^{\,z} \big) = z\, t_s \ \le\ -\frac{hU_h + 1}{h} \ =\ -U_h - \frac1h \ &lt;\ -U_h,$$
+a contradiction. Hence $t_s \ge 0$ for every root, i.e. $v_i(\alpha_s - \beta_i) = t_s + 1 \ge 1$, which is (16). <span class="qed">&#8718;</span></p></div>
+
+<figure><!--FIG:fig_newton12--><figcaption>The valuation windows of Lemma 12, for $t_s = v_i(y_s)$. Top line: the monic equation floors $t_s$ at $-D_0$ (Step 3), and the two-term-tie argument empties the interval $(-1/h,\, 0)$ (Step 4) &mdash; negative valuations are quantized. Bottom line: raising to the power $z = hU_h + 1$ stretches any surviving negative $t_s$ below $-U_h$ (red), while the moment window plus the $V^{-1}$ bound pins $v_i(y_s^z)$ at or above $-U_h$ (blue). The windows are disjoint, so $t_s \ge 0$: the root sits at distance of positive order from the committed bit $\beta_i$.</figcaption></figure>
+
+<p>Pause on what was just proved. The table $(C,\beta)$ was an arbitrary slice of a hostile low-weight solution &mdash; yet <i>every one</i> of its algebraic roots evaluates (in the residue sense of <a class="secref" href="#valuations">&sect;10.3</a>) to the committed bit $\beta_i$ at the anchor $a_i$, for every variable $i$ of the clause. The mechanism to remember: had the &ldquo;wrong bit&rdquo; been committed, the shifted moments would carry a hidden pole at the anchor (the secant picture of Fig.&nbsp;20); constraint (C4) forces them to be polynomials; and the amplification argument converts &ldquo;power sums are pole-free up to exponent $T$&rdquo; into &ldquo;each individual root is pole-free and lands on $\beta_i$&rdquo; &mdash; with the moment budget $T = N^{30}$ sized precisely so that the $z$-th-power window fits inside it.</p>

@@ -1,0 +1,51 @@
+<hr>
+<h2 id="soundness">11. Soundness I: support sets, Markov discard, and per-table root sets</h2>
+
+<p>We return to the binary system (3) and begin the hard direction. <b>Standing assumption for &sect;11&ndash;&sect;13:</b> $x \in \mathbb{F}_2^M$ is <i>any</i> solution of $Hx = b$ with
+$$\mathrm{wt}(x) \;\le\; 4 M^{1/200} R, \qquad R = (\ell+1)\lvert P\rvert.$$
+No structure whatsoever is assumed beyond the constraints: fibers may hold many bits, tables may be nonsense. The goal, reached in Proposition 14, is to extract a satisfying assignment of $\varphi$ anyway.</p>
+
+<h3 id="s11-markov">11.1 Support sets and the Markov discard</h3>
+
+<p>Recall the support sets $S_\tau(p) = \{w \in K : x_{\tau,p,w} = 1\}$. Every set bit of $x$ lives in exactly one fiber, so
+$$\sum_{\tau \in \Theta} \sum_{p \in P} \lvert S_\tau(p) \rvert = \mathrm{wt}(x) \le 4M^{1/200} R .$$
+To apply Lemma 10 we need <i>bounded</i> fibers, so for each table we keep only the evaluation points where the fiber is small:
+$$P_\tau := \{\, p \in P : \lvert S_\tau(p)\rvert \le K_{\mathrm{cap}} \,\}, \qquad K_{\mathrm{cap}} = N^4 .$$
+This is analysis-side bookkeeping only: the affine system and its moment polynomials remain indexed by the full $P$; nothing about the instance changes. How many points can a single table lose? A total mass of $\mathrm{wt}(x)$ spread over fibers allows at most $\mathrm{wt}(x)/K_{\mathrm{cap}}$ fibers of size exceeding $K_{\mathrm{cap}}$ &mdash; Markov's inequality in its most elementary form (Fig.&nbsp;31). Quantitatively, using $M \le 40N^{401}$ from (4) and $R = (\ell+1)(q-m) \le Nq$:
+$$\lvert P \setminus P_\tau \rvert \;\le\; \frac{1}{K_{\mathrm{cap}}} \sum_{p} \lvert S_\tau(p)\rvert
+\;\le\; \frac{4M^{1/200}R}{N^4}
+\;\le\; 4 \cdot 40^{1/200}\, q\, N^{401/200 - 3}
+\;=\; 4 \cdot 40^{1/200}\, q\, N^{-199/200}
+\;&lt;\; \frac{q}{20}$$
+for $N \ge 100$ (at $N = 100$ the middle quantity is $\approx 0.042\,q$; the inequality is verified exactly, without floating point, in <a class="secref" href="#validation">&sect;17</a>). Hence every table retains most of the evaluation set:
+$$\lvert P_\tau \rvert \;&gt;\; \lvert P \rvert - \frac{q}{20} \qquad (\tau \in \Theta). \tag{13}$$
+The parameter choices also give the two workhorse estimates
+$$\lvert P\rvert - \frac{q}{20} - N^9 \;&gt;\; \frac{q}{2}, \qquad\qquad \frac{q}{2} \;&gt;\; 2N^{39}, \tag{14}$$
+using $\lvert P\rvert = q - m$, $m \le N$, $q \ge N^{200}$. Note the different tables' retained sets $P_\tau$ may differ; no common retained set is ever needed.</p>
+
+<figure><!--FIG:fig_markov--><figcaption>The Markov discard, per table. Bars: fiber sizes $\lvert S_\tau(p)\rvert$ across the evaluation points (schematic data). The solution's total weight bounds the shaded area, so at most $\mathrm{wt}(x)/K_{\mathrm{cap}} &lt; q/20$ fibers can poke above the cap $K_{\mathrm{cap}} = N^4$ (dashed). Crossing those out leaves a retained set $P_\tau$ containing all but a $5\%$ sliver of the $\approx q$ evaluation points &mdash; separately for each of the $\lvert\Theta\rvert$ tables.</figcaption></figure>
+
+<h3 id="s11-apply">11.2 Each table becomes a root set</h3>
+
+<p>Fix $\tau \in \Theta$. Constraint (C3) holds on the <i>full</i> evaluation set: for each $0 \le j \le T$ the moment vector lies in $\mathrm{RS}(P, dj)$, so there is a unique polynomial $\mu_{\tau,j}(X)$, $\deg \le dj$, with
+$$\mu_{\tau,j}(p) = \sum_{w \in S_\tau(p)} w^j \qquad (p \in P).$$
+Restricting attention to $P_\tau \subseteq P$ keeps the same polynomials and verifies condition (M2) of Definition 9 for the family $\mathcal{S}_\tau := (S_\tau(p))_{p \in P_\tau}$; condition (M1) holds by the very definition of $P_\tau$. The numerical hypotheses of Lemma 10 (on the ground set $P_\tau$) hold with room to spare:
+$$T = N^{30} \ \ge\ 2N^4 - 1 = 2K_{\mathrm{cap}} - 1,$$
+$$\lvert P_\tau\rvert - dK_{\mathrm{cap}}(K_{\mathrm{cap}}-1) \;\overset{(13)}{&gt;}\; \lvert P\rvert - \frac{q}{20} - N^9 \;\overset{(14)}{&gt;}\; \frac{q}{2} \;\overset{(14)}{&gt;}\; 2N^{39} \;\ge\; 2dK_{\mathrm{cap}}^2 T,$$
+$$dT \le N^{31} &lt; \frac q2 &lt; \lvert P_\tau \rvert$$
+(using $d = m \le N$, $dK_{\mathrm{cap}}(K_{\mathrm{cap}}-1) &lt; N\cdot N^8 = N^9$, and $2dK_{\mathrm{cap}}^2T \le 2N\cdot N^8 \cdot N^{30} = 2N^{39}$). So $\mathcal{S}_\tau$ is a $(d, T, K_{\mathrm{cap}})$-bounded polynomial-moment family on $P_\tau$, and Lemma 10 applies <i>separately to each table</i>, yielding a monic separable
+$$G_\tau(Y) \in F[Y], \qquad h_\tau = \deg_Y G_\tau = \max_{p\in P_\tau} \lvert S_\tau(p)\rvert \le K_{\mathrm{cap}} .$$
+By Lemma 3 there is one finite separable extension $E/F$ in which <i>all</i> the polynomials $G_\tau$ ($\tau \in \Theta$) split; fix it once and for all and write
+$$R_\tau = \{\, \alpha \in E : G_\tau(\alpha) = 0 \,\},$$
+a set of exactly $h_\tau$ distinct elements &mdash; the <b>root set</b> of table $\tau$ ($R_0$ for the global table, $R_{(C,\beta)}$ for clause subtypes). Lemma 10(i) turns each table's moment polynomials into power sums of its roots:
+$$\mu_{\tau, j}(X) \;=\; \sum_{\alpha \in R_\tau} \alpha^{j} \qquad (\tau \in \Theta,\ 0 \le j \le T). \tag{15}$$
+Keep the logic straight: the polynomials $\mu_{\tau,j}$ come from constraints on all of $P$; only the <i>application of Lemma 10</i> used the trimmed sets $P_\tau$, and the conclusion (15) is an identity in $K(X)$, free of any evaluation set.</p>
+
+<h3 id="s11-cor11">11.3 The global table is nonempty</h3>
+
+<div class="lem"><b>Corollary 11.</b> The global root set $R_0$ is nonempty (indeed $\lvert R_0\rvert$ is odd).</div>
+<div class="proof">Constraint (C1) says every global fiber has odd parity: $\mu_{0,0}(p) = 1$ for all $p \in P$. The constant polynomial $1$ interpolates, so $\mu_{0,0} = 1$ identically. Now (15) at $\tau = 0$, $j = 0$ reads
+$$1 = \sum_{\alpha \in R_0} \alpha^0 = \lvert R_0 \rvert \cdot 1_K \quad\text{in } K,$$
+which in characteristic two says exactly that $\lvert R_0\rvert$ is odd &mdash; in particular positive. <span class="qed">&#8718;</span></div>
+
+<p>This is constraint (C1) doing precisely the job it was hired for: parity is the only aspect of &ldquo;fiber size&rdquo; that characteristic two can see, and oddness is the property that survives into the root count. The elements of $R_0$ are the candidates for &ldquo;the assignment polynomial hiding inside the solution&rdquo; &mdash; except they are algebraic functions now, not polynomials, and nothing yet connects them to clauses. That is the work of the next two sections.</p>

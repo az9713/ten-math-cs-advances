@@ -1,0 +1,81 @@
+<h2 id="conjectures">2. The two conjectures, and the two theorems that kill them</h2>
+
+<h3 id="compactness">2.1 Compactness: is a family only as strong as one member?</h3>
+
+<p>Forbidding a finite family $\mathcal F$ is at least as restrictive as forbidding any single member $F \in \mathcal F$, so trivially $\mathrm{ex}(n,\mathcal F) \le \mathrm{ex}(n,F)$ for every member. Erd&#337;s and Simonovits conjectured in 1982 [ES82] that this is essentially the <i>only</i> effect: the extremal number of a finite family should be, up to a constant factor, the extremal number of one of its members. As stated, that is false for cheap reasons, and the cheap reason is instructive. Consider the folklore pair $\{K_{1,2},\, 2K_2\}$, where $K_{1,2}$ is the two-edge star (one center, two leaves &mdash; a cherry from <a class="secref" href="#exnum">&sect;1</a>) and $2K_2$ is two disjoint edges (Fig. 5).</p>
+
+<div class="prop"><b>Proposition D (the folklore correction-forcer).</b> For $n \ge 4$:
+$$\mathrm{ex}\bigl(n, \{K_{1,2},\, 2K_2\}\bigr) = 1, \qquad \mathrm{ex}(n, K_{1,2}) = \lfloor n/2 \rfloor, \qquad \mathrm{ex}(n, 2K_2) = n-1.$$</div>
+
+<div class="proof">
+<p>Any two distinct edges either share a vertex (forming $K_{1,2}$) or are disjoint (forming $2K_2$); so a graph avoiding both patterns has at most one edge, and one edge is fine. A $K_{1,2}$-free graph is exactly one with all degrees $\le 1$, i.e. a <i>matching</i>, with at most $\lfloor n/2\rfloor$ edges (achieved). A $2K_2$-free graph $G$ has every two edges sharing a vertex. If $G$ contains a triangle $\{a,b,c\}$: any edge with an endpoint outside $\{a,b,c\}$ misses one of the triangle's three edges entirely, giving $2K_2$; so all edges live on $\{a,b,c\}$, at most $3 \le n-1$ of them. If $G$ is triangle-free with two edges $e_1 \neq e_2$, they share exactly one vertex, say $e_1 = uv$, $e_2 = ux$; any further edge must meet both $e_1$ and $e_2$, hence (barring the triangle edge $vx$) must pass through the shared vertex $u$. So $G$ is a subgraph of a star: at most $n-1$ edges, and the star $K_{1,n-1}$ (one center joined to all others) achieves this. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 200" width="100%" role="img" aria-label="The folklore family K12 and 2K2 with their extremal graphs">
+  <!-- K_{1,2} -->
+  <g stroke="#c0392b" stroke-width="2.2"><line x1="40" y1="90" x2="80" y2="45"/><line x1="80" y1="45" x2="120" y2="90"/></g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.4"><circle cx="40" cy="90" r="6"/><circle cx="80" cy="45" r="6"/><circle cx="120" cy="90" r="6"/></g>
+  <text x="48" y="120" font-size="12" fill="#c0392b">K&#8321;,&#8322;</text>
+  <!-- 2K2 -->
+  <g stroke="#2e6da4" stroke-width="2.2"><line x1="180" y1="50" x2="240" y2="50"/><line x1="180" y1="95" x2="240" y2="95"/></g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.4"><circle cx="180" cy="50" r="6"/><circle cx="240" cy="50" r="6"/><circle cx="180" cy="95" r="6"/><circle cx="240" cy="95" r="6"/></g>
+  <text x="192" y="125" font-size="12" fill="#2e6da4">2K&#8322;</text>
+  <!-- extremal for K12: matching -->
+  <g stroke="#555" stroke-width="2"><line x1="310" y1="42" x2="350" y2="42"/><line x1="310" y1="72" x2="350" y2="72"/><line x1="310" y1="102" x2="350" y2="102"/></g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.3"><circle cx="310" cy="42" r="5"/><circle cx="350" cy="42" r="5"/><circle cx="310" cy="72" r="5"/><circle cx="350" cy="72" r="5"/><circle cx="310" cy="102" r="5"/><circle cx="350" cy="102" r="5"/></g>
+  <text x="290" y="128" font-size="11" fill="#555">matching: &#8970;n/2&#8971; edges,</text>
+  <text x="290" y="143" font-size="11" fill="#555">K&#8321;,&#8322;-free</text>
+  <!-- extremal for 2K2: star -->
+  <g stroke="#555" stroke-width="2">
+    <line x1="430" y1="72" x2="400" y2="38"/><line x1="430" y1="72" x2="460" y2="38"/><line x1="430" y1="72" x2="396" y2="80"/><line x1="430" y1="72" x2="464" y2="80"/><line x1="430" y1="72" x2="414" y2="108"/><line x1="430" y1="72" x2="446" y2="108"/>
+  </g>
+  <g fill="#f6f4ef" stroke="#1a1a1a" stroke-width="1.3"><circle cx="400" cy="38" r="5"/><circle cx="460" cy="38" r="5"/><circle cx="396" cy="80" r="5"/><circle cx="464" cy="80" r="5"/><circle cx="414" cy="108" r="5"/><circle cx="446" cy="108" r="5"/></g>
+  <circle cx="430" cy="72" r="6" fill="#555"/>
+  <text x="398" y="132" font-size="11" fill="#555">star: n&#8722;1 edges,</text>
+  <text x="398" y="147" font-size="11" fill="#555">2K&#8322;-free</text>
+  <text x="34" y="178" font-size="12" fill="#7a1f1f">but avoiding BOTH: at most one edge &mdash; the family is drastically stronger than each member</text>
+</svg><figcaption><b>Why the compactness conjecture needs a hypothesis.</b> The star avoids $2K_2$ with $n-1$ edges and the matching avoids $K_{1,2}$ with $\lfloor n/2\rfloor$ edges, but every two edges form one pattern or the other &mdash; so avoiding the pair caps the graph at a single edge (Proposition D). Both patterns here are <i>forests</i> (acyclic); the corrected conjecture bars exactly this trick by demanding a cycle in every member.</figcaption></figure>
+
+<p>The two members of the folklore family are forests, and forests have linear extremal numbers &mdash; the collapse from $\Theta(n)$ to $\Theta(1)$ is a boundary pathology of acyclic patterns. The corrected conjecture, the form the field believed (see Wigderson's note [Wig] for the history), excludes it:</p>
+
+<div class="def"><b>The compactness conjecture (corrected form).</b> For every finite nonempty family $\mathcal F$ of graphs, <i>all of whose members contain cycles</i>, there exist $F \in \mathcal F$ and $C \gt 0$ such that
+$$\mathrm{ex}(n, \mathcal F) \;\ge\; \tfrac1C\, \mathrm{ex}(n, F) \qquad \text{for all sufficiently large } n. \tag{1}$$</div>
+
+<p class="small">Context: Conlon, Mulrenin, and Pohoata [CMP26] recently disproved a stronger host-graph analog for even cycles conjectured by Verstra&euml;te, but their examples leave (1) untouched. The chapter kills (1) itself &mdash; and does so even with every member connected and bipartite, the hardest regime, where extremal numbers are genuinely polynomial mysteries rather than quadratic ones.</p>
+
+<div class="keyresult"><b>Theorem 1.1 (failure of compactness &mdash; proved in <a class="secref" href="#thm11">&sect;6</a>).</b> There exists a finite nonempty family $\mathcal F$ of connected bipartite graphs, every member containing a cycle, such that, with $\varepsilon = 1/48$:
+$$\boxed{\;\mathrm{ex}(n, \mathcal F) = O\bigl(n^{4/3-\varepsilon}\bigr) \quad\text{while}\quad \mathrm{ex}(n, F) = \Omega\bigl(n^{4/3}\bigr) \ \text{ for every } F \in \mathcal F.\;}\tag{2}$$
+In particular no member of $\mathcal F$ satisfies (1): the family ban is polynomially stronger than every individual ban.</div>
+
+<h3 id="degeneracy">2.2 Degeneracy: are sparse-everywhere patterns cheap to force?</h3>
+
+<div class="def"><b>Definition ($r$-degenerate).</b> A graph $H$ is <b>$r$-degenerate</b> if every nonempty subgraph of $H$ contains a vertex of degree at most $r$ (degree measured inside that subgraph). Equivalently &mdash; peel vertices of degree $\le r$ one at a time; $r$-degeneracy says the peeling never gets stuck, so reversing it builds $H$ by adding vertices each joined to at most $r$ existing ones. Trees are 1-degenerate; planar graphs are 5-degenerate; $K_{r+1}$ is $r$-degenerate but not $(r-1)$-degenerate.</div>
+
+<p>Degenerate patterns are sparse at every scale: an $r$-degenerate graph on $v$ vertices has at most $rv$ edges, and so does its every subgraph. Erd&#337;s conjectured in 1967 [Erd67] that this hereditary sparsity makes them cheap to force:</p>
+
+<div class="def"><b>The degeneracy conjecture.</b> Every fixed bipartite $r$-degenerate graph $H$ satisfies
+$$\mathrm{ex}(n, H) \;=\; O\bigl(n^{2 - 1/r}\bigr). \tag{3}$$</div>
+
+<p>For $r = 2$ this predicts $O(n^{3/2})$ &mdash; every bipartite 2-degenerate pattern would be no harder to force than the four-cycle of <a class="secref" href="#exnum">&sect;1</a>. The conjecture had real evidence behind it:</p>
+
+<div class="tablewrap"><table>
+<tr><th>Status</th><th>Statement</th><th>Source</th></tr>
+<tr><td>general bound</td><td>$\mathrm{ex}(n,H) = O(n^{2-1/(4r)})$ for all bipartite $r$-degenerate $H$ &mdash; the exponent gain is real, just four times too small</td><td>Alon&ndash;Krivelevich&ndash;Sudakov [AKS03]</td></tr>
+<tr><td>proved cases</td><td>(3) holds when one bipartition class of $H$ has maximum degree $\le r$</td><td>[Fur91, AKS03]</td></tr>
+<tr><td>proved cases</td><td>(3) holds for $r$-degenerate blow-ups of trees</td><td>[GJN22]</td></tr>
+<tr><td>proved cases ($r=2$)</td><td>(3) holds for grids and certain critical 2-degenerate graphs</td><td>[BJST23, DGL25]</td></tr>
+<tr><td>related, disproved</td><td>Erd&#337;s [Erd81] also conjectured: $H$ bipartite is 2-degenerate <i>iff</i> $\mathrm{ex}(n,H) = O(n^{3/2})$. Janzer [Jan23] killed the &ldquo;$\Leftarrow$&rdquo; direction: 3-regular bipartite $H$ (not 2-degenerate) with $\mathrm{ex}(n,H) = O(n^{4/3+\eta})$</td><td>[Erd81, Jan23]</td></tr>
+<tr><td><b>this chapter</b></td><td>the &ldquo;$\Rightarrow$&rdquo; direction &mdash; which is (3) at $r=2$ &mdash; is <b>false</b></td><td>Theorem 1.2</td></tr>
+</table></div>
+
+<div class="keyresult"><b>Theorem 1.2 (failure of the 2-degenerate bound &mdash; proved in <a class="secref" href="#finish">&sect;11</a>).</b> There exist a fixed connected bipartite 2-degenerate graph $H$ and constants $c, \varepsilon \gt 0$ such that
+$$\boxed{\;\mathrm{ex}(n, H) \;\ge\; c\, n^{3/2 + \varepsilon}\;}$$
+for all sufficiently large $n$.</div>
+
+<p>Two remarks calibrate the statement. First, <i>fixed</i> means fixed: $H$ does not grow with $n$. It will turn out to be a gigantic but concrete graph (a tower-of-exponentials number of vertices &mdash; <a class="secref" href="#finish">&sect;11</a> computes just how gigantic), and the theorem's constants depend on it; but for each $n$ the same $H$ is avoided by some $n$-vertex graph with $n^{3/2+\varepsilon}$ edges. Second, the $\varepsilon$ the proof yields is small &mdash; the method caps it near $0.0178$ (<a class="secref" href="#finish">&sect;11</a>, computed) &mdash; but any $\varepsilon \gt 0$ refutes (3), which demanded $O(n^{3/2})$.</p>
+
+<h3 id="strategy">2.3 The two proof strategies at a glance</h3>
+
+<p><b>For Theorem 1.1</b> the family $\mathcal F$ consists of $C_4$, $C_6$, and all &ldquo;admissible quotients&rdquo; of two fixed templates built from subdivided complete bipartite graphs (<a class="secref" href="#family">&sect;3</a>; the design is in the spirit of the rooted-power constructions of Bukh&ndash;Conlon [BC18]). The upper bound $\mathrm{ex}(n,\mathcal F) = O(n^{21/16})$ comes from counting short paths in a graph avoiding the family (<a class="secref" href="#upper">&sect;4</a>) &mdash; note $21/16 = 4/3 - 1/48$, the source of the $\varepsilon$. The lower bound $\mathrm{ex}(n,F) = \Omega(n^{4/3})$ for each <i>individual</i> $F$ comes from incidence graphs of generalized quadrangles over $\mathbb F_q$ (<a class="secref" href="#quadrangle">&sect;5</a>) &mdash; with the crucial twist that <i>the characteristic of the field is chosen per member</i>: quadrangles over $\mathbb F_{2^j}$ dodge one template's quotients, quadrangles over $\mathbb F_{3^j}$ dodge the other's, and no graph needs to dodge both.</p>
+
+<p><b>For Theorem 1.2</b> the pattern $H$ is built in layers, with a vertex for every <i>pair</i> of vertices in the preceding layer &mdash; maximally 2-degenerate, in a sense (<a class="secref" href="#layered">&sect;7</a>; related to the complete degenerate graphs of [GJN22]). The record-breaking host is random: keep each vertex of a Hamming-distance graph on $\{0,1\}^m$ independently with probability $2^{-\beta m}$ (<a class="secref" href="#host">&sect;9</a>). An embedded copy of $H$ would have to pump a bounded <i>entropy potential</i> up by a fixed amount at every layer (<a class="secref" href="#entropy">&sect;8</a>&ndash;<a class="secref" href="#exclusion">&sect;10</a>) &mdash; impossible with enough layers &mdash; while a second-moment argument shows the host keeps $\Omega(n^{3/2+\varepsilon})$ edges (<a class="secref" href="#finish">&sect;11</a>). The two halves of the chapter share no machinery; what they share is the lesson that both structural beliefs failed.</p>

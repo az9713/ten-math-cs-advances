@@ -1,0 +1,68 @@
+<hr>
+<h2 id="constraints">7. The moment constraints, completeness (Lemma 8), and the parameters</h2>
+
+<p>The tables of <a class="secref" href="#encoding">&sect;6</a> are so far unconstrained bits. This section writes down the four families of <i>binary-linear</i> conditions that tie them to a single low-degree polynomial, proves the easy direction of the reduction, and fixes all numerical parameters.</p>
+
+<h3 id="s7-moments">7.1 Ordinary and shifted moments</h3>
+
+<p>Fix a <b>moment budget</b> $T \ge 0$ with $dT &lt; \lvert P \rvert$ (recall $d = m$). For a table $\tau$, a point $p \in P$, and $0 \le j \le T$, define the <b>ordinary moment</b>
+$$\mu_{\tau, j}(p) \;=\; \sum_{w \in K} x_{\tau,p,w}\, w^j \;=\; \sum_{w \in S_\tau(p)} w^j ,$$
+the $j$-th power sum of the fiber's support, with the convention $w^0 = 1$ for every $w$ including $w = 0$ (so $\mu_{\tau,0}(p)$ is the support's size <i>reduced mod 2</i> &mdash; characteristic two sees only the parity). For a clause subtype $\tau = (C,\beta)$ and a variable index $i \in I_C$, define the <b>shifted moment</b>
+$$\eta_{(C,\beta), i, j}(p) \;=\; \sum_{w \in K} x_{(C,\beta),p,w} \left( \frac{w - \beta_i}{p - a_i} \right)^{\!j},$$
+whose denominator is nonzero because $p \in P$ avoids the anchors.</p>
+
+<p>Why these quantities? Check them against the intended solution. If the fiber support is exactly $\{Q_\sigma(p)\}$, then $\mu_{\tau,j}(p) = Q_\sigma(p)^j$: as $p$ varies, these are the evaluations of the polynomial $Q_\sigma(X)^j$ of degree $\le (m-1) j \le dj$ &mdash; a Reed&ndash;Solomon codeword of degree $dj$. For the shifted moments, suppose the table's committed bit matches the assignment: $\beta_i = \sigma_i$. Then $Q_\sigma(a_i) = \beta_i$, so the factor theorem (inside Proposition D's proof) makes the difference quotient a genuine polynomial:
+$$\frac{Q_\sigma(X) - \beta_i}{X - a_i} \in K[X], \qquad \text{degree} \le m - 2 \ \ (m \ge 2; \text{ zero if } m = 1),$$
+and the active shifted moments are evaluations of its $j$-th power &mdash; a codeword of degree $\le (d-1)j$. The degree <i>drops</i>. If instead $\beta_i \ne \sigma_i$, the quotient is not a polynomial at all: it has a pole at the anchor. Fig.&nbsp;20 shows the real-line analogy: shifted moments are secant slopes through the anchor point $(a_i, \beta_i)$, and the slope function is polynomial exactly when the curve really passes through that point. This dichotomy &mdash; degree drop versus hidden pole &mdash; is the seed of the entire soundness argument: <a class="secref" href="#extraction">&sect;12</a> will detect the pole with valuations even after the fibers have been scrambled into unordered sets.</p>
+
+<figure><!--FIG:fig_secant--><figcaption>Real-line analogy for the shifted moments (C4). Left: secants from the anchor $(a_i, \beta_i)$ to points $(p, Q(p))$ on the curve; the animation sweeps $p$. Right: the secant slopes as a function of $p$ form a curve of one degree lower &mdash; when the anchor lies on the curve. If it does not, the slope function blows up at $a_i$: a pole, invisible on $P$ (which excludes $a_i$) but detectable by valuations. Over $\mathbb{F}_q$ the pictures are analogies; the algebra (factor theorem) is exact.</figcaption></figure>
+
+<h3 id="s7-c1c4">7.2 The four constraint families</h3>
+
+<p>Impose the following conditions on the bits $x = (x_{\tau,p,w})$; Fig.&nbsp;19 locates each on the tables.</p>
+
+<div class="def"><b>The constraint system.</b>
+<ul>
+<li><b>(C1)</b> For every $p \in P$: $\;\displaystyle\sum_{w\in K} x_{0,p,w} = 1$ in $\mathbb{F}_2$ &mdash; every global fiber has odd support size (in particular, nonempty).</li>
+<li><b>(C2)</b> For every clause $C$, $p \in P$, $w \in K$: $\;\displaystyle x_{0,p,w} = \sum_{\beta \in B_C} x_{(C,\beta),p,w}$ in $\mathbb{F}_2$ &mdash; fiber by fiber, the clause subtypes reproduce the global table mod 2.</li>
+<li><b>(C3)</b> For every $\tau \in \Theta$ and $0 \le j \le T$: $\;\big(\mu_{\tau,j}(p)\big)_{p\in P} \in \mathrm{RS}(P,\, dj)$.</li>
+<li><b>(C4)</b> For every $\tau = (C,\beta)$, $i \in I_C$, $0 \le j \le T$: $\;\big(\eta_{\tau,i,j}(p)\big)_{p\in P} \in \mathrm{RS}(P,\, (d-1)j)$.</li>
+</ul>
+</div>
+
+<p>Condition (C4), together with $(d-1)j \le dT &lt; \lvert P\rvert$ and Reed&ndash;Solomon uniqueness (Proposition D), determines a unique interpolating polynomial for each shifted-moment vector:
+$$\eta_{\tau,i,j}(X) \in K[X], \qquad \deg \eta_{\tau,i,j} \le (d-1)j, \qquad \eta_{\tau,i,j}(p) = \sum_{w\in K} x_{\tau,p,w}\Big(\tfrac{w-\beta_i}{p-a_i}\Big)^{j} \quad (p \in P). \tag{2}$$
+Likewise (C3) determines unique moment polynomials $\mu_{\tau,j}(X)$ of degree $\le dj$. We use the same symbols for the vectors and their interpolants; context disambiguates.</p>
+
+<p>The crucial structural observation: <i>all four families are linear over $\mathbb{F}_2$ in the unknowns</i>. The moments look nonlinear &mdash; they contain powers $w^j$ &mdash; but $w$ is not an unknown: for each fixed triple $(\tau,p,w)$ the quantity $w^j$ (or $((w-\beta_i)/(p-a_i))^j$) is a <i>known field constant</i> multiplying the single unknown bit $x_{\tau,p,w}$. By <a class="secref" href="#fields">&sect;5</a>, membership in a Reed&ndash;Solomon code is a set of $K$-linear parity checks, and each expands into $e$ binary equations in a fixed $\mathbb{F}_2$-basis of $K$. Conditions (C1) and (C2) are already binary. Together the four families form one explicit binary affine system
+$$H x = b \qquad \text{over } \mathbb{F}_2, \tag{3}$$
+with $b$ collecting the constant sides (only (C1) contributes nonzero constants). This is the system whose minimum-weight solutions the rest of the chapter studies.</p>
+
+<figure><!--FIG:fig_constraints--><figcaption>The constraint system at a glance. (C1) forces odd fibers in the global table; (C2) ties each clause's subtypes to the global table, fiber by fiber; (C3) makes each table's power sums a low-degree codeword; (C4) does the same for anchor-shifted power sums with a strictly smaller degree bound. Every condition is $\mathbb{F}_2$-linear in the indicator bits: the toy instance compiles to $8949$ binary equations in $M = 3120$ unknowns.</figcaption></figure>
+
+<h3 id="s7-complete">7.3 Completeness</h3>
+
+<div class="lem"><b>Lemma 8 (satisfying assignments give low-weight solutions).</b> If $\varphi$ is satisfiable, system (3) has a binary solution of Hamming weight exactly
+$$R = (\ell + 1)\,\lvert P \rvert .$$
+</div>
+<div class="proof">Let $\sigma$ be a satisfying assignment with polynomial $Q_\sigma$. Populate the tables as intended: $x_{0,p,Q_\sigma(p)} = 1$ for every $p \in P$ (all other global bits zero); for each clause $C$, the restriction $\beta = \sigma|_{I_C}$ lies in $B_C$ because $\sigma$ satisfies $C$, and we set $x_{(C,\beta),p,Q_\sigma(p)} = 1$ for every $p$ (all other clause bits zero, including entire tables for the unselected subtypes).</p>
+<p>Check the constraints. <b>(C1)</b>: each global fiber has exactly one set bit &mdash; odd. <b>(C2)</b>: for each clause, exactly one subtype's fiber reproduces the global fiber, and the others are zero, so the mod-2 sum matches bit for bit. <b>(C3)</b>: an active table's $j$-th moments are $Q_\sigma(p)^j$, the evaluations of $Q_\sigma(X)^j$ with $\deg \le (m-1)j \le dj$; an inactive table's moments are identically zero, the evaluations of the zero polynomial. <b>(C4)</b>: an active subtype has $\beta_i = \sigma_i$, so the shifted moments are evaluations of $\big((Q_\sigma(X) - \sigma_i)/(X - a_i)\big)^j$, of degree $\le (m-2)j \le (d-1)j$ (and at $j = 0$ the constant $1$, degree $0$); inactive subtypes again contribute zero.</p>
+<p>Finally the weight: at each of the $\lvert P\rvert$ evaluation points, exactly $\ell + 1$ bits are set &mdash; one global, one per clause &mdash; giving $\mathrm{wt}(x) = (\ell+1)\lvert P\rvert = R$ (Fig.&nbsp;21). <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_weight--><figcaption>The completeness budget. The intended solution sets one bit per evaluation point in each of the $\ell + 1$ populated tables: $R = (\ell+1)\lvert P\rvert$, which is $3 \times 13 = 39$ for the toy and $\approx N q \approx N^{201}$ at real scale. Note the yardstick: $R$ is what &ldquo;honest&rdquo; solutions weigh, and soundness will show that anything under $4M^{1/200} R$ is already honest enough to decode.</figcaption></figure>
+
+<h3 id="s7-params">7.4 Parameter choices and encoding size</h3>
+
+<p>Now fix every dial. With $s$ the encoding length of $\varphi$, set
+$$N = 100 + s + m + \ell, \qquad d = m, \qquad K = N^4, \qquad T = N^{30}, \qquad c = \tfrac{1}{400},$$
+and let $e$ be the least integer with $2^e \ge N^{200}$, so that
+$$q = 2^e, \qquad N^{200} \le q &lt; 2N^{200}, \qquad K_{\text{field}} = \mathbb{F}_q$$
+(built deterministically by Proposition C; at $N = 100$, $e = 1329$). Here $K = N^4$ is the <i>fiber-size cap</i> used from &sect;9 onward &mdash; an unfortunate but faithful collision with the field's name, which we disambiguate by context exactly as the paper does. Since $q \ge N^{200} &gt; m$, distinct anchors exist, and
+$$\lvert P \rvert = q - m, \qquad dT \le N \cdot N^{30} = N^{31} &lt; q - m = \lvert P\rvert,$$
+so every Reed&ndash;Solomon degree bound above is strictly below the number of evaluation points, as required. The dimension of the system is
+$$M = \lvert\Theta\rvert\, \lvert P\rvert\, q \le (1 + 8\ell)\, q^2 \le 40 N^{401}, \tag{4}$$
+and counting equations &mdash; $\lvert P\rvert$ from (C1), $\ell \lvert P\rvert q$ from (C2), and at most $4\lvert\Theta\rvert (T{+}1) \lvert P\rvert e$ binary rows from all Reed&ndash;Solomon memberships in (C3)&ndash;(C4), using $\sum_C \lvert B_C\rvert\, \lvert I_C\rvert \le 3(\lvert\Theta\rvert - 1)$ &mdash; gives
+$$\#\text{rows} \;=\; O(N^{401}). \tag{5}$$
+So the dense binary description of $(H, b)$ occupies $O(N^{802})$ bits: enormous, but a <i>fixed</i> polynomial in the input size, and every entry is computable by field arithmetic and Gaussian elimination in deterministic polynomial time. Fig.&nbsp;22 collects the dials and what each inequality buys; each is re-verified with exact integers in <a class="secref" href="#validation">&sect;17</a>.</p>
+
+<figure><!--FIG:fig_params--><figcaption>The parameter dashboard. Left: the five dials, from the master size $N$ to the lattice rank $M$. Right: the inequalities they must satisfy, each tagged with the proof step that consumes it. The design principle: $q \approx N^{200}$ dwarfs every polynomial-in-$N$ loss the soundness argument incurs ($N^{31}$, $N^{39}$, $5N^{21}$, $q/20$&hellip;), so all budgets clear with orders of magnitude to spare.</figcaption></figure>

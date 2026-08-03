@@ -1,0 +1,69 @@
+<hr>
+
+<h2 id="budget">13. Proof III: the entropy budget and postselection stability (Lemmas 4.5&ndash;4.7)</h2>
+
+<p>This section proves the two state inequalities (8) of Lemma 3.3 &mdash; the quantum heart of the chapter, and the place where the factor $p$ cancels exactly.</p>
+
+<h3 id="s13-reduction">13.1 From normalized states to unnormalized reveal costs</h3>
+
+<p>The targets are posterior averages of <i>normalized</i>-state distances. On every positive-posterior branch, Bayes' rule gives the exact posterior weight from the ingredients of <a class="secref" href="#s11-forward">&sect;11.2</a>:
+$$\mathcal{Q}(i,t,z,x,y) \;=\; \mathcal{P}_0(i,t,x,y)\;\mathbf{1}_{W_D}(t,z)\;\frac{\|\phi_{r,x,y}\|^2}{p}, \tag{29}$$
+since given the questions and history the word $Z=z$ appears with probability $p_r(x,y) = \|\phi_{r,x,y}\|^2$ (equation (4)), the acceptance $W_D$ is decided by $(t,z)$, and conditioning divides by $p = \mathcal{P}(W_D)$. Now apply normalization stability (<a class="secref" href="#prop-normalize">Proposition C</a>) with $u = \phi_{r,x,y}$ and $v = \phi^B_{r,y}$:
+$$\big\|\Psi_{r,x,y}-\Psi^B_{r,y}\big\|^2 \;\le\; \frac{4\,\|\phi_{r,x,y}-\phi^B_{r,y}\|^2}{\|\phi_{r,x,y}\|^2}.$$
+The denominator $\|\phi_{r,x,y}\|^2$ is <i>exactly</i> the factor carried by the posterior weight (29) &mdash; so in the posterior expectation the two cancel branchwise, leaving the prior-weighted, <b>unnormalized</b> quantity
+$$I_A \;:=\; \mathbb{E}_{(i,t,x,y)\sim\mathcal{P}_0}\ \sum_{z:\ \mathbf{1}_{W_D}(t,z)=1} \big\|\phi_{r,x,y}-\phi^B_{r,y}\big\|^2
+= \mathbb{E}_{\mathcal{P}_0}\sum_{z\ \mathrm{accepted}}\Big\|\big(\Gamma(H_{r,x})-\Gamma(\bar H_{r,y})\big)\otimes\Gamma(K_{r,y})\,|\psi\rangle\Big\|^2 ,$$
+and its mirror
+$$I_B \;:=\; \mathbb{E}_{(i,t,x,y)\sim\mathcal{P}_0}\ \sum_{z:\ \mathbf{1}_{W_D}(t,z)=1} \big\|\phi_{r,x,y}-\phi^A_{r,x}\big\|^2 ,$$
+with the bookkeeping
+$$\mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\big\|\Psi_{r,x,y}-\Psi^B_{r,y}\big\|^2 \;\le\; \frac4p\,I_A,
+\qquad
+\mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\big\|\Psi_{r,x,y}-\Psi^A_{r,x}\big\|^2 \;\le\; \frac4p\,I_B. \tag{30}$$
+Naming: $I_A$ is the <b>Alice-reveal cost</b> &mdash; the operator that changes in it is Alice's effect ($H_{r,x}$ versus its average $\bar H_{r,y}$), which by Lemma 4.1 is the live increment of the Alice-reveal martingale $(F_j)$; symmetrically $I_B$ pairs with the Bob-reveal martingale $(G_j)$. It remains to show $I_A, I_B \le 2p(\tau+s)/m$: note the factor $p$ <i>in the bound</i>, waiting for the $1/p$ of (30).</p>
+
+<h3 id="s13-budget">13.2 The accepted-word entropy budget (Lemma 4.5)</h3>
+
+<div class="lem" id="lem-45"><b>Lemma 4.5 (accepted-word entropy budget).</b> For any background information $U$ containing $X_D, Y_D$, let
+$$p_W(U) = \mathcal{P}(W_D\mid U), \qquad p_z(U) = \mathcal{P}(Z=z\mid U).$$
+Then the accepted words satisfy
+$$\sum_{z:\ \mathbf{1}_{W_D}(U,z)=1} H_1\big(p_z(U)\big) \;\le\; H_1\big(p_W(U)\big) + p_W(U)\,s, \tag{31}$$
+and consequently
+$$\mathbb{E}_{U\sim\mathcal{P}_0}\ \sum_{z:\ \mathbf{1}_{W_D}(U,z)=1} H_1\big(p_z(U)\big) \;\le\; p\,(\tau+s). \tag{32}$$
+</div>
+<div class="proof">(Chapter's Appendix A.5.) Since $U$ contains the core questions, acceptance of a word $z$ is determined by $(U,z)$, and the accepted words have total conditional probability $p_W(U)$ and number at most $|A^D\times B^D| = e^{s}$. The counting form of the log-sum inequality (<a class="secref" href="#s4-h1">&sect;4.3</a>) applied to their probabilities gives (31): $\sum H_1(p_z) \le H_1(\sum p_z) + (\sum p_z)\log(\text{count})$. For (32), average (31) over $U\sim\mathcal{P}_0$: the second term averages to $\mathbb{E}[p_W(U)]\,s = p\,s$, and for the first, concavity of $H_1$ with Jensen gives
+$$\mathbb{E}_U\,H_1\big(p_W(U)\big) \;\le\; H_1\big(\mathbb{E}_U\,p_W(U)\big) = H_1(p) = p\log(1/p) = p\,\tau. \qquad
+$$
+<span class="qed">&#8718;</span></div>
+
+<p>Pause on (32), because it <i>is</i> the postselection stability. The total entropy budget of all accepted branches is not merely finite &mdash; it is proportional to $p$. Rare acceptance events have proportionally small budgets: $H_1(p) = p\log(1/p)$, not $\log(1/p)$. The classical intuition "conditioning on a rare event costs $\log(1/p)$ bits" enters only <i>after</i> normalization; while everything stays unnormalized, the cost is $p$ times that. The proof keeps everything unnormalized until the final division by $p$ in (30) &mdash; where the two factors annihilate.</p>
+
+<h3 id="s13-align">13.3 Probability-weighted quantum alignment (Lemma 4.6)</h3>
+
+<div class="lem" id="lem-46"><b>Lemma 4.6 (probability-weighted quantum alignment).</b> $\;I_A,\ I_B \;\le\; \dfrac{2\,p\,(\tau+s)}{m}$.</div>
+
+<div class="proof"><p>Consider $I_A$ and the Alice-reveal reverse construction of Lemma 4.1. Fix a partition $M = L_X\sqcup L_Y^+$ with $N = |L_Y^+|\gt0$, the orders, the cut $k_X$, and the background $U$ of (21) (which contains $X_D, Y_D$ as required); fix also an answer word $z$. Conditional on $U$, the word's prior probability is $p_z(U) = \mathcal{P}(Z=z\mid U) = \langle\psi|F_0\otimes K|\psi\rangle$ with $F_0, K$ from (22) &mdash; the $j=0$ prediction and the frozen Bob effect. The cut $k_Y$ is uniform on $\{0,\dots,N-1\}$ and independent, so Lemma 4.4 (conditional version, $N$ steps, $p_0 = p_z(U)$) bounds the live increment:
+$$\mathbb{E}\Big[\big\|\big(\Gamma(F_{k_Y+1})-\Gamma(F_{k_Y})\big)\otimes\Gamma(K)\,|\psi\rangle\big\|^2 \;\Big|\; U\Big] \;\le\; \frac{H_1\big(p_z(U)\big)}{N}.$$
+By the boundary identities (23), the vector inside is exactly $\phi_{r,X_i,Y_i}-\phi^B_{r,Y_i}$ &mdash; the summand of $I_A$. Sum over the accepted words $z$ (acceptance is $U$-measurable) and average over the residual randomness at fixed partition; by the budget (32), conditioned on the partition (legitimate, since the public randomness is independent of the game),
+$$\mathbb{E}_U \sum_{z\ \mathrm{accepted}} \frac{H_1(p_z(U))}{N} \;\le\; \frac{p\,(\tau+s)}{N}.$$
+</p>
+<p>Finally average over the size-biased partitions (Fig. 28):
+$$I_A \;\le\; \sum_{\substack{L_X\sqcup L_Y^+ = M\\ |L_Y^+| \gt 0}} \underbrace{2^{-m}\,\frac{2N}{m}}_{\text{partition weight}}\ \cdot\ \frac{p(\tau+s)}{N}
+\;=\; \frac{2\,p(\tau+s)}{m}\sum_{\substack{L_X\sqcup L_Y^+ = M\\ |L_Y^+|\gt0}} 2^{-m} \;\le\; \frac{2\,p(\tau+s)}{m},$$
+because the block size $N$ cancels between the size-biased weight and the uniform-step bound, and the remaining sum of fair-partition weights is $1 - 2^{-m}\le1$ (machine check <code>c16</code>). For $I_B$, run the mirror Bob-reveal martingale $(G_j)$ with Alice's effect $H_{r,X_i}$ frozen; its partition weight is $2^{-m}\,2|L_X^+|/m$, and the same cancellation gives the same bound. <span class="qed">&#8718;</span></p></div>
+
+<figure><!--FIG:fig_sizebias--><figcaption>The cancellation inside Lemma 4.6. The reverse description picks the live block with probability proportional to its size ($2N/m$), while the uniform-cut martingale bound charges $1/N$ per step. Their product is $2/m$ independent of the block, so summing over partitions costs nothing further, leaving $I_A, I_B\le 2p(\tau+s)/m$ &mdash; with the factor $p$ intact.</figcaption></figure>
+
+<h3 id="s13-final">13.4 The exact cancellation (Lemma 4.7)</h3>
+
+<div class="lem" id="lem-47"><b>Lemma 4.7 (postselection-stable normalized alignment).</b>
+$$\mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\big\|\Psi_{r,x,y}-\Psi^A_{r,x}\big\|^2 \;\le\; 8\eta,
+\qquad
+\mathbb{E}_{(i,r,x,y)\sim\mathcal{Q}}\big\|\Psi_{r,x,y}-\Psi^B_{r,y}\big\|^2 \;\le\; 8\eta.$$
+</div>
+<div class="proof">On tuples of zero posterior probability, complete any undefined normalized state by a fixed arbitrary unit vector; such branches contribute nothing to a posterior expectation. Combining the reduction (30) with Lemma 4.6:
+$$\frac4p\,I_A,\ \frac4p\,I_B \;\le\; \frac4p\cdot\frac{2p(\tau+s)}{m} \;=\; \frac{8(\tau+s)}{m} \;=\; 8\eta.$$
+The factor $p$ retained by the unnormalized entropy budget cancels the $1/p$ of the posterior weight &mdash; no inverse-postselection loss (Fig. 29). This proves both state inequalities (8) of Lemma 3.3. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_stability--><figcaption>The one-slide summary of why this proof achieves exponential decay. Left: bounding the conditioned experiment by "prior bound divided by $p$" explodes when $p\approx e^{-\gamma n}$. Right: this chapter's route &mdash; the unnormalized budget (Lemma 4.5) is itself proportional to $p$, and the division by $p$ in the posterior weight (29) cancels it identically, leaving $8\eta$ with no trace of $p$.</figcaption></figure>
+
+<p>The quantum half of Lemma 3.3 is done. What remains is its classical half &mdash; the total-variation bounds $d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_A), d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_B)\le\kappa$ &mdash; which is a purely classical argument about the history distributions, using the same reveal martingale in its classical incarnation.</p>

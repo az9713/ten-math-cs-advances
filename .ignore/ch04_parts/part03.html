@@ -1,0 +1,104 @@
+<h2 id="actingK">5. The acting group $K$: torsion-free, ICC, property (T)</h2>
+
+<p>The construction needs a countable group $K$ with four properties at once: property (T), the ICC property, <b>torsion-freeness</b> (crucial: it will make the torsion of $\Gamma_n$ an intrinsic invariant), and a surjection onto $Q = \mathrm{SL}_4(R)$ for the characteristic-two polynomial ring
+$$R = \mathbb F_2[t].$$
+The natural candidate $Q$ itself fails torsion-freeness (Remark below), so the chapter lifts to characteristic zero and imposes a congruence condition at the <i>different</i> prime $3$:
+$$K \;=\; \ker\Bigl( \mathrm{SL}_4(\mathbb Z[t]) \xrightarrow{\;g(t)\,\mapsto\, g(0)\ \mathrm{mod}\ 3\;} \mathrm{SL}_4(\mathbb F_3)\Bigr),$$
+the matrices over $\mathbb Z[t]$ whose constant term reduces to the identity mod $3$ (Fig. 8). Both $K$ and $Q$ are countable.</p>
+
+<figure><svg class="setupfig" viewBox="0 0 480 240" width="100%" role="img" aria-label="The congruence sandwich: K sits inside SL4(Z[t]) with finite index; reduction mod 2 maps K onto SL4(F2[t])">
+  <defs><marker id="c4arrK" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+  <rect x="150" y="26" width="180" height="44" rx="8" fill="none" stroke="#2e5a8a" stroke-width="1.5"/>
+  <text x="168" y="46" font-size="12.5" fill="#1a1a1a">SL&#8324;(&#8484;[t])</text>
+  <text x="168" y="62" font-size="10.5" fill="#555">property (T): Suslin + EJ</text>
+  <!-- left arrow: eval 0 mod 3 -->
+  <path d="M150,60 C90,80 70,110 70,140" stroke="#c0392b" stroke-width="1.6" fill="none" marker-end="url(#c4arrK)"/>
+  <text x="18" y="96" font-size="11" fill="#c0392b">g(t) &#8614; g(0) mod 3</text>
+  <rect x="30" y="146" width="110" height="38" rx="8" fill="none" stroke="#c0392b" stroke-width="1.4"/>
+  <text x="42" y="163" font-size="12" fill="#1a1a1a">SL&#8324;(&#120125;&#8323;)</text>
+  <text x="42" y="178" font-size="10.5" fill="#555">finite group</text>
+  <!-- K as kernel box -->
+  <rect x="185" y="100" width="110" height="44" rx="8" fill="#7da7d9" fill-opacity="0.2" stroke="#2e5a8a" stroke-width="1.8"/>
+  <text x="206" y="119" font-size="13" fill="#1a1a1a" font-weight="bold">K = kernel</text>
+  <text x="196" y="136" font-size="10.5" fill="#555">finite index &#8658; (T)</text>
+  <line x1="240" y1="70" x2="240" y2="96" stroke="#2e5a8a" stroke-width="1.4" marker-end="url(#c4arrK)"/>
+  <!-- right arrow: mod 2 -->
+  <path d="M295,130 C350,140 380,155 396,168" stroke="#2a7d2a" stroke-width="1.6" fill="none" marker-end="url(#c4arrK)"/>
+  <text x="330" y="126" font-size="11" fill="#2a7d2a">reduce mod 2 (onto!)</text>
+  <rect x="336" y="172" width="128" height="40" rx="8" fill="none" stroke="#2a7d2a" stroke-width="1.4"/>
+  <text x="348" y="189" font-size="12" fill="#1a1a1a">Q = SL&#8324;(&#120125;&#8322;[t])</text>
+  <text x="348" y="204" font-size="10.5" fill="#555">has 4-torsion; K does not</text>
+  <text x="24" y="228" font-size="12" fill="#7a1f1f">two primes, two jobs: 3 kills torsion (Minkowski), 2 delivers the characteristic-two action</text>
+</svg><figcaption><b>The congruence sandwich.</b> $K$ is the kernel of &ldquo;evaluate at $t = 0$, reduce mod $3$&rdquo; &mdash; a finite-index subgroup of $\mathrm{SL}_4(\mathbb Z[t])$, hence property (T); the congruence at $3$ makes it torsion-free (Lemma 3.2), while reduction mod $2$ still maps it <i>onto</i> $Q = \mathrm{SL}_4(\mathbb F_2[t])$, the group that actually moves the modules.</figcaption></figure>
+
+<p>Recall from the Chapter 3 explainer the elementary linear group: for a commutative ring $S$,
+$$\mathrm{EL}_n(S) = \bigl\langle I + fE_{ij} \;:\; f \in S,\ i \neq j \bigr\rangle \;\le\; \mathrm{SL}_n(S),$$
+where $E_{ij}$ is the $(i,j)$ matrix unit. Two imported theorems power the property-(T) claim:</p>
+
+<div class="note"><b>Import 3 (Suslin [Sus77, Cor. 6.6]).</b> For $n \ge 3$, $\;\mathrm{EL}_n(\mathbb Z[t]) = \mathrm{SL}_n(\mathbb Z[t])$: every determinant-one matrix over $\mathbb Z[t]$ is a product of elementary matrices. (This uses that $\mathbb Z$ is a regular ring of Krull dimension $1$ with $SK_1(\mathbb Z) = 0$; it is the polynomial-ring analogue of Gaussian elimination, and genuinely deep &mdash; over some rings it fails.)</div>
+
+<div class="note"><b>Import 2 (Ershov&ndash;Jaikin-Zapirain [EJ10, Thm. 1.1]).</b> For every finitely generated associative unital ring $S$ and $n \ge 3$, the group $\mathrm{EL}_n(S)$ has property (T). (The identical import, with the identical citation, served as Import 3 of the Chapter 3 explainer.)</div>
+
+<p>Combining: $\mathrm{SL}_4(\mathbb Z[t]) = \mathrm{EL}_4(\mathbb Z[t])$ has property (T).</p>
+
+<div class="prop"><b>Proposition 3.1.</b> $K$ has property (T).</div>
+
+<div class="proof"><p>The map $g(t) \mapsto g(0) \bmod 3$ is a group homomorphism into the finite group $\mathrm{SL}_4(\mathbb F_3)$, so its kernel $K$ has finite index in $\mathrm{SL}_4(\mathbb Z[t])$ (at most $|\mathrm{SL}_4(\mathbb F_3)|$ cosets). Property (T) passes to finite-index subgroups (Import 5). <span class="qed">&#8718;</span></p></div>
+
+<p>Next, torsion-freeness, in two layers: a classical congruence lemma at the prime $3$ handles constant terms, and a $t$-adic argument handles the rest (Fig. 9).</p>
+
+<div class="lem"><b>Lemma 3.2 (level-3 congruence lemma; Minkowski).</b> For every $d \ge 2$, the group $\ker\bigl(\mathrm{SL}_d(\mathbb Z) \to \mathrm{SL}_d(\mathbb F_3)\bigr)$ is torsion-free.</div>
+
+<div class="proof">
+<p>If the kernel had a nonidentity torsion element, it would have one of prime order $p$ (take a suitable power). Write it as $A = I + 3^r B$ with $r \ge 1$ maximal, so that $B \not\equiv 0 \pmod 3$.</p>
+<p><i>Case $p \neq 3$.</i> Expand $A^p = (I + 3^rB)^p = I + p\,3^r B + \binom{p}{2}3^{2r}B^2 + \cdots$; every term after the second is divisible by $3^{2r}$, and $2r \ge r+1$. So $I = A^p \equiv I + p\,3^rB \pmod{3^{r+1}}$, forcing $p\,B \equiv 0 \pmod 3$; as $p$ is invertible mod $3$, $B \equiv 0 \pmod 3$ &mdash; contradicting maximality of $r$.</p>
+<p><i>Case $p = 3$.</i> Now $A^3 = I + 3^{r+1}B + 3^{2r+1}B^2 + 3^{3r}B^3$, so
+$$0 \;=\; \frac{A^3 - I}{3^{r+1}} \;=\; B + 3^rB^2 + 3^{2r-1}B^3.$$
+Since $r \ge 1$, both correction terms are divisible by $3$, and reduction mod $3$ again gives $B \equiv 0 \pmod 3$, a contradiction. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="lem"><b>Lemma 3.3.</b> $K$ is torsion-free and ICC, and reduction mod $2$ gives a surjection $\pi_2 : K \twoheadrightarrow Q = \mathrm{SL}_4(\mathbb F_2[t])$.</div>
+
+<div class="proof">
+<p><i>Torsion-free.</i> Let $g(t) \in K$ with $g(t)^m = I$, $m \ge 1$. The constant term $g(0)$ is then a torsion element of $\ker(\mathrm{SL}_4(\mathbb Z) \to \mathrm{SL}_4(\mathbb F_3))$, so $g(0) = I$ by Lemma 3.2. If $g \neq I$, let $r \ge 1$ be the lowest $t$-degree where it differs from $I$: $g(t) = I + t^rA(t)$ with $A(0) \neq 0$. Then, working mod $t^{r+1}$ (only the linear term in $t^rA$ survives),
+$$g(t)^m \;\equiv\; I + m\,t^r A(0) \;\not\equiv\; I \pmod{t^{r+1}},$$
+because $mA(0) \neq 0$ over the characteristic-zero domain $\mathbb Z$ &mdash; contradicting $g^m = I$. (This is exactly where lifting to $\mathbb Z[t]$ pays: over $\mathbb F_2[t]$ the coefficient $m A(0)$ can vanish.)</p>
+<p><i>ICC.</i> For $i \neq j$ and $f \in \mathbb Z[t]$ set $u_{ij}(f) = I + 3fE_{ij}$; its constant term is $\equiv I$ mod $3$, so $u_{ij}(f) \in K$. Let $g \in K$, $g \neq I$. A matrix commuting with all the $E_{ij}$ is scalar, and a scalar $cI \in \mathrm{SL}_4(\mathbb Z[t])$ has $c^4 = 1$, so $c = \pm1$ and $g$ would have finite order $\le 2$ &mdash; impossible in the torsion-free $K$ unless $g = I$. So some $[E_{ij}, g] = E_{ij}g - gE_{ij} \neq 0$. If two parameters give the same conjugate, $u_{ij}(f)\,g\,u_{ij}(f)^{-1} = u_{ij}(h)\,g\,u_{ij}(h)^{-1}$, then $g$ commutes with $u_{ij}(f)u_{ij}(h)^{-1} = u_{ij}(f - h)$, which expands to $3(f-h)[E_{ij}, g] = 0$; as $\mathbb Z[t]$ is an integral domain and $[E_{ij},g] \neq 0$, this forces $f = h$. Distinct $f$'s therefore give distinct conjugates: the class of $g$ is infinite.</p>
+<p><i>Surjectivity of $\pi_2$.</i> Reduction mod $2$ sends $u_{ij}(f) \mapsto I + \bar f E_{ij}$ (note $3 \equiv 1$ mod $2$), and $f \mapsto \bar f$ maps $\mathbb Z[t]$ onto $R = \mathbb F_2[t]$: every elementary matrix over $R$ is hit. By Lemma H below, the elementary matrices generate $\mathrm{SL}_4(R)$, so $\pi_2$ is onto. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="lem"><b>Lemma H (Euclidean elementary generation).</b> If $S$ is a Euclidean domain whose only unit is $1$ (e.g.&nbsp;$S = \mathbb F_2[t]$ with the degree function), then $\mathrm{SL}_n(S) = \mathrm{EL}_n(S)$ for every $n \ge 2$.</div>
+
+<div class="proof">
+<p>Three standard moves, all products of elementary matrices: (i) add an $S$-multiple of one row to another (that <i>is</i> an elementary matrix, acting on the left); (ii) the same for columns (acting on the right); (iii) swap two rows up to sign, via $\mathrm{row}_i \mathrel{+}= \mathrm{row}_j$, $\mathrm{row}_j \mathrel{-}= \mathrm{row}_i$, $\mathrm{row}_i \mathrel{+}= \mathrm{row}_j$.</p>
+<p>Let $A \in \mathrm{SL}_n(S)$. Run Euclid on the first column: while it has two nonzero entries, subtract a multiple of the one of smaller degree from the other to strictly reduce the larger degree (division with remainder); iterate until one nonzero entry $d$ remains, and bring it to the top by (iii). Elementary operations do not change the determinant, and expanding along the first column shows $d$ divides $\det A = 1$; since the only unit is $1$, $d = 1$. Clear the rest of the first row with column operations (ii). The matrix is now $\begin{pmatrix}1 &amp; 0\\ 0 &amp; A'\end{pmatrix}$ with $A' \in \mathrm{SL}_{n-1}(S)$; induct, down to the trivial $1 \times 1$ case. The product of the inverse moves expresses $A$ as a product of elementary matrices. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>Remark 3.4 (why not just use $Q$?).</b> The orbit and module computations below factor through $Q$ &mdash; but $Q$ itself cannot serve as the acting group, because it has torsion of exactly the wrong order:
+$$u = I + E_{12} + E_{23} \in Q, \qquad u^2 = I + E_{13} \neq I, \qquad u^4 = I$$
+(squares over $\mathbb F_2$: with $N = E_{12}+E_{23}$, $u^2 = I + N^2 = I + E_{13}$ since $2N = 0$ and $N^2 = E_{13}$; then $u^4 = I + N^4 = I$). An order-$4$ element in the acting group would contaminate the very invariant &mdash; order-$4$ torsion &mdash; that distinguishes $\Gamma_0$ from $\Lambda$. Torsion-freeness of $K$ quarantines all torsion of $\Gamma_n = E_n \rtimes K$ inside $E_n$, which is what makes $\mathrm{Tor}(\Gamma_n) = E_n$ an intrinsic subgroup in <a class="secref" href="#family">&sect;8</a>.</div>
+
+<figure><svg class="setupfig" viewBox="0 0 480 235" width="100%" role="img" aria-label="Two torsion arguments: 3-adic expansion kills torsion in the constant term; t-adic expansion kills torsion in the polynomial part">
+  <!-- left panel: 3-adic -->
+  <rect x="20" y="30" width="212" height="150" rx="8" fill="none" stroke="#c0392b" stroke-width="1.3"/>
+  <text x="32" y="22" font-size="12" fill="#c0392b">prime 3 (constant term g(0))</text>
+  <text x="32" y="54" font-size="12" fill="#1a1a1a">A = I + 3&#678;B,  B &#8802; 0 (3)</text>
+  <text x="32" y="78" font-size="12" fill="#1a1a1a">A&#7510; = I + p&#8901;3&#678;B + O(3&#178;&#678;)</text>
+  <text x="32" y="102" font-size="11.5" fill="#555">p &#8800; 3: p invertible mod 3 &#8658; B &#8801; 0 &#8623;</text>
+  <text x="32" y="122" font-size="11.5" fill="#555">p = 3: divide A&#179; &#8722; I by 3&#678;&#8314;&#185; &#8658; B &#8801; 0 &#8623;</text>
+  <text x="32" y="152" font-size="12" fill="#c0392b">&#8658; g(0) = I (Lemma 3.2)</text>
+  <text x="32" y="170" font-size="10.5" fill="#555">(Minkowski, 1887 &mdash; proved above)</text>
+  <!-- right panel: t-adic -->
+  <rect x="248" y="30" width="212" height="150" rx="8" fill="none" stroke="#2e5a8a" stroke-width="1.3"/>
+  <text x="260" y="22" font-size="12" fill="#2e5a8a">variable t (polynomial part)</text>
+  <text x="260" y="54" font-size="12" fill="#1a1a1a">g = I + t&#678;A(t),  A(0) &#8800; 0</text>
+  <text x="260" y="78" font-size="12" fill="#1a1a1a">g&#7504; &#8801; I + m&#8901;t&#678;A(0)  (mod t&#678;&#8314;&#185;)</text>
+  <text x="260" y="102" font-size="11.5" fill="#555">over &#8484;: m&#8901;A(0) &#8800; 0 always &#8658; g&#7504; &#8800; I</text>
+  <text x="260" y="122" font-size="11.5" fill="#555">over &#120125;&#8322;: m&#8901;A(0) can vanish! (2A = 0)</text>
+  <text x="260" y="152" font-size="12" fill="#2e5a8a">&#8658; K torsion-free; Q is not</text>
+  <text x="260" y="170" font-size="10.5" fill="#555">u = I + E&#8321;&#8322; + E&#8322;&#8323; has order 4 in Q</text>
+  <text x="20" y="210" font-size="12" fill="#7a1f1f">first-order expansions at two different &ldquo;primes&rdquo; (3 and t) &mdash; each kills torsion where the other is blind</text>
+  <text x="20" y="228" font-size="11.5" fill="#555">the characteristic-zero lift is what lets m&#8901;A(0) &#8800; 0 close the argument</text>
+</svg><figcaption><b>Two torsion arguments, one template.</b> Both proofs expand a would-be torsion element to first order &mdash; $3$-adically for the constant term (Lemma 3.2), $t$-adically for the polynomial tail (Lemma 3.3) &mdash; and observe that the first-order coefficient cannot vanish in characteristic zero. Over $\mathbb F_2$ the same expansion <i>can</i> vanish, which is exactly how $Q$ acquires its order-$4$ element.</figcaption></figure>
+
+<div class="keyresult"><b>Milestone.</b> $K$ is countable, torsion-free, ICC, has property (T), and surjects onto $Q = \mathrm{SL}_4(\mathbb F_2[t])$ via $\pi_2$. Through $\pi_2$, $K$ acts on every $\mathbb F_2[t]$-module in sight; through its torsion-freeness, the twisted groups built next will carry their fingerprints in their torsion subgroups.</div>

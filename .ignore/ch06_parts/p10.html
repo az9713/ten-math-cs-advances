@@ -1,0 +1,48 @@
+<hr>
+
+<h2 id="endgame">10. The endgame: parameters and the proof of Theorem 1.1</h2>
+
+<p>Everything is assembled; what remains is arithmetic &mdash; but arithmetic worth watching, because it shows exactly where each power of $\varepsilon$ is spent. Define the universal constant
+$$c_{\mathrm{qs}} \;=\; \frac{1}{8\,(4B_{\mathrm{qs}})^{12}} \;\gt\; 0. \tag{16}$$
+</p>
+
+<div class="proof"><p><b>Proof of Theorem 1.1.</b> <i>Degenerate case $\omega^*(G) = 0$.</i> We claim $\omega^*(G^{\otimes n}) = 0$ too, so the bound holds trivially. From any finite-dimensional strategy for $G^{\otimes n}$, build a single-game strategy: using finite shared randomness, the players pre-sample all question pairs of coordinates $2,\dots,n$ from $\mu$ (both see the same samples), insert the referee's actual questions as coordinate $1$, run the repeated strategy's local measurements, and answer with coordinate $1$'s answers. This is a legal strategy for $G$, and every all-coordinates win of the original is in particular a coordinate-1 win of the simulation, so $\omega^*(G) \ge \omega^*(G^{\otimes n})$. With $\omega^*(G) = 0$ this forces $\omega^*(G^{\otimes n}) = 0$.</p>
+
+<p><i>Main case.</i> Suppose $0\lt\varepsilon\lt1$ and write
+$$\ell = \log(|A||B|), \qquad \gamma = c_{\mathrm{qs}}\,\frac{\varepsilon^{13}}{\varepsilon+\ell}, \qquad \delta = \frac{\varepsilon}{4}.$$
+Fix an arbitrary $n\ge1$ and suppose, for contradiction, that the desired conclusion fails at this $n$:
+$$\omega^*(G^{\otimes n}) \gt e^{-\gamma n}.$$
+By definition of the supremum there is an actual finite-dimensional repeated strategy with
+$$\vartheta = \mathcal{P}(W_{[n]}) \gt e^{-\gamma n}$$
+(no assumption that the repeated value is attained &mdash; only that it is exceeded by $e^{-\gamma n}$, so some strategy exceeds $e^{-\gamma n}$ too). All objects of &sect;5&ndash;&sect;9 now refer to this strategy.</p>
+
+<p><i>Step 1: the conditioning hypothesis holds.</i> Since $B_{\mathrm{qs}}\ge1$ and $\varepsilon,\,\varepsilon/(4B_{\mathrm{qs}})\le1$,
+$$\gamma \;=\; \frac{\varepsilon}{8(\varepsilon+\ell)}\left(\frac{\varepsilon}{4B_{\mathrm{qs}}}\right)^{12} \;\le\; \frac{\varepsilon}{8} \;=\; \frac{\delta}{2}.$$
+Hence $\log(1/\vartheta)/\delta \lt \gamma n/\delta \le n/2 \lt n$: Lemma 3.1 applies with this $\delta$ and supplies $D\subsetneq[n]$ with
+$$|D| \le \frac{\gamma n}{\delta} \le \frac n2, \qquad m \gt \frac n2, \qquad p \ge \vartheta, \qquad q \ge 1-\frac{\varepsilon}{4}.$$
+In particular $\log(1/p) \le \log(1/\vartheta) \lt \gamma n$ and $|D|\,\ell \lt \gamma n \ell/\delta = 4\gamma n\ell/\varepsilon$.</p>
+
+<p><i>Step 2: the information cost is tiny.</i> Using $m\gt n/2$ and then (16),
+$$\eta \;=\; \frac{\log(1/p) + |D|\ell}{m}
+\;\lt\; 2\gamma\Big(1 + \frac{4\ell}{\varepsilon}\Big)
+\;=\; \frac{\varepsilon^{12}}{4\,(4B_{\mathrm{qs}})^{12}}\cdot\frac{\varepsilon+4\ell}{\varepsilon+\ell}
+\;\le\; \left(\frac{\varepsilon}{4B_{\mathrm{qs}}}\right)^{12} \;\le\; 1, \tag{17}$$
+the middle equality by substituting $\gamma = \varepsilon(\varepsilon/4B_{\mathrm{qs}})^{12}/(8(\varepsilon+\ell))$ and the following inequality because $\varepsilon + 4\ell \le 4(\varepsilon+\ell)$. So the hypothesis $0\le\eta\le1$ of Lemma 3.6 holds &mdash; and, better, $B_{\mathrm{qs}}\,\eta^{1/12} \le B_{\mathrm{qs}}\cdot\varepsilon/(4B_{\mathrm{qs}}) = \varepsilon/4$.</p>
+
+<p><i>Step 3: rounding beats the game's value.</i> Choose the strictly positive finite-catalyst accuracy
+$$\alpha = \left(\frac{\varepsilon}{16 K_{\mathrm{qs}}}\right)^{12} \in (0,1],
+\qquad\text{so that}\qquad 2K_{\mathrm{qs}}\,\alpha^{1/12} = \frac{\varepsilon}{8}.$$
+Lemma 3.6 now produces an actual single-game finite-dimensional strategy with
+$$\operatorname{win}(S_\alpha) \;\ge\; q - B_{\mathrm{qs}}\eta^{1/12} - 2K_{\mathrm{qs}}\alpha^{1/12}
+\;\gt\; 1 - \frac{\varepsilon}{4} - \frac{\varepsilon}{4} - \frac{\varepsilon}{8} \;=\; 1 - \frac{5\varepsilon}{8} \;\gt\; 1-\varepsilon \;=\; \omega^*(G),$$
+contradicting the definition of $\omega^*(G)$ as a supremum over all finite-dimensional strategies. Therefore $\omega^*(G^{\otimes n})\le e^{-\gamma n}$ at this $n$; and since $n\ge1$ was arbitrary,
+$$\omega^*(G^{\otimes n}) \;\le\; \exp\!\left(-\frac{1}{8(4B_{\mathrm{qs}})^{12}}\cdot\frac{\varepsilon^{13}}{\varepsilon+\log(|A||B|)}\; n\right) \qquad (n\ge1).$$
+(Machine check <code>c19</code> verifies the full chain of Steps 1&ndash;3 numerically on a grid of $(\varepsilon,\ell)$.) <span class="qed">&#8718;</span></p></div>
+
+<p>Some closing observations on the proof just completed, all from the chapter's own coda. Every question conditional used anywhere was evaluated only on positive $\mu$-support; no minimum question probability, no connectivity of the support, and no component-by-component reduction ever entered. Both the classical flag $h$ and the embezzlement catalyst in (15) are finite for each fixed strategy and each $\alpha\gt0$. Consequently <b>the rate is uniform</b>: it depends on nothing about $G$ except $\varepsilon$ and $\log(|A||B|)$ &mdash; not on $\mu$, not on $|X|,|Y|$, not on the entanglement dimension of the strategies played against it.</p>
+
+<figure><!--FIG:fig_waterfall--><figcaption>The parameter cascade of the proof, evaluated at $\varepsilon = 0.3$, $\ell = \log 4$ (binary answers), with the illustrative floor $K_{\mathrm{qs}} = 1$ (the true $K_{\mathrm{qs}}$ from Import 1 is larger, making everything smaller). Each bar is the $\log_{10}$ of a parameter: $\delta$ and $\alpha$ are honest fractions, but the guaranteed $\eta$ ceiling and the rate $\gamma$ live thirty orders of magnitude down. The theorem is a statement about asymptotic <i>shape</i>, not a practical error bound &mdash; see &sect;16.</figcaption></figure>
+
+<p>Where did $\varepsilon^{13}$ come from? Fig. 24 traces the exponent. The rounding loss $B_{\mathrm{qs}}\eta^{1/12}$ must be beaten down to $\varepsilon/4$, forcing $\eta\lesssim\varepsilon^{12}$ &mdash; twelve powers, all inherited from the $1/12$ in Import 1. The thirteenth power is the factor $\varepsilon$ that $\gamma$ spends on the conditioning budget ($\gamma\le\delta/2$ with $\delta = \varepsilon/4$), and the alphabet enters through $\eta$'s numerator as the additive $\ell$. Classically the same skeleton costs only $\varepsilon^3$ (Holenstein), because classical correlated sampling has no $1/12$-power loss; any improvement to the quantum sampling exponent would propagate immediately.</p>
+
+<figure><!--FIG:fig_eps13--><figcaption>Anatomy of the exponent: how $\varepsilon^{13}/(\varepsilon+\ell)$ is assembled. The chain is forced by the requirement that each loss term in Lemma 3.6 stay below a fixed fraction of $\varepsilon$; the exponent $12$ of the embezzlement import does all the damage, and the last $\varepsilon$ pays the conditioning parameter $\delta$.</figcaption></figure>

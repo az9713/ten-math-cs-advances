@@ -1,0 +1,16 @@
+# source paper + derivatives (not ours to redistribute; regenerable)
+ten-proofs-oai.pdf
+chapters/
+renders/
+Ten advances in mathematics and theoretical computer science _ OpenAI.html
+Ten advances in mathematics and theoretical computer science _ OpenAI_files/
+
+# scratch: audit screenshots, check copies, the 2.1 MB MathJax bundle
+.ignore/*
+!.ignore/ch*_parts/
+!.ignore/ch*_figs/
+
+__pycache__/
+*.bak
+
+.claude/

@@ -1,0 +1,69 @@
+<hr>
+
+<h2 id="rounding">9. Rounding into a real strategy (Lemmas 3.5&ndash;3.6)</h2>
+
+<p>Granting Lemma 3.3, the players can agree (usually) on a history $r$ and hold matching classical <i>descriptions</i> of two nearby states $\Psi^A_{r,x}$, $\Psi^B_{r,y}$. One gap remains: turning a description into a physical shared state, with no communication, on a shared resource prepared before the questions existed. That is exactly what quantum correlated sampling &mdash; the document's only import &mdash; provides.</p>
+
+<h3 id="s9-embezzle">9.1 Embezzlement, and the imported lemma</h3>
+
+<p>The engine is van Dam and Hayden's <i>embezzlement</i> phenomenon. Define, for $b \ge 1$, the <b>embezzlement state</b>
+$$|E_b\rangle \;=\; \Big(\sum_{j=1}^b \tfrac1j\Big)^{-1/2} \sum_{j=1}^b \tfrac{1}{\sqrt j}\,|j\rangle|j\rangle \;\in\; \mathbb{C}^b\otimes\mathbb{C}^b,$$
+the bipartite state whose squared Schmidt coefficients are proportional to $1/j$ (Fig. 21, left). Its scale-invariance is the point: multiplying $j$ by a constant barely changes the profile $1/j$, so $|E_b\rangle$ contains approximate copies of "itself tensor anything small" at all scales. Consequence: for any fixed target $|\sigma\rangle \in \mathbb{C}^d\otimes\mathbb{C}^d$, there are <i>local</i> unitaries (one on Alice's side, one on Bob's) transforming $|E_b\rangle$ into $|\sigma\rangle\otimes|E_{b'}\rangle$ up to error that vanishes like $1/\log b$ &mdash; the state $\sigma$ is "embezzled" out of the resource, leaving a slightly smaller resource behind, with no communication. The best local transformation is a sorting argument: both parties reorder their Schmidt bases so the coefficient profiles align, and the fidelity is the overlap of the sorted profiles. Machine check <code>c17</code> computes it exactly (Fig. 21, right): the error falls like $c/\log b$, so any accuracy is reachable at finite $b$.</p>
+
+<figure><!--FIG:fig_embezzle--><figcaption>Left: the Schmidt-weight profile of $|E_{16}\rangle$ &mdash; coefficients proportional to $1/\sqrt{j}$. Right: exact embezzlement error for a fixed two-qubit target versus $\log_2 b$, computed by the sorted-Schmidt-overlap formula (engine check <code>c17</code>): the error decays like $1/\log b$. The imported lemma below upgrades this from "one known target" to "two players with <i>different beliefs</i> about the target", at a polynomial cost in the error exponent.</figcaption></figure>
+
+<p>The subtlety in our application: Alice believes the target is $\sigma_A = \Psi^A_{r_A,x}$ while Bob believes it is $\sigma_B = \Psi^B_{r_B,y}$ &mdash; close, but not equal, and neither knows the other's version. The imported theorem says embezzlement can be made <i>simultaneously consistent</i> for every pair of beliefs, degrading gracefully in their distance:</p>
+
+<div class="thm" id="import-1"><b>Import 1 = Lemma 3.5 (quantum correlated sampling; Dinur&ndash;Steurer&ndash;Vidick 2015, Lemma 17).</b> There exists a universal constant $K_{\mathrm{qs}} \ge 1$ with the following property. Given $d \ge 1$ and $0 \lt \alpha \le 1$, there exist a finite $d' \ge 1$ and assignments of local unitaries
+$$\sigma_A \mapsto U(\sigma_A), \qquad \sigma_B \mapsto V(\sigma_B) \qquad\text{on } \mathbb{C}^{dd'},$$
+indexed by unit vectors in $\mathbb{C}^d\otimes\mathbb{C}^d$, such that simultaneously for <b>every</b> pair $\sigma_A, \sigma_B$ of such unit vectors,
+$$\Big\|\big(U(\sigma_A)\otimes V(\sigma_B)\big)|E_{dd'}\rangle - |\sigma_A\rangle|E_{d'}\rangle\Big\| \;\le\; K_{\mathrm{qs}}\,\max\!\big\{\alpha^{1/12},\ \|\sigma_A - \sigma_B\|^{1/6}\big\}.$$
+The initial state $|E_{dd'}\rangle$ and catalyst dimension $d'$ depend only on $(d,\alpha)$, not on $\sigma_A, \sigma_B$.</div>
+
+<p>This is the single external ingredient of the whole chapter, and the source of the exponent $12$ (hence, eventually, $\varepsilon^{13}$). Note the interface: it consumes a <i>pair of descriptions</i> and a question-independent resource state, and produces (approximately) Alice's described state in both players' hands, plus an intact smaller catalyst. No communication, no dependence on how the descriptions were obtained.</p>
+
+<h3 id="s9-strategy">9.2 The rounded strategy and its guarantee</h3>
+
+<p>Set the universal constants (chapter's equation (11)):
+$$U_* \;=\; K_{\mathrm{qs}}\big(1 + 2^{1/6}\big) + 2, \qquad
+B_{\mathrm{qs}} \;=\; \big(5 + 2U_*\big)\sqrt{\tfrac32} \;+\; 2K_{\mathrm{qs}}\,32^{1/12} \;+\; 2\sqrt8 . \tag{11}$$
+($U_*$ will be a uniform cap on a branch-error function; $B_{\mathrm{qs}}$ collects every loss of the analysis into one coefficient of $\eta^{1/12}$. With the illustrative floor $K_{\mathrm{qs}} = 1$: $U_* \approx 4.12$, $B_{\mathrm{qs}} \approx 24.55$ &mdash; machine check <code>c18</code>.)</p>
+
+<div class="lem" id="lem-36"><b>Lemma 3.6 (postselection-stable finite-dimensional rounding).</b> In the setting of Lemma 3.3, suppose $0\le\eta\le1$. For every $0\lt\alpha\le1$ there is an actual finite-dimensional tensor-product strategy $S_\alpha$ for the <b>unchanged</b> game $G$, which on questions $(x,y)\sim\mu$ first uses classical correlated sampling to generate approximately matching histories, then uses quantum correlated sampling to prepare the state associated with that history, and finally applies the coordinate measurements of Lemma 3.2. Its winning probability satisfies
+$$\operatorname{win}(S_\alpha) \;\ge\; q \;-\; B_{\mathrm{qs}}\,\eta^{1/12} \;-\; 2K_{\mathrm{qs}}\,\alpha^{1/12}. \tag{12}$$
+The questions of this strategy have distribution $\mu$, and its shared state is prepared before either question is received. In particular,
+$$\omega^*(G) \;\ge\; q - B_{\mathrm{qs}}\,\eta^{1/12}. \tag{13}$$
+</div>
+
+<figure><!--FIG:fig_pipeline--><figcaption>The strategy $S_\alpha$ as a pipeline, with the error charged at each stage. History mismatch costs $4\kappa$; the bias of the locally sampled branch distribution against the posterior costs $\kappa$ per use of expectation transfer; state preparation costs the embezzlement error; the final measurement converts state error $e$ into at most $2e$ of probability (Proposition B). Every charge is a power of $\eta$ or $\alpha$ &mdash; the postselection probability $p$ appears nowhere.</figcaption></figure>
+
+<div class="proof"><p><i>The strategy.</i> Fix $\alpha$. Pad all candidate states $\Psi^A_{r,x}, \Psi^B_{r,y}$ (finitely many, over all realized $(r,x,y)$) to a common finite dimension $d$ (tensoring with a fixed basis vector changes nothing), and invoke Import 1 for $(d,\alpha)$, obtaining $d'$ and the unitary assignments $U(\cdot), V(\cdot)$. Let $h$ denote the finite shared classical randomness of Lemma 3.3/3.4 (including the uniform live coordinate $i$ and the correlated-sampling table), with distribution $\nu$. The question-independent shared state is
+$$|\Omega\rangle \;=\; \Big(\sum_h \sqrt{\nu(h)}\,|h\rangle_A|h\rangle_B\Big)\otimes|E_{dd'}\rangle, \tag{15}$$
+i.e. classical shared randomness (readable by both players without disturbance, since both registers are measured in the fixed basis $\{|h\rangle\}$) alongside the embezzlement resource. On question $x$, Alice reads $h$, computes her history $r_A = r_A(h,x)$ per Lemma 3.4, applies $U(\Psi^A_{r_A,x})$ to her half of $|E_{dd'}\rangle$, and measures the target register with $\{\widetilde M^a_{r_A,x}\}$ from Lemma 3.2, answering the outcome. Bob acts symmetrically with $r_B(h,y)$, $V(\Psi^B_{r_B,y})$, $\{\widetilde N^b_{r_B,y}\}$. This is a legal finite-dimensional tensor-product strategy for $G$: everything each player does depends only on $(h, \text{own question})$.</p>
+
+<p><i>The error budget</i> (chapter's Appendix A.8; Fig. 22). By Lemma 3.3,
+$$d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_A),\ d_{\mathrm{TV}}(\mathcal{Q},\mathcal{J}_B) \le \kappa, \qquad \mathbb{P}(r_A\ne r_B)\le 4\kappa, \qquad \kappa = \sqrt{\tfrac32\eta}. \tag{14}$$
+On a matching branch ($r_A = r_B = r$) with data $(i,r,x,y)$ in the support of $\mathcal{Q}$, Import 1 applied with $\sigma_A = \Psi^A_{r,x}$, $\sigma_B = \Psi^B_{r,y}$, followed by the triangle inequality through $\Psi^A_{r,x}$, bounds the distance of the prepared state from the <i>ideal</i> state by
+$$e(i,r,x,y) \;=\; K_{\mathrm{qs}}\Big(\alpha^{1/12} + \big\|\Psi^A_{r,x}-\Psi^B_{r,y}\big\|^{1/6}\Big) \;+\; \big\|\Psi^A_{r,x}-\Psi_{r,x,y}\big\|,$$
+where we replaced $\max\{u,v\}\le u+v$. Set $e = U_*$ outside the support of $\mathcal{Q}$; since unit vectors are at distance $\le 2$ and $\alpha\le1$, always $0\le e\le K_{\mathrm{qs}}(1+2^{1/6})+2 = U_*$.</p>
+
+<p>Average $e$ under $\mathcal{Q}$. The two state bounds of Lemma 3.3 give, via the triangle inequality, $\mathbb{E}_{\mathcal{Q}}\|\Psi^A-\Psi^B\|^2 \le 2\,\mathbb{E}_{\mathcal{Q}}\|\Psi^A-\Psi\|^2 + 2\,\mathbb{E}_{\mathcal{Q}}\|\Psi-\Psi^B\|^2 \le 32\eta$; then the power form of Jensen (<a class="secref" href="#s4-h1">&sect;4.3</a>) with $\theta = 1/12$ on $Z = \|\Psi^A - \Psi^B\|^2$:
+$$\mathbb{E}_{\mathcal{Q}}\big\|\Psi^A-\Psi^B\big\|^{1/6} \le \big(\mathbb{E}_{\mathcal{Q}}\|\Psi^A-\Psi^B\|^2\big)^{1/12} \le (32\eta)^{1/12},
+\qquad
+\mathbb{E}_{\mathcal{Q}}\big\|\Psi^A-\Psi\big\| \le \sqrt{8\eta},$$
+the second with $\theta = 1/2$. Hence
+$$\mathbb{E}_{\mathcal{Q}}\,e \;\le\; K_{\mathrm{qs}}\big(\alpha^{1/12} + (32\eta)^{1/12}\big) + \sqrt{8\eta}.$$
+</p>
+
+<p><i>Assembling the winning probability.</i> Let $w(i,r,x,y) = \mathcal{Q}(W_i\mid R=r, X_i=x, Y_i=y)$ be the ideal branch winning probability ($w = 0$ off the support), so $0\le w\le1$ and $\mathbb{E}_{\mathcal{Q}}w = q$ by <a class="secref" href="#s7-q">&sect;7.5</a>. The strategy's actual branch tuple $(i, r_A, x, y)$ has distribution $\mathcal{J}_A$, so two applications of expectation transfer (<a class="secref" href="#s4-div">&sect;4.1</a>, scaled to the ranges $[0,1]$ and $[0,U_*]$) convert posterior averages into $\mathcal{J}_A$-averages:
+$$\mathbb{E}_{\mathcal{J}_A} w \;\ge\; q - \kappa, \qquad \mathbb{E}_{\mathcal{J}_A} e \;\le\; \mathbb{E}_{\mathcal{Q}} e + U_*\,\kappa .$$
+On the event $r_A = r_B$ (probability $\ge 1-4\kappa$), the players measure a state at distance $e$ from the ideal one with the POVMs of Lemma 3.2; by measurement stability (<a class="secref" href="#prop-stability">Proposition B</a>, applied to the joint effect of winning) their live-coordinate winning probability on that branch is at least $w - 2e$. Therefore
+$$\operatorname{win}(S_\alpha) \;\ge\; \mathbb{E}_{\mathcal{J}_A}\big[w - 2e\big] - 4\kappa
+\;\ge\; q - 5\kappa - 2\big(\mathbb{E}_{\mathcal{Q}}e + U_*\kappa\big)
+\;=\; q - (5+2U_*)\kappa - 2\,\mathbb{E}_{\mathcal{Q}}e .$$
+Finally use $0\le\eta\le1$: $\kappa = \sqrt{3/2}\,\sqrt\eta \le \sqrt{3/2}\,\eta^{1/12}$ and $\sqrt{8\eta} \le \sqrt8\,\eta^{1/12}$, so with (11),
+$$\operatorname{win}(S_\alpha) \;\ge\; q - \Big[(5+2U_*)\sqrt{\tfrac32} + 2K_{\mathrm{qs}}32^{1/12} + 2\sqrt8\Big]\eta^{1/12} - 2K_{\mathrm{qs}}\alpha^{1/12}
+= q - B_{\mathrm{qs}}\eta^{1/12} - 2K_{\mathrm{qs}}\alpha^{1/12},$$
+which is (12). (Machine check <code>c20</code> verifies the constant-folding step on a grid of $\eta\in[0,1]$.) Since each $S_\alpha$ is a legal finite-dimensional strategy, $\omega^*(G) \ge \operatorname{win}(S_\alpha)$ for every $\alpha \gt 0$; letting $\alpha\to0^+$ gives (13). <span class="qed">&#8718;</span></p></div>
+
+<p>Pause on what has been achieved: assuming Lemma 3.3, the conditioned repeated experiment has been converted into a genuine single-game strategy whose value is $q$ minus a loss that is a <i>universal power of the information cost</i>. The implication promised in <a class="secref" href="#architecture">&sect;5.1</a> stands. It remains to (a) choose the parameters and close the contradiction (<a class="secref" href="#endgame">&sect;10</a>), and (b) prove Lemma 3.3 (<a class="secref" href="#martingales">&sect;11</a>&ndash;<a class="secref" href="#classical">&sect;14</a>).</p>
