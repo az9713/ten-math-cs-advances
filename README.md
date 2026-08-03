@@ -97,7 +97,6 @@ No problem sets in any chapter; that was a deliberate scope decision.
 ```
 ch0*.html               the deliverables — open any one directly in a browser
 implementation-plan.html  the full spec these were built against
-HANDOFF.md              current state and the exact next task
 figgen/
   chNN_figs.py          figure data + the machine checks for that chapter
   chNN_build.py         assembler: splices part files with generated SVGs
