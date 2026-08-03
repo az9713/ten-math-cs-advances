@@ -52,6 +52,12 @@ access, and read end to end.
 
 Built with the `rigorous-explainer` workflow.
 
+## Read them
+
+The chapters are live on GitHub Pages — click a title below. (GitHub itself won't
+render a raw `.html` file, so read them at these links rather than through the file
+list.) They are also self-contained: download one and it works offline.
+
 ## Status — incomplete
 
 Seven of ten chapters are finished and verified. One is drafted but not hardened.
@@ -59,16 +65,19 @@ Two have not been started, and the cross-chapter index page is still to come.
 
 | Ch | Topic | PDF pp. | Figures | Status |
 |----|-------|---------|---------|--------|
-| 1 | Sphere packing (Cohn–Elkies rate) | 3–28 | 32 | ✅ `ch01-sphere-packing.html` |
+| 1 | [Sphere packing (Cohn–Elkies rate)](https://az9713.github.io/ten-math-cs-advances/ch01-sphere-packing.html) | 3–28 | 32 | ✅ done |
 | 2 | Binary & spherical codes | 29–78 | — | ⬜ not started (longest chapter) |
-| 3 | A non-sofic group | 79–95 | 24 | ✅ `ch03-nonsofic-group.html` |
-| 4 | Connes rigidity counterexample | 96–113 | 22 | ✅ `ch04-connes-rigidity.html` |
+| 3 | [A non-sofic group](https://az9713.github.io/ten-math-cs-advances/ch03-nonsofic-group.html) | 79–95 | 24 | ✅ done |
+| 4 | [Connes rigidity counterexample](https://az9713.github.io/ten-math-cs-advances/ch04-connes-rigidity.html) | 96–113 | 22 | ✅ done |
 | 5 | Permanent circuit/formula bounds | 114–153 | — | ⬜ not started |
-| 6 | Quantum parallel repetition | 154–182 | 29 | ✅ `ch06-quantum-parallel-repetition.html` |
-| 7 | CVP hardness to factor n^(1/400) | 183–218 | 38 | 🟡 content complete, **not hardened** |
-| 8 | Ehrhart volume conjecture | 219–228 | 13 | ✅ `ch08-ehrhart-volume.html` |
-| 9 | Multicolor Ramsey R_k(3) | 229–235 | 15 | ✅ `ch09-multicolor-ramsey.html` |
-| 10 | Compactness & degeneracy | 236–249 | 20 | ✅ `ch10-compactness-degeneracy.html` |
+| 6 | [Quantum parallel repetition](https://az9713.github.io/ten-math-cs-advances/ch06-quantum-parallel-repetition.html) | 154–182 | 29 | ✅ done |
+| 7 | [CVP hardness to factor n^(1/400)](https://az9713.github.io/ten-math-cs-advances/ch07-cvp-hardness.html) | 183–218 | 38 | 🟡 draft, **not hardened** |
+| 8 | [Ehrhart volume conjecture](https://az9713.github.io/ten-math-cs-advances/ch08-ehrhart-volume.html) | 219–228 | 13 | ✅ done |
+| 9 | [Multicolor Ramsey R_k(3)](https://az9713.github.io/ten-math-cs-advances/ch09-multicolor-ramsey.html) | 229–235 | 15 | ✅ done |
+| 10 | [Compactness & degeneracy](https://az9713.github.io/ten-math-cs-advances/ch10-compactness-degeneracy.html) | 236–249 | 20 | ✅ done |
+
+The build spec these were written against is also live:
+[implementation-plan.html](https://az9713.github.io/ten-math-cs-advances/implementation-plan.html).
 
 **Chapter 7 caveat:** `ch07-cvp-hardness.html` is committed in its assembled but
 un-hardened form. All prose and all 38 figures are in place, but it has not yet gone
