@@ -1,4 +1,4 @@
-<svg class="setupfig" viewBox="0 0 640 258" width="100%" role="img" aria-label="Where the exponent 1/400 comes from">
+<svg class="setupfig" viewBox="0 0 640 268" width="100%" role="img" aria-label="Where the exponent 1/400 comes from">
 <defs><marker id="c7exp_a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
 <rect x="16" y="30" width="120" height="56" rx="6" fill="#f3f1ec" stroke="#333" stroke-width="1.4"/>
 <text x="76" y="53" font-size="12.5" text-anchor="middle" fill="#333" font-weight="bold">formula &#966;</text>
@@ -23,6 +23,6 @@
 <text x="300" y="118" font-size="10.5" text-anchor="middle" fill="#666">soundness threshold (Prop 14)</text>
 <line x1="226" y1="184" x2="282" y2="184" stroke="#333" stroke-width="1.6" marker-end="url(#c7exp_a)"/>
 <text x="254" y="174" font-size="10" text-anchor="middle" fill="#666">&#8730; of Lemma 7</text>
-<text x="20" y="120" font-size="10.5" text-anchor="start" fill="#666">q &#8776; N&#178;&#8304;&#8304; makes every error term (Markov losses, discriminant zeros, valuation windows) vanish against |P| &#8776; q</text>
-<text x="20" y="238" font-size="10.5" text-anchor="start" fill="#666">M &#8776; N&#8308;&#8304;&#185; &#8776; q&#178; &#8658; M<tspan baseline-shift="super" font-size="75%">1/200</tspan> &#8776; q<tspan baseline-shift="super" font-size="75%">1/100</tspan> &#8776; N&#178;: a huge gap in absolute terms, a tiny power of the dimension</text>
+<text x="20" y="236" font-size="10.5" text-anchor="start" fill="#666">q &#8776; N&#178;&#8304;&#8304; makes every error term (Markov losses, discriminant zeros, valuation windows) vanish against |P| &#8776; q</text>
+<text x="20" y="254" font-size="10.5" text-anchor="start" fill="#666">M &#8776; N&#8308;&#8304;&#185; &#8776; q&#178; &#8658; M<tspan baseline-shift="super" font-size="75%">1/200</tspan> &#8776; q<tspan baseline-shift="super" font-size="75%">1/100</tspan> &#8776; N&#178;: a huge gap in absolute terms, a tiny power of the dimension</text>
 </svg>

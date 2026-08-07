@@ -30,13 +30,16 @@ access, and read end to end.
   citation, so the reader always knows exactly which black boxes the argument rests
   on. Chapter 6, for instance, needs only one such import.
 - **Figure-dense, not wall-of-text.** 13 to 38 hand-built SVG diagrams per chapter
-  (~155 across the seven finished chapters, plus 38 drafted for chapter 7). Every
+  (193 across the eight finished chapters). Every
   abstract definition or lemma gets a picture; no long prose run goes without a
   visual. The figures are generated from data by the scripts in `figgen/`, so the
   geometry in a diagram is computed, not sketched by eye.
 - **Numeric validation sections.** Each chapter recomputes its key quantities with
   real numbers and ships the runnable listing in-page — e.g. the sphere-packing
-  chapter runs the Cohn–Elkies rate out to dimension 6×10⁶, and the
+  chapter runs the Cohn–Elkies rate out to dimension 6×10⁶, the CVP chapter
+  executes its entire 3SAT→lattice construction on a toy formula in F₁₆ (3120
+  unknowns, 8949 equations, rank computed exactly) and re-proves the paper's
+  parameter inequalities at N = 100 in exact integer arithmetic, and the
   compactness chapter computes the W(2) generalized-quadrangle ("doily") directly.
 - **Shared primers written once and reused.** Property (T) / expanders (ch. 3 §3,
   reused by ch. 4) · lattices with Blichfeldt and Minkowski proved (ch. 8 §2,
@@ -60,8 +63,8 @@ list.) They are also self-contained: download one and it works offline.
 
 ## Status — incomplete
 
-Seven of ten chapters are finished and verified. One is drafted but not hardened.
-Two have not been started, and the cross-chapter index page is still to come.
+Eight of ten chapters are finished and verified. Two have not been started, and
+the cross-chapter index page is still to come.
 
 | Ch | Topic | PDF pp. | Figures | Status |
 |----|-------|---------|---------|--------|
@@ -71,20 +74,13 @@ Two have not been started, and the cross-chapter index page is still to come.
 | 4 | [Connes rigidity counterexample](https://az9713.github.io/ten-math-cs-advances/ch04-connes-rigidity.html) | 96–113 | 22 | ✅ done |
 | 5 | Permanent circuit/formula bounds | 114–153 | — | ⬜ not started |
 | 6 | [Quantum parallel repetition](https://az9713.github.io/ten-math-cs-advances/ch06-quantum-parallel-repetition.html) | 154–182 | 29 | ✅ done |
-| 7 | [CVP hardness to factor n^(1/400)](https://az9713.github.io/ten-math-cs-advances/ch07-cvp-hardness.html) | 183–218 | 38 | 🟡 draft, **not hardened** |
+| 7 | [CVP hardness to factor n^(1/400)](https://az9713.github.io/ten-math-cs-advances/ch07-cvp-hardness.html) | 183–218 | 38 | ✅ done |
 | 8 | [Ehrhart volume conjecture](https://az9713.github.io/ten-math-cs-advances/ch08-ehrhart-volume.html) | 219–228 | 13 | ✅ done |
 | 9 | [Multicolor Ramsey R_k(3)](https://az9713.github.io/ten-math-cs-advances/ch09-multicolor-ramsey.html) | 229–235 | 15 | ✅ done |
 | 10 | [Compactness & degeneracy](https://az9713.github.io/ten-math-cs-advances/ch10-compactness-degeneracy.html) | 236–249 | 20 | ✅ done |
 
 The build spec these were written against is also live:
 [implementation-plan.html](https://az9713.github.io/ten-math-cs-advances/implementation-plan.html).
-
-**Chapter 7 caveat:** `ch07-cvp-hardness.html` is committed in its assembled but
-un-hardened form. All prose and all 38 figures are in place, but it has not yet gone
-through formula-by-formula verification against the rendered PDF, the dark-mode
-figure audit, or MathJax inlining — so unlike the other seven it will *not* render
-its math offline yet, and its figures have not been eyeballed for label collisions
-or clipped viewBoxes. Treat it as a draft.
 
 **Also missing:** the planned index artifact — one page showing all ten results at a
 glance with significance, difficulty ratings, and a map of which machinery is shared

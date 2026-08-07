@@ -39,7 +39,7 @@
 <circle cx="190" cy="242" r="4.9" fill="#2e6da4" stroke="none"/>
 <circle cx="322" cy="242" r="4.9" fill="#2e6da4" stroke="none"/>
 <polygon points="216,211 218.22,216.94 224.56,217.22 219.59,221.17 221.29,227.28 216,223.78 210.71,227.28 212.41,221.17 207.44,217.22 213.78,216.94" fill="#c0392b"/>
-<text x="224" y="238" font-size="12" text-anchor="start" fill="#c0392b" class="v">u = (1,0,0)</text>
+<text x="242" y="244" font-size="12" text-anchor="start" fill="#c0392b" class="v">u = (1,0,0)</text>
 <circle cx="150" cy="220" r="8.5" fill="none" stroke="#2a7d2a" stroke-width="2.0"/>
 <line x1="216" y1="220" x2="150" y2="220" stroke="#2a7d2a" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.8"/>
 <circle cx="242" cy="198" r="8.5" fill="none" stroke="#2a7d2a" stroke-width="2.0"/>

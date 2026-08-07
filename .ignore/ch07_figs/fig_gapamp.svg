@@ -1,7 +1,7 @@
 <svg class="setupfig" viewBox="0 0 620 190" width="100%" role="img" aria-label="Why gap hardness means approximation hardness">
 <defs><marker id="c7amp_arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.0" markerHeight="5.0" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
 <line x1="50" y1="66" x2="594" y2="66" stroke="#333" stroke-width="1.5" marker-end="url(#c7amp_arr)"/>
-<text x="586" y="86" font-size="11.5" text-anchor="end" fill="#333">distance d = dist&#8322;(t, L)</text>
+<text x="586" y="50" font-size="11.5" text-anchor="end" fill="#333">distance d = dist&#8322;(t, L)</text>
 <line x1="143.2" y1="32" x2="143.2" y2="72" stroke="#666" stroke-width="1.2" stroke-dasharray="4 3"/>
 <text x="143.2" y="26" font-size="13" text-anchor="middle" fill="#333" class="v">r</text>
 <line x1="392.8" y1="32" x2="392.8" y2="72" stroke="#666" stroke-width="1.2" stroke-dasharray="4 3"/>

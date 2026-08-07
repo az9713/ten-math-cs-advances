@@ -26,7 +26,7 @@
 <polygon points="80,168 124,168 134,130 90,130" fill="#2a7d2a" opacity="0.15"/>
 <line x1="80" y1="168" x2="120.92" y2="168" stroke="#2a7d2a" stroke-width="2.2" marker-end="url(#c7bas_arr0)"/>
 <line x1="80" y1="168" x2="89.3" y2="132.66" stroke="#2a7d2a" stroke-width="2.2" marker-end="url(#c7bas_arr0)"/>
-<text x="220" y="226" font-size="11.5" text-anchor="middle" fill="#2a7d2a">basis 1: short, near-orthogonal</text>
+<text x="140" y="226" font-size="11.5" text-anchor="middle" fill="#2a7d2a">basis 1: short, near-orthogonal</text>
 <circle cx="80" cy="168" r="3" fill="#333" stroke="none"/>
 <circle cx="302" cy="54" r="3" fill="#2e6da4" stroke="none"/>
 <circle cx="316" cy="168" r="3" fill="#2e6da4" stroke="none"/>
@@ -55,7 +55,7 @@
 <polygon points="360,168 404,168 502,130 458,130" fill="#c0392b" opacity="0.15"/>
 <line x1="360" y1="168" x2="400.92" y2="168" stroke="#c0392b" stroke-width="2.2" marker-end="url(#c7bas_arr1)"/>
 <line x1="360" y1="168" x2="451.14" y2="132.66" stroke="#c0392b" stroke-width="2.2" marker-end="url(#c7bas_arr1)"/>
-<text x="500" y="226" font-size="11.5" text-anchor="middle" fill="#c0392b">basis 2: long, skewed &#8212; same lattice</text>
+<text x="420" y="226" font-size="11.5" text-anchor="middle" fill="#c0392b">basis 2: long, skewed &#8212; same lattice</text>
 <circle cx="360" cy="168" r="3" fill="#333" stroke="none"/>
 <line x1="280" y1="18" x2="280" y2="210" stroke="#666" stroke-width="1" stroke-dasharray="4 4"/>
 </svg>

@@ -1,0 +1,199 @@
+<hr>
+
+<h2 id="validation">17. Numerical validation: the toy instance end to end</h2>
+
+<p>Every checkable claim in this document has been verified by machine, at two tiers. The full battery lives in <code>figgen/ch07_figs.py</code>: <b>44 checks, all passing</b> — it implements $\mathbb{F}_{16}$ arithmetic, polynomial and rational-function algebra, and Gaussian elimination from scratch, then executes the entire construction of <a class="secref" href="#encoding">&sect;6</a>&ndash;<a class="secref" href="#transfer">&sect;14</a> on the toy formula and re-proves the parameter inequalities of <a class="secref" href="#constraints">&sect;7</a> and <a class="secref" href="#soundness">&sect;11</a>&ndash;<a class="secref" href="#extraction">&sect;12</a> at $N = 100$ in exact integer arithmetic. The second tier is the self-contained listing at the end of this section: a fifteen-check subset that needs only the Python standard library &mdash; no imports beyond <code>itertools</code> &mdash; and runs in a few seconds. Paste and run.</p>
+
+<figure><!--FIG:fig_toysummary--><figcaption>The toy instance end to end. Every arrow is executed and checked by <code>figgen/ch07_figs.py</code> ($44$ checks); the listing in <a class="secref" href="#s17-listing">&sect;17.4</a> re-runs the core with the standard library alone.</figcaption></figure>
+
+<h3 id="s17-toy">17.1 The toy, executed</h3>
+
+<p>The toy formula is the one fixed in <a class="secref" href="#encoding">&sect;6</a>: $m = 3$ variables, $\ell = 2$ clauses $C_1 = v_1 \vee v_2 \vee \neg v_3$ and $C_2 = \neg v_1 \vee \neg v_2 \vee v_3$, and the assignment $\sigma = (1,0,1)$, which the machine confirms satisfies both clauses. The field is $\mathbb{F}_{16} = \mathbb{F}_2[x]/(x^4+x+1)$ with generator $g = x$; the anchors are $(a_1, a_2, a_3) = (1, g, g^2)$, leaving $|P| = 13$ evaluation points, and the toy runs at $d = m = 3$, $T = 4$, so $dT = 12 \lt  13 = |P|$ holds with one point to spare. Each clause has exactly $|B_C| = 7$ satisfying local assignments, giving $|\Theta| = 1 + 7 + 7 = 15$ table types.</p>
+
+<p>The construction then runs exactly as specified. Lagrange interpolation produces $Q_\sigma$ with $\deg Q_\sigma \le m - 1 = 2$ and $Q_\sigma(a_i) = \sigma_i$; the one-hot tables of the intended solution have total weight $\mathrm{wt}(x_\sigma) = (\ell+1)\,|P| = 3 \cdot 13 = 39 = R$, matching the completeness weight of Lemma 8. All four constraint families of <a class="secref" href="#constraints">&sect;7</a> hold on the nose: every global fiber has odd parity (C1), the clause tables reproduce the global table mod 2 at all $q \cdot |P| = 208$ positions (C2), all ordinary moments of all $15$ types lie in $\mathrm{RS}(P, dj)$ for $j \le T = 4$ (C3), and all shifted moments lie in $\mathrm{RS}(P, (d-1)j)$ (C4).</p>
+
+<p>Bit-slicing the field equations (each $\mathbb{F}_{16}$-linear constraint becomes $e = 4$ parity checks) yields the explicit binary system $Hx = b$ with $M = |\Theta|\,|P|\,q = 15 \cdot 13 \cdot 16 = 3120$ unknowns and $8949$ binary equations; the machine verifies $Hx_\sigma = b$ row by row. Gaussian elimination over $\mathbb{F}_2$ (bitset arithmetic, all $8949$ rows) finds the system consistent with $\operatorname{rank} H = 1839$, so the solution code has dimension $k_0 = \dim C = 3120 - 1839 = 1281$, and the parity-lift lattice $B_H$ of <a class="secref" href="#codes">&sect;4</a> is a $3120 \times 3120$ integer matrix of determinant $2^{1839}$.</p>
+
+<p>Lemma 7 is checked by brute force. On the worked example $H = [1\;1\;1]$, $b = 1$ from <a class="secref" href="#codes">&sect;4</a> &mdash; the instance drawn in Fig.&nbsp;13 &mdash; the minimum solution weight is $W = 1$ and exhaustive search over lattice points $z \in [-2,3]^3$ confirms $\mathrm{dist}_2^2(u, \Lambda_H) = 1 = W$; three random systems ($5$ columns, $2$ rows) repeat the identity, and the $\ell_p$ variant of <a class="secref" href="#consequences">&sect;15</a> is confirmed for $p = 1$ and $p = 3$ on the worked example ($\min \lVert u - z\rVert_p^p = W = 1$).</p>
+
+<p>The reconstruction machinery of <a class="secref" href="#reconstruction">&sect;8</a>&ndash;<a class="secref" href="#lemma10">&sect;9</a> is exercised in both regimes. In the rational case, fibers $S(p) = \{q_1(p), q_2(p)\}$ with $q_1 = 1 + gX$ and $q_2 = (1+g^2) + gX$ produce a $2\times 2$ Hankel system over $K(X)$ whose solution the machine matches symbolically: $c_1 = q_1 + q_2$, $c_0 = q_1 q_2$, and $\det = (q_2 - q_1)^2$, the discriminant. In the genuinely non-rational case &mdash; Artin&ndash;Schreier fibers $S(p) = \{w : w^2 + w = p\}$ over the $8$ trace-zero points of $\mathbb{F}_{16}$, each fiber of size exactly $2$ &mdash; the interpolated moments come out $\mu_0 = 0$, $\mu_1 = 1$, $\mu_2 = 1$, $\mu_3 = 1 + X$, the Hankel step recovers $G(Y) = Y^2 + Y + X$ with $\det = 1 = (\alpha_2 - \alpha_1)^2$ (the two roots differ by $1$), the characteristic-two Newton recurrence $s_j = s_{j-1} + X\,s_{j-2}$ reproduces every moment up to $j = 7$, $G$ is separable ($\partial G/\partial Y = 1$), and a $698{,}905$-candidate sweep confirms $G$ has no polynomial root of degree $\le 2$ &mdash; the roots live only in the extension, exactly the situation the valuation toolbox of <a class="secref" href="#valuations">&sect;10</a> is built for.</p>
+
+<p>The soundness mechanisms are checked as polynomial identities, not spot samples: the shifted-moment binomial identity (17) of <a class="secref" href="#extraction">&sect;12</a> holds coefficient-by-coefficient for the active clause table at all $i$ and all $j \le 4$; the factor theorem confirms $(X - a_i) \mid Q_\sigma - \sigma_i$ for all three anchors; the parity-matching mechanism of Lemma 13 holds exactly, $\mu_{0,j} = \sum_{\beta \in B_C} \mu_{(C,\beta),j}$ as polynomials for both clauses and all $j \le 4$; and the all-ones Vandermonde impossibility of <a class="secref" href="#lemma10">&sect;9</a> is confirmed exhaustively &mdash; no nonempty $W \subseteq \mathbb{F}_{16}^\times$ with $|W| \le 3$ has vanishing power sums through $j = |W| - 1$.</p>
+
+<h3 id="s17-params">17.2 The parameter chain at $N = 100$, in exact integers</h3>
+
+<p>The toy validates mechanics, not asymptotics ($q = 16$ is nowhere near $N^{200}$). So the budget cascade of <a class="secref" href="#constraints">&sect;7</a> and <a class="secref" href="#soundness">&sect;11</a>&ndash;<a class="secref" href="#extraction">&sect;12</a> gets its own pass at $N = 100$ with Python's unbounded integers &mdash; every inequality below is evaluated exactly, no floating point anywhere. The field exponent comes out $e = 1329$: indeed $N^{200} = 10^{400} \le 2^{1329} \lt  2 \cdot 10^{400}$, so $q = 2^{1329}$ is a $401$-digit number. With $K = N^4$, $T = N^{30}$, $d \le N$, and $|P| = q - m$ taken at the extreme $m = N$ (the least $|P|$ the construction can face), the machine confirms, in order: $T \ge 2K - 1$; the window fit $dT \le N^{31} \lt  |P|$; the collision bound $|P| - dK(K-1) \gt  2dK^2T$; the Markov discard bound (13), checked in the equivalent $200$th-power form $(4R)^{200} M \lt  (qK/20)^{200}$ with $M = 40N^{401}$ and $R = Nq$ (both sides are integers with over $80{,}000$ digits); the bound (14), $|P| - q/20 - N^9 \gt  q/2 \gt  2N^{39}$; the dimension bound $M = |\Theta||P|q \le (1+8N)q^2 \le 40N^{401}$; the Lemma 12 window arithmetic $U_h = h^2 D_0 + dh^2 + 1 \le 4N^{17}$ and $z + h - 1 \le 5N^{21} \lt  T = N^{30}$ at the extreme $h = K$; and the exponent chain $(M^{1/200})^{1/2} = M^{1/400}$ with $n = M$, which is where $n^{1/400}$ comes from.</p>
+
+<h3 id="s17-table">17.3 What each check group covers</h3>
+
+<div class="tablewrap"><table>
+<tr><th>Checks</th><th>What they verify</th><th>Where used</th></tr>
+<tr><td>1&ndash;4</td><td>toy setup: $\sigma$ satisfies both clauses; $|B_C| = 7$ twice; $\deg Q_\sigma \le 2$ with $Q_\sigma(a_i) = \sigma_i$; $|\Theta| = 15$</td><td><a class="secref" href="#hardness">&sect;2</a>, <a class="secref" href="#encoding">&sect;6</a></td></tr>
+<tr><td>5&ndash;9</td><td>completeness: $\mathrm{wt}(x_\sigma) = 39 = (\ell+1)|P| = R$; (C1)&ndash;(C4) in full, all $15$ types, all $j \le 4$</td><td><a class="secref" href="#constraints">&sect;7</a> (Lemma 8)</td></tr>
+<tr><td>10&ndash;12</td><td>explicit binary system: $M = 3120$; $Hx_\sigma = b$ over all $8949$ rows; consistent, $\operatorname{rank} 1839$, $k_0 = 1281$</td><td><a class="secref" href="#constraints">&sect;7</a>, <a class="secref" href="#transfer">&sect;14</a></td></tr>
+<tr><td>13&ndash;18</td><td>Lemma 7 brute force: worked example $W = \mathrm{dist}^2 = 1$; three random systems; the $\ell_p$ identity at $p = 1, 3$</td><td><a class="secref" href="#codes">&sect;4</a>, <a class="secref" href="#consequences">&sect;15</a></td></tr>
+<tr><td>19&ndash;22</td><td>Hankel, rational case: $c_1 = q_1 + q_2$, $c_0 = q_1 q_2$, $\det = (q_2 - q_1)^2$, symbolically over $K(X)$</td><td><a class="secref" href="#reconstruction">&sect;8</a></td></tr>
+<tr><td>23&ndash;30</td><td>Hankel, Artin&ndash;Schreier case: $8$ trace-zero points, fibers of size $2$, $G(Y) = Y^2 + Y + X$, $\det = 1$, Newton recurrence $j \le 7$, separability, no polynomial root ($698{,}905$ candidates)</td><td><a class="secref" href="#reconstruction">&sect;8</a>&ndash;<a class="secref" href="#lemma10">&sect;9</a>, <a class="secref" href="#valuations">&sect;10</a></td></tr>
+<tr><td>31&ndash;32</td><td>identity (17) coefficient-by-coefficient; factor theorem $(X - a_i) \mid Q_\sigma - \sigma_i$</td><td><a class="secref" href="#extraction">&sect;12</a></td></tr>
+<tr><td>33&ndash;34</td><td>Lemma 13 parity matching as a polynomial identity; all-ones Vandermonde impossibility, exhaustive $|W| \le 3$</td><td><a class="secref" href="#matching">&sect;13</a>, <a class="secref" href="#lemma10">&sect;9</a></td></tr>
+<tr><td>35&ndash;44</td><td>the $N = 100$ chain: $e = 1329$; $T \ge 2K-1$; $dT \le N^{31} \lt  |P|$; $|P| - dK(K-1) \gt  2dK^2T$; Markov (13) exactly; (14); $M \le 40N^{401}$; $U_h \le 4N^{17}$; $z + h - 1 \le 5N^{21} \lt  T$; the $1/400$ exponent chain</td><td><a class="secref" href="#constraints">&sect;7</a>, <a class="secref" href="#soundness">&sect;11</a>&ndash;<a class="secref" href="#extraction">&sect;12</a>, <a class="secref" href="#transfer">&sect;14</a></td></tr>
+</table></div>
+
+<h3 id="s17-listing">17.4 The runnable subset</h3>
+
+<p>The listing below re-runs the core of the battery &mdash; the toy encoding and completeness, Lemma 7, the Artin&ndash;Schreier Hankel reconstruction with the Newton recurrence, and the full $N = 100$ parameter chain &mdash; using nothing outside the standard library. Every line of output should read <code>OK</code>.</p>
+
+<div class="codewrap"><button class="copybtn" type="button" onclick="copyCode(this)" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button><pre><code>&quot;&quot;&quot;Validation subset for ch.7 (CVP n^(1/400) hardness). Stdlib only.&quot;&quot;&quot;
+import itertools
+
+
+def report(name, ok):
+    print(f&quot;{name}: {&#x27;OK&#x27; if ok else &#x27;FAIL&#x27;}&quot;)
+
+
+# GF(16) = F2[x]/(x^4+x+1), elements = ints 0..15 (coefficient bitmasks)
+def gmul(a, b):
+    r = 0
+    while b:
+        if b &amp; 1:
+            r ^= a
+        b &gt;&gt;= 1
+        a &lt;&lt;= 1
+        if a &amp; 16:
+            a ^= 0b10011
+    return r
+
+
+def gpow(a, n):
+    r = 1
+    while n:
+        if n &amp; 1:
+            r = gmul(r, a)
+        a = gmul(a, a)
+        n &gt;&gt;= 1
+    return r
+
+
+def ginv(a):
+    return gpow(a, 14)
+
+
+def interp(pts):          # Lagrange interpolation, coeffs low-first
+    res = []
+    for i, (xi, yi) in enumerate(pts):
+        if yi == 0:
+            continue
+        num, den = [1], 1
+        for j, (xj, _) in enumerate(pts):
+            if j != i:
+                num = [(num[k] if k &lt; len(num) else 0) for k in
+                       range(len(num) + 1)]
+                num = [gmul(c, xj) ^ (num[k - 1] if k else 0)
+                       for k, c in enumerate(num)]
+                den = gmul(den, xi ^ xj)
+        c = gmul(yi, ginv(den))
+        res = [(res[k] if k &lt; len(res) else 0) ^ gmul(num[k], c)
+               for k in range(max(len(res), len(num)))]
+    while res and res[-1] == 0:
+        res.pop()
+    return res
+
+
+def peval(f, x):
+    r = 0
+    for a in reversed(f):
+        r = gmul(r, x) ^ a
+    return r
+
+
+# 1. Toy: m=3 vars, anchors (1, g, g^2) = (1,2,4), sigma = (1,0,1),
+#    clauses C1 = v1|v2|~v3, C2 = ~v1|~v2|v3; P = F16 minus anchors.
+ANCH, SIGMA = [1, 2, 4], (1, 0, 1)
+CLS = [((1, 1), (2, 1), (3, 0)), ((1, 0), (2, 0), (3, 1))]
+P = [w for w in range(16) if w not in ANCH]
+Q = interp(list(zip(ANCH, SIGMA)))
+report(&quot;Q_sigma interpolates sigma, deg &lt;= 2&quot;,
+       len(Q) &lt;= 3 and all(peval(Q, a) == s for a, s in zip(ANCH, SIGMA)))
+
+bc = [[b for b in itertools.product((0, 1), repeat=3)
+       if any((b[k] == 1) == (s == 1) for k, (v, s) in enumerate(c))]
+      for c in CLS]
+report(&quot;|B_C| = 7 for both clauses, |Theta| = 15&quot;,
+       [len(x) for x in bc] == [7, 7] and 1 + 7 + 7 == 15)
+
+# one-hot tables of the intended solution; weight R = (l+1)|P| = 39
+x = {(0, p, peval(Q, p)): 1 for p in P}
+for ci, c in enumerate(CLS):
+    beta = tuple(SIGMA[v - 1] for v, _ in c)
+    for p in P:
+        x[((ci, beta), p, peval(Q, p))] = 1
+report(&quot;wt(x_sigma) = 39 = 3*13 = R&quot;, len(x) == 39 == 3 * len(P))
+
+# (C1) odd global fibers; (C3) moment j of the global table is a
+# polynomial in p of degree &lt;= d*j (d = 3), all j &lt;= 4
+c1 = all(sum(x.get((0, p, w), 0) for w in range(16)) % 2 == 1 for p in P)
+c3 = True
+for j in range(5):
+    mom = [(p, gpow(peval(Q, p), j) if j else 1) for p in P]
+    c3 = c3 and len(interp(mom)) &lt;= 3 * j + 1
+report(&quot;(C1) odd fibers; (C3) mu_j in RS(P, 3j), j &lt;= 4&quot;, c1 and c3)
+
+# 2. Lemma 7 on H = [1 1 1], b = 1: min weight W = 1 equals
+#    dist^2(u, Lambda_H) with u = (1,0,0), brute force z in [-2,3]^3
+W = min(bin(v).count(&quot;1&quot;) for v in range(8)
+        if bin(v).count(&quot;1&quot;) % 2 == 1)
+d2 = min(sum((u - z) ** 2 for u, z in zip((1, 0, 0), zz))
+         for zz in itertools.product(range(-2, 4), repeat=3)
+         if sum(zz) % 2 == 0)
+report(&quot;Lemma 7: W = dist^2 = 1&quot;, W == d2 == 1)
+
+# 3. Artin-Schreier: fibers S(p) = {w : w^2 + w = p}, p of trace 0.
+#    Moments interpolate to mu0=0, mu1=1, mu2=1, mu3=1+X, and the
+#    Newton recurrence for G(Y) = Y^2 + Y + X reproduces them.
+tr0 = [p for p in range(16)
+       if (lambda a: a ^ gpow(a, 2) ^ gpow(a, 4) ^ gpow(a, 8))(p) == 0]
+fib = {p: [w for w in range(16) if gmul(w, w) ^ w == p] for p in tr0}
+report(&quot;8 trace-zero points, all fibers size 2&quot;,
+       len(tr0) == 8 and all(len(f) == 2 for f in fib.values()))
+mus = []
+for j in range(8):
+    pts = [(p, (gpow(fib[p][0], j) ^ gpow(fib[p][1], j)) if j else 0)
+           for p in tr0]
+    mus.append(interp(pts))
+report(&quot;mu_0..3 = 0, 1, 1, 1+X&quot;, mus[:4] == [[], [1], [1], [1, 1]])
+s_prev, s_cur = [], [1]
+newt = True
+for j in range(2, 8):
+    nxt = [(s_cur[k] if k &lt; len(s_cur) else 0)
+           ^ (s_prev[k - 1] if 0 &lt; k &lt;= len(s_prev) else 0)
+           for k in range(max(len(s_cur), len(s_prev) + 1))]
+    while nxt and nxt[-1] == 0:
+        nxt.pop()
+    newt = newt and nxt == mus[j]
+    s_prev, s_cur = s_cur, nxt
+report(&quot;Newton s_j = s_{j-1} + X s_{j-2} gives all mu_j, j &lt;= 7&quot;, newt)
+
+# 4. The N = 100 parameter chain, exact integers throughout
+N = 100
+e = 1
+while 2 ** e &lt; N ** 200:
+    e += 1
+q = 2 ** e
+K, T, d = N ** 4, N ** 30, N
+Psz = q - N
+report(f&quot;e = {e}: N^200 &lt;= 2^e &lt; 2 N^200&quot;, N ** 200 &lt;= q &lt; 2 * N ** 200)
+report(&quot;T &gt;= 2K-1 and dT &lt;= N^31 &lt; |P|&quot;,
+       T &gt;= 2 * K - 1 and d * T &lt;= N ** 31 &lt; Psz)
+report(&quot;|P| - dK(K-1) &gt; 2dK^2 T&quot;,
+       Psz - d * K * (K - 1) &gt; 2 * d * K ** 2 * T)
+M, R = 40 * N ** 401, N * q
+report(&quot;Markov (13): (4R)^200 M &lt; (qK/20)^200&quot;,
+       (4 * R) ** 200 * M &lt; (q * K // 20) ** 200)
+report(&quot;(14): |P| - q/20 - N^9 &gt; q/2 &gt; 2 N^39&quot;,
+       Psz - q // 20 - N ** 9 &gt; q // 2 and q // 2 &gt; 2 * N ** 39)
+report(&quot;M &lt;= (1+8N) q^2 &lt;= 40 N^401&quot;, (1 + 8 * N) * q ** 2 &lt;= 40 * N ** 401)
+U = K ** 2 * (d * K ** 2 + K) + d * K ** 2 + 1
+report(&quot;window: U_h &lt;= 4 N^17, z+h-1 &lt;= 5 N^21 &lt; T&quot;,
+       U &lt;= 4 * N ** 17 and K * U + K &lt;= 5 * N ** 21 &lt; T)</code></pre></div>
+
+<p>The full $44$-check battery, including the explicit $8949$-equation system, its rank, the rational-case Hankel algebra, and identity (17): <code>figgen/ch07_figs.py</code>.</p>

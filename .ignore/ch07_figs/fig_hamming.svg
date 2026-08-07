@@ -1,4 +1,4 @@
-<svg class="setupfig" viewBox="0 0 500 300" width="100%" role="img" aria-label="Nearest codeword in the 3-cube">
+<svg class="setupfig" viewBox="0 0 500 344" width="100%" role="img" aria-label="Nearest codeword in the 3-cube">
 <line x1="120" y1="236" x2="290" y2="236" stroke="#666" stroke-width="1.1" opacity="0.7"/>
 <line x1="120" y1="236" x2="120" y2="86" stroke="#666" stroke-width="1.1" opacity="0.7"/>
 <line x1="120" y1="236" x2="198" y2="174" stroke="#666" stroke-width="1.1" opacity="0.7"/>
@@ -30,7 +30,7 @@
 <line x1="198" y1="174" x2="120" y2="236" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3" opacity="0.85"/>
 <line x1="198" y1="174" x2="368" y2="174" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3" opacity="0.85"/>
 <line x1="198" y1="174" x2="198" y2="24" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3" opacity="0.85"/>
-<text x="24" y="26" font-size="12" text-anchor="start" fill="#2a7d2a">code C = ker H = even-weight words (green)</text>
-<text x="24" y="44" font-size="12" text-anchor="start" fill="#c0392b">received u = 100 (red): three codewords at Hamming distance 1</text>
 <text x="24" y="286" font-size="12" text-anchor="start" fill="#333">d&#8344;(u, C) = min wt(u &#8722; c) = W(H, b) = 1  for H = [1 1 1], b = 1</text>
+<text x="24" y="310" font-size="12" text-anchor="start" fill="#2a7d2a">code C = ker H = even-weight words (green)</text>
+<text x="24" y="328" font-size="12" text-anchor="start" fill="#c0392b">received u = 100 (red): dashed = three codewords at Hamming distance 1</text>
 </svg>

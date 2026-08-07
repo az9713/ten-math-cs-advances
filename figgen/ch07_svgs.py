@@ -357,7 +357,7 @@ def f_basis():
                       2.2, marker=pid))
         o.append(line(ox, oy, ox + b2[0] * 0.93, oy - b2[1] * 0.93, col,
                       2.2, marker=pid))
-        o.append(txt(ox + 140, H - 14, lab, 11.5, "middle", col))
+        o.append(txt(panel * 280 + 140, H - 14, lab, 11.5, "middle", col))
         o.append(circ(ox, oy, 3.0, DARK))
     o.append(line(280, 18, 280, H - 30, GRAY, 1, dash="4 4"))
     return svg_wrap("\n".join(o), W, H,
@@ -511,7 +511,7 @@ def f_gapamp():
         return xa + v * scale
     o = [arrow_def("c7amp_arr", DARK)]
     o.append(line(xa - 10, y, xb + 14, y, DARK, 1.5, marker="c7amp_arr"))
-    o.append(txt(xb + 6, y + 20, "distance d = dist&#8322;(t, L)", 11.5,
+    o.append(txt(xb + 6, y - 16, "distance d = dist&#8322;(t, L)", 11.5,
                  "end", DARK))
     for (v, lab) in [(1.6, "r"), (6.4, "&#947;r")]:
         o.append(line(X(v), y - 34, X(v), y + 6, GRAY, 1.2, dash="4 3"))
@@ -572,15 +572,15 @@ def f_exponents():
                  "middle", GRAY))
     o.append(line(226, 184, 282, 184, DARK, 1.6, marker="c7exp_a"))
     o.append(txt(254, 174, "&#8730; of Lemma 7", 10, "middle", GRAY))
-    o.append(txt(20, 120, "q &#8776; N&#178;&#8304;&#8304; makes every "
+    o.append(txt(20, 236, "q &#8776; N&#178;&#8304;&#8304; makes every "
                  "error term (Markov losses, discriminant zeros, valuation "
                  "windows) vanish against |P| &#8776; q", 10.5, "start",
                  GRAY))
-    o.append(txt(20, 238, "M &#8776; N&#8308;&#8304;&#185; &#8776; "
+    o.append(txt(20, 254, "M &#8776; N&#8308;&#8304;&#185; &#8776; "
                  "q&#178; &#8658; M^&#8201;1/200 &#8776; q^&#8201;1/100 "
                  "&#8776; N&#178;: a huge gap in absolute terms, a tiny "
                  "power of the dimension", 10.5, "start", GRAY))
-    return svg_wrap("\n".join(o), W, H,
+    return svg_wrap("\n".join(o), W, H + 10,
                     "Where the exponent 1/400 comes from")
 
 
@@ -628,14 +628,14 @@ def f_hamming():
         cx2, cy2 = proj(cw)
         o.append(line(ux, uy, cx2, cy2, RED, 1.6, dash="5 3",
                       opacity=0.85))
-    o.append(txt(24, 26, "code C = ker H = even-weight words (green)",
-                 12, "start", GREEN))
-    o.append(txt(24, 44, "received u = 100 (red): three codewords at "
-                 "Hamming distance 1", 12, "start", RED))
     o.append(txt(24, 286, "d&#8344;(u, C) = min wt(u &#8722; c) = "
                  "W(H, b) = 1  for H = [1 1 1], b = 1", 12, "start",
                  DARK))
-    return svg_wrap("\n".join(o), W, H,
+    o.append(txt(24, 310, "code C = ker H = even-weight words (green)",
+                 12, "start", GREEN))
+    o.append(txt(24, 328, "received u = 100 (red): dashed = three "
+                 "codewords at Hamming distance 1", 12, "start", RED))
+    return svg_wrap("\n".join(o), W, H + 44,
                     "Nearest codeword in the 3-cube")
 
 
@@ -695,7 +695,7 @@ def f_paritylift():
 
 @fig("fig_lemma7")
 def f_lemma7():
-    W, H = 620, 240
+    W, H = 620, 272
     coords = [0, -2, 1, 0, 3, -1, 0]
     xa = 90
     bw = 56
@@ -767,7 +767,7 @@ def f_h111():
         o.append(circ(px, py, rr, BLUE, opacity=None))
     ux, uy = proj(1, 0, 0)
     o.append(star(ux, uy, 9, RED))
-    o.append(txt(ux + 8, uy + 18, "u = (1,0,0)", 12, "start", RED,
+    o.append(txt(ux + 26, uy + 24, "u = (1,0,0)", 12, "start", RED,
                  cls="v"))
     for lam in [(0, 0, 0), (1, 1, 0), (1, 0, 1), (2, 0, 0), (1, -1, 0)]:
         lx, ly = proj(*lam)
@@ -883,8 +883,8 @@ def f_interp():
 
     def qreal(x):
         return (x - 2) ** 2
-    pts = [(0.55 + i * (3.3 - 0.55) / 80, qreal(0.55 + i * (3.3 - 0.55)
-                                                / 80)) for i in range(81)]
+    pts = [(0.72 + i * (3.28 - 0.72) / 80, qreal(0.72 + i * (3.28 - 0.72)
+                                                 / 80)) for i in range(81)]
     o.append('<g>')
     o.append(axl.axes(xticks=(1, 2, 3), yticks=(0, 1),
                       xlab="X", ylab=""))
@@ -892,11 +892,11 @@ def f_interp():
     for (a, s) in [(1, 1), (2, 0), (3, 1)]:
         o.append(axl.dot(a, s, 4.5, RED))
     o.append(axl.text(1, 1, "(a&#8321;, &#963;&#8321;)", 10, dy=-8,
-                      color=RED, anchor="middle"))
+                      color=RED, anchor="start"))
     o.append(axl.text(2, 0, "(a&#8322;, &#963;&#8322;)", 10, dy=16,
                       color=RED, anchor="middle"))
     o.append(axl.text(3, 1, "(a&#8323;, &#963;&#8323;)", 10, dy=-8,
-                      color=RED, anchor="middle"))
+                      color=RED, anchor="end"))
     o.append(txt(160, 16, "real-line analogy", 11, "middle", GRAY))
     o.append('</g>')
     xg = 340
@@ -933,7 +933,7 @@ def f_interp():
 
 @fig("fig_tables")
 def f_tables():
-    W, H = 640, 420
+    W, H = 640, 468
     gx, gy = 58, 46
     cw, chh = 30, 17
     o = []
@@ -1087,24 +1087,26 @@ def f_constraints():
                  "the subtype tables", 10.5, "middle", GREEN))
     o.append(txt(bx + 90, gy + chh * 10 + 30, "XOR to the global fiber",
                  10.5, "middle", GREEN))
-    y2 = 246
+    y2 = 240
     o.append(txt(18, y2, "(C3): for each table and each j &#8804; T, "
                  "the j-th power sums of the fibers,  p &#8614; "
-                 "&#8721;&#8202;w&#8201;x&#964;,p,w&#8201;w&#8202;^j, "
-                 "form a Reed&#8211;Solomon codeword of degree &#8804; "
-                 "dj", 11.5, "start", BLUE))
-    o.append(txt(18, y2 + 24, "(C4): for each clause subtype and each "
+                 "&#8721;&#8202;w&#8201;x&#964;,p,w&#8201;w&#8202;^j,",
+                 10.8, "start", BLUE))
+    o.append(txt(18, y2 + 15, "form a Reed&#8211;Solomon codeword of "
+                 "degree &#8804; dj", 10.8, "start", BLUE))
+    o.append(txt(18, y2 + 36, "(C4): for each clause subtype and each "
                  "variable i of the clause, the shifted sums with "
-                 "(w &#8722; &#946;&#7522;)/(p &#8722; a&#7522;) form a "
-                 "codeword of degree &#8804; (d&#8722;1)j", 11.5,
-                 "start", PURPLE))
-    o.append(txt(18, y2 + 54, "all four families are LINEAR over "
+                 "(w &#8722; &#946;&#7522;)/(p &#8722; a&#7522;)",
+                 10.8, "start", PURPLE))
+    o.append(txt(18, y2 + 51, "form a codeword of degree &#8804; "
+                 "(d&#8722;1)j", 10.8, "start", PURPLE))
+    o.append(txt(18, y2 + 72, "all four families are LINEAR over "
                  "F&#8322; in the indicators x&#964;,p,w &#8212; "
                  "field powers w^j are known coefficients, never "
-                 "unknowns", 11.5, "start", DARK, w="b"))
-    o.append(txt(18, y2 + 78, "together: one explicit binary affine "
+                 "unknowns", 10.4, "start", DARK, w="b"))
+    o.append(txt(18, y2 + 92, "together: one explicit binary affine "
                  "system Hx = b   (equation (3); toy: 8949 equations, "
-                 "M = 3120 unknowns)", 11.5, "start", DARK))
+                 "M = 3120 unknowns)", 10.4, "start", DARK))
     return svg_wrap("\n".join(o), W, H,
                     "The constraint system at a glance")
 
@@ -1121,16 +1123,16 @@ def f_secant():
     o = []
     o.append(ax.axes(xticks=(1, 2, 3, 4), yticks=(0, 1, 2), xlab="X",
                      ylab="Q(X)"))
-    o.append(ax.polyline([(0.55 + i * 3.5 / 90,
-                           q(0.55 + i * 3.5 / 90)) for i in range(91)],
+    o.append(ax.polyline([(0.55 + i * 2.95 / 90,
+                           q(0.55 + i * 2.95 / 90)) for i in range(91)],
                          BLUE, 2.0))
     a_i, b_i = 2, 0
     o.append(ax.dot(a_i, b_i, 5.0, RED))
     o.append(ax.text(a_i, b_i, "anchor (a&#7522;, &#946;&#7522;)", 10,
                      dy=17, color=RED, anchor="middle"))
-    for p in (0.8, 1.3, 3.0, 3.7):
+    for p in (0.8, 1.3, 3.0, 3.45):
         o.append(ax.polyline([(a_i, b_i), (p, q(p))], "#d99", 1.0))
-    xs = [0.7 + i * (3.9 - 0.7) / 40 for i in range(41)]
+    xs = [0.7 + i * (3.45 - 0.7) / 40 for i in range(41)]
     xpix = [fmt(ax.X(x)) for x in xs]
     ypix = [fmt(ax.Y(q(x))) for x in xs]
     xv = ";".join(xpix + xpix[::-1])
@@ -1251,7 +1253,7 @@ def f_params():
         o.append(txt(xr + 112, yy + 32, why, 9, "middle", GRAY))
         yy += 50
     for (sy, ty) in [(1, 0), (3, 1), (2, 2), (3, 2), (2, 3), (1, 4)]:
-        o.append(line(230, 51 + sy * 44, 396, 54 + ty * 50, GRAY, 1.0,
+        o.append(line(258, 51 + sy * 44, 396, 54 + ty * 50, GRAY, 1.0,
                       dash="3 3", marker="c7par_a"))
     o.append(txt(20, 282, "every inequality was re-verified with exact "
                  "integer arithmetic at N = 100 (machine checks, "
@@ -1365,7 +1367,7 @@ def f_hankel():
 @fig("fig_sheets")
 def f_sheets():
     W, H = 640, 330
-    ax = Ax(-0.6, 2.6, -2.2, 1.4, W=360, H=280, ml=40, mr=10, mt=30,
+    ax = Ax(-1.4, 2.6, -2.2, 1.4, W=360, H=280, ml=40, mr=10, mt=30,
             mb=36)
     o = []
     o.append(ax.axes(xticks=(0, 1, 2), yticks=(-2, -1, 0, 1), xlab="X",
@@ -1380,16 +1382,18 @@ def f_sheets():
     o.append(ax.polyline(up, BLUE, 2.2))
     o.append(ax.polyline(dn, PURPLE, 2.2))
     o.append(ax.dot(-0.25, -0.5, 5, RED))
-    o.append(ax.text(-0.25, -0.42, "branch point:", 10, color=RED,
-                     anchor="start", dx=6))
-    o.append(ax.text(-0.25, -0.62, "disc = 0, fiber collapses", 10,
-                     color=RED, anchor="start", dx=6))
+    o.append(ax.text(-0.25, -0.30, "branch point:", 10, color=RED,
+                     anchor="end", dx=-9))
+    o.append(ax.text(-0.25, -0.52, "disc = 0,", 10, color=RED,
+                     anchor="end", dx=-9))
+    o.append(ax.text(-0.25, -0.74, "fiber collapses", 10, color=RED,
+                     anchor="end", dx=-9))
     for x in (0.6, 1.6):
-        o.append(ax.vline(x, GRAY, 1.0, dash="3 3"))
+        o.append(ax.vline(x, GRAY, 1.0, dash="3 3", y1=0.92))
         s = math.sqrt(1 + 4 * x)
         o.append(ax.dot(x, (-1 + s) / 2, 4.4, BLUE))
         o.append(ax.dot(x, (-1 - s) / 2, 4.4, PURPLE))
-    o.append(ax.text(0.6, 1.2, "fiber S(p): the sheet values above p",
+    o.append(ax.text(0.3, 1.2, "fiber S(p): the sheet values above p",
                      10.5, color=DARK, anchor="start"))
     o.append(txt(200, 18, "real-line analogy: the curve Y&#178; + Y = X",
                  11.5, "middle", GRAY))
@@ -1535,8 +1539,9 @@ def f_ord():
             o.append(ax.polyline(seg, col, 1.9))
     o.append(ax.text(0.06, 1.72, "ord = 0 (unit)", 10.5,
                      color="#b8860b"))
-    o.append(ax.text(1.42, 0.83, "ord = 1", 10.5, color=GREEN))
-    o.append(ax.text(1.79, 1.86, "ord = 3", 10.5, color=BLUE))
+    o.append(ax.text(1.85, 0.72, "ord = 1", 10.5, color=GREEN))
+    o.append(ax.text(1.9, 2.28, "ord = 3", 10.5, color=BLUE,
+                     anchor="end"))
     o.append(ax.text(1.12, -1.55, "ord = &#8722;1", 10.5, color=PURPLE))
     o.append(ax.text(a, 2.32, "a", 12, color=RED, dx=4, cls="v"))
     xr = 452
@@ -1634,8 +1639,8 @@ def f_ramify():
     o.append(txt(x1 + 12, y0 - 2 * sc + 4, "&#8467;&#8342;", 12, "start",
                  BLUE, cls="v"))
     o.append(circ(x2, y0 - 1.5 * sc, 6, PURPLE))
-    o.append(txt(x2 + 12, y0 - 1.5 * sc + 4,
-                 "u with u&#178; = &#8467;&#8342;", 11.5, "start",
+    o.append(txt(x2, y0 - 1.5 * sc + 22,
+                 "u with u&#178; = &#8467;&#8342;", 11.5, "middle",
                  PURPLE))
     o.append(txt(280, 250, "2&#8202;v(u) = v(&#8467;&#8342;) = 1 "
                  "&#8658; v(u) = 1/2: new, fractional rungs &#8212; "
@@ -1682,8 +1687,8 @@ def f_markov():
     o.append(line(ax_x0 - 8, y0, ax_x0 + npts * bw + 4, y0, DARK, 1.3))
     o.append(line(ax_x0 - 8, y0 - KCAP * sc, ax_x0 + npts * bw + 4,
                   y0 - KCAP * sc, PURPLE, 1.6, dash="6 4"))
-    o.append(txt(ax_x0 + npts * bw + 8, y0 - KCAP * sc + 4,
-                 "cap K = N&#8308;", 11.5, "start", PURPLE))
+    o.append(txt(ax_x0 + npts * bw + 2, y0 - KCAP * sc - 6,
+                 "cap K = N&#8308;", 11.5, "end", PURPLE))
     o.append(txt(ax_x0 + npts * bw / 2, y0 + 18,
                  "evaluation points p &#8712; P", 11, "middle", GRAY))
     o.append(txt(18, 250, "total area = wt(x) &#8804; 4M^&#8201;1/200"
@@ -1692,7 +1697,7 @@ def f_markov():
     o.append(txt(18, 272, "|P &#8735; P&#964;| &#8804; 4M^&#8201;1/200"
                  "&#8202;R/N&#8308; &lt; q/20 &#8212; discard them "
                  "(&#10007;) and keep P&#964;, still &#8805; |P| &#8722; "
-                 "q/20 points, separately for each table", 11.5, "start",
+                 "q/20 points, separately for each table", 10.8, "start",
                  DARK))
     return svg_wrap("\n".join(o), W, H,
                     "Markov discard of oversized fibers")
@@ -1735,10 +1740,10 @@ def f_newton12():
                  "[&#8722;D&#8320;, &#8722;1/h]", 10, "middle",
                  "#b8860b"))
     y2 = 208
-    o.append(txt(18, 158, "step 2 &#8212; amplification: take the z-th "
+    o.append(txt(18, 148, "step 2 &#8212; amplification: take the z-th "
                  "moment window with z = hU&#8344; + 1 (moments up to "
                  "z + h &#8722; 1 &#8804; 5N&#178;&#185; &lt; T exist):",
-                 12, "start", DARK))
+                 11, "start", DARK))
     o.append(line(xa - 12, y2, xb + 16, y2, DARK, 1.4))
     for (v, lab) in [(-3.9, "&#8722;z/h"), (-1.9, "&#8722;U&#8344;"),
                      (0.0, "0")]:
@@ -1746,7 +1751,7 @@ def f_newton12():
         o.append(txt(X(v), y2 + 24, lab, 12, "middle", DARK))
     o.append(line(X(-1.9), y2 - 36, X(-1.9), y2 - 8, BLUE, 1.4,
                   dash="4 3"))
-    o.append(txt(X(-1.9), y2 - 44, "matrix bound: v&#7522;(y&#8348;^z) "
+    o.append(txt(X(-1.9), y2 - 40, "matrix bound: v&#7522;(y&#8348;^z) "
                  "&#8805; &#8722;U&#8344; (V&#8315;&#185; &#183; "
                  "nonneg moments)", 10.5, "middle", BLUE))
     o.append(line(X(-3.9), y2 + 36, X(-3.9), y2 + 8, RED, 1.4,
@@ -1915,7 +1920,7 @@ def f_lpnorms():
     o.append(line(cx - s - 16, cy, cx + s + 16, cy, GRAY, 1))
     o.append(line(cx, cy - s - 16, cx, cy + s + 16, GRAY, 1))
     o.append(txt(cx + 30, cy - 32, "p = 1", 11, "middle", RED))
-    o.append(txt(cx + 62, cy - 62, "p = 2", 11, "middle", BLUE))
+    o.append(txt(cx - s - 8, cy - 20, "p = 2", 11, "end", BLUE))
     o.append(txt(cx + s - 14, cy - s - 6, "p = &#8734;", 11, "middle",
                  GREEN))
     o.append(txt(cx, 250, "unit balls of &#8467;&#8346; norms", 11.5,
@@ -2013,8 +2018,8 @@ def f_toysummary():
     o.append(line(540, 104, 140, 164, DARK, 1.4, marker="c7toy_a"))
     o.append(line(200, 205, 236, 205, DARK, 1.4, marker="c7toy_a"))
     o.append(line(420, 205, 456, 205, DARK, 1.4, marker="c7toy_a"))
-    o.append(txt(320, 272, "every arrow is executed and checked by "
-                 "figgen/ch07_figs.py; the in-page listing below "
+    o.append(txt(320, 272, "every arrow is executed by the chapter's "
+                 "44-check battery; the in-page listing below "
                  "re-runs the core checks", 11, "middle", GRAY))
     return svg_wrap("\n".join(o), W, H,
                     "The toy instance end to end")
