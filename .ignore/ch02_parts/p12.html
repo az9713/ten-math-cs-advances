@@ -1,0 +1,85 @@
+<h2 id="hierarchy">12. The multi-row hierarchy</h2>
+
+<p>The one-row construction left value on the table, and the table is visible in the tensor algebra. For $i\ge1$ (and $n\ge6$), tensoring an ambient harmonic level with the coordinate space splits as</p>
+
+$$\mathbb{R}^n\otimes V_{(i,0)} \;\simeq\; V_{(i+1,0)}\,\oplus\,V_{(i-1,0)}\,\oplus\,V_{(i,1)},$$
+
+<p>where $V_{(i,0)} = V^{\mathrm S}_i$ and $V_{(i,1)}$ is a genuinely new irreducible $SO(n)$-representation &mdash; not a space of functions on the sphere at all, but a tensor representation. The path construction of §<a class="secref" href="#tangent">11</a> silently discarded the third summand at every step. Yet for $k\ge1$ that summand still contains the fiber $\mathcal H_k(x^\perp)$ &mdash; so it is a legitimate extra vertex for the representation graph, and keeping it (and its own neighbors, and so on) can only enlarge the graph's top eigenvalue while leaving the fiber dimension untouched. Bigger $\Lambda$ at fixed fiber = a strictly better certificate. Following that logic to the end produces the full hierarchy.</p>
+
+<h3 id="hierarchy-young">12.1 Ambient and stabilizer types: Young diagrams</h3>
+
+<p>Fix a <b>hierarchy level</b> $r\ge0$ and assume $n\ge2r+4$ (harmless: $r$ is fixed before $n\to\infty$; the assumption keeps all diagrams in the &ldquo;stable range&rdquo; where none of the exceptional phenomena of maximal-length orthogonal weights occur). The irreducible players are indexed by <b>Young diagrams</b> &mdash; weakly decreasing tuples of nonnegative integers, the row lengths:</p>
+
+<ul>
+<li><b>ambient</b> $SO(n)$-representations $V_\lambda$, $\lambda = (\lambda_1,\dots,\lambda_{r+1},0,\dots)$ &mdash; at most $r+1$ nonzero rows; one-row diagrams are the harmonic levels, $V_{(i)} = V^{\mathrm S}_i$;</li>
+<li><b>stabilizer</b> $SO(n-1)$-representations $E_\mu$, $\mu = (\mu_1,\dots,\mu_r,0,\dots)$ &mdash; at most $r$ nonzero rows; one-row $\mu = (k)$ is the tangent-harmonic fiber of §<a class="secref" href="#tangent">11</a>.</li>
+</ul>
+
+<div class="def" id="importD2"><b>Import D2 (general branching rule; interlacing).</b> For $n\ge2r+4$ and diagrams as above, the restriction of $V_\lambda$ to $SO(n-1)$ is multiplicity-free, and it contains $E_\mu$ exactly when the rows interlace:
+$$\lambda_1\;\ge\;\mu_1\;\ge\;\lambda_2\;\ge\;\cdots\;\ge\;\mu_r\;\ge\;\lambda_{r+1}\;\ge\;0. \tag{72}$$
+The harmonic case (62) is the specialization $\lambda = (i)$, $\mu = (k)$: interlacing then reads $i\ge k\ge0$. <i>Citation:</i> Goodman&ndash;Wallach, Thms. 8.1.3&ndash;8.1.4. (This multiplicity-freeness is exactly the statement that $(SO(n),SO(n-1))$ is a strong Gelfand pair &mdash; the note of §<a class="secref" href="#repgraphs">9.3</a>.)</div>
+
+<p>So: <i>choose</i> a stabilizer diagram $\mu$ with $r$ rows and freeze it; the eligible ambient vertices are all $(r{+}1)$-row diagrams $\lambda$ interlacing it, and the graph on them will be a nearest-neighbor lattice: tensoring with $\mathbb{R}^n$ adds or removes one box from one row ($\lambda\mapsto\lambda\pm e_\ell$), when the result is still weakly decreasing and still interlaces $\mu$. The hierarchy level $r$ counts <i>rows of the moving fiber</i>, not graph size: level $0$ is the classical path, level $1$ with $\mu=(k)$ gives the two-row ambient lattice, level $r$ gives an $(r{+}1)$-dimensional box of ambient weights.</p>
+
+<figure><!--FIG:fig_young--><figcaption>The bookkeeping of the hierarchy. Left: an ambient Young diagram $\lambda$ ($r+1 = 3$ rows) interlacing a stabilizer diagram $\mu$ ($r=2$ rows, shaded): each $\mu$-row length fits between the two neighboring $\lambda$-row lengths, condition (72). Right: coordinate multiplication moves one box at a time ($\lambda\to\lambda\pm e_\ell$), generating a nearest-neighbor lattice graph on the eligible ambient diagrams; moves that would break weak decrease or interlacing are absent.</figcaption></figure>
+
+<h3 id="hierarchy-weights">12.2 The transition weights</h3>
+
+<p>The edge strengths come from one more import &mdash; the last one, and the one carrying the heaviest machinery. Add the standard orthogonal shifts to the row lengths (paper's (73)):</p>
+
+$$\widehat\lambda_\ell = \lambda_\ell + \frac n2 - \ell,
+\qquad
+\widehat\mu_m = \mu_m + \frac{n-1}2 - m,
+\qquad
+\rho_{n,r} = \frac n2 - r - 1. \tag{73}$$
+
+<div class="def" id="importF"><b>Import F (Kravchuk's coordinate coefficients; Weyl dimensions).</b> (i) In the stable range, the squared scalar coefficient of coordinate multiplication between the copies of $E_\mu$ in $V_\lambda$ and $V_{\lambda\pm e_\ell}$ (the quantity $p_{\lambda,\lambda\pm e_\ell}$ of §<a class="secref" href="#repgraphs">9.2</a>, abbreviated $p_{\ell,\pm}(\lambda;\mu)$) is
+$$p_{\ell,\pm}(\lambda;\mu) \;=\;
+\frac{\bigl(\widehat\lambda_\ell\pm\rho_{n,r}\bigr)\displaystyle\prod_{m=1}^{r}\Bigl(\bigl(\widehat\lambda_\ell\pm\tfrac12\bigr)^2-\widehat\mu_m^2\Bigr)}
+{2\widehat\lambda_\ell\displaystyle\prod_{\substack{q=1\\q\ne\ell}}^{r+1}\bigl(\widehat\lambda_\ell^2-\widehat\lambda_q^2\bigr)}, \tag{74}$$
+zero when the target diagram is not weakly decreasing or fails (72). One formula covers both parities of $n$: Kravchuk's odd- and even-dimensional coefficient expressions reduce to (74) after the factors belonging to all-zero tail rows cancel (the paper's §A.2 performs the cancellation; the apparent odd-$n$ self-loop term is killed by the tensor-product boundary correction, so there are no $\lambda\to\lambda$ transitions). (ii) The exact ambient dimension is Weyl's formula, in its zero-tail specialization
+$$D_n(\lambda) = \prod_{i=1}^{r+1}\frac{2\lambda_i+n-2i}{n-2i}\,\frac{(\lambda_i+n-i-r-2)!}{(n-i-r-2)!}\,\frac{(r+1-i)!}{(\lambda_i+r+1-i)!}
+\;\prod_{1\le i\lt j\le r+1}\frac{(\lambda_i-\lambda_j+j-i)(\lambda_i+\lambda_j+n-i-j)}{(j-i)(n-i-j)}, \tag{111}$$
+with $\dim E_\mu$ given by the same formula with $(n,\lambda,r)\mapsto(n-1,\mu,r-1)$, and $\dim E_\mu = 1$ when $r=0$.
+<i>Citations:</i> Kravchuk 2018, (B.2)&ndash;(B.6), (B.11)&ndash;(B.13) (Casimir recursion for conformal blocks &mdash; the same $SO(n)$ tensor algebra); Goodman&ndash;Wallach §7.1.2. <i>Independent verification:</i> §<a class="secref" href="#validation">18</a>, check 12, tests (74) and (111) jointly in exact rational arithmetic over hundreds of random $(n,r,\lambda,\mu)$: the full-graph normalization (75) sums to exactly $1$, the reciprocity (76) holds exactly edge by edge, (111) at one-row $\lambda$ reproduces $D^{\mathrm S}_i$, and the two-row specialization matches (79) below. A transcription error anywhere in (74) or (111) would shatter all four.</div>
+
+<div class="prop" id="prop61"><b>Proposition 6.1.</b> Fix $r\ge0$, $n\ge2r+4$, and $\lambda,\mu$ satisfying (72). With the zero convention above:
+$$\sum_{\ell=1}^{r+1}\bigl(p_{\ell,+}(\lambda;\mu)+p_{\ell,-}(\lambda;\mu)\bigr) = 1, \tag{75}$$
+and for every existing edge $\lambda\to\lambda+e_\ell$,
+$$D_n(\lambda)\,p_{\ell,+}(\lambda;\mu) \;=\; D_n(\lambda+e_\ell)\,p_{\ell,-}(\lambda+e_\ell;\mu). \tag{76}$$</div>
+
+<div class="proof">(75): For $Y\in E_\mu$, the vector $\ell_x\otimes\varphi_{\lambda,x}Y \in \mathbb{R}^n\otimes V_\lambda$ has stabilizer type $E_\mu$ (the coordinate vector $\ell_x$ is fixed by the stabilizer of $x$). Decompose $\mathbb{R}^n\otimes V_\lambda$ into ambient irreducibles: by the one-box rule the summands are the $V_{\lambda\pm e_\ell}$, pairwise inequivalent, and the squared norms of the orthogonal projections of $\ell_x\otimes\varphi_{\lambda,x}Y$ onto them are $p_{\ell,\pm}(\lambda;\mu)\|Y\|^2$ by the definition (52). Parseval, with $\|\ell_x\| = 1$ and $\varphi_{\lambda,x}$ isometric:
+$$\|Y\|^2 = \|\ell_x\otimes\varphi_{\lambda,x}Y\|^2 = \sum_{\ell=1}^{r+1}\bigl(p_{\ell,+}+p_{\ell,-}\bigr)\|Y\|^2 .$$
+(76): a term-by-term evaluation of the ratio $D_n(\lambda+e_\ell)/D_n(\lambda)$ from (111) against the ratio $p_{\ell,+}(\lambda;\mu)/p_{\ell,-}(\lambda+e_\ell;\mu)$ from (74) &mdash; finitely many rational factors in the shifted coordinates; imported with F and verified exactly in check 12. <span class="qed">&#8718;</span></div>
+
+<h3 id="hierarchy-thm">12.3 The finite spherical bound at every level</h3>
+
+<p>Choose a finite connected set $\Omega$ of ambient weights interlacing the fixed $\mu$, keep only internal edges, and symmetrize by (55): edge weights $J_{\lambda,\lambda+e_\ell} = \sqrt{p_{\ell,+}(\lambda;\mu)\,p_{\ell,-}(\lambda+e_\ell;\mu)}$ (77). Write $d_\mu = \dim E_\mu$, $\Lambda_\Omega = \lambda_{\max}(J_\Omega)$. Theorem 4.2 instantiates to:</p>
+
+<div class="thm" id="thm62"><b>Theorem 6.2.</b> Fix $-1\lt s\lt1$, $r\ge0$, $n\ge2r+4$, a stabilizer representation $E_\mu$, and a finite connected $\Omega$ of ambient weights satisfying (72). If $\Lambda_\Omega\gt\max\{s,0\}$, then
+$$A(n,s) \;\le\; \frac{1-s}{d_\mu\,(\Lambda_\Omega-s)}\sum_{\lambda\in\Omega}D_\lambda. \tag{78}$$</div>
+
+<div class="proof">All hypotheses of Theorem 4.2 are in place: transitive $G = SO(n)$ on $X = S^{n-1}$ with $W=\mathbb{R}^n$, $\ell_x = x$; multiplicity one from Import D2; scalar transitions (52) with squared weights (74) from Import F; reciprocity (53) = (76) from Proposition 6.1; connectivity by assumption. <span class="qed">&#8718;</span></div>
+
+<h3 id="hierarchy-tworow">12.4 The two-row graph, concretely</h3>
+
+<p>To see the abstract machinery with bare hands, return to the fiber $\mu = (k)$ (level $r=1$). Ambient diagrams are two-row, $\lambda = (i,j)$ with $i\ge k\ge j\ge0$ by (72): a half-open lattice strip. Formula (74) unpacks into the four directed weights (paper's (79)):</p>
+
+$$\begin{aligned}
+p_{i,+} &= \frac{(i-k+1)(i+k+n-2)(i+n-3)}{(i-j+1)(i+j+n-3)(2i+n-2)},\qquad&
+p_{i,-} &= \frac{(i-k)(i+k+n-3)(i+1)}{(i-j+1)(i+j+n-3)(2i+n-2)},\\[2pt]
+p_{j,+} &= \frac{(k-j)(j+k+n-3)(j+n-4)}{(i-j+1)(i+j+n-3)(2j+n-4)},\qquad&
+p_{j,-} &= \frac{j(k-j+1)(j+k+n-4)}{(i-j+1)(i+j+n-3)(2j+n-4)}.
+\end{aligned} \tag{79}$$
+
+<p>The boundary factors do the geometry: $i-k$ kills leftward moves at $i=k$, $k-j$ kills upward moves at $j=k$, and $j$ kills downward moves at $j=0$ &mdash; the strip walls are automatic. On the floor $j=0$, the pair $(p_{i,+},p_{i,-})$ is exactly the one-row path of §<a class="secref" href="#tangent">11</a>; the doorway off the floor has weight</p>
+
+$$p_{j,+}(i,0) = \frac{k(k+n-3)}{(i+1)(i+n-3)},$$
+
+<p>strictly positive precisely when $k\gt0$. That is the whole story of the hierarchy in one formula: <i>a nontrivial fiber opens edges the classical construction never had</i>, the graph's $\Lambda$ grows accordingly, and the fiber dimension in the denominator of (78) is unchanged. The ambient dimension, specializing (111) to $\lambda = (i,j)$:</p>
+
+$$D_{i,j} = \frac{(2i+n-2)(2j+n-4)(i-j+1)(i+j+n-3)}{(n-2)(n-4)(i+1)(i+n-3)}\binom{i+n-3}{i}\binom{j+n-5}{j},$$
+
+<p>with $D_{i,0} = D^{\mathrm S}_i$ (a one-line cancellation), and reciprocity $D_{i,j}\,p_{i,+}(i,j) = D_{i+1,j}\,p_{i,-}(i+1,j)$ (and its $j$-analogue) checked exactly in §<a class="secref" href="#validation">18</a>.</p>
+
+<figure><!--FIG:fig_tworow--><figcaption>The two-row transition graph for stabilizer weight $\mu=(k)$ (the paper's Figure 2, redrawn with computed weights for $n=40$, $k=4$). Vertices $(i,j)$ with $i\ge k\ge j\ge0$; horizontal edges change $i$, vertical edges change $j$; edge thickness proportional to the computed symmetric weight (77). The blue floor $j=0$ is the one-row path of §11; the gold vertical doorways, present only because $k\gt0$, are the new spectral resource. A box near the upper corner (dashed) has asymptotically constant weights &mdash; the locality that §13 exploits.</figcaption></figure>

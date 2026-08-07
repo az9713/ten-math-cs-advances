@@ -1,0 +1,47 @@
+<h2 id="delsarte">2. The Delsarte two-point certificate (the LP spine, second pass)</h2>
+
+<p>Chapter&nbsp;1 of this series was built on one principle: a single auxiliary function with the right sign properties bounds <i>every</i> packing at once, because summing the function over all pairs of a configuration counts the same quantity two ways. Delsarte's method is the same principle on a compact space, and it is the trunk from which everything in this chapter grows. We state and prove it in the kernel form the chapter actually uses &mdash; no orthogonal-polynomial formulas required.</p>
+
+<h3 id="delsarte-psd">2.1 Positive-definite kernels and the two-point bound</h3>
+
+<div class="def"><b>Definition (positive-definite kernel).</b> Let $X$ be a set. A symmetric function $F : X\times X \to \mathbb{R}$ is a <b>positive-definite kernel</b> (we write <i>psd</i>) if for every finite subset $\{x_1,\dots,x_m\}\subseteq X$ and all reals $c_1,\dots,c_m$,
+$$\sum_{i=1}^m\sum_{j=1}^m c_i c_j\, F(x_i,x_j) \;\ge\; 0.$$
+Equivalently: every finite matrix $[F(x_i,x_j)]_{ij}$ sampled from $F$ is positive semidefinite.</div>
+
+<p>The only way we will ever <i>produce</i> psd kernels is the only way anyone should: as Gram kernels. If $x \mapsto T_x$ assigns to each point a vector (or an operator) in some inner-product space, then $F(x,y) = \langle T_x, T_y\rangle$ is psd, because the double sum above becomes $\|\sum_i c_i T_{x_i}\|^2 \ge 0$. Conversely a sum of psd kernels is psd. That is the complete toolkit.</p>
+
+<div class="lem" id="lem-delsarte"><b>Lemma A (two-point LP bound; Delsarte's principle).</b> Let $X$ carry a symmetric &ldquo;closeness&rdquo; function $t: X\times X\to\mathbb{R}$ with $t(x,x)=t_{\max}$ for all $x$, and let a threshold $s \lt t_{\max}$ be given. Call $C\subseteq X$ a <b>code</b> if $t(x,y)\le s$ for all distinct $x,y\in C$. Suppose a kernel $F$ satisfies:
+<ol>
+<li>$F = f_0 + G$ where $f_0 \gt 0$ is a constant and $G$ is psd;</li>
+<li>$F(x,y) \le 0$ whenever $t(x,y) \le s$;</li>
+<li>$F(x,x) \le F_{\mathrm{diag}}$ for all $x$.</li>
+</ol>
+Then every finite code satisfies $\;|C| \le F_{\mathrm{diag}}/f_0$.</div>
+
+<div class="proof">Sum $F$ over all ordered pairs of the code, and bound the sum from both sides. From below, using (1) and psd-ness of $G$ with all $c_i = 1$:
+$$\sum_{x\in C}\sum_{y\in C} F(x,y) \;=\; f_0\,|C|^2 + \sum_{x,y} G(x,y) \;\ge\; f_0\,|C|^2 .$$
+From above, split the sum into the diagonal and the rest. Every off-diagonal pair of a code has $t(x,y)\le s$, so (2) kills those terms, and (3) bounds the diagonal:
+$$\sum_{x\in C}\sum_{y\in C} F(x,y) \;\le\; \sum_{x\in C} F(x,x) \;\le\; |C|\, F_{\mathrm{diag}}.$$
+Chaining the two displays gives $f_0 |C|^2 \le |C| F_{\mathrm{diag}}$, i.e. $|C| \le F_{\mathrm{diag}}/f_0$. <span class="qed">&#8718;</span></div>
+
+<p>That is the entire logical content of linear-programming bounds. Every named bound in this chapter &mdash; MRRW, KL, and all the new ones &mdash; is Lemma&nbsp;A applied to a cleverly built $F$. The craft is entirely in the construction: you want $F$ simultaneously very negative-leaning on the allowed region (condition 2), yet with a large guaranteed constant component $f_0$ relative to its diagonal (conditions 1 and 3). Those pull in opposite directions, and the tension is the whole subject.</p>
+
+<figure><!--FIG:fig_delsarte--><figcaption>Anatomy of a two-point certificate on a distance-transitive space, drawn for the sphere where closeness is the inner product $t=\langle x,y\rangle$. The certificate $F$ (as a function of $t$) must stay $\le 0$ on the entire allowed region $t \in [-1, s]$ (blue), may do anything on the forbidden gap $(s, 1)$, and its two payoff numbers are the diagonal value $F(1)$ (small is good) and the constant component $f_0$ (large is good). The bound is their ratio.</figcaption></figure>
+
+<div class="note"><b>Where the classical expansions went.</b> Delsarte's original formulation expands $F(x,y) = \sum_j f_j P_j(t(x,y))$ in the orthogonal-polynomial family adapted to the symmetry of $X$ (Krawtchouk polynomials on the cube, Hahn on a weight layer, Gegenbauer on the sphere) and requires $f_j\ge 0$ for $j\ge1$ and $f_0\gt0$; positivity of each $P_j(t(\cdot,\cdot))$ as a kernel then makes $G = \sum_{j\ge1} f_j P_j$ psd. This chapter never needs the polynomial formulas: it builds $G$ <i>directly</i> as a Gram kernel of explicit operators (&ldquo;projection Gram factorizations&rdquo;), which is both simpler and strictly more flexible. When we do meet the polynomial families (Krawtchouk in §<a class="secref" href="#boolean">4</a>, Hahn in §<a class="secref" href="#johnson">7</a>, Gegenbauer in §<a class="secref" href="#spherharm">10</a>) it will be through their <i>three-term recurrences</i>, which encode how coordinate multiplication connects neighboring symmetry types &mdash; the only property the constructions use.</div>
+
+<h3 id="delsarte-toy">2.2 A complete certificate, by hand</h3>
+
+<div class="toy"><b>Toy 2.1 (a tight Delsarte certificate for $n=3$, $d=2$).</b> Take binary words of length $3$ with minimum distance $2$, and encode closeness by the normalized inner product $t(x,y) = 1 - 2d_H(x,y)/3 \in \{1, \tfrac13, -\tfrac13, -1\}$. Distance $\ge 2$ means $t \le -\tfrac13$, so the allowed set is $\{-\tfrac13, -1\}$ and the threshold is $s=-\tfrac13$. Claim: $A_2(3,2) = 4$, witnessed on both sides.
+<p><b>The certificate.</b> Take
+$$F(t) \;=\; \tfrac12 (1+t)(1+3t) \;=\; 1 \;+\; \tfrac23\,\bigl(3t\bigr) \;+\; \tfrac13\,\underbrace{\tfrac{9t^2-3}{2}}_{K_2(t)} .$$
+The two factors vanish exactly at the two allowed values, so $F(-1) = F(-\tfrac13) = 0 \le 0$: condition (2) holds with nothing to spare. The displayed expansion has components $1$, $3t$, and $K_2(t) = (9t^2-3)/2$: these are the Krawtchouk kernels for $n=3$, and each is a Gram kernel &mdash; $3t(x,y) = \sum_{r=1}^{3}\chi_r(x)\chi_r(y)$ summing the three coordinate sign characters $\chi_r(x)=(-1)^{x_r}$, and $K_2(t(x,y)) = \sum_{r\lt r'}\chi_r\chi_{r'}(x)\,\chi_r\chi_{r'}(y)$ likewise (a direct check: at $d_H = 0,1,2,3$ the pair-character sum gives $3,-1,-1,3$, matching $K_2$ at $t=1,\frac13,-\frac13,-1$). So $G = \tfrac23(3t)+\tfrac13 K_2$ is psd and $f_0 = 1$: condition (1) holds. The diagonal is $F(1) = \tfrac12\cdot2\cdot4 = 4$. Lemma&nbsp;A: $A_2(3,2) \le 4/1 = 4$.
+<p><b>The matching code.</b> The even-weight code $\{000, 011, 101, 110\}$ has all pairwise distances exactly $2$, so $A_2(3,2) = 4$ exactly, and this tiny LP is <i>tight</i>. Every ingredient of the giant constructions ahead &mdash; sign conditions checked on an allowed set, positivity via explicit Gram vectors, the bound as a diagonal-to-constant ratio &mdash; is already present here.</div>
+
+<figure><!--FIG:fig_toycert--><figcaption>Toy 2.1 drawn. The certificate $F(t)=\frac12(1+t)(1+3t)$ over $t\in[-1,1]$; the four achievable closeness values of the length-3 cube are ticked. $F$ vanishes on the two allowed values $t=-1,-\frac13$ (blue), is positive only in the forbidden gap, and $F(1)=4$ (red) is the delivered bound &mdash; met exactly by the even-weight code, shown as the tetrahedral 4-vertex configuration inside the cube.</figcaption></figure>
+
+<h3 id="delsarte-classical">2.3 The classical construction, in one paragraph, and its ceiling</h3>
+
+<p>Where do good certificates come from in high dimension? The classical spectral recipe (Delsarte, MRRW, KL; formulated spectrally by Barg&ndash;Nogin) attaches to each point $x\in X$ a <i>single unit vector</i> per symmetry type: on the cube, the normalized level-$i$ Fourier average $v_{i,x}$ pinned at $x$ (§<a class="secref" href="#boolean">4</a> constructs it); on the sphere, the normalized degree-$i$ zonal harmonic centered at $x$ (§<a class="secref" href="#spherharm">10</a>). Any weighted combination $u_x = \sum_i c_i v_{i,x}$ then yields the psd Gram kernel $K(x,y) = \langle u_x, u_y\rangle$, and one arranges the weights $c_i$ (via the Perron eigenvector of a certain tridiagonal matrix, as we will do explicitly in §<a class="secref" href="#wholecube">5</a>) so that $(t(x,y)-s)\,K(x,y)$ is itself a psd-plus-constant kernel. Lemma&nbsp;A applied to $F=(t-s)K$ then delivers the MRRW and KL exponents.</p>
+
+<p>The ceiling of this recipe is built into its rank. Each symmetry type contributes a <i>one-dimensional</i> pin per point, so the diagonal $F(1)$ and the constant $f_0$ are tied together in a fixed ratio governed by the total dimension $D$ of the retained function space, and the exponent that comes out is the entropy of $D$ &mdash; full stop. Wanting a better exponent, you have exactly one degree of freedom left to find: <i>make the object attached to each point bigger without breaking positivity or symmetry</i>. That is precisely what the chapter does, and it is the subject of the next section.</p>

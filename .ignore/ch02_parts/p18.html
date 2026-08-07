@@ -1,0 +1,34 @@
+<h2 id="validation">18. Numerical validation</h2>
+
+<p>Every load-bearing formula in this explainer has been recomputed independently &mdash; most of them in <i>exact rational arithmetic</i>, which turns validation into transcription-proofing: a single mistyped index in a formula like (74) or (111) makes an exact identity like &ldquo;the weights sum to exactly $1$&rdquo; fail loudly. The listing below is self-contained standard-library Python (no imports beyond <code>math</code>, <code>random</code>, <code>fractions</code>); it runs in about a minute and prints one PASS/FAIL line per check. All nineteen pass.</p>
+
+<div class="tablewrap"><table>
+<tr><th>#</th><th>What is verified</th><th>Mode</th></tr>
+<tr><td>1</td><td>$F_\delta(1{-}2\delta)=M_1(\delta)$ and $F_\delta(0)=1-g(2\delta)$ &mdash; the endpoint structure of (3)</td><td>float, $10^{-12}$</td></tr>
+<tr><td>2</td><td>Cube ladder (§4): $\dim E_k = \binom nk-\binom n{k-1}$ by exact integer rank of $D$; commutator $(12)$ on random vectors ($n=8$)</td><td>exact</td></tr>
+<tr><td>3</td><td>Dimension balance (19) for $k\le3$; $k=0$ weights sum to $1$ ($n=30$)</td><td>exact</td></tr>
+<tr><td>4</td><td>Lemma 2.2: $\lambda_{\max}(J_{\mathrm H})\uparrow\Gamma_{\mathrm H}(0.35,0.1)$, monotone from below, gap $5\times10^{-3}$ at $n=4000$ (Sturm bisection)</td><td>float</td></tr>
+<tr><td>5</td><td>Toy 5.1 end-to-end: $\lambda = 0.4622578$, bound $130.49$; Perron identity (22) to $9\times10^{-16}$</td><td>float</td></tr>
+<tr><td>6</td><td>Johnson $p=q=0$: directed Hahn weights sum to $1$ on the full path ($n=25$, $w=10$) &mdash; validates the (33)&ndash;(35) transcription</td><td>float, $10^{-10}$</td></tr>
+<tr><td>7</td><td>Layer balance (39) and $c^{p,q}_j\gt0$ inside the window (31) ($n=40,w=15,p=3,q=5$)</td><td>float</td></tr>
+<tr><td>8</td><td>Lemma 3.5: finite Hahn coefficients at $n=4000$ hit the limits $B$, $C$ of (6); identity (48) at random points to $10^{-15}$</td><td>float</td></tr>
+<tr><td>9</td><td>(59): the two spherical dimension formulas agree for all $m\le200$, $n\le60$</td><td>exact</td></tr>
+<tr><td>10</td><td>Branching (62) at dimension level: $D^{\mathrm S}_i(n) = \sum_{k\le i}\dim\mathcal H_k$ in dimension $n-1$, all $n\le39$, $i\le29$</td><td>exact</td></tr>
+<tr><td>11</td><td>(66)&ndash;(68): $m^\uparrow m^\downarrow = (\alpha^{(0)})^2$ and $m^\uparrow = \frac{i+1}{2i+n}$ as exact rationals; $\alpha^{(k)}_i$ from (66) reproduced by direct quadrature of Gegenbauer products built from (64)</td><td>exact + quad</td></tr>
+<tr><td>12</td><td><b>The heavy import:</b> (74) + Weyl (111) jointly, exact rationals, 40 random $(n,r,\lambda,\mu)$ across both parities: normalization (75) $=1$ exactly, reciprocity (76) exact on every edge, one-row Weyl $=D^{\mathrm S}_m$, two-row weights match (79) symbolically</td><td>exact</td></tr>
+<tr><td>13</td><td>$\Gamma_1((a,0),b) = \Gamma_{\mathrm{row}}(a,b)$; Lemma 7.1 limits of (74) at $n=10^5$ for a level-2 tuple</td><td>float</td></tr>
+<tr><td>14</td><td>$B_{\mathrm{KL}}(1/2) = 0.4009442$ by ternary search; boundary identity $2q(a_0(s))=s$</td><td>float</td></tr>
+<tr><td>15</td><td>Kissing certificates: explicit level-1 and level-2 tuples (scaled into strict feasibility) verify $2\Gamma\gt\frac12$ with $\Phi_1 = 0.3968$, $\Phi_2 = 0.39661$ &mdash; the paper's headline number, certified rather than optimized</td><td>float</td></tr>
+<tr><td>16</td><td>The two half-line integrals (15.a) behind Prop. 8.1, against their closed forms</td><td>quad, $10^{-9}$</td></tr>
+<tr><td>17</td><td>Chebyshev: $Z_N\to Z_R$ (106); packing objective (107) increasing in $R$ and within $10^{-4}$ of $\lambda^*$ already at $R=10$</td><td>float</td></tr>
+<tr><td>18</td><td><b>Proposition 8.1 as a whole:</b> for a random level-2 tuple, the packing gap $\lambda^*-\gamma(\text{tuple})$ equals $D_{\mathrm{KL}}(\nu\|\rho_K)/(2\log2)$ computed by direct quadrature ($0.015706$ vs $0.015755$, quadrature-limited); Wallis integral $\int_0^\infty e^{-2a}\tanh a\,\frac{da}a = \log\frac\pi2$</td><td>quad</td></tr>
+<tr><td>19</td><td>$2^{-\lambda^*} = \sqrt{e/2\pi} = 0.65774462$ &mdash; digit-for-digit the boxed constant of the Chapter&nbsp;1 explainer</td><td>float, $10^{-15}$</td></tr>
+</table></div>
+
+<p>Three of these deserve a word beyond the table. Check <b>12</b> is the serious one: formulas (74) and (111) are the only imported machinery deep enough that a transcription slip could silently corrupt the whole spherical half, and they are exactly the kind of many-indexed expressions that PDF extraction mangles; the exact-arithmetic triple (normalization, reciprocity, specialization) would detect any single-factor error. Check <b>15</b> replaces a five-parameter optimization by <i>certificate checking</i> &mdash; the printed tuples are hard evidence for the kissing bound $0.39661$, verifiable in four lines of arithmetic. Check <b>18</b> ties together §§13&ndash;15 end to end: residues, spectral function, dimension exponent, Stieltjes potential, tilted measure, and the constant $\lambda^*$ must all be mutually consistent for the identity to close.</p>
+
+<h3 id="validation-listing">18.1 The listing</h3>
+
+<!--LISTING-->
+
+<p class="small">The chart data in this document's figures (rate curves, gaps, eigenvalue convergence, hierarchy ladder) was computed by a companion script (<code>figgen/ch02_figs.py</code> in the repository) using the same formulas plus standard constrained optimization for the $\kappa$-infima; the in-page listing above deliberately restricts itself to closed-form and certificate checks that need no optimizer and no third-party library.</p>

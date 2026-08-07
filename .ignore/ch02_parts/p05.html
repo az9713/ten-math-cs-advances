@@ -1,0 +1,52 @@
+<h2 id="wholecube">5. The whole-cube bound (Theorem 2.1)</h2>
+
+<p>We now assemble §<a class="secref" href="#boolean">4</a>'s parts into the first new certificate. The plan, in machine terms: pick a window of Fourier levels $k \le i \le L$, each carrying its copy $\varphi_{i,x}E_k$ of the harmonic fiber; symmetrize the directed transition weights (4.b) into a tridiagonal matrix; use its top eigenvector to weld the copies into one moving projection $P_x$; and let Proposition 4.1 do the rest.</p>
+
+<h3 id="wholecube-matrix">5.1 The symmetric transition matrix</h3>
+
+<p>Fix $0\le k \lt L \le n-k$ and retain the levels $V^{\square}_k,\dots,V^{\square}_L$. The <b>whole-cube transition matrix</b> $J_{\mathrm{H}} = J_{\mathrm{H}}(n,k,L)$ is the $(L-k+1)\times(L-k+1)$ symmetric tridiagonal matrix, indexed by Fourier degrees, with zero diagonal and off-diagonal entries</p>
+
+$$\bigl(J_{\mathrm{H}}\bigr)_{i,i+1} = \bigl(J_{\mathrm{H}}\bigr)_{i+1,i} = c^{(k)}_{i,\mathrm{H}}
+:= \frac{(i-k+1)(n-i-k)}{n\sqrt{(i+1)(n-i)}}. \tag{20}$$
+
+<p>This entry is precisely the geometric mean $\sqrt{p_{i,i+1}\,p_{i+1,i}}$ of the two directed weights (4.b) &mdash; the symmetrization licensed by the dimension balance (19): a directed matrix $T$ satisfying $D_ip_{i,j} = D_jp_{j,i}$ is conjugate, via the diagonal matrix $\operatorname{diag}(\sqrt{D_i})$, to the symmetric matrix with entries $\sqrt{p_{i,j}p_{j,i}}$, so both have the same spectrum. For $k=0$, $J_{\mathrm{H}}$ is the classical Krawtchouk-recurrence matrix that underlies the first MRRW bound; for $k \gt 0$ it has the same shape but every vertex now carries the $d^{\square}_k$-dimensional fiber.</p>
+
+<figure><!--FIG:fig_path--><figcaption>The whole-cube representation path (the paper's Figure 1, redrawn). Vertices are the retained Fourier levels $V^{\square}_k,\dots,V^{\square}_L$; every vertex carries an isometric copy $\varphi_{i,x}E_k$ of the <i>same</i> harmonic fiber (gold), transported to the code point $x$; neighboring levels are joined with the symmetric edge weight $c^{(k)}_{i,\mathrm{H}}$ of (20). The classical construction is the special case where the fiber is the one-dimensional $E_0$.</figcaption></figure>
+
+<p>Since all off-diagonal entries are strictly positive ($k\le i\lt L\le n-k$ makes $Q_i \gt 0$), the Perron&ndash;Frobenius theorem applies: the largest eigenvalue $\lambda = \lambda_{\max}(J_{\mathrm{H}}) \gt 0$ is simple and has a strictly positive unit eigenvector $v = (v_i)_{i=k}^{L}$. (For a symmetric matrix with nonnegative entries and a connected support graph, the top eigenvector can be chosen nonnegative by the Rayleigh principle &mdash; replacing entries of a candidate by absolute values never lowers the quotient &mdash; and positivity then propagates along edges.)</p>
+
+<h3 id="wholecube-thm">5.2 The finite bound</h3>
+
+<div class="thm" id="thm21"><b>Theorem 2.1.</b> Let $n,d,k,L$ be integers with $1\le d\le n$ and $0\le k\lt L\le n-k$. Set $s = 1-2d/n$ and $\lambda = \lambda_{\max}\bigl(J_{\mathrm{H}}(n,k,L)\bigr)$. If $\lambda \gt s$, then
+$$A_2(n,d) \;\le\; \frac{1-s}{\,d^{\square}_k\,(\lambda-s)\,}\;\sum_{i=k}^{L}\binom{n}{i}. \tag{21}$$</div>
+
+<div class="proof">We construct the inputs of Proposition 4.1 on the ambient space
+$$\mathcal V = \bigoplus_{i\in I}V^{\square}_i, \qquad I = \{k,\dots,L\},\qquad
+D_{\mathrm{amb}} = \dim\mathcal V = \sum_{i\in I}\binom ni,$$
+with $W = \mathbb{R}^n$ and $\ell_x = x/\sqrt n$ as in §<a class="secref" href="#boolean">4.1</a>.
+<p><b>The moving projection.</b> Let $v$ be the positive unit Perron eigenvector of $J_{\mathrm{H}}$ and put
+$$w_i = \sqrt{\binom ni}\;v_i \;\gt\;0, \qquad Z = \sum_{i\in I}w_i.$$
+Unwinding the diagonal conjugation, the eigenvalue equation $J_{\mathrm H}v=\lambda v$ becomes, in the $w$-coordinates, a statement about the <i>directed</i> weights:
+$$\sum_{\substack{i\in I\\ |i-j|=1}} p_{i,j}\,w_i \;=\; \lambda\,w_j \qquad (j\in I). \tag{22}$$
+Indeed, by (19), $p_{i,j}\sqrt{D^{\square}_i} = \sqrt{p_{i,j}\,p_{j,i}}\,\sqrt{D^{\square}_j}$ (square both sides to check), so the left side of (22) is $\sqrt{D^{\square}_j}\sum_i (J_{\mathrm H})_{j,i}v_i = \sqrt{D^{\square}_j}\,\lambda v_j = \lambda w_j$.
+For each word $x$, weld the staircase copies of the fiber into one isometric embedding
+$$\Psi_x : E_k \longrightarrow \mathcal V,\qquad
+\Psi_xh = \bigoplus_{i\in I}\sqrt{\frac{w_i}{Z}}\;\varphi_{i,x}h,$$
+an isometry because each $\varphi_{i,x}$ is and the weights $w_i/Z$ sum to $1$. Let $P_x = \Psi_x\Psi_x^{*}$: the orthogonal projection onto $\operatorname{im}\Psi_x$, of rank $d^{\square}_k$.
+<p><b>The isometry $B$.</b> Using the coordinate maps (15)&ndash;(16), define $B:\mathcal V\to\mathbb{R}^n\otimes\mathcal V$ on $f = \bigoplus_{j\in I}f_j$ by
+$$Bf = \bigoplus_{i\in I}\;\sum_{\substack{j\in I\\|i-j|=1}}\sqrt{\frac{p_{i,j}\,w_i}{\lambda\,w_j}}\;C_{i,j}f_j .$$
+(Read: the block of $Bf$ in $\mathbb{R}^n\otimes V^{\square}_i$ collects contributions from the neighbors $j = i\pm1$, each routed through the corresponding coordinate isometry and scaled by a Perron-normalized weight.) Two facts make $B$ an isometry. First, for fixed $i$ the images of $C_{i,i-1}$ and $C_{i,i+1}$ in $\mathbb{R}^n\otimes V^{\square}_i$ are orthogonal (deletion tensors have $r\notin S$, addition tensors $r\in S$ &mdash; end of §<a class="secref" href="#boolean">4.5</a>). Second, each $C_{i,j}$ is an isometry. Hence
+$$\|Bf\|^2 = \sum_{i\in I}\sum_{\substack{j: |i-j|=1}}\frac{p_{i,j}w_i}{\lambda w_j}\|f_j\|^2
+= \sum_{j\in I}\frac{\|f_j\|^2}{\lambda w_j}\underbrace{\sum_{\substack{i\in I\\ |i-j|=1}}p_{i,j}w_i}_{=\;\lambda w_j \text{ by }(22)} = \|f\|^2 .$$
+<p><b>The alignment (49).</b> Orient the coordinate maps as $C_{i,j}: V^{\square}_j\to\mathbb{R}^n\otimes V^{\square}_i$, so that the block of $Bf$ living over level $i$ is $\sum_j\sqrt{p_{i,j}w_i/(\lambda w_j)}\,C_{i,j}f_j$; the adjoint therefore acts on a tensor $g = \bigoplus_i g_i$ by $(B^{*}g)_j = \sum_i \sqrt{p_{i,j}w_i/(\lambda w_j)}\;C_{i,j}^{*}g_i$. In this orientation the contractions (17)&ndash;(18) read uniformly: $C_{i,j}^{*}(\ell_x\otimes\varphi_{i,x}h) = \sqrt{p_{i,j}}\,\varphi_{j,x}h$ &mdash; the coefficient of the transition <i>from</i> $i$ <i>to</i> $j$ (e.g. $C_{i,i+1}^{*}$ carries the level-$i$ copy to the level-$(i{+}1)$ copy with coefficient $\sqrt{Q_i/(n(i+1))} = \sqrt{p_{i,i+1}}$). Now take $g = \ell_x\otimes\Psi_xh$, whose level-$i$ block is $\ell_x\otimes\sqrt{w_i/Z}\,\varphi_{i,x}h$:
+$$(B^{*}g)_j \;=\; \sum_{\substack{i\in I\\|i-j|=1}}\sqrt{\frac{p_{i,j}\,w_i}{\lambda\,w_j}}\,\sqrt{\frac{w_i}{Z}}\;\sqrt{p_{i,j}}\;\varphi_{j,x}h
+\;=\; \varphi_{j,x}h\;\frac{1}{\sqrt{\lambda w_j Z}}\sum_{\substack{i\in I\\|i-j|=1}} p_{i,j}\,w_i
+\;=\; \varphi_{j,x}h\,\sqrt{\frac{\lambda w_j}{Z}}$$
+by (22) again. Assembling blocks: $B^{*}(\ell_x\otimes\Psi_xh) = \sqrt\lambda\,\Psi_xh$ &mdash; exactly hypothesis (49) with $\Lambda = \lambda$, for every $u = \Psi_xh \in\operatorname{im}P_x$.
+<p><b>Conclusion.</b> Proposition 4.1 with $D = D_{\mathrm{amb}}$, $d = d^{\square}_k$, threshold $s = 1-2d/n$: every code with minimum distance $\ge d$ (equivalently $t \le s$ pairwise) has size at most $\frac{1-s}{\lambda-s}\cdot\frac{1}{d^{\square}_k}\sum_{i=k}^L\binom ni$, which is (21). <span class="qed">&#8718;</span></div>
+
+<div class="note"><b>Where each hypothesis of Prop. 4.1 got its teeth.</b> The <i>isometry</i> of $B$ needed (a) orthogonality of addition/deletion images and (b) the Perron identity (22) &mdash; that is, the top eigenvector is exactly the right welding weight. The <i>alignment</i> (49) needed the exact contraction coefficients (17)&ndash;(18), i.e. the ladder algebra of §<a class="secref" href="#boolean">4</a>. And the balance (19) is what made the directed/symmetric translation legitimate. Nothing else about the cube was used &mdash; which is why §<a class="secref" href="#repgraphs">9</a> can rerun this proof on an arbitrary weighted graph.</div>
+
+<div class="toy"><b>Toy 5.1 (the machine on real numbers: $n=10$, $d=4$).</b> Take the window $k=1$, $L=4$. The matrix $J_{\mathrm H}(10,1,4)$ has edge weights $c^{(1)}_{i,\mathrm H} = \frac{i(9-i)}{10\sqrt{(i+1)(10-i)}}$ for $i=1,2,3$, numerically $(0.18856,\,0.28577,\,0.34017)$, and largest eigenvalue $\lambda = 0.46226$. The threshold is $s = 1-8/10 = 0.2 \lt \lambda$: feasible. The fiber dimension is $d^{\square}_1 = \binom{10}1 - \binom{10}0 = 9$ and the ambient dimension is $\sum_{i=1}^4\binom{10}i = 385$. Bound (21):
+$$A_2(10,4) \;\le\; \frac{1-0.2}{9\,(0.46226-0.2)}\cdot385 \;=\; 130.49\ldots \;\Longrightarrow\; A_2(10,4)\le 130 .$$
+The same window with the classical fiber $E_0$ ($k=0$, $L=4$, $d=1$) has $\lambda = 0.8$, giving the much weaker $\frac{0.8}{0.6}\cdot 386 = 514.7$. The harmonic fiber's rank-$9$ division beats the classical certificate by a factor $\approx4$ at $n$ as small as ten. (For calibration, the true value is $A_2(10,4) = 40$; no two-point LP is tight here, and the asymptotic comparison &mdash; the honest one &mdash; is the next section's business.) §<a class="secref" href="#validation">18</a>, check 5, reconstructs this entire example in exact arithmetic, including the isometry and alignment identities.</div>

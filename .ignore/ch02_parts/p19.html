@@ -1,0 +1,74 @@
+<h2 id="notation">Appendix: notation glossary</h2>
+
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Meaning</th><th>Defined</th></tr>
+<tr><td>$A_2(n,d)$, $A(n,s)$</td><td>max binary code size at min distance $d$; max spherical code size at inner-product ceiling $s$</td><td><a class="secref" href="#codes">§1</a></td></tr>
+<tr><td>$R_2(\delta)$, $R_{\mathrm{sph}}(s)$</td><td>asymptotic rate exponents ($\limsup\frac1n\log_2$)</td><td><a class="secref" href="#codes">§1</a></td></tr>
+<tr><td>$H_2$, $g$, $H_{\mathrm{sph}}$</td><td>binary entropy; $g(v) = H_2\bigl(\frac{1-\sqrt{1-v}}2\bigr)$; spherical entropy $(1{+}u)\log_2(1{+}u)-u\log_2u$</td><td><a class="secref" href="#codes">§1</a></td></tr>
+<tr><td>$M_1$, $F_\delta$, $M_2$</td><td>first MRRW exponent (1); constant-weight objective; optimized second MRRW exponent (3)</td><td><a class="secref" href="#codes">§1.1</a></td></tr>
+<tr><td>$a_0(s)$, $B_{\mathrm{KL}}(s)$</td><td>KL spectral boundary $\frac12((1-s^2)^{-1/2}-1)$; cap-optimized KL exponent (10)</td><td><a class="secref" href="#codes">§1.2</a></td></tr>
+<tr><td>$t(x,y)$, $\ell_x$, $s$</td><td>closeness (normalized inner product); unit coordinate vector; allowed ceiling</td><td><a class="secref" href="#delsarte">§2</a>, <a class="secref" href="#boolean">§4.1</a>, (28)</td></tr>
+<tr><td>$P_x$, $K(x,y)$, $\Theta_x$</td><td>moving rank-$d$ projection; overlap $\operatorname{tr}(P_xP_y)$; residual map in (51)</td><td><a class="secref" href="#projection">§3</a></td></tr>
+<tr><td>$B$, $\Lambda$, (49), (50)</td><td>the tying isometry $\mathcal V\to W\otimes\mathcal V$; spectral gatekeeper; alignment hypothesis; projection bound</td><td><a class="secref" href="#projection">§3.2</a></td></tr>
+<tr><td>$V^{\square}_i$, $\chi_S$, $U$, $D$, $E_k$, $d^{\square}_k$</td><td>Fourier level, characters, ladder maps, Boolean harmonics $\ker D$, $\dim = \binom nk{-}\binom n{k-1}$</td><td><a class="secref" href="#boolean">§4</a></td></tr>
+<tr><td>$\varphi_{i,x}$, $Q_i$, $p_{i,j}$</td><td>staircase embeddings (14); $Q_i = (i{-}k{+}1)(n{-}i{-}k)$; directed transition weights (4.b)</td><td><a class="secref" href="#boolean">§4.4&ndash;4.5</a></td></tr>
+<tr><td>$J_{\mathrm H}(n,k,L)$, $c^{(k)}_{i,\mathrm H}$</td><td>whole-cube tridiagonal matrix and edge weights (20)</td><td><a class="secref" href="#wholecube">§5.1</a></td></tr>
+<tr><td>$\Gamma_{\mathrm H}(a,b)$, $\kappa_{\mathrm H}(\delta)$</td><td>limiting spectral function; whole-cube exponent (2)</td><td><a class="secref" href="#asympH">§6</a></td></tr>
+<tr><td>$X_w$, $N$, $r(x,y)$</td><td>weight-$w$ layer; $N = n-w$; intersection deficit $=\frac12d_H$</td><td><a class="secref" href="#johnson">§7</a></td></tr>
+<tr><td>$V^{\mathrm J}_j$, $D^{\mathrm J}_j$, $E^{p,q}_x$, $d^{\mathrm J}_{p,q}$</td><td>Johnson harmonic spaces (29); support/complement harmonic pair and its dimension</td><td><a class="secref" href="#johnson">§7.2&ndash;7.3</a></td></tr>
+<tr><td>$j_-$, $j_+$</td><td>branching window (31): $p{+}q$ and $\min\{w, w{-}p{+}q, N{+}p{-}q\}$</td><td><a class="secref" href="#johnson">§7.3</a></td></tr>
+<tr><td>$b^{p,q}_j$, $c^{p,q}_j$, $\widehat J$</td><td>associated Hahn coefficients (33)&ndash;(35); symmetrized layer matrix (41)&ndash;(42)</td><td><a class="secref" href="#johnson">§7.4&ndash;7.5</a></td></tr>
+<tr><td>$\alpha,\beta,\gamma,u$; $z,m,\zeta,\xi$</td><td>normalized layer parameters $w,p,q,L$ over $n$; their affine coordinates $1-2(\cdot)$ combinations</td><td><a class="secref" href="#asympCW">§8</a></td></tr>
+<tr><td>$\Lambda_{\alpha,\beta,\gamma}(u)$, $\mathcal D_\delta$, $\kappa_{\mathrm{CW}}$, $\kappa_{\mathrm{bin}}$</td><td>layer spectral limit (6); feasible set; constant-weight exponent (8); $\min\{\kappa_{\mathrm H},\kappa_{\mathrm{CW}}\}$</td><td><a class="secref" href="#asympCW">§8</a></td></tr>
+<tr><td>$G$, $H$, $E$, $V_\lambda$, $D_\lambda$</td><td>symmetry group, point stabilizer, moving fiber, ambient irreducibles and dimensions</td><td><a class="secref" href="#repgraphs">§9</a></td></tr>
+<tr><td>$C_{\lambda,\nu}$, $p_{\lambda,\nu}$, $J$, (53)</td><td>coordinate inclusions; directed squared weights; symmetrized graph matrix; dimension reciprocity</td><td><a class="secref" href="#repgraphs">§9.2</a></td></tr>
+<tr><td>$V^{\mathrm S}_m$, $D^{\mathrm S}_m$, $P_m$, $K^{\mathrm S}_m$</td><td>spherical harmonic level, its dimension (59), normalized Gegenbauer profile, reproducing kernel</td><td><a class="secref" href="#spherharm">§10</a></td></tr>
+<tr><td>$\mathcal H_k(x^\perp)$, $d^{\mathrm S}_k$, $\alpha^{(k)}_i$, $c^{(k)}_i$</td><td>tangent-harmonic fiber (61); recurrence coefficients (66); path edge weights (71)</td><td><a class="secref" href="#tangent">§11</a></td></tr>
+<tr><td>$\Gamma_{\mathrm{row}}$, $\Phi_{\mathrm{row}}$, $\kappa_{\mathrm{row}}$</td><td>one-row spectral limit and exponent (11); optimized version (88)</td><td><a class="secref" href="#tangent">§11.3</a>, <a class="secref" href="#strict">§14.2</a></td></tr>
+<tr><td>$\lambda$, $\mu$, $\widehat\lambda_\ell$, $\widehat\mu_m$, $\rho_{n,r}$</td><td>ambient/stabilizer Young diagrams; shifted rows (73)</td><td><a class="secref" href="#hierarchy">§12</a></td></tr>
+<tr><td>$p_{\ell,\pm}(\lambda;\mu)$, $J_\Omega$, $\Lambda_\Omega$</td><td>Kravchuk transition weights (74); retained graph matrix (77); its top eigenvalue</td><td><a class="secref" href="#hierarchy">§12.2&ndash;12.3</a></td></tr>
+<tr><td>$A(u)$, $q(u)$, $x_\ell$, $y_m$, $R_\ell$</td><td>quadratic coordinates $u(1{+}u)$; weight function; interlacing nodes; residues (81)</td><td><a class="secref" href="#sphasymp">§13</a></td></tr>
+<tr><td>$\Gamma_r$, $\Phi_r$, $\kappa_r$, $\overline\kappa_r$, $\kappa_\infty$</td><td>level-$r$ spectral strength and exponent (81); direct, cap-optimized (87), and limiting exponents</td><td><a class="secref" href="#sphasymp">§13</a></td></tr>
+<tr><td>$S_c$, $\psi$, $c$ (escape factor)</td><td>quadratic scaling $A^{-1}(cA(u))$; its entropy derivative; Lemma 7.5's cap factor</td><td><a class="secref" href="#sphasymp">§13.3</a>, <a class="secref" href="#strict">§14</a></td></tr>
+<tr><td>$\Delta_n$, $\gamma_r$, $\gamma_\infty$, $\lambda^*$</td><td>packing density; level-$r$ packing exponent (91); their supremum; $\frac12\log_2\frac{2\pi}e = 0.6044005$</td><td><a class="secref" href="#packing">§15</a></td></tr>
+<tr><td>$\xi$, $K(t)$, $\rho$, $\nu$, $\rho_K$, $Z$</td><td>interlacing indicator (95); Stieltjes potential (96); arcsine and target measures (97); tilt (98); $1-2\Gamma_r$</td><td><a class="secref" href="#packing">§15.2</a></td></tr>
+<tr><td>$x_\ell, y_m$ (Chebyshev), $Z_R$, $K_\infty$</td><td>shifted Chebyshev roots/critical points (104); limit normalization (106); $\log\cosh a$ (114)</td><td><a class="secref" href="#packing">§15.3</a>, <a class="secref" href="#euclid">§16</a></td></tr>
+</table></div>
+
+<p class="small">Source of truth: Chapter 2, &ldquo;Improved Bounds for Binary and Spherical Codes&rdquo;, PDF pages 29&ndash;78 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i>. The paper's numbering (Theorems 1.1&ndash;1.2, 2.1, 2.3, 3.4, 3.6, 3.8, 4.2, 6.2, 8.3, Lemmas 2.2, 3.1, 3.3, 3.5, 5.1, 5.2, 7.1, 7.2, 7.4, 7.5, A.1, Propositions 3.2, 3.7, 4.1, 6.1, 7.3, 8.1, Corollaries 1.3&ndash;1.4, 7.6, 8.2, and equations (1)&ndash;(115)) is preserved throughout; results lettered A&ndash;F in boxes are this document's imports or classical background proved here for self-containment; equation tags of the form (3.a), (4.b), (15.a) are this document's own intermediate steps. Citations like [CZ14] refer to the chapter's reference list (PDF pp. 75&ndash;76).</p>
+
+<script>
+function copyCode(btn){
+  var code = btn.parentElement.querySelector('code');
+  if(!code) return;
+  var text = code.textContent;
+  var done = function(){
+    var label = btn.querySelector('span'), prev = label.textContent;
+    btn.classList.add('copied'); label.textContent = 'Copied!';
+    setTimeout(function(){ btn.classList.remove('copied'); label.textContent = prev; }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+(function(){
+  try{
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('svg').forEach(function(svg){
+        if(typeof svg.pauseAnimations === 'function'){
+          if(typeof svg.setCurrentTime === 'function') svg.setCurrentTime(4.2);
+          svg.pauseAnimations();
+        }
+      });
+    }
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>

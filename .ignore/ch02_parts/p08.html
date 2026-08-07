@@ -1,0 +1,78 @@
+<h2 id="asympCW">8. Beating the optimized MRRW bound: $\kappa_{\mathrm{bin}} \lt M_2$</h2>
+
+<p>Scaling the layer construction is the same drill as §<a class="secref" href="#asympH">6</a>, with four normalized parameters instead of two: the layer weight $\alpha = w/n$, the two fiber degrees $\beta = p/n$ and $\gamma = q/n$, and the top Johnson degree $u = L/n$. Their admissible ranges (the paper's (4)&ndash;(5)), forced by the branching window (31) and $w\lt n/2$, are</p>
+
+$$\frac\delta2\lt\alpha\lt\frac12,\qquad 0\le\beta\lt\frac\alpha2,\qquad 0\le\gamma\lt\frac{1-\alpha}2, \tag{4}$$
+$$\beta+\gamma \;\lt\; u \;\lt\; \min\{\alpha,\;\alpha-\beta+\gamma,\;1-\alpha+\beta-\gamma\}. \tag{5}$$
+
+<p>Package the limits in the affine coordinates $z = 1-2u$, $m = 1-2\alpha$, $\zeta = 1-2\beta-2\gamma$, $\xi = 1-2\alpha+2\beta-2\gamma$, and define the layer's limiting spectral function (the paper's (6)):</p>
+
+$$\Lambda_{\alpha,\beta,\gamma}(u) \;=\;
+\underbrace{\frac{(\zeta\xi-mz^2)^2}{z^2(1-m^2)(1-z^2)}}_{=:B\ \text{(diagonal limit)}}
+\;+\;2\cdot\underbrace{\frac{(z^2-\xi^2)(\zeta^2-z^2)}{2z^2(1-m^2)\sqrt{1-z^2}}}_{=:C\ \text{(edge limit)}}. \tag{6}$$
+
+<div class="lem" id="lem35"><b>Lemma 3.5 (spectral limit of the layer matrix).</b> Suppose $(\alpha,\beta,\gamma,u)$ satisfies (4)&ndash;(5), and choose integer sequences $w/n\to\alpha$, $p/n\to\beta$, $q/n\to\gamma$, $L/n\to u$. Then
+$$\liminf_{n\to\infty}\lambda_{\max}\bigl(\widehat J(n,w,p,q,L)\bigr) \;\ge\; \Lambda_{\alpha,\beta,\gamma}(u). \tag{46}$$</div>
+
+<div class="proof">Substitute the parameter scalings into (33)&ndash;(35), uniformly for degrees $j$ with $j/n\to u$. The shifted parameters scale as $\jmath_1/n \to \frac\alpha2-\beta$, $\jmath_2/n\to\frac{1-\alpha}2-\gamma$, $\jmath/n\to\frac z2$, $m_0/n\to\frac m2$, $\Sigma/n\to\frac\zeta2$, $\Delta_{\mathrm J}/n\to\frac\xi2$. Keeping leading orders (quadratic differences like $\jmath_2(\jmath_2{+}1)-\jmath_1(\jmath_1{+}1) = (\jmath_2-\jmath_1)(\jmath_2+\jmath_1+1)$ scale as $n^2\frac{\xi\zeta}4$):
+$$b^{p,q}_j \to \frac{m(\zeta\xi-mz^2)}{z^2(1-m^2)},\quad
+b^{0}_j \to \frac{m^2(1-z^2)}{z^2(1-m^2)},\quad
+c^{p,q}_j \to \frac{\sqrt{(z^2-m^2)(z^2-\xi^2)(\zeta^2-z^2)}}{2z^2(1-m^2)},\quad
+c^{0}_j \to \frac{(z^2-m^2)\sqrt{1-z^2}}{2z^2(1-m^2)},$$
+using $wN/n^2\to\frac{1-m^2}4$ throughout. The strict inequalities (4)&ndash;(5) keep every denominator away from zero and put the top degree strictly inside the branching window ($j_-\lt L\lt j_+$ for large $n$). Squaring-over-classical, (41)&ndash;(42), the retained matrix's diagonal entries near degree $L$ converge uniformly to $B = (b^{p,q})^2/b^0$ and its edge weights to $C = (c^{p,q})^2/c^0$, which are exactly the two displayed pieces of (6). Now ride the terminal window with the discrete sine vector of Lemma 2.2, supported on the last $m_n\to\infty$, $m_n = o(n)$ degrees: its Rayleigh quotient is $B + 2C\cos\frac{\pi}{m_n+1}+o(1)$ (the diagonal contributes its constant, the edges their doubled cosine), and since $B+2C = \Lambda_{\alpha,\beta,\gamma}(u)$, the Rayleigh&ndash;Ritz principle (26) gives (46). <span class="qed">&#8718;</span></div>
+
+<div class="note"><b>Why only a lower bound this time?</b> On the cube, monotone entries made the row-sum upper bound match. Here the diagonal entries need not be monotone, and we do not need an upper bound: Lemma 3.5 feeds feasibility (&ldquo;the gatekeeper clears the threshold&rdquo;), and for that, $\liminf \ge \Lambda$ suffices. §<a class="secref" href="#validation">18</a>, check 9, confirms the convergence numerically at $n=4000$.</div>
+
+<div class="thm" id="thm36"><b>Theorem 3.6 (constant-weight rate bound).</b> Fix $0\lt\delta\lt\frac12$. If $(\alpha,\beta,\gamma,u)$ satisfies (4)&ndash;(5) and the feasibility condition
+$$\Lambda_{\alpha,\beta,\gamma}(u) \;\gt\; 1-\frac{\delta}{2\alpha(1-\alpha)}, \tag{7}$$
+then
+$$R_2(\delta) \;\le\; 1 - H_2(\alpha) + H_2(u) - \alpha H_2\!\Bigl(\frac\beta\alpha\Bigr) - (1-\alpha)H_2\!\Bigl(\frac{\gamma}{1-\alpha}\Bigr). \tag{47}$$</div>
+
+<div class="proof">Choose integer sequences as in Lemma 3.5 and let $d_n = 2\lfloor\lceil\delta n\rceil/2\rfloor$ (largest even integer $\le\lceil\delta n\rceil$; layer distances are even, and $A_2(n,\lceil\delta n\rceil)\le A_2(n,d_n)$ since requiring less separation only enlarges codes; $d_n/n\to\delta$). Since $\alpha\gt\delta/2$, the hypotheses $2\le d_n\le 2w$ of Theorem 3.4 hold eventually. The finite threshold $s_n = 1-\frac{nd_n}{2w(n-w)}$ converges to the right side of (7), so Lemma 3.5 makes $\lambda-s_n$ eventually bounded below by half the (7)-gap: the prefactor in (44) is $O(1)$. Rates of the two dimension factors: the ambient sum telescopes,
+$$\sum_{j=p+q}^{L}\Bigl[\binom nj-\binom n{j-1}\Bigr] = \binom nL - \binom n{p+q-1} = 2^{nH_2(u)+o(n)},$$
+by Lemma&nbsp;B (the subtracted term has strictly smaller exponent since $p+q\lt L\le w\lt n/2$); the fiber has rate $\frac1n\log_2\bigl[d_p(w)d_q(N)\bigr] = \alpha H_2(\beta/\alpha)+(1-\alpha)H_2(\gamma/(1-\alpha))+o(1)$ (Lemma&nbsp;B applied inside each part, with the scaling $p/w\to\beta/\alpha$ etc.). Taking $\frac1n\log_2$ of (44) and adding the Bassalygo&ndash;Elias cost $1-H_2(\alpha)$ from Lemma&nbsp;C gives (47). <span class="qed">&#8718;</span></div>
+
+<p>Let $\mathcal D_\delta$ be the set of parameters satisfying (4), (5), (7). Taking the infimum defines the <b>constant-weight exponent</b> (the paper's (8)):</p>
+
+<div class="keyresult">$$\kappa_{\mathrm{CW}}(\delta) \;=\; \inf_{(\alpha,\beta,\gamma,u)\in\mathcal D_\delta}
+\Bigl\{1 - H_2(\alpha) + H_2(u) - \alpha H_2\!\Bigl(\frac\beta\alpha\Bigr) - (1-\alpha)H_2\!\Bigl(\frac\gamma{1-\alpha}\Bigr)\Bigr\},
+\qquad R_2(\delta)\le\kappa_{\mathrm{CW}}(\delta). \tag{8}$$</div>
+
+<p>The four terms are, in order: the Bassalygo&ndash;Elias toll, the ambient Johnson entropy, and the two fiber rebates. Every quantity is now explicit, and the remaining work is comparison with the classical records.</p>
+
+<h3 id="asympCW-fixed">8.1 The classical objective, recovered inside the new one</h3>
+
+<p>Set $\beta=\gamma=0$ (trivial fiber). Writing $A = \alpha(1-\alpha)$, $U = u(1-u)$, formula (6) collapses (substitute $\zeta = 1$, $\xi = m$, use $1-m^2 = 4A$, $1-z^2 = 4U$) to the paper's (48):</p>
+
+$$1-\Lambda_{\alpha,0,0}(u) \;=\; \frac{A-U}{A\,(1+2\sqrt U)}. \tag{48}$$
+
+<p>On the spectral boundary &mdash; where (7) holds with equality &mdash; the substitution $\tau = 2\sqrt U$ turns the constraint into $4A = \tau^2+2\delta\tau+2\delta$ and the objective into the classical one:
+$u = \frac{1-\sqrt{1-\tau^2}}2$ gives $H_2(u) = g(\tau^2)$, and $\alpha = \frac{1-\sqrt{1-\tau^2-2\delta\tau-2\delta}}2$ gives $H_2(\alpha) = g(\tau^2+2\delta\tau+2\delta)$, so
+$1-H_2(\alpha)+H_2(u) = F_\delta(\tau)$ exactly. As $\tau$ sweeps $(0,1-2\delta)$, the pair $(u,\alpha)$ sweeps the fixed-line boundary, with the endpoints $\tau=0$ and $\tau=1-2\delta$ reached in the limits $u\downarrow0$ and $\alpha\uparrow\frac12$. Approximating boundary points from the strictly feasible side, $\kappa_{\mathrm{CW}}(\delta) \le M_2(\delta)$. The classical optimized bound is, once again, a boundary sub-family of the enlarged variational problem &mdash; the layer version of what §<a class="secref" href="#asympH">6.2</a> found on the cube.</p>
+
+<div class="prop" id="prop37"><b>Proposition 3.7 (interior minimizers strictly improve).</b> Fix $0\lt\delta\lt\frac12$, and suppose $0\lt u\lt\alpha\lt\frac12$ sits on the fixed-line spectral boundary, $\Lambda_{\alpha,0,0}(u) = 1-\frac{\delta}{2\alpha(1-\alpha)}$. Then there exist $\beta=\gamma=\varepsilon\gt0$ and $u'$ with $(\alpha,\varepsilon,\varepsilon,u')\in\mathcal D_\delta$ whose objective in (47) is strictly smaller than $1-H_2(\alpha)+H_2(u)$.</div>
+
+<div class="proof">From (48), differentiate in $u$ (with $U = u(1-u)$, $U' = 1-2u \gt 0$):
+$$\partial_u\Lambda_{\alpha,0,0}(u) = (1-2u)\left[\frac{1}{A(1+2\sqrt U)} + \frac{A-U}{A\sqrt U\,(1+2\sqrt U)^2}\right] \gt 0,$$
+both bracketed terms positive since $U\lt A$ on the relevant range (that is (48) with $\Lambda\lt1$). So the spectral value responds at a definite positive rate to increases of $u$. Now perturb: set $\beta=\gamma=\varepsilon$ and $u_\varepsilon = u + c\varepsilon$. The function $\Lambda$ is smooth in all four arguments at this interior point, so the spectral value changes by $c\,\partial_u\Lambda\cdot\varepsilon + O(\varepsilon)$, and choosing $c$ large enough fixed makes $(\alpha,\varepsilon,\varepsilon,u_\varepsilon)$ satisfy (7) strictly, along with (4)&ndash;(5), for all small $\varepsilon$. The objective moves by
+$$\underbrace{H_2(u_\varepsilon)-H_2(u)}_{O(\varepsilon)} \;-\; \underbrace{\alpha H_2\!\Bigl(\frac\varepsilon\alpha\Bigr) - (1-\alpha)H_2\!\Bigl(\frac{\varepsilon}{1-\alpha}\Bigr)}_{=\,2\varepsilon\log_2\frac1\varepsilon + O(\varepsilon)} \;\lt\; 0$$
+for small $\varepsilon$: the double fiber rebate $2\varepsilon\log_2\frac1\varepsilon$ crushes every linear cost. <span class="qed">&#8718;</span></div>
+
+<div class="thm" id="thm38"><b>Theorem 3.8 (= Theorem 1.1).</b> For every fixed $0\lt\delta\lt\frac12$: $\;\kappa_{\mathrm{bin}}(\delta) = \min\{\kappa_{\mathrm H}(\delta),\kappa_{\mathrm{CW}}(\delta)\}\lt M_2(\delta)$.</div>
+
+<div class="proof">Two cases on where the minimum of $F_\delta$ sits.
+<p><i>Case $M_2(\delta)\lt M_1(\delta)$.</i> The endpoint $\tau = 1-2\delta$ has value $M_1\gt M_2$, so it is not a minimizer. Neither is $\tau=0$: since $g(\tau^2) = O(\tau^2\log\frac1\tau) = o(\tau)$, the one-sided derivative is $F'_\delta(0^+) = -2\delta g'(2\delta)\lt0$ ($g$ is strictly increasing). So every minimizer is interior, corresponds under the $\tau$-to-$(u,\alpha)$ dictionary to an interior fixed-line boundary point, and Proposition 3.7 strictly undercuts it: $\kappa_{\mathrm{CW}}(\delta)\lt M_2(\delta)$.
+<p><i>Case $M_2(\delta) = M_1(\delta)$.</i> Theorem 2.3 already gives $\kappa_{\mathrm H}(\delta)\lt M_1(\delta) = M_2(\delta)$.
+<p>In both cases $\kappa_{\mathrm{bin}}\lt M_2$. Combined with $R_2\le\kappa_{\mathrm H}$ (Theorem 2.3) and $R_2\le\kappa_{\mathrm{CW}}$ (Theorem 3.6), this is Theorem 1.1. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_m2gap--><figcaption>The optimized record falls, quantitatively: the computed gaps $M_1 - \kappa_{\mathrm H}$ (blue) and $M_2-\kappa_{\mathrm{bin}}$ (red) across $\delta$, log scale. For $\delta\gtrsim0.273$ the classical minimum is the endpoint ($M_2=M_1$) and the whole-cube certificate does the beating; below, the interior minimizer rules and the constant-weight certificate takes over. The two constructions are genuinely complementary &mdash; neither alone beats $M_2$ everywhere.</figcaption></figure>
+
+<div class="tablewrap"><table>
+<tr><th>$\delta$</th><th>$M_1(\delta)$</th><th>$M_2(\delta)$</th><th>$\kappa_{\mathrm H}(\delta)$</th><th>$\kappa_{\mathrm{CW}}(\delta)$ (numeric)</th><th>gap $M_2-\kappa_{\mathrm{bin}}$</th></tr>
+<tr><td>0.10</td><td>0.721928</td><td>0.692741</td><td>0.699832</td><td>0.692557</td><td>$1.8\times10^{-4}$</td></tr>
+<tr><td>0.20</td><td>0.468996</td><td>0.461360</td><td>0.460900</td><td>0.459676</td><td>$1.7\times10^{-3}$</td></tr>
+<tr><td>0.30</td><td>0.250225</td><td>0.250225</td><td>0.248376</td><td>0.248376</td><td>$1.8\times10^{-3}$</td></tr>
+<tr><td>0.40</td><td>0.081469</td><td>0.081469</td><td>0.081337</td><td>0.081337</td><td>$1.3\times10^{-4}$</td></tr>
+</table></div>
+
+<p class="small">Numerically optimized values of the two new exponents at four sample distances (constrained optimization over $(a,b)$ resp. $(\alpha,\beta,\gamma,u)$; §<a class="secref" href="#validation">18</a> describes the computation and its caveats &mdash; these are upper bounds on the true infima, which only strengthens the &ldquo;record falls&rdquo; statement; the strictness itself is the theorem, not the numerics). At $\delta = 0.3$ and $0.4$ the optimizer drives $\alpha\to\frac12$, where $\kappa_{\mathrm{CW}}$ degenerates to $\kappa_{\mathrm H}$ &mdash; visible as the merged values.</p>

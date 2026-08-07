@@ -1,0 +1,88 @@
+<h2 id="codes">1. Codes and rates made precise, and the two headline theorems</h2>
+
+<p>This section defines the players exactly and states what the chapter proves. Everything later hangs off these definitions.</p>
+
+<h3 id="codes-binary">1.1 The binary side</h3>
+
+<div class="def"><b>Definition (binary code, Hamming distance, $A_2(n,d)$).</b> A <b>binary code</b> is a subset $C \subseteq \{0,1\}^n$; its elements are <b>codewords</b>. The <b>Hamming distance</b> $d_H(x,y)$ between two words is the number of coordinate positions in which they differ. The <b>minimum distance</b> of $C$ is the smallest $d_H(x,y)$ over distinct $x,y \in C$. Finally, $A_2(n,d)$ denotes the largest possible size $|C|$ of a code of length $n$ with minimum distance at least $d$.</div>
+
+<p>Exact values of $A_2(n,d)$ are hopeless in general (already $A_2(20,8)$ is unknown). The tractable and structurally meaningful question is the growth <i>exponent</i> when the distance scales with the length. For fixed <b>relative distance</b> $0 \lt \delta \lt 1/2$, define the <b>asymptotic rate</b></p>
+
+$$R_2(\delta) \;=\; \limsup_{n\to\infty}\; \frac1n \log_2 A_2\bigl(n, \lceil \delta n\rceil\bigr).$$
+
+<p>Why stop at $\delta \lt 1/2$? Because beyond it the problem collapses: a classical argument (Plotkin's bound) shows codes with $\delta \gt 1/2$ have at most linearly many words, so the exponent is $0$. All the action is in $0 \lt \delta \lt 1/2$, where $R_2(\delta)$ is strictly between $0$ and $1$ and its exact value is unknown at <i>every single</i> $\delta$.</p>
+
+<p>Two classical functions calibrate everything. The <b>binary entropy</b> $H_2$ and an auxiliary function $g$ (with the convention $0\log_2 0 = 0$) are</p>
+
+$$H_2(u) = -u\log_2 u - (1-u)\log_2(1-u),
+\qquad
+g(v) = H_2\!\left(\frac{1-\sqrt{1-v}}{2}\right).$$
+
+<p>$H_2(u)$ is the exponent of binomial counting: the number of binary words of length $n$ with exactly $\lfloor un \rfloor$ ones is $2^{(H_2(u)+o(1))n}$ &mdash; a fact we prove and reuse constantly as <a class="secref" href="#lem-stirling">Lemma&nbsp;B</a> in §<a class="secref" href="#boolean">4</a>. The best known <i>lower</i> bound on the rate is elementary (greedily pick any word at distance $\ge d$ from all previous picks, and count how much volume each pick excludes); it gives the Gilbert&ndash;Varshamov bound $R_2(\delta) \ge 1 - H_2(\delta)$, essentially unimproved since 1952. The upper bounds are where this chapter lives. The <b>first MRRW bound</b> (1977), often called the first linear-programming bound, is</p>
+
+$$M_1(\delta) = H_2\!\left(\tfrac12 - \sqrt{\delta(1-\delta)}\,\right). \tag{1}$$
+
+<p>The <b>second MRRW bound</b> is a strengthening obtained by optimizing the same method over constant-weight sublayers of the cube (we rebuild this mechanism in §<a class="secref" href="#johnson">7</a>). It is packaged as a one-parameter variational problem: for $0\le\tau\le 1-2\delta$ set</p>
+
+$$F_\delta(\tau) = 1 + g(\tau^2) - g(\tau^2+2\delta\tau+2\delta),
+\qquad
+M_2(\delta) = \min_{0\le\tau\le 1-2\delta} F_\delta(\tau). \tag{3}$$
+
+<p>The parameter $\tau$ reparametrizes the degree of the certificate polynomial; its endpoints recover $F_\delta(1-2\delta) = M_1(\delta)$ and $F_\delta(0) = 1-g(2\delta)$, so $M_2(\delta) \le M_1(\delta)$ always, and for small $\delta$ the minimum sits strictly inside the interval (Fig. 3, right panel). Both facts matter for the proof strategy later: beating $M_2$ requires beating the <i>interior</i> minimizers as well as the endpoint, and those are different jobs done by two different constructions.</p>
+
+<figure><!--FIG:fig_rates--><figcaption>The binary rate&ndash;distance landscape, computed. Left: the unknown true rate $R_2(\delta)$ is trapped between the Gilbert&ndash;Varshamov lower bound $1-H_2(\delta)$ (green) and the MRRW upper bounds $M_1(\delta)$ (dashed red) and $M_2(\delta)$ (solid red); the two MRRW curves agree for $\delta \gtrsim 0.273$ (endpoint minimizer) and separate below it. Right: the objective $F_\delta(\tau)$ at $\delta = 0.10$ and $\delta=0.15$; the dot marks the interior minimizer $\tau^*$, which is why improving $M_1$ alone would not improve $M_2$ at small $\delta$.</figcaption></figure>
+
+<div class="thm" id="thm11"><b>Theorem 1.1 (binary improvement).</b> For every fixed $0\lt\delta\lt 1/2$,
+$$R_2(\delta) \;\le\; \kappa_{\mathrm{bin}}(\delta) \;\lt\; M_2(\delta),$$
+where $\kappa_{\mathrm{bin}}(\delta) = \min\{\kappa_{\mathrm{H}}(\delta),\, \kappa_{\mathrm{CW}}(\delta)\}$ is the minimum of two new certificate exponents: the whole-cube exponent $\kappa_{\mathrm{H}}$ (defined in equation (2) of §<a class="secref" href="#asympH">6</a>, proved there to strictly beat $M_1$) and the constant-weight exponent $\kappa_{\mathrm{CW}}$ (defined in equation (8) of §<a class="secref" href="#asympCW">8</a>, proved there to strictly beat every interior minimizer of $F_\delta$).</div>
+
+<p>This is the first improvement of the general binary exponent bound since 1977. The gap $M_2 - \kappa_{\mathrm{bin}}$ is small &mdash; of order $10^{-4}$ to $10^{-2}$ depending on $\delta$, computed honestly in Figs. 17 and 21 &mdash; but it is strictly positive at every $\delta$, and the barrier it breaks had resisted every general-purpose technique for 47 years.</p>
+
+<h3 id="codes-spherical">1.2 The spherical side</h3>
+
+<div class="def"><b>Definition (spherical code, $A(n,s)$).</b> A <b>spherical code</b> with maximum inner product $s$ is a subset $C \subseteq S^{n-1} = \{x\in\mathbb{R}^n : \|x\|=1\}$ such that $\langle x,y\rangle \le s$ for all distinct $x,y \in C$. Let $A(n,s)$ denote the largest possible $|C|$. Its rate is
+$$R_{\mathrm{sph}}(s) = \limsup_{n\to\infty} \frac1n\log_2 A(n,s).$$</div>
+
+<p>Geometrically, $\langle x,y\rangle \le s$ says the angle between any two code directions is at least $\arccos s$; each point owns a private angular cap, and $A(n,s)$ counts how many disjoint caps fit. For $s = 1/2$, $A(n,1/2)$ is exactly the kissing number $\tau_n$ of $n$-dimensional space. The role of binary entropy is played by the <b>spherical harmonic dimension exponent</b></p>
+
+$$H_{\mathrm{sph}}(u) = (1+u)\log_2(1+u) - u\log_2 u, \qquad H_{\mathrm{sph}}(0)=0, \tag{9}$$
+
+<p>which is the growth exponent of spaces of degree-$un$ spherical harmonics, exactly as $H_2$ is the growth exponent of binomial coefficients (we prove this in §<a class="secref" href="#spherharm">10</a>; the exact dimension formula is (59)). Note one structural difference that echoes through the whole spherical half: $u$ ranges over $[0,\infty)$, not $[0,1]$ &mdash; polynomial degree on the sphere has no ceiling, while Fourier degree on the cube stops at $n$.</p>
+
+<p>The classical record has two layers. Applying the 1978 Kabatianskii&ndash;Levenshtein method directly on the whole sphere gives $A(n,s) \le 2^{(H_{\mathrm{sph}}(a_0(s))+o(1))n}$ with $a_0(s) = \tfrac12\bigl((1-s^2)^{-1/2}-1\bigr)$. A preliminary reduction strengthens it: first restrict the code to a well-populated spherical cap and project the cap onto a lower-dimensional sphere. This <b>spherical-cap reduction</b> (Sidelnikov's inequality, imported and explained in §<a class="secref" href="#tangent">11.4</a>) trades the threshold $s$ for any smaller $t \le s$ at an explicit exponential price, giving the optimized classical exponent</p>
+
+$$B_{\mathrm{KL}}(s) = \inf_{0\le t\le s}\left\{ H_{\mathrm{sph}}(a_0(t)) + \tfrac12\log_2\frac{1-t}{1-s} \right\}. \tag{10}$$
+
+<p>Then $R_{\mathrm{sph}}(s) \le B_{\mathrm{KL}}(s)$, and this has been the record at every fixed $0\lt s\lt 1$ since 1978. At the kissing threshold: $B_{\mathrm{KL}}(1/2) = 0.4009442\ldots$ (our computation in §<a class="secref" href="#validation">18</a>, check&nbsp;14, reproduces this to seven digits).</p>
+
+<div class="thm" id="thm12"><b>Theorem 1.2 + Corollary 1.3 (spherical improvement).</b> There is an infinite hierarchy of new exponents $\kappa_r(s)$, indexed by a depth $r = 0,1,2,\ldots$ (the number of &ldquo;rows&rdquo; of the moving subspace, made precise in §<a class="secref" href="#hierarchy">12</a>), with cap-optimized versions $\overline{\kappa}_r(s)$, such that for every $0 \lt s\lt 1$:
+$$R_{\mathrm{sph}}(s) \;\le\; \inf_{r\ge 0}\overline{\kappa}_r(s), \qquad
+\overline{\kappa}_{r+1}(s) \lt \overline{\kappa}_r(s) \;\text{ for every } r, \qquad
+\overline{\kappa}_0(s) = B_{\mathrm{KL}}(s).$$
+Level $0$ is exactly the classical bound; every additional level strictly improves it. Already the intermediate &ldquo;one-row&rdquo; construction of §<a class="secref" href="#tangent">11</a> beats $B_{\mathrm{KL}}$ at every $s$, and at the kissing threshold level $2$ gives $\tau_n \le 2^{(0.39661+o(1))n}$ versus the classical $2^{(0.400944+o(1))n}$.</div>
+
+<div class="thm" id="cor14"><b>Corollary 1.4 (sphere packing).</b> Let $\Delta_n$ be the maximal sphere packing density in $\mathbb{R}^n$. Then
+$$\Delta_n \;\le\; 2^{-(\lambda^*+o(1))n}, \qquad \lambda^* = \tfrac12\log_2\frac{2\pi}{e} = 0.6044005\ldots$$
+Equivalently $\Delta_n^{1/n} \to \sqrt{e/2\pi} = 0.65774\ldots$ as an upper bound &mdash; the exact optimal rate of the Cohn&ndash;Elkies linear program determined independently in Chapter&nbsp;1. This improves the classical Kabatianskii&ndash;Levenshtein packing exponent and settles, from the spherical side, the conjectured LP rate.</div>
+
+<figure><!--FIG:fig_sphrates--><figcaption>The spherical side, computed. Left: the classical exponent $B_{\mathrm{KL}}(s)$ (red) with the direct whole-sphere bound $H_{\mathrm{sph}}(a_0(s))$ (dashed); the cap reduction is what separates them. Right: zoom at the kissing threshold $s=\frac12$: successive hierarchy levels $\overline{\kappa}_0 = 0.400944$, $\overline{\kappa}_{\mathrm{row}} = 0.39731$, $\overline{\kappa}_1=0.39674$, $\overline{\kappa}_2 = 0.39660$, each computed by numerically optimizing the certificate parameters of §<a class="secref" href="#sphasymp">13</a>. The drops shrink but never stop (Corollary 1.3).</figcaption></figure>
+
+<h3 id="codes-map">1.3 The proof map</h3>
+
+<p>One machine drives all of it. The table names the moving parts once; the diagram shows how the sections assemble them. Each column of the table is one instantiation of the same abstract argument &mdash; this is the deepest organizing fact of the chapter, and the reason a 50-page paper is readable at all.</p>
+
+<div class="tablewrap"><table>
+<tr><th></th><th>Binary, whole cube (§§4&ndash;6)</th><th>Binary, weight layer (§§7&ndash;8)</th><th>Spherical (§§10&ndash;14)</th></tr>
+<tr><td>space $X$ of candidate points</td><td>$\{\pm1\}^n$</td><td>weight-$w$ words $X_w$</td><td>$S^{n-1}$</td></tr>
+<tr><td>symmetry group</td><td>signs $\rtimes$ permutations</td><td>permutations $S_n$</td><td>rotations $SO(n)$</td></tr>
+<tr><td>ambient spaces (graph vertices)</td><td>Fourier levels $V^{\square}_i$</td><td>Johnson spaces $V^{\mathrm{J}}_j$</td><td>representations $V_\lambda$</td></tr>
+<tr><td>moving subspace at $x$</td><td>Boolean harmonics $E_k$</td><td>tensor pair $E^{p,q}_x$</td><td>stabilizer repn $E_\mu$</td></tr>
+<tr><td>transition structure</td><td>path (tridiagonal)</td><td>path + loops (tridiagonal)</td><td>lattice graph, $r{+}1$ directions</td></tr>
+<tr><td>spectral gatekeeper</td><td>$\Gamma_{\mathrm{H}}(a,b)$</td><td>$\Lambda_{\alpha,\beta,\gamma}(u)$</td><td>$2\Gamma_r(a,b)$ &mdash; see §13</td></tr>
+<tr><td>resulting exponent</td><td>$\kappa_{\mathrm{H}}$</td><td>$\kappa_{\mathrm{CW}}$</td><td>$\kappa_r$, $\overline{\kappa}_r$</td></tr>
+<tr><td>classical special case</td><td>$k=0$: first MRRW</td><td>$p=q=0$: second MRRW</td><td>$r=0$: KL</td></tr>
+</table></div>
+
+<figure><!--FIG:fig_roadmap--><figcaption>Dependency map of the whole chapter. Every arrow is &ldquo;is used by.&rdquo; The single non-classical engine (§3, Proposition 4.1) feeds all three constructions; the two binary constructions merge into Theorem 1.1; the spherical hierarchy feeds Theorem 1.2 and then the packing corollary, which meets Chapter 1's independent determination of the same constant.</figcaption></figure>
+
+<div class="note" id="import-note"><b>What we import versus what we prove.</b> This explainer proves, in full, every step of: the two-point LP principle (§2), the projection bound (§3), the entire whole-cube construction and its asymptotics (§§4&ndash;6), the layer construction modulo one branching fact (§§7&ndash;8), the general graph machinery (§9), the spherical one-row construction modulo the branching rule (§§10&ndash;11), the asymptotic analysis (§13&ndash;14), and the entire sphere-packing limit (§§15&ndash;16). Five genuinely external inputs are imported as boxed statements with citations: the Bassalygo&ndash;Elias averaging inequality (Import A, actually proved &mdash; it is two lines), the two-row branching rules for symmetric groups (Import B), Sidelnikov's spherical-slice and hemisphere inequalities (Imports C and E, the slice case proved in outline), the $SO(n)\downarrow SO(n-1)$ branching rule (Import D), and Kravchuk's coordinate-transition coefficients with the Weyl dimension formula (Import F; we verify both by exact arithmetic in §18). Advisory: the paper itself treats these as classical background with the same citations.</div>

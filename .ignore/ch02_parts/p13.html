@@ -1,0 +1,74 @@
+<h2 id="sphasymp">13. The asymptotic spherical bound (Theorem 1.2)</h2>
+
+<p>Scale everything with $n$: fix the level $r$, let the stabilizer rows grow as $\mu_m = b_mn+o(n)$ and cap the ambient rows at $\lambda_\ell \le a_\ell n + o(n)$, demanding <b>strict interlacing</b> of the limit slopes:</p>
+
+$$a_1\gt b_1\gt a_2\gt\cdots\gt b_r\gt a_{r+1}\ge 0. \tag{80}$$
+
+<p>(For $r=0$: just $a_1\ge0$.) Two changes of variable organize every formula. The <b>quadratic coordinates</b> and the level-zero weight function:</p>
+
+$$A(u) = u(1+u),\qquad q(u) = \frac{\sqrt{u(1+u)}}{1+2u},\qquad
+x_\ell = A(a_\ell),\quad y_m = A(b_m),$$
+
+<p>(A is strictly increasing on $[0,\infty)$, so the $x$'s and $y$'s interlace strictly too), and the <b>interpolation residues</b>, spectral strength, and dimension exponent (paper's (81)):</p>
+
+$$R_\ell = \frac{\displaystyle\prod_{m=1}^{r}(x_\ell-y_m)}{\displaystyle\prod_{q\ne\ell}(x_\ell-x_q)},
+\qquad
+\Gamma_r(a,b) = \sum_{\ell=1}^{r+1}R_\ell\,q(a_\ell),
+\qquad
+\Phi_r(a,b) = \sum_{\ell=1}^{r+1}H_{\mathrm{sph}}(a_\ell)-\sum_{m=1}^{r}H_{\mathrm{sph}}(b_m). \tag{81}$$
+
+<p>The $R_\ell$ are the residues of the rational function $m(z) = \prod_m(z-y_m)/\prod_\ell(z-x_\ell)$ at its poles $x_\ell$: strict interlacing makes every $R_\ell\gt0$ (numerator factors alternate in sign in step with the denominator's), and comparing $z\,m(z)\to1$ as $z\to\infty$ with the partial-fraction expansion $m(z) = \sum_\ell R_\ell/(z-x_\ell)$ gives $\sum_\ell R_\ell = 1$: <i>the residues are a probability distribution on the ambient rows</i>. This innocuous-looking fact is the load-bearing wall of §§<a class="secref" href="#packing">15</a>&ndash;<a class="secref" href="#euclid">16</a>.</p>
+
+<h3 id="sphasymp-local">13.1 Local spectral geometry: the box and the sines</h3>
+
+<div class="lem" id="lem71"><b>Lemma 7.1 (limiting weights).</b> Under (80) with $\lambda_\ell/n\to a_\ell$, $\mu_m/n\to b_m$, every existing transition satisfies
+$$p_{\ell,\pm}(\lambda;\mu)\;\longrightarrow\;\frac{R_\ell\,\bigl(2a_\ell+1\pm1\bigr)}{2(1+2a_\ell)},
+\qquad\text{hence}\qquad
+J_{\lambda,\lambda+e_\ell}\;\longrightarrow\;R_\ell\,q(a_\ell), \tag{82, 83}$$
+uniformly over weights with $\max_\ell|\lambda_\ell/n - a_\ell| + \max_m|\mu_m/n-b_m| = o(1)$.</div>
+
+<div class="proof">Substitute the shifts (73) into (74) and track leading orders. Each shifted coordinate scales as $\widehat\lambda_\ell = n(a_\ell+\tfrac12)+o(n)$, $\widehat\mu_m = n(b_m+\tfrac12)+o(n)$. The identity $(u+\tfrac12)^2-(v+\tfrac12)^2 = A(u)-A(v)$ turns every quadratic difference into a quadratic-coordinate difference:
+$$\bigl(\widehat\lambda_\ell\pm\tfrac12\bigr)^2-\widehat\mu_m^2 = n^2\bigl(x_\ell-y_m\bigr)+o(n^2),
+\qquad
+\widehat\lambda_\ell^2-\widehat\lambda_q^2 = n^2\bigl(x_\ell-x_q\bigr)+o(n^2),$$
+while the linear factors give $\widehat\lambda_\ell\pm\rho_{n,r} = n\bigl(a_\ell+\tfrac12\pm\tfrac12\bigr)+o(n)$ and $2\widehat\lambda_\ell = n(1+2a_\ell)+o(n)$. The $n$-powers cancel ($n^{2r}$ up and down, one linear factor each way), leaving exactly $R_\ell\,(2a_\ell+1\pm1)/(2(1+2a_\ell))$. The symmetric weight (77) is the geometric mean of the $+$ limit at $\lambda$ and the $-$ limit at $\lambda+e_\ell$ (same limiting slopes), i.e. $R_\ell\sqrt{(1+a_\ell)a_\ell}/(1+2a_\ell) = R_\ell q(a_\ell)$. Uniformity: the limiting denominators $x_\ell - x_q$, $x_\ell - y_m$ are bounded away from $0$ by strict interlacing, so the rational convergence is uniform on shrinking neighborhoods. <span class="qed">&#8718;</span></div>
+
+<p>Now build the vertex set. Pick integral rows $\mu_m = b_mn+o(n)$ and ambient caps $N_{\ell,n} = a_\ell n+o(n)$ ($N_{r+1,n}=0$ if $a_{r+1}=0$), and let $\Omega_n$ = all ambient weights $\lambda$ interlacing $\mu$ with $\mu_\ell\le\lambda_\ell\le N_{\ell,n}$ (and $0\le\lambda_{r+1}\le N_{r+1,n}$). Its <b>upper corner</b> is $\lambda^{*}_n = (N_{1,n},\dots,N_{r+1,n})$.</p>
+
+<div class="lem" id="lem72"><b>Lemma 7.2 (spectral lower bound).</b> $\;\displaystyle\liminf_{n\to\infty}\lambda_{\max}\bigl(J_{\Omega_n}\bigr)\;\ge\;2\,\Gamma_r(a,b)$.</div>
+
+<div class="proof">Choose $m_n\to\infty$, $m_n = o(n)$. Strict interlacing lets every positive coordinate of $\lambda^{*}_n$ decrease independently by $0,1,\dots,m_n-1$ while staying in $\Omega_n$ (a zero last coordinate simply contributes no direction): a rectangular sub-box $\mathcal B$ with $m_n$ vertices per active direction, hugging the upper corner. All $\mathcal B$-vertices share the limit slopes $a$, so by Lemma 7.1 every edge of $\mathcal B$ in direction $\ell$ has weight $w_\ell + o(1)$ with $w_\ell = R_\ell q(a_\ell)$, uniformly. Take the product test vector
+$$f(\lambda^{*}_n - c) \;=\; \prod_{\ell\ \mathrm{active}}\ \sin\frac{\pi (c_\ell+1)}{m_n+1},\qquad c\in\{0,\dots,m_n-1\}^{\mathrm{active}},$$
+zero outside $\mathcal B$. On a constant-weight box, this is precisely the ground state of the associated lattice operator: each direction contributes $2w_\ell\cos\frac{\pi}{m_n+1}$ to the Rayleigh quotient (the one-dimensional sine identity of Lemma 2.2, once per tensor factor), and the contributions add because the operator is a sum over directions. With the $o(1)$ weight perturbations:
+$$\frac{\langle f, J_{\Omega_n}f\rangle}{\langle f,f\rangle} \;=\; 2\sum_{\ell}R_\ell\,q(a_\ell)\cos\frac{\pi}{m_n+1}+o(1)\;\longrightarrow\;2\,\Gamma_r(a,b),$$
+where a vanished direction ($a_{r+1}=0$) is harmless since its omitted term $R_{r+1}q(0) = 0$. Rayleigh&ndash;Ritz (26) finishes. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_box--><figcaption>Locality of the spectral estimate, computed for a two-row graph ($r=1$). Left: the vertex region $\Omega_n$ with the sub-box $\mathcal B$ at its upper corner; inside $\mathcal B$ the edge weights are constant to $o(1)$, direction-by-direction ($w_i = R_1q(a_1)$ horizontal, $w_j = R_2q(a_2)$ vertical). Right: the product-of-sines test vector on $\mathcal B$ (heat map, computed at $m=25$): the ground state of the constant-weight box, with Rayleigh quotient $2(w_i+w_j)\cos\frac{\pi}{m+1} \to 2\Gamma_1$. The certificate's spectral strength is decided entirely in this corner.</figcaption></figure>
+
+<h3 id="sphasymp-dim">13.2 Dimension asymptotics</h3>
+
+<div class="lem" id="lemA1"><b>Lemma A.1 (uniform dimension exponents).</b> Fix $r$ and $A_{\max}\lt\infty$, and assume $n\ge2r+4$. Uniformly over dominant integral weights with all rows $\le A_{\max}n$,
+$$\frac1n\log_2 D_n(\lambda) = \sum_{i=1}^{r+1}H_{\mathrm{sph}}\Bigl(\frac{\lambda_i}{n}\Bigr) + O_{r,A_{\max}}\Bigl(\frac{\log (n+2)}{n}\Bigr),$$
+and the same for $\dim E_\mu$ in dimension $n-1$ with $r$ rows.</div>
+
+<div class="proof">In Weyl's formula (111), the factor carrying exponential size is the factorial ratio, which is, up to the polynomially bounded factors, the binomial $\binom{\lambda_i+n-i-r-2}{\lambda_i}$: its $\frac1n\log_2$ is $H_{\mathrm{sph}}(\lambda_i/n)+O(\log(n+2)/n)$ uniformly for $\lambda_i\le A_{\max}n$ by the Stirling computation of §<a class="secref" href="#spherharm">10.1</a> (the shift of the top argument by the constant $i+r+2$ moves the exponent by $O(\log n/n)$). Every remaining factor of (111) &mdash; the $(2\lambda_i+n-2i)/(n-2i)$ terms, the $\binom{r+1}2$ pair factors, and the $(\lambda_i+r+1-i)!/(r+1-i)!$ corrections of bounded index &mdash; is a product of $O_r(1)$ terms each of size polynomial in $n$, contributing $O_r(\log(n+2)/n)$ in rate; this covers chamber walls (equal or zero rows) as well, where individual factors may vanish in the formula's numerator&mdash;the formula remains exact and the bounds still apply to the surviving factors. <span class="qed">&#8718;</span></div>
+
+<p>Two corollaries, both uniform over $\Omega_n$: the corner dominates,
+$\frac1n\log_2\sum_{\lambda\in\Omega_n}D_\lambda = \sum_\ell H_{\mathrm{sph}}(a_\ell)+o(1)$ (86)
+&mdash; $H_{\mathrm{sph}}$ is increasing, so the summand exponent is maximized at $\lambda^{*}_n$, and $|\Omega_n| = O(n^{r+1})$ is a subexponential multiplicity &mdash; and the fiber exponent is $\frac1n\log_2\dim E_\mu = \sum_mH_{\mathrm{sph}}(b_m)+o(1)$ (85). Their difference is exactly $\Phi_r(a,b)$.</p>
+
+<h3 id="sphasymp-thm">13.3 Proof of Theorem 1.2</h3>
+
+<div class="thm" id="thm12-restated"><b>Theorem 1.2 (restated precisely).</b> Fix $r\ge0$, $0\lt s\lt1$, and vectors $a,b$ with $a_\ell\gt b_\ell\gt a_{\ell+1}$ for all $\ell$ (and $a_{r+1}\ge0$). Then
+$$2\Gamma_r(a,b)\gt s \;\Longrightarrow\; A(n,s)\le 2^{(\Phi_r(a,b)+o(1))n}
+\qquad(n\to\infty,\ r,s,a,b\ \text{fixed}).$$
+Consequently, with the non-strict feasibility closure,
+$$R_{\mathrm{sph}}(s)\;\le\;\kappa_r(s) := \inf_{\substack{a_1\gt b_1\gt\cdots\gt b_r\gt a_{r+1}\ge0\\ 2\Gamma_r(a,b)\ge s}}\Phi_r(a,b)
+\qquad\text{for every } r,
+\qquad
+R_{\mathrm{sph}}(s)\le\kappa_\infty(s) := \inf_r\kappa_r(s).$$</div>
+
+<div class="proof"><i>Strict case.</i> If $2\Gamma_r(a,b)\gt s$: Lemma 7.2 keeps $\Lambda_{\Omega_n}-s$ uniformly positive for large $n$, so the prefactor of (78) is $O(1)$; (85)&ndash;(86) make the dimension ratio $2^{(\Phi_r+o(1))n}$; Theorem 6.2 delivers the display.
+<p><i>Boundary closure.</i> Tuples with $2\Gamma_r = s\gt0$ are limits of strictly feasible ones with the same limiting exponent: apply the <b>quadratic scaling</b> $S_c(u) = A^{-1}(cA(u))$, $c\gt1$, to every coordinate. It multiplies all $x_\ell, y_m$ by $c$, hence preserves interlacing and every residue $R_\ell$ (each is a ratio of differences of quadratic coordinates, homogeneous of degree $0$); and it strictly increases each $q(a_\ell)$: in quadratic coordinates $2q(A^{-1}(x)) = \sqrt{x/(x+1/4)}$ (square both sides, using $(1+2u)^2 = 1+4x$), which is strictly increasing in $x$ &mdash; an identity reused centrally in §<a class="secref" href="#packing">15</a>. So $2\Gamma_r$ strictly exceeds $s$ after scaling. As $c\downarrow1$ the exponents $\Phi_r$ converge ($H_{\mathrm{sph}}\circ A^{-1}$ is continuous). Taking infima over the closed feasibility region and then over $r$ gives the two consequences. <span class="qed">&#8718;</span></div>
+
+<p>Level $r=0$ recovers the direct KL bound ($\Gamma_0 = q(a_1)$, $\Phi_0 = H_{\mathrm{sph}}(a_1)$, boundary $2q(a_0(s))=s$); level 1 with $a_2 = 0$ recovers the one-row bound (11): setting $x_2 = 0$ in (81) gives $R_1 = (x_1-y_1)/x_1$, $R_2q(0) = 0$, and the identity $\Gamma_1((a,0),b) = \Gamma_{\mathrm{row}}(a,b)$ follows by algebra (checked numerically in §<a class="secref" href="#validation">18</a>, check 13). The cap-optimized $\overline\kappa_r$ of (87) then bounds $R_{\mathrm{sph}}$ as well. What is <i>not</i> yet proved is that the rungs are strictly ordered &mdash; that is §<a class="secref" href="#strict">14</a>.</p>

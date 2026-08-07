@@ -30,7 +30,7 @@ access, and read end to end.
   citation, so the reader always knows exactly which black boxes the argument rests
   on. Chapter 6, for instance, needs only one such import.
 - **Figure-dense, not wall-of-text.** 13 to 38 hand-built SVG diagrams per chapter
-  (222 across the nine finished chapters). Every
+  (256 across the ten finished chapters). Every
   abstract definition or lemma gets a picture; no long prose run goes without a
   visual. The figures are generated from data by the scripts in `figgen/`, so the
   geometry in a diagram is computed, not sketched by eye.
@@ -44,7 +44,10 @@ access, and read end to end.
   and the permanent chapter re-runs its entire coefficient-independence construction
   at n = 13 — all 2,401 entries of a 49×49 Jacobian rebuilt by brute-force permanents,
   factored, and inverted in exact arithmetic — plus its block-cancellation identity in
-  exact ℤ[ζ] arithmetic.
+  exact ℤ[ζ] arithmetic. The codes chapter verifies its imported Kravchuk/Weyl
+  representation-theory formulas in exact rational arithmetic (transition weights
+  summing to exactly 1 across random Young diagrams of both parities) and certifies
+  the paper's kissing-number exponent 0.39661 from explicit five-parameter tuples.
 - **Shared primers written once and reused.** Property (T) / expanders (ch. 3 §3,
   reused by ch. 4) · lattices with Blichfeldt and Minkowski proved (ch. 8 §2,
   reused by ch. 7) · LP certificates (ch. 1, reused by ch. 2).
@@ -65,15 +68,15 @@ The chapters are live on GitHub Pages — click a title below. (GitHub itself wo
 render a raw `.html` file, so read them at these links rather than through the file
 list.) They are also self-contained: download one and it works offline.
 
-## Status — incomplete
+## Status — chapters complete
 
-Nine of ten chapters are finished and verified. One has not been started, and
-the cross-chapter index page is still to come.
+All ten chapters are finished and verified. The cross-chapter index page is
+still to come.
 
 | Ch | Topic | PDF pp. | Figures | Status |
 |----|-------|---------|---------|--------|
 | 1 | [Sphere packing (Cohn–Elkies rate)](https://az9713.github.io/ten-math-cs-advances/ch01-sphere-packing.html) | 3–28 | 32 | ✅ done |
-| 2 | Binary & spherical codes | 29–78 | — | ⬜ not started (longest chapter) |
+| 2 | [Binary & spherical codes](https://az9713.github.io/ten-math-cs-advances/ch02-binary-spherical-codes.html) | 29–78 | 34 | ✅ done |
 | 3 | [A non-sofic group](https://az9713.github.io/ten-math-cs-advances/ch03-nonsofic-group.html) | 79–95 | 24 | ✅ done |
 | 4 | [Connes rigidity counterexample](https://az9713.github.io/ten-math-cs-advances/ch04-connes-rigidity.html) | 96–113 | 22 | ✅ done |
 | 5 | [Permanent circuit/formula bounds](https://az9713.github.io/ten-math-cs-advances/ch05-permanent-bounds.html) | 114–153 | 29 | ✅ done |
@@ -86,7 +89,7 @@ the cross-chapter index page is still to come.
 The build spec these were written against is also live:
 [implementation-plan.html](https://az9713.github.io/ten-math-cs-advances/implementation-plan.html).
 
-**Also missing:** the planned index artifact — one page showing all ten results at a
+**Still missing:** the planned index artifact — one page showing all ten results at a
 glance with significance, difficulty ratings, and a map of which machinery is shared
 between chapters.
 

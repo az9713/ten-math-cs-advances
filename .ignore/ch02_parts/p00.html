@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Improved bounds for binary and spherical codes &mdash; Chapter 2, rigorous explainer</title>
+<!-- MathJax v3, SVG output. One CDN line; needs network on first open. -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'ams' },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-svg.js"
+  integrity="sha384-msWocAZtTDh+149KSxjbRTGVfGbDjiff/j0JX1iu/A/GxxTWSu6ozNemlfkag/8d"
+  crossorigin="anonymous"></script>
+<style>
+  :root{ --fg:#1a1a1a; --muted:#555; --accent:#7a1f1f; --rule:#ddd; --box:#f6f4ef;
+         --toy:#2a7d2a; --toybg:#f1f7f1; --notebg:#fdf7e3; --noterule:#e3d27a; --card:#ffffff;
+         --codebg:#f3f1ec; --btnbg:#ffffff; --pagebg:#ffffff; }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:#e8e5df; --muted:#a49e92; --accent:#d98a6a; --rule:#3a3630; --box:#232019;
+           --toy:#7fbf8f; --toybg:#1d241d; --notebg:#2a2617; --noterule:#6a5d2a; --card:#f6f4ef;
+           --codebg:#2a2723; --btnbg:#232019; --pagebg:#161513; }
+  }
+  body{ background:var(--pagebg); }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ max-width: 50rem; margin: 2.5rem auto; padding: 0 1.25rem 6rem;
+        font: 16px/1.65 Georgia, 'Times New Roman', serif; color:var(--fg); counter-reset: fig; }
+  h1{ font-size: 1.9rem; line-height:1.2; margin:.2rem 0 .2rem; }
+  h2{ font-size:1.35rem; margin:2.4rem 0 .6rem; border-bottom:2px solid var(--accent); padding-bottom:.2rem; }
+  h3{ font-size:1.1rem; margin:1.6rem 0 .4rem; color:var(--accent); }
+  .sub{ color:var(--muted); font-style:italic; margin-top:0; }
+  code{ font-family: ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.92em; background:var(--codebg); padding:.05rem .25rem; border-radius:3px; }
+  pre{ background:var(--codebg); padding:.8rem 1rem; border-radius:5px; overflow:auto; font-size:.84rem; line-height:1.45; }
+  pre code{ background:none; padding:0; }
+  .codewrap{ position:relative; }
+  .copybtn{ position:absolute; top:.5rem; right:.5rem; display:inline-flex; align-items:center; gap:.3rem;
+    font:600 .72rem/1 ui-monospace,Consolas,monospace; color:var(--muted);
+    background:var(--btnbg); border:1px solid var(--rule); border-radius:5px; padding:.32rem .5rem; cursor:pointer; }
+  .copybtn:hover{ color:var(--accent); border-color:var(--accent); }
+  .copybtn.copied{ color:#2a7d2a; border-color:#2a7d2a; }
+  .copybtn svg{ width:13px; height:13px; }
+  .thm,.def,.lem,.prop{ background:var(--box); border-left:4px solid var(--accent); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .thm b,.def b,.lem b,.prop b{ color:var(--accent); }
+  .proof{ border-left:2px solid var(--rule); padding-left:.9rem; margin:.8rem 0 1.2rem; }
+  .proof::before{ content:"Proof."; font-style:italic; font-weight:bold; margin-right:.4rem; }
+  .qed{ float:right; }
+  .toy{ background:var(--toybg); border-left:4px solid var(--toy); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .toy b{ color:var(--toy); }
+  .note{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; margin:1rem 0; border-radius:4px; font-size:.92rem; }
+  table{ border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; }
+  th,td{ border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top; }
+  th{ background:var(--box); }
+  .tablewrap{ overflow-x:auto; }
+  figure{ margin:1.5rem 0; text-align:center; counter-increment: fig; }
+  figure > svg{ background:var(--card); border:1px solid var(--rule); border-radius:6px; }
+  figcaption{ color:var(--muted); font-size:.9rem; font-style:italic; margin-top:.4rem; }
+  figcaption::before{ content:"Fig. " counter(fig) ". "; font-weight:bold; font-style:normal; color:var(--accent); }
+  .proof figure,.thm figure,.lem figure,.prop figure{ margin:.2rem auto .7rem; max-width:460px; background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:.4rem; }
+  .proof figure > svg,.thm figure > svg,.lem figure > svg,.prop figure > svg{ border:none; }
+  .proof figcaption,.thm figcaption,.lem figcaption,.prop figcaption{ font-size:.8rem; line-height:1.4; }
+  .setupfig{ display:block; }
+  .setupfig text{ paint-order:stroke; stroke:#fff; stroke-width:2.5px; stroke-linejoin:round; }
+  .setupfig text[fill="#fff"], .setupfig text[fill="#ffffff"], .setupfig text[fill="white"], .setupfig text.onfill{ stroke:none; }
+  figure svg text{ font-family:"STIX Two Math",STIXGeneral,"Times New Roman",Georgia,serif; }
+  figure svg text.v{ font-style:italic; }
+  figure svg text.vb{ font-weight:bold; }
+  .secref{ color:var(--accent); text-decoration:none; border-bottom:1px dotted #b98; }
+  .secref:hover{ border-bottom:1px solid var(--accent); }
+  .toc{ background:var(--box); padding:.8rem 1.2rem; border-radius:6px; font-size:.95rem; }
+  .toc ul{ list-style:none; padding-left:.3rem; margin:.3rem 0; } .toc a{ color:var(--accent); text-decoration:none; }
+  .small{ font-size:.88rem; color:var(--muted); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+  .keyresult{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; border-radius:4px; }
+  @media (prefers-reduced-motion: reduce){ svg animate, svg animateMotion, svg animateTransform{ display:none; } }
+</style>
+</head>
+<body>
+
+<h1>Beating a 47-year-old bound: binary and spherical codes</h1>
+<p class="sub">A rigorous, self-contained walkthrough of Chapter 2 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i> (PDF pages 29&ndash;78), written for a reader with a PhD in <b>some</b> quantitative field &mdash; but not necessarily coding theory or representation theory. Every provable step is proved; the handful of imported theorems are stated precisely and boxed. This is the longest chapter of the paper, and it reuses the linear-programming spine built in the Chapter&nbsp;1 explainer.</p>
+
+<div class="toc">
+<b>Contents</b>
+<ul>
+<li><b>0.</b> <a href="#hook">Motivation &mdash; two record bounds, frozen since 1977 and 1978</a></li>
+<li><b>1.</b> <a href="#codes">Codes and rates made precise, and the two headline theorems</a></li>
+<li><b>2.</b> <a href="#delsarte">The Delsarte two-point certificate (the LP spine, second pass)</a></li>
+<li><b>3.</b> <a href="#projection">The new machine: a subspace that moves with each code point</a></li>
+<li><b>4.</b> <a href="#boolean">Boolean harmonics on the cube</a></li>
+<li><b>5.</b> <a href="#wholecube">The whole-cube bound (Theorem 2.1)</a></li>
+<li><b>6.</b> <a href="#asympH">Beating the first MRRW bound: $\kappa_{\mathrm{H}} \lt M_1$</a></li>
+<li><b>7.</b> <a href="#johnson">Constant-weight layers and the associated Hahn matrix</a></li>
+<li><b>8.</b> <a href="#asympCW">Beating the optimized MRRW bound: $\kappa_{\mathrm{bin}} \lt M_2$</a></li>
+<li><b>9.</b> <a href="#repgraphs">Representation graphs: the machine in full generality</a></li>
+<li><b>10.</b> <a href="#spherharm">Spherical harmonics from zero</a></li>
+<li><b>11.</b> <a href="#tangent">Tangent harmonics: the one-row spherical improvement</a></li>
+<li><b>12.</b> <a href="#hierarchy">The multi-row hierarchy</a></li>
+<li><b>13.</b> <a href="#sphasymp">The asymptotic spherical bound (Theorem 1.2)</a></li>
+<li><b>14.</b> <a href="#strict">Every extra row strictly helps</a></li>
+<li><b>15.</b> <a href="#packing">Sphere packing: the hierarchy meets Chapter 1</a></li>
+<li><b>16.</b> <a href="#euclid">The spherical&rarr;Euclidean dictionary</a></li>
+<li><b>17.</b> <a href="#scope">What the certificates capture, and what they miss</a></li>
+<li><b>18.</b> <a href="#validation">Numerical validation</a></li>
+<li><b>A.</b> <a href="#notation">Appendix: notation glossary</a></li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="hook">0. Motivation &mdash; two record bounds, frozen since 1977 and 1978</h2>
+
+<p>Here are two packing problems that run modern communication.</p>
+
+<p><b>Problem one (binary).</b> You must transmit messages through a channel that flips bits. Your defense is redundancy: instead of using all $2^n$ binary strings of length $n$, you agree in advance on a small dictionary of strings &mdash; a <b>code</b> &mdash; chosen so that any two dictionary entries differ in many positions. If every pair of codewords differs in at least $d$ positions, then even after $\lfloor (d-1)/2\rfloor$ bit flips the received string is still closer to the intended codeword than to any other, and the receiver can decode by choosing the nearest entry. The engineering question is a trade-off: <i>how many codewords can you have</i> at a given separation $d$? More codewords means a faster channel; more separation means a tougher channel. </p>
+
+<p><b>Problem two (spherical).</b> Replace bit strings by directions: unit vectors in $\mathbb{R}^n$. Two directions are &ldquo;far apart&rdquo; when the angle between them is large &mdash; equivalently, when their inner product is small. Fix a ceiling $s$ and demand that every pair of chosen points on the unit sphere $S^{n-1}$ has inner product at most $s$. How many points fit? For $s = 1/2$ this is the <b>kissing number problem</b> (how many unit balls can touch one central unit ball), and for general $s$ it is the natural continuum analogue of problem one &mdash; and, as Chapter&nbsp;1 of this series showed, a bound for spherical codes converts directly into a bound for sphere packing density in $\mathbb{R}^n$.</p>
+
+<figure><!--FIG:fig_twoworlds--><figcaption>The two code universes. Left: a binary code is a set of vertices of the discrete cube $\{0,1\}^n$ (here $n=3$), pairwise far apart in Hamming distance; the code $\{000, 011, 101, 110\}$ has every pair at distance exactly $2$. Right: a spherical code is a set of points on the unit sphere $S^{n-1}$ with all pairwise inner products at most $s$; the angular cones around each point are disjoint. Both problems ask for the maximum number of points, and both answers grow exponentially in $n$.</figcaption></figure>
+
+<p>In both problems the interesting regime is $n$ large with the separation demand scaled proportionally: Hamming distance $d = \delta n$ for a fixed <i>relative distance</i> $0 \lt \delta \lt 1/2$, or a fixed inner-product ceiling $0 \lt s \lt 1$. The maximum code size then grows like $2^{Rn}$ for some exponent $R$ depending on $\delta$ or $s$, and the entire subject condenses into one question: <b>what is the exponent?</b> Nobody knows, in either universe. What exists is a gap: constructions give a lower bound on the best exponent, and impossibility proofs give an upper bound. The lower bounds have barely moved since Shannon's era. The upper bounds both date from a two-year burst driven by a single method &mdash; Delsarte's linear programming &mdash; and then froze:</p>
+
+<ul>
+<li><b>1977, binary:</b> McEliece, Rodemich, Rumsey, and Welch (MRRW) published two LP-based bounds; the stronger, &ldquo;optimized&rdquo; form $M_2(\delta)$ has been the record for unrestricted binary codes at every fixed $\delta$ ever since.</li>
+<li><b>1978, spherical:</b> Kabatianskii and Levenshtein (KL) published the spherical analogue; its cap-optimized form $B_{\mathrm{KL}}(s)$ has been the record for every fixed $s$ ever since.</li>
+</ul>
+
+<figure><!--FIG:fig_timeline--><figcaption>Forty-seven years of upper bounds. Each track shows the successive general high-dimensional exponent records for one universe. After Delsarte's LP method (1972&ndash;73) produced the MRRW (1977) and KL (1978) records, no general improvement followed &mdash; intermediate progress (semidefinite hierarchies, restricted code classes, special dimensions like $8$ and $24$) never moved the general fixed-$\delta$, fixed-$s$ exponents. The chapter proved here (2025) improves both, strictly, at every $\delta$ and every $s$.</figcaption></figure>
+
+<p>This freeze was not for lack of attention. Semidefinite-programming hierarchies strengthened the method in fixed small dimensions (they are how the kissing number in dimension $4$ was settled); restricted families like linear codes saw improvements; dimensions $8$ and $24$ became exactly solvable through Viazovska's magic functions. But the general exponent, the headline number for both problems, did not move for either universe &mdash; and a line of &ldquo;limitation&rdquo; results even proved that several natural strengthenings of the classical certificates <i>cannot</i> move it. The suspicion grew that the 1977&ndash;78 records might be the true answers.</p>
+
+<p>They are not. The chapter we walk through constructs new certificates that strictly beat the optimized MRRW exponent at <b>every</b> fixed relative distance $0 \lt \delta \lt 1/2$, and the optimized KL exponent at <b>every</b> fixed inner product $0 \lt s \lt 1$. The improvements are quantitatively small (that is part of the story &mdash; §<a class="secref" href="#asympH">6</a> and §<a class="secref" href="#asympCW">8</a> compute them), but they are conceptually decisive: the classical bounds are not the truth, and the mechanism that beats them is new.</p>
+
+<p>The mechanism can be stated in one sentence. Classical LP certificates attach to each code point a single <i>vector</i> in a symmetry-adapted function space, and bound the code through pairwise inner products of those vectors; the new certificates attach to each code point an entire <i>subspace</i> &mdash; exponentially large, and moving with the point under the symmetry group &mdash; and bound the code through overlaps of the corresponding orthogonal projections. One extra dimension knob appears (the dimension of the moving subspace), it enters the final bound as a straight division, and everything else in the LP framework survives untouched. Section&nbsp;<a class="secref" href="#projection">3</a> isolates this one idea in a six-line theorem; the rest of the chapter is the craft of making specific subspaces move (Boolean harmonics on the cube, tangential spherical harmonics and their multi-row generalizations on the sphere) and computing the spectral quantity that decides whether the certificate is feasible.</p>
+
+<p>There is a second punchline, and it ties this explainer to the previous one. Pushing the spherical hierarchy to its limit ($s \to 1$, hierarchy depth $\to \infty$) yields a sphere-packing density bound in $\mathbb{R}^n$ of exactly $2^{-(\lambda^*+o(1))n}$ with $\lambda^* = \tfrac12\log_2\tfrac{2\pi}{e}$ &mdash; the same constant $\sqrt{e/2\pi} = 0.65774\ldots$ that Chapter&nbsp;1 proved is the exact limit rate of the Cohn&ndash;Elkies linear program, by an entirely different, Euclidean-side argument. Two independent proofs, one working on spheres with representation theory, one working in $\mathbb{R}^n$ with Fourier analysis, meet at the same eight decimal places. §<a class="secref" href="#packing">15</a>&ndash;§<a class="secref" href="#euclid">16</a> prove the spherical side and build the dictionary between the two.</p>
+
+<div class="note"><b>How to read this explainer.</b> Sections <a class="secref" href="#codes">1</a>&ndash;<a class="secref" href="#projection">3</a> set up the objects and the single new idea; they are the toll everyone pays. The binary half (§§<a class="secref" href="#boolean">4</a>&ndash;<a class="secref" href="#asympCW">8</a>) and the spherical half (§§<a class="secref" href="#repgraphs">9</a>&ndash;<a class="secref" href="#strict">14</a>) then run the same playbook in two universes; the binary half is more elementary and comes first. The payoff sections (§<a class="secref" href="#packing">15</a>&ndash;§<a class="secref" href="#euclid">16</a>) connect to Chapter&nbsp;1. A reader who wants only the new idea can stop after §<a class="secref" href="#asympH">6</a>, which already contains a complete, self-contained record-breaking proof (the first MRRW bound falls there). Numbering: <b>Theorem 1.1, Lemma 2.2, equation (21)</b> etc. refer to the paper's own numbering, which we preserve; boxes lettered <b>Import A, B, &hellip;</b> are the external theorems we import with citations; equation tags like (6.a) are this document's own intermediate steps.</div>

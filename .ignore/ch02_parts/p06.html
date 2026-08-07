@@ -1,0 +1,68 @@
+<h2 id="asympH">6. Beating the first MRRW bound: $\kappa_{\mathrm{H}} \lt M_1$</h2>
+
+<p>Theorem 2.1 is a bound for every finite $(n,k,L,d)$. To extract an exponent, we scale the window with $n$ &mdash; harmonic degree $k \approx bn$, top level $L \approx an$ &mdash; and need exactly two asymptotic facts: what $\lambda_{\max}(J_{\mathrm H})$ converges to (this section's Lemma 2.2), and what the dimensions do (Lemma&nbsp;B, already proved). The section ends with the first record falling: the resulting exponent $\kappa_{\mathrm H}$ is strictly below $M_1$ at every $\delta$.</p>
+
+<h3 id="asympH-spectral">6.1 The spectral limit</h3>
+
+<p>The tool is the variational characterization of the top eigenvalue. For a real symmetric matrix $J$,</p>
+
+$$\lambda_{\max}(J) \;=\; \max_{a\ne0}\frac{\langle a, Ja\rangle}{\langle a,a\rangle}, \tag{26}$$
+
+<p>immediate from the spectral decomposition ($\langle a,Ja\rangle = \sum_\mu \mu\,\langle a,u_\mu\rangle^2 \le \lambda_{\max}\|a\|^2$, with equality at the top eigenvector). Two standard consequences we use: any test vector gives a lower bound; and for a matrix with nonnegative entries, $\lambda_{\max} \le \max_j \sum_i J_{ij}$: take a nonnegative top eigenvector $v$, pick an index $j^{*}$ where $v$ is largest, and read the $j^{*}$th eigenvalue equation: $\lambda_{\max}v_{j^{*}} = \sum_i J_{j^{*}i}\,v_i \le v_{j^{*}}\sum_i J_{j^{*}i}$.</p>
+
+<p>Recall from §<a class="secref" href="#hook">0</a>&ndash;§<a class="secref" href="#codes">1</a> the limiting spectral function announced in the introduction of the paper:</p>
+
+$$\Gamma_{\mathrm{H}}(a,b) \;=\; \frac{2(a-b)(1-a-b)}{\sqrt{a(1-a)}}\,.$$
+
+<div class="lem" id="lem22"><b>Lemma 2.2.</b> Suppose $0\le b\lt a\le 1/2$, and let integer sequences $k_n \lt L_n \le \lfloor n/2\rfloor$ satisfy $k_n/n\to b$ and $L_n/n\to a$. Then
+$$\lim_{n\to\infty}\lambda_{\max}\bigl(J_{\mathrm{H}}(n,k_n,L_n)\bigr) \;=\; \Gamma_{\mathrm{H}}(a,b).$$</div>
+
+<div class="proof">Write $k = k_n$, $L = L_n$. <b>Entrywise limit.</b> For a degree $i$ with $i/n \to x \gt 0$, the edge weight (20) converges to
+$$c^{(k)}_{i,\mathrm H} \;\longrightarrow\; g_b(x) := \frac{(x-b)(1-x-b)}{\sqrt{x(1-x)}} \;=\; \sqrt{x(1-x)}\;-\;\frac{b(1-b)}{\sqrt{x(1-x)}},$$
+where the second form is an algebraic identity (expand $(x-b)(1-x-b) = x(1-x) - b(1-b)$).
+<p><b>Monotonicity and the upper bound.</b> Put $Y_i = (i+1)(n-i)$ and $T_k = k(n+1-k)$; then $n\,c^{(k)}_{i,\mathrm H} = (Y_i - T_k)/\sqrt{Y_i}$, since $(i-k+1)(n-i-k) = Y_i - T_k$ (expand both). On $k\le i\lt L\le n/2$, $Y_i$ increases in $i$, and $Y\mapsto (Y-T_k)/\sqrt Y$ increases for $Y \gt 0$ wherever $Y \gt -T_k$ (its derivative is $\tfrac12 Y^{-3/2}(Y+T_k)$) &mdash; so the entries increase along the path and the largest is the last, $c^{(k)}_{L-1,\mathrm H}$. The row-sum bound then gives
+$$\lambda_{\max}\bigl(J_{\mathrm H}\bigr) \;\le\; 2\,c^{(k)}_{L-1,\mathrm H} \;\longrightarrow\; 2g_b(a) = \Gamma_{\mathrm H}(a,b).$$
+<p><b>The matching sine lower bound.</b> Choose integers $m_n\to\infty$ with $m_n = o(n)$, and take the test vector supported on the last $m_n$ degrees,
+$$f_{L-m_n+r} = \sin\frac{\pi r}{m_n+1}\qquad(1\le r\le m_n).$$
+All degrees in this window have $i/n \to a$, so all edge weights there converge <i>uniformly</i> to $g_b(a)$. On a path of $m$ vertices with constant weight $w$, the vector $(\sin\frac{\pi r}{m+1})_r$ is exactly the top eigenvector, with eigenvalue $2w\cos\frac{\pi}{m+1}$: the identity $\sin\theta(r-1) + \sin\theta(r+1) = 2\cos\theta\,\sin\theta r$ with $\theta = \frac{\pi}{m+1}$ verifies it vertex by vertex, including the endpoints where the missing neighbor's sine vanishes. Perturbing the constant weight by the $o(1)$ entry variation changes the Rayleigh quotient by $o(1)$, so (26) gives
+$$\lambda_{\max}\bigl(J_{\mathrm H}\bigr) \;\ge\; 2g_b(a)\cos\frac{\pi}{m_n+1} + o(1) \;\longrightarrow\; 2g_b(a).$$
+<span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_sine--><figcaption>The two halves of Lemma 2.2. Top: the edge weights $c^{(k)}_{i,\mathrm H}$ increase along the path (computed here for $n=400$, $b=0.1$, $a=0.35$), so the biggest action is at the far end and the row-sum bound caps $\lambda_{\max}$ by twice the final weight. Bottom: the discrete sine test vector rides exactly that terminal stretch, where the weights are locally constant; its Rayleigh quotient $2w\cos\frac{\pi}{m+1}$ closes the gap as the window length $m\to\infty$.</figcaption></figure>
+
+<figure><!--FIG:fig_lammax--><figcaption>Lemma 2.2 verified numerically: $\lambda_{\max}(J_{\mathrm H}(n, \lfloor 0.1n\rfloor, \lfloor 0.35n\rfloor))$ computed exactly for $n$ up to a few thousand, converging to the predicted $\Gamma_{\mathrm H}(0.35, 0.1)$ (dashed). Convergence is from below at rate $\Theta(n^{-2/3})$-ish governed by the sine window; the gap is $\approx 5\times10^{-3}$ at $n = 4000$ and still shrinking (check 4 of §18 verifies the monotone approach).</figcaption></figure>
+
+<h3 id="asympH-thm">6.2 The whole-cube exponent, and the first record falls</h3>
+
+<p>Define (this is the paper's equation (2), now with all symbols in hand):</p>
+
+<div class="keyresult">$$\kappa_{\mathrm{H}}(\delta) \;=\; \inf_{\substack{0\le b\lt a\le 1/2\\ \Gamma_{\mathrm{H}}(a,b) \gt 1-2\delta}}\bigl(H_2(a) - H_2(b)\bigr). \tag{2}$$</div>
+
+<p>The two entropies are exactly the dimension exponents in play: $H_2(a)$ for the ambient window $\sum_{i\le L}\binom ni$, $H_2(b)$ for the moving fiber $E_k$ &mdash; ambient cost minus fiber rebate. The constraint is the spectral gatekeeper at the limit.</p>
+
+<div class="thm" id="thm23"><b>Theorem 2.3.</b> For every fixed $0\lt\delta\lt1/2$,
+$$R_2(\delta) \;\le\; \kappa_{\mathrm{H}}(\delta) \;\lt\; M_1(\delta).$$</div>
+
+<div class="proof"><b>Part 1: $R_2 \le \kappa_{\mathrm H}$.</b> Fix any feasible $(a,b)$, i.e. $0\le b\lt a\le\frac12$ with $\Gamma_{\mathrm H}(a,b)\gt 1-2\delta$. Take $k = \lfloor bn\rfloor$, $L = \lfloor an\rfloor$, $d_n = \lceil\delta n\rceil$, so the finite threshold $s_n = 1-2d_n/n\to1-2\delta$. By Lemma 2.2, $\lambda_{\max}(J_{\mathrm H}(n,k,L)) \to \Gamma_{\mathrm H}(a,b) \gt 1-2\delta$, so for large $n$ the gap $\lambda - s_n$ is bounded away from $0$ and Theorem 2.1 applies:
+$$A_2(n, d_n) \;\le\; \underbrace{\frac{1-s_n}{\lambda-s_n}}_{O(1)}\;\cdot\;\frac{\sum_{i=k}^L\binom ni}{d^{\square}_k}.$$
+The numerator sum is at most $(L+1)\binom nL$ for $L\le n/2$ (terms increase), so by Lemma&nbsp;B its rate is $H_2(a)$; the fiber rate is $H_2(b)$. Taking $\frac1n\log_2$ and then the infimum over feasible $(a,b)$ gives $R_2(\delta)\le\kappa_{\mathrm H}(\delta)$.
+<p><b>Part 2: $\kappa_{\mathrm H} \lt M_1$.</b> The classical boundary point is $b=0$, $a_0 = \frac12-\sqrt{\delta(1-\delta)}$: there
+$$\Gamma_{\mathrm H}(a_0,0) = 2\sqrt{a_0(1-a_0)} = \sqrt{1-4\delta(1-\delta)} = 1-2\delta,
+\qquad H_2(a_0)-H_2(0) = M_1(\delta)$$
+(the middle equality since $a_0(1-a_0) = \frac14-\delta(1-\delta)$) &mdash; i.e. the classical certificate sits <i>exactly on</i> the spectral boundary and delivers exactly $M_1$. We show feasible points just inside beat it. Compute the two partial derivatives at $(a_0,0)$, using $\Gamma_{\mathrm H}(a,b) = 2\bigl[\sqrt{a(1-a)} - b(1-b)/\sqrt{a(1-a)}\bigr]$:
+$$\partial_a\Gamma_{\mathrm H}(a_0,0) = \frac{1-2a_0}{\sqrt{a_0(1-a_0)}} \gt 0,
+\qquad
+\partial_b\Gamma_{\mathrm H}(a_0,0) = \frac{-2}{\sqrt{a_0(1-a_0)}},
+\qquad
+-\frac{\partial_b\Gamma_{\mathrm H}}{\partial_a\Gamma_{\mathrm H}} = \frac{2}{1-2a_0}.$$
+Fix any $c \gt \frac2{1-2a_0}$ and move along $a = a_0 + cb$ as $b\downarrow0$. First-order Taylor:
+$$\Gamma_{\mathrm H}(a_0+cb,\,b) = (1-2\delta) + \Bigl(c - \frac{2}{1-2a_0}\Bigr)\partial_a\Gamma_{\mathrm H}\cdot b + O(b^2) \;\gt\; 1-2\delta$$
+for all small $b\gt0$: strictly feasible. The objective along the same ray:
+$$H_2(a_0+cb) - H_2(b) \;=\; M_1(\delta) \;+\; \underbrace{H_2'(a_0)\,c\,b + O(b^2)}_{O_\delta(b)} \;-\; \underbrace{\bigl(b\log_2\tfrac1b + O(b)\bigr)}_{H_2(b)} .$$
+As $b\downarrow0$ the fiber rebate $b\log_2\frac1b$ beats every linear-in-$b$ cost &mdash; the marginal value of the first sliver of fiber entropy is infinite. Hence the objective dips strictly below $M_1(\delta)$ for small $b$, and $\kappa_{\mathrm H}(\delta)\lt M_1(\delta)$. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_feasible--><figcaption>The variational landscape of $\kappa_{\mathrm H}$ at $\delta = 0.2$, computed. Shaded: the feasible region $\Gamma_{\mathrm H}(a,b) \gt 1-2\delta$ in the $(a,b)$ triangle; its lower-right boundary passes through the classical point $(a_0, 0)$ (red dot), where the classical certificate delivers exactly $M_1$. Thin curves: level sets of the objective $H_2(a)-H_2(b)$. The improving ray $a = a_0+cb$ (arrow) enters the feasible interior while the objective <i>decreases</i>, because the fiber term $H_2(b)\sim b\log_2\frac1b$ outruns the linear spectral cost; the computed optimizer (gold dot) sits at genuinely positive fiber degree $b^*$.</figcaption></figure>
+
+<figure><!--FIG:fig_m1kh--><figcaption>The first record falls, quantitatively. Left: $M_1(\delta)$ (red) and the computed $\kappa_{\mathrm H}(\delta)$ (blue) &mdash; at plot scale they hug, which is why the right panel shows the honest quantity: the gap $M_1-\kappa_{\mathrm H}$ on a log axis, ranging from ${\sim}2\times10^{-2}$ at $\delta=0.1$ to ${\sim}10^{-4}$ at $\delta=0.4$. Small numbers &mdash; but the first strictly positive ones in 47 years, at every $\delta$.</figcaption></figure>
+
+<div class="note"><b>Why the classical construction could not do this.</b> At $b=0$ the classical certificate already extremizes over $a$; its boundary is exactly $\Gamma_{\mathrm H}(a,0) = 1-2\delta$. The new degree of freedom $b$ opens a <i>second</i> derivative direction, and the objective's non-smoothness at $b = 0$ ($H_2'(0^+) = +\infty$) means the classical point is never a local minimum of the enlarged problem. The same one-two punch &mdash; boundary point of the old problem is an interior-corner of the new one, entropy beats linear &mdash; will reappear verbatim for the constant-weight bound (Proposition 3.7) and twice on the sphere (Proposition 7.3).</div>

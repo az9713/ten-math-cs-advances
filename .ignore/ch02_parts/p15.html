@@ -1,0 +1,106 @@
+<h2 id="packing">15. Sphere packing: the hierarchy meets Chapter 1</h2>
+
+<p>The final act converts the spherical hierarchy into a Euclidean sphere-packing bound and pushes it to its limit. Three surprises await: the spherical-cap optimization, so essential for fixed-angle codes, buys <i>exactly nothing</i> for packing; the gap between any finite hierarchy level and the limiting exponent is, verbatim, a relative entropy; and the limit itself is $\lambda^* = \frac12\log_2\frac{2\pi}e$ &mdash; the constant Chapter&nbsp;1 extracted from the Cohn&ndash;Elkies program by pure Euclidean analysis. Two proofs from two worlds, one number.</p>
+
+<h3 id="packing-transfer">15.1 From spherical codes to packings, and a fortunate cancellation</h3>
+
+<div class="def" id="importE"><b>Import E (upper-hemisphere inequality).</b> For $-1\lt s\lt1$, the maximal packing density in $\mathbb{R}^n$ satisfies
+$$\Delta_n \;\le\; \Bigl(\frac{1-s}2\Bigr)^{n/2}A(n+1,\,s). \tag{89}$$
+<i>Geometry:</i> place a large chunk of a rescaled packing of $\mathbb{R}^n$ inside the equatorial tangent plane and lift it radially onto the upper hemisphere of $S^{n}\subset\mathbb{R}^{n+1}$: centers separated by $\sqrt{2(1-s)}$ (after scaling) lift to points of pairwise inner product $\le s$, and the volume bookkeeping between the packing density and the cap measure produces exactly the factor $((1-s)/2)^{n/2}$. <i>Citations:</i> Sidelnikov 1974; Kabatianskii&ndash;Levenshtein 1978; the clean normalized form is Cohn&ndash;Zhao 2014, (2.1). [Consequence-level check: feeding the classical $B_{\mathrm{KL}}$ through (89) reproduces the 1978 packing record $2^{-(0.599+o(1))n}$, which our (91)-optimization confirms numerically before the hierarchy pushes it to $0.6044$.]</div>
+
+<p>If $A(n,s)\le2^{(B(s)+o(1))n}$, then (89) gives $\Delta_n\le2^{-(\frac12\log_2\frac2{1-s} - B(s) + o(1))n}$: the packing decay exponent trades the code exponent against the hemisphere volume factor, and $s$ is ours to optimize &mdash; the packing problem has no preferred angle. Define, at hierarchy level $r$,</p>
+
+$$\gamma_r \;=\; \sup_{0\lt s\lt1}\Bigl\{\tfrac12\log_2\frac2{1-s} - \kappa_r(s)\Bigr\}
+\;=\; \sup_{a_1\gt b_1\gt\cdots\gt a_{r+1}\ge0}\Bigl\{\tfrac12\log_2\frac2{1-2\Gamma_r(a,b)} - \Phi_r(a,b)\Bigr\}, \tag{91}$$
+
+<p>the second form because, at a fixed tuple, the objective increases in $s$ until the feasibility boundary $s = 2\Gamma_r(a,b)$, where we substitute. Then $\Delta_n\le2^{-(\gamma_r+o(1))n}$ for every $r$.</p>
+
+<p><b>Caps cancel.</b> Should we have used the cap-optimized $\overline\kappa_r$? Substituting the definition (87) into the packing objective, the slice cost meets the volume factor head-on:</p>
+
+$$\tfrac12\log_2\frac2{1-s} \;-\; \tfrac12\log_2\frac{1-t}{1-s} \;=\; \tfrac12\log_2\frac2{1-t}. \tag{93}$$
+
+<p>Transferring a cap-improved bound at threshold $s$ is <i>identical</i> to transferring the direct bound at the cap's inner threshold $t$: the cap's cost exactly offsets its geometric gain. So $\gamma_\infty := \sup_s\{\frac12\log_2\frac2{1-s}-\kappa_\infty(s)\} = \sup_r\gamma_r$, with no extra cap layer &mdash; and, by the appending trick (pad a tuple with a vanishing row pair), $\gamma_r$ is nondecreasing in $r$, so $\gamma_\infty = \lim_r\gamma_r$.</p>
+
+<figure><!--FIG:fig_hemisphere--><figcaption>The upper-hemisphere transfer (drawn one dimension down: a packing of $\mathbb{R}^1$ lifted to $S^1$, computed points). Separated packing centers in the plane lift to a spherical code on a polar cap with controlled inner products; the volume factor $((1-s)/2)^{n/2}$ of (89) is the cap's share of the sphere. The angle $s$ is then optimized &mdash; and by the cancellation (93), optimizing the angle makes any further cap preprocessing worthless: for packing, caps are already priced in.</figcaption></figure>
+
+<h3 id="packing-entropy">15.2 The gap to optimality is a relative entropy (Proposition 8.1)</h3>
+
+<p>Here is the chapter's most elegant single page. Encode a level-$r$ tuple by the <b>interlacing indicator</b> of its quadratic coordinates &mdash; the union of $[0,x_{r+1}]$ and the gaps $[y_m,x_m]$ &mdash; and everything about the packing objective becomes classical potential theory on the half-line. Throughout, $c = \frac14$, $\log$ is natural, and $D_{\mathrm{KL}}(\nu\|\rho) = \int\log\frac{d\nu}{d\rho}\,d\nu$ denotes relative entropy (nonnegative, zero iff the measures agree &mdash; by Jensen on $-\log$).</p>
+
+<div class="prop" id="prop81"><b>Proposition 8.1.</b> Fix $r\ge0$ and a strictly interlacing tuple; let $x_\ell = A(a_\ell)$, $y_m = A(b_m)$, and $Z = 1-2\Gamma_r(a,b)\gt0$. Define on $0\lt t\lt c$:
+$$\xi(u) = \mathbf 1_{[0,x_{r+1}]}(u) + \sum_{m=1}^{r}\mathbf 1_{[y_m,x_m]}(u),
+\qquad
+K(t) = \int_0^\infty\frac{\xi(u)}{t+u}\,du, \tag{95, 96}$$
+$$\rho(dt) = \frac{dt}{\pi\sqrt{t(c-t)}},
+\qquad
+\nu(dt) = \frac{dt}{\sqrt{c-t}},
+\qquad
+\rho_K(dt) = Z^{-1}e^{-K(t)}\rho(dt). \tag{97, 98}$$
+Then $\rho$, $\nu$, $\rho_K$ are all probability measures, and
+$$\lambda^* \;-\;\Bigl[\tfrac12\log_2\frac{2}{1-2\Gamma_r(a,b)} - \Phi_r(a,b)\Bigr]
+\;=\; \frac{D_{\mathrm{KL}}(\nu\,\|\,\rho_K)}{2\log2}. \tag{99}$$
+In particular $\gamma_r\le\lambda^*$ for every $r$.</div>
+
+<div class="proof">We verify each ingredient by direct computation.
+<p><b>(i) The potential in closed form.</b> Integrating $\frac1{t+u}$ over the indicator's intervals,
+$$K(t) = \log\frac{t+x_{r+1}}{t}+\sum_{m=1}^r\log\frac{t+x_m}{t+y_m},
+\qquad
+e^{-K(t)} = \frac{t}{t+x_{r+1}}\prod_{m=1}^r\frac{t+y_m}{t+x_m} \;=\; t\sum_{\ell=1}^{r+1}\frac{R_\ell}{t+x_\ell}, \tag{100}$$
+the last equality being the partial-fraction expansion of the Stieltjes function of §<a class="secref" href="#sphasymp">13</a> evaluated at $z = -t$ (with the sign arranged: $m(-t) = -\prod(t+y_m)/\prod(t+x_\ell)$ and $\sum R_\ell/(-t-x_\ell) = m(-t)$).
+<p><b>(ii) The exponent as an integral.</b> Let $h(x) = (\log2)H_{\mathrm{sph}}(A^{-1}(x))$; chain rule gives $h'(x) = \frac1{1+2a}\log\frac{1+a}a$ at $a = A^{-1}(x)$. Integrating $h'$ over the same intervals telescopes:
+$$\int_0^\infty h'(u)\,\xi(u)\,du = h(x_{r+1})+\sum_m\bigl(h(x_m)-h(y_m)\bigr) = (\log2)\,\Phi_r. \tag{101}$$
+<p><b>(iii) Two half-line identities.</b> Both reference measures have mass one at $c=\frac14$ ($\rho$ is the arcsine law; $\int_0^c\frac{dt}{\sqrt{c-t}} = 2\sqrt c = 1$), and the substitutions $t = c\sin^2\theta$ resp. $t = c(1-v^2)$ evaluate two integrals in closed form:
+$$\int_0^c\frac{x}{x+t}\,\rho(dt) = \sqrt{\frac{x}{x+c}} = 2q\bigl(A^{-1}(x)\bigr),
+\qquad
+\int_0^c\frac{\nu(dt)}{x+t} = 2h'(x). \tag{15.a}$$
+(First: the standard arcsine integral $\frac2\pi\int_0^{\pi/2}\frac{x\,d\theta}{x+c\sin^2\theta} = \sqrt{x/(x+c)}$, and $\sqrt{x/(x+\frac14)} = 2q$ was checked in §<a class="secref" href="#sphasymp">13.3</a>. Second: $\nu(dt)\mapsto dv$ on $[0,1]$ and $\int_0^1\frac{dv}{x+c(1-v^2)} = \frac{2}{1+2a}\log\frac{1+a}{a}\cdot\frac12\cdot2 = 2h'(x)$ after the artanh evaluation with $x+c = (a+\frac12)^2$ &mdash; check 16 of §<a class="secref" href="#validation">18</a> verifies both numerically to $10^{-12}$.)
+<p><b>(iv) Normalization and the $\Phi$-representation.</b> By (100), (15.a), and $\sum_\ell R_\ell = 1$:
+$$\int_0^ce^{-K}\,d\rho = \sum_\ell R_\ell\int_0^c\frac{t}{t+x_\ell}\,\rho(dt) = \sum_\ell R_\ell\bigl(1-2q(a_\ell)\bigr) = 1-2\Gamma_r = Z,$$
+so $\rho_K$ is a probability measure. By (96), Tonelli, (15.a), and (101):
+$$\int_0^cK(t)\,\nu(dt) = \int_0^\infty\xi(u)\Bigl[\int_0^c\frac{\nu(dt)}{t+u}\Bigr]du = \int_0^\infty\xi(u)\,2h'(u)\,du = 2(\log2)\,\Phi_r. \tag{102}$$
+<p><b>(v) Assembling the entropy.</b> The density ratio is $\frac{d\nu}{d\rho}(t) = \pi\sqrt t$, and $\int_0^c\log t\;\nu(dt) = \log c + \int_0^1\log(1-v^2)\,dv = -2\log2 + (2\log2-2) = -2$. Hence
+$$D_{\mathrm{KL}}(\nu\|\rho_K) = \int_0^c\Bigl[\log\frac{d\nu}{d\rho}(t) + K(t) + \log Z\Bigr]\nu(dt)
+= \log\pi + \tfrac12(-2)\cdot 1 + 2(\log2)\Phi_r + \log Z,$$
+using mass one of $\nu$ throughout. Multiply the bracketed packing gap in (99) by $2\log 2$:
+$$2(\log2)\lambda^* - \log\frac2Z + 2(\log2)\Phi_r = \log\frac{2\pi}e - \log2 + \log Z + 2(\log2)\Phi_r = \log\pi - 1 + \log Z + 2(\log2)\Phi_r,$$
+which is exactly the displayed $D_{\mathrm{KL}}$. Nonnegativity of relative entropy plus (91) give $\gamma_r\le\lambda^*$. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_measures--><figcaption>Proposition 8.1, computed for an actual level-2 tuple. Left: the interlacing indicator $\xi$ on the quadratic half-line and its potential $K(t)$ on $(0,\frac14)$. Right: the three densities on $(0,\frac14)$ &mdash; the arcsine reference $\rho$, the target $\nu(dt) = dt/\sqrt{c-t}$, and the tilted $\rho_K = Z^{-1}e^{-K}\rho$; the shaded discrepancy between $\nu$ and $\rho_K$ <i>is</i> the packing suboptimality of this tuple: gap to $\lambda^*$ $= D_{\mathrm{KL}}(\nu\|\rho_K)/(2\log2)$, here $0.0157$ bits. Optimizing the hierarchy is literally the projection of $\nu$ onto the family of achievable tilts.</figcaption></figure>
+
+<div class="thm" id="cor82"><b>Corollary 8.2.</b> For every $r\ge0$: $\;\gamma_r\lt\gamma_{r+1}\lt\lambda^*$.</div>
+
+<div class="proof">By (100), $e^{-K(t)} = t\sum_\ell R_\ell/(t+x_\ell)$: the achievable tilts at level $r$ are exactly the probability mixtures $g = \sum_{i=1}^{r+1}\alpha_if_{x_i}$ of the normalized kernels $f_x(t) = \frac{t}{(t+x)\,I(x)}$, $I(x) = \int_0^c\frac{t}{t+x}\rho(dt)$, including the endpoint kernels $f_0 = 1$ and $f_\infty(t) = 2t/c$ (mixture weights $\alpha_i = R_iI(x_i)/\sum_jR_jI(x_j)$, invertible back to residues; nodes at $0$ or $\infty$ arise as limits, matching Lemma 7.5's compactification). The elementary bounds $\frac{c}{4(c/2+x)}\le I(x)\le\frac c{c+x}$ and $\frac tc\le f_x(t)\le4$ make $g\mapsto D_{\mathrm{KL}}(\nu\|g\rho)$ continuous on the compact space of $\le r+1$-node mixtures over $[0,\infty]$ (dominated convergence; $|\log t|$ is $\nu$-integrable). So by Proposition 8.1,
+$$\gamma_r = \lambda^* - \frac1{2\log2}\min_{g\;=\;\sum_{i=1}^{r+1}\alpha_if_{x_i}}D_{\mathrm{KL}}(\nu\,\|\,g\rho),$$
+and the min is attained. <i>Strict positivity ($\gamma_r\lt\lambda^*$):</i> the target density is $h = \frac{d\nu}{d\rho} = \pi\sqrt t$. It is a <i>continuous</i> mixture &mdash; against $\eta(dx) = I(x)x^{-1/2}dx$ one computes $\int_0^\infty f_x(t)\,\eta(dx) = \int_0^\infty\frac{t}{t+x}\frac{dx}{\sqrt x} = \pi\sqrt t$ &mdash; but never a finite one: a finite mixture with an atom at $0$ has $g(0)\gt0\ne h(0)$, and one without satisfies $g(t) = O(t)$ as $t\downarrow0$, while $h(t) = \pi\sqrt t\gg t$. So the minimum entropy is strictly positive.
+<i>Strict increase ($\gamma_r\lt\gamma_{r+1}$):</i> let $g$ attain the level-$r$ minimum and set $A(x) = \int_0^c\frac{f_x(t)}{g(t)}\nu(dt)$. Then
+$$\int_0^\infty A(x)\,\eta(dx) = \int_0^c\frac{h(t)^2}{g(t)}\,\rho(dt) \gt \Bigl(\int h\,d\rho\Bigr)^2 = 1,$$
+by Cauchy&ndash;Schwarz $\bigl(\int h\,d\rho\bigr)^2\le\int\frac{h^2}g\,d\rho\int g\,d\rho$ with equality iff $g\propto h$ &mdash; excluded above. So $A(x^{+})\gt1$ for some finite node $x^{+}$ outside the current support. The mixture derivative of the entropy at $g$ in direction $f_{x^{+}}$ is
+$$\frac{d}{d\varepsilon}D_{\mathrm{KL}}\bigl(\nu\|((1-\varepsilon)g+\varepsilon f_{x^{+}})\rho\bigr)\Big|_{\varepsilon=0^+} = \int\Bigl(1 - \frac{f_{x^{+}}}{g}\Bigr)d\nu = 1 - A(x^{+})\lt0$$
+(differentiation under the integral justified by $f_{x^+}/g\le c/(x^{+}I(x^{+}))\lt\infty$), so a level-$(r{+}1)$ mixture strictly lowers the entropy. <span class="qed">&#8718;</span></div>
+
+<h3 id="packing-cheby">15.3 Chebyshev tuples attain the limit (Theorem 8.3)</h3>
+
+<div class="thm" id="thm83"><b>Theorem 8.3.</b> $\displaystyle\lim_{r\to\infty}\gamma_r = \gamma_\infty = \lambda^* = \tfrac12\log_2\frac{2\pi}e$. Consequently
+$$\Delta_n \;\le\; 2^{-(\lambda^*+o(1))n}. \tag{103}$$</div>
+
+<div class="proof">Upper bound: Corollary 8.2. For the matching construction, fix $R\gt0$, set $N = r+1$, and take the interlacing tuple whose quadratic coordinates are the roots and critical points of the Chebyshev polynomial shifted to $[0,R]$:
+$$x_\ell = \frac R2\Bigl(1+\cos\frac{(2\ell-1)\pi}{2N}\Bigr)\ (1\le\ell\le N),
+\qquad
+y_m = \frac R2\Bigl(1+\cos\frac{m\pi}{N}\Bigr)\ (1\le m\lt N). \tag{104}$$
+These strictly interlace (roots and critical points of $Q_N$, the monic shifted Chebyshev). The logarithmic-derivative identity $\frac{Q_N'}{NQ_N} = \frac1N\sum_\ell\frac1{z-x_\ell}$ matches the Stieltjes form of §<a class="secref" href="#sphasymp">13</a> and shows every residue is $R_\ell = \frac1N$: <i>Chebyshev tuples are the equal-weight configurations.</i> Their indicator $\xi_N$ selects, in the substitution $u = \frac R2(1+\cos\theta)$, exactly half of each of the $N$ equal $\theta$-intervals; averaging against any $f\in L^1(0,R)$ (first continuous $f$, then by density) gives the weak-* limit
+$$\int_0^Rf(u)\,\xi_N(u)\,du \;\longrightarrow\; \frac12\int_0^Rf(u)\,du \qquad (N\to\infty,\ R\ \text{fixed}).$$
+Apply this with the two $L^1(0,R)$ functions $u\mapsto\frac1{t+u}$ (fixed $t\gt0$) and $h'$ (integrable at $0$ since $h'(u) = O(\log\frac1u)$):
+$$K_N(t)\longrightarrow K_R(t) = \frac12\log\frac{t+R}{t},
+\qquad
+(\log2)\,\Phi_{N-1}\longrightarrow\frac12h(R). \tag{105}$$
+Since $0\le e^{-K_N}\le1$, dominated convergence in the normalization integral gives
+$$Z_N = 1-2\Gamma_{N-1}\;\longrightarrow\; Z_R = \int_0^{1/4}\sqrt{\frac t{t+R}}\,\rho(dt) = \frac2\pi\arcsin\frac1{\sqrt{4R+1}}, \tag{106}$$
+(the closed form again by $t = \frac14\sin^2\theta$; verified numerically in check 17). Substituting into (91):
+$$\liminf_{r\to\infty}\gamma_r \;\ge\; \frac{\log(2/Z_R) - h(R)}{2\log2}. \tag{107}$$
+Finally send $R\to\infty$: $Z_R = \frac{1+o(1)}{\pi\sqrt R}$ (small-argument arcsine) and $h(R) = \frac12\log R + 1 + o(1)$ (the $f$-asymptotics of Lemma 7.5, times $\log 2$), so the right side of (107) tends to
+$$\frac{\log2 + \log\pi + \frac12\log R - \frac12\log R - 1}{2\log2} = \frac{\log\frac{2\pi}e}{2\log2} = \lambda^*.$$
+For the packing statement: given $\varepsilon\gt0$, fix $R$, then a finite level $r$, then a threshold $s\lt2\Gamma_r$ realizing packing exponent $\ge\lambda^*-\varepsilon$; Theorem 1.2 and (89) give $\limsup\frac1n\log_2\Delta_n\le-\lambda^*+\varepsilon$; let $\varepsilon\downarrow0$. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_cheby--><figcaption>The sharp construction, computed for $N=8$, $R=6$. Top: shifted Chebyshev roots $x_\ell$ (poles, red) and critical points $y_m$ (roots, blue) interlacing on $[0,R]$; all residues equal $\frac1N$. Middle: the indicator $\xi_N$ selects alternating runs that occupy exactly half of each equal $\theta$-interval; as $N\to\infty$ it converges weak-* to the constant $\frac12$ &mdash; the &ldquo;half-filled half-line&rdquo; whose potential is $K_R(t) = \frac12\log\frac{t+R}t$. Bottom: convergence of the packing objective $[\log(2/Z_R)-h(R)]/(2\log2)$ to $\lambda^* = 0.60440$ as $R$ grows (computed), with the values realized by finite $N$ marked.</figcaption></figure>
+
+<div class="note"><b>Corollary 1.4, delivered &mdash; and the handshake with Chapter&nbsp;1.</b> $\Delta_n^{1/n}\le2^{-\lambda^*+o(1)} = \sqrt{e/2\pi} = 0.65774\ldots$. Chapter&nbsp;1 proved that the Cohn&ndash;Elkies linear program &mdash; the only general Euclidean upper-bound machine &mdash; has <i>exactly</i> this limiting rate: $\lim_d\mathrm{LP}_d^{1/d} = \sqrt{e/2\pi}$, with matching lower bound for every admissible auxiliary function. So the spherical hierarchy, pushed to $s\uparrow1$, achieves the best exponent the Euclidean LP framework can possibly deliver, from a completely different direction (Cohn&ndash;Zhao's transference maps our spherical certificates into feasible Cohn&ndash;Elkies functions, so neither side can outrun the other). The order of limits matters and is worth stating: $n\to\infty$ first at fixed level, then $r\to\infty$ at fixed $R$, then $R\to\infty$ (forcing $s_R = 1-Z_R\uparrow1$). §<a class="secref" href="#euclid">16</a> shows the coincidence is structural, not numerical.</div>

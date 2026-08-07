@@ -1,0 +1,60 @@
+<h2 id="projection">3. The new machine: a subspace that moves with each code point</h2>
+
+<p>This section contains the one genuinely new idea of the chapter, isolated from all the machinery that feeds it. It is a six-hypothesis proposition whose proof fits on one screen. Everything after this section is the (substantial) craft of manufacturing its inputs.</p>
+
+<h3 id="projection-idea">3.1 From a pinned vector to a moving projection</h3>
+
+<p>The classical recipe of §<a class="secref" href="#delsarte">2.3</a> attaches one unit vector $u_x$ to each candidate point $x$ and forms the Gram kernel $\langle u_x,u_y\rangle$. The new recipe attaches a whole $d$-dimensional subspace &mdash; concretely, the <b>orthogonal projection</b> $P_x$ onto that subspace, acting on a fixed $D$-dimensional ambient space $\mathcal{V}$. The subspaces <i>move with the points</i>: a symmetry of $X$ carrying $x$ to $y$ carries the subspace at $x$ to the subspace at $y$. The kernel becomes the <b>overlap</b> of the two projections,</p>
+
+$$K(x,y) \;=\; \operatorname{tr}(P_xP_y),$$
+
+<p>and the code bound will divide by the rank $d$. When $d$ can be made exponentially large in $n$ &mdash; and the whole game is that it can &mdash; that division subtracts a linear-in-$n$ quantity from the classical exponent.</p>
+
+<figure><!--FIG:fig_vectorsub--><figcaption>The central upgrade of the chapter. Left (classical): each code point $x$ pins a single unit vector $u_x$ in the ambient space $\mathcal{V}$; the certificate sees pairwise inner products $\langle u_x,u_y\rangle$; the delivered exponent is the entropy of $\dim\mathcal{V}=D$. Right (new): each code point carries a $d$-dimensional subspace $\operatorname{im}P_x$, transported by the symmetry group; the certificate sees projection overlaps $\operatorname{tr}(P_xP_y)$; the delivered exponent is the entropy of $D$ <i>minus the entropy of</i> $d$. The classical case is $d=1$.</figcaption></figure>
+
+<p>Three elementary facts about the overlap kernel, each one line, are the foundation. Recall that the <b>Hilbert&ndash;Schmidt</b> inner product of two linear maps $A,B$ between inner-product spaces is $\langle A,B\rangle_{\mathrm{HS}} = \operatorname{tr}(A^{*}B)$, with norm $\|A\|_{\mathrm{HS}}^2 = \operatorname{tr}(A^*A)$ &mdash; the entrywise dot product of matrices, coordinate-free.</p>
+
+<ul>
+<li><b>Nonnegativity:</b> $\operatorname{tr}(P_xP_y) = \operatorname{tr}(P_xP_x P_yP_y) = \operatorname{tr}\bigl((P_xP_y)^*(P_xP_y)\bigr) = \|P_xP_y\|_{\mathrm{HS}}^2 \ge 0$, using $P^2=P$, $P^*=P$, and cyclicity of trace. An overlap of projections can never go negative &mdash; already a nontrivial constraint that a general Gram kernel does not satisfy.</li>
+<li><b>Positive-definiteness:</b> $K(x,y) = \langle P_x, P_y\rangle_{\mathrm{HS}}$ is a Gram kernel of the operators $P_x$ themselves, hence psd in the sense of §<a class="secref" href="#delsarte">2.1</a>.</li>
+<li><b>Geometric meaning:</b> if the two subspaces meet at principal angles $\theta_1,\dots,\theta_d$ (the singular values of $P_xP_y$ restricted to the subspaces are $\cos\theta_i$), then $\operatorname{tr}(P_xP_y) = \sum_{i=1}^d \cos^2\theta_i$. Full alignment gives $d$; orthogonality gives $0$.</li>
+</ul>
+
+<figure><!--FIG:fig_overlap--><figcaption>Overlap of two moving subspaces, drawn for $d=2$, $D=3$: two planes through the origin meeting along a line. The principal angles are $\theta_1 = 0$ (the shared line) and $\theta_2$ (the opening angle); the overlap is $\operatorname{tr}(P_xP_y) = \cos^2 0 + \cos^2\theta_2 = 1+\cos^2\theta_2$. As a symmetry moves $x$ to $y$, it carries one plane to the other; the overlap depends only on the relative position &mdash; which is why $K(x,y)$ will be a function of the distance $t(x,y)$ alone.</figcaption></figure>
+
+<h3 id="projection-prop">3.2 The projection bound</h3>
+
+<p>Here is the abstract theorem. Its cast: a set $X$ of candidate points; a Euclidean space $W$ that encodes closeness, via a unit vector $\ell_x \in W$ for each point with $t(x,y) = \langle \ell_x,\ell_y\rangle$ (on the sphere $W=\mathbb{R}^n$ and $\ell_x = x$ itself; on the cube $W = \mathbb{R}^n$ and $\ell_x = x/\sqrt n$ in $\pm1$ coordinates); the ambient space $\mathcal{V}$ with its moving projections; and one operator $B$ that ties them together. $B$ is where all the future work hides: §§<a class="secref" href="#boolean">4</a>&ndash;<a class="secref" href="#wholecube">5</a>, <a class="secref" href="#johnson">7</a>, and <a class="secref" href="#hierarchy">12</a> exist to build it in each universe.</p>
+
+<div class="prop" id="prop41"><b>Proposition 4.1 (projection bound).</b> Let $X$ be a set, and associate with every $x\in X$ a unit vector $\ell_x$ in a Euclidean space $W$; write $t(x,y) = \langle\ell_x,\ell_y\rangle$. Let $\mathcal{V}$ be a $D$-dimensional Hilbert space and, for every $x$, let $P_x$ be a rank-$d$ orthogonal projection on $\mathcal{V}$, where $1\le d\le D$. Suppose there exist a constant $\Lambda \ge 0$ and an <b>isometry</b> $B:\mathcal{V}\to W\otimes\mathcal{V}$ such that for every $x\in X$ and every $u \in \operatorname{im}P_x$,
+$$B^{*}(\ell_x\otimes u) \;=\; \sqrt{\Lambda}\,u. \tag{49}$$
+If $\Lambda \gt s$, then every code $C\subseteq X$ with $t(x,y)\le s$ at distinct points satisfies
+$$|C| \;\le\; \frac{1-s}{\Lambda-s}\cdot\frac{D}{d}. \tag{50}$$</div>
+
+<p>Read condition (49) as a <i>spectral alignment</i> demand: tensoring a moving-subspace vector with its own point's coordinate vector, then contracting back through $B$, must reproduce the vector, shrunk by the fixed factor $\sqrt\Lambda$ &mdash; the same factor for every point and every vector in its subspace. The constant $\Lambda$ will turn out to be the largest eigenvalue of a weighted graph (§<a class="secref" href="#repgraphs">9</a>), which is why we keep calling it the spectral gatekeeper: the bound exists only when $\Lambda$ clears the closeness ceiling $s$.</p>
+
+<div class="proof">It suffices to bound finite codes: an infinite code contains finite subcodes of arbitrary size. Write $K(x,y)=\operatorname{tr}(P_xP_y) \ge 0$ (shown above). Define, for each $x$, two maps $\mathcal{V}\to W\otimes\mathcal{V}$ and their <b>residual</b>:
+$$L_x = (\ell_x\otimes\mathrm{id})P_x, \qquad G_x = BP_x, \qquad \Theta_x = L_x - \sqrt{\Lambda}\,G_x.$$
+($L_x$ sends $v \mapsto \ell_x \otimes P_x v$.) We compute all four Hilbert&ndash;Schmidt pairings between the $L$'s and $G$'s at two points $x,y$.
+<p><i>Pairing 1.</i> $\langle L_x,L_y\rangle_{\mathrm{HS}} = \operatorname{tr}\bigl[P_x(\ell_x\otimes\mathrm{id})^{*}(\ell_y\otimes\mathrm{id})P_y\bigr]$. Since $(\ell_x\otimes\mathrm{id})^{*}(\ell_y\otimes\mathrm{id}) = \langle\ell_x,\ell_y\rangle\,\mathrm{id} = t(x,y)\,\mathrm{id}$, this is $t(x,y)K(x,y)$.
+<p><i>Pairing 2.</i> $\langle G_x,G_y\rangle_{\mathrm{HS}} = \operatorname{tr}(P_xB^{*}BP_y) = \operatorname{tr}(P_xP_y) = K(x,y)$, because $B$ is an isometry, $B^*B=\mathrm{id}_{\mathcal V}$.
+<p><i>Pairings 3&ndash;4.</i> Condition (49) says $B^{*}(\ell_x\otimes\mathrm{id})P_x = \sqrt\Lambda\,P_x$ (apply it to each vector of $\operatorname{im}P_x$). Hence
+$$\langle G_x, L_y\rangle_{\mathrm{HS}} = \operatorname{tr}\bigl[P_xB^{*}(\ell_y\otimes\mathrm{id})P_y\bigr] = \sqrt\Lambda\operatorname{tr}(P_xP_y) = \sqrt\Lambda\,K(x,y),$$
+and the adjoint of the same identity at $x$ gives $\langle L_x,G_y\rangle_{\mathrm{HS}} = \sqrt\Lambda\,K(x,y)$ as well.
+<p>Expanding $\langle\Theta_x,\Theta_y\rangle_{\mathrm{HS}} = \langle L_x,L_y\rangle - \sqrt\Lambda\langle L_x,G_y\rangle - \sqrt\Lambda\langle G_x,L_y\rangle + \Lambda\langle G_x,G_y\rangle$ with these four values:
+$$\langle\Theta_x,\Theta_y\rangle_{\mathrm{HS}} \;=\; \bigl(t(x,y)-\Lambda\bigr)\,K(x,y). \tag{51}$$
+This is the pivot of the whole chapter: the closeness function, shifted by the spectral constant, times the overlap kernel, <i>is itself a Gram kernel</i> (of the residuals $\Theta$). Now sum $(51)$ over all ordered pairs of the code $C$, with $N_C = |C|$:
+$$\sum_{x,y\in C}\bigl(t(x,y)-\Lambda\bigr)K(x,y) \;=\; \Bigl\|\sum_{x\in C}\Theta_x\Bigr\|_{\mathrm{HS}}^2 \;\ge\; 0 .$$
+Split the left side by the code property. Off-diagonal pairs have $t\le s$ and $K\ge0$, so $(t-\Lambda)K \le (s-\Lambda)K$ there; diagonal pairs have $t=1$, $K(x,x) = \operatorname{tr}P_x = d$. Therefore
+$$0 \;\le\; N_C\,(1-\Lambda)\,d + (s-\Lambda)\sum_{x\ne y}K(x,y),$$
+and adding and subtracting the diagonal of the full double sum $\Sigma := \sum_{x,y\in C}K(x,y) = \bigl\|\sum_x P_x\bigr\|_{\mathrm{HS}}^2$ gives
+$$(\Lambda - s)\,\Bigl\|\sum_{x\in C}P_x\Bigr\|_{\mathrm{HS}}^2 \;\le\; N_C\,(1-s)\,d. \tag{3.a}$$
+Finally, trace Cauchy&ndash;Schwarz on the $D$-dimensional space: for any self-adjoint operator $A$ on $\mathcal V$, $(\operatorname{tr}A)^2 = \langle \mathrm{id}, A\rangle_{\mathrm{HS}}^2 \le \|\mathrm{id}\|^2_{\mathrm{HS}}\|A\|^2_{\mathrm{HS}} = D\,\|A\|_{\mathrm{HS}}^2$. With $A = \sum_x P_x$, whose trace is $N_C\,d$:
+$$\Bigl\|\sum_{x\in C}P_x\Bigr\|_{\mathrm{HS}}^2 \;\ge\; \frac{(N_C\,d)^2}{D}. \tag{3.b}$$
+Chaining (3.a) and (3.b): $(\Lambda-s)N_C^2d^2/D \le N_C(1-s)d$, which is (50). <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_residual--><figcaption>The two halves of the proof of Proposition 4.1, as a picture. Top: the residual identity (51) is a Pythagoras statement &mdash; the map $L_x$ (closeness direction) decomposes into a component $\sqrt\Lambda\,G_x$ predicted by the isometry $B$ plus a residual $\Theta_x$, and cross terms cancel exactly by (49), leaving $(t-\Lambda)K$ as an honest Gram kernel. Bottom: summing over the code, the nonnegativity of $\|\sum_x\Theta_x\|^2$ plays the certificate role, and trace Cauchy&ndash;Schwarz converts $\|\sum_x P_x\|^2_{\mathrm{HS}}$ into the count $N_C$, producing $(50)$.</figcaption></figure>
+
+<div class="note"><b>Sanity checks on the bound $(50)$.</b> (i) With $d=1$, $P_x = u_xu_x^{*}$ is a pinned unit vector and $(50)$ reads $|C| \le \frac{1-s}{\Lambda-s}D$: the classical spectral bound of §<a class="secref" href="#delsarte">2.3</a>, recovered exactly. (ii) The bound improves as $d$ grows with $D$ fixed &mdash; but condition (49) gets harder to satisfy: the isometry must $\sqrt\Lambda$-align an ever larger moving family. The constructions ahead balance these forces by taking $\log_2 D \approx H(\text{ambient})\,n$ and $\log_2 d \approx H(\text{subspace})\,n$ with both entropies tuned so that the spectral gatekeeper $\Lambda$ just clears $s$. (iii) The prefactor $\frac{1-s}{\Lambda-s}$ is constant in $n$ as long as $\Lambda - s$ stays bounded away from $0$; it never affects exponents.</div>
+
+<div class="note"><b>Analogy anchor (and where it breaks).</b> If the classical construction is &ldquo;a function on the symmetric space&rdquo; (one number per point per symmetry type), the new one is &ldquo;a section of a vector bundle&rdquo;: each point carries an internal $d$-dimensional fiber, and the symmetry group acts on the total package. The extra internal dimensions are exactly what the classical certificates could not see, and the exponent gain $\log_2 d$ is the fiber entropy. <i>Break-point of the analogy:</i> the certificate still compresses each pair of points to a single scalar $\operatorname{tr}(P_xP_y)$ &mdash; two-point information only. It is not a higher-order (three-point, SDP-hierarchy) method; its feasible region is still Delsarte's. The gain comes from a richer <i>construction</i> inside the same two-point LP, not from a stronger LP.</div>

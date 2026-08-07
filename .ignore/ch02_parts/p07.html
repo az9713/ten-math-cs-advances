@@ -1,0 +1,130 @@
+<h2 id="johnson">7. Constant-weight layers and the associated Hahn matrix</h2>
+
+<p>The whole-cube certificate will turn out to beat $M_1$ but not always $M_2$: when the minimum of $F_\delta$ is interior, the classical constant-weight machinery is genuinely stronger than anything living on the full cube. So the chapter refines that machinery too. This section rebuilds the constant-weight world &mdash; the Johnson scheme &mdash; and runs the moving-subspace program inside it. The template is §§<a class="secref" href="#boolean">4</a>&ndash;<a class="secref" href="#wholecube">5</a>; what changes is the cast: Johnson degrees replace Fourier degrees, a <i>pair</i> of harmonic spaces (one on the support, one on the complement) replaces $E_k$, and the transition matrix acquires diagonal entries.</p>
+
+<h3 id="johnson-be">7.1 Reduction to a layer</h3>
+
+<div class="lem" id="lem-be"><b>Lemma C (Bassalygo&ndash;Elias inequality (27)).</b> For any $0\le w\le n$, writing $A_{\mathrm J}(n,w,d)$ for the largest code of minimum distance $\ge d$ inside the weight-$w$ layer $X_w = \{x \in\{0,1\}^n : |x| = w\}$,
+$$A_2(n,d) \;\le\; \frac{2^n}{\binom nw}\,A_{\mathrm J}(n,w,d).$$</div>
+
+<div class="proof">Let $C$ attain $A_2(n,d)$. For $z\in\{0,1\}^n$ let $C_z = \{x\in C : x\oplus z \in X_w\}$, the part of $C$ that lands in the layer after translation by $z$. Each fixed $x$ belongs to $C_z$ for exactly $\binom nw$ translates $z$ (choose on which $w$ coordinates $z$ differs from $x$). Summing over all $2^n$ translates: $\sum_z |C_z| = |C|\binom nw$, so some $z^{*}$ has $|C_{z^{*}}| \ge |C|\binom nw/2^n$. Translation preserves Hamming distances, so $C_{z^{*}}\oplus z^{*}$ is a constant-weight code with minimum distance $\ge d$ and size $\ge |C|\binom nw/2^n$. <span class="qed">&#8718;</span></div>
+
+<p>When $w/n\to\alpha$, the prefactor costs $1-H_2(\alpha)$ in the exponent (Lemma&nbsp;B). The strategy: bound layer codes so well that even after paying $1-H_2(\alpha)$, the total beats $M_2$. Complementation (replacing $w$ by $n-w$) preserves distances, so assume $1\le w\lt n/2$ throughout, with the middle layer reached in the limit $\alpha\uparrow\frac12$.</p>
+
+<figure><!--FIG:fig_layers--><figcaption>The Bassalygo&ndash;Elias reduction. The cube splits into weight layers (sizes $\binom nw$, drawn to scale for $n=30$); averaging over all $2^n$ translates of a code shows some translate meets the weight-$w$ layer in at least the &ldquo;fair share&rdquo; $|C|\binom nw/2^n$ points. A bound inside one layer thus bounds all of $\{0,1\}^n$, at an exponent cost of $1-H_2(\alpha)$ &mdash; cheapest at the middle layer, where the cost vanishes.</figcaption></figure>
+
+<h3 id="johnson-scheme">7.2 The layer as a homogeneous space</h3>
+
+<p>Identify a weight-$w$ word with its support, so $X_w = \binom{[n]}{w}$, acted on transitively by the permutation group $S_n$. The stabilizer of a base word $x$ is $S_x\times S_{x^c}$: permutations of the $w$ support coordinates times permutations of the $N := n-w$ complement coordinates. Two distance encodings coexist and we need both: the intersection deficit $r(x,y) = w - |x\cap y| = \tfrac12 d_H(x,y)$ (distances in a layer are even), and the inner-product form demanded by the projection machine,</p>
+
+$$t(x,y) \;=\; 1 - \frac{n\,r(x,y)}{wN}, \qquad
+\ell_x = \sqrt{\frac{n}{wN}}\Bigl(\mathbf 1_x - \frac wn\,\mathbf 1\Bigr) \in \mathbb{R}^n, \tag{28}$$
+
+<p>where $\mathbf 1_x$ is the 0/1 indicator of the support. A direct expansion shows $\|\ell_x\| = 1$ and $\langle\ell_x,\ell_y\rangle = t(x,y)$: $\langle \mathbf 1_x-\frac wn\mathbf1, \mathbf 1_y - \frac wn\mathbf 1\rangle = |x\cap y| - \frac{w^2}{n} = \frac{wN}{n} - r(x,y)$. Note the centering: $\ell_x$ lives in the hyperplane $W = \mathbf 1^\perp \subset\mathbb{R}^n$, which will be the coordinate space of the layer machine.</p>
+
+<p>Functions on $X_w$ (uniform inner product) decompose under $S_n$. Order functions by <b>junta degree</b>: let $\mathcal F_j$ be the span of the indicator monomials $y\mapsto\prod_{r\in T}\mathbf 1\{r\in y\}$ over sets $|T|\le j$, for $0\le j\le w$. Define the <b>Johnson harmonic spaces</b> as the increments</p>
+
+$$V^{\mathrm J}_j := \mathcal F_j \ominus \mathcal F_{j-1} \quad (\mathcal F_{-1}=0),
+\qquad\text{so}\qquad
+\mathbb{R}^{X_w} = \bigoplus_{j=0}^{w} V^{\mathrm J}_j. \tag{29}$$
+
+<div class="def" id="importB"><b>Import B (Johnson scheme representation facts).</b> For $1\le w\le n/2$ and $0\le j\le w$:
+<ol>
+<li>$\dim V^{\mathrm J}_j = \binom nj - \binom n{j-1}$ (equivalently: the inclusion matrix of $j$-subsets vs. $w$-subsets has full rank $\binom nj$ &mdash; Gottlieb's theorem);</li>
+<li>each $V^{\mathrm J}_j$ is an irreducible representation of $S_n$ &mdash; the Specht module of the two-row partition $(n-j,j)$ &mdash; and distinct $j$ give pairwise inequivalent representations;</li>
+<li><i>(two-row branching / Littlewood&ndash;Richardson restriction)</i> restricted to $S_w\times S_N$, the module $V^{\mathrm J}_j$ decomposes multiplicity-freely, and it contains the outer tensor product of the Specht modules $(w-p,p)\boxtimes(N-q,q)$ exactly when $p+q \le j \le \min\{w,\; w-p+q,\; N+p-q\}$;</li>
+<li><i>(associated Hahn recurrence, normalization of [BCV23, (90)&ndash;(92)] and [Koo81, §4])</i> the scalar coefficients in Proposition 3.2 below are the explicit expressions (33)&ndash;(35).</li>
+</ol>
+<i>Citations:</i> Delsarte 1973; Srinivasan 2011; Goodman&ndash;Wallach §9.3.5; Bernard&ndash;Cramp&eacute;&ndash;Vinet 2023; Koornwinder 1981. Item 4 is verified independently by exact arithmetic in §<a class="secref" href="#validation">18</a> (checks 7&ndash;9): the $p=q=0$ specialization is doubly stochastic on the full path, the claimed symmetrization identities hold exactly, and the asymptotic limits reproduce the closed form (6).</div>
+
+<p>Two payoffs of the junta filtration are immediate and fully elementary. First, the closeness function $y\mapsto t(x,y)$ has junta degree $1$ (it is an affine function of the indicators $\mathbf 1\{r \in y\}$). Second, this gives the <b>product rule</b> for free:</p>
+
+<div class="lem" id="lem-prodrule"><b>Product rule (32).</b> Multiplication $\mathsf M_x$ by $y\mapsto t(x,y)$ maps $V^{\mathrm J}_j$ into $V^{\mathrm J}_{j-1}\oplus V^{\mathrm J}_j\oplus V^{\mathrm J}_{j+1}$.</div>
+
+<div class="proof">Multiplying a junta-degree-$\le j$ function by a degree-$\le1$ function lands in degree $\le j+1$: $\mathsf M_x\mathcal F_j \subseteq \mathcal F_{j+1}$. So $\mathsf M_xV^{\mathrm J}_j \perp$ nothing above level $j+1$ is needed; for the lower cutoff use self-adjointness of $\mathsf M_x$ (it is multiplication by a real function): for $g\in V^{\mathrm J}_{j'}$ with $j'\le j-2$, $\langle \mathsf M_xf, g\rangle = \langle f, \mathsf M_xg\rangle = 0$ since $\mathsf M_xg \in \mathcal F_{j-1}\perp V^{\mathrm J}_j$. <span class="qed">&#8718;</span></div>
+
+<h3 id="johnson-fiber">7.3 The moving fiber: a harmonic pair</h3>
+
+<p>Fix a base support $x$. Boolean harmonics generalize verbatim to an abstract finite set $A$: on functions of $p$-subsets of $A$, let $\partial$ be the deletion-sum (the map $D$ of §<a class="secref" href="#boolean">4</a> with ground set $A$), and put $E_p(A) = \ker\partial$, of dimension $d_p(|A|) = \binom{|A|}p - \binom{|A|}{p-1}$ (the proof of §<a class="secref" href="#boolean">4.3</a> transfers unchanged). The <b>attached fiber</b> at $x$ is the tensor pair</p>
+
+$$E^{p,q}_x \;=\; E_p(x)\otimes E_q(x^{c}),
+\qquad
+d^{\mathrm J}_{p,q} = d_p(w)\,d_q(N),$$
+
+<p>for harmonic degrees $0\le p\le w/2$ on the support and $0\le q\le N/2$ on the complement. This is a representation of the stabilizer $S_x\times S_{x^c}$ &mdash; the Specht pair $(w-p,p)\boxtimes(N-q,q)$ of Import B.3 &mdash; and moving $x$ moves the fiber. Import B.3 answers exactly the question the machine asks: <i>which ambient Johnson degrees contain a copy of the fiber?</i></p>
+
+<div class="lem" id="lem31"><b>Lemma 3.1 (branching window).</b> Let $1\le w\lt n/2$, $0\le p\le w/2$, $0\le q\le N/2$, $x\in X_w$. The Johnson space $V^{\mathrm J}_j$ contains a copy of $E^{p,q}_x$ preserved by the stabilizer of $x$ precisely when
+$$j_- := p+q \;\le\; j \;\le\; j_+ := \min\{\,w,\; w-p+q,\; N+p-q\,\}, \tag{31}$$
+the copy is unique, and its isometric stabilizer-equivariant embedding $\varphi_{j,x}: E^{p,q}_x\to V^{\mathrm J}_j$ is unique up to sign. <span class="small">[= Import B.3 restated at the base point; uniqueness up to sign because the copy is a single irreducible summand and, the Specht pair being absolutely irreducible over $\mathbb R$, its equivariant endomorphisms are scalars.]</span></div>
+
+<figure><!--FIG:fig_supp--><figcaption>The constant-weight cast. Top: a base word $x$ splits the $n$ coordinates into its support ($w$ coordinates) and complement ($N = n-w$); the fiber at $x$ is a harmonic pair &mdash; degree $p$ on the support, degree $q$ on the complement. Bottom: the branching window (31) for $(w,N,p,q) = (12,18,3,2)$: of the Johnson degrees $0,\dots,12$, exactly $j = 5,\dots,11$ contain the fiber (gold band from $j_-=p+q$ to $j_+=\min\{w,\,w-p+q,\,N+p-q\}$), each exactly once. The classical case $p=q=0$ has the full window $0,\dots,w$.</figcaption></figure>
+
+<h3 id="johnson-hahn">7.4 The scalar recurrence on the fiber</h3>
+
+<p>By the product rule, $\mathsf M_x$ ties neighboring Johnson degrees; by multiplicity one, its action <i>between the fiber copies</i> is forced to be scalar. The scalars are the <b>associated Hahn coefficients</b>. Package the parameters (paper's (33)):</p>
+
+$$\jmath_1 = \tfrac w2 - p,\quad
+\jmath_2 = \tfrac N2 - q,\quad
+\jmath = \tfrac n2 - j,\quad
+m_0 = \tfrac n2 - w,\quad
+\Sigma = \jmath_1+\jmath_2,\quad
+\Delta_{\mathrm J} = \jmath_2-\jmath_1, \tag{33}$$
+
+<p>and define (paper's (34)&ndash;(35)):</p>
+
+$$\mu^{p,q}_j = \frac{m_0}{2}\,\frac{\jmath_2(\jmath_2+1)-\jmath_1(\jmath_1+1)}{\jmath(\jmath+1)},
+\qquad
+\nu^{p,q}_j = \frac{\sqrt{(\jmath^2-m_0^2)(\jmath^2-\Delta_{\mathrm J}^2)\bigl((\Sigma+1)^2-\jmath^2\bigr)}}{2\jmath\sqrt{(2\jmath-1)(2\jmath+1)}}, \tag{34}$$
+
+$$b^{p,q}_j = \frac{n\,\mu^{p,q}_j - m_0^2}{wN},
+\qquad
+c^{p,q}_j = \frac{n\,\nu^{p,q}_j}{wN}. \tag{35}$$
+
+<div class="prop" id="prop32"><b>Proposition 3.2 (three-term recurrence on the fiber).</b> In the setting of Lemma 3.1 with $j_-\le j_+$, the embeddings can be sign-normalized so that for every $x\in X_w$, $Y\in E^{p,q}_x$, and $j_-\le j\le j_+$,
+$$t(x,\cdot)\,\varphi_{j,x}Y \;=\; c^{p,q}_{j-1}\,\varphi_{j-1,x}Y \;+\; b^{p,q}_j\,\varphi_{j,x}Y \;+\; c^{p,q}_j\,\varphi_{j+1,x}Y, \tag{37}$$
+with the convention that the $j\mp1$ term is dropped at the window ends. Moreover $c^{p,q}_j \gt 0$ strictly for $j_-\le j\lt j_+$.</div>
+
+<div class="proof">Fix $x$; write $H_x = S_x\times S_{x^c}$. The composite $\Pi^{\mathrm J}_i\,\mathsf M_x\,\varphi_{j,x} : E^{p,q}_x\to V^{\mathrm J}_i$ ($\Pi^{\mathrm J}_i$ = orthogonal projection onto $V^{\mathrm J}_i$) is $H_x$-equivariant, because $\mathsf M_x$ and each $\Pi^{\mathrm J}_i$ commute with the stabilizer. By Lemma 3.1 its image is $0$ unless $j_-\le i\le j_+$, in which case it lands in the unique copy $\varphi_{i,x}E^{p,q}_x$; the product rule further forces $i\in\{j-1,j,j+1\}$. Since $E^{p,q}_x$ is absolutely irreducible, each surviving composite is a real scalar times $\varphi_{i,x}$ (Schur). Import B.4 identifies the diagonal scalar as $b^{p,q}_j$ and the magnitude of the up-scalar as $c^{p,q}_j$. <i>Positivity in the open window:</i> for $j_-\le j\lt j_+$ one checks $0\lt\max\{m_0,|\Delta_{\mathrm J}|\}\lt\jmath\le\Sigma$ &mdash; indeed $j\ge j_-$ gives $\jmath\le\Sigma$, and $\frac n2 - j_+ = \max\{m_0,|\Delta_{\mathrm J}|\}$ by taking the max over the three arguments of the min in (31) &mdash; so all three radicand factors of $\nu^{p,q}_j$ are positive, as is the denominator; hence $c^{p,q}_j\gt0$. <i>Signs:</i> choose a reference support $x_0$ and any isometric equivariant $\varphi_{j_-,x_0}$; inductively fix the sign of $\varphi_{j+1,x_0}$ so that the up-coefficient is $+c^{p,q}_j$ (possible since it is nonzero in the open window); transport to all $x = gx_0$ by $\varphi_{j,x} = g\varphi_{j,x_0}g^{-1}$, well-defined because two transporting permutations differ by an element of the stabilizer, with which every $\varphi_{j,x_0}$ commutes. <i>Down-coefficient:</i> self-adjointness of $\mathsf M_x$ and isometry of the embeddings give, for $Y,Z\in E^{p,q}_x$, $\langle\varphi_{j-1,x}Z,\,\mathsf M_x\varphi_{j,x}Y\rangle = \langle\mathsf M_x\varphi_{j-1,x}Z,\,\varphi_{j,x}Y\rangle = c^{p,q}_{j-1}\langle Z,Y\rangle$, so the $j-1$ component is $c^{p,q}_{j-1}\varphi_{j-1,x}Y$. At the window ends the dropped coefficient indeed vanishes: at $j=j_-$ the formal factor $(\Sigma+1)^2-\jmath^2$ of $\nu_{j_- - 1}$ is zero, and at $j=j_+$ either $\jmath^2 = m_0^2$ (if $j_+=w$) or $\jmath^2 = \Delta_{\mathrm J}^2$ (the other two cases). <span class="qed">&#8718;</span></div>
+
+<p>The classical fixed-line coefficients are the $p=q=0$ case; write $b^{0}_j,\ c^{0}_j$. There $b^0_0 = 0$ and, for $j\ge1$, $b^0_j = \frac{m_0^2\,j(n-j+1)}{wN\,\jmath(\jmath+1)} \gt 0$ and $c^0_j\gt0$ for $0\le j\lt w$: the classical path has all its transitions alive on the whole degree range.</p>
+
+<h3 id="johnson-symm">7.5 Symmetrizing, and the layer bound</h3>
+
+<p>As on the cube, the projection machine wants isometric <i>coordinate maps</i> $V^{\mathrm J}_j \to W\otimes V^{\mathrm J}_i$ (recall $W = \mathbf 1^\perp$), not the bare recurrence. Their normalization is fixed by the classical case, and this is where the &ldquo;square over classical&rdquo; signature of the whole chapter first appears. Define, for window degrees $i,j$ with $|i-j|\le1$ and $(i,j)\ne(0,0)$:</p>
+
+$$r^{p,q}_{i,j} = \begin{cases} b^{p,q}_i, & i=j,\\ c^{p,q}_{\min\{i,j\}}, & |i-j|=1,\end{cases}
+\qquad
+r^{0}_{i,j} \text{ likewise with } (p,q)=(0,0).$$
+
+<div class="lem" id="lem33"><b>Lemma 3.3 (normalized coordinate isometries).</b> For $|i-j|\le1$, $(i,j)\ne(0,0)$, there is an $S_n$-equivariant isometry $C_{i,j}: V^{\mathrm J}_j\to W\otimes V^{\mathrm J}_i$ whose contraction on the fibers is
+$$C^{*}_{i,j}\bigl(\ell_x\otimes\varphi_{i,x}Y\bigr) = \sqrt{p_{i,j}}\;\varphi_{j,x}Y,
+\qquad
+p_{i,j} = \frac{\bigl(r^{p,q}_{i,j}\bigr)^2}{r^{0}_{i,j}}\sqrt{\frac{D^{\mathrm J}_j}{D^{\mathrm J}_i}}, \tag{38}$$
+for every $x\in X_w$, $Y\in E^{p,q}_x$. Consequently
+$$D^{\mathrm J}_i\,p_{i,j} = D^{\mathrm J}_j\,p_{j,i},
+\qquad
+\sqrt{p_{i,j}\,p_{j,i}} = \frac{\bigl(r^{p,q}_{i,j}\bigr)^2}{r^{0}_{i,j}}. \tag{39}$$</div>
+
+<div class="proof">Let $K_i,K_j$ be the reproducing kernels of $V^{\mathrm J}_i, V^{\mathrm J}_j$ (i.e. $K_i(x,\cdot)$ is the unique vector representing evaluation at $x$). Transitivity of $S_n$ on $X_w$ makes the diagonal constant: $K_i(x,x) = D^{\mathrm J}_i$ (trace of the projection onto $V^{\mathrm J}_i$ spread evenly over $|X_w|$ points, normalized by the probability inner product). So $z_{i,x} = K_i(x,\cdot)/\sqrt{D^{\mathrm J}_i}$ is the unit stabilizer-fixed vector of $V^{\mathrm J}_i$ positive at $x$, and the classical ($p=q=0$) case of (37) reads $\Pi^{\mathrm J}_j(t(x,\cdot)z_{i,x}) = r^0_{i,j}z_{j,x}$ (40). Define the coordinate-multiplication map
+$$M_{i,j}: W\otimes V^{\mathrm J}_i\to V^{\mathrm J}_j,\qquad M_{i,j}(v\otimes f) = \Pi^{\mathrm J}_j\bigl(\langle v,\ell_{\,\cdot}\rangle\,f\bigr),$$
+i.e. multiply $f$ by the linear function $y\mapsto\langle v,\ell_y\rangle$ and project. It is $S_n$-equivariant, so the positive operator $M_{i,j}M^{*}_{i,j}$ on the irreducible $V^{\mathrm J}_j$ is a scalar $m_{i,j}\,\mathrm{id}$. Compute the scalar by the Hilbert&ndash;Schmidt norm: expanding in orthonormal bases, using $\sum_a \langle v_a, \ell_y\rangle\langle v_a,\ell_z\rangle = \langle \ell_y,\ell_z\rangle = t(y,z)$ over an orthonormal basis $(v_a)$ of $W$, and the reproducing property,
+$$\|M_{i,j}\|^2_{\mathrm{HS}} = \iint t(y,z)K_i(y,z)K_j(y,z)\,d\sigma(y)\,d\sigma(z)
+= \int t(x,y)K_i(x,y)K_j(x,y)\,d\sigma(y) \cdot 1$$
+(by transitivity the inner integral is independent of $z=x$), and by (40) this is $r^0_{i,j}\sqrt{D^{\mathrm J}_iD^{\mathrm J}_j}$. Dividing by the output dimension: $m_{i,j} = r^0_{i,j}\sqrt{D^{\mathrm J}_i/D^{\mathrm J}_j}$. Then $C_{i,j} := \varepsilon_{i,j}\,M^{*}_{i,j}/\sqrt{m_{i,j}}$ is an equivariant isometry ($\varepsilon_{i,j}=\pm1$ chosen so the contraction coefficient below is $\ge0$). Its contraction on the fiber copies: $C^{*}_{i,j}(\ell_x\otimes\varphi_{i,x}Y) = \varepsilon_{i,j}M_{i,j}(\ell_x\otimes\varphi_{i,x}Y)/\sqrt{m_{i,j}} = \varepsilon_{i,j}\,\Pi^{\mathrm J}_j(t(x,\cdot)\varphi_{i,x}Y)/\sqrt{m_{i,j}} = |r^{p,q}_{i,j}|\,\varphi_{j,x}Y/\sqrt{m_{i,j}}$ by (37). Squaring gives (38); symmetry $r^{p,q}_{i,j}=r^{p,q}_{j,i}$, $r^0_{i,j}=r^0_{j,i}$ gives (39). <span class="qed">&#8718;</span></div>
+
+<p>Now fix a top degree $j_-\lt L\le j_+$ and retain the Johnson degrees $j_-,\dots,L$. The <b>symmetrized layer matrix</b> $\widehat J = \widehat J(n,w,p,q,L)$ is tridiagonal-with-diagonal:</p>
+
+$$\widehat J_{j,j} = \widehat b^{\,p,q}_j := \begin{cases}\bigl(b^{p,q}_j\bigr)^2/b^0_j, & j\ge1,\\[2pt] 0,& j=0,\end{cases}
+\qquad
+\widehat J_{j,j+1} = \widehat J_{j+1,j} = \widehat c^{\,p,q}_j := \frac{\bigl(c^{p,q}_j\bigr)^2}{c^0_j}. \tag{41, 42}$$
+
+<p>These are exactly the geometric means $\sqrt{p_{i,j}p_{j,i}}$ from (39) &mdash; the &ldquo;<b>associated coefficient squared over classical</b>&rdquo; pattern, which will recur verbatim on the sphere in (68). Note the sanity check at the classical point: if $p=q=0$ then $\widehat J$ has entries $b^0_j$ and $c^0_j$ &mdash; the ordinary Hahn recurrence matrix.</p>
+
+<figure><!--FIG:fig_hahn--><figcaption>The layer transition structure. Vertices: retained Johnson degrees $j_-,\dots,L$ inside the branching window; every vertex carries the fiber $E^{p,q}_x = E_p(\text{support})\otimes E_q(\text{complement})$. Unlike the cube's clean path (Fig. 13), each vertex also has a self-loop: the diagonal entries $\widehat b^{\,p,q}_j$ of (41), present because the centered closeness function (28) has a nonzero same-degree component on a layer. Edge and loop weights follow the square-over-classical rule (41)&ndash;(42).</figcaption></figure>
+
+<div class="thm" id="thm34"><b>Theorem 3.4 (finite layer bound).</b> Let $n,w,p,q,L,d$ be integers with $1\le w\lt n/2$, $0\le p\le w/2$, $0\le q\le(n-w)/2$, $p+q\lt L\le\min\{w,\,w-p+q,\,n-w+p-q\}$, $d$ even, $2\le d\le 2w$. Put $N = n-w$, $s = 1-\frac{nd}{2wN}$, $\lambda = \lambda_{\max}\bigl(\widehat J(n,w,p,q,L)\bigr)$. If $\lambda\gt s$, then
+$$A_{\mathrm J}(n,w,d) \;\le\; \frac{1-s}{\lambda-s}\;\frac{\displaystyle\sum_{j=p+q}^{L}\Bigl[\binom nj - \binom n{j-1}\Bigr]}{\Bigl[\binom wp-\binom w{p-1}\Bigr]\Bigl[\binom Nq-\binom N{q-1}\Bigr]}. \tag{44}$$</div>
+
+<div class="proof">Rerun the proof of Theorem 2.1 with the layer cast; only two details change. Setting $I = \{p+q,\dots,L\}$, $\omega_j = \sqrt{D^{\mathrm J}_j}\,v_j$ for the positive unit Perron eigenvector $v$ of $\widehat J$ (its off-diagonals are positive, diagonal nonnegative &mdash; Perron applies to $\widehat J + c\,\mathrm{id}$ and shifts back), the dimension balance (39) converts $\widehat Jv = \lambda v$ into the directed identity $\sum_{|i-j|\le1} p_{i,j}\omega_i = \lambda\omega_j$ (45) &mdash; now including $i=j$ terms. Build $\Psi_xY = \bigoplus_j\sqrt{\omega_j/Z}\,\varphi_{j,x}Y$ and $B = \bigoplus$-assembly of the $C_{i,j}$ of Lemma 3.3 with weights $\sqrt{p_{i,j}\omega_i/(\lambda\omega_j)}$, setting $C_{0,0}=0$ (consistently: $p_{0,0} = 0$ since $b^0$-normalization degenerates there and the classical $j=0$ diagonal vanishes). <i>First changed detail:</i> orthogonality of the images of $C_{i,j}$ for fixed $i$, distinct $j$: they are invariant irreducible subspaces of $W\otimes V^{\mathrm J}_i$ carrying the pairwise inequivalent representations $V^{\mathrm J}_j$ (Import B.2), hence orthogonal &mdash; the cube's hands-on tensor-support argument is replaced by pure representation theory, and the argument now also covers the $i=j$ loops. <i>Second changed detail:</i> the rank of $P_x = \Psi_x\Psi_x^*$ is $d^{\mathrm J}_{p,q} = d_p(w)d_q(N)$ and the ambient dimension telescopes, $\sum_{j\in I}D^{\mathrm J}_j = \binom nL - \binom n{p+q-1}$. With these, $B$ is an isometry by (45), the alignment $B^{*}(\ell_x\otimes\Psi_xY) = \sqrt\lambda\,\Psi_xY$ holds by Lemma 3.3's contractions plus (45), and Proposition 4.1 delivers (44). <span class="qed">&#8718;</span></div>
+
+<div class="note"><b>Why diagonal entries appear here and not on the cube.</b> On the whole cube, $t(x,\cdot)$ is a pure degree-one character combination, whose multiplication shifts Fourier degree by exactly $\pm1$. On a layer, the centering in (28) makes $t(x,\cdot)$ an <i>affine</i> degree-one junta &mdash; and the layer's harmonic decomposition is not graded by a group character, so a same-degree component survives. The machine is indifferent: Proposition 4.1 never assumed the transition graph was bipartite or loop-free.</div>

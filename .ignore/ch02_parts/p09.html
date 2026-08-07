@@ -1,0 +1,55 @@
+<h2 id="repgraphs">9. Representation graphs: the machine in full generality</h2>
+
+<p>Both binary constructions ran on a <i>path</i>: one integer degree, transitions to neighbors. The spherical constructions will need ambient spaces indexed by several integers at once, with coordinate transitions in each direction &mdash; a lattice-shaped graph. Before entering the sphere, we abstract the §<a class="secref" href="#wholecube">5</a> proof once and for all: the machine runs on <i>any</i> finite connected weighted graph whose vertices are symmetry types containing a common moving fiber. This section is the paper's §4.2; its Theorem 4.2 is the master bound that every spherical result instantiates.</p>
+
+<h3 id="repgraphs-setup">9.1 Setup: moving fibers under a group</h3>
+
+<p>Let $G$ be a compact group acting transitively on the candidate set $X$, with a distinguished base point $o$; let $H = \operatorname{Stab}_G(o)$ be its stabilizer, and let $W$ be a Euclidean $G$-space containing the unit coordinate vectors $\ell_x$ with $t(x,y) = \langle\ell_x,\ell_y\rangle$ and $\ell_{gx} = g\ell_x$. (For the sphere: $G = SO(n)$, $X = S^{n-1}$, $W = \mathbb{R}^n$, $\ell_x = x$, $H \cong SO(n-1)$.) All representations are finite-dimensional real Hilbert spaces with orthogonal actions. We call $H$-representations <b>stabilizer representations</b>: they are the objects that can be attached to a point and moved.</p>
+
+<p>Fix a $d$-dimensional irreducible stabilizer representation $E$, and a finite collection $\Omega$ of pairwise inequivalent irreducible ambient $G$-representations $V_\lambda$, each containing $E$ exactly once upon restriction:</p>
+
+$$\dim_{\mathbb R}\operatorname{Hom}_H(E, V_\lambda) = 1, \qquad D_\lambda = \dim V_\lambda .$$
+
+<p>The one-dimensionality buys two things at once. First, each $V_\lambda$ has a <i>unique</i> copy of $E$, so we may choose isometric embeddings $\varphi_{\lambda,o}: E\to V_\lambda$ at the base point, unique up to sign. Second, composing an $H$-equivariant endomorphism of $E$ with $\varphi_{\lambda,o}$ gives another intertwiner, so uniqueness forces $\operatorname{End}_H(E) = \mathbb{R}\,\mathrm{id}$: every equivariant self-map of the fiber is scalar &mdash; the Schur property that turned matrix identities into scalar identities all through §<a class="secref" href="#johnson">7</a>. Transport everything by the group: for $x = go$, set $E_x = gE$ and $\varphi_{\lambda,x}(gY) = g\varphi_{\lambda,o}Y$; well-defined because two rotations carrying $o$ to $x$ differ by an element of $H$, with which every $\varphi_{\lambda,o}$ commutes. One group element moves <i>all</i> the embeddings coherently, preserving their relative signs.</p>
+
+<h3 id="repgraphs-graph">9.2 The transition graph and its balance</h3>
+
+<p>Edges come from the coordinate space. If $V_\nu$ occurs inside $W\otimes V_\lambda$, choose an isometric $G$-equivariant inclusion $C_{\lambda,\nu}: V_\nu\to W\otimes V_\lambda$; for fixed $\lambda$, images for distinct $\nu$ are orthogonal (inequivalent irreducible subrepresentations). Contract with a point's coordinate vector: the composite
+$Y \mapsto C^{*}_{\lambda,\nu}(\ell_x\otimes\varphi_{\lambda,x}Y)$
+maps $E_x$ to $E_x$ equivariantly for the stabilizer of $x$ ($\ell_x$ is fixed by it), lands in the unique copy $\varphi_{\nu,x}E_x$, and is therefore a real scalar $c_{\lambda,\nu}$ times $\varphi_{\nu,x}$ (Schur again):</p>
+
+$$C^{*}_{\lambda,\nu}\bigl(\ell_x\otimes\varphi_{\lambda,x}Y\bigr) \;=\; c_{\lambda,\nu}\,\varphi_{\nu,x}Y . \tag{52}$$
+
+<p>By transport, the same scalar serves every $x$. Choose the sign of each $C_{\lambda,\nu}$ to make $c_{\lambda,\nu}\ge0$ and write $p_{\lambda,\nu} = c_{\lambda,\nu}^2$; set $p_{\lambda,\nu} = 0$ when there is no inclusion or the contraction vanishes. An edge of the graph is a pair with $p_{\lambda,\nu}\gt0$. The two directions of an edge generally disagree &mdash; but we <i>require</i>, as the graphs we build will satisfy, the <b>dimension-weighted reciprocity</b></p>
+
+$$D_\lambda\,p_{\lambda,\nu} \;=\; D_\nu\,p_{\nu,\lambda}, \tag{53}$$
+
+<p>the exact abstraction of the cube's Pascal identity (19) and the layer's (39). It licenses the symmetrization: with $T = (p_{\lambda,\nu})$ and $\mathcal D = \operatorname{diag}(D_\lambda)$, the matrix</p>
+
+$$J = \mathcal D^{1/2}\,T\,\mathcal D^{-1/2},\qquad
+J_{\lambda,\nu} = p_{\lambda,\nu}\sqrt{\frac{D_\lambda}{D_\nu}} = \sqrt{p_{\lambda,\nu}\,p_{\nu,\lambda}}, \tag{54, 55}$$
+
+<p>is symmetric with the same spectrum as $T$. Assume the graph on $\Omega$ is connected with positive edge weights; Perron&ndash;Frobenius supplies the positive top eigenvector for $\Lambda = \lambda_{\max}(J)$.</p>
+
+<figure><!--FIG:fig_repgraph--><figcaption>The general representation graph. Vertices: finitely many inequivalent irreducible ambient $G$-spaces $V_\lambda$, each containing exactly one copy of the chosen stabilizer fiber $E$ (gold); edges: coordinate transitions with directed weights $p_{\lambda,\nu}$ satisfying the dimension balance (53), symmetrized to $J$ by (55). The cube's path (Fig. 13), the layer's loop-decorated path (Fig. 20), and the sphere's multi-row lattice (Fig. 27) are all instances. Edges leaving the retained set $\Omega$ (grey, dashed) are simply discarded &mdash; weights need not sum to 1.</figcaption></figure>
+
+<h3 id="repgraphs-thm">9.3 The master bound</h3>
+
+<div class="thm" id="thm42"><b>Theorem 4.2.</b> In the setup above (transitive $G$, stabilizer $H$, fiber $E$ with $\dim\operatorname{Hom}_H(E,V_\lambda) = 1$ on a finite connected $\Omega$, transitions obeying (52)&ndash;(53)), put $\Lambda = \lambda_{\max}(J)$. If $-1\lt s\lt1$ and $\Lambda\gt\max\{s,0\}$, then every code $C\subseteq X$ with $t\le s$ at distinct points satisfies
+$$|C| \;\le\; \frac{1-s}{d\,(\Lambda-s)}\sum_{\lambda\in\Omega}D_\lambda. \tag{56}$$
+Moreover $F(x,y) = (t(x,y)-s)\operatorname{tr}(P_xP_y)$, with $P_x$ the projection constructed in the proof, is a scalar two-point Delsarte certificate in the sense of Lemma&nbsp;A.</div>
+
+<div class="proof">The construction is the one rehearsed twice already; we give it in full but compressed. Let $v$ be the positive unit Perron eigenvector of $J$, $w_\lambda = \sqrt{D_\lambda}\,v_\lambda$, $Z = \sum_\lambda w_\lambda$. Reciprocity (53) converts $Jv = \Lambda v$ into the directed identity
+$$\sum_{\lambda\in\Omega} p_{\lambda,\nu}\,w_\lambda = \Lambda\,w_\nu \qquad(\nu\in\Omega). \tag{57}$$
+Define $\Psi_x Y = \bigoplus_\lambda\sqrt{w_\lambda/Z}\,\varphi_{\lambda,x}Y$, an isometry $E_x\to\mathcal V = \bigoplus_{\lambda\in\Omega}V_\lambda$; let $P_x = \Psi_x\Psi_x^{*}$, of rank $d$. Define $B:\mathcal V\to W\otimes\mathcal V$ by
+$$Bh = \bigoplus_{\lambda\in\Omega}\ \sum_{\substack{\nu\in\Omega\\ p_{\lambda,\nu}\gt0}}\sqrt{\frac{p_{\lambda,\nu}w_\lambda}{\Lambda w_\nu}}\;C_{\lambda,\nu}h_\nu .$$
+Orthogonality of the $C_{\lambda,\nu}$-images (fixed $\lambda$) plus (57) give $\|Bh\|^2 = \sum_\nu\frac{\|h_\nu\|^2}{\Lambda w_\nu}\sum_\lambda p_{\lambda,\nu}w_\lambda = \|h\|^2$: isometry. Contracting with (52) then (57):
+$$B^{*}(\ell_x\otimes\Psi_xY) = \bigoplus_\nu \frac{\varphi_{\nu,x}Y}{\sqrt{\Lambda w_\nu Z}}\sum_\lambda p_{\lambda,\nu}w_\lambda = \bigoplus_\nu\sqrt{\frac{\Lambda w_\nu}{Z}}\,\varphi_{\nu,x}Y = \sqrt\Lambda\,\Psi_xY,$$
+which is hypothesis (49). Proposition 4.1 with $D = \sum_\lambda D_\lambda$ yields (56).
+<p>For the certificate claim: transitivity of $G$ on equal-inner-product pairs makes $\operatorname{tr}(P_xP_y)$ a function of $t(x,y)$ alone, so $F$ is a two-point function; the residual identity (51) exhibits $F = (\Lambda-s)K + \langle\Theta_\cdot,\Theta_\cdot\rangle_{\mathrm{HS}}$ as a sum of psd kernels; $F\le0$ on the allowed region since $K\ge0$; and its mean against the invariant probability measure $\sigma$ is strictly positive:
+$$f_0 = \iint F\,d\sigma\,d\sigma \;\ge\; (\Lambda-s)\Bigl\|\int P_x\,d\sigma(x)\Bigr\|^2_{\mathrm{HS}} \;\ge\; (\Lambda-s)\frac{d^2}{\sum_\lambda D_\lambda} \;\gt\;0,$$
+the middle step because the $\Theta$-term integrates to $\|\int\Theta_x d\sigma\|^2\ge0$, the last by trace Cauchy&ndash;Schwarz exactly as in (3.b), since $\operatorname{tr}\int P_x\,d\sigma = d$. So all conditions of Lemma&nbsp;A hold. <span class="qed">&#8718;</span></div>
+
+<div class="note"><b>Truncation is free.</b> The full coordinate decomposition of $W\otimes V_\lambda$ generally contains ambient types outside $\Omega$; retaining a finite $\Omega$ discards those edges, so the outgoing weights at a vertex can sum to anything $\le 1$. No hypothesis of Theorem 4.2 cares: (57) renormalizes whatever weights survive. This is why arbitrary finite windows &mdash; the cube's $\{k,\dots,L\}$, the sphere's multidimensional boxes in §<a class="secref" href="#sphasymp">13</a> &mdash; are all legitimate.</div>
+
+<div class="note"><b>Why multiplicity one is available (Gelfand pairs; the paper's Remark 1.6).</b> The hypothesis $\dim\operatorname{Hom}_H(E,V_\lambda)\le1$ is a property of the pair $(G,H)$. For $E$ trivial it defines a <i>Gelfand pair</i>; demanding it for every irreducible $E$ defines a <i>strong Gelfand pair</i>. The spherical pair $(SO(n), SO(n-1))$ is strong &mdash; the branching rule of §<a class="secref" href="#hierarchy">12</a> is multiplicity-free &mdash; so on the sphere <i>any</i> stabilizer representation is fair game. The binary pairs (hyperoctahedral/symmetric, and $S_n \supset S_w\times S_{n-w}$) are Gelfand but <i>not</i> strong: e.g. the Littlewood&ndash;Richardson coefficient $c^{(3,2,1)}_{(2,1),(2,1)} = 2$ produces multiplicity two in both restrictions. The binary constructions dodge this by hand-picking fibers &mdash; Fourier levels and two-row Johnson types &mdash; whose selected stabilizer types happen to occur once (Import B.3). More adventurous binary fibers would force matrix-valued transitions; the chapter shows they are not needed for the all-distance improvement.</div>

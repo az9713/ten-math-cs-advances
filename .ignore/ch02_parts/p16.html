@@ -1,0 +1,52 @@
+<h2 id="euclid">16. The spherical&rarr;Euclidean dictionary</h2>
+
+<p>Chapter&nbsp;1 and this chapter prove the same packing exponent by unrelated arguments. The paper's Appendix B shows the coincidence runs deeper: the two optimality analyses single out <i>the same probability measure</i> and <i>the same weight function</i>, once translated into a common coordinate. This section is that translation, condensed to its three identifications; it is a &ldquo;sister document&rdquo; section &mdash; the Euclidean objects referenced here are constructed in full in the Chapter&nbsp;1 explainer (its §§6&ndash;11), and we quote them by name.</p>
+
+<h3 id="euclid-transfer">16.1 Certificates transfer</h3>
+
+<div class="note"><b>Cohn&ndash;Zhao transference (imported with E).</b> Let $g_s(t)$ be any spherical certificate on $S^d$ &mdash; positive-definite, $g_s(t)\le0$ for $t\le s$, constant coefficient $g_{s,0}\gt0$. Convolving it over an upper hemisphere against a radial cutoff supported in the ball of radius $L_s = \sqrt{2/(1-s)}$ produces a <i>Euclidean</i> function $f_s$ that is a feasible Cohn&ndash;Elkies auxiliary function ($\widehat{f_s}\ge0$ from positive-definiteness; $f_s(x)\le0$ for $\|x\|\ge1$ because the hemispherical inner products then fall below $s$), with value ratio controlled by
+$$\mathrm{LP}_d \;\le\; \Bigl(\frac{1-s}2\Bigr)^{d/2}\frac{g_s(1)}{g_{s,0}}.$$
+So every certificate of this chapter feeds the machine of Chapter&nbsp;1, and the $s\uparrow1$ limit of our hierarchy pushes into exactly the regime the Euclidean program lives in ($L_s\to\infty$). <i>Citation:</i> Cohn&ndash;Zhao 2014, Thm. 3.4 and the discussion following it (which covers the $s\gt\frac12$ range needed here).</div>
+
+<h3 id="euclid-measure">16.2 One measure, two proofs</h3>
+
+<p>Change the spectral variable of §<a class="secref" href="#packing">15</a> to the <b>hyperbolic coordinate</b> $a\gt0$:</p>
+
+$$t = \tfrac14\operatorname{sech}^2a
+\qquad\Longrightarrow\qquad
+\rho(dt) = \tfrac2\pi\operatorname{sech}a\,da,
+\qquad
+\nu(dt) = \operatorname{sech}^2a\,da, \tag{112, 113}$$
+
+<p>(both by direct differentiation: $dt = -\tfrac12\operatorname{sech}^2a\tanh a\,da$ and $\sqrt{t(c-t)} = \tfrac14\operatorname{sech}^2a\tanh a$, $\sqrt{c-t} = \tfrac12\operatorname{sech}a\tanh a$). Under the Chebyshev limit of Theorem 8.3 at cutoff $T$, the tilted measure becomes</p>
+
+$$\rho_{K_T}(da) = \frac{2}{\pi Z_T}\,\frac{\operatorname{sech}a}{\sqrt{1+4T\cosh^2a}}\,da
+\;\xrightarrow[T\to\infty]{}\;\operatorname{sech}^2a\,da \;=\;\nu(da),$$
+
+<p>in total variation (dominated convergence plus $\pi Z_T\sqrt T\to1$ from (106)). So at the optimum, <i>the tilt reproduces the target</i> $\nu$ &mdash; the relative entropy of (99) drains to zero &mdash; and the optimal spectral measure of the spherical hierarchy is $\operatorname{sech}^2a\,da$. Now the other side: Chapter&nbsp;1's lower-bound argument (its strip obstruction, §7 there) produces from the Poisson kernel of a complex strip the limiting Mellin-frequency measure $p(u)\,du = \frac\pi4\operatorname{sech}^2\bigl(\frac{\pi u}2\bigr)du$ on $u\in\mathbb{R}$. The pushforward of $p(u)\,du$ under $a = \pi|u|/2$ is exactly $\operatorname{sech}^2a\,da$. The two optimality analyses &mdash; one a relative-entropy projection on the half-line, one a contour argument in a strip &mdash; converge on the same distribution. As a byproduct, the constant of Proposition 8.1 reappears: $\frac{d\nu}{d\rho}(a) = \frac\pi2\operatorname{sech}a$ and $D_{\mathrm{KL}}(\nu\|\rho) = \log\pi-1$, using $\int_0^\infty\operatorname{sech}^2a\,\log\cosh a\,da = 1-\log2$.</p>
+
+<figure><!--FIG:fig_sech--><figcaption>The dictionary, computed. In the hyperbolic coordinate $a$: the tilted spherical measures $\rho_{K_T}$ for $T = 0.1, 1, 10$ (thin curves) converging to $\operatorname{sech}^2a$ (thick) &mdash; which is identically the $a = \pi|u|/2$ pushforward of the Mellin-frequency measure $\frac\pi4\operatorname{sech}^2\frac{\pi u}2$ governing Chapter 1's Euclidean lower bound. One limiting distribution, reached from a sphere and from a strip.</figcaption></figure>
+
+<h3 id="euclid-weight">16.3 One weight, and Wallis's product</h3>
+
+<p>The correspondence extends from the measure to the actual construction. Subtracting its divergent constant, the Chebyshev potential has a hyperbolic limit:</p>
+
+$$\widetilde K_T(a) = K_T\bigl(\tfrac14\operatorname{sech}^2a\bigr)-\tfrac12\log(4T)
+= \tfrac12\log\Bigl(\cosh^2a+\tfrac1{4T}\Bigr)
+\;\xrightarrow[T\to\infty]{}\; K_\infty(a) = \log\cosh a. \tag{114}$$
+
+<p>Chapter&nbsp;1's optimal construction modifies the logarithm of its Mellin profile by $h_\epsilon(z) = \int_0^\infty w_\epsilon(a)(\cos(az)-1)\,da$, whose <b>principal negative weight</b> is (in its notation, on the scale window $I_\epsilon = [\epsilon^2,\log\frac1\epsilon]$, with $b_\epsilon(a) = 1-2\epsilon(1+a)$)</p>
+
+$$w_{\epsilon,-}(a) = -\,b_\epsilon(a)\,\frac{e^{-2a}}{2a^2\cosh a}\,\mathbf 1_{I_\epsilon}(a)
+\;=\; -\,b_\epsilon(a)\,\frac{e^{-2a}}{2a^2}\,e^{-K_\infty(a)}\,\mathbf 1_{I_\epsilon}(a):$$
+
+<p>an exponential tilt <i>by the limiting spherical potential</i>. (The Euclidean construction also carries a second, exponentially smaller positive weight on a distant scale interval, needed there for global Fourier estimates; it has no spherical counterpart and vanishes from every limit below.) The final consistency check is quantitative. In Chapter&nbsp;1's radius formula, the principal weight contributes $\int_0^\infty w_{*}(a)\,a\sinh a\,da = -\frac12\int_0^\infty\frac{e^{-2a}\tanh a}{a}\,da$ (using $e^{-K_\infty}\sinh a = \tanh a$), and this integral is a Wallis product in disguise:</p>
+
+<div class="lem" id="lem-wallis"><b>The Wallis integral.</b> $\displaystyle\int_0^\infty\frac{e^{-2a}\tanh a}{a}\,da \;=\; \log\frac\pi2$.</div>
+
+<div class="proof">With $u = e^{-2a}$: $\tanh a = \frac{1-u}{1+u} = (1-u)^2\sum_{j\ge0}u^{2j}$, so $e^{-2a}\tanh a = \sum_{j\ge0}e^{-(4j+2)a}\bigl(1-e^{-2a}\bigr)^2$, all summands nonnegative &mdash; Tonelli permits term-by-term integration. Each term, by the Frullani integral $\int_0^\infty\frac{e^{-ua}-e^{-va}}a\,da = \log\frac vu$:
+$$\int_0^\infty\frac{e^{-(4j+2)a}-2e^{-(4j+4)a}+e^{-(4j+6)a}}{a}\,da
+= \log\frac{(4j+4)^2}{(4j+2)(4j+6)} = \log\frac{(2j+2)^2}{(2j+1)(2j+3)}.$$
+Summing telescopes into Wallis's product: $\prod_{j\ge0}\frac{(2j+2)^2}{(2j+1)(2j+3)} = \frac\pi2$. <span class="qed">&#8718;</span> (Numerical confirmation in §<a class="secref" href="#validation">18</a>, check 18.)</div>
+
+<p>Feeding $-\frac12\log\frac\pi2$ into Chapter&nbsp;1's radius formula gives the limiting sign radius $\lim_{\epsilon\downarrow0}\lim_{d\to\infty}R_{\epsilon,d}/\sqrt d = \frac1\pi$ and hence density rate $v_d^{1/d}R_{\epsilon,d}/2\to\sqrt{e/2\pi} = 2^{-\lambda^*}$ &mdash; the same constant, now derived through the spherical weight. The identification is of <i>limiting objects</i>: it does not claim finite-dimensional spherical certificates converge to a particular Euclidean function, and the order of limits ($n$, then $r$, then $T$, forcing $s_T\uparrow1$) is essential. But it settles that the two chapters' optima are one mathematical structure seen from two sides &mdash; the strongest kind of independent confirmation two 25-page proofs can give each other.</p>

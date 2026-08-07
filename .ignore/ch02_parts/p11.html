@@ -1,0 +1,98 @@
+<h2 id="tangent">11. Tangent harmonics: the one-row spherical improvement</h2>
+
+<p>Now the sphere gets its moving fiber. The classical construction pinned one zonal vector per level; we replace it by the space of degree-$k$ harmonics <i>on the directions orthogonal to the code point</i> &mdash; a subspace of dimension exponential in $n$ once $k\propto n$, transported by rotations, sitting once inside every ambient level $i\ge k$. This is the exact spherical twin of §§<a class="secref" href="#wholecube">5</a>&ndash;<a class="secref" href="#asympH">6</a>, and it already beats the 1978 record.</p>
+
+<h3 id="tangent-fiber">11.1 The fiber $\mathcal H_k(x^\perp)$</h3>
+
+<p>For $x\in S^{n-1}$, the <b>tangent sphere</b> at $x$ is $S(x^\perp) = x^\perp\cap S^{n-1}$, an $(n-2)$-sphere. Define the fiber</p>
+
+$$E_x = \mathcal H_k(x^{\perp}), \qquad
+d^{\mathrm S}_k = \dim E_x = \binom{n+k-2}{k}-\binom{n+k-4}{k-2}, \tag{61}$$
+
+<p>the degree-$k$ spherical harmonics of the $(n-1)$-dimensional Euclidean space $x^\perp$ (dimension by the Lemma of §<a class="secref" href="#spherharm">10.1</a> applied in dimension $n-1$). Equivalently: symmetric $k$-tensors on $x^\perp$ with all self-contractions zero. For $k=0$ it is the constants (the classical case); for $k=1$ it is $x^\perp$ itself; for $k=2$, traceless quadratic forms on $x^\perp$. Keep the two integers straight: $k$ is a <i>degree</i>, fixed per construction; $d^{\mathrm S}_k$ is a <i>dimension</i>, and $\frac1n\log_2 d^{\mathrm S}_{bn}\to H_{\mathrm{sph}}(b)$ &mdash; the fiber entropy. A rotation carrying $x$ to $y$ carries $x^\perp$ to $y^\perp$ and $E_x$ to $E_y$: the fiber moves. For $k\ge1$ we assume $n\ge4$ (so that $SO(n-1)$ acting on $\mathcal H_k(x^\perp)$ is absolutely irreducible &mdash; part of Import D's package &mdash; giving the Schur property the machine needs).</p>
+
+<p>The branching rule (62) of Import D says: $V^{\mathrm S}_i$ contains exactly one copy of $E_x$ when $i\ge k$, none otherwise. The copy even has an explicit form. Away from the poles, every $u\in S^{n-1}$ decomposes uniquely as</p>
+
+$$u = t\,x + \sqrt{1-t^2}\,\xi, \qquad t = \langle x,u\rangle\in[-1,1],\quad \xi\in S(x^{\perp}),$$
+
+<p>&mdash; latitude $t$ and tangential direction $\xi$ &mdash; and the copy of $E_x$ inside $V^{\mathrm S}_i$ is spanned by the separated functions (Import D(iii), the explicit intertwiner of Bachoc&ndash;Vallentin):</p>
+
+$$(\varphi_{i,x}Y)(u) \;=\; p_{i-k}(t)\,\bigl(1-t^2\bigr)^{k/2}\,Y(\xi), \qquad Y\in E_x, \tag{63}$$
+
+<p>with radial profile $p_{i-k}$ proportional to the Gegenbauer polynomial $C^{\,k+(n-2)/2}_{\,i-k}$, the constant fixed (sign: positive leading coefficient) so that $\varphi_{i,x}$ is an isometry. The tangential factor $Y$ is untouched by multiplication by $t$ &mdash; so the Gegenbauer recurrence (64), applied to the radial factor with $\eta = k+\frac{n-2}2$ and $j = i-k$, immediately gives the <b>fiber recurrence</b></p>
+
+$$t\,\varphi_{i,x} = \alpha^{(k)}_i\,\varphi_{i+1,x} + \beta^{(k)}_i\,\varphi_{i-1,x}, \tag{65}$$
+
+<p>with squared coefficients (after the isometric normalization; Import D(iii), verified numerically to $10^{-12}$ by quadrature in §<a class="secref" href="#validation">18</a>, check 11)</p>
+
+$$\bigl(\alpha^{(k)}_i\bigr)^2 = \frac{(i-k+1)(i+k+n-2)}{(2i+n-2)(2i+n)},
+\qquad
+\bigl(\beta^{(k)}_i\bigr)^2 = \frac{(i-k)(i+k+n-3)}{(2i+n-4)(2i+n-2)}, \tag{66}$$
+
+<p>so that $\beta^{(k)}_{i+1} = \alpha^{(k)}_i$ (shift $i\mapsto i+1$ in the second formula and compare). Note the boundary behavior doing the bookkeeping for us: $\alpha^{(k)}$ carries the factor $i-k+1$ and $\beta^{(k)}$ the factor $i-k$, so the recurrence never exits the branching range $i\ge k$.</p>
+
+<figure><!--FIG:fig_tangentsphere--><figcaption>The moving fiber, drawn in $n=3$ (computed orthographic projection; hidden arcs dashed). At the code point $x$: its tangent sphere $S(x^\perp)$ (the great circle orthogonal to $x$), a point $u$ decomposed as $u = tx+\sqrt{1-t^2}\,\xi$ with latitude $t$ and tangential direction $\xi$, and the separated eigenfunction shape $p_{i-k}(t)(1-t^2)^{k/2}Y(\xi)$ of (63): a radial profile along latitude times a harmonic on the tangent sphere. A rotation carrying $x$ to $y$ carries the entire picture with it.</figcaption></figure>
+
+<h3 id="tangent-norm">11.2 Normalized coordinate maps (Lemma 5.1)</h3>
+
+<p>As always, the machine wants isometries into $\mathbb{R}^n\otimes V^{\mathrm S}_i$, normalized by the classical case. The spherical version of §<a class="secref" href="#johnson">7.5</a>'s computation:</p>
+
+<div class="lem" id="lem51"><b>Lemma 5.1.</b> Let $i\ge k$, abbreviate $D_j = D^{\mathrm S}_j$, and let $\Pi_j$ project onto $V^{\mathrm S}_j$. Define coordinate-multiplication maps
+$$M^{\uparrow}_i:\mathbb{R}^n\otimes V^{\mathrm S}_i\to V^{\mathrm S}_{i+1},\quad M^{\uparrow}_i(v\otimes f) = \Pi_{i+1}\bigl(\langle v,\cdot\rangle f\bigr);
+\qquad
+M^{\downarrow}_i:\mathbb{R}^n\otimes V^{\mathrm S}_{i+1}\to V^{\mathrm S}_i \text{ likewise.}$$
+Then $M^{\uparrow}_i(M^{\uparrow}_i)^{*} = m^{\uparrow}_i\,\mathrm{id}$ and $M^{\downarrow}_i(M^{\downarrow}_i)^{*} = m^{\downarrow}_i\,\mathrm{id}$ with
+$$m^{\uparrow}_i = \alpha^{(0)}_i\sqrt{\frac{D_i}{D_{i+1}}} = \frac{i+1}{2i+n},
+\qquad
+m^{\downarrow}_i = \alpha^{(0)}_i\sqrt{\frac{D_{i+1}}{D_i}} = \frac{i+n-2}{2i+n-2}. \tag{67}$$
+Hence $C^{\uparrow}_i = (M^{\uparrow}_i)^{*}/\sqrt{m^{\uparrow}_i}$ and $C^{\downarrow}_i = (M^{\downarrow}_i)^{*}/\sqrt{m^{\downarrow}_i}$ are equivariant isometries, with fiber contractions
+$$(C^{\uparrow}_i)^{*}(x\otimes\varphi_{i,x}Y) = \frac{\alpha^{(k)}_i}{\sqrt{m^{\uparrow}_i}}\varphi_{i+1,x}Y,
+\qquad
+(C^{\downarrow}_i)^{*}(x\otimes\varphi_{i+1,x}Y) = \frac{\alpha^{(k)}_i}{\sqrt{m^{\downarrow}_i}}\varphi_{i,x}Y,$$
+directed squared weights $p_{i,i+1} = (\alpha^{(k)}_i)^2/m^{\uparrow}_i$, $p_{i+1,i} = (\alpha^{(k)}_i)^2/m^{\downarrow}_i$ satisfying the reciprocity $D_i\,p_{i,i+1} = D_{i+1}\,p_{i+1,i}$, and symmetric edge weight
+$$J_{i,i+1} = \sqrt{p_{i,i+1}p_{i+1,i}} = \frac{\bigl(\alpha^{(k)}_i\bigr)^2}{\alpha^{(0)}_i}. \tag{68}$$</div>
+
+<div class="proof">Equivariance of $M^{\uparrow}_i$ is clear (rotations respect multiplication by $\langle v,\cdot\rangle$ jointly in $v$ and the function), so $M^{\uparrow}_i(M^{\uparrow}_i)^{*}$, a positive equivariant operator on the irreducible $V^{\mathrm S}_{i+1}$, is scalar. Trace it via the Hilbert&ndash;Schmidt norm. Summing over an orthonormal basis $(e_r)$ of $\mathbb{R}^n$ and orthonormal bases of the harmonic levels, and using $\sum_r\langle e_r, u\rangle\langle e_r, v\rangle = \langle u,v\rangle$ together with the addition formula (60) twice:
+$$\|M^{\uparrow}_i\|^2_{\mathrm{HS}} = \iint_{(S^{n-1})^2}\langle u,v\rangle\,K^{\mathrm S}_i(u,v)\,K^{\mathrm S}_{i+1}(u,v)\,d\sigma(u)\,d\sigma(v).$$
+Rotation-invariance collapses one integral: the inner integral is independent of $v = x$, and equals $\sqrt{D_iD_{i+1}}\,\langle t_x z_{i,x},\,z_{i+1,x}\rangle$ in terms of the unit zonal vectors $z_{j,x} = K^{\mathrm S}_j(x,\cdot)/\sqrt{D_j}$ and $t_x(u) = \langle x,u\rangle$. The $k=0$ recurrence (65) evaluates the bracket: $\langle t_xz_{i,x}, z_{i+1,x}\rangle = \alpha^{(0)}_i$. So $\|M^{\uparrow}_i\|^2_{\mathrm{HS}} = \alpha^{(0)}_i\sqrt{D_iD_{i+1}}$, and dividing by $\dim V^{\mathrm S}_{i+1}$ gives $m^{\uparrow}_i = \alpha^{(0)}_i\sqrt{D_i/D_{i+1}}$. The twin computation (or the observation that $M^{\downarrow}$ and $M^{\uparrow}$ have equal HS norms, being mutual adjoints up to the tensor shuffle) gives $m^{\downarrow}_i = \alpha^{(0)}_i\sqrt{D_{i+1}/D_i}$. The explicit fractions in (67): substitute (59) and (66)-with-$k=0$; §<a class="secref" href="#validation">18</a>, check 11, verifies them in exact rationals for all $i\le300$, $n\le40$. The contractions restate (65) applied inside $(M^{\uparrow})^{*}$, noting the downward coefficient of $t\varphi_{i+1,x}$ is $\beta^{(k)}_{i+1} = \alpha^{(k)}_i$. Reciprocity: $D_ip_{i,i+1} = D_i(\alpha^{(k)}_i)^2\frac{2i+n}{i+1}$ versus $D_{i+1}p_{i+1,i} = D_{i+1}(\alpha^{(k)}_i)^2\frac{2i+n-2}{i+n-2}$; equality is the identity $m^{\uparrow}_im^{\downarrow}_i = (\alpha^{(0)}_i)^2$ read backwards through (67). The edge weight: $\sqrt{p_{i,i+1}p_{i+1,i}} = (\alpha^{(k)}_i)^2/\sqrt{m^{\uparrow}_im^{\downarrow}_i} = (\alpha^{(k)}_i)^2/\alpha^{(0)}_i$. <span class="qed">&#8718;</span></div>
+
+<p>Note the signature again: <i>fiber coefficient squared over classical coefficient</i>, exactly matching the cube's (20) (where the classical normalizer was hidden in the $\sqrt{(i+1)(n-i)}$) and the layer's (41)&ndash;(42).</p>
+
+<h3 id="tangent-path">11.3 The one-row path and its exponent</h3>
+
+<p>Fix $k\lt L$ and retain the levels $k\le i\le L$: a path graph with the fiber $E_x$ at every vertex and edge weights, substituting (66) into (68),</p>
+
+$$c^{(k)}_i = \frac{(i-k+1)(i+k+n-2)}{\sqrt{(i+1)(i+n-2)(2i+n-2)(2i+n)}}. \tag{71}$$
+
+<div class="lem" id="lem52"><b>Lemma 5.2.</b> Fix $0\le b\lt a$, and suppose $k/n\to b$, $L/n\to a$. Then the path's top eigenvalue satisfies
+$$\lambda_{k,L} \;\longrightarrow\; 2\,\Gamma_{\mathrm{row}}(a,b) = \frac{2(a-b)(1+a+b)}{(1+2a)\sqrt{a(1+a)}}.$$</div>
+
+<div class="proof">For $i/n\to u\gt0$, (71) converges to
+$$\Gamma_{\mathrm{row}}(u,b) = \frac{(u-b)(1+u+b)}{(1+2u)\sqrt{u(1+u)}} = \frac{\sqrt{u(1+u)}}{1+2u} - \frac{b(1+b)}{(1+2u)\sqrt{u(1+u)}},$$
+the second form by the expansion $(u-b)(1+u+b) = u(1+u)-b(1+b)$. It increases in $u\ge b$: the first summand $q(u)$ increases (its square is $\frac{u(1+u)}{(1+2u)^2} = \frac14\bigl(1-\frac1{(1+2u)^2}\bigr)$), the subtracted term decreases. If $b\gt0$ the entrywise convergence is uniform along the whole path (all retained $i\ge k$, $i/n\ge b - o(1) \gt 0$), so the maximum edge weight converges to $\Gamma_{\mathrm{row}}(a,b)$ and the row-sum bound gives $\limsup\lambda_{k,L}\le2\Gamma_{\mathrm{row}}(a,b)$. If $b=0$ the early entries are not uniformly controlled by the limit function; instead bound them directly:
+$$0\le c^{(k)}_i\le c^{(0)}_i = \sqrt{\frac{(i+1)(i+n-2)}{(2i+n-2)(2i+n)}}\le\sqrt{\frac{i+1}{n-2}},$$
+the first inequality because $(i-k+1)(i+k+n-2) = (i+1)(i+n-2)-k(k+n-3)\le(i+1)(i+n-2)$ termwise under the square root pattern of (71). So edges with $i\le\varepsilon n$ have weight $O(\sqrt\varepsilon)$: splitting the path at $\varepsilon n$ and letting $\varepsilon\downarrow0$ recovers the same $\limsup$. The matching $\liminf$: the discrete sine vector on the last $m_n = o(n)\to\infty$ vertices, exactly as in Lemma 2.2. <span class="qed">&#8718;</span></div>
+
+<p>Theorem 4.2 on this path (fiber dimension $d^{\mathrm S}_k$, ambient $\sum_{i=k}^LD^{\mathrm S}_i$, both with known entropies) now gives: <b>whenever $2\Gamma_{\mathrm{row}}(a,b)\gt s$,</b></p>
+
+<div class="keyresult">$$A(n,s) \;\le\; 2^{\,(\Phi_{\mathrm{row}}(a,b)+o(1))\,n},
+\qquad
+\Phi_{\mathrm{row}}(a,b) = H_{\mathrm{sph}}(a) - H_{\mathrm{sph}}(b). \tag{11}$$</div>
+
+<p>At $b=0$ this is the direct KL bound of §<a class="secref" href="#spherharm">10.3</a>. For $b\gt0$: at the classical boundary $a = a_0(s)$ the same infinite-marginal-value trade as on the cube &mdash; the fiber rebate $H_{\mathrm{sph}}(b)\sim b\log_2\frac1b$ against a linear spectral cost &mdash; strictly improves the exponent; the full one-parameter optimization is (88) in §<a class="secref" href="#strict">14</a>, where the strict inequality is proved as part of Lemma 7.4.</p>
+
+<figure><!--FIG:fig_rowpath--><figcaption>The one-row spherical machine, computed. Left: the path of harmonic levels $V^{\mathrm S}_k,\dots,V^{\mathrm S}_L$, each carrying the moving fiber $\mathcal H_k(x^\perp)$, with edge weights (71). Right: edge-weight profiles $c^{(k)}_i$ against $i/n$ for $n=600$, $b = 0,\,0.06,\,0.12$ (curves), each approaching its limit $\Gamma_{\mathrm{row}}(u,b)$ (dashed): raising the fiber degree $b$ lowers the spectral profile &mdash; the price paid &mdash; while the fiber entropy $H_{\mathrm{sph}}(b)$ is subtracted from the exponent &mdash; the prize won. The prize beats the price for small $b$, always.</figcaption></figure>
+
+<h3 id="tangent-cap">11.4 The spherical-cap reduction</h3>
+
+<p>The classical record $B_{\mathrm{KL}}$ is not the direct bound but its cap-optimized form, so we must be able to combine the new certificates with the same reduction. It is a geometric preprocessing step, independent of everything above:</p>
+
+<div class="def" id="importC"><b>Import C (Sidelnikov's spherical-slice inequality).</b> Fix $0\le t\le s\lt1$. In the exponent form actually used: if $A(m,t)\le2^{(B+o(1))m}$ as $m\to\infty$, then
+$$A(n,s)\le 2^{\bigl(B + \frac12\log_2\frac{1-t}{1-s}+o(1)\bigr)n}.$$
+<i>Geometry:</i> among the spherical caps of a fixed angular radius $\theta$, some cap contains at least the average share of the code; centrally project that cap onto the equatorial sphere of its axis &mdash; a sphere of one dimension less. Projection can only <i>increase</i> normalized inner products of cap points, but by an explicitly bounded amount depending on $\theta$: tuning $\theta$ realizes any target threshold $t\le s$, and the cap-share bookkeeping costs exactly the displayed exponent. Iterating shrinks $n$ by $o(n)$ only. <i>Citation:</i> Sidelnikov 1974; Kabatianskii&ndash;Levenshtein 1978, Thm. 4. [Verified at the level of consequences: check 14 of §<a class="secref" href="#validation">18</a> reproduces $B_{\mathrm{KL}}(1/2) = 0.4009442$ from this reduction plus the direct KL exponent.]</div>
+
+<p>Applying Import C to the level-$r$ hierarchy exponents $\kappa_r$ of §<a class="secref" href="#sphasymp">13</a> (of which the one-row bound is the case $r=1$ with second row zero) defines the cap-optimized exponents</p>
+
+$$\overline{\kappa}_r(s) \;=\; \inf_{0\le t\le s}\Bigl\{\kappa_r(t) + \tfrac12\log_2\frac{1-t}{1-s}\Bigr\}, \tag{87}$$
+
+<p>with $\overline{\kappa}_0 = B_{\mathrm{KL}}$, and likewise $\overline{\kappa}_{\mathrm{row}}$ from the one-row family. At the kissing threshold the computed values (§<a class="secref" href="#validation">18</a>): $\overline{\kappa}_{\mathrm{row}}(1/2) = 0.39731$, already below the classical $0.400944$ &mdash; the 1978 record falls at the very first rung of the new machinery. The remaining spherical sections build the rungs above.</p>

@@ -1,0 +1,128 @@
+<h2 id="boolean">4. Boolean harmonics on the cube</h2>
+
+<p>We now build the raw material for the binary constructions: the function spaces on the cube, the ladder operators connecting them, and the harmonic subspaces that will become the moving fibers of §<a class="secref" href="#projection">3</a>. Everything here is elementary and fully proved; the section's product is a small table of exact identities &mdash; (12) through (19) &mdash; that §<a class="secref" href="#wholecube">5</a> will consume whole.</p>
+
+<h3 id="boolean-fourier">4.1 Fourier levels</h3>
+
+<p>Identify the binary alphabet with $\{\pm1\}$ and write $X_n = \{\pm1\}^n$ for the cube. The <b>normalized coordinate vector</b> of a word and the resulting closeness function are</p>
+
+$$\ell_x = \frac{x}{\sqrt n} \in \mathbb{R}^n, \qquad
+t(x,y) = \langle \ell_x,\ell_y\rangle = 1 - \frac{2d_H(x,y)}{n},$$
+
+<p>since each agreeing coordinate contributes $+\frac1n$ and each disagreeing one $-\frac1n$. So Hamming distance and the inner-product encoding of §<a class="secref" href="#projection">3</a> are the same data, and a minimum-distance-$d$ code is exactly a code with threshold $s = 1-2d/n$.</p>
+
+<p>Give real-valued functions on $X_n$ the uniform-probability inner product $\langle f,g\rangle = 2^{-n}\sum_{x} f(x)g(x)$. The <b>Fourier characters</b> $\chi_S(x) = \prod_{r\in S}x_r$, one for each subset $S\subseteq\{1,\dots,n\}$, form an orthonormal basis (distinct characters differ by some $\chi_{S\triangle T}\ne 1$, which averages to zero). Write $e_S = \chi_S$ for the basis vectors, and collect them by degree:</p>
+
+$$V^{\square}_i = \operatorname{span}\{e_S : |S| = i\},
+\qquad
+D^{\square}_i = \dim V^{\square}_i = \binom{n}{i}.$$
+
+<p>(The superscript $\square$ tags whole-cube objects; later sections use $\mathrm{J}$ for Johnson-layer and $\mathrm{S}$ for spherical.) The cube's symmetry group &mdash; coordinate permutations and sign flips &mdash; permutes each level's basis up to signs, so each $V_i^\square$ is symmetry-invariant. At a word $x$, the classical construction of §<a class="secref" href="#delsarte">2.3</a> uses the single unit vector</p>
+
+$$v_{i,x} = \binom{n}{i}^{-1/2}\sum_{|S|=i}\chi_S(x)\,e_S,$$
+
+<p>the normalized &ldquo;level-$i$ average pinned at $x$&rdquo;: it is the unique (up to sign) unit vector in $V_i^\square$ fixed by every symmetry fixing $x$. The pairwise inner products $\langle v_{i,x},v_{i,y}\rangle$ are the normalized Krawtchouk polynomials of the classical theory &mdash; but we will never need their formulas, only the ladder identities below.</p>
+
+<h3 id="boolean-ladder">4.2 The addition and deletion ladder</h3>
+
+<p>Define the <b>Boolean addition and deletion operators</b> on the Fourier basis, extended linearly:</p>
+
+$$U e_S = \sum_{r\notin S} e_{S\cup\{r\}},
+\qquad
+D e_S = \sum_{r\in S} e_{S\setminus\{r\}}.$$
+
+<p>$U$ raises degree by one, $D$ lowers it. They are adjoint: $\langle Ue_S, e_T\rangle$ and $\langle e_S, De_T\rangle$ both equal $1$ exactly when $T = S\cup\{r\}$ for some $r \notin S$, else $0$; hence $U^{*} = D$. Their commutator is diagonal:</p>
+
+<div class="lem" id="lem-comm"><b>Identity (12).</b> On each level, $\;(DU - UD)\big|_{V^{\square}_i} = (n-2i)\,\mathrm{id}$.</div>
+
+<div class="proof">Expand both orders on a basis vector with $|S| = i$. Adding $r\notin S$ then deleting from $S\cup\{r\}$ gives $DUe_S = (n-i)\,e_S + \sum_{r\notin S,\, r''\in S} e_{(S\cup r)\setminus r''}$ (the first term from deleting the just-added $r$, which can happen $n-i$ ways). Deleting $r \in S$ then adding to $S\setminus\{r\}$ gives $UDe_S = i\,e_S + \sum_{r\in S,\, r'\notin S} e_{(S\setminus r)\cup r'}$ (re-adding the just-deleted $r$, $i$ ways). The two double sums range over identical pairs (one coordinate leaves $S$, another enters), so they cancel in the difference, leaving $(n-i) - i = n-2i$ times $e_S$. <span class="qed">&#8718;</span></div>
+
+<figure><!--FIG:fig_levels--><figcaption>The Fourier ladder of the cube. Levels $V^{\square}_0,\dots,V^{\square}_n$ with dimensions $\binom n i$; $U$ climbs, its adjoint $D$ descends, and their commutator is the scalar $n-2i$ on level $i$ (positive below the middle: adding is &ldquo;easier&rdquo; than deleting while sets are small). The harmonic space $E_k = \ker D \cap V^{\square}_k$ is the part of level $k$ invisible to descent; its dimension is the level-size difference $\binom nk - \binom n{k-1}$.</figcaption></figure>
+
+<h3 id="boolean-harmonic">4.3 Harmonic spaces and their dimension</h3>
+
+<div class="def" id="def-Ek"><b>Definition (Boolean harmonics).</b> For $0\le k\le n/2$, the <b>degree-$k$ Boolean harmonic space</b> is
+$$E_k = \ker\bigl(D : V^{\square}_k \to V^{\square}_{k-1}\bigr), \qquad V^{\square}_{-1} = 0 .$$
+Concretely, a coefficient vector on $k$-element subsets is harmonic when its coefficients sum to zero over all $k$-sets containing any fixed $(k{-}1)$-set. $E_0$ is the constant line; $E_1 = \{\sum_r a_r e_{\{r\}} : \sum_r a_r = 0\}$ has dimension $n-1$.</div>
+
+<div class="lem" id="lem-dimEk"><b>Dimension of $E_k$.</b> For $1\le k\le n/2$: $U: V^{\square}_{k-1}\to V^{\square}_k$ is injective, $D: V^{\square}_k\to V^{\square}_{k-1}$ is surjective, and
+$$d^{\square}_k = \dim E_k = \binom nk - \binom n{k-1}.$$</div>
+
+<div class="proof">For $f \in V^{\square}_{k-1}$, identity (12) at level $k-1$ gives
+$$\|Uf\|^2 - \|Df\|^2 = \langle (DU-UD)f, f\rangle = (n-2k+2)\|f\|^2. \tag{4.a}$$
+Since $k \le n/2$, the factor $n-2k+2 \ge 2$ is positive, so $\|Uf\| \gt 0$ whenever $f\neq0$: $U$ is injective on level $k-1$. Its adjoint $D$ (from level $k$) is therefore surjective onto level $k-1$, and rank&ndash;nullity gives $\dim\ker D = \binom nk - \binom n{k-1}$. <span class="qed">&#8718;</span></div>
+
+<p>Two consequences deserve emphasis. First, iterating the same one-line argument decomposes every level into harmonic strata, $V_k^\square = E_k \oplus UE_{k-1}\oplus U^2E_{k-2}\oplus\cdots$ &mdash; $E_k$ is precisely the <i>new</i> content appearing at degree $k$. Second, and centrally for us: when $k = bn$ grows proportionally with $n$, the dimension $d^\square_k$ is <i>exponentially large</i>. The following Stirling estimate, used silently everywhere in asymptotic coding theory, we prove once and cite forever.</p>
+
+<div class="lem" id="lem-stirling"><b>Lemma B (entropy counting).</b> Fix $0 \lt u \lt 1$ and integers $k_n$ with $k_n/n \to u$. Then
+$$\frac1n\log_2\binom{n}{k_n} \;\longrightarrow\; H_2(u),
+\qquad\text{and for } 0\lt u \lt \tfrac12,\quad
+\frac1n\log_2\Bigl[\binom{n}{k_n}-\binom{n}{k_n-1}\Bigr] \;\longrightarrow\; H_2(u).$$</div>
+
+<div class="proof">Stirling's formula $\log_2 m! = m\log_2 m - m\log_2 e + O(\log m)$ gives
+$\log_2\binom{n}{k} = n\log_2 n - k\log_2 k - (n-k)\log_2(n-k) + O(\log n)$; dividing by $n$ and substituting $k = un + o(n)$ yields $H_2(u) + o(1)$ (the linear $-\log_2 e$ terms cancel: $n = k + (n-k)$). For the harmonic difference, factor
+$$\binom nk - \binom n{k-1} = \binom nk\Bigl(1 - \frac{k}{\,n-k+1\,}\Bigr),$$
+using $\binom n{k-1}/\binom nk = k/(n-k+1)$. For $u \lt \frac12$ the bracket tends to $1 - \frac{u}{1-u} \gt 0$, a constant, which vanishes at rate scale. <span class="qed">&#8718;</span></div>
+
+<p>So attaching $E_{k}$, $k = bn$, to a code point buys fiber entropy $H_2(b)$ &mdash; exactly the quantity that will be subtracted from the classical exponent in Theorem 2.3.</p>
+
+<h3 id="boolean-embed">4.4 One harmonic space, embedded at every level</h3>
+
+<p>The moving-subspace plan needs the <i>same</i> space $E_k$ to live inside every retained Fourier level, coherently. The ladder does this for free. For $h\in E_k$, define its iterated raises $U^rh$; the key computational identities are:</p>
+
+<div class="lem" id="lem-13"><b>Identities (13).</b> Let $h\in E_k$ and write $m = n-2k$. For $1\le r\le n-2k$ and $0\le r\le n-2k$ respectively,
+$$D U^{r}h = r\,(m - r + 1)\,U^{r-1}h,
+\qquad
+\|U^{r}h\|^2 = r!\;\frac{m!}{(m-r)!}\;\|h\|^2 .$$</div>
+
+<div class="proof">Induction on $r$ for the first identity. Base $r=1$: $DUh = UDh + (n-2k)h = (n-2k)h$ since $Dh=0$, matching $1\cdot m$. Step: assuming it at $r-1$, and noting $U^{r-1}h$ lives in level $i = k+r-1$,
+$$DU^{r}h = (UD + (n-2i)\,\mathrm{id})\,U^{r-1}h
+= U\bigl[(r{-}1)(m{-}r{+}2)U^{r-2}h\bigr] + (m - 2r + 2)\,U^{r-1}h,$$
+using (12) at level $i$ (where $n - 2i = m - 2r + 2$) and the inductive hypothesis. The coefficient is $(r-1)(m-r+2) + (m-2r+2) = r(m-r+1)$, an algebra check. For the norms: $\|U^rh\|^2 = \langle DU^rh, U^{r-1}h\rangle = r(m-r+1)\|U^{r-1}h\|^2$, and the product $\prod_{j=1}^{r} j(m-j+1) = r!\,m!/(m-r)!$ telescopes. <span class="qed">&#8718;</span></div>
+
+<p>Consequently, for every $k \le i \le n-k$ the <b>normalized addition map</b></p>
+
+$$\varphi_i h = \frac{U^{\,i-k}h}{\sqrt{(i-k)!\,(n-2k)!/(n-i-k)!}} \qquad (h\in E_k) \tag{14}$$
+
+<p>is an isometric embedding $E_k \hookrightarrow V^{\square}_i$ &mdash; a copy of the same harmonic space at every level from $k$ up to $n-k$ (the norm factor is $(13)$ with $r = i-k$; it is positive exactly in this range). These copies are pinned at the all-ones word. To move them to an arbitrary word $x$, use the sign-twist unitary $R_x e_S = \chi_S(x)e_S$ and set $\varphi_{i,x} = R_x\varphi_i$. For $k=0$ (so $h$ = the constant), $\varphi_{i,x}h$ is exactly the classical pinned vector $v_{i,x}$: the classical construction is the $1$-dimensional floor of this staircase.</p>
+
+<figure><!--FIG:fig_harmonic--><figcaption>A computed harmonic staircase for $n=4$, $k=1$. The vector $h = 3e_{\{1\}}-e_{\{2\}}-e_{\{3\}}-e_{\{4\}}$ lies in $E_1$ (coefficients sum to zero, $\dim E_1 = 3$). Applying $U$ maps it to level 2 with coefficients $+2$ on pairs containing coordinate 1 and $-2$ on pairs avoiding it, and $U^2h$ lands on level 3 with coefficients $+2,-2$; the norms grow by the exact factors $r(m-r+1)$ of identity (13) ($m=2$: factors $2$, $2$), and each rescaled image $\varphi_ih$ is a unit copy of the same $h$. The sign twist $R_x$ then transports the whole staircase to any word $x$.</figcaption></figure>
+
+<h3 id="boolean-trans">4.5 Coordinate transitions between neighboring levels</h3>
+
+<p>The last ingredient is the operator $B$ demanded by Proposition 4.1 &mdash; and it must live on $\mathbb{R}^n\otimes\mathcal V$, tensoring with the coordinate space. The natural building blocks are two elementary maps that split off one coordinate index. For $|T| = i+1$ and $|T'| = i$ define</p>
+
+$$C_{i,i+1}\,e_T = \frac1{\sqrt{i+1}}\sum_{r\in T} e_r\otimes e_{T\setminus\{r\}},
+\qquad
+C_{i+1,i}\,e_{T'} = \frac1{\sqrt{n-i}}\sum_{r\notin T'} e_r\otimes e_{T'\cup\{r\}}, \tag{15, 16}$$
+
+<p>where $e_r$ is the $r$th standard basis vector of $\mathbb{R}^n$; so $C_{i,i+1}:V^{\square}_{i+1}\to\mathbb{R}^n\otimes V^{\square}_i$ (&ldquo;delete, and remember what you deleted&rdquo;) and $C_{i+1,i}: V^{\square}_i\to\mathbb{R}^n\otimes V^{\square}_{i+1}$ (&ldquo;add, and remember what you added&rdquo;). Each is an isometry: its output is a sum of distinct orthonormal tensors, $i+1$ resp. $n-i$ of them, with matching normalization. Moreover their images inside a common $\mathbb{R}^n\otimes V^{\square}_i$ are <i>orthogonal</i>: deletion outputs live on tensors $e_r\otimes e_S$ with $r\notin S$, addition outputs on $r\in S$.</p>
+
+<p>Now contract with a code point's coordinate vector. Set $Q_i = (i-k+1)(n-i-k)$.</p>
+
+<div class="lem" id="lem-1718"><b>Contractions (17)&ndash;(18).</b> For every word $x$, $h \in E_k$, and $k\le i\lt n-k$,
+$$C_{i,i+1}^{*}\bigl(\ell_x\otimes\varphi_{i,x}h\bigr) = \sqrt{\frac{Q_i}{n(i+1)}}\,\varphi_{i+1,x}h,
+\qquad
+C_{i+1,i}^{*}\bigl(\ell_x\otimes\varphi_{i+1,x}h\bigr) = \sqrt{\frac{Q_i}{n(n-i)}}\,\varphi_{i,x}h.$$</div>
+
+<div class="proof">First take $x = \mathbf 1$ (the all-ones word), so $\ell_x = \frac1{\sqrt n}\sum_r e_r$ and $R_x = \mathrm{id}$. For $f\in V^{\square}_i$ and any basis vector $e_T$ of $V^{\square}_{i+1}$,
+$$\bigl\langle C_{i,i+1}^{*}(\ell_{\mathbf 1}\otimes f),\, e_T\bigr\rangle
+= \bigl\langle \ell_{\mathbf 1}\otimes f,\, C_{i,i+1}e_T\bigr\rangle
+= \frac{1}{\sqrt{i+1}}\sum_{r\in T}\frac{1}{\sqrt n}\,\langle f, e_{T\setminus r}\rangle
+= \frac{\langle Uf, e_T\rangle}{\sqrt{n(i+1)}},$$
+because $\langle Uf,e_T\rangle$ sums $\langle f, e_{T\setminus r}\rangle$ over exactly the same $r\in T$. Hence $C^{*}_{i,i+1}(\ell_{\mathbf 1}\otimes f) = Uf/\sqrt{n(i+1)}$, and the twin computation gives $C^{*}_{i+1,i}(\ell_{\mathbf 1}\otimes g) = Dg/\sqrt{n(n-i)}$ for $g\in V^{\square}_{i+1}$. On harmonic staircase vectors, (13)&ndash;(14) convert $U$ and $D$ into the normalized steps
+$$U\varphi_ih = \sqrt{Q_i}\,\varphi_{i+1}h,\qquad D\varphi_{i+1}h = \sqrt{Q_i}\,\varphi_ih.$$
+To see these: the normalizer in (14) grows by the factor $\sqrt{(i+1-k)(n-i-k)} = \sqrt{Q_i}$ from level $i$ to $i+1$, which gives the $U$ identity directly; and (13) with $r = i+1-k$, $m=n-2k$ gives $DU^{r}h = (i+1-k)(n-k-i)\,U^{r-1}h = Q_i\,U^{r-1}h$, so dividing by the level-$(i{+}1)$ normalizer and converting to the level-$i$ one costs $\sqrt{Q_i}$, leaving $D\varphi_{i+1}h = (Q_i/\sqrt{Q_i})\varphi_ih = \sqrt{Q_i}\,\varphi_ih$. This proves the claim at $x=\mathbf 1$. For general $x$: the twist $R_x$ acts on $V^\square_\bullet$, and $x$ itself twists the coordinate factor via the diagonal sign matrix $\sigma_x = \mathrm{diag}(x_1,\dots,x_n)$, which satisfies $\ell_x = \sigma_x\ell_{\mathbf 1}$ and the equivariance $(\sigma_x\otimes R_x)\,C_{i,j} = C_{i,j}\,R_x$ (adding or deleting coordinate $r$ from $S$ changes $\chi_S(x)$ by the factor $x_r$, which is what $\sigma_x$ supplies). Conjugating the $x=\mathbf 1$ identities by $\sigma_x\otimes R_x$ transports them verbatim. <span class="qed">&#8718;</span></div>
+
+<p>Squaring the two contraction coefficients gives the <b>directed transition weights</b> between neighboring levels along the harmonic staircase:</p>
+
+$$p_{i,i+1} = \frac{Q_i}{n(i+1)},
+\qquad
+p_{i+1,i} = \frac{Q_i}{n(n-i)},
+\qquad Q_i = (i-k+1)(n-i-k). \tag{4.b}$$
+
+<p>For $k=0$ these weights sum to $1$ at each level of the full path: $p_{i,i+1}+p_{i,i-1} = \frac{n-i}{n} + \frac{i}{n} = 1$ (check 3 of §<a class="secref" href="#validation">18</a> verifies this exactly), reflecting that coordinate multiplication moves level-$i$ content only to levels $i\pm1$. For $k \gt 0$ they sum to <i>less</i> than $1$: multiplication also leaks into symmetry types outside the staircase, and the leak is simply discarded &mdash; the machinery never needs the weights to be probabilities. What it does need is the exact <b>dimension-weighted balance</b></p>
+
+$$\binom{n}{i}\,p_{i,i+1} \;=\; \binom{n}{i+1}\,p_{i+1,i}, \tag{19}$$
+
+<p>which holds because $\binom ni\frac{Q_i}{n(i+1)} = \binom n{i+1}\frac{Q_i}{n(n-i)}$ reduces to the Pascal identity $\binom ni(n-i) = \binom n{i+1}(i+1)$. Identity (19) is what lets a <i>directed</i>, unequal-weight transition system be symmetrized into an honest symmetric matrix &mdash; the move that §<a class="secref" href="#wholecube">5</a> performs first.</p>

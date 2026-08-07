@@ -1,0 +1,85 @@
+<h2 id="strict">14. Every extra row strictly helps</h2>
+
+<p>Monotonicity of the hierarchy is trivial &mdash; a level-$r$ tuple is a limit of level-$(r{+}1)$ tuples with a vanishing new row, so $\kappa_{r+1}\le\kappa_r$ and $\overline\kappa_{r+1}\le\overline\kappa_r$. The content of this section is <i>strictness</i> at every level and every $0\lt s\lt1$ &mdash; the paper's Corollary 7.6, and the reason &ldquo;hierarchy&rdquo; is an honest word. The proof has two moving parts: local perturbations that improve any fixed tuple (Proposition 7.3), and a compactness analysis that tames minimizing sequences whose coordinates run off to infinity (Lemma 7.5) &mdash; the latter phenomenon being not a nuisance but a feature: escape to infinity <i>is</i> the spherical-cap reduction in disguise.</p>
+
+<h3 id="strict-perturb">14.1 The two improving perturbations</h3>
+
+<div class="prop" id="prop73"><b>Proposition 7.3.</b> Fix $0\lt s\lt1$, $r\ge0$, and a tuple $a_1\gt b_1\gt\cdots\gt b_r\gt a_{r+1}\ge0$ with $2\Gamma_r(a,b)\ge s$.
+<ol>
+<li>If $r\ge1$ and $a_{r+1} = 0$: there is a strictly interlacing $(a',b')$ at the <i>same</i> level $r$ with $a'_{r+1}\gt0$, $2\Gamma_r(a',b')\gt2\Gamma_r(a,b)\ge s$, and $\Phi_r(a',b')\lt\Phi_r(a,b)$.</li>
+<li>If $a_{r+1}\gt0$: there is a strictly interlacing $(a',b')$ at level $r+1$ with $a'_{r+2} = 0\lt b'_{r+1}\lt a'_{r+1}$, $2\Gamma_{r+1}(a',b')\gt2\Gamma_r(a,b)\ge s$, and $\Phi_{r+1}(a',b')\lt\Phi_r(a,b)$.</li>
+</ol></div>
+
+<div class="proof">Work in quadratic coordinates $x_\ell,y_m$; write $\Gamma = \Gamma_r(a,b)$, $\Phi = \Phi_r(a,b)$. The scaling family $S_c(u) = A^{-1}(cA(u))$ multiplies all quadratic coordinates by $c$, fixes the residues $R_\ell$ (degree-$0$ homogeneous), and moves the two functionals smoothly; we need their scaling derivatives. From $2q(A^{-1}(x)) = \sqrt{x/(x+1/4)}$: $\frac{d\log q}{d\log x} = \frac{1}{2}\bigl(1-\frac{x}{x+1/4}\bigr) = \frac{1}{2(1+4x)}$, so
+$$D_\Gamma := \frac{d}{d\log c}\Gamma_r(S_c\cdot)\Big|_{c=1} = \sum_\ell \frac{R_\ell\,q(a_\ell)}{2(1+4x_\ell)}\;\gt\;0.$$
+For the exponent, put $\psi(u) := \frac{d}{d\log c}H_{\mathrm{sph}}(S_c(u))\big|_{c=1} = \frac{u(1+u)}{1+2u}\log_2\frac{1+u}{u}$, $\psi(0)=0$ (chain rule: $H_{\mathrm{sph}}'(u) = \log_2\frac{1+u}u$ and $\frac{dS_c(u)}{d\log c}\big|_{c=1} = \frac{A(u)}{A'(u)} = \frac{u(1+u)}{1+2u}$). In the variable $v = 1+2u$:
+$$\psi = \frac{v^2-1}{4v}\log_2\frac{v+1}{v-1},\qquad
+4(\log 2)\frac{d\psi}{dv} = \Bigl(1+\frac1{v^2}\Bigr)\log\frac{v+1}{v-1} - \frac2v \;\gt\;0,$$
+the inequality because $\log\frac{v+1}{v-1} = 2\operatorname{artanh}\frac1v\gt\frac2v$ for $v\gt1$. So $\psi$ is strictly increasing, and by strict interlacing the scaling derivative of $\Phi$ is $\frac{d\Phi}{d\log c}\big|_{c=1} = \sum_\ell\psi(a_\ell)-\sum_m\psi(b_m)\gt0$ &mdash; in particular finite and positive: contracting ($c\lt1$) <i>reduces</i> the exponent at a definite rate while costing spectral strength at a definite rate. Both perturbations below bank a first-order spectral surplus and spend it through this exchange.
+<p><b>(1) Opening the zero terminal row.</b> Replace $a_{r+1} = 0$ by $\widetilde a_{r+1} = A^{-1}(t^2)$, $t\gt0$ small; the new bottom quadratic coordinate is $t^2$. The new bottom residue is $R_{r+1} = \prod_m(t^2-y_m)/\prod_{\ell\le r}(t^2-x_\ell) = \prod_my_m/\prod_{\ell\le r}x_\ell + O(t^2)\gt0$, the old residues move by $O(t^2)$, and $q(A^{-1}(t^2)) = t/\sqrt{1+4t^2}\cdot 1 = t + O(t^3)$. Hence
+$$\Gamma_{\mathrm{open}} = \Gamma + \frac{\prod_m y_m}{\prod_{\ell\le r}x_\ell}\,t + O(t^2),
+\qquad
+\Phi_{\mathrm{open}} = \Phi + H_{\mathrm{sph}}(A^{-1}(t^2)) + O(t^2) = \Phi + O\bigl(t^2\log\tfrac1t\bigr):$$
+a first-order spectral gain against a sub-first-order exponent cost. Now contract: take $c = 1-\eta t$ with $\eta\gt0$ small and fixed. The contraction costs spectral strength $D_\Gamma\,\eta t + O(t^2)$ &mdash; smaller than the surplus for $\eta$ small &mdash; and reduces the exponent by $\bigl(\sum_\ell\psi(a_\ell)-\sum_m\psi(b_m)\bigr)\eta t + O(t^2)$, a strictly first-order decrease. For small $t$: strictly feasible beyond the original ($2\Gamma\gt2\Gamma_r(a,b)$), exponent strictly below $\Phi$, all interlacings strict.
+<p><b>(2) Appending a row.</b> With $a_{r+1}\gt0$, choose $0\lt\varepsilon\lt a_{r+1}$ and append $b_{r+1} = \varepsilon$, $a_{r+2} = 0$; write $e = A(\varepsilon)$. The new zero node contributes nothing to $\Gamma$ ($q(0)=0$), and each old residue picks up the factor $(x_\ell - e)/(x_\ell - 0) = 1 - e/x_\ell$, so
+$$\Gamma_{\mathrm{app}} = \Gamma - e\,L + O(e^2),\quad L := \sum_\ell\frac{R_\ell q(a_\ell)}{x_\ell},
+\qquad
+\Phi_{\mathrm{app}} = \Phi - H_{\mathrm{sph}}(\varepsilon).$$
+The appended row <i>costs</i> spectral strength $eL$ but <i>pays</i> the fiber rebate $H_{\mathrm{sph}}(\varepsilon) = \varepsilon\log_2\frac1\varepsilon + O(\varepsilon)$, while $e = A(\varepsilon) = O(\varepsilon)$. Expand by $\log c = (L/D_\Gamma+\theta)\,e$ with fixed $\theta\gt0$: the expansion restores $D_\Gamma\log c = (L +\theta D_\Gamma)e \gt eL$ of spectral strength &mdash; net strictly positive gain &mdash; at exponent cost $O(e) = O(\varepsilon)$, which the rebate $\varepsilon\log_2\frac1\varepsilon$ dominates for small $\varepsilon$. (Interlacing of the appended pair survives the common scaling, which preserves order.) <span class="qed">&#8718;</span></div>
+
+<p>Note the recurring melody, now heard for the fourth time (after Theorem 2.3, Proposition 3.7, and the one-row remark of §<a class="secref" href="#tangent">11.3</a>): <i>opening a fresh entropy coordinate has infinite marginal value; spectral costs are only linear.</i></p>
+
+<h3 id="strict-row">14.2 Level one, done by hand (Lemma 7.4)</h3>
+
+<div class="lem" id="lem74"><b>Lemma 7.4.</b> For every fixed $0\lt s\lt1$:
+$\ \kappa_1(s)\lt\kappa_{\mathrm{row}}(s)\lt\kappa_0(s)$ and $\overline\kappa_1(s)\lt\overline\kappa_{\mathrm{row}}(s)\lt\overline\kappa_0(s) = B_{\mathrm{KL}}(s)$, where
+$$\kappa_{\mathrm{row}}(s) = \inf_{\substack{a\gt b\gt0\\ 2\Gamma_{\mathrm{row}}(a,b)\ge s}}\bigl(H_{\mathrm{sph}}(a)-H_{\mathrm{sph}}(b)\bigr). \tag{88}$$</div>
+
+<div class="proof"><i>Step 1: $\kappa_{\mathrm{row}}\lt\kappa_0$.</i> Increasing $b$ at fixed $a$ decreases the objective, so the optimum sits on the spectral boundary $b = B_s(a)$, the solution of $2\Gamma_{\mathrm{row}}(a,b) = s$; solving the quadratic (in $A(b)$) gives
+$$B_s(a) = \frac{\sqrt{\,1+4a(1+a)-2s(1+2a)\sqrt{a(1+a)}\,}-1}{2}.$$
+At $a = a_0(s)+\delta$: since $2\Gamma_{\mathrm{row}}(a,0) = 2q(a)$ crosses $s$ at $a_0(s)$ with positive $a$-derivative, the boundary fiber degree grows linearly, $B_s(a) = \tfrac12\sqrt{1-s^2}\,\delta + O_s(\delta^2)$ (Taylor expansion of the explicit formula). The boundary objective is then
+$$H_{\mathrm{sph}}(a_0+\delta) - H_{\mathrm{sph}}\bigl(B_s(a_0+\delta)\bigr)
+= H_{\mathrm{sph}}(a_0) + O(\delta) - \Theta\bigl(\delta\log\tfrac1\delta\bigr)
+\;\lt\; H_{\mathrm{sph}}(a_0) = \kappa_0(s)$$
+for small $\delta\gt0$ &mdash; the melody again.
+<p><i>Step 2: the one-row optimum is attained at finite interior $a$.</i> As $a\to\infty$, $B_s(a)/a\to\sqrt{1-s}$ (divide the formula by $a$), and the boundary objective tends to $-\tfrac12\log_2(1-s)$ &mdash; which is <i>larger</i> than $\kappa_0(s) = H_{\mathrm{sph}}(a_0(s))$. To see that inequality: substitute $t = s/(1+\sqrt{1-s^2})\in(0,1)$, so $s = 2t/(1+t^2)$ and $a_0(s) = t^2/(1-t^2)$; multiplying the difference by $\log 2$, the claim becomes
+$$\log(1+t) + \tfrac12\log(1+t^2) \;\gt\; \frac{2t^2}{1-t^2}\log\frac1t,$$
+and both sides are compared to $t$: the right side is $\lt t$ because $\log\frac1t\lt\frac{t^{-1}-t}2$ (the standard $\log z\lt\frac{z-z^{-1}}{2}$ for $z\gt1$ at $z=1/t$), while the left side exceeds $t$ because their difference vanishes at $t=0$ and has derivative $\frac1{1+t}+\frac{t}{1+t^2}-1 = \frac{t^2(1-t)}{(1+t)(1+t^2)}\gt0$. So minimizing sequences in $a$ stay bounded, the boundary objective is continuous, and the infimum (88) is attained at some finite $a^{*}\gt a_0(s)$ with $b^{*} = B_s(a^{*})\gt0$.
+<p><i>Step 3: $\kappa_1\lt\kappa_{\mathrm{row}}$.</i> The one-row optimizer is the level-1 tuple $\bigl((a^{*},0),(b^{*})\bigr)$ with a zero terminal row; Proposition 7.3(1) opens it: strictly better exponent, strictly feasible, still level 1.
+<p><i>Step 4: cap-optimized versions.</i> The function $G(t,a) = H_{\mathrm{sph}}(a)-H_{\mathrm{sph}}(B_t(a))$ is continuous in $(t,a)$, $G(t,a)\to-\tfrac12\log_2(1-t)$ as $a\to\infty$ locally uniformly in $t$, and Steps 1&ndash;2 localize all near-minimizing $a$ into a common compact interval for $t$ near any $t_0\in(0,1)$; hence $\kappa_{\mathrm{row}}$ is continuous on $(0,1)$, extends continuously by $0$ at $t=0$ (squeeze: $0\le\kappa_{\mathrm{row}}(t)\le\kappa_0(t) = O(t^2\log\frac1t)$, from $a_0(t) = \Theta(t^2)$), and the cap objectives $t\mapsto\kappa(t)+\tfrac12\log_2\frac{1-t}{1-s}$ are continuous on $[0,s]$, attaining minima. The minimum is never at $t=0$: moving from $t=0$ to a small $t\gt0$ decreases the slice term $\tfrac12\log_2\frac{1-t}{1-s}$ by $\frac{t}{2\log2}+O(t^2)$ &mdash; a linear saving &mdash; while the code-exponent term rises only by $\kappa(t)-\kappa(0)\le\kappa_0(t) = O(t^2\log\frac1t)$. So minimizing thresholds are interior positive, and evaluating the strict inequalities of Steps 1&ndash;3 at those thresholds transfers them to $\overline\kappa_1\lt\overline\kappa_{\mathrm{row}}\lt\overline\kappa_0$. <span class="qed">&#8718;</span></div>
+
+<h3 id="strict-compact">14.3 Runaway coordinates are spherical caps (Lemma 7.5)</h3>
+
+<p>At higher levels the perturbation argument alone is not enough: a minimizing sequence for $\kappa_r(s)$ might have no limit tuple &mdash; an ambient coordinate $x_i$ and its interlacing partner $y_i$ can diverge <i>together</i>, with bounded entropy difference. The limit theory identifies exactly what such escapes can produce:</p>
+
+<div class="lem" id="lem75"><b>Lemma 7.5 (compactification).</b> Fix $r\ge0$ and a sequence of strictly interlacing level-$r$ tuples with bounded $\Phi_r$. After passing to a subsequence, there are $0\le j\le r$, a strictly interlacing level-$j$ tuple $(a,b)$, and $0\lt c\le1$ such that
+$$\Phi_r \longrightarrow \Phi_j(a,b) - \log_2 c,
+\qquad
+1-2\Gamma_r \longrightarrow c^2\bigl(1-2\Gamma_j(a,b)\bigr).$$
+If $c\lt1$ then $j\lt r$. Conversely every such limiting datum is approximable at level $j+1$ when $c\lt1$, and at level $j$ when $c=1$.</div>
+
+<div class="proof">Write $f(x) = H_{\mathrm{sph}}(A^{-1}(x))$, increasing, with $f(x) = \tfrac12\log_2 x + \log_2e + o(1)$ as $x\to\infty$: indeed $H_{\mathrm{sph}}(u) = u\log_2(1+\tfrac1u) + \log_2(1+u) = \log_2e + \log_2u + o(1)$ as $u\to\infty$, and $x = u(1+u)$ gives $\log_2u = \tfrac12\log_2x + o(1)$. Interlacing telescopes the exponent into nonnegative blocks:
+$$\Phi_r = f(x_{r+1}) + \sum_{i=1}^{r}\bigl(f(x_i)-f(y_i)\bigr),\qquad\text{each term}\ \ge0 .$$
+Boundedness forces $x_{r+1}$ bounded and, for each divergent $x_i$, a divergent partner $y_i$ with $f(x_i)-f(y_i) = \tfrac12\log_2\frac{x_i}{y_i}+o(1)$ bounded, i.e. $y_i/x_i$ bounded away from $0$. Pass to a subsequence: divergent pairs $i = 1,\dots,k$ with $y_i/x_i\to\alpha_i\in(0,1]$; set $c^2 = \prod_i\alpha_i$; remaining coordinates converge (after weak-interlacing cleanup: coincident limits cancel a numerator factor against a denominator factor) to a strictly interlacing level-$j$ tuple, $j\le r-k$. In the Stieltjes transform $m(z) = \prod(z-y_i)/\prod(z-x_i) = \sum_iR_i/(z-x_i)$: for each fixed $z\lt0$, a divergent pair's factor $(z-y_i)/(z-x_i)$ tends to $y_i/x_i\to\alpha_i$, so $m(z)\to c^2m_j(z)$ pointwise on the negative axis, which is exactly weak convergence of the residue measures on the compactified half-line $[0,\infty]$:
+$$\sum_iR_i\,\delta_{x_i}\;\longrightarrow\;c^2\sum_iR^{(j)}_i\,\delta_{x^{(j)}_i} + (1-c^2)\,\delta_{\infty}.$$
+Integrate the bounded continuous function $x\mapsto 2q(A^{-1}(x)) = \sqrt{x/(x+1/4)}$, which tends to $1$ at $\infty$:
+$$2\Gamma_r \longrightarrow c^2\cdot2\Gamma_j + (1-c^2)\cdot1,$$
+which rearranges to the displayed spectral limit; the $f$-asymptotics give the exponent limit ($-\log_2c = -\tfrac12\log_2\prod\alpha_i$ is exactly the surviving entropy of the divergent pairs). Conversely: prepend a pair $x = M$, $y = c^2M$, $M\to\infty$, to a level-$j$ tuple to realize any $c\lt1$ at level $j+1$ (and nothing if $c=1$); pad further levels by vanishing rows; make everything strictly feasible by slightly decreasing $c$ (if $c\lt1$) or scaling by $S_d$, $d\downarrow1$ (if $c=1$). <span class="qed">&#8718;</span></div>
+
+<p><b>The punchline identification.</b> If $t = 2\Gamma_j(a,b)$ and $s = 1-c^2(1-t)$, then $-\log_2c = \tfrac12\log_2\frac{1-t}{1-s}$: the escape factor $c$ contributes to the exponent <i>exactly</i> the Sidelnikov slice cost of moving the threshold from $s$ to $t$. A divergent interlacing pair is the algebraic shadow of a spherical cap. This is why the cap-optimized $\overline\kappa_r$ and the raw hierarchy fit together seamlessly &mdash; and it is the first hint of §<a class="secref" href="#packing">15</a>'s theme that at the packing-optimal corner, caps buy nothing.</p>
+
+<figure><!--FIG:fig_escape--><figcaption>Lemma 7.5 as a picture. Top: a level-3 interlacing configuration on the quadratic half-line with one pair $(x_1,y_1)$ diverging, ratio $y_1/x_1\to\alpha_1$. Bottom: the limit datum &mdash; a level-2 configuration plus a residue atom of mass $1-c^2$ parked at $\infty$ (where the weight function $\sqrt{x/(x+1/4)}$ saturates at $1$), and exponent surplus $-\log_2 c$. The atom at infinity is algebraically identical to a spherical-cap reduction with cost $\frac12\log_2\frac{1-t}{1-s}$.</figcaption></figure>
+
+<h3 id="strict-cor">14.4 The strict ladder (Corollary 7.6)</h3>
+
+<div class="thm" id="cor76"><b>Corollary 7.6.</b> For every $r\ge0$ and $0\lt s\lt1$:
+$\ \kappa_{r+1}(s)\lt\kappa_r(s)$ and $\overline\kappa_{r+1}(s)\lt\overline\kappa_r(s)$; at level one additionally $\kappa_1\lt\kappa_{\mathrm{row}}\lt\kappa_0$ and the barred versions, with $\overline\kappa_0 = B_{\mathrm{KL}}$.</div>
+
+<div class="proof">Padding with vanishing rows gives $\kappa_r(t)\le\kappa_0(t)$, so minimizing sequences for $\kappa_r(s)$ have bounded exponent; Lemma 7.5 extracts a limit datum: level $j\le r$, tuple $(a,b)$, factor $c$, with $\kappa_r(s) = \Phi_j(a,b)-\log_2c$ and $c^2(1-2\Gamma_j)\le1-s$.
+<p><i>The limit tuple has a positive terminal row.</i> If $a_{j+1} = 0$ with $j\ge1$: Proposition 7.3(1) improves the datum at the same level; re-approximating (Lemma 7.5 converse, level $\le j+1\le r$) contradicts minimality of $\kappa_r(s)$. If $j=0$ with $a_1 = 0$: then $\Gamma_j = 0$ and feasibility forces $c^2\le1-s$, so
+$$\kappa_r(s) = \Phi_0 - \log_2c \ge -\log_2c\ge-\tfrac12\log_2(1-s) \;\gt\;\kappa_0(s)\;\ge\;\kappa_r(s),$$
+a contradiction (the strict middle inequality is Step 2 of Lemma 7.4). So $a_{j+1}\gt0$.
+<p><i>Climb one level.</i> Proposition 7.3(2) appends a row: a level-$(j{+}1)$ tuple, strictly smaller exponent, strictly larger spectral value. Keep the factor $c$: the improved datum is approximable at level $j+1\le r+1$ if $c=1$, at level $j+2\le r+1$ if $c\lt1$ (Lemma 7.5 converse; note $c\lt1$ forced $j\lt r$, so the level budget holds), and its strict spectral margin survives approximation. Hence $\kappa_{r+1}(s)\lt\kappa_r(s)$.
+<p><i>Barred versions.</i> The same compactification shows each $\kappa_r$ is lower semicontinuous on $(0,1)$ with $\kappa_r(t)\le\kappa_0(t)\to0$ as $t\downarrow0$, so the cap objective $t\mapsto\kappa_r(t)+\tfrac12\log_2\frac{1-t}{1-s}$ attains its infimum on $[0,s]$; it is not attained at $t=0$ (same linear-vs-quadratic comparison as Step 4 of Lemma 7.4). Evaluating $\kappa_{r+1}(t^{*})\lt\kappa_r(t^{*})$ at a positive minimizing threshold $t^{*}$ of the level-$r$ cap objective gives $\overline\kappa_{r+1}(s)\lt\overline\kappa_r(s)$. Level-one statements: Lemma 7.4. <span class="qed">&#8718;</span></div>
+
+<p>Numerically the ladder starts, at the kissing threshold $s = \frac12$: $0.4009442$ (classical) $\to 0.39731$ (one-row) $\to 0.39674$ (level 1) $\to 0.39660$ (level 2), the last being the paper's headline kissing improvement $\tau_n\le2^{(0.39661+o(1))n}$ &mdash; see Fig. 4 and §<a class="secref" href="#validation">18</a>, check 15. The rungs shrink geometrically but never stop; where the ladder converges as $r\to\infty$ is precisely the subject of the next section.</p>
