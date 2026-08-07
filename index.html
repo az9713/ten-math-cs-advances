@@ -77,7 +77,7 @@
 
 <h2 id="what">§1 What this site is</h2>
 
-<p>In 2025 OpenAI published <a href="https://openai.com/index/ten-advances-in-mathematics-and-theoretical-computer-science/"><i>Ten Advances in Mathematics and Theoretical Computer Science</i></a> — a 249-page survey of ten recent theorems, one independent chapter each, written for readers already inside each result's subfield. The PDF is not redistributed here; download it from that link. Every page range cited below refers to that PDF.</p>
+<p>OpenAI published <a href="https://openai.com/index/ten-advances-in-mathematics-and-theoretical-computer-science/"><i>Ten Advances in Mathematics and Theoretical Computer Science</i></a> — a 249-page survey of ten recent theorems, one independent chapter each, written for readers already inside each result's subfield. The PDF is not redistributed here; download it from that link. Every page range cited below refers to that PDF.</p>
 
 <p>This site rewrites each chapter for a different reader: <b>someone with a PhD in <i>some</i> field, but not <i>this</i> field</b>. A probabilist reading the operator-algebras chapter; a systems person reading the lattice chapter. The premise: such a reader's gap is <i>vocabulary and objects</i>, not reasoning ability — so the explainers hold the logic at full rigor and rebuild only the objects, from a "common graduate core" baseline (linear algebra, basic measure theory and probability, basic group and point-set topology, asymptotics, comfort with proofs).</p>
 
@@ -258,7 +258,7 @@
 <p class="chips"><span class="chip">pp. 79–95 · 17 pp</span><span class="chip">difficulty: high</span><span class="chip">24 figures</span></p>
 <div class="keyresult"><b>Result.</b> The unit group of the binary Leavitt algebra L<sub>𝔽₂</sub>(1,2) is not sofic — the first group ever shown to admit no finite permutation approximations, resolving the Gromov–Weiss soficity conjecture with no unproved stability hypotheses.</div>
 <p><b>Why it matters.</b> Whether every group is sofic was a central open question connecting group theory, dynamics, and operator algebras (Aldous–Lyons, MIP* = RE); this is the first outright counterexample, with no conditional hypotheses left standing.</p>
-<p class="small"><b>In the explainer.</b> 24 figures, 30 checks; §3 is the property-(T)/expander primer that Chapter 4 reuses; the toy box has the reader verify a permutation approximation of ℤ/nℤ by hand before soficity is defined in general.</p>
+<p class="small"><b>In the explainer.</b> 24 figures, 30 checks; §3 is the property-(T)/expander primer that Chapter 4 reuses; the entry toy verifies a permutation approximation by hand ("finite groups are sofic, exactly" — left multiplication is the approximation) before the general machinery starts.</p>
 </div>
 
 <div class="chapcard d-highest" id="c04">
@@ -266,7 +266,7 @@
 <p class="chips"><span class="chip">pp. 96–113 · 18 pp</span><span class="chip">difficulty: highest</span><span class="chip">22 figures</span></p>
 <div class="keyresult"><b>Result.</b> Infinitely many pairwise nonisomorphic, finitely generated ICC property-(T) groups Γ₀, Γ₁, … with L(Γₙ) ≅ L(Λ) — one von Neumann algebra, infinitely many groups. Disproves Connes's 1982 conjecture and answers Popa's finite-to-one question negatively, showing Popa's countability bound is sharp.</div>
 <p><b>Why it matters.</b> Connes conjectured in 1982 that a property-(T) group can be recovered from its von Neumann algebra; forty years of rigidity theory was built toward that expectation. This construction refutes it in the strongest form: infinitely many groups collapse to one algebra.</p>
-<p class="small"><b>In the explainer.</b> 22 figures, ~25 exact checks; leans on Chapter 3 §3 for property (T) and expanders, and builds the binary-carry/odometer toy — two different compact group structures on the same coin-flip probability space — before the general machine.</p>
+<p class="small"><b>In the explainer.</b> 22 figures, ~25 exact checks; leans on Chapter 3 §3 for property (T) and expanders, and builds the binary-carry toy — two different compact group structures on the same probability space — before the general machine.</p>
 </div>
 
 <div class="chapcard d-med" id="c05">
@@ -329,7 +329,7 @@
 <li><b>Numeric validation with real computed numbers</b>, and the runnable listing shipped in-page — see the per-card highlights in <a class="secref" href="#chapters">§4</a> (dimension 6×10⁶ in Chapter 1, exact rational Kravchuk/Weyl checks in Chapter 2, the full F₁₆ construction in Chapter 7, the 49×49 exact Jacobian in Chapter 5, the computed doily in Chapter 10).</li>
 <li><b>Mechanical gates on every file</b>: LaTeX well-formedness, SVG validity, link integrity, element overlap and frame containment in a headless browser, plus a dark-mode figure audit of every figure.</li>
 <li><b>256 hand-built SVG figures across the ten chapters</b> (13 to 38 per chapter), each generated from computed data by the tracked scripts in <code>figgen/</code>, not sketched by eye.</li>
-<li><b>Offline by construction</b>: MathJax is inlined into each chapter file (~2.3 MB each), so the math renders with no CDN and no fetched scripts. This index page uses no MathJax and is a few hundred kilobytes.</li>
+<li><b>Offline by construction</b>: MathJax is inlined into each chapter file (~2.3 MB each), so the math renders with no CDN and no fetched scripts. This index page uses no MathJax and is about 40 kilobytes.</li>
 </ul>
 
 <p class="small">Scope note: the explainers contain no problem sets — a deliberate decision recorded in the build spec. The spec itself, including the per-chapter prerequisite audits these difficulty ratings come from, is <a href="implementation-plan.html">implementation-plan.html</a>.</p>
