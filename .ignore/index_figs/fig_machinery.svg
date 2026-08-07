@@ -1,0 +1,47 @@
+<figure id="fig-machinery">
+<svg viewBox="0 0 770 448" width="770" role="img" aria-label="Shared-machinery map between the chapters">
+<defs><marker id="ixah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a1f1f"/></marker><marker id="ixahd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#34687f"/></marker></defs>
+<path d="M 610 50 C 610 4, 150 4, 150 50" fill="none" stroke="#34687f" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#ixahd)"/>
+<text x="380" y="34" font-size="11" fill="#34687f" text-anchor="middle">ch. 2 §15, s → 1 limit: recovers the ch. 1 packing exponent</text>
+<rect x="45" y="52" width="210" height="54" rx="7" fill="#fffdf8" stroke="#7a1f1f" stroke-width="1.8"/>
+<text x="150.0" y="74" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">Ch. 1 — Sphere packing</text>
+<text x="150.0" y="92" font-size="10.5" fill="#666" text-anchor="middle">home of the LP-certificate spine</text>
+<rect x="505" y="52" width="210" height="54" rx="7" fill="#fffdf8" stroke="#7a1f1f" stroke-width="1.8"/>
+<text x="610.0" y="74" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">Ch. 2 — Codes</text>
+<text x="610.0" y="92" font-size="10.5" fill="#666" text-anchor="middle">Delsarte LP, second pass</text>
+<rect x="45" y="162" width="210" height="54" rx="7" fill="#fffdf8" stroke="#7a1f1f" stroke-width="1.8"/>
+<text x="150.0" y="184" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">Ch. 3 — Non-sofic group</text>
+<text x="150.0" y="202" font-size="10.5" fill="#666" text-anchor="middle">property (T) + expanders in §3</text>
+<rect x="505" y="162" width="210" height="54" rx="7" fill="#fffdf8" stroke="#8a8375" stroke-width="1.1"/>
+<text x="610.0" y="184" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">Ch. 4 — Connes rigidity</text>
+<text x="610.0" y="202" font-size="10.5" fill="#666" text-anchor="middle">reuses the §3 primer</text>
+<rect x="45" y="272" width="210" height="54" rx="7" fill="#fffdf8" stroke="#7a1f1f" stroke-width="1.8"/>
+<text x="150.0" y="294" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">Ch. 8 — Ehrhart volume</text>
+<text x="150.0" y="312" font-size="10.5" fill="#666" text-anchor="middle">lattice primer in §2</text>
+<rect x="505" y="272" width="210" height="54" rx="7" fill="#fffdf8" stroke="#8a8375" stroke-width="1.1"/>
+<text x="610.0" y="294" font-size="13" font-weight="bold" fill="#333" text-anchor="middle">Ch. 7 — CVP hardness</text>
+<text x="610.0" y="312" font-size="10.5" fill="#666" text-anchor="middle">uses lattices + codes</text>
+<line x1="255" y1="79" x2="500" y2="79" stroke="#7a1f1f" stroke-width="1.6" marker-end="url(#ixah)"/>
+<text x="377.5" y="70" font-size="11" fill="#7a1f1f" text-anchor="middle">LP certificates, reused</text>
+<line x1="255" y1="189" x2="500" y2="189" stroke="#7a1f1f" stroke-width="1.6" marker-end="url(#ixah)"/>
+<text x="377.5" y="180" font-size="11" fill="#7a1f1f" text-anchor="middle">property (T) / expander primer</text>
+<line x1="255" y1="299" x2="500" y2="299" stroke="#7a1f1f" stroke-width="1.6" marker-end="url(#ixah)"/>
+<text x="377.5" y="290" font-size="11" fill="#7a1f1f" text-anchor="middle">Blichfeldt + Minkowski, proved once</text>
+<path d="M 715 92 C 757 130, 757 240, 720 286" fill="none" stroke="#7a1f1f" stroke-width="1.6" marker-end="url(#ixah)"/>
+<text x="744" y="187" font-size="11" fill="#7a1f1f" text-anchor="middle" transform="rotate(-90 744 187)">codes primer (§§1–2)</text>
+<text x="380" y="372" font-size="11.5" fill="#666" text-anchor="middle" font-style="italic">self-contained — no shared primer:</text>
+<rect x="72.0" y="384" width="140" height="40" rx="6" fill="#fffdf8" stroke="#8a8375" stroke-width="1.1"/>
+<text x="142.0" y="401" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Ch. 5</text>
+<text x="142.0" y="416" font-size="10.5" fill="#666" text-anchor="middle">permanent bounds</text>
+<rect x="234.0" y="384" width="140" height="40" rx="6" fill="#fffdf8" stroke="#8a8375" stroke-width="1.1"/>
+<text x="304.0" y="401" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Ch. 6</text>
+<text x="304.0" y="416" font-size="10.5" fill="#666" text-anchor="middle">parallel repetition</text>
+<rect x="396.0" y="384" width="140" height="40" rx="6" fill="#fffdf8" stroke="#8a8375" stroke-width="1.1"/>
+<text x="466.0" y="401" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Ch. 9</text>
+<text x="466.0" y="416" font-size="10.5" fill="#666" text-anchor="middle">multicolor Ramsey</text>
+<rect x="558.0" y="384" width="140" height="40" rx="6" fill="#fffdf8" stroke="#8a8375" stroke-width="1.1"/>
+<text x="628.0" y="401" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">Ch. 10</text>
+<text x="628.0" y="416" font-size="10.5" fill="#666" text-anchor="middle">compactness</text>
+</svg>
+<figcaption>The shared-machinery map. Boxes with a dark-red border are primer homes; solid arrows are primers reused forward (read the source section first, or accept it as a black box); the dashed arrow is the one backward flow of a <i>result</i>: chapter 2’s s → 1 limit independently recovers chapter 1’s packing exponent. The bottom row imports nothing.</figcaption>
+</figure>

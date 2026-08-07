@@ -1,0 +1,62 @@
+<figure id="fig-atlas">
+<svg viewBox="0 0 740 402" width="740" role="img" aria-label="The ten chapters on the PDF page axis">
+<text x="30.0" y="27" font-size="11.5" fill="#333" font-weight="bold">outsider difficulty:</text>
+<rect x="148.0" y="18" width="12" height="12" rx="2" fill="#2e7d32"/>
+<text x="164.0" y="28" font-size="11.5" fill="#333">low</text>
+<rect x="200.6" y="18" width="12" height="12" rx="2" fill="#689023"/>
+<text x="216.6" y="28" font-size="11.5" fill="#333">low–med</text>
+<rect x="278.0" y="18" width="12" height="12" rx="2" fill="#b8860b"/>
+<text x="294.0" y="28" font-size="11.5" fill="#333">medium</text>
+<rect x="349.2" y="18" width="12" height="12" rx="2" fill="#c05c20"/>
+<text x="365.2" y="28" font-size="11.5" fill="#333">med–high</text>
+<rect x="432.8" y="18" width="12" height="12" rx="2" fill="#a83232"/>
+<text x="448.8" y="28" font-size="11.5" fill="#333">high</text>
+<rect x="491.6" y="18" width="12" height="12" rx="2" fill="#6d2a8a"/>
+<text x="507.6" y="28" font-size="11.5" fill="#333">highest</text>
+<line x1="212.0" y1="44" x2="212.0" y2="336" stroke="#e3ddd2" stroke-width="1"/>
+<text x="212.0" y="352" font-size="11" fill="#666" text-anchor="middle">3</text>
+<line x1="295.3" y1="44" x2="295.3" y2="336" stroke="#e3ddd2" stroke-width="1"/>
+<text x="295.3" y="352" font-size="11" fill="#666" text-anchor="middle">50</text>
+<line x1="383.9" y1="44" x2="383.9" y2="336" stroke="#e3ddd2" stroke-width="1"/>
+<text x="383.9" y="352" font-size="11" fill="#666" text-anchor="middle">100</text>
+<line x1="472.5" y1="44" x2="472.5" y2="336" stroke="#e3ddd2" stroke-width="1"/>
+<text x="472.5" y="352" font-size="11" fill="#666" text-anchor="middle">150</text>
+<line x1="561.2" y1="44" x2="561.2" y2="336" stroke="#e3ddd2" stroke-width="1"/>
+<text x="561.2" y="352" font-size="11" fill="#666" text-anchor="middle">200</text>
+<line x1="648.0" y1="44" x2="648.0" y2="336" stroke="#e3ddd2" stroke-width="1"/>
+<text x="648.0" y="352" font-size="11" fill="#666" text-anchor="middle">249</text>
+<line x1="212.0" y1="336" x2="648.0" y2="336" stroke="#333" stroke-width="1.2"/>
+<text x="430.0" y="370" font-size="11.5" fill="#333" text-anchor="middle">PDF page</text>
+<text x="204" y="64.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">1</tspan><tspan fill="#666" font-size="11"> · Sphere packing</tspan></text>
+<rect x="212.0" y="52.0" width="44.3" height="16" rx="2.5" fill="#b8860b"/>
+<text x="656" y="64.5" font-size="11" fill="#666">26 pp · 32 figs</text>
+<text x="204" y="92.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">2</tspan><tspan fill="#666" font-size="11"> · Binary + spherical codes</tspan></text>
+<rect x="258.1" y="80.0" width="86.8" height="16" rx="2.5" fill="#a83232"/>
+<text x="656" y="92.5" font-size="11" fill="#666">50 pp · 34 figs</text>
+<text x="204" y="120.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">3</tspan><tspan fill="#666" font-size="11"> · Non-sofic group</tspan></text>
+<rect x="346.7" y="108.0" width="28.4" height="16" rx="2.5" fill="#a83232"/>
+<text x="656" y="120.5" font-size="11" fill="#666">17 pp · 24 figs</text>
+<text x="204" y="148.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">4</tspan><tspan fill="#666" font-size="11"> · Connes rigidity</tspan></text>
+<rect x="376.8" y="136.0" width="30.1" height="16" rx="2.5" fill="#6d2a8a"/>
+<text x="656" y="148.5" font-size="11" fill="#666">18 pp · 22 figs</text>
+<text x="204" y="176.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">5</tspan><tspan fill="#666" font-size="11"> · Permanent bounds</tspan></text>
+<rect x="408.7" y="164.0" width="69.1" height="16" rx="2.5" fill="#b8860b"/>
+<text x="656" y="176.5" font-size="11" fill="#666">40 pp · 29 figs</text>
+<text x="204" y="204.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">6</tspan><tspan fill="#666" font-size="11"> · Parallel repetition</tspan></text>
+<rect x="479.6" y="192.0" width="49.6" height="16" rx="2.5" fill="#a83232"/>
+<text x="656" y="204.5" font-size="11" fill="#666">29 pp · 29 figs</text>
+<text x="204" y="232.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">7</tspan><tspan fill="#666" font-size="11"> · CVP hardness</tspan></text>
+<rect x="531.0" y="220.0" width="62.0" height="16" rx="2.5" fill="#c05c20"/>
+<text x="656" y="232.5" font-size="11" fill="#666">36 pp · 38 figs</text>
+<text x="204" y="260.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">8</tspan><tspan fill="#666" font-size="11"> · Ehrhart volume</tspan></text>
+<rect x="594.8" y="248.0" width="16.0" height="16" rx="2.5" fill="#a83232"/>
+<text x="656" y="260.5" font-size="11" fill="#666">10 pp · 13 figs</text>
+<text x="204" y="288.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">9</tspan><tspan fill="#666" font-size="11"> · Multicolor Ramsey</tspan></text>
+<rect x="612.6" y="276.0" width="10.6" height="16" rx="2.5" fill="#2e7d32"/>
+<text x="656" y="288.5" font-size="11" fill="#666">7 pp · 15 figs</text>
+<text x="204" y="316.5" font-size="12" fill="#333" text-anchor="end"><tspan font-weight="bold">10</tspan><tspan fill="#666" font-size="11"> · Compactness + degeneracy</tspan></text>
+<rect x="625.0" y="304.0" width="23.0" height="16" rx="2.5" fill="#689023"/>
+<text x="656" y="316.5" font-size="11" fill="#666">14 pp · 20 figs</text>
+</svg>
+<figcaption>The survey on its own page axis: one bar per chapter, from first to last PDF page, colored by outsider difficulty and annotated with chapter length and the explainer’s figure count. Pages 3–249; 256 figures in total.</figcaption>
+</figure>

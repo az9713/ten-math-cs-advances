@@ -68,10 +68,13 @@ The chapters are live on GitHub Pages — click a title below. (GitHub itself wo
 render a raw `.html` file, so read them at these links rather than through the file
 list.) They are also self-contained: download one and it works offline.
 
-## Status — chapters complete
+**Start at the index:** <https://az9713.github.io/ten-math-cs-advances/> — one page
+with all ten results at a glance, significance, difficulty ratings, and a map of
+which machinery is shared between chapters.
 
-All ten chapters are finished and verified. The cross-chapter index page is
-still to come.
+## Status — complete
+
+All ten chapters plus the cross-chapter index page are finished and verified.
 
 | Ch | Topic | PDF pp. | Figures | Status |
 |----|-------|---------|---------|--------|
@@ -89,21 +92,21 @@ still to come.
 The build spec these were written against is also live:
 [implementation-plan.html](https://az9713.github.io/ten-math-cs-advances/implementation-plan.html).
 
-**Still missing:** the planned index artifact — one page showing all ten results at a
-glance with significance, difficulty ratings, and a map of which machinery is shared
-between chapters.
-
 No problem sets in any chapter; that was a deliberate scope decision.
 
 ## Layout
 
 ```
+index.html              the cross-chapter index — results at a glance, difficulty
+                        ratings, shared-machinery map (serves at the Pages root)
 ch0*.html               the deliverables — open any one directly in a browser
 implementation-plan.html  the full spec these were built against
 figgen/
   chNN_figs.py          figure data + the machine checks for that chapter
   chNN_build.py         assembler: splices part files with generated SVGs
   chNN_figlib.py        per-chapter SVG helpers
+  index_build.py        generates the index page's two overview figures and
+                        assembles index.html
   inline_mathjax.py     bundles MathJax into a finished chapter (sha384-verified)
   strip_mathjax.py      inverse; produces a checkable copy, since the 2.1 MB
                         bundle defeats the static checkers

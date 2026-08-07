@@ -9,6 +9,8 @@ Ten advances in mathematics and theoretical computer science _ OpenAI_files/
 .ignore/*
 !.ignore/ch*_parts/
 !.ignore/ch*_figs/
+!.ignore/index_parts/
+!.ignore/index_figs/
 
 __pycache__/
 *.bak

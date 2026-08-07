@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ten Advances in Mathematics and Theoretical Computer Science — index of explainers</title>
+<style>
+  :root{ --fg:#1a1a1a; --muted:#555; --accent:#7a1f1f; --rule:#ddd; --box:#f6f4ef;
+         --toy:#2a7d2a; --toybg:#f1f7f1; --notebg:#fdf7e3; --noterule:#e3d27a; --card:#ffffff;
+         --codebg:#f3f1ec; --btnbg:#ffffff; --pagebg:#ffffff; }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:#e8e5df; --muted:#a49e92; --accent:#d98a6a; --rule:#3a3630; --box:#232019;
+           --toy:#7fbf8f; --toybg:#1d241d; --notebg:#2a2617; --noterule:#6a5d2a; --card:#f6f4ef;
+           --codebg:#2a2723; --btnbg:#232019; --pagebg:#161513; }
+  }
+  body{ background:var(--pagebg); }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ max-width: 50rem; margin: 2.5rem auto; padding: 0 1.25rem 6rem;
+        font: 16px/1.65 Georgia, 'Times New Roman', serif; color:var(--fg); counter-reset: fig; }
+  h1{ font-size: 1.9rem; line-height:1.2; margin:.2rem 0 .2rem; }
+  h2{ font-size:1.35rem; margin:2.4rem 0 .6rem; border-bottom:2px solid var(--accent); padding-bottom:.2rem; }
+  h3{ font-size:1.1rem; margin:1.6rem 0 .4rem; color:var(--accent); }
+  .sub{ color:var(--muted); font-style:italic; margin-top:0; }
+  code{ font-family: ui-monospace,'SFMono-Regular',Consolas,monospace; font-size:.92em; background:var(--codebg); padding:.05rem .25rem; border-radius:3px; }
+  a{ color:var(--accent); }
+  table{ border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; }
+  th,td{ border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top; }
+  th{ background:var(--box); }
+  .tablewrap{ overflow-x:auto; }
+  figure{ margin:1.5rem 0; text-align:center; counter-increment: fig; }
+  figure > svg{ background:var(--card); border:1px solid var(--rule); border-radius:6px; max-width:100%; height:auto; }
+  figcaption{ color:var(--muted); font-size:.9rem; font-style:italic; margin-top:.4rem; }
+  figcaption::before{ content:"Fig. " counter(fig) ". "; font-weight:bold; font-style:normal; color:var(--accent); }
+  figure svg text{ font-family:"STIX Two Math",STIXGeneral,"Times New Roman",Georgia,serif; }
+  figure svg text.v{ font-style:italic; }
+  .note{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; margin:1rem 0; border-radius:4px; font-size:.92rem; }
+  .toy{ background:var(--toybg); border-left:4px solid var(--toy); padding:.6rem .9rem; margin:1rem 0; border-radius:0 4px 4px 0; }
+  .toy b{ color:var(--toy); }
+  .keyresult{ background:var(--notebg); border:1px solid var(--noterule); padding:.5rem .9rem; border-radius:4px; margin:.6rem 0; }
+  .toc{ background:var(--box); padding:.8rem 1.2rem; border-radius:6px; font-size:.95rem; }
+  .toc ul{ list-style:none; padding-left:.3rem; margin:.3rem 0; } .toc a{ color:var(--accent); text-decoration:none; }
+  .small{ font-size:.88rem; color:var(--muted); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+  .secref{ color:var(--accent); text-decoration:none; border-bottom:1px dotted #b98; }
+  .secref:hover{ border-bottom:1px solid var(--accent); }
+  .chapcard{ background:var(--box); border:1px solid var(--rule); border-radius:6px; padding: .2rem 1rem .8rem; margin:1.2rem 0; }
+  .chapcard h3{ margin-top:.8rem; }
+  .chapcard h3 a{ text-decoration:none; }
+  .chapcard h3 a:hover{ text-decoration:underline; }
+  .chips{ margin:.2rem 0 .6rem; }
+  .chip{ display:inline-block; background:var(--card); border:1px solid var(--rule); border-radius:999px;
+         padding:.1rem .6rem; margin:0 .35rem .35rem 0; font-size:.8rem; color:#333; }
+  @media (prefers-color-scheme: dark){ .chip{ color:#333; } }
+  .d-low{ border-left:4px solid #2e7d32; }
+  .d-lowmed{ border-left:4px solid #689023; }
+  .d-med{ border-left:4px solid #b8860b; }
+  .d-medhigh{ border-left:4px solid #c05c20; }
+  .d-high{ border-left:4px solid #a83232; }
+  .d-highest{ border-left:4px solid #6d2a8a; }
+</style>
+</head>
+<body>
+
+<h1>Ten Advances in Mathematics and Theoretical Computer Science</h1>
+<p class="sub">The index — ten rigorous explainers, and the whole survey at a glance: results, significance, difficulty for outsiders, and the machinery the chapters share.</p>
+
+<nav class="toc">
+<b>Contents</b>
+<ul>
+<li><a href="#what">§1 What this site is</a></li>
+<li><a href="#glance">§2 The ten results at a glance</a></li>
+<li><a href="#machinery">§3 Shared machinery — what reuses what</a></li>
+<li><a href="#chapters">§4 The ten chapters — result, significance, and what each explainer adds</a></li>
+<li><a href="#method">§5 How the explainers were built and verified</a></li>
+</ul>
+</nav>
+
+<h2 id="what">§1 What this site is</h2>
+
+<p>In 2025 OpenAI published <a href="https://openai.com/index/ten-advances-in-mathematics-and-theoretical-computer-science/"><i>Ten Advances in Mathematics and Theoretical Computer Science</i></a> — a 249-page survey of ten recent theorems, one independent chapter each, written for readers already inside each result's subfield. The PDF is not redistributed here; download it from that link. Every page range cited below refers to that PDF.</p>
+
+<p>This site rewrites each chapter for a different reader: <b>someone with a PhD in <i>some</i> field, but not <i>this</i> field</b>. A probabilist reading the operator-algebras chapter; a systems person reading the lattice chapter. The premise: such a reader's gap is <i>vocabulary and objects</i>, not reasoning ability — so the explainers hold the logic at full rigor and rebuild only the objects, from a "common graduate core" baseline (linear algebra, basic measure theory and probability, basic group and point-set topology, asymptotics, comfort with proofs).</p>
+
+<p>Each explainer is a single self-contained HTML file: open it offline, no network, and read end to end. Every formula in every chapter was verified against the <i>rendered</i> PDF page before the chapter was marked done. This index page links to all ten; the full build specification is also live as <a href="implementation-plan.html">implementation-plan.html</a>, and the source lives at <a href="https://github.com/az9713/ten-math-cs-advances">github.com/az9713/ten-math-cs-advances</a>.</p>
+
+<div class="note"><b>What "difficulty" means here.</b> The rating on each chapter is <i>outsider difficulty</i>: the estimated load on a reader with a PhD outside the chapter's field, taken from the build spec's prerequisite audit — how many objects sit above the common graduate core and how foreign they are. It rates the object gap, not the reader, and not the depth of the original proof.</div>
+
+<h2 id="glance">§2 The ten results at a glance</h2>
+
+<p>Fig. 1 lays the whole survey out on its own page axis: each bar is a chapter, drawn from its first PDF page to its last, colored by outsider difficulty, and annotated with its length and the number of figures its explainer carries. Two things are visible at once: the survey's mass sits in the middle (Chapters 2, 5, and 7 are 50, 40, and 36 pages), and the two gentlest entry points (Chapters 9 and 8) sit at the very end of the PDF.</p>
+
+<!--FIG:atlas-->
+
+<p>The table gives one line per result. Every chapter title is a link to its live explainer page; the same links appear on the cards in <a class="secref" href="#chapters">§4</a>.</p>
+
+<div class="tablewrap"><table>
+<tr><th>Ch</th><th>Explainer</th><th>The result in one line</th><th>PDF pp.</th><th>Difficulty</th><th>Figs</th></tr>
+<tr><td>1</td><td><a href="ch01-sphere-packing.html">Sphere packing (Cohn–Elkies rate)</a></td><td>The exact exponential rate of the Cohn–Elkies LP — and the first improvement to the general sphere-packing exponent since 1978.</td><td>3–28</td><td>medium</td><td>32</td></tr>
+<tr><td>2</td><td><a href="ch02-binary-spherical-codes.html">Binary &amp; spherical codes</a></td><td>First improvements since 1977/1978 to the general upper-bound exponents for binary and spherical codes, at every distance.</td><td>29–78</td><td>high (longest)</td><td>34</td></tr>
+<tr><td>3</td><td><a href="ch03-nonsofic-group.html">A non-sofic group</a></td><td>The first group ever shown to admit no finite permutation approximations.</td><td>79–95</td><td>high</td><td>24</td></tr>
+<tr><td>4</td><td><a href="ch04-connes-rigidity.html">Connes rigidity counterexample</a></td><td>One von Neumann algebra, infinitely many property-(T) groups — Connes's 1982 rigidity conjecture disproved.</td><td>96–113</td><td>highest</td><td>22</td></tr>
+<tr><td>5</td><td><a href="ch05-permanent-bounds.html">Permanent circuit/formula bounds</a></td><td>The permanent needs Ω(n² log log n) circuit gates — the first superlinear-in-n² bound — and Ω(n⁴/log n) formula leaves.</td><td>114–153</td><td>medium</td><td>29</td></tr>
+<tr><td>6</td><td><a href="ch06-quantum-parallel-repetition.html">Quantum parallel repetition</a></td><td>Exponential-decay parallel repetition for <b>every</b> entangled two-player game — open since ≈2004.</td><td>154–182</td><td>high</td><td>29</td></tr>
+<tr><td>7</td><td><a href="ch07-cvp-hardness.html">CVP hardness to factor n<sup>1/400</sup></a></td><td>Approximating the closest lattice vector within n<sup>1/400</sup> is NP-hard — proved without the PCP theorem.</td><td>183–218</td><td>medium–high</td><td>38</td></tr>
+<tr><td>8</td><td><a href="ch08-ehrhart-volume.html">Ehrhart volume conjecture</a></td><td>Ehrhart's 1964 conjecture: vol(K) ≤ (n+1)ⁿ/n! for a convex body whose barycenter is its unique interior lattice point — sharp.</td><td>219–228</td><td>high (dense)</td><td>13</td></tr>
+<tr><td>9</td><td><a href="ch09-multicolor-ramsey.html">Multicolor Ramsey Rₖ(3)</a></td><td>Rₖ(3) = k<sup>Θ(k)</sup> — the first super-exponential lower bound on multicolor triangle Ramsey numbers.</td><td>229–235</td><td>low</td><td>15</td></tr>
+<tr><td>10</td><td><a href="ch10-compactness-degeneracy.html">Compactness &amp; degeneracy</a></td><td>Two extremal-graph-theory conjectures of Erdős–Simonovits and Erdős, both refuted by explicit bipartite constructions.</td><td>236–249</td><td>low–medium</td><td>20</td></tr>
+</table></div>
+
+<div class="toy"><b>Where to start.</b> Chapter 9 (low difficulty, 7 pages of source) was the calibration chapter and is the gentlest full pass through the template — start there to learn how the explainers work. The paired chapters are best read in order: 1 before 2 (the LP-certificate spine), 3 before 4 (the property-(T) primer), 8 before 7 (the lattice primer). Chapters 5, 6, 9, and 10 stand alone. The hardest single climb is Chapter 4.</div>
+
+<h2 id="machinery">§3 Shared machinery — what reuses what</h2>
+
+<p>The ten results are independent, but their explainers are not: four pieces of machinery were written once, in the chapter that needs them first, and reused by reference. Fig. 2 maps every such dependency. Solid arrows are primers flowing forward ("read the source section first, or accept it as a black box"); the dashed arrow is the one place a <i>result</i> flows backward — Chapter 2's spherical-code bound independently recovers Chapter 1's sphere-packing exponent in a limit, a genuine cross-check between two chapters of the survey.</p>
+
+<!--FIG:machinery-->
+
+<p>The four reused pieces, with their home sections:</p>
+
+<ul>
+<li><b>LP certificates (Delsarte / Cohn–Elkies)</b> — built across Chapter 1, which is spent entirely inside the Cohn–Elkies linear program. Chapter 2 runs the same certificate logic a second time, on Delsarte's LP for codes; by then the reader reads LP certificates as a practiced language.</li>
+<li><b>Codes (Hamming and spherical)</b> — Chapter 2 §§1–2 defines binary and spherical codes from scratch; Chapter 7's nearest-codeword and syndrome-decoding corollaries lean on the same vocabulary.</li>
+<li><b>Property (T) and expanders</b> — Chapter 3 §3 is a standalone primer (written for the non-soficity proof's expander machinery); Chapter 4's rigidity construction reuses it directly.</li>
+<li><b>Lattices in ℝⁿ</b> — Chapter 8 §2 builds the lattice primer with Blichfeldt's and Minkowski's theorems proved in full; Chapter 7's CVP chapter reuses it (and Chapter 1's packing problem echoes it).</li>
+</ul>
+
+<p>Chapters 5, 6, 9, and 10 import nothing from their siblings — each is fully self-contained.</p>
+
+<h2 id="chapters">§4 The ten chapters — result, significance, and what each explainer adds</h2>
+
+<p>One card per chapter, in PDF order. The <b>Result</b> box states the theorem as the build spec records it (each claim traceable to the card's PDF page range); <b>Why it matters</b> places it; <b>In the explainer</b> says what the artifact itself does beyond the paper. The colored left edge of each card encodes the difficulty rating from <a class="secref" href="#glance">§2</a>.</p>
+
+<div class="chapcard d-med" id="c01">
+<h3><a href="ch01-sphere-packing.html">Ch. 1 — High-dimensional sphere packing</a></h3>
+<p class="chips"><span class="chip">pp. 3–28 · 26 pp</span><span class="chip">difficulty: medium</span><span class="chip">32 figures</span></p>
+<div class="keyresult"><b>Result.</b> The Cohn–Elkies linear program's exact exponential rate: LP<sub>d</sub><sup>1/d</sup> → √e/(2π). Consequence: sphere-packing density Δ<sub>d</sub> ≤ 2<sup>−(0.6044…+o(1))d</sup> — the <b>first improvement to the general sphere-packing exponent since Kabatianskii–Levenshtein 1978</b> (0.5990…), plus a matching lower bound showing no Cohn–Elkies function can do better, and the asymptotic solution of the Fourier sign-uncertainty problem (radii (1/π+o(1))√d).</div>
+<p><b>Why it matters.</b> The upper-bound exponent for packing density in high dimension had not moved in 45 years, and the Cohn–Elkies LP is the method behind the celebrated dimension-8 and dimension-24 solutions. This chapter both improves the exponent and closes the question of how far that method can ever go.</p>
+<p class="small"><b>In the explainer.</b> 32 figures; a 46-check machine battery; the numeric-validation section runs the Cohn–Elkies rate out to dimension 6×10⁶. Home of the LP-certificate spine that Chapter 2 reuses.</p>
+</div>
+
+<div class="chapcard d-high" id="c02">
+<h3><a href="ch02-binary-spherical-codes.html">Ch. 2 — Binary and spherical codes</a></h3>
+<p class="chips"><span class="chip">pp. 29–78 · 50 pp</span><span class="chip">difficulty: high (longest)</span><span class="chip">34 figures</span></p>
+<div class="keyresult"><b>Result.</b> First improvements since 1977/1978 to the general asymptotic upper-bound exponents for binary codes (beating the optimized McEliece–Rodemich–Rumsey–Welch bound for every fixed relative distance 0 &lt; δ &lt; 1/2) and spherical codes (beating optimized Kabatianskii–Levenshtein for every 0 &lt; s &lt; 1). The s → 1 limit independently recovers Chapter 1's sphere-packing exponent.</div>
+<p><b>Why it matters.</b> The MRRW and Kabatianskii–Levenshtein bounds were the textbook frontier of coding theory for nearly five decades; this is the first strict improvement at every distance, and its limiting case cross-checks Chapter 1 by an independent route.</p>
+<p class="small"><b>In the explainer.</b> 34 figures; a 19-check exact battery that verifies the imported Kravchuk/Weyl representation-theory formulas in exact rational arithmetic and certifies the paper's kissing-number exponent 0.39661 from explicit five-parameter tuples. §§1–2 are the codes primer reused by Chapter 7; §15's s → 1 limit re-derives Chapter 1's exponent in-page.</p>
+</div>
+
+<div class="chapcard d-high" id="c03">
+<h3><a href="ch03-nonsofic-group.html">Ch. 3 — A non-sofic group</a></h3>
+<p class="chips"><span class="chip">pp. 79–95 · 17 pp</span><span class="chip">difficulty: high</span><span class="chip">24 figures</span></p>
+<div class="keyresult"><b>Result.</b> The unit group of the binary Leavitt algebra L<sub>𝔽₂</sub>(1,2) is not sofic — the first group ever shown to admit no finite permutation approximations, resolving the Gromov–Weiss soficity conjecture with no unproved stability hypotheses.</div>
+<p><b>Why it matters.</b> Whether every group is sofic was a central open question connecting group theory, dynamics, and operator algebras (Aldous–Lyons, MIP* = RE); this is the first outright counterexample, with no conditional hypotheses left standing.</p>
+<p class="small"><b>In the explainer.</b> 24 figures, 30 checks; §3 is the property-(T)/expander primer that Chapter 4 reuses; the toy box has the reader verify a permutation approximation of ℤ/nℤ by hand before soficity is defined in general.</p>
+</div>
+
+<div class="chapcard d-highest" id="c04">
+<h3><a href="ch04-connes-rigidity.html">Ch. 4 — Connes's rigidity conjecture disproved</a></h3>
+<p class="chips"><span class="chip">pp. 96–113 · 18 pp</span><span class="chip">difficulty: highest</span><span class="chip">22 figures</span></p>
+<div class="keyresult"><b>Result.</b> Infinitely many pairwise nonisomorphic, finitely generated ICC property-(T) groups Γ₀, Γ₁, … with L(Γₙ) ≅ L(Λ) — one von Neumann algebra, infinitely many groups. Disproves Connes's 1982 conjecture and answers Popa's finite-to-one question negatively, showing Popa's countability bound is sharp.</div>
+<p><b>Why it matters.</b> Connes conjectured in 1982 that a property-(T) group can be recovered from its von Neumann algebra; forty years of rigidity theory was built toward that expectation. This construction refutes it in the strongest form: infinitely many groups collapse to one algebra.</p>
+<p class="small"><b>In the explainer.</b> 22 figures, ~25 exact checks; leans on Chapter 3 §3 for property (T) and expanders, and builds the binary-carry/odometer toy — two different compact group structures on the same coin-flip probability space — before the general machine.</p>
+</div>
+
+<div class="chapcard d-med" id="c05">
+<h3><a href="ch05-permanent-bounds.html">Ch. 5 — Circuit and formula lower bounds for the permanent</a></h3>
+<p class="chips"><span class="chip">pp. 114–153 · 40 pp</span><span class="chip">difficulty: medium</span><span class="chip">29 figures</span></p>
+<div class="keyresult"><b>Result.</b> Division-free arithmetic circuits for per<sub>n</sub> require Ω(n² log log n) gates — the first superlinear-in-n² bound, i.e. C(per<sub>n</sub>)/n² → ∞; arithmetic formulas require Ω(n⁴/log n) leaves (previous record Ω(n³)). Both proofs use properties specific to the permanent and provably do not transfer to the determinant — itself an instructive fact.</div>
+<p><b>Why it matters.</b> Superlinear circuit lower bounds for explicit polynomials are among the hardest targets in complexity theory; budging the permanent past n² is the first movement on this front in decades, and the determinant obstruction sharpens where permanent-vs-determinant hardness actually lives.</p>
+<p class="small"><b>In the explainer.</b> 29 figures; an 11-check exact battery that re-runs the coefficient-independence construction at n = 13 — all 2,401 entries of a 49×49 Jacobian rebuilt by brute-force permanents, factored, and inverted in exact arithmetic — plus the block-cancellation identity in exact ℤ[ζ]; 7 Import boxes mark exactly which external theorems are taken on faith.</p>
+</div>
+
+<div class="chapcard d-high" id="c06">
+<h3><a href="ch06-quantum-parallel-repetition.html">Ch. 6 — Quantum parallel repetition</a></h3>
+<p class="chips"><span class="chip">pp. 154–182 · 29 pp</span><span class="chip">difficulty: high</span><span class="chip">29 figures</span></p>
+<div class="keyresult"><b>Result.</b> For every finite two-player entangled game with ω*(G) = 1−ε &lt; 1: ω*(G<sup>⊗n</sup>) ≤ exp(−c·ε¹³/(ε+log|A||B|)·n) — exponential decay for <b>all</b> entangled games, open since ≈2004; previously only polynomial decay (Yuen) or exponential for special classes (anchored games, Bavarian–Vidick–Yuen). New ingredient: a postselection-stable quantum sampleability estimate.</div>
+<p><b>Why it matters.</b> Parallel repetition is the standard amplification tool for interactive proofs and nonlocal games; whether it decays exponentially against entangled players was the field's basic open question for two decades. This settles it in full generality.</p>
+<p class="small"><b>In the explainer.</b> 29 figures, 34 checks; the CHSH game is worked as the entry toy; only <b>one</b> Import box in the whole chapter — everything else is proved in-page from the graduate core.</p>
+</div>
+
+<div class="chapcard d-medhigh" id="c07">
+<h3><a href="ch07-cvp-hardness.html">Ch. 7 — Hardness of the closest vector problem</a></h3>
+<p class="chips"><span class="chip">pp. 183–218 · 36 pp</span><span class="chip">difficulty: medium–high</span><span class="chip">38 figures</span></p>
+<div class="keyresult"><b>Result.</b> A deterministic polynomial-time reduction from 3SAT proves NP-hardness of approximating Euclidean CVP within n<sup>1/400</sup> — polynomial-factor hardness <b>without the PCP theorem</b> and without assuming the Projection Games Conjecture. Same construction: n<sup>1/200</sup> for nearest codeword and syndrome decoding, n<sup>1/(200p)</sup> for every ℓ<sub>p</sub>.</div>
+<p><b>Why it matters.</b> CVP hardness underpins the security story of lattice cryptography, and polynomial-factor NP-hardness had only been known through heavy PCP machinery or unproved conjectures. A direct, deterministic, PCP-free reduction changes what the hardness rests on.</p>
+<p class="small"><b>In the explainer.</b> 38 figures (the project maximum) and a 44-check battery; §17 executes the entire 3SAT→lattice construction on a toy formula in F₁₆ — 3,120 unknowns, 8,949 equations, rank computed exactly — and re-proves the paper's parameter inequalities at N = 100 in exact integer arithmetic. Reuses Chapter 8 §2's lattice primer and Chapter 2's codes vocabulary.</p>
+</div>
+
+<div class="chapcard d-high" id="c08">
+<h3><a href="ch08-ehrhart-volume.html">Ch. 8 — Ehrhart's volume conjecture</a></h3>
+<p class="chips"><span class="chip">pp. 219–228 · 10 pp</span><span class="chip">difficulty: high (dense)</span><span class="chip">13 figures</span></p>
+<div class="keyresult"><b>Result.</b> A convex body K ⊂ ℝⁿ whose barycenter is its unique interior lattice point has vol(K) ≤ (n+1)ⁿ/n! — sharp (the centered dilated simplex attains it). Open since Ehrhart 1964; previous best was 4ⁿe<sup>−cn</sup>, exponentially far from sharp.</div>
+<p><b>Why it matters.</b> A 60-year-old conjecture at the meeting point of convex geometry and lattice-point counting, solved sharply — the extremal body is identified, not just bounded. The previous best bound was off by an exponential factor.</p>
+<p class="small"><b>In the explainer.</b> 13 figures; §2 is the lattice primer with Blichfeldt's and Minkowski's theorems proved in full (reused by Chapter 7); the n = 1 case is checked by hand as the entry toy.</p>
+</div>
+
+<div class="chapcard d-low" id="c09">
+<h3><a href="ch09-multicolor-ramsey.html">Ch. 9 — Multicolor Ramsey numbers</a></h3>
+<p class="chips"><span class="chip">pp. 229–235 · 7 pp</span><span class="chip">difficulty: low</span><span class="chip">15 figures</span></p>
+<div class="keyresult"><b>Result.</b> R<sub>k</sub>(3) ≥ (ck<sup>1/3</sup>/log k)<sup>k</sup>, establishing R<sub>k</sub>(3) = k<sup>Θ(k)</sup> — the first super-exponential lower bound, settling a question with Erdős prize money attached (&dollar;100: is lim R<sub>k</sub>(3)<sup>1/k</sup> finite? Answer: no). Corollary: Shannon capacity of graphs with independence number 2 is unbounded.</div>
+<p><b>Why it matters.</b> The classical constructions (sum-free sets, Schur colorings) cap out at exponential growth c<sup>k</sup>; whether multicolor triangle Ramsey numbers grow faster was open long enough for Erdős to put money on it. The recursive-coloring idea that breaks the barrier is genuinely new.</p>
+<p class="small"><b>In the explainer.</b> 15 figures; the calibration chapter — it set the template depth, prose-to-formalism ratio, and figure density for the other nine. Gentlest full pass through the format; start here.</p>
+</div>
+
+<div class="chapcard d-lowmed" id="c10">
+<h3><a href="ch10-compactness-degeneracy.html">Ch. 10 — Compactness and degeneracy conjectures</a></h3>
+<p class="chips"><span class="chip">pp. 236–249 · 14 pp</span><span class="chip">difficulty: low–medium</span><span class="chip">20 figures</span></p>
+<div class="keyresult"><b>Result.</b> Two counterexamples: (i) a finite family 𝓕 of connected bipartite graphs with cycles where ex(n,𝓕) = O(n<sup>4/3−1/48</sup>) yet every single member F has ex(n,F) = Ω(n<sup>4/3</sup>) — killing the Erdős–Simonovits compactness conjecture; (ii) a connected bipartite <b>2-degenerate</b> H with ex(n,H) ≥ cn<sup>3/2+ε</sup> — killing Erdős's degeneracy conjecture at r = 2.</div>
+<p><b>Why it matters.</b> Both conjectures shaped how extremal graph theorists expected Turán exponents to behave — that a family is only as hard as its easiest member, and that sparse (degenerate) graphs have small exponents. Both expectations fail, by construction.</p>
+<p class="small"><b>In the explainer.</b> 20 figures; the W(2) generalized quadrangle (the "doily") behind the construction is computed directly in-page rather than cited.</p>
+</div>
+
+<h2 id="method">§5 How the explainers were built and verified</h2>
+
+<p>All ten chapters follow one four-layer template, fixed during the Chapter 9 calibration pass: <b>Layer 0</b>, the problem in plain terms with no new notation; <b>Layer 1</b>, the precise statement with every symbol defined just before first use; <b>Layer 2</b>, the proof architecture as an SVG dependency diagram; <b>Layer 3</b>, the full walkthrough with just-in-time background boxes. Standing devices throughout: a toy instance before every general definition, analogy anchors with declared break-points, and an honest-scope statement of what the reader will and will not be able to do afterward.</p>
+
+<p>The verification standard, uniformly applied:</p>
+
+<ul>
+<li><b>Every provable step is proved.</b> Anything reachable from the graduate core is written out in full; genuinely deep external theorems are stated precisely in boxed "Import N" form with citations, so the reader always knows exactly which black boxes the argument rests on. Chapter 6 needs one import; Chapter 5, seven.</li>
+<li><b>Formulas verified against the rendered PDF page</b> — not against extracted text, which flattens sub- and superscripts — before a chapter is marked done.</li>
+<li><b>Numeric validation with real computed numbers</b>, and the runnable listing shipped in-page — see the per-card highlights in <a class="secref" href="#chapters">§4</a> (dimension 6×10⁶ in Chapter 1, exact rational Kravchuk/Weyl checks in Chapter 2, the full F₁₆ construction in Chapter 7, the 49×49 exact Jacobian in Chapter 5, the computed doily in Chapter 10).</li>
+<li><b>Mechanical gates on every file</b>: LaTeX well-formedness, SVG validity, link integrity, element overlap and frame containment in a headless browser, plus a dark-mode figure audit of every figure.</li>
+<li><b>256 hand-built SVG figures across the ten chapters</b> (13 to 38 per chapter), each generated from computed data by the tracked scripts in <code>figgen/</code>, not sketched by eye.</li>
+<li><b>Offline by construction</b>: MathJax is inlined into each chapter file (~2.3 MB each), so the math renders with no CDN and no fetched scripts. This index page uses no MathJax and is a few hundred kilobytes.</li>
+</ul>
+
+<p class="small">Scope note: the explainers contain no problem sets — a deliberate decision recorded in the build spec. The spec itself, including the per-chapter prerequisite audits these difficulty ratings come from, is <a href="implementation-plan.html">implementation-plan.html</a>.</p>
+
+<hr>
+<p class="small">Ten explainers · 256 figures · one source survey (OpenAI, 249 pp.) · built with the <i>rigorous-explainer</i> workflow · <a href="https://github.com/az9713/ten-math-cs-advances">repository</a></p>
+
+</body>
+</html>
