@@ -1,0 +1,62 @@
+<svg class="setupfig" viewBox="0 0 640 192" width="100%" role="img" aria-label="Matchings summed by the minor-sum polynomial">
+<text x="160.0" y="20.0" font-size="12" fill="#7a1f1f" text-anchor="middle" font-weight="bold">three of the 240 matchings summed by M&#8324;,&#8325;,&#8323;</text>
+<circle cx="40.0" cy="44.0" r="4" fill="#333"/>
+<circle cx="40.0" cy="74.0" r="4" fill="#333"/>
+<circle cx="40.0" cy="104.0" r="4" fill="#333"/>
+<circle cx="40.0" cy="134.0" r="4" fill="#333"/>
+<circle cx="104.0" cy="38.0" r="4" fill="#2e6da4"/>
+<circle cx="104.0" cy="65.0" r="4" fill="#2e6da4"/>
+<circle cx="104.0" cy="92.0" r="4" fill="#2e6da4"/>
+<circle cx="104.0" cy="119.0" r="4" fill="#2e6da4"/>
+<circle cx="104.0" cy="146.0" r="4" fill="#2e6da4"/>
+<line x1="44.0" y1="44.0" x2="100.0" y2="38.0" stroke="#c0392b" stroke-width="2"/>
+<line x1="44.0" y1="74.0" x2="100.0" y2="92.0" stroke="#c0392b" stroke-width="2"/>
+<line x1="44.0" y1="134.0" x2="100.0" y2="146.0" stroke="#c0392b" stroke-width="2"/>
+<text x="28.0" y="36.0" font-size="9.5" fill="#555" text-anchor="middle">rows</text>
+<text x="116.0" y="30.0" font-size="9.5" fill="#555" text-anchor="middle">cols</text>
+<circle cx="145.0" cy="44.0" r="4" fill="#333"/>
+<circle cx="145.0" cy="74.0" r="4" fill="#333"/>
+<circle cx="145.0" cy="104.0" r="4" fill="#333"/>
+<circle cx="145.0" cy="134.0" r="4" fill="#333"/>
+<circle cx="209.0" cy="38.0" r="4" fill="#2e6da4"/>
+<circle cx="209.0" cy="65.0" r="4" fill="#2e6da4"/>
+<circle cx="209.0" cy="92.0" r="4" fill="#2e6da4"/>
+<circle cx="209.0" cy="119.0" r="4" fill="#2e6da4"/>
+<circle cx="209.0" cy="146.0" r="4" fill="#2e6da4"/>
+<line x1="149.0" y1="74.0" x2="205.0" y2="65.0" stroke="#2e6da4" stroke-width="2"/>
+<line x1="149.0" y1="104.0" x2="205.0" y2="119.0" stroke="#2e6da4" stroke-width="2"/>
+<line x1="149.0" y1="134.0" x2="205.0" y2="38.0" stroke="#2e6da4" stroke-width="2"/>
+<text x="133.0" y="36.0" font-size="9.5" fill="#555" text-anchor="middle">rows</text>
+<text x="221.0" y="30.0" font-size="9.5" fill="#555" text-anchor="middle">cols</text>
+<circle cx="250.0" cy="44.0" r="4" fill="#333"/>
+<circle cx="250.0" cy="74.0" r="4" fill="#333"/>
+<circle cx="250.0" cy="104.0" r="4" fill="#333"/>
+<circle cx="250.0" cy="134.0" r="4" fill="#333"/>
+<circle cx="314.0" cy="38.0" r="4" fill="#2e6da4"/>
+<circle cx="314.0" cy="65.0" r="4" fill="#2e6da4"/>
+<circle cx="314.0" cy="92.0" r="4" fill="#2e6da4"/>
+<circle cx="314.0" cy="119.0" r="4" fill="#2e6da4"/>
+<circle cx="314.0" cy="146.0" r="4" fill="#2e6da4"/>
+<line x1="254.0" y1="44.0" x2="310.0" y2="119.0" stroke="#2a7d2a" stroke-width="2"/>
+<line x1="254.0" y1="104.0" x2="310.0" y2="92.0" stroke="#2a7d2a" stroke-width="2"/>
+<line x1="254.0" y1="134.0" x2="310.0" y2="65.0" stroke="#2a7d2a" stroke-width="2"/>
+<text x="238.0" y="36.0" font-size="9.5" fill="#555" text-anchor="middle">rows</text>
+<text x="326.0" y="30.0" font-size="9.5" fill="#555" text-anchor="middle">cols</text>
+<text x="160.0" y="178.0" font-size="11" fill="#555" text-anchor="middle">weight of a matching: &#8719; x&#8342;,&#966;(j) over its d edges</text>
+<text x="505.0" y="20.0" font-size="12" fill="#7a1f1f" text-anchor="middle" font-weight="bold">&#8706;/&#8706;x&#8322;&#8322; freezes one edge</text>
+<circle cx="430.0" cy="44.0" r="4" fill="#333"/>
+<circle cx="430.0" cy="74.0" r="4" fill="#c0392b"/>
+<circle cx="430.0" cy="104.0" r="4" fill="#333"/>
+<circle cx="430.0" cy="134.0" r="4" fill="#333"/>
+<circle cx="494.0" cy="38.0" r="4" fill="#2e6da4"/>
+<circle cx="494.0" cy="65.0" r="4" fill="#c0392b"/>
+<circle cx="494.0" cy="92.0" r="4" fill="#2e6da4"/>
+<circle cx="494.0" cy="119.0" r="4" fill="#2e6da4"/>
+<circle cx="494.0" cy="146.0" r="4" fill="#2e6da4"/>
+<line x1="434.0" y1="74.0" x2="490.0" y2="65.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="460.0" y="60.0" font-size="9.5" fill="#c0392b" text-anchor="middle">(i,a) fixed</text>
+<line x1="434.0" y1="44.0" x2="490.0" y2="38.0" stroke="#bbb" stroke-width="1.6" stroke-dasharray="4 3"/>
+<line x1="434.0" y1="104.0" x2="490.0" y2="119.0" stroke="#bbb" stroke-width="1.6" stroke-dasharray="4 3"/>
+<line x1="434.0" y1="134.0" x2="490.0" y2="146.0" stroke="#bbb" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="505.0" y="178.0" font-size="11" fill="#555" text-anchor="middle">q = d&#8722;1 other rows, injected into columns &#8800; a</text>
+</svg>

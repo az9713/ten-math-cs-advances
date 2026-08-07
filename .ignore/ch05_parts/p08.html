@@ -1,0 +1,111 @@
+<h2 id="minorsums">7. Minor sums and their small critical loci (Proposition 5.1)</h2>
+
+<p>The interface at the end of <a class="secref" href="#gradient">&sect;6</a> asks for a polynomial with <i>many variables but a small critical locus</i>. This section supplies the raw material: a polynomial summing all small matchings of a rectangular variable matrix, whose critical-point equations turn out to be so rigid that fixing a modest list of symmetric quantities pins the variables down to finitely many possibilities.</p>
+
+<h3 id="minordef">7.1 The minor-sum polynomial and its derivative structure</h3>
+
+<div class="def"><b>Definition (minor sum $M_{t,s,d}$; power sums $p_B$).</b> Let $X = (x_{ia})$ be a $t \times s$ matrix of variables and $1 \le d \le \min\{t,s\}$. For $I \subseteq [t]$ and $J \subseteq [s]$ write $X_{I,J}$ for the submatrix with rows $I$ and columns $J$. Define
+$$M_{t,s,d}(X) \;=\; \sum_{\substack{I \subseteq [t] \\ |I| = d}}\; \sum_{\substack{J \subseteq [s] \\ |J| = d}} \operatorname{per}(X_{I,J}). \tag{5.1}$$
+Every term of $\operatorname{per}(X_{I,J})$ chooses a bijection $I \to J$, so equivalently $M_{t,s,d}$ sums the weights $\prod_{j \in I} x_{j,\varphi(j)}$ over all $d$-element row sets $I$ and all <b>injections</b> $\varphi : I \hookrightarrow [s]$: its monomials are precisely the matchings of $d$ row&ndash;column pairs (Fig.&nbsp;11). It is homogeneous of degree $d$ in $ts$ variables. For every nonempty $B \subseteq [t]$, define the <b>column power sum</b>
+$$p_B(X) = \sum_{a=1}^{s} \prod_{i \in B} x_{ia},$$
+the sum over columns of the product of that column's entries in rows $B$. There are $\rho = 2^t - 1$ of them, shared by all columns: $p_{\{j\}}$ is the sum of row $j$, and $p_{\{j,j'\}}$ adds up, over columns, the events &ldquo;rows $j$ and $j'$ both pick this column.&rdquo;</div>
+
+<figure><!--FIG:fig_minorsum--><figcaption>$M_{t,s,d}$ for $t=4$, $s=5$, $d=3$: a sample of the size-$3$ matchings between $4$ row vertices and $5$ column vertices whose weights the polynomial adds up (three of the $\binom{4}{3}\cdot 5\cdot 4\cdot 3 = 240$ monomials are drawn; edge $(j, \varphi(j))$ carries weight $x_{j,\varphi(j)}$). Differentiating by $x_{ia}$ (right panel) freezes the pair $(i,a)$ and leaves a size-$(d{-}1)$ matching problem on the remaining rows, avoiding column $a$ &mdash; the combinatorial core of the critical-point equations.</figcaption></figure>
+
+<p>Differentiating a matching monomial with respect to $x_{ia}$ keeps exactly the matchings using the pair $(i,a)$ and deletes that pair from them. What remains is a set $I$ of $q := d-1$ <i>other</i> rows, injected into the columns <i>other than</i> $a$:
+$$\frac{\partial M_{t,s,d}}{\partial x_{ia}}(X) \;=\; \sum_{\substack{I \subseteq [t]\setminus\{i\} \\ |I| = q}}\; \sum_{\varphi : I \hookrightarrow [s]\setminus\{a\}} \;\prod_{j \in I} x_{j, \varphi(j)}. \tag{7.a}$$</p>
+
+<h3 id="d2warmup">7.2 Warm-up at $d = 2$: row sums freeze the columns</h3>
+
+<p>The mechanism is transparent one degree early. Fix a column $a$, abbreviate $u_j = x_{ja}$ and $p_j = p_{\{j\}}(X)$. At $d = 2$ ($q = 1$), formula (7.a) reads: the second pair uses any row $j \ne i$ and any column except $a$, and summing a single row $j$ over all columns except $a$ gives $p_j - u_j$. So
+$$\frac{\partial M_{t,s,2}}{\partial x_{ia}} = \sum_{j \ne i} (p_j - u_j).$$
+At a critical point set $v_j = p_j - u_j$. Subtracting the equations for two rows $i \ne i'$ leaves $v_{i'} - v_i = 0$: all $v_j$ are equal, say to $v$. Each equation then reads $(t-1)v = 0$, and since $t \ge 2$ and we are in characteristic zero, $v = 0$. Hence $u_j = p_j$ for every $j$: <i>once the $t$ row sums are fixed, every entry of every column is completely determined.</i> The critical locus is squeezed into the $\rho$-dimensional world of the shared parameters &mdash; that is the phenomenon Proposition 5.1 generalizes. For $d \ge 3$ the row sums alone no longer suffice; the fix is to also record the first $d - 2$ <b>elementary symmetric functions</b> of each column, at a price of $s(d-2)$ extra parameters.</p>
+
+<h3 id="mobius">7.3 Injectivity by inclusion&ndash;exclusion on the partition lattice</h3>
+
+<p>The obstacle to using (7.a) directly is the injectivity of $\varphi$: rows must choose <i>distinct</i> columns, which couples them. Inclusion&ndash;exclusion over collision patterns decouples the sum into the shared quantities $p_B$ and the entries of the single column $a$. The bookkeeping runs over set partitions.</p>
+
+<div class="def"><b>Definition (partitions and their M&ouml;bius weights).</b> For a finite set $I$, let $\Pi(I)$ be the set of partitions of $I$ into nonempty blocks. For $\pi \in \Pi(I)$ define
+$$\mu(\pi) = \prod_{B \in \pi} (-1)^{|B|-1}\,(|B|-1)!\,,$$
+the M&ouml;bius coefficient of the partition lattice [Rot64]. A partition $\pi$ <b>refines</b> a partition $\pi'$ if every block of $\pi$ sits inside a block of $\pi'$. For a map $\varphi$ on $I$, its <b>fiber partition</b> groups elements by common image.</div>
+
+<p>Temporarily treat all $p_B$ as free parameters and define, for a column vector $u = (u_1,\dots,u_t)$,
+$$Q_i(u; p) \;=\; \sum_{\substack{I \subseteq [t]\setminus\{i\} \\ |I| = q}}\; \sum_{\pi \in \Pi(I)} \mu(\pi) \prod_{B \in \pi}\Bigl(p_B - \prod_{j \in B} u_j\Bigr). \tag{5.3}$$</p>
+
+<div class="lem"><b>Lemma C (the derivative in shared coordinates).</b> With $u = X_{\bullet a} = (x_{1a},\dots,x_{ta})$ and $p = p(X)$,
+$$\frac{\partial M_{t,s,d}}{\partial x_{ia}}(X) \;=\; Q_i(X_{\bullet a};\, p(X)). \tag{5.4}$$</div>
+
+<div class="proof">
+<p>For any nonempty block $B$, by definition of $p_B$,
+$$p_B(X) - \prod_{j \in B} x_{ja} \;=\; \sum_{c \ne a} \prod_{j \in B} x_{jc}:$$
+the block's rows all choose one common column, and that column is not $a$. Multiplying these expressions over the blocks $B \in \pi$ and expanding the product of sums enumerates all maps $\varphi : I \to [s]\setminus\{a\}$ that are <i>constant on every block of $\pi$</i>, each contributing its matching weight $\prod_{j\in I} x_{j,\varphi(j)}$. A given map $\varphi$ is constant on the blocks of $\pi$ exactly when $\pi$ refines the fiber partition of $\varphi$. So, exchanging the order of summation, the total coefficient of a fixed $\varphi$ in the inner double sum of (5.3) is
+$$\sum_{\substack{\pi \in \Pi(I)\\ \pi \text{ refines the fiber partition of } \varphi}} \mu(\pi).$$
+Because $\mu$ is a product over blocks, this sum factors over the fibers $C$ of $\varphi$: within each fiber one sums $\mu$ over all partitions of $C$, independently. The factor for one fiber $C$ is
+$$\sum_{\pi \in \Pi(C)} \prod_{B \in \pi} (-1)^{|B|-1}(|B|-1)! \;=\; \sum_{\sigma \in S_C} \operatorname{sgn}(\sigma). \tag{7.b}$$
+<p>To see (7.b): decompose a permutation $\sigma$ of $C$ into disjoint cycles and record the partition of $C$ into cycle supports. A block $B$ can be arranged into a cycle in $(|B|-1)!$ ways (fix one element; order the rest), and a cycle of length $\ell$ has sign $(-1)^{\ell-1}$ (it is a product of $\ell - 1$ transpositions), so $\operatorname{sgn}(\sigma) = \prod_B (-1)^{|B|-1}$ over its cycle blocks. Summing over all $\sigma$ grouped by their cycle-support partition gives exactly the left side.</p>
+<p>The right side of (7.b) is $1$ when $|C| = 1$ (only the identity) and $0$ when $|C| \ge 2$: fixing any transposition $\tau$ of two elements of $C$, the involution $\sigma \mapsto \tau\sigma$ pairs each even permutation with an odd one, so the signs cancel. Hence the coefficient of $\varphi$ is $1$ if all fibers are singletons &mdash; i.e. $\varphi$ is an injection &mdash; and $0$ otherwise. Only injections survive, and summing over $I$ recovers exactly the right side of (7.a). <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_partitions--><figcaption>The identity (7.b) at $|C| = 3$: the five partitions of $\{1,2,3\}$ (columns) with their M&ouml;bius weights $\mu$, against the six permutations of $S_3$ grouped by cycle-support partition. Each block of size $\ell$ packs $(\ell-1)!$ cycles of sign $(-1)^{\ell-1}$; the weights $1{\cdot}\mu = +1, -1, -1, -1, +2$ total $0 = \sum_{\sigma \in S_3}\operatorname{sgn}(\sigma)$, so a $3$-element collision fiber contributes nothing &mdash; only injections survive the M&ouml;bius filter.</figcaption></figure>
+
+<h3 id="highdeg">7.4 The top-degree part is symmetric</h3>
+
+<p>Grade $Q_i$ by degree in the column variables $u$, treating every $p_B$ as a degree-zero coefficient. In (5.3), a fixed $q$-set $I$ reaches column-degree $q$ only by taking the term $-\prod_{j\in B} u_j$ from <i>every</i> block factor; the result is $\pm\prod_{j \in I} u_j$ regardless of $\pi$, with total coefficient
+$$(-1)^{q} \sum_{\pi \in \Pi(I)} \prod_{B\in\pi} (|B|-1)! \;=\; (-1)^q\, q!\,,$$
+where the equality counts all permutations of $I$ by their cycle-support partitions exactly as in (7.b), this time without signs: prescribing the partition and arranging each block into a cycle in $(|B|-1)!$ ways enumerates each of the $q!$ permutations once. Write $\alpha = (-1)^q q!$ and let $e_j(u)$ denote the $j$-th <b>elementary symmetric polynomial</b> in $u_1,\dots,u_t$ (the sum of all $j$-fold products of distinct coordinates, $e_0 = 1$). Summing $\prod_{j\in I}u_j$ over all $q$-subsets $I \subseteq [t]\setminus\{i\}$ gives $e_q$ of the coordinates with $u_i$ omitted (written $e_q(u_1,\dots,\widehat{u_i},\dots,u_t)$), so
+$$Q_i(u;p) \;=\; \alpha\, e_q(u_1,\dots,\widehat{u_i},\dots,u_t) \;+\; R_i(u;p),
+\qquad \deg_u R_i \le q-1. \tag{5.5}$$
+The remainder $R_i$ may involve the $p_B$ arbitrarily, but the top part is a pure, parameter-free symmetric function &mdash; the leverage for everything that follows.</p>
+
+<h3 id="prop51">7.5 The dimension bound</h3>
+
+<div class="prop"><b>Proposition 5.1.</b> If $3 \le d \le \min\{t,s\}$, then
+$$\dim \operatorname{Crit}(M_{t,s,d}) \;\le\; 2^t - 1 + s(d-2). \tag{5.2}$$</div>
+
+<div class="proof">
+<p>Put $q = d - 1$, so $2 \le q \lt t$ (indeed $d \le t$ gives $q \le t-1$). The strategy: enlarge the critical locus into an <b>incidence set</b> where the $p_B$ are freed from their definitions, then show that after fixing the $\rho = 2^t-1$ freed parameters and $q - 1 = d-2$ elementary symmetric functions per column, only finitely many column vectors remain.</p>
+
+<p><b>Step 1: the incidence algebra.</b> Introduce independent coordinates $p_B$ ($\emptyset \ne B \subseteq [t]$) and, for every column index $a \in [s]$, an independent column vector $u^{(a)} = (u^{(a)}_1,\dots,u^{(a)}_t)$. Consider the affine set cut out by all the critical-point equations in shared coordinates, with coordinate ring
+$$A \;=\; \mathbb{C}\bigl[p_B,\, u^{(a)}_i\bigr] \big/ \bigl(Q_i(u^{(a)}; p) : i \in [t],\ a \in [s]\bigr).$$
+A genuine critical point $X$ of $M_{t,s,d}$ yields a point of this set by taking $u^{(a)} = X_{\bullet a}$ and $p_B = p_B(X)$ &mdash; that is Lemma C. The incidence set is generally larger (its $p_B$ need not equal the actual power sums), but an upper bound on the larger set bounds the critical locus (Step 4).</p>
+
+<p><b>Step 2: two identities for elementary symmetric polynomials.</b> Fix one column and suppress its index; write $\kappa = t - q \gt 0$. We claim
+$$e_q(u_1,\dots,\widehat{u_i},\dots,u_t) = \sum_{j=0}^{q} (-u_i)^{q-j} e_j(u),
+\qquad
+\sum_{i=1}^{t} e_q(u_1,\dots,\widehat{u_i},\dots,u_t) = \kappa\, e_q(u). \tag{7.c}$$
+For the first: in the generating-polynomial identity $\prod_{h \ne i}(1 + u_h z) = \prod_{h}(1+u_h z)\big/(1 + u_i z)$, expand $1/(1+u_i z) = \sum_{r \ge 0}(-u_i)^r z^r$ (an identity of formal power series) and compare coefficients of $z^q$: the left side gives $e_q(\widehat{u_i})$, the right gives $\sum_{j} e_j(u)(-u_i)^{q-j}$. For the second: a squarefree monomial $\prod_{j \in S}u_j$ with $|S| = q$ appears in $e_q(\widehat{u_i})$ exactly when $i \notin S$, i.e. for $t - q = \kappa$ values of $i$.</p>
+
+<p><b>Step 3: every high power reduces.</b> In $A$, the incidence equations say $\alpha\,e_q(u_1,\dots,\widehat{u_i},\dots,u_t) + R_i(u;p) = 0$ for every $i$ (by (5.5)). Sum over $i$ and apply the second identity of (7.c):
+$$\kappa\,\alpha\, e_q(u) + \sum_{h=1}^{t} R_h(u;p) = 0. \tag{7.d}$$
+Now adjoin the base parameters: let
+$$\mathcal{B} = \mathbb{C}\bigl[p_B,\, z_{a,j} : \emptyset \ne B \subseteq [t],\ a \in [s],\ 1 \le j \lt q\bigr]$$
+be a polynomial ring, mapped into $A$ by $p_B \mapsto p_B$ and $z_{a,j} \mapsto e_j(u^{(a)})$. (The map need not be injective; relations only help, shrinking dimension.) Take the $i$-th incidence equation, expand its top term by the first identity of (7.c), replace $e_j(u)$ by $z_{a,j}$ for $1 \le j \lt q$, and eliminate $e_q(u)$ using (7.d). Using $\alpha(-1)^q = q!$, the result is the relation in $A$:
+$$\kappa\, q!\; u_i^{\,q} \;=\; -\kappa\alpha \sum_{j=1}^{q-1} (-u_i)^{q-j} z_{a,j} \;-\; \kappa\, R_i(u;p) \;+\; \sum_{h=1}^{t} R_h(u;p). \tag{5.6}$$
+Every term on the right has degree $\le q-1$ in the chosen column's coordinates (the $z$'s and $p$'s count as coefficients). Since $\kappa \gt 0$ and $q! \ne 0$ in characteristic zero, the leading coefficient is invertible: (5.6) rewrites $u_i^q$ as a $\mathcal{B}$-combination of strictly lower column-degree monomials. Fig.&nbsp;13 shows the resulting exponent staircase.</p>
+
+<figure><!--FIG:fig_reduction--><figcaption>The reduction (5.6) as a rewriting system at $q = 3$, two coordinates of one column shown: any monomial exponent vector with some $u_i$-exponent $\ge q$ (grey region) is replaced by combinations of vectors of strictly smaller total column degree (arrows). The process terminates, leaving only exponents in the box $\{0,\dots,q{-}1\}^t$ &mdash; finitely many monomials per column &mdash; so the whole coordinate ring is a finitely generated module over the parameter ring $\mathcal{B}$.</figcaption></figure>
+
+<p>Applying the rewriting to every coordinate of every column whenever an exponent reaches $q$, and noting that each application strictly decreases that column's total degree (so the process terminates), every element of $A$ becomes a $\mathcal{B}$-linear combination of the finitely many monomials
+$$\prod_{a=1}^{s}\prod_{i=1}^{t}\bigl(u^{(a)}_i\bigr)^{r_{a,i}}, \qquad 0 \le r_{a,i} \lt q.$$
+Hence <b>$A$ is a finite $\mathcal{B}$-module</b> &mdash; the algebraic form of &ldquo;fixing the parameters leaves finitely many columns.&rdquo;</p>
+
+<p><b>Step 4: count dimensions and descend.</b> Let $K$ be the kernel of $\mathcal{B} \to A$. Then $A$ is a finite module over $\mathcal{B}/K$, so by Import 1(c,a,b)
+$$\dim A = \dim(\mathcal{B}/K) \le \dim \mathcal{B} = \rho + s(q-1).$$
+Finally, return to the actual critical locus. Sending $p_B \mapsto p_B(X)$ and $u^{(a)}_i \mapsto x_{ia}$ defines, by Lemma C, a surjection from $A$ onto the coordinate ring $\mathbb{C}[X]/(\partial M_{t,s,d}/\partial x_{ia})$ of $\operatorname{Crit}(M_{t,s,d})$ &mdash; surjective because the images of the $u^{(a)}_i$ are all the matrix variables. Surjections cannot increase Krull dimension (Import 1(b)), and the dimension of an affine zero set is the Krull dimension of its coordinate ring (Import 1(a)). Therefore
+$$\dim\operatorname{Crit}(M_{t,s,d}) \le \dim A \le \rho + s(q-1) = 2^t - 1 + s(d-2).$$ <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="toy"><b>Reality check on the exponents.</b> The bound (5.2) is useful because the critical locus of a general degree-$d$ polynomial in $ts$ variables could a priori have dimension as large as $ts - 1$. For the parameters eventually chosen in <a class="secref" href="#circuitproof">&sect;9</a> ($t = 4d$, $s \approx n/2$, $d \approx \tfrac14\log_2 n$), the bound reads $2^{4d} - 1 + s(d-2) \lesssim n + \tfrac{1}{4}ts$: <i>tiny</i> compared to the $ts$ variables. The term $2^t - 1$ is why $t$ must stay logarithmic in $n$ &mdash; the count of power sums explodes exponentially in the block height.</div>
+
+<h3 id="cor52">7.6 Disjoint blocks: dimensions add</h3>
+
+<div class="prop"><b>Corollary 5.2.</b> Suppose $3 \le d \le \min\{t,s\}$, let $X^{(1)},\dots,X^{(b)}$ be $b$ matrices of $t \times s$ variables, all $bts$ variables distinct, and let $\lambda_1,\dots,\lambda_b \in \mathbb{C}^{\times}$ (nonzero scalars). Then
+$$P(X) = \sum_{h=1}^{b} \lambda_h\, M_{t,s,d}\bigl(X^{(h)}\bigr)
+\;\Longrightarrow\;
+\dim\operatorname{Crit}(P) \le b\,\bigl(2^t - 1 + s(d-2)\bigr).$$</div>
+
+<div class="proof">
+<p>For a variable in block $X^{(h)}$, the corresponding partial derivative of $P$ is $\lambda_h$ times the same derivative of $M_{t,s,d}(X^{(h)})$ &mdash; the other blocks do not contain that variable. Since $\lambda_h \ne 0$, the derivative vanishes iff the block's own derivative does. The critical equations therefore split by block, and
+$$\operatorname{Crit}(P) = \prod_{h=1}^{b} \operatorname{Crit}\bigl(M_{t,s,d}(X^{(h)})\bigr)$$
+as a Cartesian product inside the partitioned variable space. Dimensions of products of complex affine algebraic sets add (Import 1(d)), so Proposition 5.1 applied to each factor gives the bound. <span class="qed">&#8718;</span></p>
+</div>

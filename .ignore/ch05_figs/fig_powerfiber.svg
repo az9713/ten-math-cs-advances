@@ -1,0 +1,48 @@
+<svg class="setupfig" viewBox="0 0 640 222" width="100%" role="img" aria-label="Computed fiber of the power-sum gradient">
+<circle cx="95.0" cy="92.0" r="2.5" fill="#333"/>
+<line x1="33.0" y1="92.0" x2="157.0" y2="92.0" stroke="#bbb" stroke-width="1"/>
+<line x1="95.0" y1="30.0" x2="95.0" y2="154.0" stroke="#bbb" stroke-width="1"/>
+<circle cx="121.0" cy="92.0" r="4" fill="#c0392b"/>
+<circle cx="82.0" cy="69.5" r="4" fill="#c0392b"/>
+<circle cx="82.0" cy="114.5" r="4" fill="#c0392b"/>
+<polyline points="121.0,92.0 82.0,69.5 82.0,114.5 121.0,92.0" fill="none" stroke="#e8b7b0" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="95.0" y="170.0" font-size="11.5" fill="#333" text-anchor="middle">roots of z&#179; = a&#8321; = 1</text>
+<circle cx="255.0" cy="92.0" r="2.5" fill="#333"/>
+<line x1="193.0" y1="92.0" x2="317.0" y2="92.0" stroke="#bbb" stroke-width="1"/>
+<line x1="255.0" y1="30.0" x2="255.0" y2="154.0" stroke="#bbb" stroke-width="1"/>
+<circle cx="300.0" cy="66.0" r="4" fill="#c0392b"/>
+<circle cx="210.0" cy="66.0" r="4" fill="#c0392b"/>
+<circle cx="255.0" cy="144.0" r="4" fill="#c0392b"/>
+<polyline points="300.0,66.0 210.0,66.0 255.0,144.0 300.0,66.0" fill="none" stroke="#e8b7b0" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="255.0" y="170.0" font-size="11.5" fill="#333" text-anchor="middle">roots of z&#179; = a&#8322; = 8i</text>
+<text x="480.0" y="24.0" font-size="12" fill="#7a1f1f" text-anchor="middle" font-weight="bold">the fiber: all (d&#8722;1)&#178; = 9 pairs</text>
+<circle cx="405.0" cy="60.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="403.0" cy="58.5" r="1.8" fill="#c0392b"/>
+<circle cx="407.2" cy="61.8" r="1.8" fill="#2e6da4"/>
+<circle cx="405.0" cy="112.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="403.0" cy="110.5" r="1.8" fill="#c0392b"/>
+<circle cx="407.2" cy="113.8" r="1.8" fill="#2e6da4"/>
+<circle cx="405.0" cy="164.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="403.0" cy="162.5" r="1.8" fill="#c0392b"/>
+<circle cx="407.2" cy="165.8" r="1.8" fill="#2e6da4"/>
+<circle cx="463.0" cy="60.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="461.0" cy="58.5" r="1.8" fill="#c0392b"/>
+<circle cx="465.2" cy="61.8" r="1.8" fill="#2e6da4"/>
+<circle cx="463.0" cy="112.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="461.0" cy="110.5" r="1.8" fill="#c0392b"/>
+<circle cx="465.2" cy="113.8" r="1.8" fill="#2e6da4"/>
+<circle cx="463.0" cy="164.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="461.0" cy="162.5" r="1.8" fill="#c0392b"/>
+<circle cx="465.2" cy="165.8" r="1.8" fill="#2e6da4"/>
+<circle cx="521.0" cy="60.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="519.0" cy="58.5" r="1.8" fill="#c0392b"/>
+<circle cx="523.2" cy="61.8" r="1.8" fill="#2e6da4"/>
+<circle cx="521.0" cy="112.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="519.0" cy="110.5" r="1.8" fill="#c0392b"/>
+<circle cx="523.2" cy="113.8" r="1.8" fill="#2e6da4"/>
+<circle cx="521.0" cy="164.0" r="5.5" fill="#fff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="519.0" cy="162.5" r="1.8" fill="#c0392b"/>
+<circle cx="523.2" cy="165.8" r="1.8" fill="#2e6da4"/>
+<rect x="375.0" y="36.0" width="208.0" height="152.0" fill="none" stroke="#999" stroke-width="1.1" rx="8"/>
+<text x="480.0" y="208.0" font-size="11.5" fill="#333" text-anchor="middle">9 isolated solutions of &#8711;H = a &#8804; 2<tspan baseline-shift="super" font-size="7.5">q</tspan> &#8658; q &#8805; log&#8322;9</text>
+</svg>

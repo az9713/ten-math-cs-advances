@@ -1,0 +1,26 @@
+<h2 id="validation">15. Numerical validation: ten exact checks</h2>
+
+<p>Every identity in this document that can be exercised at small parameters has been, in exact arithmetic &mdash; integers, rationals, or $\mathbb{Z}[\zeta]$ with $\zeta^2 + \zeta + 1 = 0$; no floating point anywhere. The listing below is self-contained standard-library Python; running it re-derives every claim in Fig.&nbsp;29 and prints eleven PASS lines (check 7 has two parts). Total runtime is dominated by check 7, which brute-forces $49 \times 49$ permanent-derivatives of size up to $12 \times 12$ by Ryser's formula and then eliminates the $49\times49$ integer Jacobian exactly.</p>
+
+<figure><!--FIG:fig_checks--><figcaption>The validation surface: which section each check exercises, and at which parameters. C1&ndash;C2 verify the two $4\times4$ identities of &sect;8.1/&sect;13.2 symbolically (all $24$ permutation terms). C3&ndash;C4 exercise the derivative and symmetric-function identities behind Proposition 5.1. C5 runs Lemma 6.1 end-to-end over $\mathbb{Z}[\zeta]$ at $b{=}2, t{=}d{=}3, s{=}4$, checking the permanent identity <i>and</i> all $20$ minors of $U$. C6&ndash;C7 run the formula spine's Jacobian machinery: the $5\times5$ warm-up exactly, then the full Lemma 9.1 construction at $\ell{=}3, k{=}6, m{=}7, n{=}13$ &mdash; every entry of the $49\times49$ Jacobian against the factorization (9.9), plus an exact determinant. C8&ndash;C9 verify the two theorems' bookkeeping at their thresholds $n{=}32$ and $n{=}2^{16}$; C10 the determinant's Schur compression at $n{=}7, k{=}3$ over $\mathbb{Q}$.</figcaption></figure>
+
+<div class="note"><b>What the toys do and do not validate.</b> The runs exercise the <i>mechanics</i> &mdash; every algebraic identity, cancellation, factorization, and inequality chain &mdash; at parameters far below the theorems' regimes ($n = 13$ instead of $n \ge 32$; the Lemma 9.1 toy uses the proof's actual constraints $m \le 2^\ell$, $k \le m-1$ directly, since (9.1)'s defaults only bite at $n \ge 32$). The asymptotic statements get their own exact checks at the true thresholds: C8 verifies the complete Theorem 1.2 chain at $n = 32$ ($\nu = 96$ matchings, pairwise entry-disjointness by exhaustive set comparison, $\nu m^2/4 = 11616 \ge n^4/(128\log_2 n) = 1638.4$), and C9 verifies every hypothesis and inequality of Proposition 7.1 and Theorem 1.1 at $n = 2^{16}$, where $d = 4$, $t = 16$, $b = 2048$, $m = rs = 1{,}073{,}872{,}896$, and the final bound is $\lfloor n^2/144\rfloor \cdot (\log_2\log_2 n - 3) = 29{,}826{,}161$ gates.</div>
+
+<!--LISTING-->
+
+<p>Output of the run (Python 3, seconds of wall time except check 7, which takes a few minutes):</p>
+
+<div class="codewrap"><button class="copybtn" type="button" onclick="copyCode(this)" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button><pre><code>PASS C1  per 4x4 = -8(uz+vw)+2(ps+qr)
+PASS C2  det 4x4 = 4((u-w)(q-s)-(v-z)(p-r))
+PASS C3  (5.4): dM/dx_ia == Q_i(column; power sums), all i,a
+PASS C4  (7.c): both elementary-symmetric identities
+PASS C5  Lem 6.1: per(B)=6(8*M1+M2); U-minors 48/6/0
+PASS C6  5x5: entries 2,2Gb,2Ha,GbHa; detJ=8(p1-p2)^2(q1-q2)^2
+PASS C7a (9.9): all 49x49 Jacobian entries factor as L*g*h
+PASS C7b det of the 49x49 Jacobian is nonzero
+PASS C8  packing n=32: disjoint, nu=96, sum &gt;= n^4/(128 log n)
+PASS C9  Thm 1.1 at n=2^16: (7.2) holds, k+D&lt;m, bound=29826161
+PASS C10 det Schur: [prod_T y]detX = delta*det S_comp, all T
+---
+11/11 checks pass
+</code></pre></div>

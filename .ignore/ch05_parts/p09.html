@@ -1,0 +1,91 @@
+<h2 id="specialize">8. Hiding the block sum inside one permanent (Lemma 6.1)</h2>
+
+<p>Corollary 5.2 controls the critical locus of a <i>sum of blockwise minor sums</i>. Proposition 4.3, however, insists on a single affine specialization of one permanent. This section closes the gap: it constructs a constant matrix $U$ such that bordering a variable matrix by $U$, an all-ones block, and a zero block produces a permanent equal (up to a nonzero constant) to exactly the desired block sum. The difficulty is that a permanent adds up <i>everything</i> &mdash; including cross-block matchings we do not want. The construction makes all cross-block contributions cancel, using $d$-th roots of unity.</p>
+
+<h3 id="fourbyfour">8.1 The cancellation, visible at $4 \times 4$</h3>
+
+<p>The required block-selective cancellation is already visible in a hand-checkable identity:
+$$\operatorname{per}\begin{pmatrix}
+u & v & 1 & 1\\
+w & z & 1 & 1\\
+p & q & 2 & -2\\
+r & s & 2 & -2
+\end{pmatrix}
+= -8(uz + vw) + 2(ps + qr).$$
+Expand the permanent over which two rows are matched to the first two columns (the analogue of Laplace expansion &mdash; legal for permanents with no signs to track). The complementary two rows are matched to the constant columns, contributing the permanent of a constant $2\times 2$ block; Fig.&nbsp;14 traces the three cases.</p>
+
+<figure><!--FIG:fig_fourbyfour--><figcaption>The $4\times4$ cancellation, case by case. Rows split into an upper block $\{1,2\}$ (variables $u,v,w,z$) and a lower block $\{3,4\}$ ($p,q,r,s$). If both variable-column rows come from the upper block (left), the complementary constant minor is $\operatorname{per}\bigl(\begin{smallmatrix}2&-2\\2&-2\end{smallmatrix}\bigr) = -8$; both from the lower block (middle): $\operatorname{per}\bigl(\begin{smallmatrix}1&1\\1&1\end{smallmatrix}\bigr) = 2$; one from each (right): $\operatorname{per}\bigl(\begin{smallmatrix}1&1\\2&-2\end{smallmatrix}\bigr) = -2+2 = 0$ &mdash; every mixed term dies, leaving $-8(uz{+}vw) + 2(ps{+}qr)$: a weighted sum of <i>within-block</i> permanents.</figcaption></figure>
+
+<p>This example has degree $d = 2$, so $\log_2(d-1) = 0$ and it proves nothing by itself; its role is to exhibit the target phenomenon. The general construction must reproduce the same selectivity at degree $d \approx \tfrac{1}{4}\log_2 n$ with $b$ blocks &mdash; and the ad hoc constants $\bigl(\begin{smallmatrix}1&1\\2&-2\end{smallmatrix}\bigr)$ become roots of unity.</p>
+
+<h3 id="setup61">8.2 The construction</h3>
+
+<p>Let $b, t, s \ge 1$; partition $[r]$, $r = bt$, into $b$ blocks $R_1,\dots,R_b$ of $t$ consecutive rows; and let $1 \le d \le \min\{t,s\}$. For $T \subseteq [r]$, let $\mathbf{1}_T \in \mathbb{C}^r$ be the indicator vector ($1$ on $T$, $0$ elsewhere). Fix a primitive $d$-th root of unity $\zeta = e^{2\pi i/d}$ and set
+$$\theta = (-1)^{d+1} 2^d.$$
+Define the constant matrix $U \in \mathbb{C}^{r \times (r-d)}$ by listing its columns:</p>
+<ul>
+<li><b>saturator columns:</b> for each $h \in [b]$, take $t - d$ copies of $\mathbf{1}_{R_h}$;</li>
+<li><b>filter columns:</b> for each $h = 2,\dots,b$ and each $j = 0,\dots,d-1$, take $\mathbf{1}_{R_1 \cup \dots \cup R_{h-1}} + 2\zeta^j\,\mathbf{1}_{R_h}$.</li>
+</ul>
+<p>The first family has $b(t-d)$ columns and the second $(b-1)d$, totalling $b(t-d) + (b-1)d = bt - d = r - d$ as required. (If $t = d$ the first family is empty; if $b = 1$ the second is.) Fig.&nbsp;15 draws the bordered matrix these columns live in.</p>
+
+<figure><!--FIG:fig_blockB--><figcaption>Anatomy of the specialization $B(X)$ for $b = 3$ blocks. Top-left: the $r \times s$ variable matrix $X$, rows partitioned into blocks $R_1, R_2, R_3$ of height $t$. Top-right: the constant matrix $U$ &mdash; per block, $t{-}d$ saturator columns $\mathbf{1}_{R_h}$, plus for each $h \ge 2$ a fan of $d$ filter columns $\mathbf{1}_{R_1\cup\cdots\cup R_{h-1}} + 2\zeta^j \mathbf{1}_{R_h}$. Bottom-left: an $(s{-}d)\times s$ all-ones block; bottom-right: an $(s{-}d)\times(r{-}d)$ zero block. The matrix is square of size $r + s - d$, and every nonzero permanent term takes exactly $d$ entries from $X$.</figcaption></figure>
+
+<div class="lem"><b>Lemma 6.1.</b> There are $\lambda_1,\dots,\lambda_b \in \mathbb{C}^\times$ such that for the square matrix of size $r + s - d$
+$$B(X) = \begin{pmatrix} X & U \\ \mathbf{1} & 0\end{pmatrix},
+\qquad X = (x_{ia})_{i \in [r],\, a \in [s]},$$
+(lower-left: the $(s-d)\times s$ all-ones matrix; lower-right: the $(s-d)\times(r-d)$ zero matrix), one has
+$$\operatorname{per}(B(X)) \;=\; c \sum_{h=1}^{b} \lambda_h\, M_{t,s,d}\bigl(X_{R_h, [s]}\bigr),
+\qquad c = (s-d)!\,(t-d)!\,(t!)^{b-1} \ne 0. \tag{6.1}$$
+Explicitly, $\lambda_1 = \theta^{b-1}$ and $\lambda_h = \theta^{b-h}(1+\theta)^{h-2}$ for $2 \le h \le b$. In particular $\operatorname{per}(B(X))$, a polynomial of degree $d$, is a nonzero scalar multiple of an affine specialization of $\operatorname{per}_{r+s-d}$ &mdash; the specialization fixes constants and keeps the variables $x_{ia}$.</div>
+
+<div class="proof">
+<p><b>Step 1: expand over the variable columns.</b> A permanent term of $B(X)$ is a bijection between rows and columns. The lower-right block is zero, so each of the $s-d$ lower rows must be matched into the first $s$ columns. That leaves exactly $d$ of the variable columns &mdash; call the set $J$, $|J| = d$ &mdash; for the upper rows, matched by some $d$-set $I \subseteq [r]$ of upper rows; the remaining $r - d$ upper rows (the set $I^{c}$) must take the $r-d$ columns of $U$; and the lower rows fill the remaining $s - d$ variable columns, an all-ones square block with permanent $(s-d)!$. Since the permanent has no signs, the sum factors over this three-way split:
+$$\operatorname{per}(B(X)) = (s-d)! \sum_{\substack{I \subseteq [r],\, J \subseteq [s] \\ |I| = |J| = d}} \operatorname{per}\bigl(U_{I^c, [r-d]}\bigr)\, \operatorname{per}\bigl(X_{I,J}\bigr). \tag{6.2}$$
+Everything now rides on the constant minors $\operatorname{per}(U_{I^c})$: we must show they vanish unless $I$ lies inside a single block $R_h$, and compute them when it does.</p>
+
+<p><b>Step 2: a generating algebra for all minors at once.</b> Introduce the commutative <b>square-zero algebra</b>
+$$S = \mathbb{C}[z_1,\dots,z_r]/(z_1^2,\dots,z_r^2).$$
+Its monomials $z_K = \prod_{i \in K} z_i$, indexed by subsets $K \subseteq [r]$, form a vector-space basis; any product revisiting a variable dies. The utility: for an $r \times \nu$ matrix $A$ with <b>column forms</b> $\sum_{i=1}^{r} A_{ij} z_i$, expanding the product of all column forms and keeping the coefficient of $z_K$ ($|K| = \nu$) enumerates exactly the ways to give each column a distinct row from $K$:
+$$[z_K] \prod_{j=1}^{\nu}\Bigl(\sum_{i=1}^{r} A_{ij} z_i\Bigr) = \operatorname{per}(A_{K, [\nu]}). \tag{6.3}$$
+(Choosing row $i$ twice contributes $z_i^2 = 0$; each surviving assignment is a bijection $[\nu] \to K$ weighted by its entries &mdash; the permanent. For $\nu = 0$ both sides are $1$.) So <i>one</i> product in $S$ encodes <i>all</i> the minors of $U$ simultaneously. Set, for each block,
+$$y_h = \sum_{i \in R_h} z_i.$$
+Because the $z_i$ commute and square to zero, the multinomial theorem collapses:
+$$y_h^{\,j} = j! \sum_{\substack{K \subseteq R_h \\ |K| = j}} z_K \quad (0 \le j \le t), \qquad y_h^{\,t+1} = 0. \tag{6.4}$$
+In particular $y_h^t = t!\, z_{R_h}$: the $t$-th power <b>saturates</b> the block &mdash; multiplying it by any further $z_i$ with $i \in R_h$ gives zero. Saturation is the mechanism of the whole proof: a saturated block can absorb nothing more.</p>
+
+<p><b>Step 3: the root-of-unity filter.</b> The column form of a saturator column $\mathbf{1}_{R_h}$ is $y_h$; that of a filter column $\mathbf{1}_{R_1\cup\cdots\cup R_{h-1}} + 2\zeta^j \mathbf{1}_{R_h}$ is $Y_{h-1} + 2\zeta^j y_h$, where $Y_{h-1} = y_1 + \cdots + y_{h-1}$. The classical factorization $\prod_{j=0}^{d-1}(T - \zeta^j) = T^d - 1$ (both sides are monic of degree $d$ with the same $d$ roots), homogenized with $T = A/C$ and cleared of denominators, gives the polynomial identity $\prod_{j=0}^{d-1}(A - \zeta^j C) = A^d - C^d$; applying it in the commutative ring $S$ with $A = Y_{h-1}$, $C = -2y_h$ yields
+$$\prod_{j=0}^{d-1}\bigl(Y_{h-1} + 2\zeta^j y_h\bigr) = Y_{h-1}^{\,d} - (-2y_h)^d = Y_{h-1}^{\,d} + \theta\, y_h^{\,d}. \tag{8.a}$$
+All mixed products of $Y_{h-1}$ and $y_h$ have cancelled &mdash; that is what the fan of $d$ rotated columns buys (Fig.&nbsp;16). Multiplying the column forms of <i>all</i> $r-d$ columns of $U$:
+$$\prod_{j=1}^{r-d}\Bigl(\sum_{i=1}^{r}U_{ij}z_i\Bigr) = \Bigl(\prod_{h=1}^{b} y_h^{\,t-d}\Bigr)\prod_{h=2}^{b}\bigl(Y_{h-1}^{\,d} + \theta\,y_h^{\,d}\bigr). \tag{6.5}$$</p>
+
+<figure><!--FIG:fig_roots--><figcaption>The filter (8.a) for $d = 5$: the five columns attached to block $R_h$ carry weights $2\zeta^j$, $j = 0,\dots,4$, the scaled $5$th roots of unity (left, computed positions on the circle of radius 2). Multiplying the five column forms $Y + 2\zeta^j y_h$ expands into powers $Y^{5-i}y_h^{\,i}$ weighted by $2^i e_i(\zeta^0,\dots,\zeta^4)$ (right, bar chart of the elementary symmetric values): every mixed elementary symmetric function of the roots vanishes, leaving only $Y^5$ and $2^5\zeta^{0+1+2+3+4}y_h^5 = \theta y_h^5$ &mdash; the algebraic filter that will kill cross-block matchings.</figcaption></figure>
+
+<p><b>Step 4: expand the filter product by induction on blocks.</b> For $1 \le h \le b$ set
+$$C_h = \Bigl(\prod_{g=1}^{h} y_g^{\,t-d}\Bigr)\prod_{g=2}^{h}\bigl(Y_{g-1}^{\,d} + \theta\,y_g^{\,d}\bigr),$$
+so (6.5) says the full product equals $C_b$. We claim by induction that
+$$C_h = \sum_{i=1}^{h} \lambda^{(h)}_i\, y_i^{\,t-d} \prod_{\substack{g \in [h] \\ g \ne i}} y_g^{\,t},$$
+i.e. exactly one block is left unsaturated, with weights $\lambda^{(h)}_i$. For $h=1$: $C_1 = y_1^{t-d}$ with $\lambda^{(1)}_1 = 1$. Assume the claim for $h$; by definition $C_{h+1} = C_h\, y_{h+1}^{\,t-d}\,(Y_h^{\,d} + \theta\, y_{h+1}^{\,d})$. Two contributions:</p>
+<ul>
+<li>The $\theta y_{h+1}^{\,d}$ term combines with $y_{h+1}^{t-d}$ to give $y_{h+1}^{t}$ &mdash; the new block saturates &mdash; and multiplies every old coefficient by $\theta$.</li>
+<li>In the $Y_h^{\,d}$ term, look at the $i$-th summand of $C_h$: every old block except $R_i$ is already saturated there, so any monomial of $Y_h^{\,d} = (y_1 + \cdots + y_h)^d$ containing some $y_g$ with $g \ne i$ dies against $y_g^{\,t}$ (by (6.4), $y_g^{t+1} = 0$). The only survivor is the pure power $y_i^{\,d}$ (multinomial coefficient $1$), which saturates block $i$: $y_i^{t-d}\,y_i^{\,d} = y_i^{\,t}$. The new block keeps its factor $y_{h+1}^{\,t-d}$ &mdash; it is now the unsaturated one.</li>
+</ul>
+<p>Collecting:
+$$\lambda^{(h+1)}_i = \theta\,\lambda^{(h)}_i \ (1 \le i \le h), \qquad \lambda^{(h+1)}_{h+1} = \sum_{i=1}^{h}\lambda^{(h)}_i.$$
+With $S_h = \sum_i \lambda^{(h)}_i$: $S_1 = 1$ and $S_{h+1} = \theta S_h + S_h = (1+\theta)S_h$, so $S_h = (1+\theta)^{h-1}$. Unwinding at $h = b$:
+$$\lambda_1 = \theta^{\,b-1}, \qquad \lambda_h = \theta^{\,b-h}(1+\theta)^{h-2} \quad (2 \le h \le b).$$
+All are nonzero: $\theta = \pm 2^d \ne 0$, and $|\theta| = 2^d \gt 1$ forces $1 + \theta \ne 0$. The induction and (6.5) give
+$$\prod_{j=1}^{r-d}\Bigl(\sum_{i=1}^{r}U_{ij}z_i\Bigr) = \sum_{h=1}^{b} \lambda_h\, y_h^{\,t-d} \prod_{g \ne h} y_g^{\,t}. \tag{6.6}$$</p>
+
+<p><b>Step 5: read off the minors and conclude.</b> Let $I \subseteq [r]$, $|I| = d$. By (6.3), the coefficient of $z_{I^c}$ on the left of (6.6) is $\operatorname{per}(U_{I^c,[r-d]})$. On the right, the $h$-th summand saturates every block except $R_h$ &mdash; it contains $z_{R_g}$ in full for all $g \ne h$ &mdash; so it can contribute to $z_{I^c}$ (whose complement is $I$) only if $I \subseteq R_h$. In that case (6.4) gives the coefficient $(t-d)!$ from $y_h^{\,t-d}$ (the subset $K = R_h \setminus I$) and $t!$ from each of the other $b-1$ blocks:
+$$\operatorname{per}(U_{I^c,[r-d]}) =
+\begin{cases}
+\lambda_h\,(t-d)!\,(t!)^{b-1}, & I \subseteq R_h,\\[2pt]
+0, & I \text{ meets more than one block.}
+\end{cases}$$
+Substituting into (6.2) and grouping the surviving $I$ by their block:
+$$\operatorname{per}(B(X)) = (s-d)!\,(t-d)!\,(t!)^{b-1} \sum_{h=1}^{b} \lambda_h \sum_{\substack{I \subseteq R_h,\ J \subseteq [s]\\ |I|=|J|=d}}\operatorname{per}(X_{I,J}).$$
+The inner sum is $M_{t,s,d}(X_{R_h,[s]})$ by (5.1), and the factorial prefactor $c$ is a nonzero rational number. This proves (6.1). <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="toy"><b>Toy checks (run in <a class="secref" href="#validation">&sect;15</a>).</b> (i) Taking $b = 2$, $t = s = d = 2$ gives $\theta = -4$, $\lambda_1 = \theta = -4$, $\lambda_2 = 1$, $c = 0!\,0!\,2! = 2$, recovering exactly the $4\times4$ identity of &sect;8.1: $c\lambda_1 = -8$ and $c\lambda_2 = 2$. (ii) The smallest instance with a genuine root-of-unity filter, $b=2$, $t=d=3$, $s=4$, has $\theta = (-1)^4 2^3 = 8$, $\lambda = (8, 1)$, $c = 1!\cdot 0!\cdot (3!)^1 = 6$, and &sect;15 verifies (6.1) there by exact arithmetic in $\mathbb{Z}[\zeta]$, $\zeta^2 + \zeta + 1 = 0$, including that every mixed minor of $U$ vanishes exactly.</div>

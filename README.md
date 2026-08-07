@@ -30,7 +30,7 @@ access, and read end to end.
   citation, so the reader always knows exactly which black boxes the argument rests
   on. Chapter 6, for instance, needs only one such import.
 - **Figure-dense, not wall-of-text.** 13 to 38 hand-built SVG diagrams per chapter
-  (193 across the eight finished chapters). Every
+  (222 across the nine finished chapters). Every
   abstract definition or lemma gets a picture; no long prose run goes without a
   visual. The figures are generated from data by the scripts in `figgen/`, so the
   geometry in a diagram is computed, not sketched by eye.
@@ -40,7 +40,11 @@ access, and read end to end.
   executes its entire 3SAT→lattice construction on a toy formula in F₁₆ (3120
   unknowns, 8949 equations, rank computed exactly) and re-proves the paper's
   parameter inequalities at N = 100 in exact integer arithmetic, and the
-  compactness chapter computes the W(2) generalized-quadrangle ("doily") directly.
+  compactness chapter computes the W(2) generalized-quadrangle ("doily") directly,
+  and the permanent chapter re-runs its entire coefficient-independence construction
+  at n = 13 — all 2,401 entries of a 49×49 Jacobian rebuilt by brute-force permanents,
+  factored, and inverted in exact arithmetic — plus its block-cancellation identity in
+  exact ℤ[ζ] arithmetic.
 - **Shared primers written once and reused.** Property (T) / expanders (ch. 3 §3,
   reused by ch. 4) · lattices with Blichfeldt and Minkowski proved (ch. 8 §2,
   reused by ch. 7) · LP certificates (ch. 1, reused by ch. 2).
@@ -63,7 +67,7 @@ list.) They are also self-contained: download one and it works offline.
 
 ## Status — incomplete
 
-Eight of ten chapters are finished and verified. Two have not been started, and
+Nine of ten chapters are finished and verified. One has not been started, and
 the cross-chapter index page is still to come.
 
 | Ch | Topic | PDF pp. | Figures | Status |
@@ -72,7 +76,7 @@ the cross-chapter index page is still to come.
 | 2 | Binary & spherical codes | 29–78 | — | ⬜ not started (longest chapter) |
 | 3 | [A non-sofic group](https://az9713.github.io/ten-math-cs-advances/ch03-nonsofic-group.html) | 79–95 | 24 | ✅ done |
 | 4 | [Connes rigidity counterexample](https://az9713.github.io/ten-math-cs-advances/ch04-connes-rigidity.html) | 96–113 | 22 | ✅ done |
-| 5 | Permanent circuit/formula bounds | 114–153 | — | ⬜ not started |
+| 5 | [Permanent circuit/formula bounds](https://az9713.github.io/ten-math-cs-advances/ch05-permanent-bounds.html) | 114–153 | 29 | ✅ done |
 | 6 | [Quantum parallel repetition](https://az9713.github.io/ten-math-cs-advances/ch06-quantum-parallel-repetition.html) | 154–182 | 29 | ✅ done |
 | 7 | [CVP hardness to factor n^(1/400)](https://az9713.github.io/ten-math-cs-advances/ch07-cvp-hardness.html) | 183–218 | 38 | ✅ done |
 | 8 | [Ehrhart volume conjecture](https://az9713.github.io/ten-math-cs-advances/ch08-ehrhart-volume.html) | 219–228 | 13 | ✅ done |

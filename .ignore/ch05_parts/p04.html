@@ -1,0 +1,64 @@
+<h2 id="agkit">3. A pocket algebraic-geometry kit (the imports)</h2>
+
+<p>The circuit spine converts computation into geometry, so it stands on a small number of classical facts about solution sets of polynomial equations. This section defines the objects involved, states every imported theorem precisely in a box, and proves the one geometric lemma (generic avoidance) that we can afford to prove from the imports. A reader who has met varieties before can skim to the boxes; a reader who has not needs only this section &mdash; nothing else from algebraic geometry is used anywhere in the document.</p>
+
+<h3 id="varieties">3.1 Affine algebraic sets, dimension, cones, projective space</h3>
+
+<p>An <b>affine algebraic set</b> $V \subseteq \mathbb{C}^m$ is the set of common solutions of finitely many polynomial equations $g_1 = \dots = g_r = 0$. Its <b>coordinate ring</b> is $\mathbb{C}[x_1,\dots,x_m]/I$ where $I$ is the ideal of all polynomials vanishing on $V$; intuitively, the ring of polynomial functions on $V$. The <b>dimension</b> $\dim V$ is, informally, the largest number of parameters that can vary freely on some component of $V$ &mdash; a point has dimension $0$, a curve $1$, a hypersurface in $\mathbb{C}^m$ dimension $m-1$. Formally it is the <b>Krull dimension</b> of the coordinate ring: the length $\ell$ of the longest strictly increasing chain $\mathfrak{p}_0 \subsetneq \mathfrak{p}_1 \subsetneq \cdots \subsetneq \mathfrak{p}_\ell$ of prime ideals. The <b>codimension</b> of $V$ in $\mathbb{C}^m$ is $m - \dim V$. We adopt the convention $\dim \emptyset = -1$; the empty set never constrains anything below.</p>
+
+<p><b>Projective space</b> $\mathbb{P}^{N}$ is the set of nonzero vectors $(u_0,\dots,u_N) \in \mathbb{C}^{N+1}$ considered up to multiplication by a nonzero scalar; the class of $u$ is written $[u_0 : \cdots : u_N]$. A <b>projective algebraic set</b> is the common zero set in $\mathbb{P}^N$ of finitely many <i>homogeneous</i> polynomials (all monomials of equal degree &mdash; the condition &ldquo;$g(u) = 0$&rdquo; is then scalar-invariant, hence well defined on classes). A <b>projective $l$-plane</b> is the projectivization of an $(l+1)$-dimensional linear subspace of $\mathbb{C}^{N+1}$; a <b>hyperplane</b> is the case $l = N-1$.</p>
+
+<p>A set $V \subseteq \mathbb{C}^m$ is a <b>cone</b> if $x \in V$ implies $cx \in V$ for every scalar $c \in \mathbb{C}$. Zero sets of homogeneous polynomials are cones. A cone $V \neq \{0\}$ has a <b>projectivization</b>
+$$\mathbb{P}V = \{[x] \in \mathbb{P}^{m-1} : x \in V \setminus \{0\}\},$$
+obtained by remembering only the direction of each nonzero point. Fig.&nbsp;5 draws the correspondence.</p>
+
+<figure><!--FIG:fig_agdim--><figcaption>Left: a cone $V \subset \mathbb{C}^3$ (drawn over $\mathbb{R}$; every point travels on a line through the origin, so one of its $2$ dimensions is the scalar). Middle: its projectivization $\mathbb{P}V \subset \mathbb{P}^2$ keeps only directions &mdash; a curve, of dimension $2 - 1 = 1$ (Import 1(f)). Right: the avoidance count of Lemma A: inside $\mathbb{P}^{N}$, planes of dimension $l$ through a <i>fixed</i> point form a family of codimension $N - l$; letting the point roam an $r$-dimensional set spends only $r$ parameters, so when $r \lt N - l$ the planes that touch the set remain a proper subfamily &mdash; a generic plane misses.</figcaption></figure>
+
+<h3 id="imports">3.2 The imports</h3>
+
+<p>Six classical theorems are used without proof. Each is stated in exactly the strength needed. Everything else in this document is proved in full.</p>
+
+<div class="thm"><b>Import 1 (dimension-theory package; [Har77, Ch. I], [Eis95, Ch. 8&ndash;13]).</b> For complex affine and projective algebraic sets:
+<ul>
+<li><b>(a)</b> The dimension of an affine algebraic set equals the Krull dimension of its coordinate ring; $\dim \mathbb{C}^m = m$, and the polynomial ring $\mathbb{C}[y_1,\dots,y_\rho]$ has Krull dimension $\rho$.</li>
+<li><b>(b)</b> A surjection of rings cannot increase Krull dimension: if $A \twoheadrightarrow A'$ then $\dim A' \le \dim A$. Geometrically: a closed subset has dimension at most that of the ambient set.</li>
+<li><b>(c)</b> A finite ring extension preserves Krull dimension: if $A$ is a finitely generated module over a subring $B$, then $\dim A = \dim B$. More generally, if $A$ is a finite module over the image of a ring map $B \to A$, then $\dim A = \dim (B/\ker) \le \dim B$.</li>
+<li><b>(d)</b> Dimensions add under products: $\dim (V \times W) = \dim V + \dim W$.</li>
+<li><b>(e)</b> The image of an algebraic set under a polynomial (or projective) morphism has dimension at most that of the source; a family of algebraic sets parametrized by $r$ free parameters sweeps out a set of dimension at most $r$ more than the fiber dimension.</li>
+<li><b>(f)</b> Projectivizing a cone $V \ne \{0\}$ decreases dimension by exactly one: $\dim \mathbb{P}V = \dim V - 1$.</li>
+<li><b>(g)</b> Every positive-dimensional projective algebraic set meets every hyperplane of $\mathbb{P}^N$.</li>
+</ul></div>
+
+<div class="thm"><b>Import 2 (Hilbert's Nullstellensatz, effective membership form).</b> If homogeneous polynomials $F_1,\dots,F_k \in \mathbb{C}[u_1,\dots,u_k]$ have $\{0\}$ as their only common zero, then some power of the maximal ideal at the origin lies in the ideal they generate: there is an integer $h$ with
+$$(u_1,\dots,u_k)^h \subseteq (F_1,\dots,F_k).$$
+Equivalently, every monomial of total degree $\ge h$ is a polynomial combination $\sum F_i G_i$.</div>
+
+<div class="thm"><b>Import 3 (projective Bézout with multiplicities; [Har77, Ch. I &sect;7]).</b> If $k$ homogeneous polynomials in $k+1$ projective variables have a <i>zero-dimensional</i> common zero set in $\mathbb{P}^k$, then the number of common zeros, counted with their algebraic intersection multiplicities, equals the product of the $k$ degrees.</div>
+
+<div class="thm"><b>Import 4 (affine Bézout inequality; [Hei83]).</b> A system of polynomial equations in any number of affine variables has at most $\prod_j \deg(\text{equation } j)$ <i>isolated</i> solutions (points that are components of the solution set by themselves). Degrees $\le 2$ therefore give at most $2^{\#\text{equations of degree } 2}$ isolated solutions; degree-1 equations contribute factors of 1.</div>
+
+<div class="thm"><b>Import 5 (generic smoothness in characteristic zero; [Har77, Ch. III, Cor. 10.7]).</b> Let $F : \mathbb{C}^k \to \mathbb{C}^k$ be a finite dominant polynomial map (finite: the coordinate ring of the source is a finitely generated module over that of the target; dominant: the image is dense). In characteristic zero there is a nonempty Zariski-open set of targets $a$ whose fiber $F^{-1}(a)$ is <b>reduced</b>: every solution of $F(u) = a$ has multiplicity one.</div>
+
+<div class="thm"><b>Import 6 (Jacobian criterion for algebraic independence; [BMS11, Thm. 6]).</b> Let $c_1,\dots,c_r \in \mathbb{C}[Z]$ be polynomials in variables $Z$, and form the Jacobian matrix $J = (\partial c_i/\partial z)_{i \in [r],\, z \in Z}$. In characteristic zero,
+$$\operatorname{trdeg}_{\mathbb{C}} \mathbb{C}(c_1,\dots,c_r) \;=\; \operatorname{rank}_{\mathbb{C}(Z)} J.$$
+(Transcendence degree is defined in <a class="secref" href="#tdeg">&sect;10</a>; the criterion is used only from &sect;10 onward.) In particular, if some $r \times r$ minor of $J$ is a nonzero polynomial &mdash; certified by a single point where it evaluates to a nonzero number &mdash; then $c_1,\dots,c_r$ are algebraically independent.</div>
+
+<p class="small">A seventh import, the singular-locus lower bound for determinantal complexity of Alper&ndash;Bogart&ndash;Velasco, is used only in the determinant comparison and is stated there (<a class="secref" href="#determinant">&sect;13</a>, Import 7).</p>
+
+<h3 id="avoidance">3.3 The one lemma we prove here: generic avoidance</h3>
+
+<p>The following principle is used twice in <a class="secref" href="#slicing">&sect;5</a>. We isolate it now, with the dimension-counting proof from the paper.</p>
+
+<div class="lem"><b>Lemma A (projective avoidance principle).</b> Let $S \subseteq \mathbb{P}^N$ be an algebraic subset of dimension at most $r \ge -1$, and let $0 \le l \le N-1$ satisfy $l + r \lt N$. Then some projective $l$-plane is disjoint from $S$ &mdash; indeed, the $l$-planes meeting $S$ form a proper algebraic subfamily of all $l$-planes (a &ldquo;generic&rdquo; $l$-plane misses $S$).</div>
+
+<div class="proof">
+<p>If $S = \emptyset$ there is nothing to prove, so let $\dim S = r \ge 0$. Consider the incidence set of pairs
+$$\mathcal{I} = \{(x, \Lambda) : x \in S,\ \Lambda \text{ an } l\text{-plane},\ x \in \Lambda\},$$
+an algebraic subset of the product of $S$ with the parameter space $\mathbb{G}$ of all $l$-planes in $\mathbb{P}^N$ ($\mathbb{G}$ is the Grassmannian, itself a projective algebraic set; all we use about it is its dimension, next). Fix the point $x$ first. An $l$-plane is the projectivization of an $(l+1)$-dimensional linear subspace $\Lambda' \subseteq \mathbb{C}^{N+1}$; requiring $x \in \Lambda$ means requiring the fixed line $x' \subset \mathbb{C}^{N+1}$ to lie in $\Lambda'$. Subspaces containing a fixed line correspond to $l$-dimensional subspaces of the $N$-dimensional quotient $\mathbb{C}^{N+1}/x'$, so the planes through $x$ form a family of dimension $\dim \mathbb{G} - (N - l)$: containing a point is a codimension-$(N-l)$ condition on $l$-planes. By Import 1(d,e), sweeping $x$ over the $r$-dimensional set $S$ gives
+$$\dim \mathcal{I} \;\le\; r + \bigl(\dim \mathbb{G} - (N - l)\bigr).$$
+<p>Now project $\mathcal{I}$ to the second factor: the image is exactly the set of $l$-planes meeting $S$. By Import 1(e) its dimension is at most $\dim \mathcal{I}$, and since $r \lt N - l$,
+$$\dim\{\Lambda : \Lambda \cap S \neq \emptyset\} \;\le\; r + \dim\mathbb{G} - (N-l) \;\lt\; \dim \mathbb{G}.$$
+A closed algebraic subfamily of strictly smaller dimension cannot be all of $\mathbb{G}$ (Import 1(b)), so some $l$-plane &mdash; in fact a dense open set of them &mdash; misses $S$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="toy"><b>Sanity checks.</b> (i) Two generic lines in $\mathbb{P}^3$ miss each other: $l = 1$, $r = 1$, $N = 3$, and $1 + 1 \lt 3$. In $\mathbb{P}^2$ the inequality fails ($1 + 1 \not\lt 2$) &mdash; and indeed two projective plane curves <i>always</i> intersect. (ii) A generic line misses any finite set of points in $\mathbb{P}^2$: $l = 1$, $r = 0$, $1 + 0 \lt 2$. The principle is exactly the formalization of &ldquo;you can dodge a small obstacle with a small plane if their dimensions do not add up to the ambient dimension.&rdquo;</div>

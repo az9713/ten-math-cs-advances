@@ -1,0 +1,28 @@
+<h2 id="hook">0. Motivation &mdash; the sign that changes everything</h2>
+
+<p>Take an $n \times n$ grid of numbers. Two of the most natural quantities you can extract from it are built from the <i>same</i> list of $n!$ products &mdash; pick one entry from each row so that no two share a column, multiply the chosen entries, and add up all the ways of doing so. If you add the products with alternating signs you get the <b>determinant</b>; if you add them all with a plus sign you get the <b>permanent</b>. Concretely, for $n = 3$:</p>
+
+$$\operatorname{per}\begin{pmatrix} a & b & c\\ d & e & f\\ g & h & i \end{pmatrix} = aei + afh + bdi + bfg + cdh + ceg,$$
+
+<p>while the determinant is the same six products with three of the signs flipped. The permanent has an everyday meaning: if entry $(i,j)$ is $1$ when worker $i$ can do task $j$ and $0$ otherwise, the permanent counts the ways to assign all $n$ workers to all $n$ tasks, one each &mdash; the number of <i>perfect matchings</i> of a bipartite graph. Fig.&nbsp;1 draws the $3\times 3$ case.</p>
+
+<figure><!--FIG:fig_perdet--><figcaption>The permanent of a $3\times 3$ matrix is a sum over the $3! = 6$ ways of matching rows to columns (top: the six permutation patterns inside the matrix; bottom: the same six terms as perfect matchings of the bipartite graph rows$\,\to\,$columns). The determinant is the identical sum with the sign of the permutation attached &mdash; the <i>only</i> difference between the two polynomials.</figcaption></figure>
+
+<p>Here is the puzzle that drives this chapter. The determinant of an $n\times n$ matrix is easy to compute: Gaussian elimination takes $O(n^3)$ arithmetic operations, and there are even division-free arithmetic circuits of polynomial size [Ber84]. The permanent looks <i>simpler</i> &mdash; no signs to track &mdash; yet no polynomial-time algorithm is known, and none is believed to exist: Valiant proved that the permanent is complete for the algebraic complexity class $\mathsf{VNP}$ [Val79a], the algebraic analogue of NP-completeness, and that counting-wise it is $\#\mathrm{P}$-complete [Val79b]. Whether the permanent has polynomial-size arithmetic circuits is <i>the</i> central open problem of algebraic complexity theory &mdash; the algebraic cousin of P&nbsp;vs.&nbsp;NP.</p>
+
+<p>Proving that a natural, explicit polynomial <i>needs</i> many arithmetic operations is notoriously hard. Before the results explained here, the state of the art for the permanent was, in terms of the $N = n^2$ input variables:</p>
+
+<ul>
+<li><b>Circuits</b> (computations that may reuse intermediate results): nothing better than the trivial $\Omega(N)$ &mdash; the bound you get for free because the permanent depends on all $N$ variables.</li>
+<li><b>Formulas</b> (computations that must recompute everything they reuse): $\Omega(n^3) = \Omega(N^{3/2})$, a bound from 1985-era technology [Kal85, KS14].</li>
+</ul>
+
+<p>The chapter proves two unconditional lower bounds, both specific to the permanent:</p>
+
+<div class="keyresult"><b>The two headline results</b> (precise statements in <a class="secref" href="#results">&sect;2</a>).
+<br><b>Circuits:</b> every division-free arithmetic circuit computing $\operatorname{per}_n$ has $\Omega(n^2\log\log n)$ gates &mdash; the first bound to beat the trivial $n^2$ by a growing factor.
+<br><b>Formulas:</b> every arithmetic formula computing $\operatorname{per}_n$ has $\Omega(n^4/\log n)$ leaves &mdash; nearly the square of the trivial bound &mdash; and this survives even if the formula is allowed to divide.</div>
+
+<p>The gaps to the upper bounds remain astronomically large (the best known circuits for the permanent are exponential), so these results do not resolve the big question. Their significance is different: <i>superquadratic</i> unrestricted lower bounds for an explicit natural polynomial are exceedingly rare, and both proofs work by isolating structural properties that the permanent has and the determinant provably lacks (<a class="secref" href="#determinant">&sect;13</a>) &mdash; so the same arguments cannot accidentally &ldquo;prove&rdquo; a false bound for the easy polynomial. A lower-bound method that knows the difference between the permanent and the determinant is a rare commodity.</p>
+
+<p>Both proofs are elementary in a specific sense: granted a small toolbox of classical algebraic geometry (stated precisely as Imports in <a class="secref" href="#agkit">&sect;3</a>), every step is verifiable with graduate-core algebra, and this document proves every such step in full. The circuit proof turns computation into geometry &mdash; <i>a small circuit cannot produce a polynomial map with too many solutions</i> &mdash; and then engineers a specialization of the permanent whose gradient has that many solutions. The formula proof turns computation into information &mdash; <i>a tree that touches a group of variables only $t$ times can encode at most $\approx t$ independent parameters in how it uses them</i> &mdash; and then shows the permanent packs $\Omega(n^2)$ independent parameters into every one of $\Omega(n^2/\log n)$ disjoint little groups. We build each machine from scratch.</p>

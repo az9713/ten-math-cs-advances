@@ -1,0 +1,78 @@
+<h2 id="packing">12. Formulas III: packing matchings, and division (Theorems 1.2 and 1.3)</h2>
+
+<p>One matching now costs any formula $\Omega(n^2)$ leaf occurrences: combining Lemmas 8.1 and 9.1, $m^2 \le \operatorname{td}_Y(\operatorname{per}_n) \le 4\,t_Y(\Phi)$. The final move is to select <i>many</i> matchings whose occurrence charges cannot overlap, and add. The right notion of disjointness concerns <b>entries</b>, not rows or columns: two matchings may share rows and columns freely, as long as no variable $x_{ij}$ belongs to both &mdash; that alone guarantees each leaf is charged at most once.</p>
+
+<h3 id="thm12">12.1 The division-free bound</h3>
+
+<div class="thm"><b>Theorem 1.2 (restated).</b> If $n \ge 32$ and a division-free formula $\Phi$ computes $\operatorname{per}_n$, then $L_{\mathrm{var}}(\Phi) \ge \dfrac{n^4}{128 \log_2 n}$ and $G(\Phi) \ge \dfrac{n^4}{256\log_2 n}$; the first bound also holds for total leaves and total vertices.</div>
+
+<div class="proof">
+<p>Keep $\ell, k = 2\ell, m = n-k$ from (9.1). Index rows and columns by $\{0,\dots,n-1\}$. For a cyclic offset $0 \le \tau \lt n$ and a row-block index $0 \le j \lt \lfloor n/k\rfloor$, define
+$$Y_{\tau, j} = \bigl\{\,x_{\,jk + r,\ (jk + r + \tau) \bmod n\,} : 0 \le r \lt k \,\bigr\}.$$
+Each $Y_{\tau,j}$ is a matching: its $k$ row indices $jk, \dots, jk{+}k{-}1$ are distinct, and adding the fixed offset $\tau$ modulo $n$ keeps the $k$ column indices distinct. The matchings are pairwise <b>entry-disjoint</b>: any entry $x_{i,c}$ in one of them reveals its parameters &mdash; the row determines $j = \lfloor i/k \rfloor$, and the column-minus-row difference $(c - i) \bmod n$ determines $\tau$ &mdash; so no entry lies in two (Fig.&nbsp;24). Their number is
+$$\nu = n\Bigl\lfloor\frac{n}{k}\Bigr\rfloor \ge \frac{n^2}{2k}, \tag{10.1}$$
+using $\lfloor x\rfloor \ge x/2$ for $x \ge 2$ (valid since $k \le n/2$ gives $n/k \ge 2$).</p>
+
+<figure><!--FIG:fig_packing--><figcaption>The packing, computed for $n = 12$, $k = 4$ (so $\lfloor n/k\rfloor = 3$ row bands and $12$ offsets, $\nu = 36$ matchings covering all $144$ entries). Each matching $Y_{\tau,j}$ is a length-$k$ diagonal segment: row band $j$ (horizontal strips), offset $\tau$ (color). Left: four sample matchings. Right: the full partition &mdash; every cell belongs to exactly one matching, because $(j, \tau)$ can be read back off any single cell. Matchings share rows and columns liberally; they never share an <i>entry</i>, which is all the charging argument needs.</figcaption></figure>
+
+<p>Every matrix variable occurs at least once in $\Phi$: if $x_{ij}$ appeared on no leaf, the output would not depend on it, yet $\partial \operatorname{per}_n/\partial x_{ij}$ is the permanent of the complementary $(n-1)\times(n-1)$ submatrix &mdash; a nonzero polynomial (it has monomials; each appears with coefficient $1$). In particular $t_Y(\Phi) \ge 1$ for every selected matching, so Lemma 8.1 applies, and with Lemma 9.1:
+$$m^2 \;\le\; \operatorname{td}_Y(\operatorname{per}_n) \;\le\; 4\,t_Y(\Phi) \qquad \text{for each } Y = Y_{\tau,j}.$$
+Because the matchings are entry-disjoint, a leaf labeled $x_{ij}$ is counted by at most one $t_Y(\Phi)$, whence $\sum_Y t_Y(\Phi) \le L_{\mathrm{var}}(\Phi)$. Summing the per-matching bound over all $\nu$ matchings and using (10.1), then $m \ge n/2$ (parameter fact (i), &sect;11.2) and $k = 2\lceil\log_2 n\rceil \le 4\log_2 n$ (as $\lceil x \rceil \le 2x$ for $x \ge 1$):
+$$L_{\mathrm{var}}(\Phi) \;\ge\; \sum_{Y}t_Y(\Phi) \;\ge\; \frac{\nu m^2}{4} \;\ge\; \frac{n^2m^2}{8k} \;\ge\; \frac{n^4}{32k} \;\ge\; \frac{n^4}{128\log_2 n}.$$
+Total leaves and vertices are at least $L_{\mathrm{var}}(\Phi)$. For gates: a rooted binary tree satisfies $G(\Phi) = L(\Phi) - 1$, and since $\operatorname{per}_n$ is nonconstant, $L(\Phi) \ge 2$, so $G(\Phi) = L(\Phi) - 1 \ge L(\Phi)/2 \ge L_{\mathrm{var}}(\Phi)/2$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="division">12.2 Allowing division: fractional linear maps and a field intersection</h3>
+
+<p>Division changes only one half of the machinery. Lemma 9.1 is a statement about the permanent itself &mdash; untouched. What needs reproving is the occurrence bound: a subformula may now compute a genuinely rational function of the marked variables, and the affine bookkeeping of Lemma 8.1 no longer closes. Two new ideas fix it. First, one-marked-child gates now act by <i>fractional linear</i> (M&ouml;bius) maps, which still compose along paths and still carry boundedly many parameters. Second, knowing only that the output lies in $K(Y)$ for a small field $K$ does not immediately locate its <i>coefficients</i> in $K$ &mdash; a small algebraic lemma recovers exactly that.</p>
+
+<p>Fix nonempty marked variables $Y$, unmarked $Z$, and put $R = \mathbb{C}(Z)$. A valid formula with division is evaluated in $\mathbb{C}(Y,Z) = R(Y)$; validity means each division gate's denominator is nonzero <i>as a rational function</i>. It does <b>not</b> promise the denominator survives every numeric substitution &mdash; in particular the Jacobian specialization $\xi$ of &sect;11 might kill some denominator. No matter: $\xi$ is only ever applied to the polynomial coefficients of $\operatorname{per}_n$, never to the formula's internal gates.</p>
+
+<div class="lem"><b>Lemma 10.1 (field intersection).</b> For fields $K \subseteq E$ and a finite set $Y$ of indeterminates, $K(Y) \cap E[Y] = K[Y]$ inside $E(Y)$.</div>
+
+<div class="proof">
+<p>$K[Y] \subseteq K(Y) \cap E[Y]$ is clear. Conversely take $f \in K(Y) \cap E[Y]$: membership in $K(Y)$ gives $P, Q \in K[Y]$, $Q \ne 0$, with $Qf = P$ in $E[Y]$. View $E$ as a $K$-vector space; extend the basis $\{1\}$ of the line $K \subseteq E$ to a basis of $E$ and let $\pi : E \to K$ be the resulting $K$-linear projection (so $\pi|_K = \mathrm{id}$). Apply $\pi$ to polynomials coefficientwise: $\pi_* : E[Y] \to K[Y]$. Now $\pi$ is only $K$-linear &mdash; it does not respect products of arbitrary elements of $E$ &mdash; but it <i>does</i> commute with multiplication by any polynomial with coefficients in $K$: multiplying by $Q \in K[Y]$ combines coefficients through $K$-linear operations only. Hence
+$$Q\,\pi_*(f) = \pi_*(Qf) = \pi_*(P) = P = Qf.$$
+So $Q(f - \pi_*(f)) = 0$ in the integral domain $E[Y]$, and $Q \ne 0$ forces $f = \pi_*(f) \in K[Y]$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="lem"><b>Lemma 10.2.</b> If a valid formula with division computes a polynomial $f \in \mathbb{C}[Y, Z]$ and contains $t \ge 1$ leaves labeled by $Y$-variables, then $\operatorname{td}_Y(f) \le 6t - 3 \lt 6t$.</div>
+
+<figure><!--FIG:fig_flt--><figcaption>Division upgrades the wrappers from affine to fractional linear. Each one-marked-child gate acts on the marked value $u$ as $u \mapsto \frac{au+b}{cu+d}$, recorded by a $2\times2$ matrix over $R = \mathbb{C}(Z)$ (the six operations and their matrices shown); composition of maps is multiplication of matrices. Along a valid path the composite denominator factors as $(c_ju_0{+}d_j)(cu_j{+}d)$ &mdash; nonzero times nonzero &mdash; so the composite matrix is never the zero matrix, and after dividing by one nonzero entry it carries at most $3$ parameters. Merging two marked subtrees (right) therefore costs at most $3 + 3 = 6$ parameters, against $4$ in the division-free case.</figcaption></figure>
+
+<div class="proof">
+<p>Mark vertices with a $Y$-labeled descendant, as before. At a gate with one marked child computing $u$, the unmarked child computes some $h \in R$, and the six possible outputs
+$$u + h,\quad u - h,\quad h - u,\quad hu,\quad u/h,\quad h/u$$
+(validity requiring $h \ne 0$ for $u/h$ and $u \ne 0$ for $h/u$) are all <b>fractional linear</b>:
+$$u \mapsto \frac{au + b}{cu + d}, \qquad M = \begin{pmatrix} a & b\\ c & d\end{pmatrix} \in R^{2\times2},$$
+with representing matrices, respectively,
+$$\bigl(\begin{smallmatrix}1 & h\\ 0 & 1\end{smallmatrix}\bigr),\;
+\bigl(\begin{smallmatrix}1 & -h\\ 0 & 1\end{smallmatrix}\bigr),\;
+\bigl(\begin{smallmatrix}-1 & h\\ 0 & 1\end{smallmatrix}\bigr),\;
+\bigl(\begin{smallmatrix}h & 0\\ 0 & 1\end{smallmatrix}\bigr),\;
+\bigl(\begin{smallmatrix}1 & 0\\ 0 & h\end{smallmatrix}\bigr),\;
+\bigl(\begin{smallmatrix}0 & h\\ 1 & 0\end{smallmatrix}\bigr).$$
+Do <i>not</i> demand invertibility: when $h = 0$, multiplication by $h$ is a legal constant-zero map with a singular &mdash; but nonzero &mdash; matrix. Composition of fractional linear maps is multiplication of matrices (direct computation). And along a valid marked path the composite matrix can never become the zero matrix: if the current value is $u_j = (a_ju_0 + b_j)/(c_ju_0+d_j)$ with $c_ju_0 + d_j \ne 0$ in $R(Y)$, and the next gate applies $(au+b)/(cu+d)$ with $cu_j + d \ne 0$ (validity), the composite's denominator row evaluates to
+$$c(a_ju_0 + b_j) + d(c_ju_0 + d_j) = (c_ju_0 + d_j)(cu_j + d) \ne 0,$$
+so some entry of the new matrix is nonzero. Dividing all four entries by one nonzero entry leaves the map unchanged and normalizes that entry to $1$: <b>a path's wrapper is described by at most $3$ elements of $R$</b>, singular or not (Fig.&nbsp;25).</p>
+<p>Now the induction, mirroring (8.1): every marked subformula with $s \ge 1$ marked leaves outputs
+$$\frac{a g + b}{c g + d}, \qquad g \in \mathbb{C}(\Gamma)(Y),\quad \Gamma \subseteq R,\quad |\Gamma| \le 6s - 6,$$
+with matrix entries in $R$, denominator $cg + d \ne 0$ in $R(Y)$, and the outer matrix unpaid. Base: a marked leaf is $g = y$, identity matrix, $\Gamma = \emptyset$. One marked child: multiply the outer matrix by the gate's matrix; the displayed factorization keeps the denominator nonzero; $\Gamma$ unchanged. Two marked children with $s_1, s_2$ leaves: normalize each child's outer matrix (divide by a nonzero entry &mdash; at most $3$ surviving parameters each) and adjoin those $\le 6$ entries to $\Gamma = \Gamma_1 \cup \Gamma_2 \cup \{\dots\}$; both child outputs now lie in the field $\mathbb{C}(\Gamma)(Y)$; apply the gate operation inside that field (if it is a division, the divisor is nonzero in $R(Y)$ by validity, hence nonzero in the subfield) and call the result the new $g$, with identity outer matrix. Count: $(6s_1 - 6) + (6s_2 - 6) + 6 = 6s - 6$. &#10003;</p>
+<p>At the root, normalize the final outer matrix and adjoin its $\le 3$ entries: the full output lies in $K(Y)$ for $K = \mathbb{C}(\Gamma')$, $|\Gamma'| \le (6t-6)+3 = 6t - 3$. But the output is also the <i>polynomial</i> $f \in \mathbb{C}[Y,Z] \subseteq R[Y]$. Lemma 10.1 with $E = R$ gives
+$$f \in K(Y) \cap R[Y] = K[Y]:$$
+every $Y$-coefficient of $f$ lies in $K$. Hence $\operatorname{td}_Y(f) \le \operatorname{trdeg}_{\mathbb C} K \le |\Gamma'| \le 6t - 3$. <span class="qed">&#8718;</span></p>
+</div>
+
+<h3 id="thm13">12.3 The bound with division</h3>
+
+<div class="thm"><b>Theorem 1.3 (restated).</b> If $n \ge 32$ and a valid formula $\Phi$ with division computes $\operatorname{per}_n$, then $L_{\mathrm{var}}(\Phi) \ge \dfrac{n^4}{192\log_2 n}$ and $G(\Phi) \ge \dfrac{n^4}{384\log_2 n}$; the first bound also holds for total leaves and vertices.</div>
+
+<div class="proof">
+<p>Use the same $\nu$ entry-disjoint matchings of (10.1). Each still forces at least one leaf: if some matching $Y$ contributed no leaf, every gate of $\Phi$ would compute an element of $\mathbb{C}(X \setminus Y)$, so the output would be independent of the variables in $Y$, contradicting output $= \operatorname{per}_n$ (whose partial derivative in each $y \in Y$ is a nonzero subpermanent). So Lemma 10.2 applies to each matching, and with Lemma 9.1 (unchanged by division &mdash; it speaks only of the permanent):
+$$m^2 \le \operatorname{td}_Y(\operatorname{per}_n) \le 6\,t_Y(\Phi) - 3 \lt 6\,t_Y(\Phi).$$
+Entry-disjointness again gives $\sum_Y t_Y(\Phi) \le L_{\mathrm{var}}(\Phi)$, so with $m \ge n/2$ and $k \le 4\log_2 n$:
+$$L_{\mathrm{var}}(\Phi) \ge \frac{\nu m^2}{6} \ge \frac{n^2m^2}{12k} \ge \frac{n^4}{48k} \ge \frac{n^4}{192\log_2 n}.$$
+Division gates change gate labels, not tree shape: still $G(\Phi) = L(\Phi) - 1 \ge L(\Phi)/2 \ge L_{\mathrm{var}}(\Phi)/2$, and leaves/vertices dominate $L_{\mathrm{var}}(\Phi)$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>The whole formula proof on one line.</b> $\;L_{\mathrm{var}} \ge \sum_{\text{matchings}} t_Y \ge \nu \cdot \frac{m^2}{4 \text{ or } 6} \approx \frac{n^2}{2k}\cdot\frac{(n/2)^2}{4\text{ or }6} = \Theta\!\Bigl(\frac{n^4}{\log n}\Bigr)$, where $m^2 \le 4t_Y$ (or $6t_Y$) came from &ldquo;a tree with $t_Y$ marked leaves generates all marked coefficients from $\le 4t_Y$ (or $6t_Y$) field elements&rdquo; (Lemmas 8.1/10.2) colliding with &ldquo;the permanent's marked coefficients contain $m^2$ algebraically independent elements&rdquo; (Lemma 9.1). The barrier at $n^4/\log n$ is intrinsic to this charging scheme &mdash; multilinearity caps a $k$-variable block's independent coefficients at $\min\{2^k, N - k\}$, so blockwise charging can never see past $N^2/\log N$ [CKSV22]; the permanent saturates the method.</div>

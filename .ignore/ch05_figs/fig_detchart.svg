@@ -1,0 +1,26 @@
+<svg class="setupfig" viewBox="0 0 640 288" width="100%" role="img" aria-label="Codimension comparison permanent versus determinant">
+<rect x="70.0" y="40.0" width="480.0" height="190.0" fill="#fff" stroke="#bbb" stroke-width="1"/>
+<text x="310.0" y="264.0" font-size="11.5" fill="#555" text-anchor="middle">n  (log scale)</text>
+<text x="8.0" y="30.0" font-size="11.5" fill="#555" text-anchor="start">critical-locus codimension (log scale)</text>
+<text x="310.0" y="22.0" font-size="12.5" fill="#7a1f1f" text-anchor="middle" font-weight="bold">why the geometric method is permanent-specific</text>
+<polyline points="70.0,186.3 80.0,183.5 90.0,180.7 100.0,177.9 110.0,175.1 120.0,172.4 130.0,169.6 140.0,166.8 150.0,164.0 160.0,161.2 170.0,158.4 180.0,155.6 190.0,152.8 200.0,150.0 210.0,147.2 220.0,144.5 230.0,141.7 240.0,138.9 250.0,136.1 260.0,133.3 270.0,130.5 280.0,127.7 290.0,124.9 300.0,122.1 310.0,119.3 320.0,116.6 330.0,113.8 340.0,111.0 350.0,108.2 360.0,105.4 370.0,102.6 380.0,99.8 390.0,97.0 400.0,94.2 410.0,91.4 420.0,88.7 430.0,85.9 440.0,83.1 450.0,80.3 460.0,77.5 470.0,74.7 480.0,71.9 490.0,69.1 500.0,66.3 510.0,63.5 520.0,60.8 530.0,58.0 540.0,55.2 550.0,52.4" fill="none" stroke="#2e6da4" stroke-width="2.2"/>
+<polyline points="70.0,201.7 80.0,200.3 90.0,198.9 100.0,197.5 110.0,196.1 120.0,194.7 130.0,193.3 140.0,191.9 150.0,190.5 160.0,189.1 170.0,187.7 180.0,186.3 190.0,184.9 200.0,183.5 210.0,182.1 220.0,180.7 230.0,179.3 240.0,177.9 250.0,176.5 260.0,175.1 270.0,173.8 280.0,172.4 290.0,171.0 300.0,169.6 310.0,168.2 320.0,166.8 330.0,165.4 340.0,164.0 350.0,162.6 360.0,161.2 370.0,159.8 380.0,158.4 390.0,157.0 400.0,155.6 410.0,154.2 420.0,152.8 430.0,151.4 440.0,150.0 450.0,148.6 460.0,147.2 470.0,145.8 480.0,144.5 490.0,143.1 500.0,141.7 510.0,140.3 520.0,138.9 530.0,137.5 540.0,136.1 550.0,134.7" fill="none" stroke="#999" stroke-width="1.4" stroke-dasharray="2 3"/>
+<polyline points="70.0,203.0 80.0,201.7 90.0,200.3 100.0,198.9 110.0,197.5 120.0,196.1 130.0,194.7 140.0,193.3 150.0,191.9 160.0,190.5 170.0,189.1 180.0,187.7 190.0,186.3 200.0,184.9 210.0,183.5 220.0,182.1 230.0,180.7 240.0,179.3 250.0,177.9 260.0,176.5 270.0,175.1 280.0,173.8 290.0,172.4 300.0,171.0 310.0,169.6 320.0,168.2 330.0,166.8 340.0,165.4 350.0,164.0 360.0,162.6 370.0,161.2 380.0,159.8 390.0,158.4 400.0,157.0 410.0,155.6 420.0,154.2 430.0,152.8 440.0,151.4 450.0,150.0 460.0,148.6 470.0,147.2 480.0,145.8 490.0,144.5 500.0,143.1 510.0,141.7 520.0,140.3 530.0,138.9 540.0,137.5 550.0,136.1" fill="none" stroke="#c0392b" stroke-width="2"/>
+<polyline points="70.0,222.6 80.0,222.6 90.0,222.6 100.0,222.6 110.0,222.6 120.0,222.6 130.0,222.6 140.0,222.6 150.0,222.6 160.0,222.6 170.0,222.6 180.0,222.6 190.0,222.6 200.0,222.6 210.0,222.6 220.0,222.6 230.0,222.6 240.0,222.6 250.0,222.6 260.0,222.6 270.0,222.6 280.0,222.6 290.0,222.6 300.0,222.6 310.0,222.6 320.0,222.6 330.0,222.6 340.0,222.6 350.0,222.6 360.0,222.6 370.0,222.6 380.0,222.6 390.0,222.6 400.0,222.6 410.0,222.6 420.0,222.6 430.0,222.6 440.0,222.6 450.0,222.6 460.0,222.6 470.0,222.6 480.0,222.6 490.0,222.6 500.0,222.6 510.0,222.6 520.0,222.6 530.0,222.6 540.0,222.6 550.0,222.6" fill="none" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="6 4"/>
+<line x1="84.0" y1="54.0" x2="110.0" y2="54.0" stroke="#2e6da4" stroke-width="2.2"/>
+<text x="117.0" y="58.0" font-size="10" fill="#333" text-anchor="start">permanent specialization: k = &#8970;rs/4&#8971; = &#920;(n&#178;)  (&#167;9)</text>
+<line x1="84.0" y1="72.0" x2="110.0" y2="72.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="117.0" y="76.0" font-size="10" fill="#333" text-anchor="start">ceiling for EVERY det specialization: n&#8722;1  (Import 7)</text>
+<line x1="84.0" y1="90.0" x2="110.0" y2="90.0" stroke="#999" stroke-width="1.4" stroke-dasharray="2 3"/>
+<text x="117.0" y="94.0" font-size="10" fill="#333" text-anchor="start">full per&#8342; itself: &#8804; 2n [BCMV25]</text>
+<line x1="84.0" y1="108.0" x2="110.0" y2="108.0" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="6 4"/>
+<text x="117.0" y="112.0" font-size="10" fill="#333" text-anchor="start">naive bordered det construction: 4</text>
+<text x="70.0" y="244.0" font-size="10" fill="#555" text-anchor="middle">2<tspan baseline-shift="super" font-size="7.5">16</tspan></text>
+<text x="230.0" y="244.0" font-size="10" fill="#555" text-anchor="middle">2<tspan baseline-shift="super" font-size="7.5">32</tspan></text>
+<text x="390.0" y="244.0" font-size="10" fill="#555" text-anchor="middle">2<tspan baseline-shift="super" font-size="7.5">48</tspan></text>
+<text x="550.0" y="244.0" font-size="10" fill="#555" text-anchor="middle">2<tspan baseline-shift="super" font-size="7.5">64</tspan></text>
+<text x="64.0" y="229.4" font-size="10" fill="#555" text-anchor="end">10<tspan baseline-shift="super" font-size="7.5">0</tspan></text>
+<text x="64.0" y="173.8" font-size="10" fill="#555" text-anchor="end">10<tspan baseline-shift="super" font-size="7.5">12</tspan></text>
+<text x="64.0" y="118.1" font-size="10" fill="#555" text-anchor="end">10<tspan baseline-shift="super" font-size="7.5">24</tspan></text>
+<text x="64.0" y="62.5" font-size="10" fill="#555" text-anchor="end">10<tspan baseline-shift="super" font-size="7.5">36</tspan></text>
+</svg>

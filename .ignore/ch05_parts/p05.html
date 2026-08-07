@@ -1,0 +1,54 @@
+<h2 id="bezout">4. Many preimages force many multiplications (Lemma 4.1)</h2>
+
+<p>The circuit spine begins with its counting engine: a polynomial map with many preimages cannot be computed with few multiplications. This section proves that statement in the exact form the later sections consume.</p>
+
+<h3 id="multmodel">4.1 The multiplicative-complexity model</h3>
+
+<div class="def"><b>Definition (multiplicative complexity).</b> Throughout the circuit spine we count only multiplications: <b>affine operations are free</b>. Concretely, a computation is a sequence of steps, each producing either an arbitrary $\mathbb{C}$-affine combination of inputs and previously computed values (cost $0$), or a product of two previously computed values (cost $1$). The <b>multiplicative complexity</b> of a task is the minimum number of costed steps.</div>
+
+<p>Since an ordinary size-$L$ arithmetic circuit contains at most $L$ multiplication gates &mdash; its additions, subtractions, and scalar multiples are all affine &mdash; its multiplicative complexity is at most $L$. So a lower bound of $q$ on multiplicative complexity is a lower bound of $q$ on circuit size, and we get two structural freedoms for free: substituting affine linear forms for the inputs, and taking linear combinations of outputs, neither of which will ever cost a gate. These freedoms are exactly what <a class="secref" href="#slicing">&sect;5</a> and <a class="secref" href="#gradient">&sect;6</a> spend.</p>
+
+<h3 id="warmup">4.2 Warm-up: the power-sum gradient</h3>
+
+<p>Consider the homogeneous polynomial
+$$H(z_1,\dots,z_k) = \frac{1}{d}\sum_{i=1}^{k} z_i^{d},
+\qquad
+\nabla H(z) = \bigl(z_1^{\,d-1},\dots,z_k^{\,d-1}\bigr), \qquad d \ge 2,$$
+where $\nabla H$ is the <b>gradient</b>, the vector of first partial derivatives. Fix a target $a = (a_1,\dots,a_k)$ with all coordinates nonzero. The equation $z_i^{\,d-1} = a_i$ has exactly $d-1$ complex solutions for each coordinate independently (the $(d-1)$-st roots of $a_i$), so the fiber $\nabla H^{-1}(a)$ has exactly $(d-1)^k$ points &mdash; exponentially many in $k$. Fig.&nbsp;6 draws the case $k = 2$, $d = 4$.</p>
+
+<figure><!--FIG:fig_powerfiber--><figcaption>The counting engine at $k=2$, $d=4$. Each coordinate equation $z^{3} = a$ contributes its own $3$ roots (left and middle: the roots of $z^3 = a_1$ and $z^3 = a_2$ in the complex plane, computed for $a_1 = 1$, $a_2 = 8i$); the fiber of the gradient map is their Cartesian product &mdash; a $3 \times 3$ grid of $9 = (d-1)^k$ solutions (right). A circuit computing the gradient with $q$ multiplications will be shown to allow at most $2^q$ isolated solutions, so $q \ge k\log_2(d-1)$.</figcaption></figure>
+
+<p>Against this count stands a counting <i>ceiling</i>: a circuit computing the gradient coordinates with $q$ multiplications describes the same fiber by $q$ quadratic equations plus some affine ones, and Bézout-type bounds cap the number of isolated solutions of such a system at $2^q$. Comparing $(d-1)^k \le 2^q$ gives $q \ge k \log_2 (d-1)$: <i>logarithmically many multiplications per output coordinate, with the logarithm of the degree as the per-coordinate rate.</i></p>
+
+<p>The warm-up map $(z_i^{d-1})_i$ is special, but the argument is not: the only two properties used are that the coordinates are homogeneous of a common degree and that the origin is the only common zero. That general form is what the permanent argument needs, because the gradient handed to it in <a class="secref" href="#slicing">&sect;5</a> will certainly not consist of pure powers. Here is the general statement, with its full proof.</p>
+
+<h3 id="lem41">4.3 The counting lemma</h3>
+
+<div class="lem"><b>Lemma 4.1.</b> Let $F = (F_1,\dots,F_k) : \mathbb{C}^k \to \mathbb{C}^k$ have homogeneous coordinates of a common degree $e \ge 1$. If $F^{-1}(0) = \{0\}$ and a circuit in the multiplicative-complexity model computes all $F_i$ using $q$ multiplications, then
+$$e^k \le 2^{q}.$$</div>
+
+<div class="proof">
+<p>The proof has two halves: <b>(I)</b> some fiber of $F$ has exactly $e^k$ distinct points; <b>(II)</b> the circuit caps every fiber's isolated-point count at $2^q$.</p>
+
+<p><b>(I.a) Counting with multiplicity, via projective Bézout.</b> Fix any target $a = (a_1,\dots,a_k)$ and consider the system $F(u) = a$. Introduce one homogenizing variable $z$ and pass to the equations
+$$F_i(u) - a_i z^{e} = 0, \qquad i \in [k], \tag{4.1}$$
+in the projective space $\mathbb{P}^k$ with coordinates $[u_1 : \cdots : u_k : z]$. Each left side is homogeneous of degree $e$ (each $F_i$ is, and $z^e$ is), so the system is well defined on $\mathbb{P}^k$. Points with $z \ne 0$ can be scaled to $z = 1$ and are exactly the affine solutions of $F(u) = a$; points with $z = 0$ are the potential solutions &ldquo;at infinity.&rdquo;</p>
+<p>There are none: if $[u_1 : \cdots : u_k : 0]$ satisfied (4.1), then $u \ne 0$ (a projective point is a <i>nonzero</i> vector, and its last coordinate vanishes) and $F(u) = 0$ &mdash; contradicting the hypothesis $F^{-1}(0) = \{0\}$.</p>
+<p>Next, the common zero set of (4.1) is zero-dimensional. If it had a positive-dimensional component, that component would meet the hyperplane $\{z = 0\}$ by Import 1(g) &mdash; but we just showed the zero set avoids that hyperplane entirely. So the zero set is finite, and Import 3 (projective Bézout) applies: the number of solutions, counted with multiplicity, is the product of the $k$ degrees,
+$$\underbrace{e \cdot e \cdots e}_{k \text{ factors}} = e^k.$$
+Since none lie at infinity, this is the multiplicity-weighted count of the <i>affine</i> solutions of $F(u) = a$ &mdash; for every target $a$.</p>
+
+<p><b>(I.b) Upgrading to $e^k$ distinct points, via the Nullstellensatz and generic smoothness.</b> Multiplicity-weighted counts are not yet enough (a double root is one point). We show that a suitably chosen $a$ has a <b>reduced</b> fiber &mdash; all multiplicities one. Put
+$$R = \mathbb{C}[u_1,\dots,u_k], \qquad B = \mathbb{C}[F_1,\dots,F_k] \subseteq R.$$
+Because the origin is the only common zero of the $F_i$, Import 2 gives an integer $h$ with $(u_1,\dots,u_k)^h \subseteq (F_1,\dots,F_k)$: every monomial of total degree $\ge h$ lies in the ideal generated by the $F_i$. That ideal is homogeneous (its generators are), so a monomial of degree $j \ge h$ can be written $\sum_i F_i G_i$ with each nonzero $G_i$ homogeneous of degree $j - e \lt j$. Iterating this rewriting on the $G_i$'s own high-degree monomials strictly decreases degree at each pass, so it terminates: every element of $R$ is a $B$-linear combination of the finitely many monomials of total degree $\lt h$. Hence <b>$R$ is a finite $B$-module</b>.</p>
+<p>By Import 1(c), $\dim B = \dim R = k$. But $B$ is generated as a $\mathbb{C}$-algebra by the $k$ elements $F_1,\dots,F_k$; a $k$-generated algebra has Krull dimension $k$ only if the generators satisfy no nonzero polynomial relation (a relation would exhibit $B$ as a quotient of a polynomial ring in $k$ variables by a nonzero ideal, of dimension $\lt k$ by Import 1(a,b)). So $F_1,\dots,F_k$ are algebraically independent and $B \cong \mathbb{C}[y_1,\dots,y_k]$, a polynomial ring. Geometrically, the inclusion $B \subseteq R$ <i>is</i> the map $F$: it makes $F : \mathbb{C}^k \to \mathbb{C}^k$ a <b>finite dominant morphism</b> &mdash; finite because $R$ is a finite $B$-module (so all fibers are finite), dominant because $B \hookrightarrow R$ is injective (the image is dense). Import 5 (characteristic zero) now supplies a nonempty open set of targets $a$ whose fibers are reduced. Choose such an $a$, additionally requiring $a$ outside the finitely many hyperplanes $a_i = 0$ if desired (open conditions intersect). Its fiber consists of exactly $e^k$ <i>distinct</i> points by part (I.a).</p>
+
+<figure><!--FIG:fig_gateeq--><figcaption>Half (II) of Lemma 4.1: the circuit's own description of the fiber. Each multiplication gate $j$ contributes one variable $v_j$ and one quadratic equation $v_j = A_j(u, v_{&lt;j})\,B_j(u, v_{&lt;j})$ (affine inputs $A_j, B_j$, cost-free); the $k$ outputs contribute affine equations $H_i(u,v) = a_i$. For every $u$ the gate equations propagate forward to determine $v$ uniquely, so system-solutions biject with fiber points. Affine Bézout (Import 4) caps the isolated solutions by the degree product $2^q \cdot 1^k$.</figcaption></figure>
+
+<p><b>(II) The circuit's ceiling.</b> Order the $q$ multiplication gates topologically and introduce a fresh variable $v_j$ for the output of gate $j$. Because affine operations are free (and cost-free steps compose), the two inputs of gate $j$ are affine functions $A_j(u, v_{\lt j})$ and $B_j(u, v_{\lt j})$ of the original inputs and the earlier products. The gate is thus described by the <b>gate equation</b>
+$$v_j = A_j(u, v_{\lt j})\, B_j(u, v_{\lt j}), \qquad j \in [q],$$
+of degree at most two. Each circuit output is an affine function $H_i(u, v)$, so requiring output $= a$ adds the $k$ affine equations $H_i(u,v) = a_i$. Altogether: $q$ equations of degree $\le 2$ and $k$ of degree $\le 1$ in the $q + k$ unknowns $(u, v)$, as in Fig.&nbsp;7.</p>
+<p>For every fixed $u$, the gate equations determine $v_1, v_2, \dots$ successively and uniquely (gate $j$'s right side involves only $u$ and $v_{\lt j}$). Hence the solution set of the full system maps bijectively onto the fiber $F^{-1}(a)$ under $(u,v) \mapsto u$: every fiber point extends uniquely, and every system solution projects to a fiber point. The fiber from (I.b) is finite, so all $e^k$ corresponding system solutions are isolated. Import 4 bounds the number of isolated solutions by the degree product $2^q \cdot 1^k = 2^q$. Therefore $e^k \le 2^q$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="toy"><b>Toy check.</b> $F(z_1,z_2) = (z_1^3, z_2^3)$: $e = 3$, $k = 2$, only common zero $0$. The lemma says any circuit computing both cubes needs $q \ge \log_2 9 \approx 3.17$, so $q \ge 4$ multiplications. (Two repeated squarings per coordinate give $q = 4$: $z^2 = z\cdot z$, $z^3 = z^2\cdot z$, twice &mdash; the bound is tight here.) The point of the general lemma is that it never looked at the formulas for the $F_i$ &mdash; only at their degree and their common zero &mdash; which is what lets <a class="secref" href="#slicing">&sect;5</a> apply it to a gradient it cannot write down.</div>

@@ -1,0 +1,38 @@
+<h2 id="results">2. What is proved, and the map of both proofs</h2>
+
+<p>Here are the chapter's three theorems, verbatim in content. (The chapter's own numbering &mdash; Theorems 1.1&ndash;1.3, Lemmas 4.1&ndash;10.2, Propositions 4.3, 5.1, 7.1, Corollary 5.2 &mdash; is preserved throughout this document so you can cross-read with the paper.)</p>
+
+<div class="thm"><b>Theorem 1.1 (circuits).</b> For every $n \ge 2^{16}$,
+$$C(\operatorname{per}_n) \;\ge\; \frac{n^2}{144}\,\bigl(\log_2\log_2 n \;-\; 3\bigr). \tag{1.1}$$
+In particular, $C(\operatorname{per}_n) = \Omega(n^2 \log\log n)$ and $C(\operatorname{per}_n)/n^2 \longrightarrow \infty$.</div>
+
+<div class="thm"><b>Theorem 1.2 (division-free formulas).</b> If $n \ge 32$ and a division-free arithmetic formula $\Phi$ computes $\operatorname{per}_n$, then
+$$L_{\mathrm{var}}(\Phi) \;\ge\; \frac{n^4}{128\,\log_2 n},
+\qquad
+G(\Phi) \;\ge\; \frac{n^4}{256\,\log_2 n}.$$
+The variable-leaf bound also holds for the total numbers of leaves and vertices.</div>
+
+<div class="thm"><b>Theorem 1.3 (formulas with valid division).</b> If $n \ge 32$ and a valid arithmetic formula $\Phi$ with division computes $\operatorname{per}_n$, then
+$$L_{\mathrm{var}}(\Phi) \;\ge\; \frac{n^4}{192\,\log_2 n},
+\qquad
+G(\Phi) \;\ge\; \frac{n^4}{384\,\log_2 n}.$$
+Again, the variable-leaf bound holds for the total numbers of leaves and vertices.</div>
+
+<p>In terms of the $N = n^2$ input variables: the circuit bound is $\Omega(N \log\log N)$, and both formula bounds are $\Omega(N^2/\log N)$. Fig.&nbsp;3 plots all of them, computed exactly from the displayed constants, against the trivial floor.</p>
+
+<figure><!--FIG:fig_results--><figcaption>The proved bounds, to scale, computed from the exact constants in Theorems 1.1&ndash;1.3. Left panel: the circuit bound's multiplicative advantage over $n^2$, namely $(\log_2\log_2 n - 3)/144$, plotted against $\log_2\log_2 n$: it passes the trivial floor $n^2 - 1$ only at $\log_2\log_2 n = 147$, i.e. $n = 2^{2^{147}}$ &mdash; the constants are honest but astronomically patient, and the content is the <i>growth type</i>, $C(\operatorname{per}_n)/n^2 \to \infty$. Right panel (log&ndash;log): formula lower bounds &mdash; a classical-shape $n^3$ reference versus Theorem 1.2's $n^4/(128\log_2 n)$, which overtakes it at $n = 1329$ (computed). In both panels the permanent's known upper bounds ($\sim 2^n$) are far above the top edge.</figcaption></figure>
+
+<p>Both theorems are proved by the same two-phase pattern: <b>(i)</b> a general-purpose bridge from computation to mathematics (geometry for circuits, field theory for formulas) that holds for <i>any</i> polynomial, followed by <b>(ii)</b> a permanent-specific construction showing the permanent maximizes the mathematical quantity the bridge measures. Fig.&nbsp;4 is the dependency map; every arrow is a section of this document.</p>
+
+<figure><!--FIG:fig_roadmap--><figcaption>The two independent proof spines. <b>Circuit spine</b> (left, &sect;3&ndash;&sect;9): Bézout counting (Lem 4.1) + generic slicing (Lem 4.2) + cheap circuit differentiation combine into the master bound Prop 4.3, which converts &ldquo;critical locus of an affine specialization has codimension $\ge k$&rdquo; into &ldquo;$3L \ge k\log_2(d-1)$&rdquo;; the permanent-specific work (&sect;7&ndash;&sect;8) builds a degree-$d \approx \tfrac14\log_2 n$ specialization with $k = \Theta(n^2)$. <b>Formula spine</b> (right, &sect;10&ndash;&sect;12): the occurrence bound Lem 8.1 (a tree touching $Y$-variables $t$ times confines all $Y$-coefficients to a field with $\le 4t-2$ generators), the independence bound Lem 9.1 (a matching of $O(\log n)$ entries carries $\Omega(n^2)$ algebraically independent coefficients), and the packing argument (&sect;12) that sums the two over $\Omega(n^2/\log n)$ entry-disjoint matchings. Division only changes $4t-2$ into $6t-3$ (Lem 10.2).</figcaption></figure>
+
+<h3 id="whyhard">2.1 Why each spine needs the permanent (a preview of &sect;13)</h3>
+
+<p>It is worth flagging now, so you can watch for it, where each proof consumes a property the determinant lacks.</p>
+
+<ul>
+<li><b>Circuit spine.</b> The bridge (Prop 4.3) needs an affine specialization of the target polynomial whose <i>critical locus</i> &mdash; the common zero set of all first partial derivatives &mdash; has codimension $\Theta(n^2)$. Every affine specialization of $\det_n$ has critical-locus codimension at most $n - 1$ (proved in <a class="secref" href="#determinant">&sect;13</a>, using an imported theorem of Alper&ndash;Bogart&ndash;Velasco), so the bridge can never yield more than $O(n\log n)$ for the determinant. For the permanent, &sect;7&ndash;&sect;8 build a specialization achieving $\Theta(n^2)$.</li>
+<li><b>Formula spine.</b> The bridge (Lem 8.1) needs small variable groups carrying many algebraically independent coefficients. For the determinant, the Schur complement compresses <i>all</i> the coefficients of a $k$-entry group into $k^2 + 1$ parameters (proved in <a class="secref" href="#determinant">&sect;13</a>) &mdash; log-size groups carry only $O(\log^2 n)$ bits of independence. The permanent has no Schur complement, and Lem 9.1 extracts $\Omega(n^2)$ independence from a group of size $2\lceil \log_2 n\rceil$.</li>
+</ul>
+
+<div class="note"><b>How to read this document.</b> Sections build strictly on their predecessors within each spine, but the two spines are independent: for the circuit result read &sect;3&ndash;&sect;9, for the formula result read &sect;10&ndash;&sect;12 (plus the Jacobian import in &sect;3). Section <a class="secref" href="#determinant">&sect;13</a> needs both. Every symbol is defined at first use and indexed in the glossary (<a class="secref" href="#notation">&sect;A</a>); every figure is cited by number from the prose; the numerical experiments behind the figures and the claimed constants are collected and re-run in <a class="secref" href="#validation">&sect;15</a>.</div>

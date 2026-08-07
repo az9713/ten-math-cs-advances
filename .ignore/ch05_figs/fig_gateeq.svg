@@ -1,0 +1,26 @@
+<svg class="setupfig" viewBox="0 0 640 220" width="100%" role="img" aria-label="Gate equations cap the fiber size">
+<defs>
+<marker id="c5gea0" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#555"/></marker>
+</defs>
+<text x="130.0" y="22.0" font-size="12.5" fill="#7a1f1f" text-anchor="middle" font-weight="bold">circuit, q multiplications</text>
+<text x="60.0" y="208.0" font-size="12" fill="#333" text-anchor="middle" class="v">u&#8321; &#8230; u&#8342;</text>
+<rect x="30.0" y="158.0" width="130.0" height="24.0" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.1" rx="12"/><text x="95.0" y="174.0" font-size="10.5" fill="#2e6da4" text-anchor="middle">affine (free)</text>
+<circle cx="95.0" cy="122.0" r="12" fill="#fff" stroke="#c0392b" stroke-width="1.8"/><text x="95.0" y="126.0" font-size="14" fill="#c0392b" text-anchor="middle">&#215;</text><text x="113.0" y="126.0" font-size="11" fill="#c0392b" text-anchor="start" class="v">v&#8321;</text>
+<rect x="30.0" y="82.0" width="130.0" height="24.0" fill="#eef4fa" stroke="#2e6da4" stroke-width="1.1" rx="12"/><text x="95.0" y="98.0" font-size="10.5" fill="#2e6da4" text-anchor="middle">affine (free)</text>
+<circle cx="95.0" cy="48.0" r="12" fill="#fff" stroke="#c0392b" stroke-width="1.8"/><text x="95.0" y="52.0" font-size="14" fill="#c0392b" text-anchor="middle">&#215;</text><text x="113.0" y="52.0" font-size="11" fill="#c0392b" text-anchor="start" class="v">v&#8322;</text>
+<line x1="60.0" y1="199.0" x2="80.0" y2="184.0" stroke="#555" stroke-width="1.2" marker-end="url(#c5gea0)"/>
+<line x1="95.0" y1="156.0" x2="95.0" y2="136.0" stroke="#555" stroke-width="1.2" marker-end="url(#c5gea0)"/>
+<line x1="95.0" y1="110.0" x2="95.0" y2="108.0" stroke="#555" stroke-width="1.2" marker-end="url(#c5gea0)"/>
+<line x1="95.0" y1="106.0" x2="95.0" y2="108.0" stroke="#555" stroke-width="1.2" marker-end="url(#c5gea0)"/>
+<line x1="95.0" y1="70.0" x2="95.0" y2="62.0" stroke="#555" stroke-width="1.2" marker-end="url(#c5gea0)"/>
+<line x1="120.0" y1="199.0" x2="140.0" y2="184.0" stroke="#555" stroke-width="1.2" marker-end="url(#c5gea0)"/>
+<text x="230.0" y="60.0" font-size="22" fill="#333" text-anchor="middle">&#8658;</text>
+<rect x="280.0" y="34.0" width="330.0" height="168.0" fill="#f3f1ec" stroke="#999" stroke-width="1.2" rx="8"/>
+<text x="445.0" y="58.0" font-size="11.5" fill="#333" text-anchor="middle">the fiber, described by the circuit:</text>
+<text x="300.0" y="86.0" font-size="12.5" fill="#c0392b" text-anchor="start">v&#8342; = A&#8342;(u, v&#8249;&#8342;) &#183; B&#8342;(u, v&#8249;&#8342;)</text>
+<text x="475.0" y="86.0" font-size="11" fill="#555" text-anchor="start">&#215; q,  degree &#8804; 2</text>
+<text x="300.0" y="116.0" font-size="12.5" fill="#2e6da4" text-anchor="start">H&#7522;(u, v) = a&#7522;</text>
+<text x="475.0" y="116.0" font-size="11" fill="#555" text-anchor="start">&#215; k,  degree &#8804; 1</text>
+<text x="300.0" y="152.0" font-size="11.5" fill="#333" text-anchor="start">affine B&#233;zout (Import 4): &#8804; 2<tspan baseline-shift="super" font-size="7.5">q</tspan> &#183; 1<tspan baseline-shift="super" font-size="7.5">k</tspan> isolated solutions</text>
+<text x="300.0" y="178.0" font-size="11" fill="#555" text-anchor="start">gate equations solve v from u uniquely &#8658; bijection with fiber</text>
+</svg>

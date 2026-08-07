@@ -1,0 +1,35 @@
+<h2 id="gradient">6. Differentiating a whole circuit for a factor of three, and the master circuit bound (Proposition 4.3)</h2>
+
+<p>The last ingredient of the circuit spine is a classical gem: from a circuit for one polynomial $P$, one can compute <i>all $m$ of its first partial derivatives simultaneously</i> at only a constant-factor cost &mdash; independent of $m$. This is the Baur&ndash;Strassen theorem [BS83], known to the machine-learning world as reverse-mode automatic differentiation (backpropagation). Crucially, its cheapness relies on <i>reuse</i> of intermediate values, so it is a theorem about circuits, not formulas &mdash; the two spines part ways exactly here.</p>
+
+<div class="lem"><b>Lemma B (Baur&ndash;Strassen, multiplicative-complexity form; [BS83, Thm. 2]).</b> If a circuit computes $P \in \mathbb{C}[x_1,\dots,x_m]$ using $q$ multiplications, then some circuit computes all of $\nabla P = (\partial P/\partial x_1, \dots, \partial P/\partial x_m)$ using at most $3q$ multiplications.</div>
+
+<div class="proof">
+<p>Evaluate the original circuit in topological order, retaining the output of every multiplication gate (reuse is legal in a circuit). Now traverse the gates in <i>reverse</i> order, maintaining for each intermediate value $v$ an <b>adjoint</b> $\bar v$, defined as the derivative of the final output with respect to $v$ when $v$ is treated as an independent input of the remaining computation. Initialize the output's adjoint to $1$ and every other adjoint to $0$; process gates last-to-first, adding each gate's contribution to its inputs' adjoints (a value used by several later gates accumulates a sum &mdash; the total-derivative chain rule over all paths).</p>
+<p>The updates per gate:</p>
+<ul>
+<li><b>Affine gate</b> $v = \alpha a + \beta b + \gamma$ (covers $+$, $-$, scalar multiples): the chain rule gives $\bar a \mathrel{+}= \alpha \bar v$ and $\bar b \mathrel{+}= \beta \bar v$ &mdash; affine updates, cost $0$.</li>
+<li><b>Multiplication gate</b> $v = a\,b$: the chain rule gives
+$$\bar a \mathrel{+}= \bar v\, b, \qquad \bar b \mathrel{+}= \bar v\, a,$$
+using the stored forward values $a, b$ &mdash; two multiplications.</li>
+</ul>
+<p>So each original multiplication gate costs one multiplication forward and at most two in reverse: at most $3q$ in total, regardless of $m$. On termination, correctness is the chain rule applied inductively in reverse topological order: the adjoint of an input gate labeled $x_i$ is exactly $\partial P/\partial x_i$, and all $m$ of them have been produced by the one reverse sweep. Fig.&nbsp;10 animates both sweeps on a 3-multiplication example. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_reverse--><figcaption>Reverse-mode differentiation on the circuit $u = x{+}y$, $v = u\cdot u$, $w = v\cdot x$, $P = w\cdot v\;(=(x{+}y)^4 x)$, animated in three phases (the animation loops; under reduced-motion settings it freezes on the completed final state, which carries the full content). Phase 1 (forward): values flow up through the DAG; the 3 multiplication gates are highlighted as they fire. Phase 2 (reverse): adjoints $\bar w = v$, $\bar v = w + \bar w u \cdot \frac{\partial v}{\partial v}\cdots$ flow down the same edges reversed, each multiplication gate spending at most 2 multiplications ($\bar a \mathrel{+}= \bar v b$, $\bar b \mathrel{+}= \bar v a$). Phase 3: all adjoints at the leaves &mdash; the complete gradient &mdash; are lit simultaneously: $3q = 9$ multiplications bought all $m$ derivatives at once.</figcaption></figure>
+
+<p>Assembling Lemmas 4.1, 4.2 and B yields the master bound of the circuit spine. One definition first: a polynomial $P(y_1,\dots,y_m)$ is an <b>affine specialization</b> of $\operatorname{per}_n$ if it is obtained by substituting for each matrix entry $x_{ij}$ some affine linear form $\ell_{ij}(y_1,\dots,y_m)$ (a constant plus a linear combination of the new variables). Substitution is free in the multiplicative model, which is why specializations transfer lower bounds <i>upward</i> to the permanent.</p>
+
+<div class="prop"><b>Proposition 4.3.</b> Suppose a homogeneous polynomial $P$ of degree $d \ge 2$ in $m$ variables is a nonzero scalar multiple of an affine specialization of $\operatorname{per}_n$. If $\dim \operatorname{Crit}(P) \le m - k$ for some $1 \le k \lt m$, then every arithmetic circuit of size $L$ computing $\operatorname{per}_n$ satisfies
+$$k \log_2 (d-1) \;\le\; 3L. \tag{4.2}$$</div>
+
+<div class="proof">
+<p>Start with a size-$L$ circuit for $\operatorname{per}_n$. It has at most $L$ multiplication gates, so its multiplicative complexity is at most $L$. Substituting the affine forms $\ell_{ij}$ for the inputs and multiplying the output by the nonzero scalar are affine operations &mdash; free &mdash; so $P$ has multiplicative complexity at most $L$ as well.</p>
+<p>By Lemma B, all of $\nabla P$ is computable with at most $3L$ multiplications.</p>
+<p>Apply Lemma 4.2 with $\delta = m - k$: its hypotheses hold since $\dim\operatorname{Crit}(P) \le m-k$ and $k + (m-k) = m$. We obtain linear $W, A$ for which $F(u) = A \nabla P (Wu)$ is homogeneous of degree $d - 1$ from $\mathbb{C}^k$ to $\mathbb{C}^k$ with $F^{-1}(0) = \{0\}$. Precomposing the gradient circuit with $W$ and postcomposing with $A$ are again free, so $F$ is computable with at most $3L$ multiplications.</p>
+<p>Apply Lemma 4.1 to $F$ with $e = d - 1 \ge 1$:
+$$(d-1)^k \le 2^{3L}.$$
+Taking base-two logarithms proves (4.2). <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="keyresult"><b>The circuit spine's interface.</b> To lower-bound $C(\operatorname{per}_n)$ by $\tfrac{1}{3}k\log_2(d-1)$, it now suffices to exhibit <i>one</i> homogeneous polynomial $P$ that (i) is a nonzero scalar multiple of an affine specialization of $\operatorname{per}_n$, (ii) has degree $d$ as large as possible &mdash; we will get $d \approx \tfrac14 \log_2 n$, whence the $\log\log$ &mdash; and (iii) has critical locus of codimension $k = \Theta(n^2)$. Conditions (ii) and (iii) fight each other: the full permanent itself has large degree but critical-locus codimension only $O(n)$ (see <a class="secref" href="#landscape">&sect;14</a>), which is why the engineered specialization of &sect;7&ndash;&sect;8 exists. Building it is the next two sections' work.</div>

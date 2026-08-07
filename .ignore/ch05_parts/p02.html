@@ -1,0 +1,50 @@
+<h2 id="models">1. The two polynomials and the three machines</h2>
+
+<p>Fix an integer $n \ge 1$ and let $X = (x_{ij})_{i,j\in[n]}$ be an $n \times n$ matrix of algebraically independent variables over $\mathbb{C}$, where $[j] = \{1,\dots,j\}$. &ldquo;Algebraically independent&rdquo; means the $x_{ij}$ satisfy no polynomial relation &mdash; they are genuine formal symbols, and two polynomials in them are equal only if all their coefficients match. $S_n$ denotes the set of permutations (bijections) of $[n]$, and $\operatorname{sgn}(\sigma) \in \{\pm 1\}$ is the sign of a permutation.</p>
+
+<div class="def"><b>Definition (permanent and determinant).</b>
+$$\operatorname{per}_n(X) = \sum_{\sigma \in S_n} \prod_{i=1}^{n} x_{i,\sigma(i)},
+\qquad
+{\det}_n(X) = \sum_{\sigma \in S_n} \operatorname{sgn}(\sigma) \prod_{i=1}^{n} x_{i,\sigma(i)}.$$
+Each monomial chooses exactly one entry from each row and each column &mdash; a perfect matching of rows to columns (Fig.&nbsp;1). Both polynomials are <b>multilinear</b>: no variable ever appears squared, because a permutation uses each row once.</div>
+
+<p>One phrase in the chapter's setup deserves emphasis before anything else: throughout, <b>&ldquo;compute&rdquo; means compute the polynomial exactly as a formal expression over $\mathbb{C}$</b>, not merely evaluate it on particular numeric matrices. A device computes $\operatorname{per}_n$ only if its output, expanded symbolically, is coefficient-for-coefficient the polynomial above. This is the natural setting for algebraic complexity, and it is what makes tools like differentiation and coefficient extraction available to the lower-bound arguments.</p>
+
+<h3 id="circuits">1.1 Machine one: arithmetic circuits</h3>
+
+<div class="def"><b>Definition (arithmetic circuit; the size measure $C(f)$).</b> An <b>arithmetic circuit</b> is a finite directed acyclic graph with:
+<ul>
+<li><b>input gates</b> (no incoming edges) labeled by individual variables or by arbitrary complex constants;</li>
+<li><b>binary internal gates</b> labeled $+$, $-$, or $\times$, each combining the outputs of two earlier gates;</li>
+<li>one designated <b>output gate</b>.</li>
+</ul>
+Intermediate values may be <b>reused arbitrarily</b>: a gate can feed its output to any number of later gates. The circuit is division-free. Its <b>size</b> is the number of arithmetic gates; input gates are not counted. $C(f)$ is the minimum size of a circuit whose output is the polynomial $f$. There are no restrictions on depth, intermediate degrees, fan-out, or cancellations.</div>
+
+<p>The generosity of this model is the point: a lower bound against it rules out <i>every</i> division-free algebraic algorithm, however clever its sharing and cancellation. The permanent depends on all $N = n^2$ variables (deleting a variable changes the polynomial &mdash; its coefficient of the corresponding monomial is a nonzero subpermanent), and combining $N$ inputs into one output through binary gates needs at least $N-1$ gates; that is the trivial $\Omega(n^2)$ floor that Theorem 1.1 will finally beat.</p>
+
+<h3 id="formulas">1.2 Machines two and three: formulas, with and without division</h3>
+
+<div class="def"><b>Definition (arithmetic formula; the measures $L, L_{\mathrm{var}}, G$).</b> An <b>arithmetic formula</b> $\Phi$ has the same inputs and binary arithmetic gates as a circuit, but its underlying graph is a <b>rooted tree</b>: every gate feeds exactly one later gate. Consequently, two uses of the same intermediate polynomial must be computed by separate subformulas &mdash; a formula cannot remember. Write:
+<ul>
+<li>$L(\Phi)$ &mdash; its total number of leaves;</li>
+<li>$L_{\mathrm{var}}(\Phi)$ &mdash; the number of leaves labeled by <i>variables</i>, with repeated occurrences counted separately;</li>
+<li>$G(\Phi)$ &mdash; its number of internal arithmetic gates. For a binary tree, $G(\Phi) = L(\Phi) - 1$.</li>
+</ul>
+A <b>formula with division</b> additionally permits $\div$ gates and is interpreted in the field $\mathbb{C}(x_{ij} : i,j \in [n])$ of rational functions (ratios of polynomials). Such a formula is <b>valid</b> if every denominator is a nonzero element of this field. Its final output must equal the polynomial being computed; intermediate results are allowed to be genuinely rational.</div>
+
+<figure><!--FIG:fig_models--><figcaption>The same polynomial $\bigl((x+y)^2+z\bigr)\cdot(x+y)^2$, computed three ways. Left: a <b>circuit</b> computes $u = x+y$ once, $v = u\cdot u$ once, and reuses $v$ twice &mdash; 4 gates. Middle: a <b>formula</b> is a tree, so each of the two uses of $v$ needs its own subtree &mdash; the shared work is duplicated (7 gates, 5 variable leaves). Right: a <b>formula with division</b> may form rational intermediates like $1/(x+y)$ as long as no denominator is the zero polynomial. Circuits remember; formulas recompute; division formulas may also divide.</figcaption></figure>
+
+<p>Why study both models? Because they fail differently, and the chapter exploits each failure with a different weapon. A circuit's strength is <i>reuse</i>: the circuit bound (<a class="secref" href="#gradient">&sect;6</a>) actually leans on this strength, using the fact that reuse lets one differentiate an entire circuit cheaply. A formula's weakness is <i>amnesia</i>: the formula bound (<a class="secref" href="#tdeg">&sect;10</a>&ndash;<a class="secref" href="#packing">&sect;12</a>) charges independent pieces of information to distinct leaf occurrences, which is only possible because a tree cannot share. The two proofs are logically independent, and you can read either spine first.</p>
+
+<h3 id="landscape1">1.3 Where the bounds stood</h3>
+
+<div class="tablewrap"><table>
+<tr><th>Model</th><th>Determinant</th><th>Permanent (before)</th><th>Permanent (this chapter)</th></tr>
+<tr><td>Circuits, upper</td><td>polynomial size [Ber84]</td><td>$O(n\,2^n)$ via Ryser's identity [Rys63]</td><td>&mdash;</td></tr>
+<tr><td>Circuits, lower</td><td>$\Omega(n^2)$ (trivial)</td><td>$\Omega(n^2)$ (trivial)</td><td>$\Omega(n^2\log\log n)$ (Thm 1.1)</td></tr>
+<tr><td>Formulas, upper</td><td>$n^{O(\log n)}$ [Hya79, VSBR83]</td><td>$O(n^2 2^n)$ [Rys63]</td><td>&mdash;</td></tr>
+<tr><td>Formulas, lower (no $\div$)</td><td>$\Omega(n^3)$ [KS14]</td><td>$\Omega(n^3)$ [KS14]</td><td>$\Omega(n^4/\log n)$ (Thm 1.2)</td></tr>
+<tr><td>Formulas, lower (valid $\div$)</td><td>$\Omega(n^3)$ [Kal85]</td><td>open (Kalorkoti's proof is det-specific)</td><td>$\Omega(n^4/\log n)$ (Thm 1.3)</td></tr>
+</table></div>
+
+<p class="small">Reading the table: rows are computational models, columns are the two polynomials. The classical division-free formula bound $\Omega(n^3)$ applies to both polynomials [KS14, &sect;3.2, Thm.&nbsp;5]; Kalorkoti's cubic bound with division was proved for the determinant [Kal85]. The permanent's only known upper bounds are exponential &mdash; Ryser's inclusion&ndash;exclusion formula &mdash; so both new lower bounds live in an enormous no-man's-land between $n^4$ and $2^n$.</p>

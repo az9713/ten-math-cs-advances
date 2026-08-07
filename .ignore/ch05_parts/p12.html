@@ -1,0 +1,109 @@
+<h2 id="jacobian">11. Formulas II: a log-size matching with $n^2$ independent secrets (Lemma 9.1)</h2>
+
+<p>A <b>matching</b> $Y$ in the $n \times n$ variable matrix $X$ is a set of entries with no repeated row and no repeated column. This section proves the formula spine's engine: for a matching of merely $O(\log n)$ entries, the permanent's expansion in those variables contains $\Omega(n^2)$ algebraically independent coefficients. By Lemma 8.1, any division-free formula must then spend $\Omega(n^2)$ leaf occurrences on <i>that one matching</i> &mdash; and &sect;12 will sum this over $\Omega(n^2/\log n)$ disjoint matchings.</p>
+
+<h3 id="warmup55">11.1 A $5\times5$ warm-up: rows and columns separate</h3>
+
+<p>Choose distinct $p_1,p_2,p_3 \in \mathbb{C}$ and, independently, distinct $q_1,q_2,q_3 \in \mathbb{C}$, and consider
+$$B = \begin{pmatrix}
+y_e & 0 & p_1 & p_2 & p_3\\
+0 & y_f & 1 & 1 & 1\\
+1 & q_1 & w_{11} & w_{12} & w_{13}\\
+1 & q_2 & w_{21} & w_{22} & w_{23}\\
+1 & q_3 & w_{31} & w_{32} & w_{33}
+\end{pmatrix}.$$
+The matching is the pair of diagonal variables $y_e, y_f$; call their rows and columns <b>internal</b> and the remaining three of each <b>external</b>. Fig.&nbsp;21 color-codes the anatomy.</p>
+
+<figure><!--FIG:fig_fivebyfive--><figcaption>Anatomy of the $5\times5$ warm-up. Internal rows/columns (indices $e,f$) carry the marked variables $y_e, y_f$ on the diagonal and zeros off it; the internal-to-external border row carries the column parameters $p_b$ (on the $e$-row) and ones (on the $f$-row); the external-to-internal border column carries ones (into the $e$-column) and the row parameters $q_a$ (into the $f$-column); the external $3\times3$ block holds the differentiation variables $w_{ab}$, later evaluated at $1$. The asymmetry &mdash; $p$'s attached to $e$, $q$'s to $f$ &mdash; is what will let column-choices and row-choices factor.</figcaption></figure>
+
+<p>The permanent is multilinear in the marked variables, so
+$$\operatorname{per}(B) = c_{ef}\,y_ey_f + c_f\,y_f + c_e\,y_e + c_\emptyset,$$
+where $c_S$ collects the permutation terms using exactly the marked entries in $S$. Each $c_S$ is a polynomial in the unmarked entries; we probe it through the external block, computing $\partial c_S/\partial w_{ab}$ and only then evaluating every $w_{ij}$ at $1$. Write
+$$G_b = \sum_{j \ne b} p_j, \qquad H_a = \sum_{i \ne a} q_i.$$
+Differentiating by $w_{ab}$ pins external row $a$ to external column $b$; counting the remaining matchings, term by term:</p>
+<ul>
+<li>$\dfrac{\partial c_{ef}}{\partial w_{ab}} = 2$: both internal rows and columns are consumed by their own diagonal entries; the two remaining external rows match the two remaining external columns in $2! = 2$ ways, all weights $1$.</li>
+<li>$\dfrac{\partial c_{f}}{\partial w_{ab}} = 2G_b$: the $f$-row sits on its diagonal, but the $e$-row must exit to an external column $j \ne b$, weight $p_j$ (hence $G_b$); the orphaned $e$-column receives either of the $2$ remaining external rows, weight $1$; the rest is forced.</li>
+<li>$\dfrac{\partial c_{e}}{\partial w_{ab}} = 2H_a$: the mirror image &mdash; the $f$-column receives an external row $i \ne a$, weight $q_i$ (hence $H_a$), and the $f$-row exits with $2$ free choices.</li>
+<li>$\dfrac{\partial c_{\emptyset}}{\partial w_{ab}} = G_bH_a$: both internal diagonals unused; the $e$-row exits (factor $G_b$), the $f$-column receives (factor $H_a$), and these choices are independent &mdash; the $e$-row chooses a <i>column</i>, the $f$-column chooses a <i>row</i> &mdash; with everything else forced.</li>
+</ul>
+<p>Restrict to the four probe variables $w_{11}, w_{12}, w_{21}, w_{22}$ and stack the four gradients:
+$$J = \operatorname{diag}(2,2,2,1)
+\begin{pmatrix}
+1 & 1 & 1 & 1\\
+G_1 & G_2 & G_1 & G_2\\
+H_1 & H_1 & H_2 & H_2\\
+G_1H_1 & G_2H_1 & G_1H_2 & G_2H_2
+\end{pmatrix}
+= \operatorname{diag}(2,2,2,1)\,\bigl(V_H \otimes V_G\bigr),$$
+where $V_G = \bigl(\begin{smallmatrix}1 & 1\\ G_1 & G_2\end{smallmatrix}\bigr)$, $V_H = \bigl(\begin{smallmatrix}1 & 1\\ H_1 & H_2\end{smallmatrix}\bigr)$ and $\otimes$ is the Kronecker product (each entry of $V_H$ multiplied by the whole of $V_G$). Since $G_2 - G_1 = p_1 - p_2 \ne 0$ and $H_2 - H_1 = q_1 - q_2 \ne 0$,
+$$\det J = 8\,\det(V_H)^2\det(V_G)^2 = 8\,(p_1-p_2)^2(q_1-q_2)^2 \ne 0.$$
+By the Jacobian criterion (Import 6), the four coefficients $c_{ef}, c_f, c_e, c_\emptyset$ are algebraically independent &mdash; a nonzero minor at <i>one</i> specialization certifies independence of the polynomials themselves. The plan for general $n$: replace the single $e$ and $f$ by $\ell$ indices each; subsets of the $e$-indices will encode external <i>column</i> data in binary, subsets of the $f$-indices external <i>row</i> data, and the two $2\times2$ Vandermonde factors will become $m \times m$ Vandermonde-type factors certifying $m^2$ independent coefficients.</p>
+
+<h3 id="params9">11.2 Parameters, and the chosen coefficient family</h3>
+
+<div class="def"><b>Definition (formula parameters (9.1)).</b> For $n \ge 32$ set
+$$\ell = \lceil \log_2 n\rceil, \qquad k = 2\ell, \qquad m = n - k.$$
+</div>
+
+<p>Three inequalities are used throughout; all follow from $n \ge 32$ (so $\ell \ge 5$ and $2^{\ell - 1} \lt n \le 2^{\ell}$): <b>(i)</b> $k \le n/2$, equivalently $n \ge 4\ell$ &mdash; at $\ell = 5$, $n \ge 32 \gt 20$; for $\ell \ge 6$, $n \ge 2^{\ell-1}+1 \ge 4\ell + 1$ (check $2^{\ell-1} \ge 4\ell$ at $\ell = 6$: $32 \ge 24$; doubling the left side beats adding $4$ to the right). <b>(ii)</b> $m \ge k + 1$, equivalently $n \ge 4\ell + 1$ &mdash; same computation. <b>(iii)</b> $m \le 2^\ell$, since $m \lt n \le 2^\ell$. Interpretation: $k$ marked entries suffice to hold two groups of $\ell$ binary digits; $m$, the number of <b>external</b> rows and columns, is both large ($\ge n/2$ by (i)) and addressable by $\ell$ bits (by (iii)); and (ii) guarantees enough external columns for every injection appearing below.</p>
+
+<div class="lem"><b>Lemma 9.1.</b> If $Y$ is a matching of $k$ entries of $X$, then $\operatorname{td}_Y(\operatorname{per}_n) \ge m^2$.</div>
+
+<div class="proof">
+<p><b>Step 1: coefficients of marked diagonal entries.</b> Permuting rows and columns of $X$ permutes the monomials of $\operatorname{per}_n$ (row permutations relabel the $\sigma$'s, column permutations compose them), so it changes neither the permanent up to relabeling nor any $\operatorname{td}_Y$; assume $Y = \{y_1,\dots,y_k\}$ with $y_i = x_{ii}$. For $S \subseteq [k]$ let $c_S$ be the coefficient of $\prod_{i \in S} y_i$. By multilinearity,
+$$c_S = \Bigl(\prod_{i \in S} \frac{\partial}{\partial y_i}\Bigr)\operatorname{per}_n(X)\ \Bigl|_{\,y_1 = \dots = y_k = 0}: \tag{9.2}$$
+differentiating selects the terms through the marked diagonal entries of $S$; zeroing discards terms using any other marked entry. Equivalently, $c_S$ is the permanent of the matrix with rows and columns $S$ deleted and the remaining marked diagonal entries replaced by $0$.</p>
+
+<p><b>Step 2: internal/external anatomy, and the magic specialization.</b> Split the marked indices into two halves $[k] = E \sqcup F$, $E = \{e_0,\dots,e_{\ell-1}\}$, $F = \{f_0,\dots,f_{\ell-1}\}$; call all $k$ marked rows/columns <b>internal</b>, index the $m$ remaining <b>external</b> rows and columns by $[m]$, and write
+$$X = \begin{pmatrix} D & U\\ V & W\end{pmatrix},$$
+with $D$ ($k \times k$, internal&ndash;internal), $U$ ($k \times m$, internal rows to external columns), $V$ ($m \times k$, external rows to internal columns), $W = (w_{ab})$ ($m \times m$, external&ndash;external). Choose distinct $p_1,\dots,p_m \in \mathbb{C}$ and, independently, distinct $q_1,\dots,q_m \in \mathbb{C}$, and define the specialization $\xi$ of the <i>unmarked</i> variables (Fig.&nbsp;22): for $i \ne j$ in $[k]$, $0 \le u,v \lt \ell$, $a,b \in [m]$,
+$$D_{ij} = 0, \qquad w_{ab} = 1, \tag{9.3}$$
+$$U_{e_u, b} = p_b^{\,2^u}, \qquad U_{f_v, b} = 1, \qquad V_{a, e_u} = 1, \qquad V_{a, f_v} = q_a^{\,2^v}. \tag{9.4}$$
+Derivatives are always taken <i>before</i> evaluating at $\xi$. The powers $2^u, 2^v$ make subsets of $E$ and $F$ encode integers in binary without collisions: an internal $e$-row exiting to external column $b$ picks up $p_b$ raised to its binary weight; an external row $a$ entering an internal $f$-column picks up $q_a$ likewise; all other internal&ndash;external entries weigh $1$.</p>
+
+<figure><!--FIG:fig_blocks9--><figcaption>The general setup of Lemma 9.1 ($\ell = 3$, $k = 6$, drawn with $m = 7$). Internal block $D$: marked diagonal $y_{e_0},\dots,y_{f_2}$, zeros elsewhere. Border blocks at the specialization $\xi$: row $e_u$ carries $p_b^{2^u}$ across the external columns $b$; row $f_v$ carries ones; column $e_u$ receives ones; column $f_v$ receives $q_a^{2^v}$ from each external row $a$; the external block $W$ is all ones. The coefficient $c_{S(\alpha,\beta)}$ leaves exactly the internal indices $T(\alpha,\beta) = P(\alpha) \cup Q(\beta)$ alive, whose binary patterns (highlighted) encode $\alpha$ column-side and $\beta$ row-side.</figcaption></figure>
+
+<p><b>The coefficient family.</b> For $0 \le \alpha, \beta \lt m$, let $P(\alpha) \subseteq E$ and $Q(\beta) \subseteq F$ hold the $1$-digits of the $\ell$-bit binary expansions of $\alpha, \beta$ (digit $0$ least significant; this is where $m \le 2^\ell$ enters). Set
+$$T(\alpha,\beta) = P(\alpha) \cup Q(\beta), \qquad S(\alpha,\beta) = [k] \setminus T(\alpha,\beta).$$
+These give $m^2$ coefficients $c_{S(\alpha,\beta)}$ of distinct marked monomials. Taking the <i>complement</i> matters: the indices in $S$ are consumed by their own diagonal entries, while the indices in $T$ survive into the coefficient permanent and must be matched through the unmarked blocks &mdash; they are the message carriers. Our goal is the invertibility of the $m^2 \times m^2$ Jacobian
+$$J_{(\alpha,\beta),(a,b)} = \frac{\partial c_{S(\alpha,\beta)}}{\partial w_{ab}}\Bigl|_{\xi}.$$
+Once $\det J \ne 0$ is established, Import 6 finishes the lemma.</p>
+
+<p><b>Step 3: count the surviving permutation terms.</b> Fix $\alpha,\beta,a,b$; abbreviate $P = P(\alpha)$, $Q = Q(\beta)$, $T = P \cup Q$, $r = |T| \le k$. In the permanent computing $c_{S(\alpha,\beta)}$ (rows/columns $S$ deleted, remaining marked diagonal zeroed), differentiation by $w_{ab}$ fixes external row $a$ to external column $b$ and deletes both. What remains: the internal rows and columns $T$, and $m - 1$ external rows and columns. At $\xi$ the internal block on $T$ is entirely zero &mdash; off-diagonal entries by (9.3), diagonal ones by the zeroing in (9.2) &mdash; so <i>no internal row can match an internal column</i>. Therefore:</p>
+<ul>
+<li>the internal rows $T$ exit via an injection $\rho : T \hookrightarrow [m]\setminus\{b\}$ into distinct available external columns (well-defined since $r \le k \le m - 1$ by parameter fact (ii));</li>
+<li>the internal columns $T$ receive an injection $\theta : T \hookrightarrow [m]\setminus\{a\}$ of distinct available external rows;</li>
+<li>the $m - 1 - r$ external rows not used by $\theta$ match the $m-1-r$ external columns not used by $\rho$ in $(m-1-r)!$ ways, all weight $1$ ($W \equiv 1$ at $\xi$).</li>
+</ul>
+<p>The choices $\rho$ (columns) and $\theta$ (rows) are independent, so
+$$J_{(\alpha,\beta),(a,b)} = (m-1-r)!\ \Bigl(\sum_{\rho\,:\,T \hookrightarrow [m]\setminus\{b\}}\ \prod_{i \in T} U_{i,\rho(i)}\Bigr)\Bigl(\sum_{\theta\,:\,T \hookrightarrow [m]\setminus\{a\}}\ \prod_{j \in T} V_{\theta(j), j}\Bigr). \tag{9.5}$$
+This is the general form of the four hand counts of &sect;11.1. To convert the two injection sums into something whose invertibility is visible, we express each as the value of a univariate polynomial.</p>
+
+<p><b>Step 4: forbidden-column sums are polynomial evaluations.</b> For $P' \subseteq E$ define the binary weight and the unrestricted injection sum
+$$D_{P'} = \sum_{e_u \in P'} 2^u, \qquad
+H_{P'} = \sum_{\rho\,:\,P' \hookrightarrow [m]}\ \prod_{e_u \in P'} p_{\rho(e_u)}^{\,2^u},$$
+(so $H_\emptyset = 1$), and define $g_{P'} \in \mathbb{C}[z]$ recursively by
+$$g_\emptyset(z) = 1, \qquad
+g_{P'}(z) = H_{P'} - \sum_{e_u \in P'} z^{2^u}\, g_{P'\setminus\{e_u\}}(z) \quad (P' \ne \emptyset). \tag{9.6}$$
+<i>Claim:</i>
+$$g_{P'}(p_b) = \sum_{\rho\,:\,P' \hookrightarrow [m]\setminus\{b\}}\ \prod_{e_u \in P'} p_{\rho(e_u)}^{\,2^u},
+\qquad \deg g_{P'} = D_{P'}, \qquad [z^{D_{P'}}]\,g_{P'}(z) = (-1)^{|P'|}\,|P'|!\,. \tag{9.7}$$
+For the evaluation identity, induct on $|P'|$: an injection of $P'$ into all of $[m]$ either avoids $b$, or sends exactly one index $e_u$ to $b$ &mdash; contributing $p_b^{2^u}$ times an injection of $P'\setminus\{e_u\}$ that avoids $b$ (it must avoid $b$: injectivity forbids reuse), i.e. $z^{2^u}g_{P'\setminus\{e_u\}}(z)$ at $z = p_b$ by the inductive hypothesis. Subtracting the $b$-users from $H_{P'}$ is precisely (9.6). For degree and leading coefficient, induct again: $H_{P'}$ is a constant, and each subtracted term $z^{2^u}g_{P'\setminus\{e_u\}}(z)$ has degree $2^u + D_{P'\setminus\{e_u\}} = D_{P'}$ with leading coefficient $(-1)^{|P'|-1}(|P'|-1)!$; the minus sign in front and the $|P'|$ choices of $e_u$ give $(-1)^{|P'|}|P'|!$ &mdash; nonzero in characteristic zero. (Sanity: $g_{\{e_0\}}(z) = \sum_b p_b - z$, matching $G_b$ of the warm-up.) The row side is identical: for $Q' \subseteq F$ define $D_{Q'} = \sum_{f_v \in Q'}2^v$, the injection sum $K_{Q'}$ over rows, and
+$$h_\emptyset(z) = 1, \qquad h_{Q'}(z) = K_{Q'} - \sum_{f_v \in Q'} z^{2^v} h_{Q'\setminus\{f_v\}}(z),$$
+which satisfies the mirror of (9.7) with $q_a$ in place of $p_b$. $\tag{9.8}$</p>
+
+<p><b>Step 5: factor each Jacobian entry.</b> Write $(M)_s = M(M-1)\cdots(M-s+1)$ for the falling factorial, $(M)_0 = 1$. In the first sum of (9.5), choose the images of the indices in $P$ first: their weighted total is $g_P(p_b)$ by (9.7). Each index of $Q$ has $U$-weight $1$, so each choice extends to the $Q$-indices in exactly $(m-1-|P|)_{|Q|}$ ways (distinct columns from the remaining pool). Symmetrically for the second sum: the $Q$-images weigh $h_Q(q_a)$, and the $P$-indices extend in $(m-1-|Q|)_{|P|}$ weight-$1$ ways. Substituting into (9.5):
+$$J_{(\alpha,\beta),(a,b)} = L_{P,Q}\ g_P(p_b)\,h_Q(q_a), \tag{9.9}$$
+$$L_{P,Q} = (m-1-|P|-|Q|)!\ (m-1-|P|)_{|Q|}\ (m-1-|Q|)_{|P|} \ne 0, \tag{9.10}$$
+where all factors are positive because $|P| + |Q| \le 2\ell = k \le m-1$: every falling factorial counts injections that exist. Crucially, $L_{P,Q}$ depends only on the coefficient row $(\alpha,\beta)$, not on the probe $(a,b)$: it is a row scaling.</p>
+
+<p><b>Step 6: two Vandermonde factors.</b> By construction $D_{P(\alpha)} = \alpha$ and $D_{Q(\beta)} = \beta$ &mdash; the binary encoding pays off exactly here. So the polynomials $g_{P(0)}, g_{P(1)}, \dots, g_{P(m-1)}$ have degrees $0, 1, \dots, m-1$ with nonzero leading coefficients (9.7): their coefficient matrix in the monomial basis $1, z, \dots, z^{m-1}$ is triangular with nonzero diagonal, hence invertible. The evaluation matrix
+$$A_p = \bigl(g_{P(\alpha)}(p_b)\bigr)_{b, \alpha} = \bigl(p_b^{\,j}\bigr)_{b,j} \cdot \bigl(\text{coefficient matrix}\bigr)$$
+is a product of the Vandermonde matrix on the distinct nodes $p_1,\dots,p_m$ (invertible &mdash; its determinant $\prod_{b \lt b'}(p_{b'}-p_b) \ne 0$) with that triangular matrix: invertible. Identically, $A_q = (h_{Q(\beta)}(q_a))_{a,\beta}$ is invertible. Now (9.9) says that, up to the pairing of index pairs, $J$ is the Kronecker product $A_p^{\mathsf T} \otimes A_q^{\mathsf T}$ scaled by the nonzero row factors $L_{P,Q}$ (Fig.&nbsp;23): a Kronecker product of invertibles is invertible ($\det(A \otimes B) = \det(A)^m\det(B)^m$ for $m\times m$ factors), row scalings preserve invertibility, and permuting the pairing is a permutation similarity. Hence $\det J \ne 0$, and Import 6 delivers
+$$\operatorname{td}_Y(\operatorname{per}_n) \ge m^2.$$ <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_kron--><figcaption>The $m^2 \times m^2$ Jacobian, computed: all $49\times49$ entries of the &sect;15 instance ($\ell = 3$, $m = 7$, $p = (2,3,\dots,17)$, $q = (19,\dots,43)$), shaded by $\log$-magnitude (at these positive nodes every entry is a positive injection sum). Rows are coefficient labels $(\alpha,\beta)$, columns are probes $(a,b)$. The matrix is a row-scaled Kronecker product: the $\beta$-versus-$a$ layer replicates $A_q^{\mathsf T}$ block-wise (large blocks), the $\alpha$-versus-$b$ layer replicates $A_p^{\mathsf T}$ within each block (fine texture), and $L_{P,Q}$ rescales rows (left color strip). Each factor is (triangular)&thinsp;$\times$&thinsp;(Vandermonde), hence invertible &mdash; so the permanent's $m^2$ chosen coefficients share no algebraic relation.</figcaption></figure>
+
+<div class="toy"><b>What just happened, in one paragraph.</b> The permanent treats the $k$ marked diagonal cells as switches: the coefficient $c_S$ is a sub-permanent in which the <i>off</i> switches ($T = [k]\setminus S$) must route through the rest of the matrix. The specialization $\xi$ wires each off $e$-switch to broadcast a distinguishable power of $p$, each off $f$-switch to receive a distinguishable power of $q$, and everything else to be neutral. Probing with $\partial/\partial w_{ab}$ reads off a product (column signal at $b$)&thinsp;$\times$&thinsp;(row signal at $a$) &mdash; a rank-one structure per coefficient whose stacked matrix is a Kronecker product of two invertible Vandermonde-type systems. The determinant argument never needed to expand a single permanent: multilinearity, injective routing, and binary bookkeeping did everything. &sect;15 (check 6) runs the entire construction at $n = 13$, $\ell = 3$, $m = 7$: it rebuilds all $49$ coefficients by brute-force permanents, confirms (9.9) entrywise, and inverts the $49\times49$ Jacobian in exact arithmetic.</div>

@@ -1,0 +1,56 @@
+<h2 id="circuitproof">9. Choosing the degree: proof of Theorem 1.1</h2>
+
+<p>All circuit machinery is now on the table. What remains is bookkeeping: pick the block height $t$, block count $b$, and degree $d$ so that (i) the specialization of Lemma 6.1 fits inside $\operatorname{per}_n$, (ii) it retains $\Theta(n^2)$ variables, and (iii) Corollary 5.2's critical-locus bound stays below half the variable count, leaving room for a slice of dimension $k = \Theta(n^2)$.</p>
+
+<div class="def"><b>Definition (the parameter block (7.1)).</b> Given $n$ and a degree $d \ge 3$, set
+$$t = 4d, \qquad b = \Bigl\lfloor \frac{n}{2t}\Bigr\rfloor, \qquad r = bt, \qquad s = n - r + d, \qquad m = rs, \qquad k = \Bigl\lfloor \frac{m}{4}\Bigr\rfloor.$$
+Here $t$ is the rows per block, $b$ the number of blocks, $r = bt$ the total variable rows ($\approx n/2$), $s$ the variable columns chosen so that $B(X)$ is exactly $n \times n$ (indeed $r + s - d = n$), $m = rs$ the number of variable entries, and $k$ the slice dimension fed to Proposition 4.3.</div>
+
+<figure><!--FIG:fig_params--><figcaption>How the $n \times n$ permanent is spent, drawn to scale for $n = 256$ with the smallest legal degree $d = 3$, giving $t = 12$, $b = 10$, $r = 120$, $s = 139$. (At $n = 256$ the theorem's own degree choice $\lfloor \log_2 n/4\rfloor = 2$ sits below the requirement $d \ge 3$ of (7.2); the theorem starts at $n = 2^{16}$, where $d = 4$ &mdash; the picture only illustrates the layout.) The upper-left $r \times s$ region keeps its $m = rs \approx n^2/4$ independent variables (blocks $R_1,\dots,R_b$ tinted); the right border holds the $r - d$ constant filter columns $U$; the bottom border the all-ones and zero blocks. Half the matrix buys the cancellation; the other half remains genuinely variable.</figcaption></figure>
+
+<div class="prop"><b>Proposition 7.1.</b> Let $n, d$ be positive integers, define $t,b,r,s,m,k$ by (7.1), and suppose
+$$d \ge 3, \qquad n \ge 6t, \qquad 4(2^t - 1) \le ts. \tag{7.2}$$
+Then every arithmetic circuit of size $L$ computing $\operatorname{per}_n$ satisfies
+$$L \;\ge\; \frac{n^2 \log_2 (d-1)}{144}. \tag{7.3}$$</div>
+
+<div class="proof">
+<p>First the sanity of the construction. $n \ge 6t$ gives $b \ge \lfloor 3 \rfloor \ge 1$ and, as computed below, $s \ge n/2 \ge 3t \ge d$; also $d \le t$. So $3 \le d \le \min\{t,s\}$, and Lemma 6.1 applies: with $\rho = 2^t - 1$,
+$$P(X) = \sum_{h=1}^{b}\lambda_h M_{t,s,d}\bigl(X_{R_h,[s]}\bigr)$$
+is a nonzero scalar multiple of an affine specialization of $\operatorname{per}_{r+s-d} = \operatorname{per}_n$, homogeneous of degree $d$ in the $m = rs$ variables. All $\lambda_h$ are nonzero and the blocks are variable-disjoint, so Corollary 5.2 gives
+$$\dim\operatorname{Crit}(P) \;\le\; D := b\bigl(\rho + s(d-2)\bigr).$$</p>
+<p>Estimate the two summands of $D$ against $m = bts$. The scale condition $4\rho \le ts$ handles the power sums:
+$$b\rho \le \frac{bts}{4} = \frac{m}{4}.$$
+The choice $t = 4d$ handles the column parameters:
+$$b s (d-2) \lt bsd = \frac{bts}{4} = \frac{m}{4}.$$
+Hence $\dim\operatorname{Crit}(P) \le D \lt m/2$. Since $k = \lfloor m/4 \rfloor \le m/4$, we get $k + D \lt m$, so certainly $\dim\operatorname{Crit}(P) \le D \le m - k$, and $1 \le k \lt m$ (see $m \ge 8$ below). Proposition 4.3 applies:
+$$k\,\log_2(d-1) \;\le\; 3L. \tag{7.4}$$</p>
+<p>It remains to express $k$ in terms of $n$. From $b = \lfloor n/2t\rfloor$,
+$$\frac{n}{2} - t \;\le\; r = t\Bigl\lfloor\frac{n}{2t}\Bigr\rfloor \;\le\; \frac{n}{2}.$$
+The hypothesis $n \ge 6t$ gives $n/2 - t \ge n/2 - n/6 = n/3$. Therefore
+$$\frac{n}{3} \le r \le \frac{n}{2}, \qquad s = n - r + d \ge \frac{n}{2}, \qquad m = rs \ge \frac{n^2}{6}.$$
+In particular $m \ge \tfrac{36 t^2}{6} = 6t^2 \ge 8$, so the floor in $k$ costs at most a factor two:
+$$k = \Bigl\lfloor \frac{m}{4}\Bigr\rfloor \ge \frac{m}{8} \ge \frac{n^2}{48},$$
+i.e. $n^2 \le 48k$. Substituting into (7.4):
+$$L \ge \frac{k \log_2 (d-1)}{3} \ge \frac{n^2 \log_2(d-1)}{144}.$$ <span class="qed">&#8718;</span></p>
+</div>
+
+<p>Finally, let the degree grow with $n$. The tension: larger $d$ strengthens $\log_2(d-1)$, but $t = 4d$ makes the power-sum count $2^t = 2^{4d}$ explode, and the scale condition $4(2^t - 1) \le ts$ caps $2^t$ at roughly $n$. So $d$ can be at most about $\tfrac14 \log_2 n$ &mdash; whence, inescapably, a $\log\log$ bound.</p>
+
+<div class="thm"><b>Theorem 1.1 (restated).</b> For every $n \ge 2^{16}$, $\;C(\operatorname{per}_n) \ge \dfrac{n^2}{144}\bigl(\log_2\log_2 n - 3\bigr)$.</div>
+
+<div class="proof">
+<p>Put $\ell = \log_2 n \ (\ge 16)$, $d = \lfloor \ell/4 \rfloor$, $t = 4d$. Then $d \ge 4 \ge 3$ and $t \le \ell$. We check the three hypotheses (7.2).</p>
+<ul>
+<li>$n \ge 6t$: since $t \le \log_2 n$ and $n \ge 2^{16}$, indeed $6\log_2 n \le n$ (at $n = 2^{16}$: $96 \le 65536$; the gap only widens).</li>
+<li>$4(2^t-1) \le ts$: as in Proposition 7.1, $r \le n/2$ so $s \ge n/2$; and $d \ge 4$ gives $ds \ge 4 \cdot n/2 = 2n \ge n$. Meanwhile $2^t \le 2^\ell = n$. Hence
+$$2^t - 1 \lt n \le ds, \qquad 4(2^t - 1) \le 4\,ds = ts.$$</li>
+<li>$d \ge 3$: clear.</li>
+</ul>
+<p>Proposition 7.1 yields $L \ge n^2\log_2(d-1)/144$. Finally, $\ell \ge 16$ gives
+$$d - 1 = \Bigl\lfloor\frac{\ell}{4}\Bigr\rfloor - 1 \ge \frac{\ell}{4} - 2 \ge \frac{\ell}{8},$$
+(the last step because $\ell/8 \ge 2$), so $\log_2(d-1) \ge \log_2\ell - 3 = \log_2\log_2 n - 3$. Substitution proves (1.1). Since $\log_2\log_2 n - 3 \to \infty$, the bound is superquadratic. <span class="qed">&#8718;</span></p>
+</div>
+
+<figure><!--FIG:fig_boundchart--><figcaption>The finished circuit bound, computed exactly: the advantage factor $\log_2\log_2 n - 3$ in $L(n) = \tfrac{n^2}{144}(\log_2\log_2 n - 3)$, against $\log_2 n$ on a log axis. It reaches $1$ at the threshold $n = 2^{16}$, $2$ at $n = 2^{32}$, $5$ at $n = 2^{256}$, and $9$ at $n = 2^{4096}$ &mdash; superquadratic in the limit ($C(\operatorname{per}_n)/n^2 \to \infty$), yet the bound exceeds the trivial $n^2 - 1$ only once the factor passes $144$, at $n = 2^{2^{147}}$. The honesty of the constants is the point: nothing here is asymptotic sleight of hand, and &sect;15 re-verifies the full inequality chain at $n = 2^{16}$ by exact integer arithmetic.</figcaption></figure>
+
+<div class="note"><b>Where each hypothesis bit.</b> The three conditions of (7.2) each earned their keep: $d \ge 3$ made Proposition 5.1's rewriting engine run ($q \ge 2$); $n \ge 6t$ kept a constant fraction of the matrix variable; the scale condition $4(2^t-1) \le ts$ is the exponential wall $2^t \lesssim n$ that pins $d \lesssim \tfrac14\log_2 n$ and limits the whole method to $\log\log$ gains. Any improvement of the critical-locus bound (5.2) in its $2^t$ term would propagate directly into a stronger circuit bound &mdash; see the outlook in <a class="secref" href="#landscape">&sect;14</a>.</div>

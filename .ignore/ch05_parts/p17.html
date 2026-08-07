@@ -1,0 +1,78 @@
+<hr>
+
+<h2 id="notation">A. Appendix: notation glossary</h2>
+
+<p>Symbols in order of first appearance, with the section that defines them.</p>
+
+<div class="tablewrap"><table>
+<tr><th>Symbol</th><th>Meaning</th><th>Defined</th></tr>
+<tr><td>$[j]$, $S_n$, $\operatorname{sgn}$</td><td>$\{1,\dots,j\}$; permutations of $[n]$; permutation sign</td><td><a class="secref" href="#models">&sect;1</a></td></tr>
+<tr><td>$\operatorname{per}_n$, $\det_n$, $N$</td><td>permanent and determinant of the $n\times n$ variable matrix $X = (x_{ij})$; $N = n^2$</td><td><a class="secref" href="#models">&sect;1</a></td></tr>
+<tr><td>$C(f)$</td><td>minimum gate count of a division-free arithmetic circuit computing $f$ exactly</td><td><a class="secref" href="#circuits">&sect;1.1</a></td></tr>
+<tr><td>$\Phi$; $L, L_{\mathrm{var}}, G$</td><td>an arithmetic formula (tree); its total leaves, variable-labeled leaves (with multiplicity), internal gates ($G = L - 1$)</td><td><a class="secref" href="#formulas">&sect;1.2</a></td></tr>
+<tr><td>valid division</td><td>$\div$ gates whose denominators are nonzero rational functions in $\mathbb{C}(x_{ij})$</td><td><a class="secref" href="#formulas">&sect;1.2</a></td></tr>
+<tr><td>$\dim$, codimension, cone, $\mathbb{P}^N$, $\mathbb{P}V$</td><td>dimension of an algebraic set (Krull), $m - \dim$, scalar-closed set, projective space, projectivized cone</td><td><a class="secref" href="#varieties">&sect;3.1</a></td></tr>
+<tr><td>Imports 1&ndash;7</td><td>dimension package; Nullstellensatz; projective and affine Bézout; generic smoothness; Jacobian criterion; ABV singular-locus bound</td><td><a class="secref" href="#imports">&sect;3.2</a>, <a class="secref" href="#detcircuit">&sect;13.2</a></td></tr>
+<tr><td>multiplicative complexity</td><td>multiplications cost 1, affine operations free; $\le$ circuit size</td><td><a class="secref" href="#multmodel">&sect;4.1</a></td></tr>
+<tr><td>$\nabla P$, $\operatorname{Crit}(P)$</td><td>gradient; common zero set of all first partials (a cone for homogeneous $P$)</td><td><a class="secref" href="#slicing">&sect;5</a></td></tr>
+<tr><td>$W$, $A$, $F = A\nabla P(W\cdot)$</td><td>the generic slice $\mathbb{C}^k \to \mathbb{C}^m$, projection $\mathbb{C}^m \to \mathbb{C}^k$, and resulting square map with only zero at $0$</td><td><a class="secref" href="#slicing">&sect;5</a></td></tr>
+<tr><td>$\bar v$ (adjoint)</td><td>derivative of the circuit output with respect to intermediate value $v$; reverse-mode bookkeeping</td><td><a class="secref" href="#gradient">&sect;6</a></td></tr>
+<tr><td>affine specialization</td><td>substitution of affine linear forms for the inputs of $\operatorname{per}_n$; free in the multiplicative model</td><td><a class="secref" href="#gradient">&sect;6</a></td></tr>
+<tr><td>$M_{t,s,d}$, $X_{I,J}$</td><td>sum of all $d\times d$ permanental minors of a $t \times s$ variable matrix; submatrix notation</td><td><a class="secref" href="#minordef">&sect;7.1</a></td></tr>
+<tr><td>$p_B$, $\rho$</td><td>column power sums over row sets $B$; their count $2^t - 1$</td><td><a class="secref" href="#minordef">&sect;7.1</a></td></tr>
+<tr><td>$\Pi(I)$, $\mu(\pi)$, $Q_i(u;p)$</td><td>set partitions, M&ouml;bius weights $\prod_B(-1)^{|B|-1}(|B|-1)!$, and the derivative rewritten in shared coordinates (5.3)</td><td><a class="secref" href="#mobius">&sect;7.3</a></td></tr>
+<tr><td>$e_j(u)$, $\alpha$, $\kappa$, $z_{a,j}$</td><td>elementary symmetric polynomials; $(-1)^qq!$; $t - q$; the retained per-column symmetric parameters</td><td><a class="secref" href="#highdeg">&sect;7.4</a>&ndash;<a class="secref" href="#prop51">&sect;7.5</a></td></tr>
+<tr><td>$A$, $\mathcal{B}$ (incidence rings)</td><td>coordinate ring of the freed critical equations; the polynomial parameter ring mapping into it</td><td><a class="secref" href="#prop51">&sect;7.5</a></td></tr>
+<tr><td>$R_h$, $\mathbf{1}_T$, $\zeta$, $\theta$</td><td>row blocks of height $t$; indicator vectors; primitive $d$-th root of unity; $(-1)^{d+1}2^d$</td><td><a class="secref" href="#setup61">&sect;8.2</a></td></tr>
+<tr><td>$U$, $B(X)$, $c$, $\lambda_h$</td><td>the constant filter matrix; the bordered $n \times n$ matrix; the prefactor $(s{-}d)!(t{-}d)!(t!)^{b-1}$; block weights $\theta^{b-1}$, $\theta^{b-h}(1{+}\theta)^{h-2}$</td><td><a class="secref" href="#setup61">&sect;8.2</a></td></tr>
+<tr><td>$S$, $z_K$, $y_h$, $Y_{h-1}$</td><td>the square-zero algebra $\mathbb{C}[z]/(z_i^2)$, its subset monomials, block sums $\sum_{i\in R_h} z_i$, prefix sums</td><td><a class="secref" href="#setup61">&sect;8.2</a></td></tr>
+<tr><td>$t, b, r, s, m, k$ (circuit)</td><td>the parameter block (7.1): $t = 4d$, $b = \lfloor n/2t\rfloor$, $r = bt$, $s = n - r + d$, $m = rs$, $k = \lfloor m/4\rfloor$</td><td><a class="secref" href="#circuitproof">&sect;9</a></td></tr>
+<tr><td>$Y$, $Z$, $f_\alpha$, $\operatorname{td}_Y(f)$</td><td>selected/remaining variables; $Y$-expansion coefficients; their transcendence degree over $\mathbb{C}$</td><td><a class="secref" href="#tddef">&sect;10.1</a></td></tr>
+<tr><td>$t_Y(\Phi)$</td><td>number of $Y$-labeled leaves of $\Phi$, with multiplicity</td><td><a class="secref" href="#lem81">&sect;10.2</a></td></tr>
+<tr><td>$\ell, k, m$ (formula)</td><td>(9.1): $\lceil\log_2 n\rceil$, $2\ell$ marked entries, $m = n - k$ external indices</td><td><a class="secref" href="#params9">&sect;11.2</a></td></tr>
+<tr><td>$E, F$; $D,U,V,W$; $\xi$</td><td>the two halves of the marked indices; internal/external blocks of $X$; the specialization (9.3)&ndash;(9.4)</td><td><a class="secref" href="#params9">&sect;11.2</a></td></tr>
+<tr><td>$P(\alpha), Q(\beta), T, S(\alpha,\beta)$, $c_S$</td><td>binary digit sets, their union, its complement; the coefficient of $\prod_{i\in S}y_i$</td><td><a class="secref" href="#params9">&sect;11.2</a></td></tr>
+<tr><td>$g_{P'}, h_{Q'}$; $A_p, A_q$; $L_{P,Q}$</td><td>forbidden-column/row polynomials (9.6); their evaluation matrices (triangular $\times$ Vandermonde); the row scalars (9.10)</td><td><a class="secref" href="#jacobian">&sect;11</a></td></tr>
+<tr><td>$Y_{\tau,j}$, $\nu$</td><td>the cyclic matchings $\{x_{jk+r,(jk+r+\tau)\bmod n}\}$; their count $n\lfloor n/k\rfloor \ge n^2/2k$</td><td><a class="secref" href="#thm12">&sect;12.1</a></td></tr>
+<tr><td>$R = \mathbb{C}(Z)$; fractional linear map</td><td>the unmarked rational-function field; $u \mapsto (au+b)/(cu+d)$ with $2\times2$ matrix over $R$</td><td><a class="secref" href="#division">&sect;12.2</a></td></tr>
+<tr><td>$\delta$, $\Sigma$</td><td>$\det W$ and the Schur complement $D_0 - UW^{-1}V$ compressing the determinant's coefficients</td><td><a class="secref" href="#schur">&sect;13.1</a></td></tr>
+<tr><td>$\operatorname{dc}(P)$</td><td>determinantal complexity: least size of a representation $P = \det(\text{affine forms})$</td><td><a class="secref" href="#detcircuit">&sect;13.2</a></td></tr>
+</table></div>
+
+<p class="small">Source of truth: Chapter 5, &ldquo;Circuit and Formula Lower Bounds for the Permanent&rdquo;, PDF pages 114&ndash;153 of <i>Ten Advances in Mathematics and Theoretical Computer Science</i>. The chapter's numbering (Theorems 1.1&ndash;1.3, Lemmas 4.1, 4.2, 6.1, 8.1, 9.1, 10.1, 10.2, Propositions 4.3, 5.1, 7.1, Corollary 5.2, equations (1.1)&ndash;(11.1)) is preserved; results lettered A&ndash;E are classical background or restatements proved here for self-containment; equations tagged (7.a)&ndash;(8.a) are this document's own intermediate steps. Citations like [BS83] refer to the chapter's reference list (PDF pp. 149&ndash;151).</p>
+
+<script>
+function copyCode(btn){
+  var code = btn.parentElement.querySelector('code');
+  if(!code) return;
+  var text = code.textContent;
+  var done = function(){
+    var label = btn.querySelector('span'), prev = label.textContent;
+    btn.classList.add('copied'); label.textContent = 'Copied!';
+    setTimeout(function(){ btn.classList.remove('copied'); label.textContent = prev; }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+(function(){
+  try{
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('svg').forEach(function(svg){
+        if(typeof svg.pauseAnimations === 'function'){
+          if(typeof svg.setCurrentTime === 'function') svg.setCurrentTime(4.2);
+          svg.pauseAnimations();
+        }
+      });
+    }
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>

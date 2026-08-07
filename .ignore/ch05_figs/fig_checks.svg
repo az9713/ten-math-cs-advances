@@ -1,0 +1,62 @@
+<svg class="setupfig" viewBox="0 0 640 200" width="100%" role="img" aria-label="Validation coverage map">
+<rect x="24.0" y="20.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="34.0" y="38.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C1</text>
+<text x="124.0" y="38.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="79.0" y="56.0" font-size="9.8" fill="#333" text-anchor="middle">per 4&#215;4 identity</text>
+<text x="79.0" y="71.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;8.1</text>
+<text x="79.0" y="85.0" font-size="9" fill="#555" text-anchor="middle">symbolic, 24 terms</text>
+<rect x="146.0" y="20.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="156.0" y="38.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C2</text>
+<text x="246.0" y="38.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="201.0" y="56.0" font-size="9.8" fill="#333" text-anchor="middle">det 4&#215;4 collapse</text>
+<text x="201.0" y="71.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;13.2</text>
+<text x="201.0" y="85.0" font-size="9" fill="#555" text-anchor="middle">symbolic</text>
+<rect x="268.0" y="20.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="278.0" y="38.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C3</text>
+<text x="368.0" y="38.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="323.0" y="56.0" font-size="9.8" fill="#333" text-anchor="middle">derivative id. (5.4)</text>
+<text x="323.0" y="71.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;7.3</text>
+<text x="323.0" y="85.0" font-size="9" fill="#555" text-anchor="middle">t=4, s=5, d=3, exact</text>
+<rect x="390.0" y="20.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="400.0" y="38.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C4</text>
+<text x="490.0" y="38.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="445.0" y="56.0" font-size="9.8" fill="#333" text-anchor="middle">symmetric ids. (7.c)</text>
+<text x="445.0" y="71.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;7.5</text>
+<text x="445.0" y="85.0" font-size="9" fill="#555" text-anchor="middle">t=6, q=3, exact</text>
+<rect x="512.0" y="20.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="522.0" y="38.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C5</text>
+<text x="612.0" y="38.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="567.0" y="56.0" font-size="9.8" fill="#333" text-anchor="middle">Lemma 6.1 end-to-end</text>
+<text x="567.0" y="71.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;8</text>
+<text x="567.0" y="85.0" font-size="9" fill="#555" text-anchor="middle">&#8484;[&#950;], b=2, t=d=3, s=4</text>
+<rect x="24.0" y="106.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="34.0" y="124.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C6</text>
+<text x="124.0" y="124.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="79.0" y="142.0" font-size="9.8" fill="#333" text-anchor="middle">5&#215;5 Jacobian</text>
+<text x="79.0" y="157.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;11.1</text>
+<text x="79.0" y="171.0" font-size="9" fill="#555" text-anchor="middle">det J = 8&#183;36 = 288</text>
+<rect x="146.0" y="106.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="156.0" y="124.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C7</text>
+<text x="246.0" y="124.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="201.0" y="142.0" font-size="9.8" fill="#333" text-anchor="middle">Lemma 9.1 end-to-end</text>
+<text x="201.0" y="157.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;11</text>
+<text x="201.0" y="171.0" font-size="9" fill="#555" text-anchor="middle">n=13: 49&#178; entries + det</text>
+<rect x="268.0" y="106.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="278.0" y="124.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C8</text>
+<text x="368.0" y="124.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="323.0" y="142.0" font-size="9.8" fill="#333" text-anchor="middle">packing + Thm 1.2</text>
+<text x="323.0" y="157.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;12</text>
+<text x="323.0" y="171.0" font-size="9" fill="#555" text-anchor="middle">n = 32, &#957; = 96</text>
+<rect x="390.0" y="106.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="400.0" y="124.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C9</text>
+<text x="490.0" y="124.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="445.0" y="142.0" font-size="9.8" fill="#333" text-anchor="middle">Thm 1.1 chain</text>
+<text x="445.0" y="157.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;9</text>
+<text x="445.0" y="171.0" font-size="9" fill="#555" text-anchor="middle">n = 2&#8202;&#8321;&#8310;</text>
+<rect x="512.0" y="106.0" width="110.0" height="74.0" fill="#f1f7f1" stroke="#2a7d2a" stroke-width="1.3" rx="8"/>
+<text x="522.0" y="124.0" font-size="12" fill="#2a7d2a" text-anchor="start" font-weight="bold">C10</text>
+<text x="612.0" y="124.0" font-size="10" fill="#2a7d2a" text-anchor="end" font-weight="bold">PASS</text>
+<text x="567.0" y="142.0" font-size="9.8" fill="#333" text-anchor="middle">Schur identity</text>
+<text x="567.0" y="157.0" font-size="9.5" fill="#7a1f1f" text-anchor="middle">&#167;13.1</text>
+<text x="567.0" y="171.0" font-size="9" fill="#555" text-anchor="middle">n=7, k=3, &#8474;</text>
+</svg>

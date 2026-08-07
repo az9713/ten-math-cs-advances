@@ -1,0 +1,28 @@
+<svg class="setupfig" viewBox="0 0 640 288" width="100%" role="img" aria-label="Computed circuit lower bound chart">
+<rect x="70.0" y="40.0" width="470.0" height="190.0" fill="#fff" stroke="#bbb" stroke-width="1"/>
+<text x="305.0" y="264.0" font-size="11.5" fill="#555" text-anchor="middle">log&#8322; n  (log scale)</text>
+<text x="8.0" y="30.0" font-size="11.5" fill="#555" text-anchor="start">advantage factor log&#8322;log&#8322;n &#8722; 3</text>
+<text x="305.0" y="22.0" font-size="12.5" fill="#7a1f1f" text-anchor="middle" font-weight="bold">Theorem 1.1's gain over n&#178;/144, from threshold to astronomical n</text>
+<polyline points="70.0,211.0 74.1,209.7 78.3,208.3 82.4,207.0 86.5,205.7 90.7,204.3 94.8,203.0 98.9,201.6 103.1,200.3 107.2,199.0 111.4,197.6 115.5,196.3 119.6,195.0 123.8,193.6 127.9,192.3 132.0,190.9 136.2,189.6 140.3,188.3 144.4,186.9 148.6,185.6 152.7,184.3 156.8,182.9 161.0,181.6 165.1,180.2 169.2,178.9 173.4,177.6 177.5,176.2 181.7,174.9 185.8,173.6 189.9,172.2 194.1,170.9 198.2,169.5 202.3,168.2 206.5,166.9 210.6,165.5 214.7,164.2 218.9,162.9 223.0,161.5 227.1,160.2 231.3,158.8 235.4,157.5 239.6,156.2 243.7,154.8 247.8,153.5 252.0,152.2 256.1,150.8 260.2,149.5 264.4,148.1 268.5,146.8 272.6,145.5 276.8,144.1 280.9,142.8 285.0,141.5 289.2,140.1 293.3,138.8 297.4,137.4 301.6,136.1 305.7,134.8 309.9,133.4 314.0,132.1 318.1,130.8 322.3,129.4 326.4,128.1 330.5,126.7 334.7,125.4 338.8,124.1 342.9,122.7 347.1,121.4 351.2,120.1 355.3,118.7 359.5,117.4 363.6,116.0 367.7,114.7 371.9,113.4 376.0,112.0 380.2,110.7 384.3,109.4 388.4,108.0 392.6,106.7 396.7,105.3 400.8,104.0 405.0,102.7 409.1,101.3 413.2,100.0 417.4,98.7 421.5,97.3 425.6,96.0 429.8,94.6 433.9,93.3 438.0,92.0 442.2,90.6 446.3,89.3 450.5,88.0 454.6,86.6 458.7,85.3 462.9,83.9 467.0,82.6 471.1,81.3 475.3,79.9 479.4,78.6 483.5,77.3 487.7,75.9 491.8,74.6 495.9,73.2 500.1,71.9 504.2,70.6 508.3,69.2 512.5,67.9 516.6,66.6 520.8,65.2 524.9,63.9 529.0,62.5 533.2,61.2 537.3,59.9" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<circle cx="70.0" cy="211.0" r="3.4" fill="#c0392b"/>
+<text x="78.0" y="224.0" font-size="10" fill="#333" text-anchor="start">factor 1 at n = 2<tspan baseline-shift="super" font-size="8">16</tspan></text>
+<circle cx="128.8" cy="192.0" r="3.4" fill="#c0392b"/>
+<text x="136.8" y="205.0" font-size="10" fill="#333" text-anchor="start">factor 2 at n = 2<tspan baseline-shift="super" font-size="8">32</tspan></text>
+<circle cx="305.0" cy="135.0" r="3.4" fill="#c0392b"/>
+<text x="313.0" y="148.0" font-size="10" fill="#333" text-anchor="start">factor 5 at n = 2<tspan baseline-shift="super" font-size="8">256</tspan></text>
+<circle cx="540.0" cy="59.0" r="3.4" fill="#c0392b"/>
+<text x="548.0" y="72.0" font-size="10" fill="#333" text-anchor="start">factor 9 at n = 2<tspan baseline-shift="super" font-size="8">4096</tspan></text>
+<text x="82.0" y="56.0" font-size="10.2" fill="#555" text-anchor="start">bound = (n&#178;/144)&#183;factor;  it passes the trivial n&#178;&#8722;1 when the factor reaches 144,</text>
+<text x="82.0" y="71.0" font-size="10.2" fill="#555" text-anchor="start">i.e. at n = 2<tspan baseline-shift="super" font-size="8">2</tspan><tspan baseline-shift="super" font-size="6" dy="-4">147</tspan><tspan dy="4"> &#8212; but it grows forever: C(per&#8342;)/n&#178; &#8594; &#8734;</tspan></text>
+<text x="70.0" y="244.0" font-size="10" fill="#555" text-anchor="middle">16</text>
+<text x="187.5" y="244.0" font-size="10" fill="#555" text-anchor="middle">64</text>
+<text x="305.0" y="244.0" font-size="10" fill="#555" text-anchor="middle">256</text>
+<text x="422.5" y="244.0" font-size="10" fill="#555" text-anchor="middle">1024</text>
+<text x="540.0" y="244.0" font-size="10" fill="#555" text-anchor="middle">4096</text>
+<text x="64.0" y="234.0" font-size="10" fill="#555" text-anchor="end">0</text>
+<text x="64.0" y="196.0" font-size="10" fill="#555" text-anchor="end">2</text>
+<text x="64.0" y="158.0" font-size="10" fill="#555" text-anchor="end">4</text>
+<text x="64.0" y="120.0" font-size="10" fill="#555" text-anchor="end">6</text>
+<text x="64.0" y="82.0" font-size="10" fill="#555" text-anchor="end">8</text>
+<text x="64.0" y="44.0" font-size="10" fill="#555" text-anchor="end">10</text>
+</svg>

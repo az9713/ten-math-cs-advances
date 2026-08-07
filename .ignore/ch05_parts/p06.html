@@ -1,0 +1,43 @@
+<h2 id="slicing">5. Slicing away the critical locus (Lemma 4.2)</h2>
+
+<p>Lemma 4.1 wants a <i>square</i> homogeneous map ($\mathbb{C}^k \to \mathbb{C}^k$) whose only zero is the origin. What the permanent will naturally give us is a <i>gradient</i>: $m$ partial derivatives of one polynomial in $m$ variables, which may vanish on a whole positive-dimensional set. This section builds the bridge between the two shapes. First, the objects.</p>
+
+<div class="def"><b>Definition (gradient, critical locus, codimension).</b> For a polynomial $P \in \mathbb{C}[x_1,\dots,x_m]$,
+$$\nabla P(x) = \Bigl(\frac{\partial P}{\partial x_1}(x), \dots, \frac{\partial P}{\partial x_m}(x)\Bigr),
+\qquad
+\operatorname{Crit}(P) = \{x \in \mathbb{C}^m : \nabla P(x) = 0\}.$$
+$\operatorname{Crit}(P)$ &mdash; the <b>critical locus</b> &mdash; is an affine algebraic set: the common zero set of the $m$ derivative polynomials. Its <b>codimension</b> is $m - \dim\operatorname{Crit}(P)$. Large codimension means the derivatives vanish together only on a very small set.</div>
+
+<p>The plan: if $\operatorname{Crit}(P)$ has codimension at least $k$, then a generic $k$-dimensional linear subspace through the origin meets it only at $0$. Restricting the gradient to such a subspace kills all unwanted zeros; projecting its $m$ outputs down to $k$ (again generically) produces the square map Lemma 4.1 wants. Both &ldquo;generic&rdquo; steps are the avoidance principle, Lemma A. Fig.&nbsp;8 shows the slicing step on a computed example.</p>
+
+<figure><!--FIG:fig_slice--><figcaption>Slicing (first half of Lemma 4.2), drawn for $m = 3$: the critical locus of $P = x_1 x_2 x_3$ is the union of the three coordinate axes (each $\partial P$ vanishes when the other two coordinates do) &mdash; a cone of dimension $\delta = 1$, codimension $2$. A generic plane $W(\mathbb{C}^2)$ of dimension $k = 2 \le$ codim meets it only at the origin ($k + \delta = 3 \le m$: on the plane, avoidance of the three projectivized points by the projectivized line is exactly Lemma A with $1 + 0 \lt 2$). All geometry in the picture is computed and orthographically projected, hidden parts dashed.</figcaption></figure>
+
+<div class="lem"><b>Lemma 4.2.</b> Let $P \in \mathbb{C}[x_1,\dots,x_m]$ be homogeneous of degree $d \ge 2$, and let $\delta \ge 0$ satisfy $\dim\operatorname{Crit}(P) \le \delta$. If $1 \le k \lt m$ and $k + \delta \le m$, there are linear maps $W : \mathbb{C}^k \to \mathbb{C}^m$ and $A : \mathbb{C}^m \to \mathbb{C}^k$, with $W$ injective, such that the map
+$$F(u) = A\,\nabla P(Wu)$$
+is homogeneous of degree $d-1$ with $F^{-1}(0) = \{0\}$.</div>
+
+<div class="proof">
+<p><b>Step 0: the critical locus is a cone.</b> Since $P$ is homogeneous of degree $d$, each $\partial P/\partial x_i$ is homogeneous of degree $d - 1 \ge 1$. A homogeneous polynomial $g$ of positive degree satisfies $g(cx) = c^{\deg g} g(x)$, so if $x$ is critical then so is $cx$ for every scalar $c$: $\operatorname{Crit}(P)$ is a cone containing $0$. Its nonzero points define the projectivization
+$$\mathbb{P}\operatorname{Crit}(P) = \{[x] \in \mathbb{P}^{m-1} : x \in \operatorname{Crit}(P)\setminus\{0\}\},$$
+of dimension at most $\delta - 1$ by Import 1(f). (If $\operatorname{Crit}(P) = \{0\}$ the projectivization is empty, of dimension $-1$, and the avoidance below is automatic.)</p>
+
+<p><b>Step 1: choose the slice $W$.</b> Apply Lemma A in $\mathbb{P}^{m-1}$ (so $N = m-1$) to the set $S = \mathbb{P}\operatorname{Crit}(P)$ with $r = \delta - 1$ and $l = k - 1$. The hypothesis $k + \delta \le m$ gives
+$$(k-1) + (\delta - 1) \;\lt\; m - 1,$$
+so some projective $(k-1)$-plane avoids $\mathbb{P}\operatorname{Crit}(P)$. That plane is the projectivization of a $k$-dimensional linear subspace of $\mathbb{C}^m$; choose an injective linear map $W : \mathbb{C}^k \to \mathbb{C}^m$ with that subspace as image. Avoidance says precisely:
+$$\nabla P(Wu) \ne 0 \quad\text{for every } u \ne 0.$$
+(A nonzero $u$ maps to a nonzero point $Wu$ of the subspace; if the gradient vanished there, the direction $[Wu]$ would lie in both the plane and $\mathbb{P}\operatorname{Crit}(P)$.)</p>
+
+<p><b>Step 2: choose the projection $A$.</b> The restricted gradient now has no unwanted zeros but still has $m$ output coordinates. Because the gradient coordinates are homogeneous of the common degree $d-1$ and (by Step 1) never all vanish for $u \ne 0$, the assignment
+$$[u] \longmapsto [\nabla P(Wu)]$$
+is a well-defined morphism $\mathbb{P}^{k-1} \to \mathbb{P}^{m-1}$: replacing $u$ by $cu$ multiplies the whole gradient by $c^{d-1}$, which does not change its projective class. Its image is an algebraic subset of $\mathbb{P}^{m-1}$ of dimension at most $k - 1$ (Import 1(e)). Fig.&nbsp;9 draws what remains to be avoided.</p>
+
+<figure><!--FIG:fig_project--><figcaption>Projecting (second half of Lemma 4.2). The directions $[\nabla P(Wu)]$ swept as $[u]$ ranges over $\mathbb{P}^{k-1}$ form an algebraic image of dimension $\le k-1$ in $\mathbb{P}^{m-1}$ (red curve). Lemma A with $(m-k-1) + (k-1) = m-2 \lt m-1$ supplies an $(m-k)$-dimensional linear subspace $K$ (its projectivization, blue) disjoint from that image. Any rank-$k$ linear map $A$ with kernel $K$ then annihilates <i>no</i> gradient value: $A\nabla P(Wu) = 0$ would put the nonzero vector $\nabla P(Wu)$ inside $K$.</figcaption></figure>
+
+<p>Apply Lemma A again, to the image $S' = \{[\nabla P(Wu)]\}$ with $r = k-1$, and to planes of dimension $l = m - k - 1$. The required inequality holds with room to spare:
+$$(m-k-1) + (k-1) = m - 2 \;\lt\; m-1.$$
+So there is a projective $(m-k-1)$-plane disjoint from $S'$; it is the projectivization of an $(m-k)$-dimensional linear subspace $K \subseteq \mathbb{C}^m$ meeting no gradient direction. Choose any rank-$k$ linear map $A : \mathbb{C}^m \to \mathbb{C}^k$ with kernel exactly $K$ (for instance, project onto a complement of $K$ and identify it with $\mathbb{C}^k$).</p>
+
+<p><b>Step 3: conclude.</b> Set $F(u) = A \nabla P(Wu)$. Its coordinates are linear combinations of the $\partial P/\partial x_i$ evaluated at the linear substitution $Wu$, hence homogeneous of degree $d-1$ in $u$. If $F(u) = 0$ for some $u \ne 0$, then the vector $\nabla P(Wu)$ &mdash; nonzero by Step 1 &mdash; lies in $\ker A = K$, so its direction lies in $\mathbb{P}K$, contradicting Step 2. Hence $F^{-1}(0) = \{0\}$. <span class="qed">&#8718;</span></p>
+</div>
+
+<div class="note"><b>What was bought, and for what price.</b> Lemma 4.2 converts one geometric hypothesis &mdash; <i>the critical locus has codimension $\ge k$</i> &mdash; into exactly the shape Lemma 4.1 consumes, at zero multiplicative cost: $W$ and $A$ are linear, so composing them with any circuit is free in the model of <a class="secref" href="#multmodel">&sect;4.1</a>. The next section supplies the last missing piece: computing $\nabla P$ from a circuit for $P$ at the price of a factor of three.</div>

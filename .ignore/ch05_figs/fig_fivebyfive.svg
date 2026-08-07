@@ -1,0 +1,60 @@
+<svg class="setupfig" viewBox="0 0 486 272" width="100%" role="img" aria-label="Anatomy of the 5x5 warm-up matrix">
+<rect x="150.0" y="50.0" width="38.0" height="38.0" fill="#f3d9d5" stroke="#999" stroke-width="0.8"/>
+<text x="169.0" y="73.0" font-size="12" fill="#333" text-anchor="middle" class="v">y&#8337;</text>
+<rect x="188.0" y="50.0" width="38.0" height="38.0" fill="#faf0ee" stroke="#999" stroke-width="0.8"/>
+<text x="207.0" y="73.0" font-size="12" fill="#333" text-anchor="middle" class="v">0</text>
+<rect x="226.0" y="50.0" width="38.0" height="38.0" fill="#f9e8c8" stroke="#999" stroke-width="0.8"/>
+<text x="245.0" y="73.0" font-size="12" fill="#333" text-anchor="middle" class="v">p&#8321;</text>
+<rect x="264.0" y="50.0" width="38.0" height="38.0" fill="#f9e8c8" stroke="#999" stroke-width="0.8"/>
+<text x="283.0" y="73.0" font-size="12" fill="#333" text-anchor="middle" class="v">p&#8322;</text>
+<rect x="302.0" y="50.0" width="38.0" height="38.0" fill="#f9e8c8" stroke="#999" stroke-width="0.8"/>
+<text x="321.0" y="73.0" font-size="12" fill="#333" text-anchor="middle" class="v">p&#8323;</text>
+<rect x="150.0" y="88.0" width="38.0" height="38.0" fill="#faf0ee" stroke="#999" stroke-width="0.8"/>
+<text x="169.0" y="111.0" font-size="12" fill="#333" text-anchor="middle" class="v">0</text>
+<rect x="188.0" y="88.0" width="38.0" height="38.0" fill="#f3d9d5" stroke="#999" stroke-width="0.8"/>
+<text x="207.0" y="111.0" font-size="12" fill="#333" text-anchor="middle" class="v">y&#8338;</text>
+<rect x="226.0" y="88.0" width="38.0" height="38.0" fill="#fdf6e8" stroke="#999" stroke-width="0.8"/>
+<text x="245.0" y="111.0" font-size="12" fill="#333" text-anchor="middle" class="v">1</text>
+<rect x="264.0" y="88.0" width="38.0" height="38.0" fill="#fdf6e8" stroke="#999" stroke-width="0.8"/>
+<text x="283.0" y="111.0" font-size="12" fill="#333" text-anchor="middle" class="v">1</text>
+<rect x="302.0" y="88.0" width="38.0" height="38.0" fill="#fdf6e8" stroke="#999" stroke-width="0.8"/>
+<text x="321.0" y="111.0" font-size="12" fill="#333" text-anchor="middle" class="v">1</text>
+<rect x="150.0" y="126.0" width="38.0" height="38.0" fill="#ecf2f8" stroke="#999" stroke-width="0.8"/>
+<text x="169.0" y="149.0" font-size="12" fill="#333" text-anchor="middle" class="v">1</text>
+<rect x="188.0" y="126.0" width="38.0" height="38.0" fill="#d9e6f2" stroke="#999" stroke-width="0.8"/>
+<text x="207.0" y="149.0" font-size="12" fill="#333" text-anchor="middle" class="v">q&#8321;</text>
+<rect x="226.0" y="126.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="245.0" y="149.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8321;&#8321;</text>
+<rect x="264.0" y="126.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="283.0" y="149.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8321;&#8322;</text>
+<rect x="302.0" y="126.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="321.0" y="149.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8321;&#8323;</text>
+<rect x="150.0" y="164.0" width="38.0" height="38.0" fill="#ecf2f8" stroke="#999" stroke-width="0.8"/>
+<text x="169.0" y="187.0" font-size="12" fill="#333" text-anchor="middle" class="v">1</text>
+<rect x="188.0" y="164.0" width="38.0" height="38.0" fill="#d9e6f2" stroke="#999" stroke-width="0.8"/>
+<text x="207.0" y="187.0" font-size="12" fill="#333" text-anchor="middle" class="v">q&#8322;</text>
+<rect x="226.0" y="164.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="245.0" y="187.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8322;&#8321;</text>
+<rect x="264.0" y="164.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="283.0" y="187.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8322;&#8322;</text>
+<rect x="302.0" y="164.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="321.0" y="187.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8322;&#8323;</text>
+<rect x="150.0" y="202.0" width="38.0" height="38.0" fill="#ecf2f8" stroke="#999" stroke-width="0.8"/>
+<text x="169.0" y="225.0" font-size="12" fill="#333" text-anchor="middle" class="v">1</text>
+<rect x="188.0" y="202.0" width="38.0" height="38.0" fill="#d9e6f2" stroke="#999" stroke-width="0.8"/>
+<text x="207.0" y="225.0" font-size="12" fill="#333" text-anchor="middle" class="v">q&#8323;</text>
+<rect x="226.0" y="202.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="245.0" y="225.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8323;&#8321;</text>
+<rect x="264.0" y="202.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="283.0" y="225.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8323;&#8322;</text>
+<rect x="302.0" y="202.0" width="38.0" height="38.0" fill="#f1f7f1" stroke="#999" stroke-width="0.8"/>
+<text x="321.0" y="225.0" font-size="12" fill="#333" text-anchor="middle" class="v">w&#8323;&#8323;</text>
+<text x="188.0" y="30.0" font-size="10.5" fill="#c0392b" text-anchor="middle">internal</text>
+<text x="283.0" y="30.0" font-size="10.5" fill="#2a7d2a" text-anchor="middle">external</text>
+<text x="138.0" y="92.0" font-size="10" fill="#c0392b" text-anchor="end">marked diagonal</text>
+<text x="350.0" y="73.0" font-size="10" fill="#b8860b" text-anchor="start">p-signals exit row e</text>
+<text x="350.0" y="111.0" font-size="10" fill="#555" text-anchor="start">ones exit row f</text>
+<text x="138.0" y="183.0" font-size="10" fill="#2e6da4" text-anchor="end">q-signals enter</text>
+<text x="138.0" y="196.0" font-size="10" fill="#2e6da4" text-anchor="end">column f</text>
+<text x="283.0" y="256.0" font-size="10.5" fill="#2a7d2a" text-anchor="middle">probe block W (&#8594; 1 after &#8706;/&#8706;w)</text>
+</svg>
